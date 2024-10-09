@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "author": "Emilian COADA",
   "dependencies": {
     "busboy": "^1.6.0",
     "cloudinary": "^2.5.1",
