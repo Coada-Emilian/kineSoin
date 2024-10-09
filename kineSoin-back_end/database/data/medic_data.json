@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Dupont",
+    "surname": "Emmanuel",
+    "street_number": "12",
+    "street_name": "Rue de la paix",
+    "postal_code": "75000",
+    "city": "Paris",
+    "phone_number": "0123456789",
+    "license_number": "123456789"
+  },
+  {
+    "name": "Martin",
+    "surname": "Sophie",
+    "street_number": "45",
+    "street_name": "Avenue des Champs-Élysées",
+    "postal_code": "75008",
+    "city": "Paris",
+    "phone_number": "0145678910",
+    "license_number": "987654321"
+  },
+  {
+    "name": "Durand",
+    "surname": "Julien",
+    "street_number": "22",
+    "street_name": "Boulevard Saint-Germain",
+    "postal_code": "75005",
+    "city": "Paris",
+    "phone_number": "0156789123",
+    "license_number": "456789123"
+  },
+  {
+    "name": "Lefèvre",
+    "surname": "Claire",
+    "street_number": "33",
+    "street_name": "Rue de Rivoli",
+    "postal_code": "75001",
+    "city": "Paris",
+    "phone_number": "0167891234",
+    "license_number": "654321789"
+  },
+  {
+    "name": "Moreau",
+    "surname": "Pierre",
+    "street_number": "56",
+    "street_name": "Avenue Victor Hugo",
+    "postal_code": "75116",
+    "city": "Paris",
+    "phone_number": "0178912345",
+    "license_number": "321654987"
+  },
+  {
+    "name": "Simon",
+    "surname": "Lucie",
+    "street_number": "78",
+    "street_name": "Rue de la République",
+    "postal_code": "75011",
+    "city": "Paris",
+    "phone_number": "0189123456",
+    "license_number": "852147963"
+  },
+  {
+    "name": "Leroy",
+    "surname": "Antoine",
+    "street_number": "90",
+    "street_name": "Rue de la Liberté",
+    "postal_code": "75012",
+    "city": "Paris",
+    "phone_number": "0191234567",
+    "license_number": "753951486"
+  },
+  {
+    "name": "Nicolas",
+    "surname": "Isabelle",
+    "street_number": "5",
+    "street_name": "Rue des Fleurs",
+    "postal_code": "75015",
+    "city": "Paris",
+    "phone_number": "0201234567",
+    "license_number": "159753456"
+  },
+  {
+    "name": "Martinez",
+    "surname": "Alain",
+    "street_number": "36",
+    "street_name": "Rue des Écoles",
+    "postal_code": "75013",
+    "city": "Paris",
+    "phone_number": "0212345678",
+    "license_number": "951753852"
+  },
+  {
+    "name": "Richard",
+    "surname": "Cécile",
+    "street_number": "27",
+    "street_name": "Rue des Martyrs",
+    "postal_code": "75009",
+    "city": "Paris",
+    "phone_number": "0223456789",
+    "license_number": "753852159"
+  },
+  {
+    "name": "Morel",
+    "surname": "Henri",
+    "street_number": "15",
+    "street_name": "Avenue des Ternes",
+    "postal_code": "75017",
+    "city": "Paris",
+    "phone_number": "0234567890",
+    "license_number": "321654987"
+  },
+  {
+    "name": "Garnier",
+    "surname": "Sophie",
+    "street_number": "44",
+    "street_name": "Rue de Bercy",
+    "postal_code": "75012",
+    "city": "Paris",
+    "phone_number": "0245678901",
+    "license_number": "654123789"
+  },
+  {
+    "name": "Chevalier",
+    "surname": "François",
+    "street_number": "8",
+    "street_name": "Rue de la Nation",
+    "postal_code": "75011",
+    "city": "Paris",
+    "phone_number": "0256789012",
+    "license_number": "987123456"
+  },
+  {
+    "name": "Benoît",
+    "surname": "Marianne",
+    "street_number": "30",
+    "street_name": "Rue du Faubourg Saint-Antoine",
+    "postal_code": "75011",
+    "city": "Paris",
+    "phone_number": "0267890123",
+    "license_number": "456789321"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Leroy",
+    "surname": "Antoine",
+    "email": "antoine@therapist.com",
+    "password": "antoinePass123",
+    "picture_url": "https://randomuser.me/api/portraits/men/1.jpg",
+    "license_code": "753951486"
+  },
+  {
+    "name": "Martin",
+    "surname": "Sophie",
+    "email": "sophie.martin@therapist.com",
+    "password": "sophiePass456",
+    "picture_url": "https://randomuser.me/api/portraits/women/2.jpg",
+    "license_code": "852147963"
+  },
+  {
+    "name": "Dupont",
+    "surname": "Julien",
+    "email": "julien.dupont@therapist.com",
+    "password": "julienPass789",
+    "picture_url": "https://randomuser.me/api/portraits/men/3.jpg",
+    "license_code": "321654987"
+  },
+  {
+    "name": "Moreau",
+    "surname": "Claire",
+    "email": "claire.moreau@therapist.com",
+    "password": "clairePass321",
+    "picture_url": "https://randomuser.me/api/portraits/women/4.jpg",
+    "license_code": "654321789"
+  },
+  {
+    "name": "Chevalier",
+    "surname": "François",
+    "email": "francois.chevalier@therapist.com",
+    "password": "francoisPass654",
+    "picture_url": "https://randomuser.me/api/portraits/men/5.jpg",
+    "license_code": "987123456"
+  }
+]

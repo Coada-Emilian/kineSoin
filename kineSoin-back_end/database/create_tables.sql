@@ -33,7 +33,7 @@ CREATE TABLE patients (
     "street_name" VARCHAR(50) NOT NULL,
     "postal_code" VARCHAR(10) NOT NULL,
     "city" VARCHAR(100) NOT NULL, 
-    "telephone_number" VARCHAR(15) NOT NULL,
+    "phone_number" VARCHAR(15) NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "password" VARCHAR(255) NOT NULL,
     "old_password" VARCHAR(255),
@@ -54,7 +54,7 @@ CREATE TABLE medics (
     "street_name" VARCHAR(50) NOT NULL,
     "postal_code" VARCHAR(10) NOT NULL,
     "city" VARCHAR(100) NOT NULL, 
-    "telephone_number" VARCHAR(15) NOT NULL,
+    "phone_number" VARCHAR(15) NOT NULL,
     "license_code" VARCHAR(20) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
