@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "db:create": "psql -U kinesoin_user -d kinesoin_database -f database/create_tables.sql",
-    "db:populate": "node database/populate_profiles.js && psql -U kinesoin_user -d kinesoin_database -f database/populate_tables.sql"
+    "db:populate": "node database/populate_profiles.js && psql -U kinesoin_user -d kinesoin_database -f database/populate_tables.sql",
+    "db:reset": "pnpm db:create && pnpm db:populate",
+    "dev": "nodemon index.js"
   },
   "author": "Emilian COADA",
   "dependencies": {
