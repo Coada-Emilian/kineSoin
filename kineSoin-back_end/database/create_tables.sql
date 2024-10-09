@@ -39,7 +39,7 @@ CREATE TABLE patients (
     "old_password" VARCHAR(255),
     "new_password" VARCHAR(255),
     "repeated_password" VARCHAR(255),
-    "status" VARCHAR(10) DEFAULT 'pending',
+    "status" VARCHAR(10) NOT NULL DEFAULT 'pending',
     "picture_url" TEXT NOT NULL,
     "picture_id" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
