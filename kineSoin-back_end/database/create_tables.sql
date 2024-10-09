@@ -16,7 +16,7 @@ CREATE TABLE therapists (
     "repeated_password" VARCHAR(255),
     "picture_url" TEXT NOT NULL,
     "picture_id" TEXT,
-    "license_code" VARCHAR(20) NOT NULL,
+    "licence_code" VARCHAR(255) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
@@ -55,7 +55,7 @@ CREATE TABLE medics (
     "postal_code" VARCHAR(10) NOT NULL,
     "city" VARCHAR(100) NOT NULL, 
     "phone_number" VARCHAR(15) NOT NULL,
-    "license_code" VARCHAR(20) NOT NULL,
+    "licence_code" VARCHAR(255) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
@@ -64,7 +64,7 @@ CREATE TABLE afflictions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" VARCHAR(50) NOT NULL,
     "description" TEXT NOT NULL,
-    "insurance_code" VARCHAR(20) NOT NULL,
+    "insurance_code" VARCHAR(255) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );

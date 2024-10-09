@@ -7,7 +7,7 @@
     "postal_code": "75000",
     "city": "Paris",
     "phone_number": "0123456789",
-    "license_number": "123456789"
+    "licence_code": "123456789"
   },
   {
     "name": "Martin",
@@ -17,7 +17,7 @@
     "postal_code": "75008",
     "city": "Paris",
     "phone_number": "0145678910",
-    "license_number": "987654321"
+    "licence_code": "987654321"
   },
   {
     "name": "Durand",
@@ -27,7 +27,7 @@
     "postal_code": "75005",
     "city": "Paris",
     "phone_number": "0156789123",
-    "license_number": "456789123"
+    "licence_code": "456789123"
   },
   {
     "name": "Lefèvre",
@@ -37,7 +37,7 @@
     "postal_code": "75001",
     "city": "Paris",
     "phone_number": "0167891234",
-    "license_number": "654321789"
+    "licence_code": "654321789"
   },
   {
     "name": "Moreau",
@@ -47,7 +47,7 @@
     "postal_code": "75116",
     "city": "Paris",
     "phone_number": "0178912345",
-    "license_number": "321654987"
+    "licence_code": "321654987"
   },
   {
     "name": "Simon",
@@ -57,7 +57,7 @@
     "postal_code": "75011",
     "city": "Paris",
     "phone_number": "0189123456",
-    "license_number": "852147963"
+    "licence_code": "852147963"
   },
   {
     "name": "Leroy",
@@ -67,7 +67,7 @@
     "postal_code": "75012",
     "city": "Paris",
     "phone_number": "0191234567",
-    "license_number": "753951486"
+    "licence_code": "753951486"
   },
   {
     "name": "Nicolas",
@@ -77,7 +77,7 @@
     "postal_code": "75015",
     "city": "Paris",
     "phone_number": "0201234567",
-    "license_number": "159753456"
+    "licence_code": "159753456"
   },
   {
     "name": "Martinez",
@@ -87,7 +87,7 @@
     "postal_code": "75013",
     "city": "Paris",
     "phone_number": "0212345678",
-    "license_number": "951753852"
+    "licence_code": "951753852"
   },
   {
     "name": "Richard",
@@ -97,7 +97,7 @@
     "postal_code": "75009",
     "city": "Paris",
     "phone_number": "0223456789",
-    "license_number": "753852159"
+    "licence_code": "753852159"
   },
   {
     "name": "Morel",
@@ -107,7 +107,7 @@
     "postal_code": "75017",
     "city": "Paris",
     "phone_number": "0234567890",
-    "license_number": "321654987"
+    "licence_code": "321654987"
   },
   {
     "name": "Garnier",
@@ -117,7 +117,7 @@
     "postal_code": "75012",
     "city": "Paris",
     "phone_number": "0245678901",
-    "license_number": "654123789"
+    "licence_code": "654123789"
   },
   {
     "name": "Chevalier",
@@ -127,7 +127,7 @@
     "postal_code": "75011",
     "city": "Paris",
     "phone_number": "0256789012",
-    "license_number": "987123456"
+    "licence_code": "987123456"
   },
   {
     "name": "Benoît",
@@ -137,6 +137,6 @@
     "postal_code": "75011",
     "city": "Paris",
     "phone_number": "0267890123",
-    "license_number": "456789321"
+    "licence_code": "456789321"
   }
 ]

@@ -28,7 +28,7 @@
     "postal_code": "75008",
     "city": "Paris",
     "phone_number": "0234567890",
-    "email": "lucie@example.com",
+    "email": "lucie1@example.com",
     "password": "luciePass123",
     "status": "pending",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663206/2_lxyzbn.webp"
@@ -62,7 +62,7 @@
     "postal_code": "75001",
     "city": "Paris",
     "phone_number": "0456789012",
-    "email": "sophie@example.com",
+    "email": "sophie2@example.com",
     "password": "sophiePass123",
     "status": "inactive",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663208/4_gvfygr.webp"
@@ -79,7 +79,7 @@
     "postal_code": "75008",
     "city": "Paris",
     "phone_number": "0567890123",
-    "email": "pierre@example.com",
+    "email": "pierre3@example.com",
     "password": "pierrePass123",
     "status": "banished",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663209/5_sbyokh.webp"
@@ -130,7 +130,7 @@
     "postal_code": "75002",
     "city": "Paris",
     "phone_number": "0890123456",
-    "email": "marie@example.com",
+    "email": "marie1@example.com",
     "password": "mariePass123",
     "status": "inactive",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663212/8_xdfxgi.webp"
@@ -164,7 +164,7 @@
     "postal_code": "75009",
     "city": "Paris",
     "phone_number": "0456789012",
-    "email": "sophie2@example.com",
+    "email": "sophie3@example.com",
     "password": "sophiePass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663214/10_briobq.webp"
@@ -351,7 +351,7 @@
     "postal_code": "75013",
     "city": "Paris",
     "phone_number": "0123456782",
-    "email": "sophie@example.com",
+    "email": "sophie1@example.com",
     "password": "sophiePass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663225/21_ncn9so.webp"
@@ -487,7 +487,7 @@
     "postal_code": "75002",
     "city": "Paris",
     "phone_number": "0567894321",
-    "email": "lucie@example.com",
+    "email": "lucie3@example.com",
     "password": "luciePass123",
     "status": "banished",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663233/29_gxrmsx.webp"
@@ -555,7 +555,7 @@
     "postal_code": "75014",
     "city": "Paris",
     "phone_number": "0678901234",
-    "email": "claire@example.com",
+    "email": "claire1@example.com",
     "password": "clairePass123",
     "status": "inactive",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663247/33_i8qef3.webp"
@@ -606,7 +606,7 @@
     "postal_code": "75007",
     "city": "Paris",
     "phone_number": "0679876543",
-    "email": "antoine@example.com",
+    "email": "antoine3@example.com",
     "password": "antoinePass123",
     "status": "pending",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663250/36_q04vhb.webp"
@@ -708,7 +708,7 @@
     "postal_code": "75014",
     "city": "Paris",
     "phone_number": "0671234568",
-    "email": "pierre@example.com",
+    "email": "pierre1@example.com",
     "password": "pierrePass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663256/42_drdzh1.webp"
@@ -742,7 +742,7 @@
     "postal_code": "75002",
     "city": "Paris",
     "phone_number": "0676543213",
-    "email": "thomas@example.com",
+    "email": "thomas1@example.com",
     "password": "thomasPass123",
     "status": "banished",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663258/44_cvlwa2.webp"
@@ -861,7 +861,7 @@
     "postal_code": "75017",
     "city": "Paris",
     "phone_number": "0678901241",
-    "email": "celine@example.com",
+    "email": "celine2@example.com",
     "password": "celinePass123",
     "status": "inactive",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663265/51_mksbpq.webp"
@@ -895,7 +895,7 @@
     "postal_code": "75005",
     "city": "Paris",
     "phone_number": "0678901243",
-    "email": "lucie@example.com",
+    "email": "lucie2@example.com",
     "password": "luciePass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663267/53_pvmtig.webp"
@@ -929,7 +929,7 @@
     "postal_code": "75005",
     "city": "Paris",
     "phone_number": "0678901245",
-    "email": "sophie@example.com",
+    "email": "sophie6@example.com",
     "password": "sophiePass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663269/55_yh6aax.webp"
@@ -946,7 +946,7 @@
     "postal_code": "75011",
     "city": "Paris",
     "phone_number": "0678901246",
-    "email": "jules@example.com",
+    "email": "jules1@example.com",
     "password": "julesPass123",
     "status": "pending",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663270/56_grf4wa.webp"
@@ -1031,7 +1031,7 @@
     "postal_code": "75011",
     "city": "Paris",
     "phone_number": "0678901251",
-    "email": "sebastien@example.com",
+    "email": "sebastien2@example.com",
     "password": "sebastienPass123",
     "status": "pending",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663275/61_pweblg.webp"
@@ -1065,7 +1065,7 @@
     "postal_code": "75001",
     "city": "Paris",
     "phone_number": "0678901253",
-    "email": "antoine@example.com",
+    "email": "antoine6@example.com",
     "password": "antoinePass123",
     "status": "inactive",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663277/63_l9rcx6.webp"
@@ -1099,7 +1099,7 @@
     "postal_code": "75008",
     "city": "Paris",
     "phone_number": "0678901255",
-    "email": "julien@example.com",
+    "email": "julien2@example.com",
     "password": "julienPass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663279/65_kmzkpl.webp"
@@ -1116,7 +1116,7 @@
     "postal_code": "75008",
     "city": "Paris",
     "phone_number": "0678901256",
-    "email": "laurent@example.com",
+    "email": "laurent2@example.com",
     "password": "laurentPass123",
     "status": "pending",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663280/66_hkklak.webp"
@@ -1150,7 +1150,7 @@
     "postal_code": "75011",
     "city": "Paris",
     "phone_number": "0678901258",
-    "email": "thomas@example.com",
+    "email": "thomas2@example.com",
     "password": "thomasPass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663282/68_xrjz6a.webp"
@@ -1167,7 +1167,7 @@
     "postal_code": "75004",
     "city": "Paris",
     "phone_number": "0678901259",
-    "email": "emilie@example.com",
+    "email": "emilie2@example.com",
     "password": "emiliePass123",
     "status": "banished",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663283/69_vcxpgh.webp"
@@ -1201,7 +1201,7 @@
     "postal_code": "75009",
     "city": "Paris",
     "phone_number": "0678901261",
-    "email": "alice@example.com",
+    "email": "alice2@example.com",
     "password": "alicePass123",
     "status": "inactive",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663285/71_pshxrn.webp"
@@ -1252,7 +1252,7 @@
     "postal_code": "75016",
     "city": "Paris",
     "phone_number": "0678901264",
-    "email": "pierre@example.com",
+    "email": "pierre2@example.com",
     "password": "pierrePass123",
     "status": "banished",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663288/74_x5cyla.webp"
@@ -1320,7 +1320,7 @@
     "postal_code": "75016",
     "city": "Paris",
     "phone_number": "0678901268",
-    "email": "nicolas@example.com",
+    "email": "nicolas2@example.com",
     "password": "nicolasPass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663292/78_y7mbh1.webp"
@@ -1354,7 +1354,7 @@
     "postal_code": "75005",
     "city": "Paris",
     "phone_number": "0678901270",
-    "email": "philippe@example.com",
+    "email": "philippe2@example.com",
     "password": "philippePass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663294/80_wdyw3s.webp"

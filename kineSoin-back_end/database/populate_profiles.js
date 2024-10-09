@@ -1,24 +1,24 @@
 import { pgClient } from './pgClient.js';
 import { Scrypt } from '../src/authentification/Scrypt.js';
-import patients from './data/patient_data.json';
-import medics from './data/medic_data.json';
-import therapists from './data/therapist_data.json';
-import admins from './data/admin_data.json';
+import patients from './data/patient_data.json' with { type: 'json' };
+import medics from './data/medic_data.json' with { type: 'json' };
+import therapists from './data/therapist_data.json' with { type: 'json' };
+import admins from './data/admin_data.json' with { type: 'json' };
 
 await pgClient.connect();
 
 for (const therapist of therapists) {
   const { name, surname, email, picture_url } = therapist;
   const hashedPassword = Scrypt.hash('therapist.password');
-  const hashedLicenceNumber = Scrypt.hash('therapist.licence_number');
-  const query = `INSERT INTO therapists (name, surname, email, password, picture_url, license_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+  const hashedLicenceCode = Scrypt.hash('therapist.licence_code');
+  const query = `INSERT INTO therapists (name, surname, email, password, picture_url, licence_code) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
   const result = await pgClient.query(query, [
     name,
     surname,
     email,
     hashedPassword,
     picture_url,
-    hashedLicenceNumber,
+    hashedLicenceCode,
   ]);
   console.log(result.rows);
 }
@@ -83,8 +83,8 @@ for (const medic of medics) {
     city,
     phone_number,
   } = medic;
-  const hashedLicenceNumber = Scrypt.hash('medic.licence_number');
-  const query = `INSERT INTO medics (name, surname, street_number, street_name, postal_code, city, phone_number, license_number ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+  const hashedLicenceCode = Scrypt.hash('medic.licence_code');
+  const query = `INSERT INTO medics (name, surname, street_number, street_name, postal_code, city, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
   const result = await pgClient.query(query, [
     name,
     surname,
@@ -93,7 +93,7 @@ for (const medic of medics) {
     postal_code,
     city,
     phone_number,
-    hashedLicenceNumber,
+    hashedLicenceCode,
   ]);
   console.log(result.rows);
 }
