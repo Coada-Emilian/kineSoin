@@ -19,10 +19,11 @@ CREATE TABLE therapists (
     "license_code" VARCHAR(20) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
+
 CREATE TABLE patients (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "therapist_id" INT REFERENCES "therapists"("id"), ON DELETE SET NULL,
+    "therapist_id" INT REFERENCES "therapists"("id"), 
     "name" VARCHAR(50) NOT NULL,
     "birth_name" VARCHAR(50),
     "surname" VARCHAR(50) NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE patients (
     "picture_id" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 CREATE TABLE medics (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -57,7 +58,7 @@ CREATE TABLE medics (
     "license_code" VARCHAR(20) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 CREATE TABLE afflictions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -66,7 +67,7 @@ CREATE TABLE afflictions (
     "insurance_code" VARCHAR(20) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 CREATE TABLE prescriptions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -80,7 +81,7 @@ CREATE TABLE prescriptions (
     "picture_id" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 CREATE TABLE appointments (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -89,7 +90,7 @@ CREATE TABLE appointments (
     "time" TIME NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 CREATE TABLE patient_messages (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -100,7 +101,7 @@ CREATE TABLE patient_messages (
     "time" TIME NOT NULL DEFAULT NOW(),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 CREATE TABLE therapist_messages (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -111,7 +112,7 @@ CREATE TABLE therapist_messages (
     "time" TIME NOT NULL DEFAULT NOW(),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 CREATE TABLE administrators (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -123,6 +124,6 @@ CREATE TABLE administrators (
     "repeated_password" VARCHAR(255),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
-)
+);
 
 COMMIT;
