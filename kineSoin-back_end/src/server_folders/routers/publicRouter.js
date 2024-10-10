@@ -16,10 +16,10 @@ publicRouter.post(
   wrapper(authentificationController.registerPatient)
 );
 
-// publicRouter.post(
-//   '/patient-login',
-//   wrapper(authentificationController.loginPatient)
-// );
+publicRouter.post(
+  '/loginPatient',
+  wrapper(authentificationController.loginPatient)
+);
 
 // publicRouter.post(
 //   '/therapist-login',

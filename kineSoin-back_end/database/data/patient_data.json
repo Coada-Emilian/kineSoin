@@ -81,7 +81,7 @@
     "phone_number": "0567890123",
     "email": "pierre3@example.com",
     "password": "pierrePass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663209/5_sbyokh.webp"
   },
   {
@@ -149,7 +149,7 @@
     "phone_number": "0123456781",
     "email": "jacques@example.com",
     "password": "jacquesPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663213/9_bj0qrm.webp"
   },
   {
@@ -251,7 +251,7 @@
     "phone_number": "0678901234",
     "email": "philippe@example.com",
     "password": "philippePass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663219/15_vcvgmo.webp"
   },
   {
@@ -319,7 +319,7 @@
     "phone_number": "0234567890",
     "email": "florence@example.com",
     "password": "florencePass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663223/19_r16zpz.webp"
   },
   {
@@ -404,7 +404,7 @@
     "phone_number": "0675671234",
     "email": "david@example.com",
     "password": "davidPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663228/24_upnvoo.webp"
   },
   {
@@ -489,7 +489,7 @@
     "phone_number": "0567894321",
     "email": "lucie3@example.com",
     "password": "luciePass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663233/29_gxrmsx.webp"
   },
   {
@@ -574,7 +574,7 @@
     "phone_number": "0123456783",
     "email": "jules@example.com",
     "password": "julesPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663248/34_e4jbzx.webp"
   },
   {
@@ -659,7 +659,7 @@
     "phone_number": "0123456784",
     "email": "manon@example.com",
     "password": "manonPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663253/39_bqv8kt.webp"
   },
   {
@@ -744,7 +744,7 @@
     "phone_number": "0676543213",
     "email": "thomas1@example.com",
     "password": "thomasPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663258/44_cvlwa2.webp"
   },
   {
@@ -829,7 +829,7 @@
     "phone_number": "0678901238",
     "email": "emma@example.com",
     "password": "emmaPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663263/49_u7c3nq.webp"
   },
   {
@@ -914,7 +914,7 @@
     "phone_number": "0678901244",
     "email": "clement@example.com",
     "password": "clementPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663268/54_tzzypv.webp"
   },
   {
@@ -999,7 +999,7 @@
     "phone_number": "0678901249",
     "email": "lea@example.com",
     "password": "leaPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663273/59_y4j3tr.webp"
   },
   {
@@ -1084,7 +1084,7 @@
     "phone_number": "0678901254",
     "email": "sophie_caron@example.com",
     "password": "sophieCaronPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663278/64_truc7v.webp"
   },
   {
@@ -1169,7 +1169,7 @@
     "phone_number": "0678901259",
     "email": "emilie2@example.com",
     "password": "emiliePass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663283/69_vcxpgh.webp"
   },
   {
@@ -1254,7 +1254,7 @@
     "phone_number": "0678901264",
     "email": "pierre2@example.com",
     "password": "pierrePass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663288/74_x5cyla.webp"
   },
   {
@@ -1339,7 +1339,7 @@
     "phone_number": "0678901269",
     "email": "laura@example.com",
     "password": "lauraPass123",
-    "status": "banished",
+    "status": "banned",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663293/79_jkmpgy.webp"
   },
   {
