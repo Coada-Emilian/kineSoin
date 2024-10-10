@@ -9,11 +9,13 @@ import { Scrypt } from '../authentification/Scrypt.js';
 import { patientPhotoStorage } from '../cloudinary/index.js';
 import { Patient, Appointment } from '../models/associations.js';
 import { application } from 'express';
+import { parse } from 'dotenv';
 
 multer({ storage: patientPhotoStorage });
 
 const patientController = {
   getConnectedPatient: async (req, res) => {
+    // const patientId = parseInt(req.patient_id, 10);
     const patientId = 1;
     if (isNaN(patientId)) {
       return res
