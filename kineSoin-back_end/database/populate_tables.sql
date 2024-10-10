@@ -20,7 +20,7 @@ INSERT INTO body_regions ("admin_id", "name", "created_at") VALUES
 (1, 'Affection cardiovasculaire', NOW()),
 (1, 'Autre', NOW());
 
-INSERT INTO afflictions ("admin_id", "body-region_id", "name", "description", "insurance_code", "is_operated", "created_at") VALUES
+INSERT INTO afflictions ("admin_id", "body_region_id", "name", "description", "insurance_code", "is_operated", "created_at") VALUES
 (1, 8, 'Douleur Lombaire', 'Douleur ou inconfort dans la région lombaire, souvent dû à une entorse musculaire ou des problèmes de disque.', 'LBP001', FALSE, NOW()),
 (1, 13, 'Ostéoarthrite du Genou', 'Dégénérescence du cartilage dans l’articulation du genou, entraînant douleur et raideur.', 'OA001', TRUE, NOW()),
 (1, 13, 'Déchirure du Ménisque du Genou', 'Déchirure du cartilage du genou, provoquant douleur et gonflement.', 'MT001', TRUE, NOW()),

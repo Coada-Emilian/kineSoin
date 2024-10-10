@@ -10,7 +10,14 @@ Affliction.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    region_id: {
+    admin_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'administrators',
+        key: 'id',
+      },
+    },
+    body_region_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'therapists',

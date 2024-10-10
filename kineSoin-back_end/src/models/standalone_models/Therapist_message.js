@@ -10,14 +10,14 @@ Therapist_message.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    patient_id: {
+    receiver_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'patients',
         key: 'id',
       },
     },
-    therapist_id: {
+    sender_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'therapists',

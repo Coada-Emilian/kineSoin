@@ -10,6 +10,13 @@ Body_region.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    admin_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'administrators',
+        key: 'id',
+      },
+    },
     name: {
       type: DataTypes.STRING(50),
       allowNull: false,

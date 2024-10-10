@@ -93,7 +93,7 @@ CREATE TABLE body_regions (
 CREATE TABLE afflictions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
-    "body-region_id" INT REFERENCES "body_regions"("id") ON DELETE CASCADE,
+    "body_region_id" INT REFERENCES "body_regions"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
     "description" TEXT NOT NULL,
     "insurance_code" VARCHAR(255) NOT NULL,
@@ -150,7 +150,5 @@ CREATE TABLE therapist_messages (
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
-
-
 
 COMMIT;
