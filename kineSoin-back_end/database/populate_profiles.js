@@ -1,5 +1,5 @@
 import { pgClient } from './pgClient.js';
-import { Scrypt } from '../src/authentification/Scrypt.js';
+import { Scrypt } from '../src/server_folders/authentification/Scrypt.js';
 import patients from './data/patient_data.json' with { type: 'json' };
 import medics from './data/medic_data.json' with { type: 'json' };
 import therapists from './data/therapist_data.json' with { type: 'json' };
