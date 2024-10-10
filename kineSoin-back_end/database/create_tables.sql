@@ -3,8 +3,10 @@ SET client_encoding = 'UTF8';
 
 BEGIN;
 
-DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators";
+-- Drop all existing tables
+DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators";
 
+-- Create therapists table
 CREATE TABLE therapists (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" VARCHAR(50) NOT NULL,
@@ -16,14 +18,15 @@ CREATE TABLE therapists (
     "repeated_password" VARCHAR(255),
     "picture_url" TEXT NOT NULL,
     "picture_id" TEXT,
-    "licence_code" VARCHAR(255) NOT NULL,
+    "licence_code" VARCHAR(255) UNIQUE NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create patients table
 CREATE TABLE patients (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "therapist_id" INT REFERENCES "therapists"("id"), 
+    "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE, 
     "name" VARCHAR(50) NOT NULL,
     "birth_name" VARCHAR(50),
     "surname" VARCHAR(50) NOT NULL,
@@ -46,6 +49,7 @@ CREATE TABLE patients (
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create medics table
 CREATE TABLE medics (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" VARCHAR(50) NOT NULL,
@@ -55,25 +59,37 @@ CREATE TABLE medics (
     "postal_code" VARCHAR(10) NOT NULL,
     "city" VARCHAR(100) NOT NULL, 
     "phone_number" VARCHAR(15) NOT NULL,
-    "licence_code" VARCHAR(255) NOT NULL,
+    "licence_code" VARCHAR(255) UNIQUE NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE afflictions (
+-- Create body_regions table
+CREATE TABLE body_regions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" VARCHAR(50) NOT NULL,
-    "description" TEXT NOT NULL,
-    "insurance_code" VARCHAR(255) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create afflictions table
+CREATE TABLE afflictions (
+    "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "region_id" INT REFERENCES "body_regions"("id") ON DELETE CASCADE,
+    "name" VARCHAR(50) NOT NULL,
+    "description" TEXT NOT NULL,
+    "insurance_code" VARCHAR(255) UNIQUE NOT NULL,
+    "is_operated" BOOLEAN NOT NULL DEFAULT false,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ
+);
+
+-- Create prescriptions table
 CREATE TABLE prescriptions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "medic_id" INT REFERENCES "medics"("id"),
-    "patient_id" INT REFERENCES "patients"("id"),
-    "affliction_id" INT REFERENCES "afflictions"("id"),
+    "medic_id" INT REFERENCES "medics"("id") ON DELETE CASCADE,
+    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
+    "affliction_id" INT REFERENCES "afflictions"("id") ON DELETE CASCADE,
     "appointment_quantity" INT NOT NULL,
     "at_home_care" BOOLEAN NOT NULL DEFAULT false,
     "prescription_date" DATE NOT NULL,
@@ -83,19 +99,21 @@ CREATE TABLE prescriptions (
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create appointments table
 CREATE TABLE appointments (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "prescription_id" INT REFERENCES "prescriptions"("id"),
+    "prescription_id" INT REFERENCES "prescriptions"("id") ON DELETE CASCADE,
     "date" DATE NOT NULL,
     "time" TIME NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create patient_messages table
 CREATE TABLE patient_messages (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "therapist_id" INT REFERENCES "therapists"("id"),
-    "patient_id" INT REFERENCES "patients"("id"),
+    "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
+    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
     "content" TEXT NOT NULL,
     "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "time" TIME NOT NULL DEFAULT NOW(),
@@ -103,10 +121,11 @@ CREATE TABLE patient_messages (
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create therapist_messages table
 CREATE TABLE therapist_messages (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "therapist_id" INT REFERENCES "therapists"("id"),
-    "patient_id" INT REFERENCES "patients"("id"),
+    "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
+    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
     "content" TEXT NOT NULL,
     "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "time" TIME NOT NULL DEFAULT NOW(),
@@ -114,6 +133,7 @@ CREATE TABLE therapist_messages (
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create administrators table
 CREATE TABLE administrators (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" VARCHAR(50) NOT NULL,
