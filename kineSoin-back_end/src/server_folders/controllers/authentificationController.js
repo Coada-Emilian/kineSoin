@@ -5,7 +5,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import computeAge from '../utils/computeAge.js';
 import { Scrypt } from '../authentification/Scrypt.js';
 
-import { Patient } from '../models/index.js';
+import { Patient, Therapist } from '../models/index.js';
 
 const authentificationController = {
   registerPatient: async (req, res) => {
@@ -161,6 +161,54 @@ const authentificationController = {
       id: foundPatient.id,
       name: foundPatient.name,
       picture_url: foundPatient.picture_url,
+      token,
+    });
+  },
+  loginTherapist: async (req, res) => {
+    const loginSchema = Joi.object({
+      email: Joi.string()
+        .max(255)
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
+        .required(),
+      password: Joi.required(),
+    });
+
+    const { error } = loginSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const { email, password } = req.body;
+
+    const foundTherapist = await Therapist.findOne({ where: { email } });
+
+    if (!foundTherapist) {
+      return res.status(401).json({
+        message: `Invalid email or password. Please try again.`,
+      });
+    }
+
+    const isPasswordValid = Scrypt.compare(password, foundTherapist.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        message:
+          'Unauthorized access. Please check your credentials and try again.',
+      });
+    }
+
+    const jwtContent = { therapist_id: foundTherapist.id };
+
+    const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
+      expiresIn: '3h',
+      algorithm: 'HS256',
+    });
+
+    res.status(200).json({
+      message: 'Therapist logged in successfully.',
+      id: foundTherapist.id,
+      name: foundTherapist.name,
+      picture_url: foundTherapist.picture_url,
       token,
     });
   },

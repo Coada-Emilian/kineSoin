@@ -21,7 +21,7 @@ publicRouter.post(
   wrapper(authentificationController.loginPatient)
 );
 
-// publicRouter.post(
-//   '/therapist-login',
-//   wrapper(authentificationController.loginTherapist)
-// );
+publicRouter.post(
+  '/loginTherapist',
+  wrapper(authentificationController.loginTherapist)
+);

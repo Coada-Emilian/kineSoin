@@ -40,7 +40,7 @@ Therapist.init(
     new_password: {
       type: DataTypes.STRING(255),
     },
-    repeat_password: {
+    repeated_password: {
       type: DataTypes.STRING(255),
     },
     picture_url: {
