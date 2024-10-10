@@ -64,13 +64,15 @@ Patient.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
+    repeated_password: {
+      type: DataTypes.STRING(255),
+    },
     old_password: {
       type: DataTypes.STRING(255),
     },
     new_password: {
       type: DataTypes.STRING(255),
     },
-    repeat_password: { type: DataTypes.STRING(255) },
     status: {
       type: DataTypes.STRING(10),
       defaultValue: 'pending',

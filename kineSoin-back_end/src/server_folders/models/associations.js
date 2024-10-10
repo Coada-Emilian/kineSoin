@@ -1,13 +1,13 @@
-import { Admin } from './standalone_models/Admin';
-import { Affliction } from './standalone_models/Affliction';
-import { Appointment } from './standalone_models/Appointment';
-import { Body_region } from './standalone_models/Body_region';
-import { Medic } from './standalone_models/Medic';
-import { Patient } from './standalone_models/Patient';
-import { Prescription } from './standalone_models/Prescription';
-import { Therapist } from './standalone_models/Therapist';
-import { Patient_message } from './standalone_models/Patient_message';
-import { Therapist_message } from './standalone_models/Therapist_message';
+import { Admin } from './standalone_models/Admin.js';
+import { Affliction } from './standalone_models/Affliction.js';
+import { Appointment } from './standalone_models/Appointment.js';
+import { Body_region } from './standalone_models/Body_region.js';
+import { Medic } from './standalone_models/Medic.js';
+import { Patient } from './standalone_models/Patient.js';
+import { Prescription } from './standalone_models/Prescription.js';
+import { Therapist } from './standalone_models/Therapist.js';
+import { Patient_message } from './standalone_models/Patient_message.js';
+import { Therapist_message } from './standalone_models/Therapist_message.js';
 
 Admin.hasMany(Therapist, {
   foreignKey: 'admin_id',
