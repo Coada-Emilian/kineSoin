@@ -6,6 +6,7 @@ import cors from 'cors';
 
 import { bodySanitizer } from './src/server_folders/middlewares/bodySanitizer.js';
 import { publicRouter } from './src/server_folders/routers/publicRouter.js';
+import { privateRouter } from './src/server_folders/routers/privateRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(bodySanitizer);
 
 app.use('/api/public', publicRouter);
+app.use('/api/private', privateRouter);
 
 app.disable('x-powered-by');
 

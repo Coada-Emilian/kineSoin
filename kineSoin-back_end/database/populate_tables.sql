@@ -42,6 +42,7 @@ INSERT INTO afflictions ("admin_id", "body_region_id", "name", "description", "i
 
 INSERT INTO prescriptions ("medic_id", "patient_id", "affliction_id", "appointment_quantity", "at_home_care", "date", "picture_url", "created_at") VALUES
 (1, 1, 1, 15, true, '2022-03-15', 'https://as2.ftcdn.net/v2/jpg/00/51/75/59/1000_F_51755902_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
+(1, 1, 2, 30, true, '2022-03-30', 'https://as2.ftcdn.net/v2/jpg/00/51/75/59/1000_F_51755902_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (1, 2, 2, 10, false, '2022-04-20', 'https://as2.ftcdn.net/v2/jpg/00/51/75/59/1000_F_51755902_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (2, 3, 3, 8, true, '2022-05-11', 'https://as1.ftcdn.net/v2/jpg/00/51/75/60/1000_F_51756000_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (2, 4, 4, 12, true, '2022-01-10', 'https://as3.ftcdn.net/v2/jpg/00/51/75/61/1000_F_51756100_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
@@ -95,6 +96,11 @@ INSERT INTO prescriptions ("medic_id", "patient_id", "affliction_id", "appointme
 
 INSERT INTO appointments ("prescription_id", "date", "time", "created_at") VALUES
 (1, '2022-01-12', '15:00:00', NOW()),
+(1, '2022-02-05', '10:30:00', NOW()),
+(1, '2022-03-22', '09:00:00', NOW()),
+(1, '2022-04-15', '14:45:00', NOW()),
+(1, '2024-11-10', '11:15:00', NOW()),
+(1, '2024-12-01', '13:30:00', NOW()),
 (2, '2022-01-13', '09:00:00', NOW()),
 (3, '2022-01-15', '11:00:00', NOW()),
 (4, '2022-01-16', '10:30:00', NOW()),
