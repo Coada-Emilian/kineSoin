@@ -1,5 +1,6 @@
 [
   {
+    "admin_id": 1,
     "name": "Leroy",
     "surname": "Antoine",
     "email": "antoine@therapist.com",
@@ -8,6 +9,7 @@
     "licence_code": "753951486"
   },
   {
+    "admin_id": 2,
     "name": "Martin",
     "surname": "Sophie",
     "email": "sophie.martin@therapist.com",
@@ -16,6 +18,7 @@
     "licence_code": "852147963"
   },
   {
+    "admin_id": 1,
     "name": "Dupont",
     "surname": "Julien",
     "email": "julien.dupont@therapist.com",
@@ -24,6 +27,7 @@
     "licence_code": "321654987"
   },
   {
+    "admin_id": 1,
     "name": "Moreau",
     "surname": "Claire",
     "email": "claire.moreau@therapist.com",
@@ -32,6 +36,7 @@
     "licence_code": "654321789"
   },
   {
+    "admin_id": 2,
     "name": "Chevalier",
     "surname": "François",
     "email": "francois.chevalier@therapist.com",

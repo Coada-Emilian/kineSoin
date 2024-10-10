@@ -7,12 +7,21 @@ import admins from './data/admin_data.json' with { type: 'json' };
 
 await pgClient.connect();
 
+for (const admin of admins) {
+  const { name, email } = admin;
+  const hashedPassword = Scrypt.hash('admin.password');
+  const query = `INSERT INTO administrators (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
+  const result = await pgClient.query(query, [name, email, hashedPassword]);
+  console.log(result.rows);
+}
+
 for (const therapist of therapists) {
-  const { name, surname, email, picture_url } = therapist;
+  const { admin_id, name, surname, email, picture_url } = therapist;
   const hashedPassword = Scrypt.hash('therapist.password');
   const hashedLicenceCode = Scrypt.hash('therapist.licence_code');
-  const query = `INSERT INTO therapists (name, surname, email, password, picture_url, licence_code) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+  const query = `INSERT INTO therapists (admin_id, name, surname, email, password, picture_url, licence_code) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
   const result = await pgClient.query(query, [
+    admin_id,
     name,
     surname,
     email,
@@ -65,16 +74,9 @@ for (const patient of patients) {
   console.log(result.rows);
 }
 
-for (const admin of admins) {
-  const { name, email } = admin;
-  const hashedPassword = Scrypt.hash('admin.password');
-  const query = `INSERT INTO administrators (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
-  const result = await pgClient.query(query, [name, email, hashedPassword]);
-  console.log(result.rows);
-}
-
 for (const medic of medics) {
   const {
+    admin_id,
     name,
     surname,
     street_number,
@@ -84,8 +86,9 @@ for (const medic of medics) {
     phone_number,
   } = medic;
   const hashedLicenceCode = Scrypt.hash('medic.licence_code');
-  const query = `INSERT INTO medics (name, surname, street_number, street_name, postal_code, city, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
   const result = await pgClient.query(query, [
+    admin_id,
     name,
     surname,
     street_number,

@@ -6,9 +6,24 @@ BEGIN;
 -- Drop all existing tables
 DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators";
 
+
+-- Create administrators table
+CREATE TABLE administrators (
+    "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "name" VARCHAR(50) NOT NULL,
+    "email" VARCHAR(255) UNIQUE NOT NULL,
+    "password" VARCHAR(255) NOT NULL,
+    "old_password" VARCHAR(255),
+    "new_password" VARCHAR(255),
+    "repeated_password" VARCHAR(255),
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ
+);
+
 -- Create therapists table
 CREATE TABLE therapists (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
     "surname" VARCHAR(50) NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
@@ -52,6 +67,7 @@ CREATE TABLE patients (
 -- Create medics table
 CREATE TABLE medics (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
     "surname" VARCHAR(50) NOT NULL,
     "street_number" VARCHAR(10),
@@ -67,6 +83,7 @@ CREATE TABLE medics (
 -- Create body_regions table
 CREATE TABLE body_regions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
@@ -75,7 +92,8 @@ CREATE TABLE body_regions (
 -- Create afflictions table
 CREATE TABLE afflictions (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "region_id" INT REFERENCES "body_regions"("id") ON DELETE CASCADE,
+    "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
+    "body-region_id" INT REFERENCES "body_regions"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
     "description" TEXT NOT NULL,
     "insurance_code" VARCHAR(255) NOT NULL,
@@ -112,8 +130,8 @@ CREATE TABLE appointments (
 -- Create patient_messages table
 CREATE TABLE patient_messages (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
-    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
+    "receiver_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
+    "sender_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
     "content" TEXT NOT NULL,
     "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "time" TIME NOT NULL DEFAULT NOW(),
@@ -124,8 +142,8 @@ CREATE TABLE patient_messages (
 -- Create therapist_messages table
 CREATE TABLE therapist_messages (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
-    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
+    "sender_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
+    "receiver_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
     "content" TEXT NOT NULL,
     "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "time" TIME NOT NULL DEFAULT NOW(),
@@ -133,17 +151,6 @@ CREATE TABLE therapist_messages (
     "updated_at" TIMESTAMPTZ
 );
 
--- Create administrators table
-CREATE TABLE administrators (
-    "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "name" VARCHAR(50) NOT NULL,
-    "email" VARCHAR(255) UNIQUE NOT NULL,
-    "password" VARCHAR(255) NOT NULL,
-    "old_password" VARCHAR(255),
-    "new_password" VARCHAR(255),
-    "repeated_password" VARCHAR(255),
-    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    "updated_at" TIMESTAMPTZ
-);
+
 
 COMMIT;

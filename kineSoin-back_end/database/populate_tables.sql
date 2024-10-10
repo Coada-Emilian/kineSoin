@@ -1,46 +1,46 @@
 SET client_encoding = 'UTF8';
 BEGIN;
 
-INSERT INTO body_regions ("name", "created_at") VALUES
-('Cou', NOW()),
-('Épaule', NOW()),
-('Bras', NOW()),
-('Coude', NOW()),
-('Avant-bras', NOW()),
-('Poignet', NOW()),
-('Main', NOW()),
-('Dos', NOW()),
-('Thorax', NOW()),
-('Abdomen', NOW()),
-('Hanche', NOW()),
-('Jambe', NOW()),
-('Genou', NOW()),
-('Pied', NOW()),
-('Affection neurologique', NOW()),
-('Affection cardiovasculaire', NOW()),
-('Autre', NOW());
+INSERT INTO body_regions ("admin_id", "name", "created_at") VALUES
+(1, 'Cou', NOW()),
+(1, 'Épaule', NOW()),
+(1, 'Bras', NOW()),
+(1, 'Coude', NOW()),
+(1, 'Avant-bras', NOW()),
+(1, 'Poignet', NOW()),
+(1, 'Main', NOW()),
+(1, 'Dos', NOW()),
+(1, 'Thorax', NOW()),
+(1, 'Abdomen', NOW()),
+(1, 'Hanche', NOW()),
+(1, 'Jambe', NOW()),
+(1, 'Genou', NOW()),
+(1, 'Pied', NOW()),
+(1, 'Affection neurologique', NOW()),
+(1, 'Affection cardiovasculaire', NOW()),
+(1, 'Autre', NOW());
 
-INSERT INTO afflictions ("region_id", "name", "description", "insurance_code", "is_operated", "created_at") VALUES
-(8, 'Douleur Lombaire', 'Douleur ou inconfort dans la région lombaire, souvent dû à une entorse musculaire ou des problèmes de disque.', 'LBP001', FALSE, NOW()),
-(13, 'Ostéoarthrite du Genou', 'Dégénérescence du cartilage dans l’articulation du genou, entraînant douleur et raideur.', 'OA001', TRUE, NOW()),
-(13, 'Déchirure du Ménisque du Genou', 'Déchirure du cartilage du genou, provoquant douleur et gonflement.', 'MT001', TRUE, NOW()),
-(2, 'Lésion de la Coiffe des Rotateurs', 'Lésion des muscles ou tendons de l’épaule, provoquant douleur et mobilité limitée.', 'RC001', TRUE, NOW()),
-(2, 'Impingement de l’Épaule', 'Douleur à l’épaule causée par les tendons de la coiffe des rotateurs devenant coincés.', 'SI001', TRUE, NOW()),
-(2, 'Épaule Gelée', 'Raideur et douleur dans l’articulation de l’épaule, limitant l’amplitude des mouvements.', 'FS001', FALSE, NOW()),
-(15, 'Fasciite Plantaire', 'Inflammation du fascia plantaire, causant une douleur au talon, surtout le matin.', 'PF001', FALSE, NOW()),
-(15, 'Tendinite d’Achille', 'Inflammation du tendon d’Achille, causant douleur à l’arrière du talon.', 'AT001', FALSE, NOW()),
-(6, 'Syndrome du Canal Carpien', 'Pression sur le nerf médian au niveau du poignet, entraînant douleur et engourdissement de la main.', 'CTS001', TRUE, NOW()),
-(8, 'Hernie Discale', 'État où le gel interne d’un disque spinal se prolonge, provoquant douleur au dos et problèmes nerveux.', 'HD001', TRUE, NOW()),
-(8, 'Sciatique', 'Douleur qui irradie le long du nerf sciatique, souvent due à une hernie discale.', 'SCA001', FALSE, NOW()),
-(15, 'Entorse de la Cheville', 'Blessure aux ligaments de la cheville, causant douleur, gonflement et mobilité limitée.', 'AS001', FALSE, NOW()),
-(1, 'Coup de Lapin', 'Blessure au cou causée par un mouvement soudain, souvent lors d’accidents de voiture.', 'WH001', FALSE, NOW()),
-(1, 'Radiculopathie Cervicale', 'Douleur nerveuse qui provient du cou en raison d’un nerf pincé.', 'CR001', FALSE, NOW()),
-(4, 'Épicondylite Latérale', 'Douleur et inflammation à l’extérieur du coude en raison d’un surmenage.', 'TE001', FALSE, NOW()),
-(9, 'Syndrome de la Sortie Thoracique', 'Compression des nerfs ou des vaisseaux sanguins dans le cou, entraînant douleur aux épaules et au cou.', 'TOS001', FALSE, NOW()),
-(16, 'Réhabilitation Post-Chirurgicale', 'Thérapie physique après une chirurgie pour restaurer la force et la mobilité.', 'PSR001', TRUE, NOW()),
-(17, 'Réhabilitation après AVC', 'Thérapie pour aider à retrouver la mobilité et la fonction après un AVC.', 'SR001', FALSE, NOW());
+INSERT INTO afflictions ("admin_id", "body-region_id", "name", "description", "insurance_code", "is_operated", "created_at") VALUES
+(1, 8, 'Douleur Lombaire', 'Douleur ou inconfort dans la région lombaire, souvent dû à une entorse musculaire ou des problèmes de disque.', 'LBP001', FALSE, NOW()),
+(1, 13, 'Ostéoarthrite du Genou', 'Dégénérescence du cartilage dans l’articulation du genou, entraînant douleur et raideur.', 'OA001', TRUE, NOW()),
+(1, 13, 'Déchirure du Ménisque du Genou', 'Déchirure du cartilage du genou, provoquant douleur et gonflement.', 'MT001', TRUE, NOW()),
+(1, 2, 'Lésion de la Coiffe des Rotateurs', 'Lésion des muscles ou tendons de l’épaule, provoquant douleur et mobilité limitée.', 'RC001', TRUE, NOW()),
+(1, 2, 'Impingement de l’Épaule', 'Douleur à l’épaule causée par les tendons de la coiffe des rotateurs devenant coincés.', 'SI001', TRUE, NOW()),
+(1, 2, 'Épaule Gelée', 'Raideur et douleur dans l’articulation de l’épaule, limitant l’amplitude des mouvements.', 'FS001', FALSE, NOW()),
+(1, 15, 'Fasciite Plantaire', 'Inflammation du fascia plantaire, causant une douleur au talon, surtout le matin.', 'PF001', FALSE, NOW()),
+(1, 15, 'Tendinite d’Achille', 'Inflammation du tendon d’Achille, causant douleur à l’arrière du talon.', 'AT001', FALSE, NOW()),
+(1, 6, 'Syndrome du Canal Carpien', 'Pression sur le nerf médian au niveau du poignet, entraînant douleur et engourdissement de la main.', 'CTS001', TRUE, NOW()),
+(1, 8, 'Hernie Discale', 'État où le gel interne d’un disque spinal se prolonge, provoquant douleur au dos et problèmes nerveux.', 'HD001', TRUE, NOW()),
+(1, 8, 'Sciatique', 'Douleur qui irradie le long du nerf sciatique, souvent due à une hernie discale.', 'SCA001', FALSE, NOW()),
+(1, 15, 'Entorse de la Cheville', 'Blessure aux ligaments de la cheville, causant douleur, gonflement et mobilité limitée.', 'AS001', FALSE, NOW()),
+(1, 1, 'Coup de Lapin', 'Blessure au cou causée par un mouvement soudain, souvent lors d’accidents de voiture.', 'WH001', FALSE, NOW()),
+(1, 1, 'Radiculopathie Cervicale', 'Douleur nerveuse qui provient du cou en raison d’un nerf pincé.', 'CR001', FALSE, NOW()),
+(1, 4, 'Épicondylite Latérale', 'Douleur et inflammation à l’extérieur du coude en raison d’un surmenage.', 'TE001', FALSE, NOW()),
+(1, 9, 'Syndrome de la Sortie Thoracique', 'Compression des nerfs ou des vaisseaux sanguins dans le cou, entraînant douleur aux épaules et au cou.', 'TOS001', FALSE, NOW()),
+(1, 16, 'Réhabilitation Post-Chirurgicale', 'Thérapie physique après une chirurgie pour restaurer la force et la mobilité.', 'PSR001', TRUE, NOW()),
+(1, 17, 'Réhabilitation après AVC', 'Thérapie pour aider à retrouver la mobilité et la fonction après un AVC.', 'SR001', FALSE, NOW());
 
-INSERT INTO prescriptions ("medic_id", "patient_id", "affliction_id", "appointment_quantity", "at_home_care", "prescription_date", "picture_url", "created_at") VALUES
+INSERT INTO prescriptions ("medic_id", "patient_id", "affliction_id", "appointment_quantity", "at_home_care", "date", "picture_url", "created_at") VALUES
 (1, 1, 1, 15, true, '2022-03-15', 'https://as2.ftcdn.net/v2/jpg/00/51/75/59/1000_F_51755902_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (1, 2, 2, 10, false, '2022-04-20', 'https://as2.ftcdn.net/v2/jpg/00/51/75/59/1000_F_51755902_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (2, 3, 3, 8, true, '2022-05-11', 'https://as1.ftcdn.net/v2/jpg/00/51/75/60/1000_F_51756000_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
@@ -145,7 +145,7 @@ INSERT INTO appointments ("prescription_id", "date", "time", "created_at") VALUE
 (49, '2022-06-01', '16:45:00', NOW()),
 (50, '2022-06-05', '13:00:00', NOW());
 
-INSERT INTO patient_messages ("therapist_id", "patient_id", "content", "date", "time", "created_at") VALUES
+INSERT INTO patient_messages ("receiver_id", "sender_id", "content", "date", "time", "created_at") VALUES
 (1, 1, 'Bonjour!', NOW(), CURRENT_TIME, NOW()),
 (1, 2, 'Comment ça va?', NOW(), CURRENT_TIME, NOW()),
 (2, 3, 'Merci pour votre aide.', NOW(), CURRENT_TIME, NOW()),
@@ -167,7 +167,7 @@ INSERT INTO patient_messages ("therapist_id", "patient_id", "content", "date", "
 (4, 19, 'J''ai des douleurs dans le dos.', NOW(), CURRENT_TIME, NOW()),
 (5, 20, 'Est-ce que je dois suivre un régime spécial?', NOW(), CURRENT_TIME, NOW());
 
-INSERT INTO therapist_messages ("therapist_id", "patient_id", "content", "date", "time", "created_at") VALUES
+INSERT INTO therapist_messages ("sender_id", "receiver_id", "content", "date", "time", "created_at") VALUES
 (1, 1, 'Bonjour! Comment puis-je vous aider?', NOW(), CURRENT_TIME, NOW()),
 (1, 2, 'N''oubliez pas de suivre vos exercices.', NOW(), CURRENT_TIME, NOW()),
 (2, 3, 'Merci de votre message. Nous allons travailler sur vos préoccupations.', NOW(), CURRENT_TIME, NOW()),
