@@ -14,3 +14,15 @@ const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
 export const privateRouter = Router();
 
 privateRouter.get('/patient', wrapper(patientController.getConnectedPatient));
+privateRouter.get(
+  '/patient/appointments',
+  wrapper(patientController.getAllAppointments)
+);
+privateRouter.get(
+  '/patient/messages',
+  wrapper(patientController.getAllMessages)
+);
+// privateRouter.get(
+//   '/patient/prescriptions',
+//   wrapper(patientController.getAllPrescriptions)
+// );
