@@ -67,6 +67,17 @@ const patientController = {
 
     res.status(200).json(sentPatientData);
   },
+  deletePatient: async (req, res) => {
+    // const patientId = parseInt(req.patient_id, 10);
+    const patientId = 1;
+    checkIsIdNumber(patientId);
+    const response = await Patient.destroy({ where: { id: patientId } });
+    if (!response) {
+      return res.status(400).json({ message: 'Patient not found' });
+    } else {
+      return res.status(200).json({ message: 'Patient deleted successfully!' });
+    }
+  },
   getAllAppointments: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
     const patientId = 1;
