@@ -67,7 +67,7 @@ const patientController = {
 
     res.status(200).json(sentPatientData);
   },
-  deletePatient: async (req, res) => {
+  deleteConnectedPatient: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
     const patientId = 1;
     checkIsIdNumber(patientId);
@@ -132,6 +132,29 @@ const patientController = {
     res
       .status(200)
       .json({ allAppointments, futureAppointments, pastAppointments });
+  },
+  getOneAppointment: async (req, res) => {
+    const appointmentId = parseInt(req.params.id, 10);
+    checkIsIdNumber(appointmentId);
+    const foundAppointment = await Appointment.findByPk(appointmentId, {
+      include: [
+        {
+          association: 'prescription',
+          include: [
+            { association: 'medic', attributes: ['id', 'name', 'surname'] }, // Example: Medic attributes
+            {
+              association: 'affliction',
+              attributes: ['id', 'name', 'insurance_code'],
+            }, // Example: Affliction attributes
+          ],
+        },
+      ],
+    });
+    if (!foundAppointment) {
+      return res.status(400).json({ message: 'Appointment not found' });
+    } else {
+      return res.status(200).json(foundAppointment);
+    }
   },
   getAllMessages: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
