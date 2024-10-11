@@ -1,7 +1,4 @@
-import { Patient } from '../models/index.js';
-
-export async function checkPatientStatus(patientId) {
-  const foundPatient = await Patient.findByPk(patientId);
+export function checkPatientStatus(foundPatient) {
   if (
     !foundPatient ||
     foundPatient.status === 'banned' ||

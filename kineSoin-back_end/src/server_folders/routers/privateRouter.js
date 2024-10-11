@@ -1,3 +1,5 @@
+// need to add checkedLoggedIn function
+
 import { Router } from 'express';
 import multer from 'multer';
 
@@ -22,7 +24,7 @@ privateRouter.get(
   '/patient/messages',
   wrapper(patientController.getAllMessages)
 );
-// privateRouter.get(
-//   '/patient/prescriptions',
-//   wrapper(patientController.getAllPrescriptions)
-// );
+privateRouter.get(
+  '/patient/prescriptions',
+  wrapper(patientController.getAllPrescriptions)
+);
