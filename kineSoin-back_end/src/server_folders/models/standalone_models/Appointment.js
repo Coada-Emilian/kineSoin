@@ -10,6 +10,20 @@ Appointment.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    therapist_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'therapists',
+        key: 'id',
+      },
+    },
+    patient_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'patients',
+        key: 'id',
+      },
+    },
     prescription_id: {
       type: DataTypes.INTEGER,
       references: {

@@ -28,6 +28,10 @@ Affliction.init(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
     insurance_code: {
       type: DataTypes.STRING(255),
       allowNull: false,
@@ -37,14 +41,13 @@ Affliction.init(
       allowNull: false,
       defaultValue: false,
     },
-    description: {
-      type: DataTypes.TEXT,
+    created_at: {
+      type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
-    insurance_code: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      unique: true,
+    updated_at: {
+      type: DataTypes.DATE,
     },
   },
   { sequelize, modelName: 'Affliction', tableName: 'afflictions' }

@@ -23,6 +23,15 @@ Admin.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
+    old_password: {
+      type: DataTypes.STRING(255),
+    },
+    new_password: {
+      type: DataTypes.STRING(255),
+    },
+    repeated_password: {
+      type: DataTypes.STRING(255),
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,

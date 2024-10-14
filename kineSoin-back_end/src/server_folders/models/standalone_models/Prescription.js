@@ -34,6 +34,11 @@ Prescription.init(
     appointment_quantity: {
       type: DataTypes.INTEGER,
     },
+    is_completed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     at_home_care: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

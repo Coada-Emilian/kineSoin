@@ -6,7 +6,6 @@ BEGIN;
 -- Drop all existing tables
 DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators";
 
-
 -- Create administrators table
 CREATE TABLE administrators (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -109,6 +108,7 @@ CREATE TABLE prescriptions (
     "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
     "affliction_id" INT REFERENCES "afflictions"("id") ON DELETE CASCADE,
     "appointment_quantity" INT,
+    "is_completed" BOOLEAN NOT NULL DEFAULT false,
     "at_home_care" BOOLEAN NOT NULL DEFAULT false,
     "date" DATE NOT NULL,
     "picture_url" TEXT NOT NULL,
@@ -120,6 +120,8 @@ CREATE TABLE prescriptions (
 -- Create appointments table
 CREATE TABLE appointments (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
+    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
     "prescription_id" INT REFERENCES "prescriptions"("id") ON DELETE CASCADE,
     "date" DATE NOT NULL,
     "time" TIME NOT NULL,
