@@ -24,3 +24,7 @@ adminRouter.get(
   '/therapists/:therapist_id',
   wrapper(therapistController.getOneTherapist)
 );
+adminRouter.delete(
+  '/therapists/:therapist_id',
+  wrapper(therapistController.deleteTherapist)
+);

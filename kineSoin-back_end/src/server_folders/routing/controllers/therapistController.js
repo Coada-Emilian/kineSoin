@@ -299,6 +299,20 @@ const therapistController = {
     };
     return res.status(200).json({ sentTherapist });
   },
+  deleteTherapist: async (req, res) => {
+    const therapistId = parseInt(req.params.therapist_id, 10);
+    checkIsIdNumber(therapistId);
+
+    const response = await Therapist.destroy({ where: { id: therapistId } });
+
+    if (!response) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      return res
+        .status(200)
+        .json({ message: 'Therapist deleted successfully!' });
+    }
+  },
 };
 
 export default therapistController;
