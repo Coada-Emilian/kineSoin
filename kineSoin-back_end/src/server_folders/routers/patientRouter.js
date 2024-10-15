@@ -36,7 +36,7 @@ patientRouter.get(
   wrapper(prescriptionController.getAllPrescriptions)
 );
 
-patient.get(
+patientRouter.get(
   '/prescriptions/:id',
   wrapper(prescriptionController.getOnePrescription)
 );
