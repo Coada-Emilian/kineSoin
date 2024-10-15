@@ -40,3 +40,7 @@ therapistRouter.get(
   '/allMyPatients',
   wrapper(patientController.getAllMyPatients)
 );
+therapistRouter.get(
+  '/allPatients',
+  wrapper(patientController.getAllPatients)
+);

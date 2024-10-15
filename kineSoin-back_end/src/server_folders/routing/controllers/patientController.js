@@ -302,6 +302,27 @@ const patientController = {
 
     return res.status(200).json(sentPatients);
   },
+  getAllPatients: async (req, res) => {
+    const foundPatients = await Patient.findAll({
+      attributes: ['id', 'name', 'surname', 'status', 'birth_date'],
+      order: [['status', 'ASC']],
+    });
+    if (!foundPatients) {
+      return res.status(400).json({ message: 'No patients found' });
+    }
+    const sentPatients = [];
+    for (const patient of foundPatients) {
+      const newPatient = {
+        id: patient.id,
+        status: patient.status,
+        fullName: `${patient.name} ${patient.surname}`,
+        age: computeAge(patient.birth_date),
+      };
+      sentPatients.push(newPatient);
+    }
+
+    return res.status(200).json(sentPatients);
+  },
 };
 
 export default patientController;
