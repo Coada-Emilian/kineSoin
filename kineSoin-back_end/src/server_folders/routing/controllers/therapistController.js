@@ -181,6 +181,38 @@ const therapistController = {
       .status(200)
       .json({ message: 'Therapist updated successfully!', foundTherapist });
   },
-};
+  uploadTherapistPhoto: async (req, res) => {
+    const therapistId = parseInt(req.therapist_id, 10);
+    checkIsIdNumber(therapistId);
+
+    if(!req.file) {
+      return res.status(400).json({ message: 'No file detected. Please upload a file to continue.' });
+    }
+
+    const foundTherapist = await Therapist.findByPk(therapistId);
+
+    if (!foundTherapist) {
+         return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      if (foundTherapist.picture_id) {
+        try {
+          await cloudinary.uploader.destroy(foundTherapist.picture_id);
+        } catch (err) {
+          console.error(
+            'Error deleting old picture from Cloudinary:',
+            err.message
+          );
+        }
+        foundTherapist.picture_id = filename;
+        foundTherapist.picture_url = filePath;
+        await foundTherapist.save();
+
+        return res.status(200).json({
+          message: 'Picture uploaded successfully!',
+          picture_url: filePath,
+        });
+      }
+    }
+}};
 
 export default therapistController;

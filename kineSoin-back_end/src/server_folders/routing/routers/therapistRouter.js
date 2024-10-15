@@ -4,6 +4,7 @@ import multer from 'multer';
 import {
   patientPhotoStorage,
   prescriptionScanStorage,
+  therapistPhotoStorage,
 } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import patientController from '../controllers/patientController.js';
@@ -12,8 +13,21 @@ import messageController from '../controllers/messageController.js';
 import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
 
+const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
+
 export const therapistRouter = Router();
 
 therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
-therapistRouter.delete('/me', wrapper(therapistController.deleteConnectedTherapist));
-therapistRouter.patch('/me', wrapper(therapistController.updateConnectedTherapist));
+therapistRouter.delete(
+  '/me',
+  wrapper(therapistController.deleteConnectedTherapist)
+);
+therapistRouter.patch(
+  '/me',
+  wrapper(therapistController.updateConnectedTherapist)
+);
+therapistRouter.post(
+  '/me/uploadPhoto',
+  uploadTherapistPhoto.single('photo'),
+  therapistController.uploadTherapistPhoto
+);
