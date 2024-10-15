@@ -323,6 +323,89 @@ const patientController = {
 
     return res.status(200).json(sentPatients);
   },
+  getOnePatient: async (req, res) => {
+    const patientId = parseInt(req.params.id, 10);
+    checkIsIdNumber(patientId);
+
+    const foundPatient = await Patient.findByPk(patientId, {
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+        ],
+      },
+      include: [
+        {
+          association: 'prescriptions',
+          attributes: [
+            'id',
+            'appointment_quantity',
+            'is_completed',
+            'at_home_care',
+            'date',
+          ],
+          include: [
+            {
+              association: 'medic',
+              attributes: ['id', 'name', 'surname'],
+            },
+            {
+              association: 'affliction',
+              attributes: ['id', 'name', 'description'],
+            },
+            {
+              association: 'appointments',
+              attributes: ['id', 'is_canceled', 'date', 'time'],
+            },
+          ],
+        },
+        { association: 'therapist' },
+      ],
+    });
+    if (!foundPatient) {
+      return res.status(400).json({ message: 'Patient not found' });
+    }
+    checkPatientStatus(foundPatient);
+
+    const pastAppointments = [];
+    const upcomingAppointments = [];
+
+    const currentDate = new Date().toISOString().split('T')[0];
+    const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
+
+    for (const prescription of foundPatient.prescriptions) {
+      for (const appointment of prescription.appointments) {
+        if (appointment.date < currentDate && appointment.time < currentTime) {
+          pastAppointments.push(appointment);
+        } else {
+          upcomingAppointments.push(appointment);
+        }
+      }
+    }
+
+    const sentPatient = {
+      id: foundPatient.id,
+      fullName: `${foundPatient.name} ${foundPatient.surname}`,
+      age: computeAge(foundPatient.birth_date),
+      gender: foundPatient.gender,
+      address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
+      phone_number: foundPatient.phone_number,
+      therapist_name: foundPatient.therapist
+        ? `${foundPatient.therapist.name} ${foundPatient.therapist.surname}`
+        : null,
+      status: foundPatient.status,
+      picture_url: foundPatient.picture_url,
+      past_appointments: pastAppointments,
+      upcoming_appointments: upcomingAppointments,
+      medic: foundPatient.prescriptions[0].medic,
+    };
+    return res.status(200).json(sentPatient);
+  },
 };
 
 export default patientController;

@@ -44,3 +44,7 @@ therapistRouter.get(
   '/allPatients',
   wrapper(patientController.getAllPatients)
 );
+therapistRouter.get(
+  '/patients/:id',
+  wrapper(patientController.getOnePatient)
+);
