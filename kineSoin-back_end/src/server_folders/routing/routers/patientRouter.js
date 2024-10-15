@@ -49,3 +49,8 @@ patientRouter.get(
   '/prescriptions/:id',
   wrapper(prescriptionController.getOnePrescription)
 );
+patientRouter.post(
+  '/prescriptions',
+  uploadPrescriptionScan.single('scan'),
+  wrapper(prescriptionController.addNewPrescription)
+);

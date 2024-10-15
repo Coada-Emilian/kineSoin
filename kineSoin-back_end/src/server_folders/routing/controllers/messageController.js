@@ -79,9 +79,6 @@ const messageController = {
     const receiverId = foundPatient.therapist_id;
     checkIsIdNumber(receiverId);
 
-    const currentDate = new Date();
-    const currentTime = currentDate.toTimeString();
-
     const messageSchema = Joi.object({
       content: Joi.string().required(),
     });
@@ -93,6 +90,8 @@ const messageController = {
     }
 
     const { content } = req.body;
+    const currentDate = new Date();
+    const currentTime = currentDate.toTimeString();
 
     const sentMessage = await Patient_message.create({
       content,

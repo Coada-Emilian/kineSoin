@@ -8,7 +8,11 @@ import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import computeAge from '../../utils/computeAge.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 import { patientPhotoStorage } from '../../cloudinary/index.js';
-import { Patient, Appointment } from '../../models/associations.js';
+import {
+  Patient,
+  Appointment,
+  Prescription,
+} from '../../models/associations.js';
 import { application } from 'express';
 import { parse } from 'dotenv';
 
@@ -58,6 +62,64 @@ const prescriptionController = {
     } else {
       return res.status(200).json(foundPrescription);
     }
+  },
+  addNewPrescription: async (req, res) => {
+    // const patientId = parseInt(req.patient_id, 10);
+    const patientId = 1;
+    checkIsIdNumber(patientId);
+
+    const foundPatient = await Patient.findByPk(patientId);
+    checkPatientStatus(foundPatient);
+
+    const prescriptionSchema = Joi.object({
+      medic_id: Joi.number().integer().required(),
+      affliction_id: Joi.number().integer().required(),
+      appointment_quantity: Joi.number().integer().required(),
+      at_home_care: Joi.boolean().required(),
+      date: Joi.date().required(),
+    });
+
+    const { error } = prescriptionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const {
+      medic_id,
+      affliction_id,
+      appointment_quantity,
+      at_home_care,
+      date,
+    } = req.body;
+
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ message: 'Please upload a prescription scan' });
+    }
+
+    const { filePath, filename } = req.file;
+
+    const picture_url = filePath;
+    const picture_id = filename;
+
+    const uploadedPrescription = await Prescription.create({
+      medic_id,
+      patient_id: patientId,
+      affliction_id,
+      appointment_quantity,
+      is_completed: false,
+      at_home_care,
+      date,
+      picture_url,
+      picture_id,
+    });
+
+    res.status(201).json({
+      message: 'Prescription added successfully!',
+      uploadedPrescription,
+    });
   },
 };
 
