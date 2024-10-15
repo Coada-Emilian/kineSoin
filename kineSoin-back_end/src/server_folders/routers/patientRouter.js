@@ -8,6 +8,8 @@ import {
 import { controllerWrapper as wrapper } from '../middlewares/controllerWrapper.js';
 import patientController from '../controllers/patientController.js';
 import appointmentController from '../controllers/appointmentController.js';
+import messageController from '../controllers/messageController.js';
+import prescriptionController from '../controllers/prescriptionController.js';
 
 const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
@@ -27,14 +29,14 @@ patientRouter.get(
   wrapper(appointmentController.getOneAppointment)
 );
 
-patientRouter.get('/messages', wrapper(patientController.getAllMessages));
+patientRouter.get('/messages', wrapper(messageController.getAllMessages));
 
 patientRouter.get(
   '/prescriptions',
-  wrapper(patientController.getAllPrescriptions)
+  wrapper(prescriptionController.getAllPrescriptions)
 );
 
 patient.get(
   '/prescriptions/:id',
-  wrapper(patientController.getOnePrescription)
+  wrapper(prescriptionController.getOnePrescription)
 );
