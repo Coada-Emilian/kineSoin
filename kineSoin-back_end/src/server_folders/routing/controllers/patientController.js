@@ -103,7 +103,6 @@ const patientController = {
           otherwise: Joi.optional(),
         })
         .optional(),
-      repeated_password: Joi.string().min(12).max(255).optional(),
       picture_url: Joi.string().max(255).optional(),
       picture_id: Joi.string().max(255).optional(),
     }).min(1);

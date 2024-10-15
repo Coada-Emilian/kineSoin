@@ -103,12 +103,84 @@ const therapistController = {
           otherwise: Joi.optional(),
         })
         .optional(),
-      repeated_password: Joi.string().min(12).max(255).optional(),
       picture_url: Joi.string().max(255).optional(),
+      picture_id: Joi.string().max(255).optional(),
       description: Joi.string().max(50).optional(),
-    });
+      diploma: Joi.string().max(50).optional(),
+      experience: Joi.string().max(50).optional(),
+      specialty: Joi.string().max(50).optional(),
+    }).min(1);
 
-  }
+    const { error } = updateTherapistSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const foundTherapist = await Therapist.findByPk(therapistId);
+
+    if (!foundTherapist) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    }
+
+    const {
+      name,
+      surname,
+      email,
+      new_password,
+      old_password,
+      picture_url,
+      picture_id,
+      description,
+      diploma,
+      experience,
+      specialty,
+    } = req.body;
+
+    const newProfile = {
+      name: name || foundTherapist.name,
+      surname: surname || foundTherapist.surname,
+      email: email || foundTherapist.email,
+      picture_url: picture_url || foundTherapist.picture_url,
+      picture_id: picture_id || foundTherapist.picture_id,
+      description: description || foundTherapist.description,
+      diploma: diploma || foundTherapist.diploma,
+      experience: experience || foundTherapist.experience,
+      specialty: specialty || foundTherapist.specialty,
+    };
+
+    if (new_password) {
+      if (!old_password) {
+        return res.status(400).json({
+          message: 'Old password is required to change the password.',
+        });
+      }
+
+      const isOldPasswordValid = Scrypt.compare(
+        old_password,
+        foundUser.password
+      );
+
+      if (!isOldPasswordValid) {
+        return res.status(400).json({ message: 'Incorrect old password' });
+      }
+
+      if (new_password !== repeated_password) {
+        return res.status(400).json({ message: 'New passwords do not match' });
+      }
+
+      // Hash the new password
+      const hashedNewPassword = Scrypt.hash(new_password);
+      // Update the new profile object with the new password
+      newProfile.password = hashedNewPassword;
+    }
+
+    await foundTherapist.update(newProfile);
+
+    return res
+      .status(200)
+      .json({ message: 'Therapist updated successfully!', foundTherapist });
+  },
 };
 
 export default therapistController;
