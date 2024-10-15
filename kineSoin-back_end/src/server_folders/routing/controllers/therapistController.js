@@ -12,6 +12,7 @@ import {
   Patient,
   Appointment,
   Patient_message,
+  Therapist,
 } from '../../models/associations.js';
 import { application } from 'express';
 import { parse } from 'dotenv';
@@ -52,6 +53,34 @@ const therapistController = {
     } else {
       const therapist = foundPatient.therapist;
       res.status(200).json({ therapist });
+    }
+  },
+  getConnectedTherapist: async (req, res) => {
+    // const therapistId = parseInt(req.therapist_id, 10);
+    const therapistId = 1;
+    checkIsIdNumber(therapistId);
+    const foundTherapist = await Therapist.findByPk(therapistId, {
+      attributes: ['id', 'name', 'surname'],
+    });
+    const currentDate = new Date().toISOString().split('T')[0];
+    const sameDayAppointments = await Appointment.findAll({
+      where: { therapist_id: therapistId, date: { [Op]: currentDate } },
+      order: [['date', 'ASC']],
+    });
+    res.status(200).json({ foundTherapist, sameDayAppointments });
+  },
+  deleteConnectedTherapist: async (req, res) => {
+    // const therapistId = parseInt(req.therapist_id, 10);
+    const therapistId = 1;
+    checkIsIdNumber(therapistId);
+    const response = await Therapist.destroy({ where: { id: therapistId } });
+
+    if (!response) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      return res
+        .status(200)
+        .json({ message: 'Therapist deleted successfully!' });
     }
   },
 };

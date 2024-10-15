@@ -25,6 +25,21 @@ Therapist.init(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    diploma: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    experience: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    specialty: {
+      type: DataTypes.STRING(255),
+    },
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
