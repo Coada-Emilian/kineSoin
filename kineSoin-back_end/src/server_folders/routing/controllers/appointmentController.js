@@ -91,6 +91,23 @@ const appointmentController = {
       return res.status(200).json(foundAppointment);
     }
   },
+  cancelOneAppointment: async (req, res) => {
+    const appointmentId = parseInt(req.params.id, 10);
+    checkIsIdNumber(appointmentId);
+    const foundAppointment = await Appointment.findByPk(appointmentId);
+    if (!foundAppointment) {
+      return res.status(400).json({ message: 'Appointment not found' });
+    } else {
+      foundAppointment.is_canceled = true;
+      await foundAppointment.save();
+      return res
+        .status(200)
+        .json({
+          message: 'Appointment successfully canceled',
+          foundAppointment,
+        });
+    }
+  },
 };
 
 export default appointmentController;

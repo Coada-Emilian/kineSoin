@@ -19,6 +19,11 @@ export const patientRouter = Router();
 patientRouter.get('/me', wrapper(patientController.getConnectedPatient));
 patientRouter.delete('/me', wrapper(patientController.deleteConnectedPatient));
 patientRouter.patch('/me', wrapper(patientController.updateConnectedPatient));
+patientRouter.post(
+  '/me/uploadPhoto',
+  uploadPatientPhoto.single('photo'),
+  patientController.uploadPatientPhoto
+);
 
 patientRouter.get(
   '/appointments',
@@ -28,6 +33,11 @@ patientRouter.get(
 patientRouter.get(
   '/appointments/:id',
   wrapper(appointmentController.getOneAppointment)
+);
+
+patientRouter.put(
+  '/appointments/:id/cancelAppointment',
+  wrapper(appointmentController.cancelOneAppointment)
 );
 
 patientRouter.get('/messages', wrapper(messageController.getAllMessages));

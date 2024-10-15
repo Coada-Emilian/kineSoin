@@ -31,6 +31,11 @@ Appointment.init(
         key: 'id',
       },
     },
+    is_canceled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
