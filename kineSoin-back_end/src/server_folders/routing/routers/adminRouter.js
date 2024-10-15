@@ -19,4 +19,8 @@ const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 export const adminRouter = Router();
 
 adminRouter.post('/login', wrapper(adminController.loginAdmin));
-adminRouter.get('/me', wrapper(adminController.getConnectedAdmin));
+adminRouter.get('/therapists', wrapper(therapistController.getAllTherapists));
+adminRouter.get(
+  '/therapists/:therapist_id',
+  wrapper(therapistController.getOneTherapist)
+);

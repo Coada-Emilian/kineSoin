@@ -61,6 +61,7 @@ const adminController = {
       token,
     });
   },
+  
 };
 
 export default adminController;

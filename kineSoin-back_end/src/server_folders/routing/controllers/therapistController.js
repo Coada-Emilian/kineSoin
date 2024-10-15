@@ -247,6 +247,58 @@ const therapistController = {
       }
     }
   },
+  getAllTherapists: async (req, res) => {
+    const therapists = await Therapist.findAll({
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'description',
+        'diploma',
+        'experience',
+        'specialty',
+        'picture_url',
+      ],
+    });
+
+    if (!therapists) {
+      return res.status(400).json({ message: 'No therapists found' });
+    }
+
+    return res.status(200).json({ therapists });
+  },
+  getOneTherapist: async (req, res) => {
+    const therapistId = parseInt(req.params.therapist_id, 10);
+    checkIsIdNumber(therapistId);
+
+    const foundTherapist = await Therapist.findByPk(therapistId, {
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'description',
+        'diploma',
+        'experience',
+        'specialty',
+        'picture_url',
+      ],
+    });
+
+    if (!foundTherapist) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    }
+
+    const sentTherapist = {
+      id: foundTherapist.id,
+      fullName: `${foundTherapist.name} ${foundTherapist.surname}`,
+      picture_url: foundTherapist.picture_url,
+      description: foundTherapist.description,
+      diploma: foundTherapist.diploma,
+      experience: foundTherapist.experience,
+      specialty: foundTherapist.specialty,
+    };
+    return res.status(200).json({ sentTherapist });
+  },
 };
 
 export default therapistController;
