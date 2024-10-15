@@ -47,3 +47,4 @@ therapistRouter.post(
   '/newAppointment',
   wrapper(appointmentController.addNewAppointment)
 );
+therapistRouter.get('/appointments', wrapper(appointmentController.getAllMyAppointments));

@@ -61,13 +61,20 @@ const therapistController = {
     // const therapistId = parseInt(req.therapist_id, 10);
     const therapistId = 1;
     checkIsIdNumber(therapistId);
+
     const foundTherapist = await Therapist.findByPk(therapistId, {
       attributes: ['id', 'name', 'surname'],
     });
+
     const currentDate = new Date().toISOString().split('T')[0];
     const sameDayAppointments = await Appointment.findAll({
-      where: { therapist_id: therapistId, date: { [Op]: currentDate } },
-      order: [['date', 'ASC']],
+      where: {
+        therapist_id: therapistId,
+        is_accepted: true,
+        is_canceled: false,
+        date: { [Op]: currentDate },
+      },
+      order: [['time', 'ASC']],
     });
     res.status(200).json({ foundTherapist, sameDayAppointments });
   },
@@ -185,14 +192,16 @@ const therapistController = {
     const therapistId = parseInt(req.therapist_id, 10);
     checkIsIdNumber(therapistId);
 
-    if(!req.file) {
-      return res.status(400).json({ message: 'No file detected. Please upload a file to continue.' });
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'No file detected. Please upload a file to continue.',
+      });
     }
 
     const foundTherapist = await Therapist.findByPk(therapistId);
 
     if (!foundTherapist) {
-         return res.status(400).json({ message: 'Therapist not found' });
+      return res.status(400).json({ message: 'Therapist not found' });
     } else {
       if (foundTherapist.picture_id) {
         try {
@@ -213,6 +222,7 @@ const therapistController = {
         });
       }
     }
-}};
+  },
+};
 
 export default therapistController;

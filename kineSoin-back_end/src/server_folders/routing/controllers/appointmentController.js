@@ -114,6 +114,12 @@ const appointmentController = {
 
     const foundAppointment = await Appointment.findByPk(appointmentId, {
       attributes: ['id', 'date', 'time'],
+      include: [
+        {
+          association: 'prescription',
+          attributes: ['id', 'appointment_quantity', 'at_home_care'],
+        },
+      ],
     });
 
     if (!foundAppointment) {
@@ -121,6 +127,17 @@ const appointmentController = {
     } else {
       foundAppointment.is_accepted = true;
       await foundAppointment.save();
+
+      const prescriptionId = foundAppointment.prescription.id;
+      checkIsIdNumber(prescriptionId);
+
+      const foundPrescription = await Prescription.findByPk(prescriptionId);
+      if (!foundPrescription) {
+        return res.status(400).json({ message: 'Prescription not found' });
+      }
+      foundPrescription.appointment_quantity -= 1;
+      await foundPrescription.save();
+
       return res.status(200).json({
         message: 'Appointment successfully accepted',
         foundAppointment,
@@ -249,6 +266,7 @@ const appointmentController = {
         prescription_id: prescriptionId,
         patient_id: patientId,
         is_canceled: false,
+        is_accepted: false,
         date,
         time,
       });
@@ -259,18 +277,55 @@ const appointmentController = {
           .json({ message: 'The appointment was not created' });
       }
 
-      const foundPrescription = await Prescription.findByPk(prescriptionId);
-      if (!foundPrescription) {
-        return res.status(400).json({ message: 'Prescription not found' });
-      }
-      foundPrescription.appointment_quantity -= 1;
-      await foundPrescription.save();
-
       return res.status(201).json({
         message: 'The appointment was created successfully',
         newAppointment,
       });
     }
+  },
+  getAllMyAppointments: async (req, res) => {
+    // const therapist_id = parseInt(req.therapist_id, 10);
+    const therapist_id = 1;
+    checkIsIdNumber(therapist_id);
+
+    const {day, month, year} = req.body;
+
+    const searchedDate = `${year}-${month}-${day}`;
+
+    const foundAppointments = await Appointment.findAll({
+      where: {
+        therapist_id: therapist_id,
+        is_canceled: false,
+        is_accepted: true,
+        date: searchedDate,
+      },
+      attributes: ['id', 'date', 'time'],
+      include: [
+        {
+          association: 'prescription',
+          where: { is_completed: false },
+          attributes: [
+            'id',
+            'appointment_quantity',
+            'at_home_care',
+            'picture_url',
+          ],
+          include: [
+            { association: 'medic', attributes: ['name', 'surname'] },
+            { association: 'affliction', attributes: ['name', 'description'] },
+          ],
+        },
+      ],
+      order: [
+        ['date', 'ASC'],
+        ['time', 'ASC'],
+      ],
+    });
+    if (!foundAppointments.length) {
+      return res.status(200).json({ message: 'No appointments found' });
+    }
+
+    res.status(200).json({ foundAppointments });
   },
 };
 
