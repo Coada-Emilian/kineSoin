@@ -63,9 +63,33 @@ const therapistController = {
     checkIsIdNumber(therapistId);
 
     const foundTherapist = await Therapist.findByPk(therapistId, {
-      attributes: ['id', 'name', 'surname'],
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'picture_url',
+        'description',
+        'diploma',
+        'experience',
+        'specialty',
+        'email',
+      ],
     });
-
+    if (!foundTherapist) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    }
+    const sentTherapist = {
+      id: foundTherapist.id,
+      name: foundTherapist.name,
+      surname: foundTherapist.surname,
+      fullName: `${foundTherapist.name} ${foundTherapist.surname}`,
+      picture_url: foundTherapist.picture_url,
+      description: foundTherapist.description,
+      diploma: foundTherapist.diploma,
+      experience: foundTherapist.experience,
+      specialty: foundTherapist.specialty,
+      email: foundTherapist.email,
+    };
     const currentDate = new Date().toISOString().split('T')[0];
     const sameDayAppointments = await Appointment.findAll({
       where: {
@@ -76,7 +100,7 @@ const therapistController = {
       },
       order: [['time', 'ASC']],
     });
-    res.status(200).json({ foundTherapist, sameDayAppointments });
+    res.status(200).json({ sentTherapist, sameDayAppointments });
   },
   deleteConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
