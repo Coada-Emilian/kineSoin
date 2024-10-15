@@ -78,61 +78,7 @@ const patientController = {
       return res.status(200).json({ message: 'Patient deleted successfully!' });
     }
   },
-  getAllAppointments: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-    const patientId = 1;
-    checkIsIdNumber(patientId);
-
-    const foundPatient = await Patient.findByPk(patientId, {
-      attributes: ['id', 'name', 'surname', 'status'],
-      include: [
-        {
-          association: 'prescriptions',
-          include: [
-            {
-              association: 'appointments',
-            },
-          ],
-        },
-      ],
-    });
-    checkPatientStatus(foundPatient);
-
-    const allAppointments = foundPatient.prescriptions
-      .map((prescription) => prescription.appointments)
-      .flat();
-
-    if (!allAppointments.length) {
-      return res.status(200).json({
-        allAppointments: [],
-        futureAppointments: [],
-        pastAppointments: [],
-      });
-    }
-
-    const currentDate = new Date();
-
-    // Combine appointment date and time into a Date object for comparison
-    const futureAppointments = allAppointments.filter((appointment) => {
-      // Create a Date object combining appointment.date and appointment.time
-      const appointmentDateTime = new Date(
-        `${appointment.date}T${appointment.time}`
-      );
-
-      // Compare with the current date and time
-      return appointmentDateTime > currentDate;
-    });
-
-    const pastAppointments = allAppointments.filter((appointment) => {
-      const appointmentDateTime = new Date(
-        `${appointment.date}T${appointment.time}`
-      );
-      return appointmentDateTime < currentDate;
-    });
-    res
-      .status(200)
-      .json({ allAppointments, futureAppointments, pastAppointments });
-  },
+  
   getOneAppointment: async (req, res) => {
     const appointmentId = parseInt(req.params.id, 10);
     checkIsIdNumber(appointmentId);

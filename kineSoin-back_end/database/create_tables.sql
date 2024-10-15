@@ -4,32 +4,26 @@ SET client_encoding = 'UTF8';
 BEGIN;
 
 -- Drop all existing tables
-DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators";
+DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators" CASCADE;
 
 -- Create administrators table
-CREATE TABLE administrators (
+CREATE TABLE IF NOT EXISTS "administrators" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" VARCHAR(50) NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "password" VARCHAR(255) NOT NULL,
-    "old_password" VARCHAR(255),
-    "new_password" VARCHAR(255),
-    "repeated_password" VARCHAR(255),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
 
 -- Create therapists table
-CREATE TABLE therapists (
+CREATE TABLE IF NOT EXISTS "therapists" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
     "surname" VARCHAR(50) NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "password" VARCHAR(255) NOT NULL,
-    "old_password" VARCHAR(255),
-    "new_password" VARCHAR(255),
-    "repeated_password" VARCHAR(255),
     "picture_url" TEXT NOT NULL,
     "picture_id" TEXT,
     "licence_code" VARCHAR(255) UNIQUE NOT NULL,
@@ -38,7 +32,7 @@ CREATE TABLE therapists (
 );
 
 -- Create patients table
-CREATE TABLE patients (
+CREATE TABLE IF NOT EXISTS "patients" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE, 
     "name" VARCHAR(50) NOT NULL,
@@ -53,9 +47,6 @@ CREATE TABLE patients (
     "phone_number" VARCHAR(15) NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "password" VARCHAR(255) NOT NULL,
-    "old_password" VARCHAR(255),
-    "new_password" VARCHAR(255),
-    "repeated_password" VARCHAR(255),
     "status" VARCHAR(10) NOT NULL DEFAULT 'pending',
     "picture_url" TEXT NOT NULL,
     "picture_id" TEXT,
@@ -64,7 +55,7 @@ CREATE TABLE patients (
 );
 
 -- Create medics table
-CREATE TABLE medics (
+CREATE TABLE IF NOT EXISTS "medics" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
@@ -80,7 +71,7 @@ CREATE TABLE medics (
 );
 
 -- Create body_regions table
-CREATE TABLE body_regions (
+CREATE TABLE IF NOT EXISTS "body_regions" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
@@ -89,7 +80,7 @@ CREATE TABLE body_regions (
 );
 
 -- Create afflictions table
-CREATE TABLE afflictions (
+CREATE TABLE IF NOT EXISTS "afflictions" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "body_region_id" INT REFERENCES "body_regions"("id") ON DELETE CASCADE,
@@ -102,7 +93,7 @@ CREATE TABLE afflictions (
 );
 
 -- Create prescriptions table
-CREATE TABLE prescriptions (
+CREATE TABLE IF NOT EXISTS "prescriptions" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "medic_id" INT REFERENCES "medics"("id") ON DELETE CASCADE,
     "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
@@ -118,7 +109,7 @@ CREATE TABLE prescriptions (
 );
 
 -- Create appointments table
-CREATE TABLE appointments (
+CREATE TABLE IF NOT EXISTS "appointments" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
     "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
@@ -130,7 +121,7 @@ CREATE TABLE appointments (
 );
 
 -- Create patient_messages table
-CREATE TABLE patient_messages (
+CREATE TABLE IF NOT EXISTS "patient_messages" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "receiver_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
     "sender_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
@@ -142,7 +133,7 @@ CREATE TABLE patient_messages (
 );
 
 -- Create therapist_messages table
-CREATE TABLE therapist_messages (
+CREATE TABLE IF NOT EXISTS "therapist_messages" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "sender_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
     "receiver_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,

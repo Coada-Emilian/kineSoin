@@ -34,15 +34,6 @@ Therapist.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    old_password: {
-      type: DataTypes.STRING(255),
-    },
-    new_password: {
-      type: DataTypes.STRING(255),
-    },
-    repeated_password: {
-      type: DataTypes.STRING(255),
-    },
     picture_url: {
       type: DataTypes.STRING(255),
       allowNull: false,
