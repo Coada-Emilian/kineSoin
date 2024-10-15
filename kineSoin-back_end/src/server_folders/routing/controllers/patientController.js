@@ -225,6 +225,83 @@ const patientController = {
       }
     }
   },
+  getPendingPatients: async (req, res) => {
+    const pendingPatients = await Patient.findAll({
+      where: {
+        status: 'pending',
+      },
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+          'gender',
+          'street_number',
+          'street_name',
+          'postal_code',
+          'city',
+          'phone_number',
+          'email',
+          'picture_url',
+        ],
+      },
+    });
+
+    if (!pendingPatients) {
+      return res.status(400).json({ message: 'No pending patients found' });
+    }
+    const sentPatients = [];
+    for (const patient of pendingPatients) {
+      const newPatient = {
+        id: patient.id,
+        status: patient.status,
+        fullName: `${patient.name} ${patient.surname}`,
+        age: computeAge(patient.birth_date),
+      };
+      sentPatients.push(newPatient);
+    }
+    return res.status(200).json(sentPatients);
+  },
+  getAllMyPatients: async (req, res) => {
+    // const therapistId = parseInt(req.therapist_id, 10);
+    const therapistId = 1;
+    checkIsIdNumber(therapistId);
+
+    const foundPatients = await Patient.findAll({
+      where: { therapist_id: therapistId },
+      attributes: ['id', 'name', 'surname', 'status', 'birth_date'],
+    });
+
+    if (!foundPatients) {
+      return res.status(400).json({ message: 'No patients found' });
+    }
+
+    const sentPatients = [];
+
+    for (const patient of foundPatients) {
+      if (
+        !(
+          patient.status === 'pending' ||
+          patient.status === 'banished' ||
+          patient.status === 'inactive'
+        )
+      ) {
+        const newPatient = {
+          id: patient.id,
+          status: patient.status,
+          fullName: `${patient.name} ${patient.surname}`,
+          age: computeAge(patient.birth_date),
+        };
+        sentPatients.push(newPatient);
+      }
+    }
+
+    return res.status(200).json(sentPatients);
+  },
 };
 
 export default patientController;

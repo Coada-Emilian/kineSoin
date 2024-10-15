@@ -31,3 +31,12 @@ therapistRouter.post(
   uploadTherapistPhoto.single('photo'),
   therapistController.uploadTherapistPhoto
 );
+
+therapistRouter.get(
+  '/pendingPatients',
+  wrapper(patientController.getPendingPatients)
+);
+therapistRouter.get(
+  '/allMyPatients',
+  wrapper(patientController.getAllMyPatients)
+);
