@@ -36,6 +36,11 @@ Appointment.init(
       allowNull: false,
       defaultValue: false,
     },
+    is_accepted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false,

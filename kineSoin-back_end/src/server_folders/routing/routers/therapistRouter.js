@@ -40,11 +40,10 @@ therapistRouter.get(
   '/allMyPatients',
   wrapper(patientController.getAllMyPatients)
 );
-therapistRouter.get(
-  '/allPatients',
-  wrapper(patientController.getAllPatients)
-);
-therapistRouter.get(
-  '/patients/:id',
-  wrapper(patientController.getOnePatient)
+therapistRouter.get('/allPatients', wrapper(patientController.getAllPatients));
+therapistRouter.get('/patients/:id', wrapper(patientController.getOnePatient));
+
+therapistRouter.post(
+  '/newAppointment',
+  wrapper(appointmentController.addNewAppointment)
 );

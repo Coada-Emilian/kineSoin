@@ -119,6 +119,7 @@ CREATE TABLE IF NOT EXISTS "appointments" (
     "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
     "prescription_id" INT REFERENCES "prescriptions"("id") ON DELETE CASCADE,
     "is_canceled" BOOLEAN NOT NULL DEFAULT false,
+    "is_accepted" BOOLEAN NOT NULL DEFAULT false,
     "date" DATE NOT NULL,
     "time" TIME NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),

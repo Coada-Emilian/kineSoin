@@ -27,6 +27,18 @@ patientRouter.post(
 );
 
 patientRouter.get(
+  '/proposedAppointments',
+  wrapper(appointmentController.getAllProposedAppointments)
+);
+patientRouter.get(
+  '/proposedAppointments/:id',
+  wrapper(appointmentController.getOneProposedAppointment)
+);
+patientRouter.post(
+  '/proposedAppointments/:id',
+  wrapper(appointmentController.acceptOneProposedAppointment)
+);
+patientRouter.get(
   '/appointments',
   wrapper(appointmentController.getAllAppointments)
 );

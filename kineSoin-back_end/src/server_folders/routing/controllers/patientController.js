@@ -36,33 +36,65 @@ const patientController = {
       include: [
         {
           association: 'prescriptions',
+          where: { is_completed: false },
+          attributes: [
+            'id',
+            'appointment_quantity',
+            'at_home_care',
+            'date',
+            'picture_url',
+          ],
+          include: [
+            {
+              association: 'appointments',
+              where: { is_canceled: false } && { is_accepted: true },
+              attributes: ['id', 'date', 'time'],
+            },
+            { association: 'medic', attributes: ['name', 'surname'] },
+            { association: 'affliction', attributes: ['name', 'description'] },
+          ],
         },
       ],
     });
     checkPatientStatus(foundPatient);
 
     const address = `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`;
+    const fullName = `${foundPatient.name} ${foundPatient.surname}`;
 
-    const {
-      name,
-      surname,
-      phone_number,
-      email,
-      status,
-      picture_url,
-      prescriptions,
-    } = foundPatient;
+    const currentDate = new Date().toISOString().split('T')[0];
+    const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
+    const modifiedPrescriptions = [];
+
+    for (const prescription of foundPatient.prescriptions) {
+      const past_appointments = [];
+      const upcoming_appointments = [];
+      for (const appointment of prescription.appointments) {
+        if (appointment.date < currentDate && appointment.time < currentTime) {
+          past_appointments.push(appointment);
+        } else {
+          upcoming_appointments.push(appointment);
+        }
+      }
+      const modifiedPrescription = {
+        id: prescription.id,
+        appointment_quantity: prescription.appointment_quantity,
+        at_home_care: prescription.at_home_care,
+        date: prescription.date,
+        picture_url: prescription.picture_url,
+        past_appointments,
+        upcoming_appointments,
+      };
+      modifiedPrescriptions.push(modifiedPrescription);
+    }
+
+    const { picture_url } = foundPatient;
 
     const sentPatientData = {
-      name,
-      surname,
-      phone_number,
-      email,
-      status,
+      fullName,
       picture_url,
-      prescriptions,
       address,
       age: computeAge(foundPatient.birth_date),
+      prescriptions: modifiedPrescriptions,
     };
 
     res.status(200).json(sentPatientData);
@@ -372,13 +404,13 @@ const patientController = {
     }
     checkPatientStatus(foundPatient);
 
-    const pastAppointments = [];
-    const upcomingAppointments = [];
-
     const currentDate = new Date().toISOString().split('T')[0];
     const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
 
+    const newPrescriptions = [];
     for (const prescription of foundPatient.prescriptions) {
+      const pastAppointments = [];
+      const upcomingAppointments = [];
       for (const appointment of prescription.appointments) {
         if (appointment.date < currentDate && appointment.time < currentTime) {
           pastAppointments.push(appointment);
@@ -386,6 +418,16 @@ const patientController = {
           upcomingAppointments.push(appointment);
         }
       }
+      const newPrescription = {
+        id: prescription.id,
+        appointment_quantity: prescription.appointment_quantity,
+        is_completed: prescription.is_completed,
+        at_home_care: prescription.at_home_care,
+        date: prescription.date,
+        past_appointments: pastAppointments,
+        upcoming_appointments: upcomingAppointments,
+      };
+      newPrescriptions.push(newPrescription);
     }
 
     const sentPatient = {
@@ -400,8 +442,7 @@ const patientController = {
         : null,
       status: foundPatient.status,
       picture_url: foundPatient.picture_url,
-      past_appointments: pastAppointments,
-      upcoming_appointments: upcomingAppointments,
+      prescriptions: newPrescriptions,
       medic: foundPatient.prescriptions[0].medic,
     };
     return res.status(200).json(sentPatient);
