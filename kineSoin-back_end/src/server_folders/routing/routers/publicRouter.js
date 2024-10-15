@@ -25,3 +25,4 @@ publicRouter.post(
   '/loginTherapist',
   wrapper(authentificationController.loginTherapist)
 );
+
