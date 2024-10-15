@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "therapists" (
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
     "surname" VARCHAR(50) NOT NULL,
-    "description" VARCHAR(255) NOT NULL,
+    "description" TEXT NOT NULL,
     "diploma" VARCHAR(255) NOT NULL,
     "experience" VARCHAR(255) NOT NULL,
     "specialty" VARCHAR(255),

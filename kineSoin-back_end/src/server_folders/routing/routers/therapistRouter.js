@@ -16,3 +16,4 @@ export const therapistRouter = Router();
 
 therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
 therapistRouter.delete('/me', wrapper(therapistController.deleteConnectedTherapist));
+therapistRouter.patch('/me', wrapper(therapistController.updateConnectedTherapist));

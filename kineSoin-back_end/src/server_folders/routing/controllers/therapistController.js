@@ -7,7 +7,7 @@ import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import computeAge from '../../utils/computeAge.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
-import { patientPhotoStorage } from '../../cloudinary/index.js';
+import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import {
   Patient,
   Appointment,
@@ -16,6 +16,8 @@ import {
 } from '../../models/associations.js';
 import { application } from 'express';
 import { parse } from 'dotenv';
+
+multer({ storage: therapistPhotoStorage });
 
 const therapistController = {
   getPersonalTherapist: async (req, res) => {
@@ -83,6 +85,30 @@ const therapistController = {
         .json({ message: 'Therapist deleted successfully!' });
     }
   },
+  updateConnectedTherapist: async (req, res) => {
+    // const therapistId = parseInt(req.therapist_id, 10);
+    const therapistId = 1;
+    checkIsIdNumber(therapistId);
+
+    const updateTherapistSchema = Joi.object({
+      name: Joi.string().max(50).optional(),
+      surname: Joi.string().max(50).optional(),
+      email: Joi.string().email({ minDomainSegments: 2 }).optional(),
+      new_password: Joi.string().min(12).max(255).optional(),
+      repeated_password: Joi.string().valid(Joi.ref('new_password')).optional(),
+      old_password: Joi.string()
+        .when('new_password', {
+          is: Joi.exist(),
+          then: Joi.required(),
+          otherwise: Joi.optional(),
+        })
+        .optional(),
+      repeated_password: Joi.string().min(12).max(255).optional(),
+      picture_url: Joi.string().max(255).optional(),
+      description: Joi.string().max(50).optional(),
+    });
+
+  }
 };
 
 export default therapistController;
