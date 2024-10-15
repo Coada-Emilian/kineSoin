@@ -2,10 +2,10 @@ import 'dotenv/config';
 import Joi from 'joi';
 import jsonwebtoken from 'jsonwebtoken';
 
-import computeAge from '../utils/computeAge.js';
-import { Scrypt } from '../authentification/Scrypt.js';
+import computeAge from '../../utils/computeAge.js';
+import { Scrypt } from '../../authentification/Scrypt.js';
 
-import { Patient, Therapist } from '../models/index.js';
+import { Patient, Therapist } from '../../models/index.js';
 
 const authentificationController = {
   registerPatient: async (req, res) => {

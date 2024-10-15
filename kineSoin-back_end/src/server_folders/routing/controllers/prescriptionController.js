@@ -3,12 +3,12 @@ import { Op } from 'sequelize';
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 
-import { checkPatientStatus } from '../utils/checkPatientStatus.js';
-import { checkIsIdNumber } from '../utils/checkIsIdNumber.js';
-import computeAge from '../utils/computeAge.js';
-import { Scrypt } from '../authentification/Scrypt.js';
-import { patientPhotoStorage } from '../cloudinary/index.js';
-import { Patient, Prescription } from '../models/associations.js';
+import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
+import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
+import computeAge from '../../utils/computeAge.js';
+import { Scrypt } from '../../authentification/Scrypt.js';
+import { patientPhotoStorage } from '../../cloudinary/index.js';
+import { Patient, Appointment } from '../../models/associations.js';
 import { application } from 'express';
 import { parse } from 'dotenv';
 

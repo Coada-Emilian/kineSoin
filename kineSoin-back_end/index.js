@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 
 import { bodySanitizer } from './src/server_folders/middlewares/bodySanitizer.js';
-import { publicRouter } from './src/server_folders/routers/publicRouter.js';
-import { patientRouter } from './src/server_folders/routers/patientRouter.js';
+import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
+import { patientRouter } from './src/server_folders/routing/routers/patientRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -4,8 +4,8 @@ import multer from 'multer';
 import {
   patientPhotoStorage,
   prescriptionScanStorage,
-} from '../cloudinary/index.js';
-import { controllerWrapper as wrapper } from '../middlewares/controllerWrapper.js';
+} from '../../cloudinary/index.js';
+import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import patientController from '../controllers/patientController.js';
 import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
@@ -18,6 +18,7 @@ export const patientRouter = Router();
 
 patientRouter.get('/me', wrapper(patientController.getConnectedPatient));
 patientRouter.delete('/me', wrapper(patientController.deleteConnectedPatient));
+patientRouter.patch('/me', wrapper(patientController.updateConnectedPatient));
 
 patientRouter.get(
   '/appointments',

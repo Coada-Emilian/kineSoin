@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import { patientPhotoStorage } from '../cloudinary/index.js';
-import { controllerWrapper as wrapper } from '../middlewares/controllerWrapper.js';
+import { patientPhotoStorage } from '../../cloudinary/index.js';
+import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 
 import authentificationController from '../controllers/authentificationController.js';
 
