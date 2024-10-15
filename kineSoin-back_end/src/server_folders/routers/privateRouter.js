@@ -15,11 +15,6 @@ const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
 
 export const privateRouter = Router();
 
-privateRouter.get('/patient', wrapper(patientController.getConnectedPatient));
-privateRouter.delete(
-  '/patient',
-  wrapper(patientController.deleteConnectedPatient)
-);
 privateRouter.get(
   '/patient/appointments',
   wrapper(patientController.getAllAppointments)
