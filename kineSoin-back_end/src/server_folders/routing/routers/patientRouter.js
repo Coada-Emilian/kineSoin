@@ -10,6 +10,7 @@ import patientController from '../controllers/patientController.js';
 import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
 import prescriptionController from '../controllers/prescriptionController.js';
+import therapistController from '../controllers/therapistController.js';
 
 const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
@@ -39,7 +40,10 @@ patientRouter.put(
 );
 
 patientRouter.get('/messages', wrapper(messageController.getAllMessages));
-patientRouter.post('/messages', wrapper(messageController.sendMessageToTherapist));
+patientRouter.post(
+  '/messages',
+  wrapper(messageController.sendMessageToTherapist)
+);
 
 patientRouter.get(
   '/prescriptions',
@@ -53,4 +57,9 @@ patientRouter.post(
   '/prescriptions',
   uploadPrescriptionScan.single('scan'),
   wrapper(prescriptionController.addNewPrescription)
+);
+
+patientRouter.get(
+  '/myTherapist',
+  wrapper(therapistController.getPersonalTherapist)
 );

@@ -16,14 +16,28 @@ for (const admin of admins) {
 }
 
 for (const therapist of therapists) {
-  const { admin_id, name, surname, email, picture_url } = therapist;
+  const {
+    admin_id,
+    name,
+    surname,
+    description,
+    diploma,
+    experience,
+    specialty,
+    email,
+    picture_url,
+  } = therapist;
   const hashedPassword = Scrypt.hash(therapist.password);
   const hashedLicenceCode = Scrypt.hash(therapist.licence_code);
-  const query = `INSERT INTO therapists (admin_id, name, surname, email, password, picture_url, licence_code) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+  const query = `INSERT INTO therapists (admin_id, name, surname, description, diploma, experience, specialty, email, password, picture_url, licence_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
   const result = await pgClient.query(query, [
     admin_id,
     name,
     surname,
+    description,
+    diploma,
+    experience,
+    specialty,
     email,
     hashedPassword,
     picture_url,
