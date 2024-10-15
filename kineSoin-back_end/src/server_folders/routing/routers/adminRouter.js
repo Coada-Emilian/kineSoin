@@ -28,3 +28,8 @@ adminRouter.delete(
   '/therapists/:therapist_id',
   wrapper(therapistController.deleteTherapist)
 );
+adminRouter.post(
+  '/therapists',
+  uploadTherapistPhoto.single('photo'),
+  wrapper(therapistController.createTherapist)
+);

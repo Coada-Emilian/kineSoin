@@ -313,6 +313,84 @@ const therapistController = {
         .json({ message: 'Therapist deleted successfully!' });
     }
   },
+  createTherapist: async (req, res) => {
+    const createTherapistSchema = Joi.object({
+      name: Joi.string().max(50).required(),
+      surname: Joi.string().max(50).required(),
+      email: Joi.string().email({ minDomainSegments: 2 }).required(),
+      password: Joi.string().min(12).max(255).required(),
+      repeated_password: Joi.string().valid(Joi.ref('password')).required(),
+      description: Joi.string().max(50).required(),
+      diploma: Joi.string().max(50).required(),
+      experience: Joi.string().max(50).required(),
+      specialty: Joi.string().max(50).required(),
+      licence_code: Joi.string().max(255).required(),
+    });
+
+    const { error } = createTherapistSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const {
+      name,
+      surname,
+      email,
+      password,
+      repeated_password,
+      description,
+      diploma,
+      experience,
+      specialty,
+      licence_code,
+    } = req.body;
+
+    const foundTherapist = await Therapist.findOne({ where: { email } });
+
+    if (foundTherapist) {
+      return res.status(400).json({ message: 'Therapist already exists' });
+    }
+    if (password !== repeated_password) {
+      return res.status(400).json({ message: 'Passwords do not match' });
+    } else {
+      const hashedPassword = Scrypt.hash(password);
+      if (!req.file) {
+        return res.status(400).json({
+          message: 'No file detected. Please upload a file to continue.',
+        });
+      } else {
+        picture_url = req.file.path;
+        picture_id = req.file.filename;
+
+        const newTherapist = {
+          name,
+          surname,
+          email,
+          password: hashedPassword,
+          picture_url,
+          picture_id,
+          description,
+          diploma,
+          experience,
+          specialty,
+          licence_code,
+        };
+        const createdTherapist = await Therapist.create(newTherapist);
+
+        if (!createdTherapist) {
+          return res
+            .status(400)
+            .json({ message: 'The therapist was not created' });
+        }
+
+        return res.status(200).json({
+          message: 'Therapist created successfully!',
+          createdTherapist,
+        });
+      }
+    }
+  },
 };
 
 export default therapistController;
