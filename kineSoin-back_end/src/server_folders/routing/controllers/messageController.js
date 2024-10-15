@@ -8,7 +8,11 @@ import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import computeAge from '../../utils/computeAge.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 import { patientPhotoStorage } from '../../cloudinary/index.js';
-import { Patient, Appointment } from '../../models/associations.js';
+import {
+  Patient,
+  Appointment,
+  Patient_message,
+} from '../../models/associations.js';
 import { application } from 'express';
 import { parse } from 'dotenv';
 
@@ -63,6 +67,44 @@ const messageController = {
       const receivedMessages = foundPatient.received_messages;
       res.status(200).json({ sentMessages, receivedMessages });
     }
+  },
+  sendMessageToTherapist: async (req, res) => {
+    // const patientId = parseInt(req.patient_id, 10);
+    const patientId = 1;
+    checkIsIdNumber(patientId);
+
+    const foundPatient = await Patient.findByPk(patientId);
+    checkPatientStatus(foundPatient);
+
+    const receiverId = foundPatient.therapist_id;
+    checkIsIdNumber(receiverId);
+
+    const currentDate = new Date();
+    const currentTime = currentDate.toTimeString();
+
+    const messageSchema = Joi.object({
+      content: Joi.string().required(),
+    });
+
+    const { error } = messageSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const { content } = req.body;
+
+    const sentMessage = await Patient_message.create({
+      content,
+      date: currentDate,
+      time: currentTime,
+      sender_id: patientId,
+      receiver_id: receiverId,
+    });
+
+    res
+      .status(201)
+      .json({ message: 'Message sent successfully!', sentMessage });
   },
 };
 

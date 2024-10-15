@@ -29,24 +29,22 @@ patientRouter.get(
   '/appointments',
   wrapper(appointmentController.getAllAppointments)
 );
-
 patientRouter.get(
   '/appointments/:id',
   wrapper(appointmentController.getOneAppointment)
 );
-
 patientRouter.put(
   '/appointments/:id/cancelAppointment',
   wrapper(appointmentController.cancelOneAppointment)
 );
 
 patientRouter.get('/messages', wrapper(messageController.getAllMessages));
+patientRouter.post('/messages', wrapper(messageController.sendMessageToTherapist));
 
 patientRouter.get(
   '/prescriptions',
   wrapper(prescriptionController.getAllPrescriptions)
 );
-
 patientRouter.get(
   '/prescriptions/:id',
   wrapper(prescriptionController.getOnePrescription)
