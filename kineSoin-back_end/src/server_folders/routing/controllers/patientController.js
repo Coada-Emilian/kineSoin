@@ -189,6 +189,43 @@ const patientController = {
       age: computeAge(foundPatient.birth_date),
     });
   },
+  uploadPatientPhoto: async (req, res) => {
+    const patientId = parseInt(req.patient_id, 10);
+    checkIsIdNumber(patientId);
+
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'No file detected. Please upload a file to continue.',
+      });
+    }
+
+    const { filePath, filename } = req.file;
+
+    const foundPatient = await Patient.findByPk(patientId);
+
+    if (!foundPatient) {
+      return res.status(400).json({ message: 'Patient not found' });
+    } else {
+      if (foundPatient.picture_id) {
+        try {
+          await cloudinary.uploader.destroy(foundPatient.picture_id);
+        } catch (err) {
+          console.error(
+            'Error deleting old picture from Cloudinary:',
+            err.message
+          );
+        }
+        foundPatient.picture_id = filename;
+        foundPatient.picture_url = filePath;
+        await foundPatient.save();
+
+        return res.status(200).json({
+          message: 'Picture uploaded successfully!',
+          picture_url: filePath,
+        });
+      }
+    }
+  },
 };
 
 export default patientController;
