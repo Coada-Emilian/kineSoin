@@ -14,6 +14,7 @@ import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
 import adminController from '../controllers/adminController.js';
 import afflictionController from '../controllers/afflictionController.js';
+import medicController from '../controllers/medicController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -74,3 +75,5 @@ adminRouter.put(
   '/afflictions/:affliction_id',
   wrapper(afflictionController.updateAffliction)
 );
+
+adminRouter.get('/medics', wrapper(medicController.getAllMedics));

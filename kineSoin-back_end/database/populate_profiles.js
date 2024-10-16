@@ -98,8 +98,9 @@ for (const medic of medics) {
     postal_code,
     city,
     phone_number,
+    licence_code,
   } = medic;
-  const hashedLicenceCode = Scrypt.hash(medic.licence_code);
+
   const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
   const result = await pgClient.query(query, [
     admin_id,
@@ -110,7 +111,7 @@ for (const medic of medics) {
     postal_code,
     city,
     phone_number,
-    hashedLicenceCode,
+    licence_code,
   ]);
   console.log(result.rows);
 }
