@@ -142,13 +142,32 @@ const afflictionController = {
             .status(500)
             .json({ message: 'Error while updating affliction.' });
         } else {
-          return res
-            .status(200)
-            .json({
-              message: 'Affliction updated successfully',
-              updatedAffliction,
-            });
+          return res.status(200).json({
+            message: 'Affliction updated successfully',
+            updatedAffliction,
+          });
         }
+      }
+    }
+  },
+  deleteAffliction: async (req, res) => {
+    const afflictionId = parseInt(req.params.affliction_id, 10);
+    checkIsIdNumber(afflictionId);
+    const foundAffliction = await Affliction.findOne({
+      where: { id: afflictionId },
+    });
+    if (!foundAffliction) {
+      return res.status(404).json({ message: 'Affliction not found.' });
+    } else {
+      const deletedAffliction = await foundAffliction.destroy();
+      if (!deletedAffliction) {
+        return res
+          .status(500)
+          .json({ message: 'Error while deleting affliction.' });
+      } else {
+        return res
+          .status(200)
+          .json({ message: 'Affliction deleted successfully.' });
       }
     }
   },

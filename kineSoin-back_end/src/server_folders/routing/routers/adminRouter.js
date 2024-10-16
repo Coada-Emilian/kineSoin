@@ -75,5 +75,13 @@ adminRouter.put(
   '/afflictions/:affliction_id',
   wrapper(afflictionController.updateAffliction)
 );
+adminRouter.delete(
+  '/afflictions/:affliction_id',
+  wrapper(afflictionController.deleteAffliction)
+);
 
 adminRouter.get('/medics', wrapper(medicController.getAllMedics));
+adminRouter.post('/medics', wrapper(medicController.createMedic));
+adminRouter.get('/medics/:medic_id', wrapper(medicController.getOneMedic));
+adminRouter.put('/medics/:medic_id', wrapper(medicController.updateMedic));
+adminRouter.delete('/medics/:medic_id', wrapper(medicController.deleteMedic));
