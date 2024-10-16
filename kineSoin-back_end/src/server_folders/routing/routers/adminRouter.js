@@ -70,4 +70,7 @@ adminRouter.get(
   '/afflictions/:affliction_id',
   wrapper(afflictionController.getOneAffliction)
 );
-
+adminRouter.put(
+  '/afflictions/:affliction_id',
+  wrapper(afflictionController.updateAffliction)
+);

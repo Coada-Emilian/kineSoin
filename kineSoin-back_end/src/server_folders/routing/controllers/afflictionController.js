@@ -46,30 +46,33 @@ const afflictionController = {
     checkIsIdNumber(admin_id);
 
     const newAfflictionSchema = Joi.object({
-        body_region_id: Joi.number().integer().required(),
-        name: Joi.string().max(50).required(),
-        description: Joi.string().required(),
-        insurance_code: Joi.string().max(255).required(),
-        is_operated: Joi.boolean().required(),
-    })
+      body_region_id: Joi.number().integer().required(),
+      name: Joi.string().max(50).required(),
+      description: Joi.string().required(),
+      insurance_code: Joi.string().max(255).required(),
+      is_operated: Joi.boolean().required(),
+    });
     const { error } = newAfflictionSchema.validate(req.body);
-    if(error){
-        return res.status(400).json({message: error.details[0].message});
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
     } else {
-        const { body_region_id, name, description, insurance_code, is_operated } = req.body;
-        const newAffliction = await Affliction.create({
-            admin_id,
-            body_region_id,
-            name,
-            description,
-            insurance_code,
-            is_operated,
-        });
-        if(!newAffliction){
-            return res.status(500).json({message: 'Error while creating affliction.'});
-        } else {
-            return res.status(201).json({newAffliction});
-        }
+      const { body_region_id, name, description, insurance_code, is_operated } =
+        req.body;
+      const newAffliction = await Affliction.create({
+        admin_id,
+        body_region_id,
+        name,
+        description,
+        insurance_code,
+        is_operated,
+      });
+      if (!newAffliction) {
+        return res
+          .status(500)
+          .json({ message: 'Error while creating affliction.' });
+      } else {
+        return res.status(201).json({ newAffliction });
+      }
     }
   },
   getOneAffliction: async (req, res) => {
@@ -96,6 +99,57 @@ const afflictionController = {
       return res.status(404).json({ message: 'Affliction not found.' });
     } else {
       return res.status(200).json({ foundAffliction });
+    }
+  },
+  updateAffliction: async (req, res) => {
+    const admin_id = parseInt(req.admin.id, 10);
+    checkIsIdNumber(admin_id);
+
+    const affliction_id = parseInt(req.params.affliction_id, 10);
+    checkIsIdNumber(affliction_id);
+
+    const updatedAfflictionSchema = Joi.object({
+      body_region_id: Joi.number().integer().optional(),
+      name: Joi.string().max(50).optional(),
+      description: Joi.string().optional(),
+      insurance_code: Joi.string().max(255).optional(),
+      is_operated: Joi.boolean().optional(),
+    }).min(1);
+
+    const { error } = updatedAfflictionSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    } else {
+      const { body_region_id, name, description, insurance_code, is_operated } =
+        req.body;
+
+      const foundAffliction = await Affliction.findOne({
+        where: { id: affliction_id },
+      });
+      if (!foundAffliction) {
+        return res.status(404).json({ message: 'Affliction not found.' });
+      } else {
+        const newAffliction = {
+          body_region_id: body_region_id || foundAffliction.body_region_id,
+          name: name || foundAffliction.name,
+          description: description || foundAffliction.description,
+          insurance_code: insurance_code || foundAffliction.insurance_code,
+          is_operated: is_operated || foundAffliction.is_operated,
+        };
+        const updatedAffliction = await foundAffliction.update(newAffliction);
+        if (!updatedAffliction) {
+          return res
+            .status(500)
+            .json({ message: 'Error while updating affliction.' });
+        } else {
+          return res
+            .status(200)
+            .json({
+              message: 'Affliction updated successfully',
+              updatedAffliction,
+            });
+        }
+      }
     }
   },
 };
