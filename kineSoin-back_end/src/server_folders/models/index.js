@@ -9,6 +9,8 @@ import {
   Therapist,
   Patient_message,
   Therapist_message,
+  Insurance,
+  Patient_Insurance,
 } from './associations.js';
 import { sequelize } from './sequelize_client.js';
 
@@ -23,5 +25,7 @@ export {
   Therapist,
   Patient_message,
   Therapist_message,
+  Insurance,
+  Patient_Insurance,
   sequelize,
 };

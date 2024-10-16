@@ -8,6 +8,8 @@ import { Prescription } from './standalone_models/Prescription.js';
 import { Therapist } from './standalone_models/Therapist.js';
 import { Patient_message } from './standalone_models/Patient_message.js';
 import { Therapist_message } from './standalone_models/Therapist_message.js';
+import { Insurance } from './standalone_models/Insurance.js';
+import { Patient_Insurance } from './associative_tables/Patient_Insurance.js';
 
 Admin.hasMany(Therapist, {
   foreignKey: 'admin_id',
@@ -162,6 +164,23 @@ Therapist_message.belongsTo(Therapist, {
   as: 'sender',
 });
 
+Patient.belongsToMany(Insurance, {
+  through: Patient_Insurance,
+  foreignKey: 'patient_id',
+  otherKey: 'insurance_id',
+  as: 'insurances',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Insurance.belongsToMany(Patient, {
+  through: Patient_Insurance,
+  foreignKey: 'insurance_id',
+  otherKey: 'patient_id',
+  as: 'patients',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
 export {
   Admin,
   Affliction,
@@ -173,4 +192,6 @@ export {
   Therapist,
   Patient_message,
   Therapist_message,
+  Insurance,
+  Patient_Insurance,
 };
