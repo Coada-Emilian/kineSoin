@@ -195,5 +195,4 @@ INSERT INTO therapist_messages ("sender_id", "receiver_id", "content", "date", "
 (4, 19, 'Je vous conseille de consulter un spécialiste pour votre dos.', NOW(), CURRENT_TIME, NOW()),
 (5, 20, 'Un régime équilibré peut vraiment aider votre réhabilitation.', NOW(), CURRENT_TIME, NOW());
 
-
 COMMIT;
