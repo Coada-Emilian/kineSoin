@@ -4,7 +4,7 @@ SET client_encoding = 'UTF8';
 BEGIN;
 
 -- Drop all existing tables
-DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators" CASCADE;
+DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators", "insurances", "patient_insurances" CASCADE;
 
 -- Create administrators table
 CREATE TABLE IF NOT EXISTS "administrators" (
@@ -15,6 +15,17 @@ CREATE TABLE IF NOT EXISTS "administrators" (
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
+
+CREATE TABLE IF NOT EXISTS "insurance_organisms" (
+    "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
+    "name" VARCHAR(100) NOT NULL, 
+    "amc_code" VARCHAR(50) UNIQUE NOT NULL, 
+    "address" VARCHAR(255), 
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ
+);
+
 
 -- Create therapists table
 CREATE TABLE IF NOT EXISTS "therapists" (
@@ -146,6 +157,18 @@ CREATE TABLE IF NOT EXISTS "therapist_messages" (
     "content" TEXT NOT NULL,
     "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "time" TIME NOT NULL DEFAULT NOW(),
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ
+);
+
+CREATE TABLE IF NOT EXISTS "patient_insurances" (
+    "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
+    "insurance_id" INT REFERENCES "insurance_organisms"("id") ON DELETE SET NULL,
+    "adherent_code" VARCHAR(50) UNIQUE NOT NULL,
+    "contract_number" VARCHAR(50) UNIQUE NOT NULL,
+    "start_date" DATE NOT NULL,
+    "end_date" DATE NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
