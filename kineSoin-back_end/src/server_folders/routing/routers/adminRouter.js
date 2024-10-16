@@ -19,17 +19,40 @@ const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 export const adminRouter = Router();
 
 adminRouter.post('/login', wrapper(adminController.loginAdmin));
+
 adminRouter.get('/therapists', wrapper(therapistController.getAllTherapists));
 adminRouter.get(
   '/therapists/:therapist_id',
   wrapper(therapistController.getOneTherapist)
 );
-adminRouter.delete(
-  '/therapists/:therapist_id',
-  wrapper(therapistController.deleteTherapist)
-);
 adminRouter.post(
   '/therapists',
   uploadTherapistPhoto.single('photo'),
   wrapper(therapistController.createTherapist)
+);
+adminRouter.delete(
+  '/therapists/:therapist_id',
+  wrapper(therapistController.deleteTherapist)
+);
+
+adminRouter.get('/allPatients', wrapper(patientController.getAllPatients));
+adminRouter.get(
+  '/activePatients',
+  wrapper(patientController.getActivePatients)
+);
+adminRouter.get(
+  '/pendingPatients',
+  wrapper(patientController.getPendingPatients)
+);
+adminRouter.get(
+  '/bannedPatients',
+  wrapper(patientController.getBannedPatients)
+);
+adminRouter.get(
+  '/inactivePatients',
+  wrapper(patientController.getInactivePatients)
+);
+adminRouter.get(
+  '/patients/:patient_id',
+  wrapper(patientController.getOnePatient)
 );

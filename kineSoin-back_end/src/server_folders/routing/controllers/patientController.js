@@ -336,7 +336,18 @@ const patientController = {
   },
   getAllPatients: async (req, res) => {
     const foundPatients = await Patient.findAll({
-      attributes: ['id', 'name', 'surname', 'status', 'birth_date'],
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'status',
+        'birth_date',
+        'phone_number',
+        'city',
+        'street_name',
+        'street_number',
+        'postal_code',
+      ],
       order: [['status', 'ASC']],
     });
     if (!foundPatients) {
@@ -349,6 +360,8 @@ const patientController = {
         status: patient.status,
         fullName: `${patient.name} ${patient.surname}`,
         age: computeAge(patient.birth_date),
+        address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
+        phone_number: patient.phone_number,
       };
       sentPatients.push(newPatient);
     }
@@ -446,6 +459,146 @@ const patientController = {
       medic: foundPatient.prescriptions[0].medic,
     };
     return res.status(200).json(sentPatient);
+  },
+  getActivePatients: async (req, res) => {
+    const activePatients = await Patient.findAll({
+      where: { status: 'active' },
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+        ],
+      },
+    });
+
+    if (!activePatients) {
+      return res.status(400).json({ message: 'No active patients found' });
+    } else {
+      const sentPatients = [];
+      for (const patient of activePatients) {
+        const newPatient = {
+          id: patient.id,
+          status: patient.status,
+          fullName: `${patient.name} ${patient.surname}`,
+          age: computeAge(patient.birth_date),
+          address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
+          phone_number: patient.phone_number,
+        };
+        sentPatients.push(newPatient);
+      }
+
+      return res.status(200).json(sentPatients);
+    }
+  },
+  getPendingPatients: async (req, res) => {
+    const pendingPatients = await Patient.findAll({
+      where: { status: 'pending' },
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+        ],
+      },
+    });
+
+    if (!pendingPatients) {
+      return res.status(400).json({ message: 'No pending patients found' });
+    } else {
+      const sentPatients = [];
+      for (const patient of pendingPatients) {
+        const newPatient = {
+          id: patient.id,
+          status: patient.status,
+          fullName: `${patient.name} ${patient.surname}`,
+          age: computeAge(patient.birth_date),
+          address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
+          phone_number: patient.phone_number,
+        };
+        sentPatients.push(newPatient);
+      }
+
+      return res.status(200).json(sentPatients);
+    }
+  },
+  getBannedPatients: async (req, res) => {
+    const bannedPatients = await Patient.findAll({
+      where: { status: 'banned' },
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+        ],
+      },
+    });
+
+    if (!bannedPatients) {
+      return res.status(400).json({ message: 'No banned patients found' });
+    } else {
+      const sentPatients = [];
+      for (const patient of bannedPatients) {
+        const newPatient = {
+          id: patient.id,
+          status: patient.status,
+          fullName: `${patient.name} ${patient.surname}`,
+          age: computeAge(patient.birth_date),
+          address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
+          phone_number: patient.phone_number,
+        };
+        sentPatients.push(newPatient);
+      }
+
+      return res.status(200).json(sentPatients);
+    }
+  },
+  getInactivePatients: async (req, res) => {
+    const inactivePatients = await Patient.findAll({
+      where: { status: 'inactive' },
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+        ],
+      },
+    });
+
+    if (!inactivePatients) {
+      return res.status(400).json({ message: 'No inactive patients found' });
+    } else {
+      const sentPatients = [];
+      for (const patient of inactivePatients) {
+        const newPatient = {
+          id: patient.id,
+          status: patient.status,
+          fullName: `${patient.name} ${patient.surname}`,
+          age: computeAge(patient.birth_date),
+          address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
+          phone_number: patient.phone_number,
+        };
+        sentPatients.push(newPatient);
+      }
+
+      return res.status(200).json(sentPatients);
+    }
   },
 };
 

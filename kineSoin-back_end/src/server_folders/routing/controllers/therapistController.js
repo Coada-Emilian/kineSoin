@@ -314,6 +314,8 @@ const therapistController = {
     }
   },
   createTherapist: async (req, res) => {
+    const adminId = parseInt(req.admin_id, 10);
+    checkIsIdNumber(adminId);
     const createTherapistSchema = Joi.object({
       name: Joi.string().max(50).required(),
       surname: Joi.string().max(50).required(),
@@ -364,6 +366,7 @@ const therapistController = {
         picture_id = req.file.filename;
 
         const newTherapist = {
+          admin_id: adminId,
           name,
           surname,
           email,
