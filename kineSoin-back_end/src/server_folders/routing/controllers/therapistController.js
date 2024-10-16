@@ -2,27 +2,19 @@ import Joi from 'joi';
 import { Op } from 'sequelize';
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
-
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
-import computeAge from '../../utils/computeAge.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
-import {
-  Patient,
-  Appointment,
-  Patient_message,
-  Therapist,
-} from '../../models/associations.js';
-import { application } from 'express';
-import { parse } from 'dotenv';
+import { Patient, Appointment, Therapist } from '../../models/associations.js';
 
 multer({ storage: therapistPhotoStorage });
 
 const therapistController = {
   getPersonalTherapist: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
-    const patientId = 1;
+
+    const patientId = 81;
 
     checkIsIdNumber(patientId);
 
@@ -54,9 +46,10 @@ const therapistController = {
       });
     } else {
       const therapist = foundPatient.therapist;
-      res.status(200).json({ therapist });
+      res.status(200).json(therapist);
     }
   },
+  
   getConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
     const therapistId = 1;

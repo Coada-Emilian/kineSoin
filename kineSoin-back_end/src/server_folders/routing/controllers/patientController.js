@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
+import { Op } from 'sequelize';
 
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
@@ -14,7 +15,9 @@ multer({ storage: patientPhotoStorage });
 const patientController = {
   getConnectedPatient: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
+
     const patientId = 1;
+
     checkIsIdNumber(patientId);
 
     const currentDate = new Date().toISOString().split('T')[0];
@@ -37,6 +40,7 @@ const patientController = {
         {
           association: 'prescriptions',
           where: { is_completed: false },
+          required: false,
           attributes: [
             'id',
             'appointment_quantity',
@@ -47,7 +51,10 @@ const patientController = {
           include: [
             {
               association: 'appointments',
-              where: { is_canceled: false } && { is_accepted: true },
+              where: {
+                [Op.and]: [{ is_canceled: false }, { is_accepted: true }],
+              },
+              required: false,
               attributes: ['id', 'date', 'time'],
             },
             { association: 'medic', attributes: ['name', 'surname'] },
@@ -56,6 +63,7 @@ const patientController = {
         },
         {
           association: 'insurance',
+          required: false,
           attributes: [
             'id',
             'name',
@@ -77,6 +85,7 @@ const patientController = {
         },
       ],
     });
+
     checkPatientStatus(foundPatient);
 
     const address = `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`;
@@ -87,6 +96,7 @@ const patientController = {
     for (const prescription of foundPatient.prescriptions) {
       const past_appointments = [];
       const upcoming_appointments = [];
+
       for (const appointment of prescription.appointments) {
         if (appointment.date < currentDate && appointment.time < currentTime) {
           past_appointments.push(appointment);
@@ -94,6 +104,7 @@ const patientController = {
           upcoming_appointments.push(appointment);
         }
       }
+
       const modifiedPrescription = {
         id: prescription.id,
         appointment_quantity: prescription.appointment_quantity,
@@ -103,6 +114,7 @@ const patientController = {
         past_appointments,
         upcoming_appointments,
       };
+
       modifiedPrescriptions.push(modifiedPrescription);
     }
 
@@ -110,6 +122,7 @@ const patientController = {
 
     const sentPatientData = {
       fullName,
+      surname: foundPatient.surname,
       picture_url,
       address,
       age: computeAge(foundPatient.birth_date),
@@ -120,9 +133,12 @@ const patientController = {
 
     res.status(200).json(sentPatientData);
   },
+
   deleteConnectedPatient: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
-    const patientId = 1;
+
+    const patientId = 82;
+
     checkIsIdNumber(patientId);
 
     const response = await Patient.destroy({ where: { id: patientId } });
@@ -133,9 +149,12 @@ const patientController = {
       return res.status(200).json({ message: 'Patient deleted successfully!' });
     }
   },
+
   updateConnectedPatient: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
+
     const patientId = 1;
+
     checkIsIdNumber(patientId);
 
     const updatePatientSchema = Joi.object({
@@ -167,14 +186,6 @@ const patientController = {
     if (error) {
       return res.status(400).json({ message: error.message });
     }
-
-    const foundPatient = await Patient.findByPk(patientId);
-
-    if (!foundPatient) {
-      return res.status(400).json({ message: 'Patient not found' });
-    }
-
-    checkPatientStatus(foundPatient);
 
     const {
       name,
@@ -235,28 +246,38 @@ const patientController = {
       newProfile.password = hashedNewPassword;
     }
 
-    await foundPatient.update(newProfile);
+    const foundPatient = await Patient.findByPk(patientId);
 
-    return res.status(200).json({
-      message: 'Profile updated successfully!',
-      foundPatient: {
-        id: foundPatient.id,
-        name: foundPatient.name,
-        surname: foundPatient.surname,
-        birth_date: foundPatient.birth_date,
-        gender: foundPatient.gender,
-        street_number: foundPatient.street_number,
-        street_name: foundPatient.street_name,
-        postal_code: foundPatient.postal_code,
-        city: foundPatient.city,
-        email: foundPatient.email,
-        picture_url: foundPatient.picture_url,
-        age: computeAge(foundPatient.birth_date),
-      },
-    });
+    if (!foundPatient) {
+      return res.status(400).json({ message: 'Patient not found' });
+    } else {
+      checkPatientStatus(foundPatient);
+
+      await foundPatient.update(newProfile);
+
+      return res.status(200).json({
+        message: 'Profile updated successfully!',
+        foundPatient: {
+          id: foundPatient.id,
+          name: foundPatient.name,
+          surname: foundPatient.surname,
+          birth_date: foundPatient.birth_date,
+          gender: foundPatient.gender,
+          street_number: foundPatient.street_number,
+          street_name: foundPatient.street_name,
+          postal_code: foundPatient.postal_code,
+          city: foundPatient.city,
+          email: foundPatient.email,
+          picture_url: foundPatient.picture_url,
+          age: computeAge(foundPatient.birth_date),
+        },
+      });
+    }
   },
+
   uploadPatientPhoto: async (req, res) => {
     const patientId = parseInt(req.patient_id, 10);
+
     checkIsIdNumber(patientId);
 
     if (!req.file) {
@@ -281,17 +302,25 @@ const patientController = {
             err.message
           );
         }
-        foundPatient.picture_id = filename;
-        foundPatient.picture_url = filePath;
-        await foundPatient.save();
 
-        return res.status(200).json({
-          message: 'Picture uploaded successfully!',
-          picture_url: filePath,
-        });
+        foundPatient.picture_id = filename;
+
+        foundPatient.picture_url = filePath;
+
+        const response = await foundPatient.save();
+
+        if (!response) {
+          return res.status(400).json({ message: 'Error saving the picture' });
+        } else {
+          return res.status(200).json({
+            message: 'Picture uploaded successfully!',
+            picture_url: foundPatient.picture_url,
+          });
+        }
       }
     }
   },
+  
   getPendingPatients: async (req, res) => {
     const pendingPatients = await Patient.findAll({
       where: {
@@ -635,7 +664,6 @@ const patientController = {
       return res.status(200).json(sentPatients);
     }
   },
-  
 };
 
 export default patientController;

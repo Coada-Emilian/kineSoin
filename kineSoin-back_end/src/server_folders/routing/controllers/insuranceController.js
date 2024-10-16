@@ -1,18 +1,14 @@
 import Joi from 'joi';
-import { Op } from 'sequelize';
 
-import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
-import computeAge from '../../utils/computeAge.js';
-import { Scrypt } from '../../authentification/Scrypt.js';
-
 import { Patient, Patient_Insurance } from '../../models/index.js';
-import { parse } from 'dotenv';
 
 const insuranceController = {
   getInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
+
     const patientId = 81;
+
     checkIsIdNumber(patientId);
 
     const currentDate = new Date().toISOString().split('T')[0];
@@ -43,6 +39,7 @@ const insuranceController = {
         },
       ],
     });
+
     if (!foundPatient) {
       return res.status(400).json({ message: 'Patient not found' });
     } else {
@@ -67,9 +64,12 @@ const insuranceController = {
       return res.status(200).json(sentInsurance);
     }
   },
+
   updateInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
+
     const patientId = 1;
+
     checkIsIdNumber(patientId);
 
     const updateInsuranceSchema = Joi.object({
@@ -80,8 +80,8 @@ const insuranceController = {
       end_date: Joi.date().iso().required().greater(Joi.ref('start_date')),
     }).min(2);
 
-    console.log(req.body);
     const { error } = updateInsuranceSchema.validate(req.body);
+
     if (error) {
       return res.status(400).json({ message: error.message });
     }
@@ -89,6 +89,7 @@ const insuranceController = {
     const foundInsurance = await Patient_Insurance.findOne({
       where: { patient_id: patientId },
     });
+
     if (!foundInsurance) {
       return res.status(400).json({ message: 'Insurance not found' });
     } else {
@@ -101,7 +102,9 @@ const insuranceController = {
         start_date: req.body.start_date,
         end_date: req.body.end_date,
       };
+
       const response = await foundInsurance.update(updatedInsurance);
+
       if (response) {
         return res
           .status(200)
@@ -113,9 +116,12 @@ const insuranceController = {
       }
     }
   },
+
   addInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
+
     const patientId = 81;
+
     checkIsIdNumber(patientId);
 
     const addInsuranceSchema = Joi.object({

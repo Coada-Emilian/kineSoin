@@ -1,25 +1,13 @@
 import Joi from 'joi';
-import { Op } from 'sequelize';
-import { v2 as cloudinary } from 'cloudinary';
-import multer from 'multer';
-
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
-import computeAge from '../../utils/computeAge.js';
-import { Scrypt } from '../../authentification/Scrypt.js';
-import { patientPhotoStorage } from '../../cloudinary/index.js';
-import {
-  Patient,
-  Appointment,
-  Patient_message,
-} from '../../models/associations.js';
-import { application } from 'express';
-import { parse } from 'dotenv';
+import { Patient, Patient_message } from '../../models/associations.js';
 
 const messageController = {
   getAllMessages: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
-    const patientId = 1;
+
+    const patientId = 75;
 
     checkIsIdNumber(patientId);
 
@@ -64,19 +52,26 @@ const messageController = {
       return res.status(200).json({ sentMessages: [], receivedMessages: [] });
     } else {
       const sentMessages = foundPatient.sent_messages;
+
       const receivedMessages = foundPatient.received_messages;
+
       res.status(200).json({ sentMessages, receivedMessages });
     }
   },
+
   sendMessageToTherapist: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
+
     const patientId = 1;
+
     checkIsIdNumber(patientId);
 
     const foundPatient = await Patient.findByPk(patientId);
+
     checkPatientStatus(foundPatient);
 
     const receiverId = foundPatient.therapist_id;
+
     checkIsIdNumber(receiverId);
 
     const messageSchema = Joi.object({
@@ -90,6 +85,7 @@ const messageController = {
     }
 
     const { content } = req.body;
+    
     const currentDate = new Date();
     const currentTime = currentDate.toTimeString();
 

@@ -1375,5 +1375,22 @@
     "password": "emilianPass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663294/80_wdywssa3s.webp"
+  },
+  {
+    "therapist_id": 2,
+    "name": "Dunière",
+    "birth_name": "Dunière",
+    "surname": "Jean",
+    "gender": "male",
+    "birth_date": "1989-07-16",
+    "street_number": "9",
+    "street_name": "Route de Messidor",
+    "postal_code": "79120",
+    "city": "Messe",
+    "phone_number": "0642567199",
+    "email": "julien_blancdcsav@example.com",
+    "password": "julienPass123",
+    "status": "active",
+    "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663294/80_wdywssa3s.webp"
   }
 ]

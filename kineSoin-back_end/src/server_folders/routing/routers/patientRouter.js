@@ -6,6 +6,7 @@ import {
   prescriptionScanStorage,
 } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
+
 import patientController from '../controllers/patientController.js';
 import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
@@ -18,6 +19,7 @@ const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
 
 export const patientRouter = Router();
 
+// Patient routes
 patientRouter.get('/me', wrapper(patientController.getConnectedPatient));
 patientRouter.delete('/me', wrapper(patientController.deleteConnectedPatient));
 patientRouter.patch('/me', wrapper(patientController.updateConnectedPatient));
@@ -27,56 +29,63 @@ patientRouter.post(
   patientController.uploadPatientPhoto
 );
 
-patientRouter.get('/insurance', wrapper(insuranceController.getInsurance));
-patientRouter.patch('/insurance', wrapper(insuranceController.updateInsurance));
-patientRouter.post('/insurance', wrapper(insuranceController.addInsurance));
+// Insurance routes
+patientRouter.get('/me/insurance', wrapper(insuranceController.getInsurance));
+patientRouter.patch(
+  '/me/insurance',
+  wrapper(insuranceController.updateInsurance)
+);
+patientRouter.post('/me/insurance', wrapper(insuranceController.addInsurance));
 
+// Proposed appointments routes
 patientRouter.get(
-  '/proposedAppointments',
+  '/me/proposedAppointments',
   wrapper(appointmentController.getAllProposedAppointments)
 );
 patientRouter.get(
-  '/proposedAppointments/:id',
+  '/me/proposedAppointments/:id',
   wrapper(appointmentController.getOneProposedAppointment)
 );
 patientRouter.post(
-  '/proposedAppointments/:id',
+  '/me/proposedAppointments/:id',
   wrapper(appointmentController.acceptOneProposedAppointment)
 );
+
+// Appointments routes
 patientRouter.get(
-  '/appointments',
+  '/me/appointments',
   wrapper(appointmentController.getAllAppointments)
 );
 patientRouter.get(
-  '/appointments/:id',
+  '/me/appointments/:id',
   wrapper(appointmentController.getOneAppointment)
 );
 patientRouter.put(
-  '/appointments/:id/cancelAppointment',
+  '/me/appointments/:id/cancelAppointment',
   wrapper(appointmentController.cancelOneAppointment)
 );
 
-patientRouter.get('/messages', wrapper(messageController.getAllMessages));
+patientRouter.get('/me/messages', wrapper(messageController.getAllMessages));
 patientRouter.post(
-  '/messages',
+  '/me/messages',
   wrapper(messageController.sendMessageToTherapist)
 );
 
 patientRouter.get(
-  '/prescriptions',
+  '/me/prescriptions',
   wrapper(prescriptionController.getAllPrescriptions)
 );
 patientRouter.get(
-  '/prescriptions/:id',
+  '/me/prescriptions/:id',
   wrapper(prescriptionController.getOnePrescription)
 );
 patientRouter.post(
-  '/prescriptions',
+  '/me/prescriptions',
   uploadPrescriptionScan.single('scan'),
   wrapper(prescriptionController.addNewPrescription)
 );
 
 patientRouter.get(
-  '/myTherapist',
+  '/me/myTherapist',
   wrapper(therapistController.getPersonalTherapist)
 );
