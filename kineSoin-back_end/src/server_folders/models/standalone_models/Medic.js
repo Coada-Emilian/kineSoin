@@ -41,7 +41,7 @@ Medic.init(
       allowNull: false,
     },
     phone_number: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(25),
       allowNull: false,
     },
     licence_code: {

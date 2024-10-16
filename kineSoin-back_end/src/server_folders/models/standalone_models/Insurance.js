@@ -1,40 +1,30 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
 
-export class Patient extends Model {}
+export class Insurance extends Model {}
 
-Patient.init(
+Insurance.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    therapist_id: {
+    admin_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'therapists',
+        model: 'administrators',
         key: 'id',
       },
     },
     name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
-    birth_name: {
-      type: DataTypes.STRING(50),
-    },
-    surname: {
-      type: DataTypes.STRING(50),
+    amc_code: {
+      type: DataTypes.STRING(255),
       allowNull: false,
-    },
-    gender: {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-    },
-    birth_date: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
+      unique: true,
     },
     street_number: {
       type: DataTypes.STRING(10),
@@ -55,27 +45,6 @@ Patient.init(
       type: DataTypes.STRING(25),
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    status: {
-      type: DataTypes.STRING(10),
-      defaultValue: 'pending',
-      allowNull: false,
-    },
-    picture_url: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    picture_id: {
-      type: DataTypes.STRING(255),
-    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -85,5 +54,5 @@ Patient.init(
       type: DataTypes.DATE,
     },
   },
-  { sequelize, modelName: 'Patient', tableName: 'patients' }
+  { sequelize, modelName: 'Insurance', tableName: 'insurance_organisms' }
 );

@@ -4,7 +4,7 @@ SET client_encoding = 'UTF8';
 BEGIN;
 
 -- Drop all existing tables
-DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators", "insurances", "patient_insurances" CASCADE;
+DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators", "insurance_organisms", "patient_insurances" CASCADE;
 
 -- Create administrators table
 CREATE TABLE IF NOT EXISTS "administrators" (
@@ -19,13 +19,16 @@ CREATE TABLE IF NOT EXISTS "administrators" (
 CREATE TABLE IF NOT EXISTS "insurance_organisms" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
-    "name" VARCHAR(100) NOT NULL, 
+    "name" VARCHAR(255) NOT NULL, 
     "amc_code" VARCHAR(50) UNIQUE NOT NULL, 
-    "address" VARCHAR(255), 
+    "street_number" VARCHAR(10),
+    "street_name" VARCHAR(50) NOT NULL,
+    "postal_code" VARCHAR(10) NOT NULL,
+    "city" VARCHAR(100) NOT NULL, 
+    "phone_number" VARCHAR(25) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
-
 
 -- Create therapists table
 CREATE TABLE IF NOT EXISTS "therapists" (
@@ -59,7 +62,7 @@ CREATE TABLE IF NOT EXISTS "patients" (
     "street_name" VARCHAR(50) NOT NULL,
     "postal_code" VARCHAR(10) NOT NULL,
     "city" VARCHAR(100) NOT NULL, 
-    "phone_number" VARCHAR(15) NOT NULL,
+    "phone_number" VARCHAR(25) NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "password" VARCHAR(255) NOT NULL,
     "status" VARCHAR(10) NOT NULL DEFAULT 'pending',
@@ -79,7 +82,7 @@ CREATE TABLE IF NOT EXISTS "medics" (
     "street_name" VARCHAR(50) NOT NULL,
     "postal_code" VARCHAR(10) NOT NULL,
     "city" VARCHAR(100) NOT NULL, 
-    "phone_number" VARCHAR(15) NOT NULL,
+    "phone_number" VARCHAR(25) NOT NULL,
     "licence_code" VARCHAR(255) UNIQUE NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ

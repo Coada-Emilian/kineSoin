@@ -1,18 +1,20 @@
 SET client_encoding = 'UTF8';
 BEGIN;
 
-INSERT INTO "insurance_organisms" ("admin_id", "name", "amc_code", "address", "created_at", "updated_at")
+INSERT INTO "insurance_organisms" ("admin_id", "name", "amc_code", "street_number", "street_name", "postal_code", "city", "phone_number", "created_at", "updated_at")
 VALUES
-(1, 'Mutuelle Générale', 'AMC001', 'Paris, France', NOW(), NOW()),
-(1, 'Harmonie Mutuelle', 'AMC002', 'Rennes, France', NOW(), NOW()),
-(1, 'Mutuelle Mieux-Etre', 'AMC003', 'Lyon, France', NOW(), NOW()),
-(1, 'Macif Mutuelle', 'AMC004', 'Niort, France', NOW(), NOW()),
-(1, 'MGEN', 'AMC005', 'Paris, France', NOW(), NOW()),
-(1, 'Mutuelle de Poitiers', 'AMC006', 'Poitiers, France', NOW(), NOW()),
-(1, 'AG2R La Mondiale', 'AMC007', 'Paris, France', NOW(), NOW()),
-(1, 'Apivia Macif Mutuelle', 'AMC008', 'La Rochelle, France', NOW(), NOW()),
-(1, 'SMIP', 'AMC009', 'Bordeaux, France', NOW(), NOW()),
-(1, 'Mutuelle Entrain', 'AMC010', 'Paris, France', NOW(), NOW());
+(1, 'Mutuelle Générale', 'AMC001', '12', 'Rue de la Paix', '75002', 'Paris', '+33 1 42 60 00 00', NOW(), NOW()),
+(1, 'Harmonie Mutuelle', 'AMC002', '34', 'Avenue des Champs-Élysées', '75008', 'Rennes', '+33 1 70 10 10 10', NOW(), NOW()),
+(1, 'Mutuelle Mieux-Etre', 'AMC003', '56', 'Boulevard de la République', '69002', 'Lyon', '+33 4 78 00 00 00', NOW(), NOW()),
+(1, 'Macif Mutuelle', 'AMC004', '78', 'Rue de la Gare', '79000', 'Niort', '+33 5 49 00 00 00', NOW(), NOW()),
+(1, 'MGEN', 'AMC005', '90', 'Place de la Bastille', '75011', 'Paris', '+33 1 53 27 50 00', NOW(), NOW()),
+(1, 'Mutuelle de Poitiers', 'AMC006', '12', 'Rue des Lilas', '86000', 'Poitiers', '+33 5 49 88 00 00', NOW(), NOW()),
+(1, 'AG2R La Mondiale', 'AMC007', '45', 'Avenue de la République', '75011', 'Paris', '+33 1 76 77 10 00', NOW(), NOW()),
+(1, 'Apivia Macif Mutuelle', 'AMC008', '23', 'Rue du Port', '17000', 'La Rochelle', '+33 5 46 00 00 00', NOW(), NOW()),
+(1, 'SMIP', 'AMC009', '5', 'Place Gambetta', '33000', 'Bordeaux', '+33 5 57 85 00 00', NOW(), NOW()),
+(1, 'Mutuelle Entrain', 'AMC010', '14', 'Rue de Rivoli', '75001', 'Paris', '+33 1 42 60 00 01', NOW(), NOW());
+
+
 
 
 INSERT INTO body_regions ("admin_id", "name", "created_at") VALUES
