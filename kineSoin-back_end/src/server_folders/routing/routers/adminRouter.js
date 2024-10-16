@@ -62,7 +62,12 @@ adminRouter.get(
   '/afflictions',
   wrapper(afflictionController.getAllAfflictions)
 );
+adminRouter.post(
+  '/afflictions',
+  wrapper(afflictionController.createAffliction)
+);
 adminRouter.get(
   '/afflictions/:affliction_id',
   wrapper(afflictionController.getOneAffliction)
 );
+
