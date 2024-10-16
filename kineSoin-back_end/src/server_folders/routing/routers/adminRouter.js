@@ -13,6 +13,7 @@ import messageController from '../controllers/messageController.js';
 import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
 import adminController from '../controllers/adminController.js';
+import afflictionController from '../controllers/afflictionController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -55,4 +56,13 @@ adminRouter.get(
 adminRouter.get(
   '/patients/:patient_id',
   wrapper(patientController.getOnePatient)
+);
+
+adminRouter.get(
+  '/afflictions',
+  wrapper(afflictionController.getAllAfflictions)
+);
+adminRouter.get(
+  '/afflictions/:affliction_id',
+  wrapper(afflictionController.getOneAffliction)
 );
