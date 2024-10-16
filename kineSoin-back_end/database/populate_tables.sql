@@ -108,7 +108,7 @@ INSERT INTO prescriptions ("medic_id", "patient_id", "affliction_id", "appointme
 
 
 INSERT INTO appointments ("prescription_id", "therapist_id", "patient_id", "date", "time", "is_accepted", "created_at") VALUES
-(1, 1, 1, '2024-10-15', '15:00:00', true, NOW()),
+(1, 1, 1, '2024-10-16', '15:00:00', true, NOW()),
 (1, 1, 1, '2022-02-05', '10:30:00', false, NOW()),
 (1, 1, 1, '2022-03-22', '09:00:00', true, NOW()),
 (1, 1, 1, '2022-04-15', '14:45:00', false, NOW()),

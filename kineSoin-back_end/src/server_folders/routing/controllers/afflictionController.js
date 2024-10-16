@@ -1,22 +1,6 @@
 import Joi from 'joi';
-import { Op } from 'sequelize';
-import { v2 as cloudinary } from 'cloudinary';
-import multer from 'multer';
-import jsonwebtoken from 'jsonwebtoken';
-
-import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
-import computeAge from '../../utils/computeAge.js';
-import { Scrypt } from '../../authentification/Scrypt.js';
-import { patientPhotoStorage } from '../../cloudinary/index.js';
-import {
-  Patient,
-  Appointment,
-  Admin,
-  Affliction,
-} from '../../models/associations.js';
-import { application } from 'express';
-import { parse } from 'dotenv';
+import { Affliction } from '../../models/associations.js';
 
 const afflictionController = {
   getAllAfflictions: async (req, res) => {
@@ -28,6 +12,7 @@ const afflictionController = {
         'insurance_code',
         'is_operated',
       ],
+      order: [['id', 'ASC']],
       include: [
         {
           association: 'body_region',
@@ -35,14 +20,17 @@ const afflictionController = {
         },
       ],
     });
+
     if (!foundAfflictions) {
       return res.status(404).json({ message: 'No afflictions found.' });
     } else {
-      return res.status(200).json({ foundAfflictions });
+      return res.status(200).json(foundAfflictions);
     }
   },
+
   createAffliction: async (req, res) => {
     const admin_id = parseInt(req.admin.id, 10);
+
     checkIsIdNumber(admin_id);
 
     const newAfflictionSchema = Joi.object({
@@ -52,12 +40,15 @@ const afflictionController = {
       insurance_code: Joi.string().max(255).required(),
       is_operated: Joi.boolean().required(),
     });
+
     const { error } = newAfflictionSchema.validate(req.body);
+
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     } else {
       const { body_region_id, name, description, insurance_code, is_operated } =
         req.body;
+
       const newAffliction = await Affliction.create({
         admin_id,
         body_region_id,
@@ -66,21 +57,23 @@ const afflictionController = {
         insurance_code,
         is_operated,
       });
+
       if (!newAffliction) {
         return res
           .status(500)
           .json({ message: 'Error while creating affliction.' });
       } else {
-        return res.status(201).json({ newAffliction });
+        return res.status(201).json(newAffliction);
       }
     }
   },
+
   getOneAffliction: async (req, res) => {
     const affliction_id = parseInt(req.params.affliction_id, 10);
+
     checkIsIdNumber(affliction_id);
 
-    const foundAffliction = await Affliction.findOne({
-      where: { id: affliction_id },
+    const foundAffliction = await Affliction.findByPk(affliction_id, {
       attributes: [
         'id',
         'name',
@@ -95,17 +88,21 @@ const afflictionController = {
         },
       ],
     });
+
     if (!foundAffliction) {
       return res.status(404).json({ message: 'Affliction not found.' });
     } else {
       return res.status(200).json({ foundAffliction });
     }
   },
+
   updateAffliction: async (req, res) => {
     const admin_id = parseInt(req.admin.id, 10);
+
     checkIsIdNumber(admin_id);
 
     const affliction_id = parseInt(req.params.affliction_id, 10);
+
     checkIsIdNumber(affliction_id);
 
     const updatedAfflictionSchema = Joi.object({
@@ -117,15 +114,15 @@ const afflictionController = {
     }).min(1);
 
     const { error } = updatedAfflictionSchema.validate(req.body);
+
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     } else {
       const { body_region_id, name, description, insurance_code, is_operated } =
         req.body;
 
-      const foundAffliction = await Affliction.findOne({
-        where: { id: affliction_id },
-      });
+      const foundAffliction = await Affliction.findByPk(affliction_id);
+
       if (!foundAffliction) {
         return res.status(404).json({ message: 'Affliction not found.' });
       } else {
@@ -136,7 +133,9 @@ const afflictionController = {
           insurance_code: insurance_code || foundAffliction.insurance_code,
           is_operated: is_operated || foundAffliction.is_operated,
         };
+
         const updatedAffliction = await foundAffliction.update(newAffliction);
+
         if (!updatedAffliction) {
           return res
             .status(500)
@@ -150,16 +149,19 @@ const afflictionController = {
       }
     }
   },
+
   deleteAffliction: async (req, res) => {
     const afflictionId = parseInt(req.params.affliction_id, 10);
+
     checkIsIdNumber(afflictionId);
-    const foundAffliction = await Affliction.findOne({
-      where: { id: afflictionId },
-    });
+
+    const foundAffliction = await Affliction.findByPl(afflictionId);
+
     if (!foundAffliction) {
       return res.status(404).json({ message: 'Affliction not found.' });
     } else {
       const deletedAffliction = await foundAffliction.destroy();
+
       if (!deletedAffliction) {
         return res
           .status(500)

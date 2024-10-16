@@ -98,7 +98,7 @@
     "phone_number": "0678901234",
     "email": "claire@example.com",
     "password": "clairePass123",
-    "status": "active",
+    "status": "pending",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663210/6_z8tfwb.webp"
   },
   {
@@ -183,7 +183,7 @@
     "phone_number": "0787654321",
     "email": "gabriel@example.com",
     "password": "gabrielPass123",
-    "status": "active",
+    "status": "banished",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663215/11_zwgzcn.webp"
   },
   {
@@ -268,7 +268,7 @@
     "phone_number": "0123456788",
     "email": "cecile@example.com",
     "password": "cecilePass123",
-    "status": "active",
+    "status": "inactive",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663220/16_xjxozw.webp"
   },
   {

@@ -19,6 +19,11 @@ const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
 
 export const patientRouter = Router();
 
+patientRouter.get(
+  '/me/dashboard',
+  wrapper(patientController.getPatientDashboardData)
+);
+
 // Patient routes
 patientRouter.get('/me', wrapper(patientController.getConnectedPatient));
 patientRouter.delete('/me', wrapper(patientController.deleteConnectedPatient));

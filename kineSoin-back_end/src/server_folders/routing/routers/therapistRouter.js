@@ -1,21 +1,20 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import {
-  patientPhotoStorage,
-  prescriptionScanStorage,
-  therapistPhotoStorage,
-} from '../../cloudinary/index.js';
+import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import patientController from '../controllers/patientController.js';
 import appointmentController from '../controllers/appointmentController.js';
-import messageController from '../controllers/messageController.js';
-import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
 export const therapistRouter = Router();
+
+therapistRouter.get(
+  '/me/dashboard',
+  wrapper(therapistController.getTherapistDashboardData)
+);
 
 therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
 therapistRouter.delete(
@@ -33,18 +32,27 @@ therapistRouter.post(
 );
 
 therapistRouter.get(
-  '/pendingPatients',
+  '/me/pendingPatients',
   wrapper(patientController.getPendingPatients)
 );
 therapistRouter.get(
-  '/allMyPatients',
+  '/me/allMyPatients',
   wrapper(patientController.getAllMyPatients)
 );
-therapistRouter.get('/allPatients', wrapper(patientController.getAllPatients));
-therapistRouter.get('/patients/:id', wrapper(patientController.getOnePatient));
+therapistRouter.get(
+  '/me/allPatients',
+  wrapper(patientController.getAllPatients)
+);
+therapistRouter.get(
+  '/me/patients/:patient_id',
+  wrapper(patientController.getOnePatient)
+);
 
 therapistRouter.post(
-  '/newAppointment',
+  '/me/newAppointment',
   wrapper(appointmentController.addNewAppointment)
 );
-therapistRouter.get('/appointments', wrapper(appointmentController.getAllMyAppointments));
+therapistRouter.get(
+  '/me/appointments',
+  wrapper(appointmentController.getAllMyAppointments)
+);

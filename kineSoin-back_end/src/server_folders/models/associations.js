@@ -181,6 +181,28 @@ Insurance.belongsToMany(Patient, {
   onUpdate: 'CASCADE',
 });
 
+Patient.hasMany(Appointment, {
+  foreignKey: 'patient_id',
+  as: 'appointments',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Appointment.belongsTo(Patient, {
+  foreignKey: 'patient_id',
+  as: 'patient',
+});
+
+Therapist.hasMany(Appointment, {
+  foreignKey: 'therapist_id',
+  as: 'appointments',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Appointment.belongsTo(Therapist, {
+  foreignKey: 'therapist_id',
+  as: 'therapist',
+});
+
 export {
   Admin,
   Affliction,

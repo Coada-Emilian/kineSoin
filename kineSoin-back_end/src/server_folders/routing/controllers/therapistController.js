@@ -11,6 +11,35 @@ import { Patient, Appointment, Therapist } from '../../models/associations.js';
 multer({ storage: therapistPhotoStorage });
 
 const therapistController = {
+  getTherapistDashboardData: async (req, res) => {
+    // const therapistId = parseInt(req.therapist_id, 10);
+
+    const therapistId = 1;
+
+    checkIsIdNumber(therapistId);
+
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    const sameDayAppointments = await Appointment.findAll({
+      attributes: ['id', 'date', 'time'],
+      where: {
+        therapist_id: therapistId,
+        is_accepted: true,
+        is_canceled: false,
+        date: { [Op]: currentDate },
+      },
+      order: [['time', 'ASC']],
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['id', 'name', 'surname', 'picture_url'],
+        },
+      ],
+    });
+
+    res.status(200).json(sameDayAppointments);
+  },
+
   getPersonalTherapist: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -49,10 +78,12 @@ const therapistController = {
       res.status(200).json(therapist);
     }
   },
-  
+
   getConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
+
     const therapistId = 1;
+
     checkIsIdNumber(therapistId);
 
     const foundTherapist = await Therapist.findByPk(therapistId, {
@@ -68,12 +99,13 @@ const therapistController = {
         'email',
       ],
     });
+
     if (!foundTherapist) {
       return res.status(400).json({ message: 'Therapist not found' });
     }
+
     const sentTherapist = {
       id: foundTherapist.id,
-      name: foundTherapist.name,
       surname: foundTherapist.surname,
       fullName: `${foundTherapist.name} ${foundTherapist.surname}`,
       picture_url: foundTherapist.picture_url,
@@ -83,22 +115,17 @@ const therapistController = {
       specialty: foundTherapist.specialty,
       email: foundTherapist.email,
     };
-    const currentDate = new Date().toISOString().split('T')[0];
-    const sameDayAppointments = await Appointment.findAll({
-      where: {
-        therapist_id: therapistId,
-        is_accepted: true,
-        is_canceled: false,
-        date: { [Op]: currentDate },
-      },
-      order: [['time', 'ASC']],
-    });
-    res.status(200).json({ sentTherapist, sameDayAppointments });
+
+    res.status(200).json({ sentTherapist });
   },
+
   deleteConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
+
     const therapistId = 1;
+
     checkIsIdNumber(therapistId);
+
     const response = await Therapist.destroy({ where: { id: therapistId } });
 
     if (!response) {
@@ -109,9 +136,12 @@ const therapistController = {
         .json({ message: 'Therapist deleted successfully!' });
     }
   },
+
   updateConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
+
     const therapistId = 1;
+
     checkIsIdNumber(therapistId);
 
     const updateTherapistSchema = Joi.object({
@@ -193,9 +223,8 @@ const therapistController = {
         return res.status(400).json({ message: 'New passwords do not match' });
       }
 
-      // Hash the new password
       const hashedNewPassword = Scrypt.hash(new_password);
-      // Update the new profile object with the new password
+
       newProfile.password = hashedNewPassword;
     }
 
@@ -205,8 +234,10 @@ const therapistController = {
       .status(200)
       .json({ message: 'Therapist updated successfully!', foundTherapist });
   },
+
   uploadTherapistPhoto: async (req, res) => {
     const therapistId = parseInt(req.therapist_id, 10);
+
     checkIsIdNumber(therapistId);
 
     if (!req.file) {
@@ -229,8 +260,12 @@ const therapistController = {
             err.message
           );
         }
+        const { filePath, filename } = req.file;
+
         foundTherapist.picture_id = filename;
+
         foundTherapist.picture_url = filePath;
+
         await foundTherapist.save();
 
         return res.status(200).json({
@@ -240,28 +275,33 @@ const therapistController = {
       }
     }
   },
+
   getAllTherapists: async (req, res) => {
-    const therapists = await Therapist.findAll({
-      attributes: [
-        'id',
-        'name',
-        'surname',
-        'description',
-        'diploma',
-        'experience',
-        'specialty',
-        'picture_url',
-      ],
+    const foundTherapists = await Therapist.findAll({
+      attributes: ['id', 'name', 'surname'],
     });
 
-    if (!therapists) {
+    if (!foundTherapists) {
       return res.status(400).json({ message: 'No therapists found' });
     }
 
-    return res.status(200).json({ therapists });
+    const allTherapists = [];
+
+    for (const therapist of foundTherapists) {
+      const newTherapist = {
+        id: therapist.id,
+        fullName: `${therapist.name} ${therapist.surname}`,
+        status: 'active',
+      };
+      allTherapists.push(newTherapist);
+    }
+
+    return res.status(200).json(allTherapists);
   },
+
   getOneTherapist: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
+
     checkIsIdNumber(therapistId);
 
     const foundTherapist = await Therapist.findByPk(therapistId, {
@@ -290,10 +330,13 @@ const therapistController = {
       experience: foundTherapist.experience,
       specialty: foundTherapist.specialty,
     };
+
     return res.status(200).json({ sentTherapist });
   },
+
   deleteTherapist: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
+
     checkIsIdNumber(therapistId);
 
     const response = await Therapist.destroy({ where: { id: therapistId } });
@@ -306,9 +349,12 @@ const therapistController = {
         .json({ message: 'Therapist deleted successfully!' });
     }
   },
+
   createTherapist: async (req, res) => {
     const adminId = parseInt(req.admin_id, 10);
+
     checkIsIdNumber(adminId);
+
     const createTherapistSchema = Joi.object({
       name: Joi.string().max(50).required(),
       surname: Joi.string().max(50).required(),
@@ -346,10 +392,12 @@ const therapistController = {
     if (foundTherapist) {
       return res.status(400).json({ message: 'Therapist already exists' });
     }
+
     if (password !== repeated_password) {
       return res.status(400).json({ message: 'Passwords do not match' });
     } else {
       const hashedPassword = Scrypt.hash(password);
+
       if (!req.file) {
         return res.status(400).json({
           message: 'No file detected. Please upload a file to continue.',
@@ -372,6 +420,7 @@ const therapistController = {
           specialty,
           licence_code,
         };
+
         const createdTherapist = await Therapist.create(newTherapist);
 
         if (!createdTherapist) {
@@ -382,7 +431,16 @@ const therapistController = {
 
         return res.status(200).json({
           message: 'Therapist created successfully!',
-          createdTherapist,
+          createdTherapist: {
+            id: createdTherapist.id,
+            fullName: `${createdTherapist.name} ${createdTherapist.surname}`,
+            picture_url: createdTherapist.picture_url,
+            description: createdTherapist.description,
+            diploma: createdTherapist.diploma,
+            experience: createdTherapist.experience,
+            specialty: createdTherapist.specialty,
+            licence_code: createdTherapist.licence_code,
+          },
         });
       }
     }

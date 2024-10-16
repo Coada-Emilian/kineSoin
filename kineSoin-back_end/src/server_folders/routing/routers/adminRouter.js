@@ -2,15 +2,10 @@ import { Router } from 'express';
 import multer from 'multer';
 
 import {
-  patientPhotoStorage,
-  prescriptionScanStorage,
   therapistPhotoStorage,
 } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import patientController from '../controllers/patientController.js';
-import appointmentController from '../controllers/appointmentController.js';
-import messageController from '../controllers/messageController.js';
-import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
 import adminController from '../controllers/adminController.js';
 import afflictionController from '../controllers/afflictionController.js';

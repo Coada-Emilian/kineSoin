@@ -13,7 +13,7 @@ import { Patient } from '../../models/associations.js';
 multer({ storage: patientPhotoStorage });
 
 const patientController = {
-  getConnectedPatient: async (req, res) => {
+  getPatientDashboardData: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
     const patientId = 1;
@@ -22,6 +22,94 @@ const patientController = {
 
     const currentDate = new Date().toISOString().split('T')[0];
     const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
+
+    const foundPatient = await Patient.findByPk(patientId, {
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+          'birth_name',
+        ],
+      },
+      include: [
+        {
+          association: 'prescriptions',
+          where: { is_completed: false },
+          required: false,
+          attributes: [
+            'id',
+            'appointment_quantity',
+            'at_home_care',
+            'date',
+            'picture_url',
+          ],
+          include: [
+            {
+              association: 'appointments',
+              where: {
+                [Op.and]: [{ is_canceled: false }, { is_accepted: true }],
+              },
+              required: false,
+              attributes: ['id', 'date', 'time'],
+            },
+            { association: 'medic', attributes: ['name', 'surname'] },
+            { association: 'affliction', attributes: ['name', 'description'] },
+          ],
+        },
+      ],
+    });
+
+    const modifiedPrescriptions = [];
+
+    for (const prescription of foundPatient.prescriptions) {
+      const past_appointments = [];
+      const upcoming_appointments = [];
+
+      for (const appointment of prescription.appointments) {
+        if (appointment.date < currentDate && appointment.time < currentTime) {
+          past_appointments.push(appointment);
+        } else {
+          upcoming_appointments.push(appointment);
+        }
+      }
+
+      const modifiedPrescription = {
+        id: prescription.id,
+        appointment_quantity: prescription.appointment_quantity,
+        at_home_care: prescription.at_home_care,
+        date: prescription.date,
+        picture_url: prescription.picture_url,
+        past_appointments,
+        upcoming_appointments,
+      };
+
+      modifiedPrescriptions.push(modifiedPrescription);
+    }
+
+    const sentPatientData = {
+      fullName: `${foundPatient.name} ${foundPatient.surname}`,
+      surname: foundPatient.surname,
+      address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
+      age: computeAge(foundPatient.birth_date),
+      gender: foundPatient.gender,
+      insurance: foundPatient.insurance,
+      prescriptions: modifiedPrescriptions,
+    };
+
+    res.status(200).json(sentPatientData);
+  },
+
+  getConnectedPatient: async (req, res) => {
+    // const patientId = parseInt(req.patient_id, 10);
+
+    const patientId = 1;
+
+    checkIsIdNumber(patientId);
 
     const foundPatient = await Patient.findByPk(patientId, {
       attributes: {
@@ -91,33 +179,6 @@ const patientController = {
     const address = `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`;
     const fullName = `${foundPatient.name} ${foundPatient.surname}`;
 
-    const modifiedPrescriptions = [];
-
-    for (const prescription of foundPatient.prescriptions) {
-      const past_appointments = [];
-      const upcoming_appointments = [];
-
-      for (const appointment of prescription.appointments) {
-        if (appointment.date < currentDate && appointment.time < currentTime) {
-          past_appointments.push(appointment);
-        } else {
-          upcoming_appointments.push(appointment);
-        }
-      }
-
-      const modifiedPrescription = {
-        id: prescription.id,
-        appointment_quantity: prescription.appointment_quantity,
-        at_home_care: prescription.at_home_care,
-        date: prescription.date,
-        picture_url: prescription.picture_url,
-        past_appointments,
-        upcoming_appointments,
-      };
-
-      modifiedPrescriptions.push(modifiedPrescription);
-    }
-
     const { picture_url } = foundPatient;
 
     const sentPatientData = {
@@ -128,7 +189,7 @@ const patientController = {
       age: computeAge(foundPatient.birth_date),
       gender: foundPatient.gender,
       insurance: foundPatient.insurance,
-      prescriptions: modifiedPrescriptions,
+      prescriptions: foundPatient.prescriptions,
     };
 
     res.status(200).json(sentPatientData);
@@ -320,7 +381,7 @@ const patientController = {
       }
     }
   },
-  
+
   getPendingPatients: async (req, res) => {
     const pendingPatients = await Patient.findAll({
       where: {
@@ -351,6 +412,7 @@ const patientController = {
       return res.status(400).json({ message: 'No pending patients found' });
     }
     const sentPatients = [];
+
     for (const patient of pendingPatients) {
       const newPatient = {
         id: patient.id,
@@ -358,17 +420,23 @@ const patientController = {
         fullName: `${patient.name} ${patient.surname}`,
         age: computeAge(patient.birth_date),
       };
+
       sentPatients.push(newPatient);
     }
+
     return res.status(200).json(sentPatients);
   },
+
   getAllMyPatients: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
+
     const therapistId = 1;
+
     checkIsIdNumber(therapistId);
 
     const foundPatients = await Patient.findAll({
       where: { therapist_id: therapistId },
+      order: [['status', 'ASC']],
       attributes: ['id', 'name', 'surname', 'status', 'birth_date'],
     });
 
@@ -379,25 +447,18 @@ const patientController = {
     const sentPatients = [];
 
     for (const patient of foundPatients) {
-      if (
-        !(
-          patient.status === 'pending' ||
-          patient.status === 'banished' ||
-          patient.status === 'inactive'
-        )
-      ) {
-        const newPatient = {
-          id: patient.id,
-          status: patient.status,
-          fullName: `${patient.name} ${patient.surname}`,
-          age: computeAge(patient.birth_date),
-        };
-        sentPatients.push(newPatient);
-      }
+      const newPatient = {
+        id: patient.id,
+        status: patient.status,
+        fullName: `${patient.name} ${patient.surname}`,
+        age: computeAge(patient.birth_date),
+      };
+      sentPatients.push(newPatient);
     }
 
     return res.status(200).json(sentPatients);
   },
+
   getAllPatients: async (req, res) => {
     const foundPatients = await Patient.findAll({
       attributes: [
@@ -414,10 +475,13 @@ const patientController = {
       ],
       order: [['status', 'ASC']],
     });
+
     if (!foundPatients) {
       return res.status(400).json({ message: 'No patients found' });
     }
+
     const sentPatients = [];
+
     for (const patient of foundPatients) {
       const newPatient = {
         id: patient.id,
@@ -432,8 +496,10 @@ const patientController = {
 
     return res.status(200).json(sentPatients);
   },
+
   getOnePatient: async (req, res) => {
-    const patientId = parseInt(req.params.id, 10);
+    const patientId = parseInt(req.params.patient_id, 10);
+
     checkIsIdNumber(patientId);
 
     const foundPatient = await Patient.findByPk(patientId, {
@@ -524,6 +590,7 @@ const patientController = {
     };
     return res.status(200).json(sentPatient);
   },
+
   getActivePatients: async (req, res) => {
     const activePatients = await Patient.findAll({
       where: { status: 'active' },
@@ -553,12 +620,14 @@ const patientController = {
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
         };
+
         sentPatients.push(newPatient);
       }
 
       return res.status(200).json(sentPatients);
     }
   },
+
   getPendingPatients: async (req, res) => {
     const pendingPatients = await Patient.findAll({
       where: { status: 'pending' },
@@ -588,6 +657,7 @@ const patientController = {
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
         };
+
         sentPatients.push(newPatient);
       }
 
@@ -623,6 +693,7 @@ const patientController = {
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
         };
+
         sentPatients.push(newPatient);
       }
 
@@ -658,6 +729,7 @@ const patientController = {
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
         };
+
         sentPatients.push(newPatient);
       }
 

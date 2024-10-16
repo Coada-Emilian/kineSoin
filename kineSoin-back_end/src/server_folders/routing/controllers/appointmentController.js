@@ -359,22 +359,31 @@ const appointmentController = {
 
   addNewAppointment: async (req, res) => {
     // const therapistId = parseInt(req.body.therapist_id, 10);
+
     // const prescriptionId = parseInt(req.body.prescription_id, 10);
+
     // const patientId = parseInt(req.patient_id, 10);
+
     const therapistId = 1;
+
     const prescriptionId = 1;
+
     const patientId = 1;
 
     checkIsIdNumber(therapistId);
+
     checkIsIdNumber(prescriptionId);
+
     checkIsIdNumber(patientId);
 
     const { date, time } = req.body;
 
     const allAppointments = await Appointment.findAll();
+
     const existingAppointment = allAppointments.find(
       (appointment) => appointment.date === date && appointment.time === time
     );
+
     if (existingAppointment) {
       return res.status(400).json({
         message: 'An appointment already exists at this date and time',
@@ -402,9 +411,12 @@ const appointmentController = {
       });
     }
   },
+
   getAllMyAppointments: async (req, res) => {
     // const therapist_id = parseInt(req.therapist_id, 10);
+
     const therapist_id = 1;
+
     checkIsIdNumber(therapist_id);
 
     const { day, month, year } = req.body;
@@ -440,6 +452,7 @@ const appointmentController = {
         ['time', 'ASC'],
       ],
     });
+    
     if (!foundAppointments.length) {
       return res.status(200).json({ message: 'No appointments found' });
     }
