@@ -168,7 +168,7 @@ Patient.belongsToMany(Insurance, {
   through: Patient_Insurance,
   foreignKey: 'patient_id',
   otherKey: 'insurance_id',
-  as: 'insurances',
+  as: 'insurance',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
@@ -176,7 +176,7 @@ Insurance.belongsToMany(Patient, {
   through: Patient_Insurance,
   foreignKey: 'insurance_id',
   otherKey: 'patient_id',
-  as: 'patients',
+  as: 'insured_patient',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });

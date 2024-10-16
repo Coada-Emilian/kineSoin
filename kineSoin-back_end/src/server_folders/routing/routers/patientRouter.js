@@ -11,6 +11,7 @@ import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
 import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
+import insuranceController from '../controllers/insuranceController.js';
 
 const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
@@ -25,6 +26,10 @@ patientRouter.post(
   uploadPatientPhoto.single('photo'),
   patientController.uploadPatientPhoto
 );
+
+patientRouter.get('/insurance', wrapper(insuranceController.getInsurance));
+patientRouter.patch('/insurance', wrapper(insuranceController.updateInsurance));
+patientRouter.post('/insurance', wrapper(insuranceController.addInsurance));
 
 patientRouter.get(
   '/proposedAppointments',

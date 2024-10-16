@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import { Op } from 'sequelize';
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 
@@ -8,9 +7,7 @@ import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import computeAge from '../../utils/computeAge.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 import { patientPhotoStorage } from '../../cloudinary/index.js';
-import { Patient, Appointment } from '../../models/associations.js';
-import { application } from 'express';
-import { parse } from 'dotenv';
+import { Patient } from '../../models/associations.js';
 
 multer({ storage: patientPhotoStorage });
 
@@ -19,6 +16,10 @@ const patientController = {
     // const patientId = parseInt(req.patient_id, 10);
     const patientId = 1;
     checkIsIdNumber(patientId);
+
+    const currentDate = new Date().toISOString().split('T')[0];
+    const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
+
     const foundPatient = await Patient.findByPk(patientId, {
       attributes: {
         exclude: [
@@ -29,7 +30,6 @@ const patientController = {
           'created_at',
           'updated_at',
           'picture_id',
-          'gender',
           'birth_name',
         ],
       },
@@ -54,6 +54,27 @@ const patientController = {
             { association: 'affliction', attributes: ['name', 'description'] },
           ],
         },
+        {
+          association: 'insurance',
+          attributes: [
+            'id',
+            'name',
+            'amc_code',
+            'street_number',
+            'street_name',
+            'postal_code',
+            'city',
+            'phone_number',
+          ],
+          through: {
+            attributes: [
+              'adherent_code',
+              'contract_number',
+              'start_date',
+              'end_date',
+            ],
+          },
+        },
       ],
     });
     checkPatientStatus(foundPatient);
@@ -61,8 +82,6 @@ const patientController = {
     const address = `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`;
     const fullName = `${foundPatient.name} ${foundPatient.surname}`;
 
-    const currentDate = new Date().toISOString().split('T')[0];
-    const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
     const modifiedPrescriptions = [];
 
     for (const prescription of foundPatient.prescriptions) {
@@ -94,6 +113,8 @@ const patientController = {
       picture_url,
       address,
       age: computeAge(foundPatient.birth_date),
+      gender: foundPatient.gender,
+      insurance: foundPatient.insurance,
       prescriptions: modifiedPrescriptions,
     };
 
@@ -103,7 +124,9 @@ const patientController = {
     // const patientId = parseInt(req.patient_id, 10);
     const patientId = 1;
     checkIsIdNumber(patientId);
+
     const response = await Patient.destroy({ where: { id: patientId } });
+
     if (!response) {
       return res.status(400).json({ message: 'Patient not found' });
     } else {
@@ -216,8 +239,20 @@ const patientController = {
 
     return res.status(200).json({
       message: 'Profile updated successfully!',
-      foundPatient,
-      age: computeAge(foundPatient.birth_date),
+      foundPatient: {
+        id: foundPatient.id,
+        name: foundPatient.name,
+        surname: foundPatient.surname,
+        birth_date: foundPatient.birth_date,
+        gender: foundPatient.gender,
+        street_number: foundPatient.street_number,
+        street_name: foundPatient.street_name,
+        postal_code: foundPatient.postal_code,
+        city: foundPatient.city,
+        email: foundPatient.email,
+        picture_url: foundPatient.picture_url,
+        age: computeAge(foundPatient.birth_date),
+      },
     });
   },
   uploadPatientPhoto: async (req, res) => {
@@ -600,6 +635,7 @@ const patientController = {
       return res.status(200).json(sentPatients);
     }
   },
+  
 };
 
 export default patientController;

@@ -14,9 +14,6 @@ VALUES
 (1, 'SMIP', 'AMC009', '5', 'Place Gambetta', '33000', 'Bordeaux', '+33 5 57 85 00 00', NOW(), NOW()),
 (1, 'Mutuelle Entrain', 'AMC010', '14', 'Rue de Rivoli', '75001', 'Paris', '+33 1 42 60 00 01', NOW(), NOW());
 
-
-
-
 INSERT INTO body_regions ("admin_id", "name", "created_at") VALUES
 (1, 'Cou', NOW()),
 (1, 'Épaule', NOW()),

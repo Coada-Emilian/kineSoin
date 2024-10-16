@@ -5,7 +5,8 @@ import jsonwebtoken from 'jsonwebtoken';
 import computeAge from '../../utils/computeAge.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 
-import { Patient, Therapist, Admin } from '../../models/index.js';
+import { Patient, Therapist } from '../../models/index.js';
+import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 
 const authentificationController = {
   registerPatient: async (req, res) => {
@@ -49,7 +50,7 @@ const authentificationController = {
 
     const existingPatient = await Patient.findOne({ where: { email } });
     if (existingPatient) {
-      return res.status(400).json({
+      return res.status(409).json({
         message:
           'This email address is already registered. Please use a different email or log in.',
       });
@@ -99,15 +100,22 @@ const authentificationController = {
       phone_number,
       email,
       password: hashedPassword,
-      repeated_password,
       picture_url,
       picture_id,
     });
-
-    if (newPatient) {
+    if (!newPatient) {
+      return res.status(400).json({
+        message: 'Patient registration failed. Please try again.',
+      });
+    } else {
       return res.status(201).json({
         message: 'Patient registered successfully.',
-        patient: newPatient,
+        patient: {
+          id: newPatient.id,
+          fullName: `${newPatient.name} ${newPatient.surname}`,
+          email: newPatient.email,
+          picture_url: newPatient.picture_url,
+        },
       });
     }
   },
@@ -129,16 +137,7 @@ const authentificationController = {
 
     const foundPatient = await Patient.findOne({ where: { email } });
 
-    if (
-      !foundPatient ||
-      foundPatient.status === 'pending' ||
-      foundPatient.status === 'banned' ||
-      foundPatient.status === 'inactive'
-    ) {
-      return res.status(401).json({
-        message: `Invalid email or password. Your account is currently ${foundPatient ? foundPatient.status : 'not found'}. Please try again.`,
-      });
-    }
+    checkPatientStatus(foundPatient);
 
     const isPasswordValid = Scrypt.compare(password, foundPatient.password);
 
@@ -159,7 +158,7 @@ const authentificationController = {
     res.status(200).json({
       message: 'Patient logged in successfully.',
       id: foundPatient.id,
-      name: foundPatient.name,
+      fullName: `${foundPatient.name} ${foundPatient.surname}`,
       picture_url: foundPatient.picture_url,
       token,
     });

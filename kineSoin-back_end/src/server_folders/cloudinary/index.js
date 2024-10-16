@@ -31,4 +31,17 @@ const prescriptionScanStorage = new CloudinaryStorage({
   },
 });
 
-export { patientPhotoStorage, therapistPhotoStorage, prescriptionScanStorage };
+const insuranceScanStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'insurance_scans',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf'],
+  },
+});
+
+export {
+  patientPhotoStorage,
+  therapistPhotoStorage,
+  prescriptionScanStorage,
+  insuranceScanStorage,
+};

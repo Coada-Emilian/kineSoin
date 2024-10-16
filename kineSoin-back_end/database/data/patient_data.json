@@ -1358,5 +1358,22 @@
     "password": "philippePass123",
     "status": "active",
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663294/80_wdyw3s.webp"
+  },
+  {
+    "therapist_id": 2,
+    "name": "Coada",
+    "birth_name": "Coada",
+    "surname": "Emilian",
+    "gender": "male",
+    "birth_date": "1989-06-04",
+    "street_number": "9",
+    "street_name": "Route de Messidor",
+    "postal_code": "79120",
+    "city": "Messe",
+    "phone_number": "0642567199",
+    "email": "emilianCoada@example.com",
+    "password": "emilianPass123",
+    "status": "active",
+    "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663294/80_wdywssa3s.webp"
   }
 ]
