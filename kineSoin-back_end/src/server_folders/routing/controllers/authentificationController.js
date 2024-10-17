@@ -220,13 +220,13 @@ const authentificationController = {
       res.status(200).json({
         message: 'Therapist logged in successfully.',
         id: foundTherapist.id,
-        name: foundTherapist.name,
+        fullName: `${foundTherapist.name} ${foundTherapist.surname}`,
         picture_url: foundTherapist.picture_url,
         token,
       });
     }
   },
-  
+
   loginAdmin: async (req, res) => {
     const loginSchema = Joi.object({
       email: Joi.string()
