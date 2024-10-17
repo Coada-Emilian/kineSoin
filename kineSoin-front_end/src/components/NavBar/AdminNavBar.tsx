@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Logo from '/logos/kinesoin-logo.webp';
 import Button from '../Button/Button';
+import AdminMobileNavBar from '../MobileNavBar/AdminMobileNavBar';
 
 interface AdminNavBarProps {
   isAdminAuthenticated: boolean;
@@ -28,6 +29,7 @@ export default function AdminNavBar({
           )}
         </div>
       </nav>
+      <AdminMobileNavBar />
     </header>
   );
 }

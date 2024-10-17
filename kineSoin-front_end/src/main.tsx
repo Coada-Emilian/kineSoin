@@ -9,7 +9,7 @@ import './index.css';
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage.ts';
 import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalStorage.ts';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage.ts';
-import AdminNavBar from './components/NavBar/AdminNavBAr.tsx';
+import AdminNavBar from './components/NavBar/AdminNavBar.tsx';
 
 Modal.setAppElement('#root');
 
