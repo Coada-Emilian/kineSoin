@@ -9,6 +9,7 @@ import './index.css';
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage.ts';
 import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalStorage.ts';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage.ts';
+import AdminNavBar from './components/NavBar/AdminNavBAr.tsx';
 
 Modal.setAppElement('#root');
 
@@ -69,6 +70,7 @@ export default function Root() {
 
   return (
     <BrowserRouter>
+      <AdminNavBar isAdminAuthenticated={isAdminAuthenticated} />
       <App />
     </BrowserRouter>
   );

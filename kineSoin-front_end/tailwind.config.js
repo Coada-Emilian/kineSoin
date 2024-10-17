@@ -10,13 +10,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primaryPink: '#F3D6E0',
-        primaryGrey: '#EBEBEA',
-        primaryText: '#59616B',
-        secondaryPink: '#D85071',
-        secondaryPinkHover: '#e86484',
-        buttonGreen: '#ADD5AF',
-        backgroundPink: '#FFF4F7',
+        primaryTeal: '#6FFFE9',
+        secondaryTeal: '#00E0D1',
+        primaryBlue: '#003249',
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
