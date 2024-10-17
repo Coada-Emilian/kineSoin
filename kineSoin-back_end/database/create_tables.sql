@@ -1,3 +1,5 @@
+-- Purpose: Create the tables of the database.
+
 -- Set the encoding to UTF8
 SET client_encoding = 'UTF8';
 
@@ -16,6 +18,7 @@ CREATE TABLE IF NOT EXISTS "administrators" (
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create insurance_organisms table
 CREATE TABLE IF NOT EXISTS "insurance_organisms" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
@@ -45,6 +48,7 @@ CREATE TABLE IF NOT EXISTS "therapists" (
     "picture_url" TEXT NOT NULL,
     "picture_id" TEXT,
     "licence_code" VARCHAR(255) UNIQUE NOT NULL,
+    "status" VARCHAR(10) NOT NULL DEFAULT 'active',
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
@@ -164,6 +168,7 @@ CREATE TABLE IF NOT EXISTS "therapist_messages" (
     "updated_at" TIMESTAMPTZ
 );
 
+-- Create patient_insurances table
 CREATE TABLE IF NOT EXISTS "patient_insurances" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,

@@ -1,3 +1,5 @@
+// Purpose: Define the appointment controller, which contains the methods for getting, accepting, and canceling appointments for patients.
+
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import {
@@ -9,7 +11,7 @@ import {
 const appointmentController = {
   getAllProposedAppointments: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
-    const patientId = 81;
+    const patientId = 1;
 
     checkIsIdNumber(patientId);
 
@@ -19,6 +21,7 @@ const appointmentController = {
         {
           association: 'prescriptions',
           where: { is_completed: false },
+          attributes: ['id', 'appointment_quantity', 'at_home_care', 'date'],
           required: false,
           include: [
             {
@@ -26,6 +29,13 @@ const appointmentController = {
               where: { is_canceled: false } && { is_accepted: false },
               required: false,
               attributes: ['id', 'date', 'time'],
+              include: [
+                {
+                  association: 'therapist',
+                  required: false,
+                  attributes: ['name', 'surname'],
+                },
+              ],
             },
             {
               association: 'medic',
@@ -52,10 +62,6 @@ const appointmentController = {
       const affliction = prescription.affliction;
 
       const allAppointments = prescription.appointments;
-
-      if (!allAppointments.length) {
-        return res.status(200).json({ proposedAppointments: [] });
-      }
 
       const currentDate = new Date();
 
@@ -93,6 +99,7 @@ const appointmentController = {
     const foundProposedAppointments = await Appointment.findAll({
       where: { patient_id: patientId, is_canceled: false, is_accepted: false },
       attributes: ['id', 'date', 'time'],
+      association: 'therapist',
       include: [
         {
           association: 'prescription',
@@ -207,7 +214,9 @@ const appointmentController = {
 
   getAllAppointments: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
+
     const patientId = 1;
+
     checkIsIdNumber(patientId);
 
     const foundAppointments = await Appointment.findAll({
@@ -332,7 +341,7 @@ const appointmentController = {
     checkIsIdNumber(appointmentId);
 
     const foundAppointment = await Appointment.findOne({
-      where: { patient_id: patientId, id: appointmendId, is_canceled: false },
+      where: { patient_id: patientId, id: appointmentId, is_canceled: false },
     });
 
     if (!foundAppointment) {
@@ -366,17 +375,20 @@ const appointmentController = {
 
     const therapistId = 1;
 
-    const prescriptionId = 1;
-
-    const patientId = 1;
-
     checkIsIdNumber(therapistId);
+
+    const newAppointmentSchema = Joi.object({
+      date: Joi.date().required(),
+      time: Joi.string().required(),
+      patientId: Joi.number().required(),
+      prescriptionId: Joi.number().required(),
+    });
+
+    const { date, time, patientId, prescriptionId } = req.body;
 
     checkIsIdNumber(prescriptionId);
 
     checkIsIdNumber(patientId);
-
-    const { date, time } = req.body;
 
     const allAppointments = await Appointment.findAll();
 
@@ -452,7 +464,7 @@ const appointmentController = {
         ['time', 'ASC'],
       ],
     });
-    
+
     if (!foundAppointments.length) {
       return res.status(200).json({ message: 'No appointments found' });
     }

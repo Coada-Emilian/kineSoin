@@ -1,8 +1,11 @@
+// Purpose: Create a Sequelize instance and authenticate it.
+
 import 'dotenv/config';
 import { Sequelize } from 'sequelize';
 
 export let sequelize;
 
+// Create a Sequelize instance and authenticate it depending on the environment.
 if (process.env.NODE_ENV === 'development') {
   sequelize = new Sequelize(process.env.PG_URL, {
     logging: false,

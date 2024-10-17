@@ -1,13 +1,12 @@
+// Purpose: Define the routes for the admin user.
+
 import { Router } from 'express';
 import multer from 'multer';
-
-import {
-  therapistPhotoStorage,
-} from '../../cloudinary/index.js';
+import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import patientController from '../controllers/patientController.js';
 import therapistController from '../controllers/therapistController.js';
-import adminController from '../controllers/adminController.js';
+import authentificationController from '../controllers/authentificationController.js';
 import afflictionController from '../controllers/afflictionController.js';
 import medicController from '../controllers/medicController.js';
 
@@ -15,7 +14,7 @@ const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
 export const adminRouter = Router();
 
-adminRouter.post('/login', wrapper(adminController.loginAdmin));
+adminRouter.post('/login', wrapper(authentificationController.loginAdmin));
 
 adminRouter.get('/therapists', wrapper(therapistController.getAllTherapists));
 adminRouter.get(

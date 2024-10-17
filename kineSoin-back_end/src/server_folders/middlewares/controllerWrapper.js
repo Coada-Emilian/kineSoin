@@ -1,3 +1,5 @@
+// Purpose: Middleware to wrap controller functions to catch errors and send a 500 status code with a message.
+
 export function controllerWrapper(callback) {
   return async (req, res, next) => {
     try {

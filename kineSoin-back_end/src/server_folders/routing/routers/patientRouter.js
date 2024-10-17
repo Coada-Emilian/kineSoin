@@ -1,12 +1,12 @@
+// Purpose: Define the patient router, which contains the routes that are accessible to the patients.
+
 import { Router } from 'express';
 import multer from 'multer';
-
 import {
   patientPhotoStorage,
   prescriptionScanStorage,
 } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
-
 import patientController from '../controllers/patientController.js';
 import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
@@ -19,12 +19,11 @@ const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
 
 export const patientRouter = Router();
 
+// Patient routes
 patientRouter.get(
   '/me/dashboard',
   wrapper(patientController.getPatientDashboardData)
 );
-
-// Patient routes
 patientRouter.get('/me', wrapper(patientController.getConnectedPatient));
 patientRouter.delete('/me', wrapper(patientController.deleteConnectedPatient));
 patientRouter.patch('/me', wrapper(patientController.updateConnectedPatient));

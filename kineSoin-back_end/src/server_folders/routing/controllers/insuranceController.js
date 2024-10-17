@@ -1,5 +1,6 @@
-import Joi from 'joi';
+// Purpose: Define the insurance controller, which contains the methods for getting, updating, and adding insurance information for patients.
 
+import Joi from 'joi';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Patient, Patient_Insurance } from '../../models/index.js';
 
@@ -7,11 +8,9 @@ const insuranceController = {
   getInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
-    const patientId = 81;
+    const patientId = 80;
 
     checkIsIdNumber(patientId);
-
-    const currentDate = new Date().toISOString().split('T')[0];
 
     const foundPatient = await Patient.findByPk(patientId, {
       attributes: ['id', 'name', 'surname'],
@@ -80,6 +79,12 @@ const insuranceController = {
       end_date: Joi.date().iso().required().greater(Joi.ref('start_date')),
     }).min(2);
 
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    }
+
     const { error } = updateInsuranceSchema.validate(req.body);
 
     if (error) {
@@ -108,11 +113,11 @@ const insuranceController = {
       if (response) {
         return res
           .status(200)
-          .json({ message: 'The insurance updated', response });
+          .json({ message: 'The insurance was updated', response });
       } else {
         return res
           .status(400)
-          .json({ message: 'The insurance not updated', response });
+          .json({ message: 'The insurance was not updated', response });
       }
     }
   },
@@ -131,6 +136,12 @@ const insuranceController = {
       start_date: Joi.date().iso().required(),
       end_date: Joi.date().iso().required().greater(Joi.ref('start_date')),
     });
+
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    }
 
     const { error } = addInsuranceSchema.validate(req.body);
 

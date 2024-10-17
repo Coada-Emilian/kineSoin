@@ -1,3 +1,5 @@
+// Purpose: Define the Therapist model
+
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
 
@@ -60,6 +62,11 @@ Therapist.init(
       type: DataTypes.STRING(255),
       allowNull: false,
       unique: true,
+    },
+    status: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      defaultValue: 'active',
     },
     created_at: {
       type: DataTypes.DATE,

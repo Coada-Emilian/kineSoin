@@ -1,8 +1,9 @@
+// Purpose: Define the prescription controller, which contains the methods for getting all prescriptions, getting one prescription, and adding a new prescription.
+
 import Joi from 'joi';
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Patient, Prescription } from '../../models/associations.js';
-import { where } from 'sequelize';
 
 const prescriptionController = {
   getAllPrescriptions: async (req, res) => {
@@ -114,6 +115,10 @@ const prescriptionController = {
       date: Joi.date().required(),
     });
 
+    if(!req.body) {
+      return res.status(400).json({ message: 'Please provide the prescription details' });
+    }
+    
     const { error } = prescriptionSchema.validate(req.body);
 
     if (error) {

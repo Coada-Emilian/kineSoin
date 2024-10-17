@@ -1,3 +1,5 @@
+// Purpose: to handle requests from the medic routes and send responses back to the client.
+
 import Joi from 'joi';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Medic } from '../../models/associations.js';
@@ -88,6 +90,13 @@ const medicController = {
       licence_code: Joi.string().required(),
     });
 
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
+
     const { error } = medicSchema.validate(req.body);
 
     if (error) {
@@ -146,6 +155,13 @@ const medicController = {
       licence_code: Joi.string().optional(),
     }).min(1);
 
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
+
     const { error } = medicUpdateSchema.validate(req.body);
 
     if (error) {
@@ -179,7 +195,7 @@ const medicController = {
           licence_code: licence_code || foundMedic.licence_code,
         };
 
-        const updatedMedic = await Medic.update(newMedic);
+        const updatedMedic = await foundMedic.update(newMedic);
 
         if (!updatedMedic) {
           return res
@@ -204,14 +220,12 @@ const medicController = {
     if (!foundMedic) {
       return res.status(404).json({ message: 'Medic not found.' });
     } else {
-      const deletedMedic = await Medic.destroy({ where: { id: medic_id } });
+      const deletedMedic = await foundMedic.destroy();
 
       if (!deletedMedic) {
         return res.status(500).json({ message: 'Error while deleting medic.' });
       } else {
-        return res
-          .status(200)
-          .json({ message: 'Medic deleted successfully.', deletedMedic });
+        return res.status(200).json({ message: 'Medic deleted successfully.' });
       }
     }
   },

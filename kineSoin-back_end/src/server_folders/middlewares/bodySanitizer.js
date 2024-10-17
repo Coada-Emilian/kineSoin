@@ -1,3 +1,5 @@
+// Purpose: Sanitize the request body to prevent XSS attacks.
+
 import sanitize from 'sanitize-html';
 
 export const bodySanitizer = (req, res, next) => {

@@ -31,19 +31,40 @@ const therapistController = {
       order: [['time', 'ASC']],
       include: [
         {
+          association: 'patient',
+          attributes: ['id', 'name', 'surname', 'picture_url'],
+        },
+        {
           association: 'therapist',
           attributes: ['id', 'name', 'surname', 'picture_url'],
         },
       ],
     });
 
-    res.status(200).json(sameDayAppointments);
+    let therapist_id = 0;
+    let therapist_fullName = '';
+    let therapist_picture_url = '';
+
+    if (sameDayAppointments.length > 0) {
+      therapist_id = sameDayAppointments[0].therapist.id;
+      therapist_fullName = `${sameDayAppointments[0].therapist.name} ${sameDayAppointments[0].therapist.surname}`;
+      therapist_picture_url = sameDayAppointments[0].therapist.picture_url;
+    }
+
+    res.status(200).json({
+      sameDayAppointments,
+      therapist: {
+        id: therapist_id,
+        fullName: therapist_fullName,
+        picture_url: therapist_picture_url,
+      },
+    });
   },
 
   getPersonalTherapist: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
-    const patientId = 81;
+    const patientId = 1;
 
     checkIsIdNumber(patientId);
 
@@ -52,6 +73,7 @@ const therapistController = {
       include: [
         {
           association: 'therapist',
+          where: { status: 'active' },
           attributes: [
             'id',
             'name',
@@ -68,14 +90,28 @@ const therapistController = {
 
     checkPatientStatus(foundPatient);
 
-    if (!foundPatient.therapist) {
-      return res.status(200).json({
-        message: "Ce patient n'a pas de praticien!",
-        therapist: null,
-      });
+    if (!foundPatient) {
+      return res.status(400).json({ message: 'Patient not found' });
     } else {
-      const therapist = foundPatient.therapist;
-      res.status(200).json(therapist);
+      if (!foundPatient.therapist) {
+        return res.status(200).json({
+          message: "Ce patient n'a pas de praticien!",
+          therapist: null,
+        });
+      } else {
+        const therapist = foundPatient.therapist;
+        res.status(200).json({
+          therapist: {
+            id: therapist.id,
+            fullName: `${therapist.name} ${therapist.surname}`,
+            picture_url: therapist.picture_url,
+            description: therapist.description,
+            diploma: therapist.diploma,
+            experience: therapist.experience,
+            specialty: therapist.specialty,
+          },
+        });
+      }
     }
   },
 
@@ -87,6 +123,7 @@ const therapistController = {
     checkIsIdNumber(therapistId);
 
     const foundTherapist = await Therapist.findByPk(therapistId, {
+      where: { status: 'active' },
       attributes: [
         'id',
         'name',
@@ -116,7 +153,7 @@ const therapistController = {
       email: foundTherapist.email,
     };
 
-    res.status(200).json({ sentTherapist });
+    res.status(200).json(sentTherapist);
   },
 
   deleteConnectedTherapist: async (req, res) => {
@@ -165,13 +202,21 @@ const therapistController = {
       specialty: Joi.string().max(50).optional(),
     }).min(1);
 
+    if (!req.body) {
+      return res
+        .status(400)
+        .json({ message: 'Please provide the data to update the therapist' });
+    }
+
     const { error } = updateTherapistSchema.validate(req.body);
 
     if (error) {
       return res.status(400).json({ message: error.message });
     }
 
-    const foundTherapist = await Therapist.findByPk(therapistId);
+    const foundTherapist = await Therapist.findByPk(therapistId, {
+      where: { status: 'active' },
+    });
 
     if (!foundTherapist) {
       return res.status(400).json({ message: 'Therapist not found' });
@@ -278,7 +323,7 @@ const therapistController = {
 
   getAllTherapists: async (req, res) => {
     const foundTherapists = await Therapist.findAll({
-      attributes: ['id', 'name', 'surname'],
+      attributes: ['id', 'name', 'surname', 'status'],
     });
 
     if (!foundTherapists) {
@@ -291,7 +336,7 @@ const therapistController = {
       const newTherapist = {
         id: therapist.id,
         fullName: `${therapist.name} ${therapist.surname}`,
-        status: 'active',
+        status: therapist.status,
       };
       allTherapists.push(newTherapist);
     }
@@ -314,6 +359,7 @@ const therapistController = {
         'experience',
         'specialty',
         'picture_url',
+        'status',
       ],
     });
 
@@ -329,9 +375,10 @@ const therapistController = {
       diploma: foundTherapist.diploma,
       experience: foundTherapist.experience,
       specialty: foundTherapist.specialty,
+      status: foundTherapist.status,
     };
 
-    return res.status(200).json({ sentTherapist });
+    return res.status(200).json(sentTherapist);
   },
 
   deleteTherapist: async (req, res) => {
@@ -367,6 +414,10 @@ const therapistController = {
       specialty: Joi.string().max(50).required(),
       licence_code: Joi.string().max(255).required(),
     });
+
+    if(!req.body) {
+      return res.status(400).json({ message: 'Please provide the data to create the therapist' });
+    }
 
     const { error } = createTherapistSchema.validate(req.body);
 

@@ -1,3 +1,5 @@
+//  Purpose: Define the routes for the admin user.
+
 import Joi from 'joi';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Affliction } from '../../models/associations.js';
@@ -40,6 +42,13 @@ const afflictionController = {
       insurance_code: Joi.string().max(255).required(),
       is_operated: Joi.boolean().required(),
     });
+
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
 
     const { error } = newAfflictionSchema.validate(req.body);
 
@@ -113,6 +122,13 @@ const afflictionController = {
       is_operated: Joi.boolean().optional(),
     }).min(1);
 
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
+
     const { error } = updatedAfflictionSchema.validate(req.body);
 
     if (error) {
@@ -155,7 +171,7 @@ const afflictionController = {
 
     checkIsIdNumber(afflictionId);
 
-    const foundAffliction = await Affliction.findByPl(afflictionId);
+    const foundAffliction = await Affliction.findByPk(afflictionId);
 
     if (!foundAffliction) {
       return res.status(404).json({ message: 'Affliction not found.' });

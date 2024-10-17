@@ -1,8 +1,9 @@
+// Purpose: Define the patient controller, which contains the functions that are used to handle the patient routes.
+
 import Joi from 'joi';
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 import { Op } from 'sequelize';
-
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import computeAge from '../../utils/computeAge.js';
@@ -64,6 +65,8 @@ const patientController = {
       ],
     });
 
+    checkPatientStatus(foundPatient);
+
     const modifiedPrescriptions = [];
 
     for (const prescription of foundPatient.prescriptions) {
@@ -115,9 +118,6 @@ const patientController = {
       attributes: {
         exclude: [
           'password',
-          'old_password',
-          'new_password',
-          'repeated_password',
           'created_at',
           'updated_at',
           'picture_id',
@@ -188,6 +188,7 @@ const patientController = {
       address,
       age: computeAge(foundPatient.birth_date),
       gender: foundPatient.gender,
+      email: foundPatient.email,
       insurance: foundPatient.insurance,
       prescriptions: foundPatient.prescriptions,
     };
@@ -242,6 +243,12 @@ const patientController = {
       picture_id: Joi.string().max(255).optional(),
     }).min(1);
 
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    }
+
     const { error } = updatePatientSchema.validate(req.body);
 
     if (error) {
@@ -266,53 +273,54 @@ const patientController = {
       picture_id,
     } = req.body;
 
-    const newProfile = {
-      name: name || foundPatient.name,
-      surname: surname || foundPatient.surname,
-      birth_date: birth_date || foundPatient.birth_date,
-      gender: gender || foundPatient.gender,
-      street_number: street_number || foundPatient.street_number,
-      street_name: street_name || foundPatient.street_name,
-      postal_code: postal_code || foundPatient.postal_code,
-      city: city || foundPatient.city,
-      phone_number: phone_number || foundPatient.phone_number,
-      email: email || foundPatient.email,
-      picture_url: picture_url || foundPatient.picture_url,
-      picture_id: picture_id || foundPatient.picture_id,
-    };
-
-    if (new_password) {
-      if (!old_password) {
-        return res.status(400).json({
-          message: 'Old password is required to change the password.',
-        });
-      }
-
-      const isOldPasswordValid = Scrypt.compare(
-        old_password,
-        foundUser.password
-      );
-
-      if (!isOldPasswordValid) {
-        return res.status(400).json({ message: 'Incorrect old password' });
-      }
-
-      if (new_password !== repeated_password) {
-        return res.status(400).json({ message: 'New passwords do not match' });
-      }
-
-      // Hash the new password
-      const hashedNewPassword = Scrypt.hash(new_password);
-      // Update the new profile object with the new password
-      newProfile.password = hashedNewPassword;
-    }
-
     const foundPatient = await Patient.findByPk(patientId);
 
     if (!foundPatient) {
       return res.status(400).json({ message: 'Patient not found' });
     } else {
       checkPatientStatus(foundPatient);
+
+      if (new_password) {
+        if (!old_password) {
+          return res.status(400).json({
+            message: 'Old password is required to change the password.',
+          });
+        }
+
+        const isOldPasswordValid = Scrypt.compare(
+          old_password,
+          foundUser.password
+        );
+
+        if (!isOldPasswordValid) {
+          return res.status(400).json({ message: 'Incorrect old password' });
+        }
+
+        if (new_password !== repeated_password) {
+          return res
+            .status(400)
+            .json({ message: 'New passwords do not match' });
+        }
+
+        const newProfile = {
+          name: name || foundPatient.name,
+          surname: surname || foundPatient.surname,
+          birth_date: birth_date || foundPatient.birth_date,
+          gender: gender || foundPatient.gender,
+          street_number: street_number || foundPatient.street_number,
+          street_name: street_name || foundPatient.street_name,
+          postal_code: postal_code || foundPatient.postal_code,
+          city: city || foundPatient.city,
+          phone_number: phone_number || foundPatient.phone_number,
+          email: email || foundPatient.email,
+          picture_url: picture_url || foundPatient.picture_url,
+          picture_id: picture_id || foundPatient.picture_id,
+        };
+
+        const hashedNewPassword = Scrypt.hash(new_password);
+
+        newProfile.password = hashedNewPassword;
+      }
 
       await foundPatient.update(newProfile);
 
@@ -322,12 +330,8 @@ const patientController = {
           id: foundPatient.id,
           name: foundPatient.name,
           surname: foundPatient.surname,
-          birth_date: foundPatient.birth_date,
           gender: foundPatient.gender,
-          street_number: foundPatient.street_number,
-          street_name: foundPatient.street_name,
-          postal_code: foundPatient.postal_code,
-          city: foundPatient.city,
+          address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
           email: foundPatient.email,
           picture_url: foundPatient.picture_url,
           age: computeAge(foundPatient.birth_date),
@@ -382,51 +386,6 @@ const patientController = {
     }
   },
 
-  getPendingPatients: async (req, res) => {
-    const pendingPatients = await Patient.findAll({
-      where: {
-        status: 'pending',
-      },
-      attributes: {
-        exclude: [
-          'password',
-          'old_password',
-          'new_password',
-          'repeated_password',
-          'created_at',
-          'updated_at',
-          'picture_id',
-          'gender',
-          'street_number',
-          'street_name',
-          'postal_code',
-          'city',
-          'phone_number',
-          'email',
-          'picture_url',
-        ],
-      },
-    });
-
-    if (!pendingPatients) {
-      return res.status(400).json({ message: 'No pending patients found' });
-    }
-    const sentPatients = [];
-
-    for (const patient of pendingPatients) {
-      const newPatient = {
-        id: patient.id,
-        status: patient.status,
-        fullName: `${patient.name} ${patient.surname}`,
-        age: computeAge(patient.birth_date),
-      };
-
-      sentPatients.push(newPatient);
-    }
-
-    return res.status(200).json(sentPatients);
-  },
-
   getAllMyPatients: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
 
@@ -474,6 +433,12 @@ const patientController = {
         'postal_code',
       ],
       order: [['status', 'ASC']],
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['id', 'name', 'surname'],
+        },
+      ],
     });
 
     if (!foundPatients) {
@@ -490,6 +455,9 @@ const patientController = {
         age: computeAge(patient.birth_date),
         address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
         phone_number: patient.phone_number,
+        therapist: patient.therapist
+          ? `${patient.therapist.name} ${patient.therapist.surname}`
+          : null,
       };
       sentPatients.push(newPatient);
     }
@@ -545,7 +513,6 @@ const patientController = {
     if (!foundPatient) {
       return res.status(400).json({ message: 'Patient not found' });
     }
-    checkPatientStatus(foundPatient);
 
     const currentDate = new Date().toISOString().split('T')[0];
     const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
@@ -580,7 +547,7 @@ const patientController = {
       gender: foundPatient.gender,
       address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
       phone_number: foundPatient.phone_number,
-      therapist_name: foundPatient.therapist
+      therapist: foundPatient.therapist
         ? `${foundPatient.therapist.name} ${foundPatient.therapist.surname}`
         : null,
       status: foundPatient.status,
@@ -605,6 +572,12 @@ const patientController = {
           'picture_id',
         ],
       },
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['name', 'surname'],
+        },
+      ],
     });
 
     if (!activePatients) {
@@ -619,6 +592,9 @@ const patientController = {
           age: computeAge(patient.birth_date),
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
+          therapist: patient.therapist
+            ? `${patient.therapist.name} ${patient.therapist.surname}`
+            : null,
         };
 
         sentPatients.push(newPatient);
@@ -642,6 +618,12 @@ const patientController = {
           'picture_id',
         ],
       },
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['name', 'surname'],
+        },
+      ],
     });
 
     if (!pendingPatients) {
@@ -656,6 +638,9 @@ const patientController = {
           age: computeAge(patient.birth_date),
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
+          therapist: patient.therapist
+            ? `${patient.therapist.name} ${patient.therapist.surname}`
+            : null,
         };
 
         sentPatients.push(newPatient);
@@ -664,6 +649,7 @@ const patientController = {
       return res.status(200).json(sentPatients);
     }
   },
+
   getBannedPatients: async (req, res) => {
     const bannedPatients = await Patient.findAll({
       where: { status: 'banned' },
@@ -678,6 +664,12 @@ const patientController = {
           'picture_id',
         ],
       },
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['name', 'surname'],
+        },
+      ],
     });
 
     if (!bannedPatients) {
@@ -692,6 +684,9 @@ const patientController = {
           age: computeAge(patient.birth_date),
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
+          therapist: patient.therapist
+            ? `${patient.therapist.name} ${patient.therapist.surname}`
+            : null,
         };
 
         sentPatients.push(newPatient);
@@ -700,6 +695,7 @@ const patientController = {
       return res.status(200).json(sentPatients);
     }
   },
+
   getInactivePatients: async (req, res) => {
     const inactivePatients = await Patient.findAll({
       where: { status: 'inactive' },
@@ -714,6 +710,12 @@ const patientController = {
           'picture_id',
         ],
       },
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['name', 'surname'],
+        },
+      ],
     });
 
     if (!inactivePatients) {
@@ -728,6 +730,9 @@ const patientController = {
           age: computeAge(patient.birth_date),
           address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
           phone_number: patient.phone_number,
+          therapist: patient.therapist
+            ? `${patient.therapist.name} ${patient.therapist.surname}`
+            : null,
         };
 
         sentPatients.push(newPatient);

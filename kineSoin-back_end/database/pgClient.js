@@ -1,3 +1,5 @@
+// Purpose: Create a PostgreSQL client to connect to the database.
+
 import 'dotenv/config';
 import pg from 'pg';
 

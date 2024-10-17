@@ -1,3 +1,5 @@
+// Purpose: Define the Admin model
+
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
 

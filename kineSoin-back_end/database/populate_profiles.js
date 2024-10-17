@@ -1,3 +1,5 @@
+// Purpose: Populate the database with profiles from the data files.
+
 import { pgClient } from './pgClient.js';
 import { Scrypt } from '../src/server_folders/authentification/Scrypt.js';
 import patients from './data/patient_data.json' with { type: 'json' };
@@ -7,6 +9,7 @@ import admins from './data/admin_data.json' with { type: 'json' };
 
 await pgClient.connect();
 
+// Inserting admin profiles into the database
 for (const admin of admins) {
   const { name, email } = admin;
   const hashedPassword = Scrypt.hash(admin.password);
@@ -15,6 +18,7 @@ for (const admin of admins) {
   console.log(result.rows);
 }
 
+// Inserting therapist profiles into the database
 for (const therapist of therapists) {
   const {
     admin_id,
@@ -26,10 +30,13 @@ for (const therapist of therapists) {
     specialty,
     email,
     picture_url,
+    licence_code,
   } = therapist;
+
   const hashedPassword = Scrypt.hash(therapist.password);
-  const hashedLicenceCode = Scrypt.hash(therapist.licence_code);
+
   const query = `INSERT INTO therapists (admin_id, name, surname, description, diploma, experience, specialty, email, password, picture_url, licence_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
+
   const result = await pgClient.query(query, [
     admin_id,
     name,
@@ -41,11 +48,12 @@ for (const therapist of therapists) {
     email,
     hashedPassword,
     picture_url,
-    hashedLicenceCode,
+    licence_code,
   ]);
   console.log(result.rows);
 }
 
+// Inserting patient profiles into the database
 for (const patient of patients) {
   const {
     therapist_id,
@@ -88,6 +96,7 @@ for (const patient of patients) {
   console.log(result.rows);
 }
 
+// Inserting medic profiles into the database
 for (const medic of medics) {
   const {
     admin_id,

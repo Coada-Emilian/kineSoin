@@ -1,3 +1,5 @@
+// Purpose: Define the Affliction model
+
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
 

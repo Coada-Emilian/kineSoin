@@ -1,3 +1,5 @@
+// Purpose: Model for the patient_insurances table.
+
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
 

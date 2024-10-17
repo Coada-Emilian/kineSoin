@@ -1,3 +1,5 @@
+// Purpose: Define the associations between the models.
+
 import { Admin } from './standalone_models/Admin.js';
 import { Affliction } from './standalone_models/Affliction.js';
 import { Appointment } from './standalone_models/Appointment.js';
@@ -11,50 +13,63 @@ import { Therapist_message } from './standalone_models/Therapist_message.js';
 import { Insurance } from './standalone_models/Insurance.js';
 import { Patient_Insurance } from './associative_tables/Patient_Insurance.js';
 
+// Administrator associations
+Admin.hasMany(Insurance, {
+  foreignKey: 'admin_id',
+  as: 'created_insurances',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Insurance.belongsTo(Admin, {
+  foreignKey: 'admin_id',
+  as: 'creator',
+});
+
 Admin.hasMany(Therapist, {
   foreignKey: 'admin_id',
-  as: 'therapists',
+  as: 'created_therapists',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
 Therapist.belongsTo(Admin, {
   foreignKey: 'admin_id',
-  as: 'admin',
+  as: 'creator',
 });
 
 Admin.hasMany(Medic, {
   foreignKey: 'admin_id',
-  as: 'medics',
+  as: 'created_medics',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
 Medic.belongsTo(Admin, {
   foreignKey: 'admin_id',
-  as: 'admin',
+  as: 'creator',
 });
 
 Admin.hasMany(Body_region, {
   foreignKey: 'admin_id',
-  as: 'body_regions',
+  as: 'created_body_regions',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
 Body_region.belongsTo(Admin, {
   foreignKey: 'admin_id',
-  as: 'admin',
+  as: 'creator',
 });
 
 Admin.hasMany(Affliction, {
   foreignKey: 'admin_id',
-  as: 'afflictions',
+  as: 'created_afflictions',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
 Affliction.belongsTo(Admin, {
   foreignKey: 'admin_id',
-  as: 'admin',
+  as: 'creator',
 });
 
+// Therapist associations
 Therapist.hasMany(Patient, {
   foreignKey: 'therapist_id',
   as: 'patients',
@@ -66,71 +81,17 @@ Patient.belongsTo(Therapist, {
   as: 'therapist',
 });
 
-Medic.hasMany(Prescription, {
-  foreignKey: 'medic_id',
-  as: 'prescriptions',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-Prescription.belongsTo(Medic, {
-  foreignKey: 'medic_id',
-  as: 'medic',
-});
-
-Affliction.hasMany(Prescription, {
-  foreignKey: 'affliction_id',
-  as: 'prescriptions',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-Prescription.belongsTo(Affliction, {
-  foreignKey: 'affliction_id',
-  as: 'affliction',
-});
-
-Patient.hasMany(Prescription, {
-  foreignKey: 'patient_id',
-  as: 'prescriptions',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-Prescription.belongsTo(Patient, {
-  foreignKey: 'patient_id',
-  as: 'patient',
-});
-
-Body_region.hasMany(Affliction, {
-  foreignKey: 'body_region_id',
-  as: 'afflictions',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-Affliction.belongsTo(Body_region, {
-  foreignKey: 'body_region_id',
-  as: 'body_region',
-});
-
-Prescription.hasMany(Appointment, {
-  foreignKey: 'prescription_id',
+Therapist.hasMany(Appointment, {
+  foreignKey: 'therapist_id',
   as: 'appointments',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
-Appointment.belongsTo(Prescription, {
-  foreignKey: 'prescription_id',
-  as: 'prescription',
+Appointment.belongsTo(Therapist, {
+  foreignKey: 'therapist_id',
+  as: 'therapist',
 });
 
-Patient.hasMany(Patient_message, {
-  foreignKey: 'sender_id',
-  as: 'sent_messages',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-Patient_message.belongsTo(Patient, {
-  foreignKey: 'sender_id',
-  as: 'sender',
-});
 Therapist.hasMany(Patient_message, {
   foreignKey: 'receiver_id',
   as: 'received_messages',
@@ -138,17 +99,6 @@ Therapist.hasMany(Patient_message, {
   onUpdate: 'CASCADE',
 });
 Patient_message.belongsTo(Therapist, {
-  foreignKey: 'receiver_id',
-  as: 'receiver',
-});
-
-Patient.hasMany(Therapist_message, {
-  foreignKey: 'receiver_id',
-  as: 'received_messages',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-Therapist_message.belongsTo(Patient, {
   foreignKey: 'receiver_id',
   as: 'receiver',
 });
@@ -162,6 +112,51 @@ Therapist.hasMany(Therapist_message, {
 Therapist_message.belongsTo(Therapist, {
   foreignKey: 'sender_id',
   as: 'sender',
+});
+
+// Patient associations
+Patient.hasMany(Prescription, {
+  foreignKey: 'patient_id',
+  as: 'prescriptions',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Prescription.belongsTo(Patient, {
+  foreignKey: 'patient_id',
+  as: 'patient',
+});
+
+Patient.hasMany(Appointment, {
+  foreignKey: 'patient_id',
+  as: 'appointments',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Appointment.belongsTo(Patient, {
+  foreignKey: 'patient_id',
+  as: 'patient',
+});
+
+Patient.hasMany(Patient_message, {
+  foreignKey: 'sender_id',
+  as: 'sent_messages',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Patient_message.belongsTo(Patient, {
+  foreignKey: 'sender_id',
+  as: 'sender',
+});
+
+Patient.hasMany(Therapist_message, {
+  foreignKey: 'receiver_id',
+  as: 'received_messages',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Therapist_message.belongsTo(Patient, {
+  foreignKey: 'receiver_id',
+  as: 'receiver',
 });
 
 Patient.belongsToMany(Insurance, {
@@ -181,27 +176,54 @@ Insurance.belongsToMany(Patient, {
   onUpdate: 'CASCADE',
 });
 
-Patient.hasMany(Appointment, {
-  foreignKey: 'patient_id',
-  as: 'appointments',
+// Medic associations
+Medic.hasMany(Prescription, {
+  foreignKey: 'medic_id',
+  as: 'prescriptions',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
-Appointment.belongsTo(Patient, {
-  foreignKey: 'patient_id',
-  as: 'patient',
+Prescription.belongsTo(Medic, {
+  foreignKey: 'medic_id',
+  as: 'medic',
 });
 
-Therapist.hasMany(Appointment, {
-  foreignKey: 'therapist_id',
+// Affliction associations
+Affliction.hasMany(Prescription, {
+  foreignKey: 'affliction_id',
+  as: 'prescriptions',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Prescription.belongsTo(Affliction, {
+  foreignKey: 'affliction_id',
+  as: 'affliction',
+});
+
+// Body_region associations
+Body_region.hasMany(Affliction, {
+  foreignKey: 'body_region_id',
+  as: 'afflictions',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Affliction.belongsTo(Body_region, {
+  foreignKey: 'body_region_id',
+  as: 'body_region',
+});
+
+// Prescription associations
+Prescription.hasMany(Appointment, {
+  foreignKey: 'prescription_id',
   as: 'appointments',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
-Appointment.belongsTo(Therapist, {
-  foreignKey: 'therapist_id',
-  as: 'therapist',
+Appointment.belongsTo(Prescription, {
+  foreignKey: 'prescription_id',
+  as: 'prescription',
 });
+
 
 export {
   Admin,

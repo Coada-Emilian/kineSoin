@@ -1,3 +1,5 @@
+// Purpose: Define the message controller, which contains the methods for getting all messages and sending a message to the therapist.
+
 import Joi from 'joi';
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
@@ -7,7 +9,7 @@ const messageController = {
   getAllMessages: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
-    const patientId = 75;
+    const patientId = 1;
 
     checkIsIdNumber(patientId);
 
@@ -16,6 +18,7 @@ const messageController = {
       include: [
         {
           association: 'sent_messages',
+          attributes: ['id', 'content', 'date', 'time'],
           include: [
             {
               association: 'sender',
@@ -68,6 +71,9 @@ const messageController = {
 
     const foundPatient = await Patient.findByPk(patientId);
 
+    if (!foundPatient) {
+      return res.status(400).json({ message: 'Patient not found' });
+    }
     checkPatientStatus(foundPatient);
 
     const receiverId = foundPatient.therapist_id;
@@ -78,6 +84,10 @@ const messageController = {
       content: Joi.string().required(),
     });
 
+    if (!req.body) {
+      return res.status(400).json({ message: 'Request body is missing' });
+    }
+
     const { error } = messageSchema.validate(req.body);
 
     if (error) {
@@ -85,9 +95,12 @@ const messageController = {
     }
 
     const { content } = req.body;
-    
+
     const currentDate = new Date();
-    const currentTime = currentDate.toTimeString();
+    const currentTime = currentDate
+      .toISOString()
+      .split('T')[1]
+      .replace('Z', '');
 
     const sentMessage = await Patient_message.create({
       content,

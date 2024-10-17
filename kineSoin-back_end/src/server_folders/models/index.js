@@ -1,3 +1,5 @@
+// Purpose: Export all models and associations to be used in the server.
+
 import {
   Admin,
   Affliction,

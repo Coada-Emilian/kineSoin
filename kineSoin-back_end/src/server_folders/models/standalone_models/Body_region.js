@@ -1,3 +1,5 @@
+// Purpose: Model for Body_region table.
+
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
 
