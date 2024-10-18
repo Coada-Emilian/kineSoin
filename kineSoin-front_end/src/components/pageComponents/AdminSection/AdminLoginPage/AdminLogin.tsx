@@ -2,7 +2,7 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton.tsx'
 import axios from '../../../../axios.ts';
 import { setAdminTokenAndDataInLocalStorage } from '../../../../localStorage/adminLocalStorage.ts';
 import { useState } from 'react';
-import { Axios, AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface AdminLoginProps {

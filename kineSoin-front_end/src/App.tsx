@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from './axios';
 import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalStorage';
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
-import NavBar from './components/standaloneComponents/NavBar/NavBar';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
 import AdminDashboard from './components/pageComponents/AdminSection/AdminDashboardPage/AdminDashboard';
+import AdminNavBar from './components/pageComponents/standaloneComponents/AdminNavBar/AdminNavBar';
 
 function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
@@ -71,9 +71,29 @@ function App() {
           element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
         />
         {isAdminAuthenticated && (
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminLayout isAdminAuthenticated={isAdminAuthenticated} />
+            }
+          >
+            <Route path="dashboard" element={<AdminDashboard />} />
+          </Route>
         )}
       </Routes>
+    </>
+  );
+}
+
+function AdminLayout({
+  isAdminAuthenticated,
+}: {
+  isAdminAuthenticated: boolean;
+}) {
+  return (
+    <>
+      <AdminNavBar isAdminAuthenticated={isAdminAuthenticated} />
+      <Outlet />
     </>
   );
 }
