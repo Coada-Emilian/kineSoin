@@ -30,7 +30,7 @@ app.use(bodySanitizer);
 app.use('/api/public', publicRouter);
 app.use('/api/patient', patientRouter);
 app.use('/api/therapist', therapistRouter);
-app.use('/admin', adminRouter);
+app.use('/api/admin', adminRouter);
 
 app.disable('x-powered-by');
 

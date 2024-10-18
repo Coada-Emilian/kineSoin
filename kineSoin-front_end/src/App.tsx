@@ -5,7 +5,8 @@ import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLo
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import NavBar from './components/standaloneComponents/NavBar/NavBar';
 import { Route, Routes } from 'react-router-dom';
-import AdminLogin from './components/pageComponents/AdminLogin';
+import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
+import AdminDashboard from './components/pageComponents/AdminSection/AdminDashboardPage/AdminDashboard';
 
 function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
@@ -65,7 +66,13 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/admin" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
+        />
+        {isAdminAuthenticated && (
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        )}
       </Routes>
     </>
   );
