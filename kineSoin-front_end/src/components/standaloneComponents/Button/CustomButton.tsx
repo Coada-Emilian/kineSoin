@@ -5,7 +5,7 @@ interface ButtonProps {
   btnType?: 'button' | 'submit' | 'reset';
 }
 
-export default function Button({
+export default function CustomButton({
   btnText,
   normalBtn,
   btnType,

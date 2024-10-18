@@ -1,15 +1,13 @@
 import { Link } from 'react-router-dom';
 import Logo from '/logos/kinesoin-logo.webp';
-import Button from '../Button/Button';
-import AdminMobileNavBar from '../MobileNavBar/AdminMobileNavBar';
+import Button from '../Button/CustomButton';
+import MobileNavBar from '../MobileNavBar/MobileNavBar';
 
-interface AdminNavBarProps {
+interface NavBarProps {
   isAdminAuthenticated: boolean;
 }
 
-export default function AdminNavBar({
-  isAdminAuthenticated,
-}: AdminNavBarProps) {
+export default function NavBar({ isAdminAuthenticated }: NavBarProps) {
   return (
     <header className="bg-white bg-opacity-90 md:sticky top-0 w-full py-4 z-10">
       <nav className="flex justify-center md:justify-between items-center w-full px-3">
@@ -29,7 +27,7 @@ export default function AdminNavBar({
           )}
         </div>
       </nav>
-      <AdminMobileNavBar />
+      <MobileNavBar />
     </header>
   );
 }
