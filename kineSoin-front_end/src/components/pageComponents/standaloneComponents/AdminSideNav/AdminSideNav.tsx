@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 
-export default function AdminSideNav() {
+interface AdminSideNavProps {
+  windowWidth: number;
+}
+
+export default function AdminSideNav({ windowWidth }: AdminSideNavProps) {
   return (
     <div className="m-4 border-r-2 w-fit border-r-lightGrey h-screen border-solid">
       <Link

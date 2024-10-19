@@ -2,25 +2,13 @@ import { Link } from 'react-router-dom';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
 import LogoutIcon from '/icons/logout.png';
-import LoginIcon from '/icons/login.png';
 import Button from '../../../standaloneComponents/Button/CustomButton';
-import { useEffect, useState } from 'react';
 
-export default function NavBar() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+interface AdminNavBarProps {
+  windowWidth: number;
+}
 
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+export default function AdminNavBar({ windowWidth }: AdminNavBarProps) {
   return (
     <header className="bg-white bg-opacity-90 md:sticky top-0 w-full py-4 z-10">
       <nav className="flex justify-between items-center w-full px-3">

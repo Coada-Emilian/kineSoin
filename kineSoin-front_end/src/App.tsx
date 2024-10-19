@@ -9,6 +9,20 @@ import AdminNavBar from './components/pageComponents/standaloneComponents/AdminN
 import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapisitsPage/AdminTherapistsPage';
 
 function App() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isPatientAuthenticated, setIsPAtientAuthenticated] = useState(false);
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
@@ -74,10 +88,16 @@ function App() {
           <Route
             path="/admin"
             element={
-              <AdminLayout isAdminAuthenticated={isAdminAuthenticated} />
+              <AdminLayout
+                isAdminAuthenticated={isAdminAuthenticated}
+                windowWidth={windowWidth}
+              />
             }
           >
-            <Route path="therapists" element={<AdminTherapistsPage />} />
+            <Route
+              path="therapists"
+              element={<AdminTherapistsPage windowWidth={windowWidth} />}
+            />
           </Route>
         )}
       </Routes>
@@ -87,12 +107,14 @@ function App() {
 
 function AdminLayout({
   isAdminAuthenticated,
+  windowWidth,
 }: {
   isAdminAuthenticated: boolean;
+  windowWidth: number;
 }) {
   return (
     <>
-      <AdminNavBar />
+      <AdminNavBar windowWidth={windowWidth} />
       <Outlet />
     </>
   );

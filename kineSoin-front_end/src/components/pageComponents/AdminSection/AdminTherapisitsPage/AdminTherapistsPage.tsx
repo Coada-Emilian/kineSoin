@@ -3,7 +3,13 @@ import AdminTable from '../../standaloneComponents/AdminTable/AdminTable.tsx';
 import axios from '../../../../axios.ts';
 import { useEffect, useState } from 'react';
 
-export default function AdminTherapistsPage() {
+interface AdminTherapistsPageProps {
+  windowWidth: number;
+}
+
+export default function AdminTherapistsPage({
+  windowWidth,
+}: AdminTherapistsPageProps) {
   const [allTherapists, setAllTherapists] = useState([]);
 
   useEffect(() => {
@@ -16,13 +22,13 @@ export default function AdminTherapistsPage() {
 
   return (
     <main className="w-full flex">
-      {/* <div className="w-1/4">
-        <AdminSideNav />
+      <div className="w-1/4">
+        <AdminSideNav windowWidth={windowWidth} />
       </div>
       <div className="w-3/4">
         {' '}
         <AdminTable allTherapists={allTherapists} />
-      </div> */}
+      </div>
     </main>
   );
 }
