@@ -6,8 +6,9 @@ import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapi
 import { Outlet, Route, Routes } from 'react-router-dom';
 import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
 import AdminNavBar from './components/pageComponents/standaloneComponents/AdminNavBar/AdminNavBar';
-import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapisitsPage/AdminTherapistsPage';
+import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapistsPage/AdminTherapistsPage';
 import AdminFooter from './components/pageComponents/standaloneComponents/AdminFooter/AdminFooter';
+import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapistPage/AdminTherapistPage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -82,9 +83,10 @@ function App() {
     <>
       <Routes>
         <Route
-          path="/admin"
+          path="/loginAdmin"
           element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
         />
+
         {isAdminAuthenticated && (
           <Route
             path="/admin"
@@ -98,6 +100,10 @@ function App() {
             <Route
               path="therapists"
               element={<AdminTherapistsPage windowWidth={windowWidth} />}
+            />
+            <Route
+              path="therapists/:id"
+              element={<AdminTherapistPage windowWidth={windowWidth} />}
             />
           </Route>
         )}

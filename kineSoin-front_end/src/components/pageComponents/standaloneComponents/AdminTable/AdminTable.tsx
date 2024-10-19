@@ -51,7 +51,7 @@ export default function AdminTable({
             </td>
             <td className="border border-gray-300 px-4 py-2 text-center">
               {windowWidth < 768 ? (
-                <Link to="*">
+                <Link to={`/admin/therapist/${id}`}>
                   <img
                     src={editIcon}
                     alt="edit"
@@ -61,7 +61,10 @@ export default function AdminTable({
                   />
                 </Link>
               ) : (
-                <Link to="*" className="w-25 flex items-center justify-center">
+                <Link
+                  to={`/admin/therapist/${id}`}
+                  className="w-25 flex items-center justify-center"
+                >
                   <img src={editIcon} alt="edit" className="w-5 h-5 mr-2" />{' '}
                   <p className="text-blue-300 font-semibold">Modifier</p>
                 </Link>
