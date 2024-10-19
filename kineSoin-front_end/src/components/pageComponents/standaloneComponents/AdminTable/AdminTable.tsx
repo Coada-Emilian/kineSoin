@@ -13,7 +13,7 @@ export default function AdminTable({
   windowWidth,
 }: AdminTableProps) {
   return (
-    <table className="border-collapse border border-gray-300 w-11/12 mx-auto mb-4">
+    <table className="border-collapse border border-gray-300 w-full mx-auto">
       <thead className="bg-gray-100 text-xs">
         <tr>
           <th className="border border-gray-300 px-4 py-2 text-center">#id</th>
@@ -46,7 +46,7 @@ export default function AdminTable({
             <td className="border border-gray-300 px-4 py-2 text-center">
               {windowWidth < 768 ? (
                 <Link to="*">
-                  <img src={editIcon} alt="edit" className="w-8" />
+                  <img src={editIcon} alt="edit" className="w-10" />
                 </Link>
               ) : (
                 <Link to="*">
@@ -58,7 +58,7 @@ export default function AdminTable({
             <td className="border border-gray-300 px-4 py-2 text-center">
               {windowWidth < 768 ? (
                 <Link to="*" className="w-12">
-                  <img src={deleteIcon} alt="delete" className="w-8" />
+                  <img src={deleteIcon} alt="delete" className="w-10" />
                 </Link>
               ) : (
                 <Link to="*">

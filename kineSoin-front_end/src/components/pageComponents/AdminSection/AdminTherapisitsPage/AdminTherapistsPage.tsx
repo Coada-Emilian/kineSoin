@@ -24,7 +24,7 @@ export default function AdminTherapistsPage({
   return (
     <main className="w-full h-screen">
       {windowWidth < 768 ? (
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col justify-between h-full p-4">
           <AdminTable allTherapists={allTherapists} windowWidth={windowWidth} />
           <AdminMobileNav />
         </div>
