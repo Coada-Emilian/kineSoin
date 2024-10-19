@@ -34,10 +34,10 @@ export default function AdminTable({ allTherapists }: AdminTableProps) {
                 {therapist.id}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {therapist.name} {therapist.surname}
+                {therapist.fullName}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {therapist.status}
+                {therapist.status.toUpperCase()}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
                 <button className="text-blue-500 hover:underline">
@@ -51,44 +51,6 @@ export default function AdminTable({ allTherapists }: AdminTableProps) {
               </td>
             </tr>
           ))}
-          <tr className="odd:bg-white even:bg-gray-50">
-            <td className="border border-gray-300 px-4 py-2 text-center">1</td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              John Doe
-            </td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              Actif
-            </td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              <button className="text-blue-500 hover:underline">
-                Modifier
-              </button>
-            </td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              <button className="text-red-500 hover:underline">
-                Supprimer
-              </button>
-            </td>
-          </tr>
-          <tr className="odd:bg-white even:bg-gray-50">
-            <td className="border border-gray-300 px-4 py-2 text-center">2</td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              Jane Smith
-            </td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              Inactif
-            </td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              <button className="text-blue-500 hover:underline">
-                Modifier
-              </button>
-            </td>
-            <td className="border border-gray-300 px-4 py-2 text-center">
-              <button className="text-red-500 hover:underline">
-                Supprimer
-              </button>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>

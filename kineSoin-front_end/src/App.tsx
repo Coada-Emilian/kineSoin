@@ -92,7 +92,7 @@ function AdminLayout({
 }) {
   return (
     <>
-      <AdminNavBar isAdminAuthenticated={isAdminAuthenticated} />
+      <AdminNavBar />
       <Outlet />
     </>
   );
