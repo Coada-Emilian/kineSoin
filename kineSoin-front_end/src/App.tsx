@@ -7,6 +7,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
 import AdminNavBar from './components/pageComponents/standaloneComponents/AdminNavBar/AdminNavBar';
 import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapisitsPage/AdminTherapistsPage';
+import AdminFooter from './components/pageComponents/standaloneComponents/AdminFooter/AdminFooter';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -116,6 +117,7 @@ function AdminLayout({
     <>
       <AdminNavBar windowWidth={windowWidth} />
       <Outlet />
+      <AdminFooter />
     </>
   );
 }
