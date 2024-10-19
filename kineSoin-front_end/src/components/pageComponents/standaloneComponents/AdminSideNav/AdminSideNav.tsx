@@ -10,13 +10,12 @@ export default function AdminSideNav() {
   ];
 
   return (
-    <div className="m-4 border-r-2 w-fit border-r-lightGrey h-screen border-solid">
+    <div className="mx-4 ">
       {links.map((link) => (
-        <Link
-          to={link.path}
-          className="flex items-center justify-start w-3/4 h-12  text-primaryBlue"
-        >
-          <p>{link.name}</p>
+        <Link to={link.path} className="flex items-center justify-start my-2">
+          <p className="text-primaryBlue hover:text-secondaryBlue">
+            {link.name}
+          </p>
         </Link>
       ))}
     </div>

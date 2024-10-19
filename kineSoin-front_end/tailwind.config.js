@@ -13,6 +13,7 @@ module.exports = {
         primaryTeal: '#6FFFE9',
         secondaryTeal: '#00E0D1',
         primaryBlue: '#003249',
+        secondaryBlue: '#007EA7',
         lightGrey: '#cdcdcd',
       },
       fontFamily: {

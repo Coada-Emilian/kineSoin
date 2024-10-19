@@ -37,7 +37,7 @@ export default function AdminMobileNav() {
   ];
 
   return (
-    <div className="flex gap-2 w-fit mx-auto">
+    <div className="flex gap-2 justify-around w-full">
       {links.map((link, index) => (
         <Link
           to={link.path}

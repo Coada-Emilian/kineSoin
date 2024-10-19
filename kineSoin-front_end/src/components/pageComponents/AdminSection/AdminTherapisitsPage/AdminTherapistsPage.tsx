@@ -29,18 +29,17 @@ export default function AdminTherapistsPage({
           <AdminMobileNav />
         </div>
       ) : (
-        <>
-          <div className="w-1/4">
+        <div className="flex">
+          <div className="w-1/4 border-r-2 border-r-lightGrey h-screen border-solid">
             <AdminSideNav />
           </div>
           <div className="w-3/4">
-            {' '}
             <AdminTable
               allTherapists={allTherapists}
               windowWidth={windowWidth}
             />
           </div>
-        </>
+        </div>
       )}
     </main>
   );
