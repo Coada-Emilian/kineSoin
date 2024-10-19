@@ -1,9 +1,9 @@
-import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav';
-import AdminTable from '../../standaloneComponents/AdminTable/AdminTable';
+import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminTable from '../../standaloneComponents/AdminTable/AdminTable.tsx';
 import axios from '../../../../axios.ts';
 import { useEffect, useState } from 'react';
 
-export default function AdminDashboard() {
+export default function AdminTherapistsPage() {
   const [allTherapists, setAllTherapists] = useState([]);
   useEffect(() => {
     const fetchTherapists = async () => {

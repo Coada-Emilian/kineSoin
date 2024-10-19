@@ -3,6 +3,7 @@ export interface ITherapist {
   admin_id: number;
   name: string;
   surname: string;
+  fullName?: string;
   description: string;
   diploma: string;
   experience: string;
