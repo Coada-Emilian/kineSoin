@@ -20,7 +20,6 @@ export default function AdminProfileDetails({
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    const sentData = Object.fromEntries(formData.entries());
     if (therapist && therapist.id) {
       try {
         const response = await axios.put(
@@ -36,6 +35,7 @@ export default function AdminProfileDetails({
         if (response.status === 200) {
           console.log('Therapist profile updated successfully');
           setIsProfileEditing(false);
+          window.location.reload();
         } else {
           console.error('Failed to update therapist profile', response.data);
         }
