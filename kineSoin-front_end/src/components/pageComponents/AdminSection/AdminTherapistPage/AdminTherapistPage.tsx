@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from '../../../../axios.ts';
 import { ITherapist } from '../../../../@types/ITherapist';
-import AdminTable from '../../standaloneComponents/AdminTable/AdminTable';
 import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
 import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminProfileDetails from '../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';

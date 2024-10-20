@@ -369,6 +369,8 @@ const therapistController = {
 
     const sentTherapist = {
       id: foundTherapist.id,
+      name: foundTherapist.name,
+      surname: foundTherapist.surname,
       fullName: `${foundTherapist.name} ${foundTherapist.surname}`,
       picture_url: foundTherapist.picture_url,
       description: foundTherapist.description,
@@ -379,6 +381,69 @@ const therapistController = {
     };
 
     return res.status(200).json(sentTherapist);
+  },
+
+  updateTherapist: async (req, res) => {
+    const therapistId = parseInt(req.params.therapist_id, 10);
+
+    const updateTherapistSchema = Joi.object({
+      status: Joi.string().valid('active', 'inactive').optional(),
+      name: Joi.string().max(50).optional(),
+      surname: Joi.string().max(50).optional(),
+      diploma: Joi.string().max(50).optional(),
+      experience: Joi.string().max(50).optional(),
+      specialty: Joi.string().max(50).optional(),
+      description: Joi.string().max(50).optional(),
+      picture_url: Joi.string().max(255).optional(),
+    }).min(1);
+
+    if (!req.body) {
+      return res
+        .status(400)
+        .json({ message: 'Please provide the data to update the therapist' });
+    }
+
+    const { error } = updateTherapistSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    } else {
+      const foundTherapist = await Therapist.findByPk(therapistId);
+      if (!foundTherapist) {
+        return res.status(400).json({ message: 'Therapist not found' });
+      }
+      const {
+        status,
+        name,
+        surname,
+        diploma,
+        experience,
+        specialty,
+        description,
+        picture_url,
+      } = req.body;
+
+      const newProfile = {
+        status: status || foundTherapist.status,
+        name: name || foundTherapist.name,
+        surname: surname || foundTherapist.surname,
+        diploma: diploma || foundTherapist.diploma,
+        experience: experience || foundTherapist.experience,
+        specialty: specialty || foundTherapist.specialty,
+        description: description || foundTherapist.description,
+        picture_url: picture_url || foundTherapist.picture_url,
+      };
+
+      const response = await foundTherapist.update(newProfile);
+
+      if (!response) {
+        return res.status(400).json({ message: 'Therapist not updated' });
+      } else {
+        return res
+          .status(200)
+          .json({ message: 'Therapist updated successfully!' });
+      }
+    }
   },
 
   deleteTherapist: async (req, res) => {
@@ -415,8 +480,10 @@ const therapistController = {
       licence_code: Joi.string().max(255).required(),
     });
 
-    if(!req.body) {
-      return res.status(400).json({ message: 'Please provide the data to create the therapist' });
+    if (!req.body) {
+      return res
+        .status(400)
+        .json({ message: 'Please provide the data to create the therapist' });
     }
 
     const { error } = createTherapistSchema.validate(req.body);
