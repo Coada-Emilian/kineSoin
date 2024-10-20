@@ -385,16 +385,17 @@ const therapistController = {
 
   updateTherapist: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
+    checkIsIdNumber(therapistId);
 
     const updateTherapistSchema = Joi.object({
       status: Joi.string().valid('active', 'inactive').optional(),
-      name: Joi.string().max(50).optional(),
-      surname: Joi.string().max(50).optional(),
-      diploma: Joi.string().max(50).optional(),
-      experience: Joi.string().max(50).optional(),
-      specialty: Joi.string().max(50).optional(),
-      description: Joi.string().max(50).optional(),
-      picture_url: Joi.string().max(255).optional(),
+      name: Joi.string().max(50).allow('').optional(),
+      surname: Joi.string().max(50).allow('').optional(),
+      diploma: Joi.string().max(50).allow('').optional(),
+      experience: Joi.string().max(50).allow('').optional(),
+      specialty: Joi.string().max(50).allow('').optional(),
+      description: Joi.string().max(50).allow('').optional(),
+      picture_url: Joi.string().max(255).allow('').optional(),
     }).min(1);
 
     if (!req.body) {
@@ -433,7 +434,6 @@ const therapistController = {
         description: description || foundTherapist.description,
         picture_url: picture_url || foundTherapist.picture_url,
       };
-
       const response = await foundTherapist.update(newProfile);
 
       if (!response) {

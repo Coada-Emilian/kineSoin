@@ -16,23 +16,40 @@ export default function AdminProfileDetails({
 }: AdminProfileDetailsProps) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    console.log(formData);
-    setIsProfileEditing(false);
-    // if (therapist) {
-    //   const response = await axios.put(`/admin/therapist/${therapist.id}`, {
-    //     status: formData.get('status'),
+    const sentData = Object.fromEntries(formData.entries());
+    if (therapist && therapist.id) {
+      try {
+        const response = await axios.put(
+          `/admin/therapists/${therapist.id}`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
-    //   })
-    // }
+        if (response.status === 200) {
+          console.log('Therapist profile updated successfully');
+          setIsProfileEditing(false);
+        } else {
+          console.error('Failed to update therapist profile', response.data);
+        }
+      } catch (error) {
+        console.error('Error updating therapist profile:', error);
+      }
+    } else {
+      console.error('Therapist ID is missing or invalid');
+    }
   };
   return (
     <>
       {therapist && (
-        <form action="*" method="post" onSubmit={handleSubmit}>
+        <form action="*" onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row md:space-x-6">
             <div className="flex-1 p-4 rounded-md">
               <h1 className="font-bold mb-4 text-xl">Inspection</h1>
@@ -243,7 +260,6 @@ export default function AdminProfileDetails({
                       btnText="Valider"
                       btnType="submit"
                       normalBtn
-                      onClick={() => setIsProfileEditing(false)}
                     />
                     <CustomButton
                       btnText="Annuler"
