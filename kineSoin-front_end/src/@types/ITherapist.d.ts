@@ -7,7 +7,7 @@ export interface ITherapist {
   description: string;
   diploma: string;
   experience: string;
-  speciality: string;
+  specialty: string;
   email: string;
   password: string;
   picture_url: string;

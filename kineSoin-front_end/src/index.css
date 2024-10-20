@@ -3,3 +3,7 @@
 .text-xxs {
   font-size: 0.625rem; /* 10px */
 }
+
+.italic {
+  font-style: italic;
+}

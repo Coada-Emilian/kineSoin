@@ -80,35 +80,37 @@ function App() {
   }, [adminProfileToken, isAdminAuthenticated]);
 
   return (
-    <>
-      <Routes>
-        <Route
-          path="/loginAdmin"
-          element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
-        />
+    <Routes>
+      <Route
+        path="/loginAdmin"
+        element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
+      />
 
-        {isAdminAuthenticated && (
+      {isAdminAuthenticated && (
+        <Route
+          path="/admin"
+          element={
+            <AdminLayout
+              isAdminAuthenticated={isAdminAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        >
           <Route
-            path="/admin"
-            element={
-              <AdminLayout
-                isAdminAuthenticated={isAdminAuthenticated}
-                windowWidth={windowWidth}
-              />
-            }
-          >
-            <Route
-              path="therapists"
-              element={<AdminTherapistsPage windowWidth={windowWidth} />}
-            />
-            <Route
-              path="therapists/:id"
-              element={<AdminTherapistPage windowWidth={windowWidth} />}
-            />
-          </Route>
-        )}
-      </Routes>
-    </>
+            path="therapists"
+            element={<AdminTherapistsPage windowWidth={windowWidth} />}
+          />
+          <Route
+            path="therapists/:id"
+            element={<AdminTherapistPage windowWidth={windowWidth} />}
+          />
+          <Route
+            path="*"
+            element={<div> Not Found or You do not have permission.</div>}
+          />
+        </Route>
+      )}
+    </Routes>
   );
 }
 
