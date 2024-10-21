@@ -31,11 +31,12 @@ for (const therapist of therapists) {
     email,
     picture_url,
     licence_code,
+    status,
   } = therapist;
 
   const hashedPassword = Scrypt.hash(therapist.password);
 
-  const query = `INSERT INTO therapists (admin_id, name, surname, description, diploma, experience, specialty, email, password, picture_url, licence_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
+  const query = `INSERT INTO therapists (admin_id, name, surname, description, diploma, experience, specialty, email, password, picture_url, licence_code, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`;
 
   const result = await pgClient.query(query, [
     admin_id,
@@ -49,6 +50,7 @@ for (const therapist of therapists) {
     hashedPassword,
     picture_url,
     licence_code,
+    status,
   ]);
   console.log(result.rows);
 }

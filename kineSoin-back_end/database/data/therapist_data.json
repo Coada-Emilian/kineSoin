@@ -10,7 +10,8 @@
     "email": "antoine@therapist.com",
     "password": "antoinePass123",
     "picture_url": "https://randomuser.me/api/portraits/men/1.jpg",
-    "licence_code": "753951486"
+    "licence_code": "753951486",
+    "status": "inactive"
   },
   {
     "admin_id": 2,
@@ -23,7 +24,8 @@
     "email": "sophie.martin@therapist.com",
     "password": "sophiePass456",
     "picture_url": "https://randomuser.me/api/portraits/women/2.jpg",
-    "licence_code": "852147963"
+    "licence_code": "852147963",
+    "status": "inactive"
   },
   {
     "admin_id": 1,
@@ -36,7 +38,8 @@
     "email": "julien.dupont@therapist.com",
     "password": "julienPass789",
     "picture_url": "https://randomuser.me/api/portraits/men/3.jpg",
-    "licence_code": "321654987"
+    "licence_code": "321654987",
+    "status": "active"
   },
   {
     "admin_id": 1,
@@ -49,7 +52,8 @@
     "email": "claire.moreau@therapist.com",
     "password": "clairePass321",
     "picture_url": "https://randomuser.me/api/portraits/women/4.jpg",
-    "licence_code": "654321789"
+    "licence_code": "654321789",
+    "status": "active"
   },
   {
     "admin_id": 2,
@@ -62,6 +66,7 @@
     "email": "francois.chevalier@therapist.com",
     "password": "francoisPass654",
     "picture_url": "https://randomuser.me/api/portraits/men/5.jpg",
-    "licence_code": "987123456"
+    "licence_code": "987123456",
+    "status": "active"
   }
 ]
