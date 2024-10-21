@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { ITherapist } from '../../../../@types/ITherapist';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import editIcon from '/icons/edit.svg';
@@ -16,7 +15,7 @@ interface AdminProfileDetailsProps {
 export default function AdminProfileDetails({
   therapist,
 }: AdminProfileDetailsProps) {
-  const navigate = useNavigate();
+
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -53,25 +52,7 @@ export default function AdminProfileDetails({
       console.error('Therapist ID is missing or invalid');
     }
   };
-  const handleTherapistDelete = async (therapist_id: number) => {
-    if (therapist.id) {
-      try {
-        const response = await axios.delete(
-          `/admin/therapists/${therapist.id}`
-        );
-        if (response.status === 200) {
-          console.log('Therapist profile deleted successfully');
-          navigate('/admin/therapists');
-        } else {
-          console.error('Failed to delete therapist profile', response.data);
-        }
-      } catch (error) {
-        console.error('Error deleting therapist profile:', error);
-      }
-    } else {
-      console.error('Therapist ID is missing or invalid');
-    }
-  };
+
   return (
     <>
       {therapist && (
@@ -318,7 +299,6 @@ export default function AdminProfileDetails({
       {isDeleteModalOpen && (
         <ConfirmDeleteModal
           therapist={therapist}
-          handleTherapistDelete={handleTherapistDelete}
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}
         />

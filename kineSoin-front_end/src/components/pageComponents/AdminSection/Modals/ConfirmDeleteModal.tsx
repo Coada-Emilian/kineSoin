@@ -1,19 +1,20 @@
 import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
+import { handleTherapistDelete } from '../../../../utils/apiUtils';
+import { useNavigate } from 'react-router-dom';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   therapist: ITherapist;
-  handleTherapistDelete: (therapist_id: number) => Promise<void>;
 }
 
 export default function ConfirmDeleteModal({
   isDeleteModalOpen,
   setIsDeleteModalOpen,
   therapist,
-  handleTherapistDelete,
 }: ConfirmDeleteModalProps) {
+  const navigate = useNavigate();
   return (
     <ReactModal
       isOpen={isDeleteModalOpen}
@@ -48,6 +49,8 @@ export default function ConfirmDeleteModal({
             onClick={() => {
               handleTherapistDelete(therapist.id);
               setIsDeleteModalOpen(false);
+              navigate('/admin/therapists');
+              window.location.reload();
             }}
           >
             Confirmer la suppression

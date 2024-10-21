@@ -12,7 +12,6 @@ export default function AdminTherapistsPage({
   windowWidth,
 }: AdminTherapistsPageProps) {
   const [allTherapists, setAllTherapists] = useState([]);
-
   useEffect(() => {
     const fetchTherapists = async () => {
       const allTherapists = await axios.get('/admin/therapists');
