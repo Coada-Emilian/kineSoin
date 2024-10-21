@@ -4,9 +4,17 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import editIcon from '/icons/edit.svg';
 import axios from '../../../../axios.ts';
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
+import { Link } from 'react-router-dom';
+import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 
 interface AdminProfileDetailsProps {
   therapist: ITherapist;
@@ -15,17 +23,26 @@ interface AdminProfileDetailsProps {
 export default function AdminProfileDetails({
   therapist,
 }: AdminProfileDetailsProps) {
-
-
   const [isProfileEditing, setIsProfileEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditPhotoModalOpen, setIsEditPhotoModalOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const [isUploadPhotoModalOpen, setIsUploadPhotoModalOpen] = useState(false);
+  const [buttonMessage, setButtonMessage] = useState('Changer le statut');
+  const [backgroundColor, setBackgroundColor] = useState('bg-white');
+
+  const [description, setDescription] = useState(therapist.description);
+
+  const [status, setStatus] = useState(therapist.status);
 
   const handleTherapistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+    }
+    formData.append('status' as string, status);
     if (therapist && therapist.id) {
       try {
         const response = await axios.put(
@@ -33,7 +50,7 @@ export default function AdminProfileDetails({
           formData,
           {
             headers: {
-              'Content-Type': 'application/json',
+              'Content-Type': 'multipart/form-data',
             },
           }
         );
@@ -53,6 +70,17 @@ export default function AdminProfileDetails({
     }
   };
 
+  const toggleStatus = () => {
+    if (buttonMessage === 'Active') {
+      setButtonMessage('Inactive');
+      setBackgroundColor('bg-gray-200');
+      setStatus('inactive');
+    } else {
+      setButtonMessage('Active');
+      setBackgroundColor('bg-green-300');
+      setStatus('active');
+    }
+  };
   return (
     <>
       {therapist && (
@@ -189,6 +217,8 @@ export default function AdminProfileDetails({
                       className="border-2 border-gray-300 rounded-md px-2"
                       rows={7}
                       placeholder={therapist.description}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                   </div>
                 ) : (
@@ -202,13 +232,13 @@ export default function AdminProfileDetails({
             <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 rounded-md">
               {isProfileEditing ? (
                 <div className="relative flex justify-center w-96">
-                  <a href="*">
+                  <Link to="#" onClick={() => setIsEditPhotoModalOpen(true)}>
                     <img
                       src={editIcon}
                       alt="edit profile"
                       className="absolute bg-white rounded-full p-1 top-4 left-12 w-10 h-10 shadow-md"
                     />
-                  </a>
+                  </Link>
                   <img
                     src={therapist.picture_url}
                     alt={therapist.fullName}
@@ -230,8 +260,10 @@ export default function AdminProfileDetails({
                   <>
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-lg bg-white p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                          Changer le statut
+                        <MenuButton
+                          className={`inline-flex w-full justify-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
+                        >
+                          {buttonMessage}
                           <ChevronDownIcon
                             aria-hidden="true"
                             className="-mr-1 h-5 w-5 text-gray-400"
@@ -241,24 +273,26 @@ export default function AdminProfileDetails({
 
                       <MenuItems
                         transition
-                        className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                        className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-200 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                       >
                         <div className="py-1">
                           <MenuItem>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                            <Link
+                              to="#"
+                              className="block px-4 py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                              onClick={() => toggleStatus()}
                             >
                               Active
-                            </a>
+                            </Link>
                           </MenuItem>
                           <MenuItem>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                            <Link
+                              to="#"
+                              className="block px-4 py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                              onClick={() => toggleStatus()}
                             >
                               Inactive
-                            </a>
+                            </Link>
                           </MenuItem>
                         </div>
                       </MenuItems>
@@ -301,6 +335,14 @@ export default function AdminProfileDetails({
           therapist={therapist}
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}
+        />
+      )}
+      {isEditPhotoModalOpen && (
+        <EditPhotoModal
+          isEditPhotoModalOpen={isEditPhotoModalOpen}
+          setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
+          therapist={therapist}
+          setSelectedFile={setSelectedFile}
         />
       )}
     </>

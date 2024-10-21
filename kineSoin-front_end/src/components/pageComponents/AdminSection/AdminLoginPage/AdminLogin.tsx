@@ -43,7 +43,7 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
     }
   };
   return (
-    <main className="flex items-center justify-center min-h-screen w-full bg-gray-100">
+    <main className="flex items-center justify-center min-h-screen w-11/12 mx-auto md:w-full bg-gray-100">
       <section className="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue">
           Connexion administrateur

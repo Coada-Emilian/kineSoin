@@ -27,7 +27,6 @@ const AdminTherapistPage = ({ windowWidth }: AdminTherapistPageProps) => {
         setLoading(false);
       }
     };
-
     fetchTherapist();
   }, [id]);
 
