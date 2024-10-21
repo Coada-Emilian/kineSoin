@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ITherapist } from '../../../../@types/ITherapist';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import editIcon from '/icons/edit.svg';
@@ -6,6 +7,7 @@ import axios from '../../../../axios.ts';
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
 
 interface AdminProfileDetailsProps {
   therapist: ITherapist;
@@ -14,9 +16,14 @@ interface AdminProfileDetailsProps {
 export default function AdminProfileDetails({
   therapist,
 }: AdminProfileDetailsProps) {
-  const [isProfileEditing, setIsProfileEditing] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const [isProfileEditing, setIsProfileEditing] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const [isUploadPhotoModalOpen, setIsUploadPhotoModalOpen] = useState(false);
+
+  const handleTherapistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -46,10 +53,29 @@ export default function AdminProfileDetails({
       console.error('Therapist ID is missing or invalid');
     }
   };
+  const handleTherapistDelete = async (therapist_id: number) => {
+    if (therapist.id) {
+      try {
+        const response = await axios.delete(
+          `/admin/therapists/${therapist.id}`
+        );
+        if (response.status === 200) {
+          console.log('Therapist profile deleted successfully');
+          navigate('/admin/therapists');
+        } else {
+          console.error('Failed to delete therapist profile', response.data);
+        }
+      } catch (error) {
+        console.error('Error deleting therapist profile:', error);
+      }
+    } else {
+      console.error('Therapist ID is missing or invalid');
+    }
+  };
   return (
     <>
       {therapist && (
-        <form action="*" onSubmit={handleSubmit}>
+        <form action="*" onSubmit={handleTherapistSubmit}>
           <div className="flex flex-col md:flex-row md:space-x-6">
             <div className="flex-1 p-4 rounded-md">
               <h1 className="font-bold mb-4 text-xl">Inspection</h1>
@@ -269,17 +295,33 @@ export default function AdminProfileDetails({
                     />
                   </>
                 ) : (
-                  <CustomButton
-                    btnText="Modifier profile"
-                    btnType="button"
-                    modifyButton
-                    onClick={() => setIsProfileEditing(true)}
-                  />
+                  <>
+                    <CustomButton
+                      btnText="Modifier profile"
+                      btnType="button"
+                      modifyButton
+                      onClick={() => setIsProfileEditing(true)}
+                    />
+                    <CustomButton
+                      btnText="Supprimer"
+                      btnType="button"
+                      deleteButton
+                      onClick={() => setIsDeleteModalOpen(true)}
+                    />
+                  </>
                 )}
               </div>
             </div>
           </div>
         </form>
+      )}
+      {isDeleteModalOpen && (
+        <ConfirmDeleteModal
+          therapist={therapist}
+          handleTherapistDelete={handleTherapistDelete}
+          isDeleteModalOpen={isDeleteModalOpen}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+        />
       )}
     </>
   );

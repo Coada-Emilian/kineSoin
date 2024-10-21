@@ -7,11 +7,16 @@ import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/admin
 
 interface AdminNavBarProps {
   windowWidth: number;
+  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function AdminNavBar({ windowWidth }: AdminNavBarProps) {
+export default function AdminNavBar({
+  windowWidth,
+  setIsAdminAuthenticated,
+}: AdminNavBarProps) {
   const handleLogout = () => {
     removeAdminTokenFromLocalStorage();
+    setIsAdminAuthenticated(false);
     window.location.href = '/loginAdmin';
   };
   return (

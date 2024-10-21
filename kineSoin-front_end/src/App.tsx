@@ -91,7 +91,7 @@ function App() {
           path="/admin"
           element={
             <AdminLayout
-              isAdminAuthenticated={isAdminAuthenticated}
+              setIsAdminAuthenticated={setIsAdminAuthenticated}
               windowWidth={windowWidth}
             />
           }
@@ -115,15 +115,18 @@ function App() {
 }
 
 function AdminLayout({
-  isAdminAuthenticated,
+  setIsAdminAuthenticated,
   windowWidth,
 }: {
-  isAdminAuthenticated: boolean;
+  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   windowWidth: number;
 }) {
   return (
     <>
-      <AdminNavBar windowWidth={windowWidth} />
+      <AdminNavBar
+        setIsAdminAuthenticated={setIsAdminAuthenticated}
+        windowWidth={windowWidth}
+      />
       <Outlet />
       <AdminFooter />
     </>

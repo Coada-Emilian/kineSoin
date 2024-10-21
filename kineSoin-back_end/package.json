@@ -8,7 +8,9 @@
     "db:create": "psql -U kinesoin_user -d kinesoin_database -f database/create_tables.sql",
     "db:populate": "node database/populate_profiles.js && psql -U kinesoin_user -d kinesoin_database -f database/populate_tables.sql",
     "db:reset": "pnpm db:create && pnpm db:populate",
-    "dev": "nodemon index.js"
+    "server_back": "nodemon index.js",
+    "server_front": "cd ../kineSoin-front_end && npm run dev",
+    "dev": "concurrently \"pnpm server_back\" \"pnpm server_front\""
   },
   "author": "Emilian COADA",
   "license": "ISC",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "@jest/globals": "^29.7.0",
+    "concurrently": "^9.0.1",
     "cross-env": "^7.0.3",
     "eslint": "^9.11.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
