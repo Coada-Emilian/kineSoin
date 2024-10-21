@@ -403,14 +403,6 @@ const therapistController = {
         .json({ message: 'Please provide the data to update the therapist' });
     }
 
-    if (!req.file) {
-      return res.status(400).json({
-        message: 'No file detected. Please upload a file to continue.',
-      });
-    }
-    picture_url = req.file.path;
-    picture_id = req.file.filename;
-
     const { error } = updateTherapistSchema.validate(req.body);
 
     if (error) {
@@ -438,9 +430,25 @@ const therapistController = {
         experience: experience || foundTherapist.experience,
         specialty: specialty || foundTherapist.specialty,
         description: description || foundTherapist.description,
-        picture_url: picture_url || foundTherapist.picture_url,
-        picture_id: picture_id || foundTherapist.picture_id,
       };
+
+      if (req.file) {
+        if (foundTherapist.picture_id) {
+          try {
+            await cloudinary.uploader.destroy(foundTherapist.picture_id);
+          } catch (err) {
+            console.error(
+              'Error deleting old picture from Cloudinary:',
+              err.message
+            );
+          }
+        }
+        const { path, filename } = req.file;
+
+        newProfile.picture_id = filename;
+
+        newProfile.picture_url = path;
+      }
       const response = await foundTherapist.update(newProfile);
 
       if (!response) {
