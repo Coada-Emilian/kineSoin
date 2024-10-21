@@ -561,6 +561,14 @@ const therapistController = {
         const createdTherapist = await Therapist.create(newTherapist);
 
         if (!createdTherapist) {
+          try {
+            await cloudinary.uploader.destroy(picture_id);
+          } catch (err) {
+            console.error(
+              'Error deleting old picture from Cloudinary:',
+              err.message
+            );
+          }
           return res
             .status(400)
             .json({ message: 'The therapist was not created' });
