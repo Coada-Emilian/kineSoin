@@ -395,7 +395,6 @@ const therapistController = {
       experience: Joi.string().max(50).allow('').optional(),
       specialty: Joi.string().max(50).allow('').optional(),
       description: Joi.string().max(50).allow('').optional(),
-      picture_url: Joi.string().max(255).allow('').optional(),
     }).min(1);
 
     if (!req.body) {
@@ -403,6 +402,14 @@ const therapistController = {
         .status(400)
         .json({ message: 'Please provide the data to update the therapist' });
     }
+
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'No file detected. Please upload a file to continue.',
+      });
+    }
+    picture_url = req.file.path;
+    picture_id = req.file.filename;
 
     const { error } = updateTherapistSchema.validate(req.body);
 
@@ -421,7 +428,6 @@ const therapistController = {
         experience,
         specialty,
         description,
-        picture_url,
       } = req.body;
 
       const newProfile = {
@@ -433,6 +439,7 @@ const therapistController = {
         specialty: specialty || foundTherapist.specialty,
         description: description || foundTherapist.description,
         picture_url: picture_url || foundTherapist.picture_url,
+        picture_id: picture_id || foundTherapist.picture_id,
       };
       const response = await foundTherapist.update(newProfile);
 

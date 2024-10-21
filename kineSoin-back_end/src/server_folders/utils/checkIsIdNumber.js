@@ -1,4 +1,4 @@
-export function checkIsIdNumber(id) {
+export function checkIsIdNumber(id, res) {
   if (isNaN(id)) {
     return res
       .status(400)

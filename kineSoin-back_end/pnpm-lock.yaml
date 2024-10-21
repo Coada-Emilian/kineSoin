@@ -54,6 +54,9 @@ importers:
       '@jest/globals':
         specifier: ^29.7.0
         version: 29.7.0
+      body-parser:
+        specifier: ^1.20.3
+        version: 1.20.3
       concurrently:
         specifier: ^9.0.1
         version: 9.0.1

@@ -26,7 +26,12 @@ adminRouter.post(
   uploadTherapistPhoto.single('photo'),
   wrapper(therapistController.createTherapist)
 );
-adminRouter.put('/therapists/:therapist_id', wrapper(therapistController.updateTherapist));
+adminRouter.put(
+  '/therapists/:therapist_id',
+  uploadTherapistPhoto.single('file'),
+  wrapper(therapistController.updateTherapist)
+);
+
 adminRouter.delete(
   '/therapists/:therapist_id',
   wrapper(therapistController.deleteTherapist)
