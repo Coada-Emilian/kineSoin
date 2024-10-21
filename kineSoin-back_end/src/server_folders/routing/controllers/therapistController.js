@@ -492,7 +492,8 @@ const therapistController = {
       diploma: Joi.string().max(50).required(),
       experience: Joi.string().max(50).required(),
       specialty: Joi.string().max(50).required(),
-      licence_code: Joi.string().max(255).required(),
+      licence_code: Joi.string().max(25).required(),
+      status: Joi.string().valid('active', 'inactive').optional(),
     });
 
     if (!req.body) {
@@ -518,6 +519,7 @@ const therapistController = {
       experience,
       specialty,
       licence_code,
+      status,
     } = req.body;
 
     const foundTherapist = await Therapist.findOne({ where: { email } });
@@ -552,6 +554,7 @@ const therapistController = {
           experience,
           specialty,
           licence_code,
+          status: status || 'active',
         };
 
         const createdTherapist = await Therapist.create(newTherapist);
