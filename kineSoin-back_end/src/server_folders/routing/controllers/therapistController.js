@@ -324,6 +324,7 @@ const therapistController = {
   getAllTherapists: async (req, res) => {
     const foundTherapists = await Therapist.findAll({
       attributes: ['id', 'name', 'surname', 'status'],
+      order: [['id', 'ASC']],
     });
 
     if (!foundTherapists) {
@@ -538,8 +539,8 @@ const therapistController = {
           message: 'No file detected. Please upload a file to continue.',
         });
       } else {
-        picture_url = req.file.path;
-        picture_id = req.file.filename;
+        const picture_url = req.file.path;
+        const picture_id = req.file.filename;
 
         const newTherapist = {
           admin_id: adminId,
@@ -563,21 +564,11 @@ const therapistController = {
           return res
             .status(400)
             .json({ message: 'The therapist was not created' });
+        } else {
+          return res.status(201).json({
+            message: 'Therapist created successfully!',
+          });
         }
-
-        return res.status(200).json({
-          message: 'Therapist created successfully!',
-          createdTherapist: {
-            id: createdTherapist.id,
-            fullName: `${createdTherapist.name} ${createdTherapist.surname}`,
-            picture_url: createdTherapist.picture_url,
-            description: createdTherapist.description,
-            diploma: createdTherapist.diploma,
-            experience: createdTherapist.experience,
-            specialty: createdTherapist.specialty,
-            licence_code: createdTherapist.licence_code,
-          },
-        });
       }
     }
   },

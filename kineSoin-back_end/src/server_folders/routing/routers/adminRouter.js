@@ -9,6 +9,7 @@ import therapistController from '../controllers/therapistController.js';
 import authentificationController from '../controllers/authentificationController.js';
 import afflictionController from '../controllers/afflictionController.js';
 import medicController from '../controllers/medicController.js';
+import { authenticateAdmin } from '../../middlewares/authenticateAdmin.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -23,6 +24,7 @@ adminRouter.get(
 );
 adminRouter.post(
   '/therapists',
+  authenticateAdmin,
   uploadTherapistPhoto.single('photo'),
   wrapper(therapistController.createTherapist)
 );

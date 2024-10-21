@@ -267,6 +267,8 @@ const authentificationController = {
       algorithm: 'HS256',
     });
 
+    req.admin_id = foundAdmin.id;
+
     res.status(200).json({
       message: 'Admin logged in successfully.',
       id: foundAdmin.id,
