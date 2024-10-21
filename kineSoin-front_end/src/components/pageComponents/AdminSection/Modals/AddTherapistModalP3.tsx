@@ -5,6 +5,7 @@ import axios from '../../../../axios.ts';
 import { isAxiosError } from 'axios';
 import openedEyeIcon from '/icons/eye.svg';
 import closedEyeIcon from '/icons/eye-closed.svg';
+import questionIcon from '/icons/question-circle.svg';
 
 interface AddTherapistModalP3Props {
   addForm: {
@@ -138,9 +139,24 @@ export default function AddTherapistModalP3({
           <div>
             <label
               htmlFor="therapist-password_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
+              className=" text-xs md:text-sm font-medium text-gray-700 flex justify-start items-center mb-2"
             >
-              Mot de passe
+              Mot de passe{' '}
+              <p
+                className="text-sm text-center ml-4"
+                title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre
+                & 1 caractère spécial"
+              >
+                <img
+                  src={questionIcon}
+                  alt="aide"
+                  className="w-6 cursor-help"
+                />
+                <span className="sr-only">
+                  12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre
+                  & 1 caractère spécial
+                </span>
+              </p>
             </label>
 
             <div className="flex justify-between bg-white rounded-md shadow-sm border">

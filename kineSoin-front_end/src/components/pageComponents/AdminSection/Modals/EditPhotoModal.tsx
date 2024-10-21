@@ -19,7 +19,6 @@ export default function EditPhotoModal({
   const [previewUrl, setPreviewUrl] = useState<string | null>(
     therapist.picture_url
   );
-  const [isUploading, setIsUploading] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
