@@ -394,7 +394,7 @@ const therapistController = {
       diploma: Joi.string().max(50).allow('').optional(),
       experience: Joi.string().max(50).allow('').optional(),
       specialty: Joi.string().max(50).allow('').optional(),
-      description: Joi.string().max(50).allow('').optional(),
+      description: Joi.string().allow('').optional(),
     }).min(1);
 
     if (!req.body) {
@@ -578,7 +578,7 @@ const therapistController = {
       }
     }
   },
-  
+
   toggleTherapistStatus: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
     checkIsIdNumber(therapistId);
