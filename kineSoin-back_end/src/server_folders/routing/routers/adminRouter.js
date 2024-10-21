@@ -31,6 +31,10 @@ adminRouter.put(
   uploadTherapistPhoto.single('file'),
   wrapper(therapistController.updateTherapist)
 );
+adminRouter.put(
+  '/therapists/:therapist_id/toggleStatus',
+  wrapper(therapistController.toggleTherapistStatus)
+);
 
 adminRouter.delete(
   '/therapists/:therapist_id',

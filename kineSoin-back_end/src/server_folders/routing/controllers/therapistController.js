@@ -578,6 +578,27 @@ const therapistController = {
       }
     }
   },
+  
+  toggleTherapistStatus: async (req, res) => {
+    const therapistId = parseInt(req.params.therapist_id, 10);
+    checkIsIdNumber(therapistId);
+
+    const foundTherapist = await Therapist.findByPk(therapistId);
+    if (!foundTherapist) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    }
+
+    const newStatus =
+      foundTherapist.status === 'active' ? 'inactive' : 'active';
+
+    foundTherapist.status = newStatus;
+
+    await foundTherapist.save();
+
+    return res
+      .status(200)
+      .json({ message: 'Therapist status updated successfully!' });
+  },
 };
 
 export default therapistController;
