@@ -13,7 +13,6 @@ interface ButtonProps {
   inactiveButton?: boolean;
   onClick?: () => void;
   btnType?: 'button' | 'submit' | 'reset';
-
 }
 
 export default function CustomButton({
@@ -29,10 +28,7 @@ export default function CustomButton({
   allButton,
   btnType,
   onClick,
-
 }: ButtonProps) {
-
-
   const getBtnBackground = () => {
     if (normalButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal';

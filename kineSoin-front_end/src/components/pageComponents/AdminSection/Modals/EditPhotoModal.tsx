@@ -71,7 +71,7 @@ export default function EditPhotoModal({
         <div className="flex justify-end gap-4">
           <CustomButton
             btnText="Confirmer"
-            normalButtton
+            normalButton
             btnType="submit"
             onClick={() => setIsEditPhotoModalOpen(false)}
           />
