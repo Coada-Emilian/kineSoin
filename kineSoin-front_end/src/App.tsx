@@ -9,6 +9,8 @@ import AdminNavBar from './components/pageComponents/standaloneComponents/AdminN
 import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapistsPage/AdminTherapistsPage';
 import AdminFooter from './components/pageComponents/standaloneComponents/AdminFooter/AdminFooter';
 import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapistPage/AdminTherapistPage';
+import ErrorPage from './components/pageComponents/AdminSection/ErrorPage/ErrorPage';
+import AdminPatientsPage from './components/pageComponents/AdminSection/AdminPatientsPage/AdminPatientsPage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -105,9 +107,10 @@ function App() {
             element={<AdminTherapistPage windowWidth={windowWidth} />}
           />
           <Route
-            path="*"
-            element={<div> Not Found or You do not have permission.</div>}
+            path="patients"
+            element={<AdminPatientsPage windowWidth={windowWidth} />}
           />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       )}
     </Routes>

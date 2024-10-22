@@ -2,27 +2,27 @@ import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.t
 import AdminTable from '../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
 import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import { fetchTherapists } from '../../../../utils/apiUtils.ts';
+import { fetchPatients } from '../../../../utils/apiUtils.ts';
 
-interface AdminTherapistsPageProps {
+interface AdminPatientsPageProps {
   windowWidth: number;
 }
 
-export default function AdminTherapistsPage({
+export default function AdminPatientsPage({
   windowWidth,
-}: AdminTherapistsPageProps) {
-  const [allTherapists, setAllTherapists] = useState([]);
+}: AdminPatientsPageProps) {
+  const [allPatients, setAllPatients] = useState([]);
   useEffect(() => {
-    fetchTherapists().then((allTherapists) => {
-      setAllTherapists(allTherapists);
+    fetchPatients().then((allPatients) => {
+      setAllPatients(allPatients);
     });
   }, []);
 
   return (
-    <main className="w-full h-screen">
+    <main className="w-full md:mb-6">
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
-          <AdminTable allTherapists={allTherapists} windowWidth={windowWidth} />
+          <AdminTable allPatients={allPatients} windowWidth={windowWidth} />
           <AdminMobileNav />
         </div>
       ) : (
@@ -31,10 +31,7 @@ export default function AdminTherapistsPage({
             <AdminSideNav />
           </div>
           <div className="w-3/4">
-            <AdminTable
-              allTherapists={allTherapists}
-              windowWidth={windowWidth}
-            />
+            <AdminTable allPatients={allPatients} windowWidth={windowWidth} />
           </div>
         </div>
       )}
