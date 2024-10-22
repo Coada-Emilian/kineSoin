@@ -106,7 +106,12 @@ export default function AdminProfileDetails({
         <div className="flex flex-col md:flex-row md:space-x-6 md:m-20">
           <div className="flex-1 p-4 rounded-md">
             <h1 className="font-bold mb-4 text-xl md:text-4xl md:mb-6">
-              Inspection
+              Inspection{' '}
+              {therapist
+                ? 'kinésithérapeute'
+                : patient
+                  ? 'patient'
+                  : 'affliction'}
             </h1>
             <section className="md:text-2xl">
               {(therapist || patient) && (
@@ -152,7 +157,10 @@ export default function AdminProfileDetails({
                       name="name"
                       id={`${therapist ? 'therapist_name' : ''}${affliction ? ' affliction_name' : ''}`.trim()}
                       className="border-2 border-gray-300 rounded-md px-2 italic"
-                      placeholder={`${therapist && therapist.name}${affliction && affliction.name}`}
+                      placeholder={
+                        (therapist && therapist.name) ||
+                        (affliction && affliction.name)
+                      }
                     />
                   </div>
                   {therapist && (
@@ -329,6 +337,30 @@ export default function AdminProfileDetails({
             {affliction && (
               <>
                 <section className="mb-2 md:text-2xl">
+                  <div className="md:text-2xl md:flex md:gap-1">
+                    <h4 className="font-bold ">Region concernée :</h4>
+                    <span className="italic font-normal">
+                      {affliction.body_region?.name}
+                    </span>
+                  </div>
+                </section>
+                <section className="mb-2 md:text-2xl">
+                  <div className="md:text-2xl md:flex md:gap-1">
+                    <h4 className="font-bold ">Cotation :</h4>
+                    <span className="italic font-normal">
+                      {affliction.insurance_code}
+                    </span>
+                  </div>
+                </section>
+                <section className="mb-2 md:text-2xl">
+                  <div className="md:text-2xl md:flex md:gap-1">
+                    <h4 className="font-bold ">Est opérée :</h4>
+                    <span className="italic font-normal">
+                      {affliction.is_operated ? 'Oui' : 'Non'}
+                    </span>
+                  </div>
+                </section>
+                <section className="mb-2 md:text-2xl">
                   {isProfileEditing ? (
                     <div className="flex flex-col gap-2 justify-start mb-2">
                       <label
@@ -358,50 +390,28 @@ export default function AdminProfileDetails({
                     </div>
                   )}
                 </section>
-
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl">
-                    <h4 className="font-bold ">Region concernée :</h4>
-                    <span className="italic font-normal">
-                      {affliction.body_region?.name}
-                    </span>
-                  </div>
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl">
-                    <h4 className="font-bold ">Cotation :</h4>
-                    <span className="italic font-normal">
-                      {affliction.insurance_code}
-                    </span>
-                  </div>
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl">
-                    <h4 className="font-bold ">Est opérée :</h4>
-                    <span className="italic font-normal">
-                      {affliction.is_operated ? 'Oui' : 'Non'}
-                    </span>
-                  </div>
-                </section>
               </>
             )}
           </div>
+
           <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 rounded-md">
             {isProfileEditing ? (
-              <div className="relative w-fit mx-auto mb-6 items-center flex justify-center">
-                <Link to="#" onClick={() => setIsEditPhotoModalOpen(true)}>
+              therapist && (
+                <div className="relative w-fit mx-auto mb-6 items-center flex justify-center">
+                  <Link to="#" onClick={() => setIsEditPhotoModalOpen(true)}>
+                    <img
+                      src={editIcon}
+                      alt="edit profile"
+                      className="absolute bg-white rounded-full p-1 top-2 left-2 w-10 h-10 shadow-md"
+                    />
+                  </Link>
                   <img
-                    src={editIcon}
-                    alt="edit profile"
-                    className="absolute bg-white rounded-full p-1 top-2 left-2 w-10 h-10 shadow-md"
+                    src={therapist && therapist.picture_url}
+                    alt={therapist && therapist.fullName}
+                    className="rounded-xl shadow-xl w-48 md:w-72"
                   />
-                </Link>
-                <img
-                  src={therapist && therapist.picture_url}
-                  alt={therapist && therapist.fullName}
-                  className="rounded-xl shadow-xl w-48 md:w-72"
-                />
-              </div>
+                </div>
+              )
             ) : (
               <div className="w-fit mx-auto mb-6 flex justify-center items-center">
                 {therapist && (
@@ -479,7 +489,16 @@ export default function AdminProfileDetails({
                 <>
                   {therapist && (
                     <CustomButton
-                      btnText="Modifier profile"
+                      btnText="Modifier kinésithérapeute"
+                      btnType="button"
+                      modifyButton
+                      onClick={() => setIsProfileEditing(true)}
+                    />
+                  )}
+
+                  {affliction && (
+                    <CustomButton
+                      btnText="Modifier affliction"
                       btnType="button"
                       modifyButton
                       onClick={() => setIsProfileEditing(true)}
