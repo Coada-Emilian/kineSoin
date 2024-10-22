@@ -11,15 +11,18 @@ import { Link } from 'react-router-dom';
 import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import { handlePatientStatusChange } from '../../../../utils/apiUtils.ts';
+import { IAffliction } from '../../../../@types/IAffliction';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
   patient?: IPatient;
+  affliction?: IAffliction;
 }
 
 export default function AdminProfileDetails({
   therapist,
   patient,
+  affliction,
 }: AdminProfileDetailsProps) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -67,6 +70,8 @@ export default function AdminProfileDetails({
     }
   };
 
+  const [afflictionDescription, setAfflictionDescription] = useState('');
+
   const handlePatientStatusChanges = async (id: number, status: string) => {
     const response = handlePatientStatusChange(id, status);
     if (await response) {
@@ -104,61 +109,66 @@ export default function AdminProfileDetails({
               Inspection
             </h1>
             <section className="md:text-2xl">
-              <h4 className="font-bold mb-2">
-                Statut :{' '}
-                <span
-                  className={`italic p-2 rounded-md 
-                    ${therapist && therapist.status === 'active' ? 'bg-green-300' : 'bg-gray-200'} 
-                    ${
-                      patient?.status === 'active'
-                        ? 'bg-green-300'
-                        : patient?.status === 'inactive'
-                          ? 'bg-gray-200'
-                          : patient?.status === 'pending'
-                            ? 'bg-yellow-300'
-                            : patient?.status === 'banned'
-                              ? 'bg-red-300'
-                              : 'bg-gray-200'
-                    }`}
-                >
-                  {therapist && therapist.status.toUpperCase()}
-                  {patient && patient.status.toUpperCase()}
-                </span>
-              </h4>
+              {(therapist || patient) && (
+                <h4 className="font-bold mb-2">
+                  Statut:{' '}
+                  <span
+                    className={`italic p-2 rounded-md 
+        ${therapist?.status === 'active' ? 'bg-green-300' : ''}
+        ${therapist?.status === 'inactive' ? 'bg-gray-200' : ''}
+        ${therapist?.status === 'pending' ? 'bg-yellow-300' : ''}
+        ${therapist?.status === 'banned' ? 'bg-red-300' : ''}
+        ${patient?.status === 'active' ? 'bg-green-300' : ''}
+        ${patient?.status === 'inactive' ? 'bg-gray-200' : ''}
+        ${patient?.status === 'pending' ? 'bg-yellow-300' : ''}
+        ${patient?.status === 'banned' ? 'bg-red-300' : ''}
+        ${!therapist && !patient ? 'bg-gray-200' : ''}`}
+                  >
+                    {therapist?.status?.toUpperCase() ||
+                      patient?.status?.toUpperCase()}
+                  </span>
+                </h4>
+              )}
               <h4 className="font-semibold mb-2">
                 #ID :{' '}
                 <span className="italic font-normal">
-                  {therapist && therapist.id}
-                  {patient && patient.id}
+                  {therapist ? therapist.id : ''}
+                  {patient ? patient.id : ''}
+                  {affliction ? affliction.id : ''}
                 </span>
               </h4>
 
               {isProfileEditing ? (
                 <div className="flex flex-col gap-2 mb-2 ">
                   <div className="flex gap-2 items-center">
-                    <label htmlFor="name" className="font-semibold">
+                    <label
+                      htmlFor={`${therapist ? 'therapist_name' : ''}${affliction ? ' affliction_name' : ''}`.trim()}
+                      className="font-semibold"
+                    >
                       Nom :
                     </label>
                     <input
                       type="text"
                       name="name"
-                      id="therapist_name"
+                      id={`${therapist ? 'therapist_name' : ''}${affliction ? ' affliction_name' : ''}`.trim()}
                       className="border-2 border-gray-300 rounded-md px-2 italic"
-                      placeholder={therapist && therapist.name}
+                      placeholder={`${therapist && therapist.name}${affliction && affliction.name}`}
                     />
                   </div>
-                  <div className="flex gap-2 items-center">
-                    <label htmlFor="name" className="font-semibold">
-                      Prénom :
-                    </label>
-                    <input
-                      type="text"
-                      name="surname"
-                      id="therapist_surname"
-                      className="border-2 border-gray-300 rounded-md px-2 italic"
-                      placeholder={therapist && therapist.surname}
-                    />
-                  </div>
+                  {therapist && (
+                    <div className="flex gap-2 items-center">
+                      <label htmlFor="name" className="font-semibold">
+                        Prénom :
+                      </label>
+                      <input
+                        type="text"
+                        name="surname"
+                        id="therapist_surname"
+                        className="border-2 border-gray-300 rounded-md px-2 italic"
+                        placeholder={therapist && therapist.surname}
+                      />
+                    </div>
+                  )}
                 </div>
               ) : (
                 <h4 className="font-semibold mb-2">
@@ -166,6 +176,7 @@ export default function AdminProfileDetails({
                   <span className="italic font-normal">
                     {therapist && therapist.fullName}
                     {patient && patient.fullName}
+                    {affliction && affliction.name}
                   </span>
                 </h4>
               )}
@@ -309,6 +320,66 @@ export default function AdminProfileDetails({
                     <h4 className="font-bold ">Thérapeute :</h4>
                     <span className="italic font-normal">
                       {patient.therapist}
+                    </span>
+                  </div>
+                </section>
+              </>
+            )}
+
+            {affliction && (
+              <>
+                <section className="mb-2 md:text-2xl">
+                  {isProfileEditing ? (
+                    <div className="flex flex-col gap-2 justify-start mb-2">
+                      <label
+                        htmlFor="affliction_description"
+                        className="font-semibold"
+                      >
+                        Description :
+                      </label>
+                      <textarea
+                        name="description"
+                        id="affliction_description"
+                        className="border-2 border-gray-300 rounded-md px-2 font-normal italic "
+                        rows={7}
+                        placeholder={affliction.description}
+                        value={afflictionDescription}
+                        onChange={(e) =>
+                          setAfflictionDescription(e.target.value)
+                        }
+                      ></textarea>
+                    </div>
+                  ) : (
+                    <div className="md:text-2xl">
+                      <h4 className="font-bold ">Description :</h4>
+                      <span className="italic font-normal">
+                        {affliction.description}
+                      </span>
+                    </div>
+                  )}
+                </section>
+
+                <section className="mb-2 md:text-2xl">
+                  <div className="md:text-2xl">
+                    <h4 className="font-bold ">Region concernée :</h4>
+                    <span className="italic font-normal">
+                      {affliction.body_region?.name}
+                    </span>
+                  </div>
+                </section>
+                <section className="mb-2 md:text-2xl">
+                  <div className="md:text-2xl">
+                    <h4 className="font-bold ">Cotation :</h4>
+                    <span className="italic font-normal">
+                      {affliction.insurance_code}
+                    </span>
+                  </div>
+                </section>
+                <section className="mb-2 md:text-2xl">
+                  <div className="md:text-2xl">
+                    <h4 className="font-bold ">Est opérée :</h4>
+                    <span className="italic font-normal">
+                      {affliction.is_operated ? 'Oui' : 'Non'}
                     </span>
                   </div>
                 </section>

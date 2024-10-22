@@ -12,6 +12,8 @@ import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTh
 import ErrorPage from './components/pageComponents/AdminSection/ErrorPage/ErrorPage';
 import AdminPatientsPage from './components/pageComponents/AdminSection/AdminPatientsPage/AdminPatientsPage';
 import AdminPatientPage from './components/pageComponents/AdminSection/AdminPatientPage/AdminPatientPage';
+import AdminAfflictionsPage from './components/pageComponents/AdminSection/AdminAfflictionsPage/AdminAfflictionsPage';
+import AdminAfflictionPage from './components/pageComponents/AdminSection/AdminAfflictionPage/AdminAfflictionPage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -114,6 +116,14 @@ function App() {
           <Route
             path="patients/:id"
             element={<AdminPatientPage windowWidth={windowWidth} />}
+          />
+          <Route
+            path="afflictions"
+            element={<AdminAfflictionsPage windowWidth={windowWidth} />}
+          />
+          <Route
+            path="afflictions/:id"
+            element={<AdminAfflictionPage windowWidth={windowWidth} />}
           />
           <Route path="*" element={<ErrorPage />} />
         </Route>

@@ -3,6 +3,7 @@ import AdminTable from '../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
 import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
 import { fetchTherapists } from '../../../../utils/apiUtils.ts';
+import { ITherapist } from '../../../../@types/ITherapist';
 
 interface AdminTherapistsPageProps {
   windowWidth: number;
@@ -11,7 +12,7 @@ interface AdminTherapistsPageProps {
 export default function AdminTherapistsPage({
   windowWidth,
 }: AdminTherapistsPageProps) {
-  const [allTherapists, setAllTherapists] = useState([]);
+  const [allTherapists, setAllTherapists] = useState<ITherapist[]>([]);
   useEffect(() => {
     fetchTherapists().then((allTherapists) => {
       setAllTherapists(allTherapists);

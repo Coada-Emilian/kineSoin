@@ -11,22 +11,35 @@ import AddTherapistModalP1 from '../../AdminSection/Modals/AddTherapistModals/Ad
 import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP2';
 import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP3';
 import { IPatient } from '../../../../@types/IPatient';
+import { IAffliction } from '../../../../@types/IAffliction';
+import { all } from 'axios';
+import AddAfflictionModal from '../../AdminSection/Modals/AddAfflictionModals/AddAfflictionModal';
 
 interface AdminTableProps {
   allTherapists?: ITherapist[];
   allPatients?: IPatient[];
+  allAfflictions?: IAffliction[];
   windowWidth: number;
 }
 
 export default function AdminTable({
   allTherapists,
   allPatients,
+  allAfflictions,
   windowWidth,
 }: AdminTableProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const [selectedTherapist, setSelectedTherapist] = useState<ITherapist | null>(
     null
   );
+  const [selectedPatient, setSelectedPatient] = useState<IPatient | null>(null);
+  const [selectedAffliction, setSelectedAffliction] =
+    useState<IAffliction | null>(null);
+
+  const [isAddAfflictionModalOpen, setIsAddAfflictionModalOpen] =
+    useState(false);
+
   const [isAddTherapistModalP1Open, setIsAddTherapistModalP1Open] =
     useState(false);
   const [isAddTherapistModalP2Open, setIsAddTherapistModalP2Open] =
@@ -36,11 +49,16 @@ export default function AdminTable({
 
   const [therapistStatus, setTherapistStatus] = useState('all');
   const [patientStatus, setPatientStatus] = useState('all');
+  const [afflictionStatus, setAfflictionStatus] = useState('all');
+
   const [renderedTherapists, setRenderedTherapists] = useState<ITherapist[]>(
     allTherapists || []
   );
   const [renderedPatients, setRenderedPatients] = useState<IPatient[]>(
     allPatients || []
+  );
+  const [renderedAfflictions, setRenderedAfflictions] = useState<IAffliction[]>(
+    allAfflictions || []
   );
 
   const [addForm, setAddForm] = useState({
@@ -58,8 +76,6 @@ export default function AdminTable({
     photo: '' as File | unknown,
   });
 
-  const [selectedPatient, setSelectedPatient] = useState<IPatient | null>(null);
-
   useEffect(() => {
     setRenderedTherapists(allTherapists || []);
   }, [allTherapists]);
@@ -69,12 +85,20 @@ export default function AdminTable({
   }, [allPatients]);
 
   useEffect(() => {
+    setRenderedAfflictions(allAfflictions || []);
+  }, [allAfflictions]);
+
+  useEffect(() => {
     renderTherapists();
   }, [therapistStatus]);
 
   useEffect(() => {
     renderPatients();
   }, [patientStatus]);
+
+  useEffect(() => {
+    renderAfflictions();
+  }, [afflictionStatus]);
 
   const renderTherapists = () => {
     if (therapistStatus === 'all') {
@@ -115,6 +139,22 @@ export default function AdminTable({
         (patient) => patient.status === 'pending'
       );
       setRenderedPatients(pendingPatients);
+    }
+  };
+
+  const renderAfflictions = () => {
+    if (afflictionStatus === 'all') {
+      setRenderedAfflictions(allAfflictions ?? []);
+    } else if (afflictionStatus === 'operated') {
+      const operatedAfflictions = (allAfflictions ?? []).filter(
+        (affliction) => affliction.is_operated === true
+      );
+      setRenderedAfflictions(operatedAfflictions);
+    } else if (afflictionStatus === 'non-operated') {
+      const nonOperatedAfflictions = (allAfflictions ?? []).filter(
+        (affliction) => affliction.is_operated === false
+      );
+      setRenderedAfflictions(nonOperatedAfflictions);
     }
   };
 
@@ -166,9 +206,10 @@ export default function AdminTable({
                 <CustomButton
                   btnText="Inactifs"
                   inactiveButton
-                  onClick={() => (
-                    setTherapistStatus('inactive'), renderTherapists()
-                  )}
+                  onClick={() => {
+                    setTherapistStatus('inactive');
+                    renderTherapists();
+                  }}
                 />
               </div>
               <div>
@@ -186,35 +227,116 @@ export default function AdminTable({
                 <CustomButton
                   btnText="Tous"
                   allButton
-                  onClick={() => (setPatientStatus('all'), renderPatients())}
+                  onClick={() => {
+                    setPatientStatus('all');
+                    renderPatients();
+                  }}
                 />
                 <CustomButton
                   btnText="Actifs"
                   activeButton
-                  onClick={() => (setPatientStatus('active'), renderPatients())}
+                  onClick={() => {
+                    setPatientStatus('active');
+                    renderPatients();
+                  }}
                 />
                 <CustomButton
                   btnText="Inactifs"
                   inactiveButton
-                  onClick={() => (
-                    setPatientStatus('inactive'), renderPatients()
-                  )}
+                  onClick={() => {
+                    setPatientStatus('inactive');
+                    renderPatients();
+                  }}
                 />
                 <CustomButton
                   btnText="En attente"
                   pendingButton
-                  onClick={() => (
-                    setPatientStatus('pending'), renderPatients()
-                  )}
+                  onClick={() => {
+                    setPatientStatus('pending');
+                    renderPatients();
+                  }}
                 />
                 <CustomButton
                   btnText="Banis"
                   bannedButton
-                  onClick={() => (setPatientStatus('banned'), renderPatients())}
+                  onClick={() => {
+                    setPatientStatus('banned');
+                    renderPatients();
+                  }}
                 />
               </div>
             </>
           )}
+          {allAfflictions && (
+            <>
+              <div className="flex gap-2 ">
+                <CustomButton
+                  btnText="Tous"
+                  allButton
+                  onClick={() => {
+                    setAfflictionStatus('all');
+                    renderAfflictions();
+                  }}
+                />
+                <CustomButton
+                  btnText="Opérées"
+                  activeButton
+                  onClick={() => {
+                    setAfflictionStatus('operated');
+                    renderAfflictions();
+                  }}
+                />
+                <CustomButton
+                  btnText="Non opérées"
+                  inactiveButton
+                  onClick={() => {
+                    setAfflictionStatus('non-operated');
+                    renderTherapists();
+                  }}
+                />
+              </div>
+              <div>
+                <CustomButton
+                  btnText="Ajouter une affliction"
+                  addButton
+                  onClick={() => setIsAddAfflictionModalOpen(true)}
+                />
+              </div>
+            </>
+          )}
+        </div>
+
+        <div>
+          <h2 className="text-center text-2xl font-semibold mb-4 md:text-left mb: ml-10">
+            {allTherapists &&
+              (therapistStatus === 'all'
+                ? 'Tous les kinésithérapeutes'
+                : therapistStatus === 'active'
+                  ? 'Kinésithérapeutes actifs'
+                  : therapistStatus === 'inactive'
+                    ? 'Kinésithérapeutes inactifs'
+                    : '')}
+            {allPatients &&
+              (patientStatus === 'all'
+                ? 'Tous les patients'
+                : patientStatus === 'active'
+                  ? 'Patients actifs'
+                  : patientStatus === 'inactive'
+                    ? 'Patients inactifs'
+                    : patientStatus === 'banned'
+                      ? 'Patients bannis'
+                      : patientStatus === 'pending'
+                        ? 'Patients en attente'
+                        : '')}
+            {allAfflictions &&
+              (afflictionStatus === 'all'
+                ? 'Toutes les afflictions'
+                : afflictionStatus === 'operated'
+                  ? 'Afflictions opérées'
+                  : afflictionStatus === 'non-operated'
+                    ? 'Afflictions non opérées'
+                    : '')}
+          </h2>
         </div>
 
         <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6">
@@ -226,44 +348,31 @@ export default function AdminTable({
             }
           >
             <tr>
-              {allTherapists && (
-                <>
+              <>
+                <th className="border border-gray-300 px-4 py-2 text-center">
+                  #id
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-center">
+                  {allTherapists && 'Nom kiné'}
+                  {allPatients && 'Nom patient'}
+                  {allAfflictions && 'Nom affliction'}
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-center">
+                  {allTherapists && allPatients && 'Statut'}
+                  {allAfflictions && 'Region concernée'}
+                </th>
+                {allAfflictions && (
                   <th className="border border-gray-300 px-4 py-2 text-center">
-                    #id
+                    Cotation
                   </th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">
-                    Nom kiné
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">
-                    Statut
-                  </th>
-                  <th
-                    className="border border-gray-300 px-4 py-2 text-center"
-                    colSpan={2}
-                  >
-                    Action
-                  </th>
-                </>
-              )}
-              {allPatients && (
-                <>
-                  <th className="border border-gray-300 px-4 py-2 text-center">
-                    #id
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">
-                    Nom patient
-                  </th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">
-                    Statut
-                  </th>
-                  <th
-                    className="border border-gray-300 px-4 py-2 text-center"
-                    colSpan={2}
-                  >
-                    Action
-                  </th>
-                </>
-              )}
+                )}
+                <th
+                  className="border border-gray-300 px-4 py-2 text-center"
+                  colSpan={2}
+                >
+                  Action
+                </th>
+              </>
             </tr>
           </thead>
           <tbody
@@ -451,6 +560,97 @@ export default function AdminTable({
                   </tr>
                 );
               })}
+            {allAfflictions &&
+              renderedAfflictions.map((affliction: IAffliction) => {
+                return (
+                  <tr
+                    key={affliction.id}
+                    className="odd:bg-white even:bg-gray-50"
+                  >
+                    <td className="border border-gray-300 px-4 py-2 text-center">
+                      {affliction.id}
+                    </td>
+
+                    <td className="border border-gray-300 px-4 py-2 text-center">
+                      {affliction.name}
+                    </td>
+
+                    <td
+                      className={`border border-gray-300 px-4 py-2 my-auto text-center flex gap-1 items-center justify-center`}
+                    >
+                      <p>{affliction.body_region?.name ?? 'N/A'}</p>
+                    </td>
+
+                    <td className="text-center border border-gray-300 ">
+                      {affliction.insurance_code}
+                    </td>
+
+                    <td className="border border-gray-300 py-2 px-2 text-center">
+                      {windowWidth < 768 ? (
+                        <Link to={`/admin/afflictions/${affliction.id}`}>
+                          <img
+                            src={editIcon}
+                            alt="edit"
+                            className={
+                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
+                            }
+                          />
+                        </Link>
+                      ) : (
+                        <Link
+                          to={`/admin/afflictions/${affliction.id}`}
+                          className="w-25 flex items-center justify-center"
+                        >
+                          <img
+                            src={editIcon}
+                            alt="edit"
+                            className="w-5 h-5 mx-1"
+                          />{' '}
+                          <p className="text-blue-300 font-semibold">
+                            Inspecter
+                          </p>
+                        </Link>
+                      )}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2 text-center">
+                      {windowWidth < 768 ? (
+                        <Link
+                          to="#"
+                          className="w-12"
+                          // onClick={() => {
+                          //   openDeleteModal(undefined, patient);
+                          // }}
+                        >
+                          <img
+                            src={deleteIcon}
+                            alt="delete"
+                            className={
+                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
+                            }
+                          />
+                        </Link>
+                      ) : (
+                        <Link
+                          to="#"
+                          className="w-25 flex justify-center items-center"
+                          // onClick={() => {
+                          //   openDeleteModal(undefined, patient);
+                          // }}
+                        >
+                          <img
+                            src={deleteIcon}
+                            alt="supprimer"
+                            className="w-5 mx-1"
+                          />
+                          <p className="text-red-600 font-semibold">
+                            Supprimer
+                          </p>
+                        </Link>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
@@ -487,6 +687,13 @@ export default function AdminTable({
           addForm={addForm}
           setIsAddTherapistModalP3Open={setIsAddTherapistModalP3Open}
           isAddTherapistModalP3Open={isAddTherapistModalP3Open}
+        />
+      )}
+
+      {isAddAfflictionModalOpen && (
+        <AddAfflictionModal
+          isAddAfflictionModalOpen={isAddAfflictionModalOpen}
+          setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
         />
       )}
     </>

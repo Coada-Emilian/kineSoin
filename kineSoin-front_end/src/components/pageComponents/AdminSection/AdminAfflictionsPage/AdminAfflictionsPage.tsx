@@ -2,20 +2,20 @@ import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.t
 import AdminTable from '../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
 import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import { fetchPatients } from '../../../../utils/apiUtils.ts';
-import { IPatient } from '../../../../@types/IPatient';
+import { fetchAfflictions } from '../../../../utils/apiUtils.ts';
+import { IAffliction } from '../../../../@types/IAffliction';
 
-interface AdminPatientsPageProps {
+interface AdminAfflictionsPageProps {
   windowWidth: number;
 }
 
-export default function AdminPatientsPage({
+export default function AdminAfflictionsPage({
   windowWidth,
-}: AdminPatientsPageProps) {
-  const [allPatients, setAllPatients] = useState<IPatient[]>([]);
+}: AdminAfflictionsPageProps) {
+  const [allAfflictions, setAllAfflictions] = useState<IAffliction[]>([]);
   useEffect(() => {
-    fetchPatients().then((allPatients) => {
-      setAllPatients(allPatients);
+    fetchAfflictions().then((allAfflictions) => {
+      setAllAfflictions(allAfflictions);
     });
   }, []);
 
@@ -23,7 +23,10 @@ export default function AdminPatientsPage({
     <main className="w-full md:mb-6">
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
-          <AdminTable allPatients={allPatients} windowWidth={windowWidth} />
+          <AdminTable
+            allAfflictions={allAfflictions}
+            windowWidth={windowWidth}
+          />
           <AdminMobileNav />
         </div>
       ) : (
@@ -32,7 +35,10 @@ export default function AdminPatientsPage({
             <AdminSideNav />
           </div>
           <div className="w-3/4">
-            <AdminTable allPatients={allPatients} windowWidth={windowWidth} />
+            <AdminTable
+              allAfflictions={allAfflictions}
+              windowWidth={windowWidth}
+            />
           </div>
         </div>
       )}

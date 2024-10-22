@@ -122,3 +122,33 @@ export const handlePatientDelete = async (id: number) => {
     return false;
   }
 };
+
+export const fetchAfflictions = async () => {
+  try {
+    const response = await axios.get('/admin/afflictions');
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch afflictions', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching afflictions:', error);
+    return [];
+  }
+};
+
+export const fetchAffliction = async (id: number) => {
+  try {
+    const response = await axios.get(`/admin/afflictions/${id}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch affliction', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching affliction:', error);
+    return null;
+  }
+};

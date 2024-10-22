@@ -13,8 +13,12 @@ const afflictionController = {
         'description',
         'insurance_code',
         'is_operated',
+        'body_region_id',
       ],
-      order: [['id', 'ASC']],
+      order: [
+        ['body_region_id', 'ASC'],
+        ['name', 'ASC'],
+      ],
       include: [
         {
           association: 'body_region',
@@ -101,7 +105,7 @@ const afflictionController = {
     if (!foundAffliction) {
       return res.status(404).json({ message: 'Affliction not found.' });
     } else {
-      return res.status(200).json({ foundAffliction });
+      return res.status(200).json(foundAffliction);
     }
   },
 
