@@ -90,7 +90,19 @@ export default function AdminProfileDetails({
               <h4 className="font-bold mb-2">
                 Statut :{' '}
                 <span
-                  className={`italic p-2 rounded-md ${status === 'active' ? 'bg-green-300' : 'bg-gray-200'}`}
+                  className={`italic p-2 rounded-md 
+                    ${therapist && therapist.status === 'active' ? 'bg-green-300' : 'bg-gray-200'} 
+                    ${
+                      patient?.status === 'active'
+                        ? 'bg-green-300'
+                        : patient?.status === 'inactive'
+                          ? 'bg-gray-200'
+                          : patient?.status === 'pending'
+                            ? 'bg-yellow-300'
+                            : patient?.status === 'banned'
+                              ? 'bg-red-300'
+                              : 'bg-gray-200'
+                    }`}
                 >
                   {therapist && therapist.status.toUpperCase()}
                   {patient && patient.status.toUpperCase()}
@@ -246,12 +258,12 @@ export default function AdminProfileDetails({
             {patient && (
               <>
                 <section className="mb-2 md:text-2xl">
-                  <div>
-                    <div className="md:text-2xl">
+                  <div className="flex gap-6 items-center">
+                    <div className="md:text-2xl flex gap-1 items-center">
                       <h4 className="font-bold ">Age :</h4>
                       <span className="italic font-normal">{patient.age}</span>
                     </div>
-                    <div>
+                    <div className="flex gap-1 items-center">
                       <h4 className="font-bold">Genre :</h4>
                       <span className="italic font-normal">
                         {patient.gender}

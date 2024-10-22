@@ -1,5 +1,3 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-
 interface ButtonProps {
   btnText: string;
   normalButton?: boolean;
