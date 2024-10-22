@@ -1,6 +1,8 @@
+import { useNavigate, useLocation } from 'react-router-dom';
+
 interface ButtonProps {
   btnText: string;
-  normalBtn?: boolean;
+  normalButton?: boolean;
   cancelButton?: boolean;
   validateButton?: boolean;
   modifyButton?: boolean;
@@ -11,11 +13,12 @@ interface ButtonProps {
   inactiveButton?: boolean;
   onClick?: () => void;
   btnType?: 'button' | 'submit' | 'reset';
+
 }
 
 export default function CustomButton({
   btnText,
-  normalBtn,
+  normalButton,
   cancelButton,
   validateButton,
   modifyButton,
@@ -26,9 +29,12 @@ export default function CustomButton({
   allButton,
   btnType,
   onClick,
+
 }: ButtonProps) {
+
+
   const getBtnBackground = () => {
-    if (normalBtn) {
+    if (normalButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal';
     } else if (cancelButton) {
       return 'bg-gray-200 hover:bg-gray-300';
@@ -49,7 +55,7 @@ export default function CustomButton({
 
   const getSizeAndPadding = () => {
     if (
-      normalBtn ||
+      normalButton ||
       cancelButton ||
       validateButton ||
       modifyButton ||

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 
 interface AddTherapistModalP1Props {
   setAddForm: React.Dispatch<
@@ -180,7 +180,7 @@ export default function AddTherapistModalP1({
             <CustomButton
               btnText="Continuer"
               btnType="button"
-              normalBtn
+              normalButton
               onClick={addFormDetails}
             />
             <CustomButton

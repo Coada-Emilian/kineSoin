@@ -310,7 +310,7 @@ export default function AdminProfileDetails({
                     <CustomButton
                       btnText="Valider"
                       btnType="submit"
-                      normalBtn
+                      normalButton
                     />
                     <CustomButton
                       btnText="Annuler"

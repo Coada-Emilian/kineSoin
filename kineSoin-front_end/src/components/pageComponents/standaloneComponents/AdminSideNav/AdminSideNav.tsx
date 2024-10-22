@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function AdminSideNav() {
   const links = [
@@ -10,17 +10,23 @@ export default function AdminSideNav() {
   ];
 
   return (
-    <div className="mx-4 ">
+    <div className="mx-4">
       {links.map((link) => (
-        <Link
+        <NavLink
           to={link.path}
-          className="flex items-center justify-start my-2"
+          className={({ isActive }) =>
+            `flex items-center justify-start my-2 ${
+              isActive
+                ? 'text-secondaryBlue font-bold italic'
+                : 'text-primaryBlue'
+            }`
+          }
           key={link.name}
         >
-          <p className="text-primaryBlue hover:text-secondaryBlue">
+          <p className="hover:text-secondaryBlue focus:text-red-500 text-lg">
             {link.name}
           </p>
-        </Link>
+        </NavLink>
       ))}
     </div>
   );

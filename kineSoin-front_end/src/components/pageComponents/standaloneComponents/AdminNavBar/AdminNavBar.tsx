@@ -36,7 +36,7 @@ export default function AdminNavBar({
               <img src={LogoutIcon} alt="Se déconnecter" className="w-6 mr-3" />
             </Link>
           ) : (
-            <Button btnText="Se déconnecter" normalBtn onClick={handleLogout} />
+            <Button btnText="Se déconnecter" normalButton onClick={handleLogout} />
           )}
         </div>
       </nav>

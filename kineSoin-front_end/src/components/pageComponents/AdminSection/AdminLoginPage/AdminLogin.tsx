@@ -97,7 +97,7 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
             />
           </div>
           <div className="flex justify-center">
-            <CustomButton btnText="Se connecter" normalBtn btnType="submit" />
+            <CustomButton btnText="Se connecter" normalButton btnType="submit" />
           </div>
         </form>
       </section>

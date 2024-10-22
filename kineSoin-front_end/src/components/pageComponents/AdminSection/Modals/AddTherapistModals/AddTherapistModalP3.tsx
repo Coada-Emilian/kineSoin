@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import axios from '../../../../axios.ts';
+import CustomButton from '../../../../standaloneComponents/Button/CustomButton.tsx';
+import axios from '../../../../../axios.ts';
 import { isAxiosError } from 'axios';
 import openedEyeIcon from '/icons/eye.svg';
 import closedEyeIcon from '/icons/eye-closed.svg';
@@ -248,7 +248,7 @@ export default function AddTherapistModalP3({
           </div>
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Valider" btnType="submit" normalBtn />
+            <CustomButton btnText="Valider" btnType="submit" normalButton />
             <CustomButton
               btnText="Annuler"
               btnType="button"

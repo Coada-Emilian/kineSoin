@@ -7,9 +7,9 @@ import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import refreshIcon from '/icons/refresh.png';
 import axios from '../../../../axios';
-import AddTherapistModalP1 from '../../AdminSection/Modals/AddTherapistModalP1';
-import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModalP2';
-import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModalP3';
+import AddTherapistModalP1 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP1';
+import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP2';
+import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP3';
 
 interface AdminTableProps {
   allTherapists: ITherapist[];
