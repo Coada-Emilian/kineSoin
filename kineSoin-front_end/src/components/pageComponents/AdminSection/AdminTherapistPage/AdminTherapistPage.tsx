@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from '../../../../axios.ts';
 import { ITherapist } from '../../../../@types/ITherapist';
 import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
 import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminProfileDetails from '../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
+import { fetchTherapist } from '../../../../utils/apiUtils.ts';
 
 interface AdminTherapistPageProps {
   windowWidth: number;
@@ -17,18 +17,14 @@ const AdminTherapistPage = ({ windowWidth }: AdminTherapistPageProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTherapist = async () => {
-      try {
-        const response = await axios.get(`/admin/therapists/${therapistId}`);
-        setTherapist(response.data);
-      } catch (error) {
-        console.error('Error fetching therapist data:', error);
-      } finally {
+    fetchTherapist(therapistId)
+      .then((therapist) => {
+        setTherapist(therapist);
+      })
+      .finally(() => {
         setLoading(false);
-      }
-    };
-    fetchTherapist();
-  }, [id]);
+      });
+  }, [therapistId]);
 
   if (loading) {
     return <div>Loading...</div>;

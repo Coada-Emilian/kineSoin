@@ -7,6 +7,7 @@ export interface IPatient {
   fullName?: string;
   gender: string;
   birth_date: string;
+  age?: number;
   street_number: string;
   street_name: string;
   postal_code: string;
@@ -15,6 +16,7 @@ export interface IPatient {
   phone_number: string;
   email: string;
   password: string;
+  therapist?: string;
   status: string;
   picture_url: string;
   picture_id: string;

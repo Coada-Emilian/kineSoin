@@ -469,6 +469,100 @@ const patientController = {
     return res.status(200).json(sentPatients);
   },
 
+  // getOnePatient: async (req, res) => {
+  //   const patientId = parseInt(req.params.patient_id, 10);
+
+  //   checkIsIdNumber(patientId);
+
+  //   const foundPatient = await Patient.findByPk(patientId, {
+  //     attributes: {
+  //       exclude: [
+  //         'password',
+  //         'old_password',
+  //         'new_password',
+  //         'repeated_password',
+  //         'created_at',
+  //         'updated_at',
+  //         'picture_id',
+  //       ],
+  //     },
+  //     include: [
+  //       {
+  //         association: 'prescriptions',
+  //         required: false,
+  //         attributes: [
+  //           'id',
+  //           'appointment_quantity',
+  //           'is_completed',
+  //           'at_home_care',
+  //           'date',
+  //         ],
+  //         include: [
+  //           {
+  //             association: 'medic',
+  //             attributes: ['id', 'name', 'surname'],
+  //           },
+  //           {
+  //             association: 'affliction',
+  //             attributes: ['id', 'name', 'description'],
+  //           },
+  //           {
+  //             association: 'appointments',
+  //             attributes: ['id', 'is_canceled', 'date', 'time'],
+  //           },
+  //         ],
+  //       },
+  //       { association: 'therapist' },
+  //     ],
+  //   });
+  //   if (!foundPatient) {
+  //     return res.status(400).json({ message: 'Patient not found' });
+  //   }
+
+  //   const currentDate = new Date().toISOString().split('T')[0];
+  //   const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
+
+  //   const newPrescriptions = [];
+  //   for (const prescription of foundPatient.prescriptions) {
+  //     const pastAppointments = [];
+  //     const upcomingAppointments = [];
+  //     for (const appointment of prescription.appointments) {
+  //       if (appointment.date < currentDate && appointment.time < currentTime) {
+  //         pastAppointments.push(appointment);
+  //       } else {
+  //         upcomingAppointments.push(appointment);
+  //       }
+  //     }
+  //     const newPrescription = {
+  //       id: prescription.id,
+  //       appointment_quantity: prescription.appointment_quantity,
+  //       is_completed: prescription.is_completed,
+  //       at_home_care: prescription.at_home_care,
+  //       date: prescription.date,
+  //       past_appointments: pastAppointments,
+  //       upcoming_appointments: upcomingAppointments,
+  //     };
+  //     newPrescriptions.push(newPrescription);
+  //   }
+
+  //   const sentPatient = {
+  //     id: foundPatient.id,
+  //     fullName: `${foundPatient.name} ${foundPatient.surname}`,
+  //     age: computeAge(foundPatient.birth_date),
+  //     gender: foundPatient.gender,
+  //     address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
+  //     phone_number: foundPatient.phone_number,
+  //     therapist: foundPatient.therapist
+  //       ? `${foundPatient.therapist.name} ${foundPatient.therapist.surname}`
+  //       : null,
+  //     status: foundPatient.status,
+  //     picture_url: foundPatient.picture_url,
+  //     prescriptions: newPrescriptions,
+  //     medic: foundPatient.prescriptions[0].medic,
+  //   };
+  //   return res.status(200).json(sentPatient);
+  // },
+
   getOnePatient: async (req, res) => {
     const patientId = parseInt(req.params.patient_id, 10);
 
@@ -514,6 +608,7 @@ const patientController = {
         { association: 'therapist' },
       ],
     });
+
     if (!foundPatient) {
       return res.status(400).json({ message: 'Patient not found' });
     }
@@ -521,28 +616,32 @@ const patientController = {
     const currentDate = new Date().toISOString().split('T')[0];
     const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
 
-    const newPrescriptions = [];
-    for (const prescription of foundPatient.prescriptions) {
-      const pastAppointments = [];
-      const upcomingAppointments = [];
-      for (const appointment of prescription.appointments) {
-        if (appointment.date < currentDate && appointment.time < currentTime) {
-          pastAppointments.push(appointment);
-        } else {
-          upcomingAppointments.push(appointment);
-        }
-      }
-      const newPrescription = {
-        id: prescription.id,
-        appointment_quantity: prescription.appointment_quantity,
-        is_completed: prescription.is_completed,
-        at_home_care: prescription.at_home_care,
-        date: prescription.date,
-        past_appointments: pastAppointments,
-        upcoming_appointments: upcomingAppointments,
-      };
-      newPrescriptions.push(newPrescription);
-    }
+    const newPrescriptions =
+      foundPatient.prescriptions?.map((prescription) => {
+        const pastAppointments = [];
+        const upcomingAppointments = [];
+
+        prescription.appointments?.forEach((appointment) => {
+          if (
+            appointment.date < currentDate ||
+            (appointment.date === currentDate && appointment.time < currentTime)
+          ) {
+            pastAppointments.push(appointment);
+          } else {
+            upcomingAppointments.push(appointment);
+          }
+        });
+
+        return {
+          id: prescription.id,
+          appointment_quantity: prescription.appointment_quantity,
+          is_completed: prescription.is_completed,
+          at_home_care: prescription.at_home_care,
+          date: prescription.date,
+          past_appointments: pastAppointments,
+          upcoming_appointments: upcomingAppointments,
+        };
+      }) || []; // Default to an empty array if no prescriptions
 
     const sentPatient = {
       id: foundPatient.id,
@@ -557,11 +656,11 @@ const patientController = {
       status: foundPatient.status,
       picture_url: foundPatient.picture_url,
       prescriptions: newPrescriptions,
-      medic: foundPatient.prescriptions[0].medic,
+      medic: foundPatient.prescriptions?.[0]?.medic || null, // Handle cases with no prescriptions
     };
+
     return res.status(200).json(sentPatient);
   },
-
   getActivePatients: async (req, res) => {
     const activePatients = await Patient.findAll({
       where: { status: 'active' },

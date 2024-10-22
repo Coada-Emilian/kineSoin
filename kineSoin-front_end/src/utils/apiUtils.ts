@@ -36,6 +36,21 @@ export const fetchTherapists = async () => {
   }
 };
 
+export const fetchTherapist = async (id: number) => {
+  try {
+    const response = await axios.get(`/admin/therapists/${id}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch therapist', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching therapist:', error);
+    return null;
+  }
+};
+
 export const fetchPatients = async () => {
   try {
     const response = await axios.get('/admin/allPatients');
@@ -48,5 +63,20 @@ export const fetchPatients = async () => {
   } catch (error) {
     console.error('Error fetching patients:', error);
     return [];
+  }
+};
+
+export const fetchPatient = async (id: number) => {
+  try {
+    const response = await axios.get(`/admin/patients/${id}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching patient:', error);
+    return null;
   }
 };
