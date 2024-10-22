@@ -511,8 +511,9 @@ export default function AdminProfileDetails({
           </div>
         </div>
       </form>
-      {isDeleteModalOpen && therapist && (
+      {isDeleteModalOpen && (
         <ConfirmDeleteModal
+          patient={patient}
           therapist={therapist}
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}

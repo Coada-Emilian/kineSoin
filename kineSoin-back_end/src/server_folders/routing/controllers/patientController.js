@@ -603,6 +603,20 @@ const patientController = {
     }
   },
 
+  deletePatient: async (req, res) => {
+    const patientId = parseInt(req.params.patient_id, 10);
+
+    checkIsIdNumber(patientId);
+
+    const response = await Patient.destroy({ where: { id: patientId } });
+
+    if (!response) {
+      return res.status(400).json({ message: 'Patient not found' });
+    } else {
+      return res.status(200).json({ message: 'Patient deleted successfully!' });
+    }
+  },
+
   getActivePatients: async (req, res) => {
     const activePatients = await Patient.findAll({
       where: { status: 'active' },

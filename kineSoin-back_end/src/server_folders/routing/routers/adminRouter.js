@@ -68,6 +68,10 @@ adminRouter.put(
   '/patients/:patient_id',
   wrapper(patientController.updatePatientStatus)
 );
+adminRouter.delete(
+  '/patients/:patient_id',
+  wrapper(patientController.deletePatient)
+);
 
 adminRouter.get(
   '/afflictions',

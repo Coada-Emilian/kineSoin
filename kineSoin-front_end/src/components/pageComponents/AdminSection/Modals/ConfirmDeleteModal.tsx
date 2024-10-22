@@ -1,18 +1,24 @@
 import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
-import { handleTherapistDelete } from '../../../../utils/apiUtils';
+import {
+  handlePatientDelete,
+  handleTherapistDelete,
+} from '../../../../utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
+import { IPatient } from '../../../../@types/IPatient';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  therapist: ITherapist;
+  therapist?: ITherapist | null;
+  patient?: IPatient | null;
 }
 
 export default function ConfirmDeleteModal({
   isDeleteModalOpen,
   setIsDeleteModalOpen,
   therapist,
+  patient,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   return (
@@ -35,22 +41,31 @@ export default function ConfirmDeleteModal({
         },
       }}
     >
-      <div className="flex flex-col text-center gap-3">
-        <p className="flex flex-col">
-          Êtes-vous sûr de vouloir supprimer le profile de
-          <span className="font-semibold">{therapist.fullName}</span> ?
-          <span className="text-red-500 font-medium">
-            Cette action est irréversible.
-          </span>
+      <div className="flex flex-col text-center gap-3 w-fit">
+        <p>
+          Êtes-vous sûr de vouloir supprimer le profile de{' '}
+          <span className="font-semibold">
+            {therapist && therapist.fullName} {patient && patient.fullName}
+          </span>{' '}
+          ?
         </p>
+        <span className="text-red-500 font-medium">
+          Cette action est irréversible.
+        </span>
         <div className="flex justify-center mt-4 gap-4">
           <button
             className="rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 text-sm p-2 px-4"
             onClick={() => {
-              handleTherapistDelete(therapist.id);
               setIsDeleteModalOpen(false);
-              navigate('/admin/therapists');
-              window.location.reload();
+              if (therapist) {
+                handleTherapistDelete(therapist.id);
+                navigate('/admin/therapists');
+                window.location.reload();
+              } else if (patient) {
+                handlePatientDelete(patient.id);
+                navigate('/admin/patients');
+                window.location.reload();
+              }
             }}
           >
             Confirmer la suppression

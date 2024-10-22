@@ -58,6 +58,8 @@ export default function AdminTable({
     photo: '' as File | unknown,
   });
 
+  const [selectedPatient, setSelectedPatient] = useState<IPatient | null>(null);
+
   useEffect(() => {
     setRenderedTherapists(allTherapists || []);
   }, [allTherapists]);
@@ -116,8 +118,13 @@ export default function AdminTable({
     }
   };
 
-  const openDeleteModal = (therapist: ITherapist) => {
-    setSelectedTherapist(therapist);
+  const openDeleteModal = (therapist?: ITherapist, patient?: IPatient) => {
+    if (therapist) {
+      setSelectedTherapist(therapist);
+    }
+    if (patient) {
+      setSelectedPatient(patient);
+    }
     setIsDeleteModalOpen(true);
   };
 
@@ -325,7 +332,7 @@ export default function AdminTable({
                         <Link
                           to="#"
                           className="w-12"
-                          onClick={() => openDeleteModal(therapist)}
+                          onClick={() => openDeleteModal(therapist, undefined)}
                         >
                           <img
                             src={deleteIcon}
@@ -339,7 +346,7 @@ export default function AdminTable({
                         <Link
                           to="#"
                           className="w-25 flex justify-center items-center"
-                          onClick={() => openDeleteModal(therapist)}
+                          onClick={() => openDeleteModal(therapist, undefined)}
                         >
                           <img
                             src={deleteIcon}
@@ -407,7 +414,13 @@ export default function AdminTable({
                     </td>
                     <td className="border border-gray-300 px-4 py-2 text-center">
                       {windowWidth < 768 ? (
-                        <Link to="#" className="w-12">
+                        <Link
+                          to="#"
+                          className="w-12"
+                          onClick={() => {
+                            openDeleteModal(undefined, patient);
+                          }}
+                        >
                           <img
                             src={deleteIcon}
                             alt="delete"
@@ -420,6 +433,9 @@ export default function AdminTable({
                         <Link
                           to="#"
                           className="w-25 flex justify-center items-center"
+                          onClick={() => {
+                            openDeleteModal(undefined, patient);
+                          }}
                         >
                           <img
                             src={deleteIcon}
@@ -439,11 +455,12 @@ export default function AdminTable({
         </table>
       </div>
 
-      {isDeleteModalOpen && selectedTherapist && (
+      {isDeleteModalOpen && (
         <ConfirmDeleteModal
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}
           therapist={selectedTherapist}
+          patient={selectedPatient}
         />
       )}
 

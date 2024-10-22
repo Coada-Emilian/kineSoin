@@ -85,7 +85,7 @@ export const handlePatientStatusChange = async (id: number, status: string) => {
     console.error('Patient ID or status is missing or invalid');
     return false;
   }
-}
+};
 
 export const fetchPatient = async (id: number) => {
   try {
@@ -99,5 +99,26 @@ export const fetchPatient = async (id: number) => {
   } catch (error) {
     console.error('Error fetching patient:', error);
     return null;
+  }
+};
+
+export const handlePatientDelete = async (id: number) => {
+  if (id) {
+    try {
+      const response = await axios.delete(`/admin/patients/${id}`);
+      if (response.status === 200) {
+        console.log('Patient profile deleted successfully');
+        return true;
+      } else {
+        console.error('Failed to delete patient profile', response.data);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error deleting patient profile:', error);
+      return false;
+    }
+  } else {
+    console.error('Patient ID is missing or invalid');
+    return false;
   }
 };
