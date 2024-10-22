@@ -85,23 +85,27 @@ export default function AdminProfileDetails({
     <>
       {therapist && (
         <form action="*" onSubmit={handleTherapistSubmit}>
-          <div className="flex flex-col md:flex-row md:space-x-6">
+          <div className="flex flex-col md:flex-row md:space-x-6 md:m-20">
             <div className="flex-1 p-4 rounded-md">
-              <h1 className="font-bold mb-4 text-xl">Inspection</h1>
-              <section>
+              <h1 className="font-bold mb-4 text-xl md:text-4xl md:mb-6">
+                Inspection
+              </h1>
+              <section className="md:text-2xl">
                 <h4 className="font-bold mb-2">
                   Statut :{' '}
-                  <span className="italic">
+                  <span
+                    className={`italic p-2 rounded-md ${status === 'active' ? 'bg-green-300' : 'bg-gray-200'}`}
+                  >
                     {therapist.status.toUpperCase()}
                   </span>
                 </h4>
                 <h4 className="font-semibold mb-2">
                   #ID :{' '}
-                  <span className="italic font-medium">{therapist.id}</span>
+                  <span className="italic font-normal">{therapist.id}</span>
                 </h4>
 
                 {isProfileEditing ? (
-                  <div className="flex flex-col gap-2 mb-2">
+                  <div className="flex flex-col gap-2 mb-2 ">
                     <div className="flex gap-2 items-center">
                       <label htmlFor="name" className="font-semibold">
                         Nom :
@@ -110,7 +114,7 @@ export default function AdminProfileDetails({
                         type="text"
                         name="name"
                         id="therapist_name"
-                        className="border-2 border-gray-300 rounded-md px-2"
+                        className="border-2 border-gray-300 rounded-md px-2 italic"
                         placeholder={therapist.name}
                       />
                     </div>
@@ -122,23 +126,24 @@ export default function AdminProfileDetails({
                         type="text"
                         name="surname"
                         id="therapist_surname"
-                        className="border-2 border-gray-300 rounded-md px-2"
+                        className="border-2 border-gray-300 rounded-md px-2 italic"
                         placeholder={therapist.surname}
                       />
                     </div>
                   </div>
                 ) : (
                   <h4 className="font-semibold mb-2">
-                    Nom:{' '}
-                    <span className="italic font-medium">
+                    Nom :{' '}
+                    <span className="italic font-normal">
                       {therapist.fullName}
                     </span>
                   </h4>
                 )}
               </section>
-              <section className="mb-2">
+
+              <section className="mb-2 md:text-2xl">
                 {isProfileEditing ? (
-                  <div className="flex gap-2 items-center mb-2">
+                  <div className="flex gap-2 items-center mb-2 ">
                     <label htmlFor="diploma" className="font-semibold">
                       Diplôme :
                     </label>
@@ -146,20 +151,21 @@ export default function AdminProfileDetails({
                       type="text"
                       name="diploma"
                       id="therapist_diploma"
-                      className="border-2 border-gray-300 rounded-md px-2"
+                      className="border-2 border-gray-300 rounded-md px-2 italic"
                       placeholder={therapist.diploma}
                     />
                   </div>
                 ) : (
-                  <div>
-                    <h4 className="font-bold">Diplôme</h4>
-                    <span className="italic font-medium">
+                  <div className="md:text-2xl">
+                    <h4 className="font-bold ">Diplôme :</h4>
+                    <span className="italic font-normal">
                       {therapist.diploma}
                     </span>
                   </div>
                 )}
               </section>
-              <section className="mb-2">
+
+              <section className="mb-2 md:text-2xl">
                 {isProfileEditing ? (
                   <div className="flex gap-2 items-center mb-2">
                     <label htmlFor="experience" className="font-semibold">
@@ -175,14 +181,15 @@ export default function AdminProfileDetails({
                   </div>
                 ) : (
                   <div>
-                    <h4 className="font-bold">Experience</h4>
-                    <span className="italic font-medium">
+                    <h4 className="font-bold">Experience :</h4>
+                    <span className="italic font-normal">
                       {therapist.experience}
                     </span>
                   </div>
                 )}
               </section>
-              <section className="mb-2">
+
+              <section className="mb-2 md:text-2xl">
                 {isProfileEditing ? (
                   <div className="flex gap-2 items-center mb-2">
                     <label htmlFor="specialty" className="font-semibold">
@@ -198,14 +205,15 @@ export default function AdminProfileDetails({
                   </div>
                 ) : (
                   <div>
-                    <h4 className="font-bold">Spécialité</h4>
-                    <span className="italic font-medium">
+                    <h4 className="font-bold">Spécialité :</h4>
+                    <span className="italic font-normal">
                       {therapist.specialty}
                     </span>
                   </div>
                 )}
               </section>
-              <section className="mb-2">
+
+              <section className="mb-2 md:text-2xl">
                 {isProfileEditing ? (
                   <div className="flex flex-col gap-2 justify-start mb-2">
                     <label htmlFor="description" className="font-semibold">
@@ -214,7 +222,7 @@ export default function AdminProfileDetails({
                     <textarea
                       name="description"
                       id="therapist_description"
-                      className="border-2 border-gray-300 rounded-md px-2"
+                      className="border-2 border-gray-300 rounded-md px-2 font-normal italic "
                       rows={7}
                       placeholder={therapist.description}
                       value={description}
@@ -223,34 +231,36 @@ export default function AdminProfileDetails({
                   </div>
                 ) : (
                   <div>
-                    <h4 className="font-bold">Description</h4>
-                    <p>{therapist.description}</p>
+                    <h4 className="font-bold ">Description :</h4>
+                    <p className="font-normal italic">
+                      {therapist.description}
+                    </p>
                   </div>
                 )}
               </section>
             </div>
             <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 rounded-md">
               {isProfileEditing ? (
-                <div className="relative flex justify-center w-96">
+                <div className="relative w-fit mx-auto mb-6 items-center flex justify-center">
                   <Link to="#" onClick={() => setIsEditPhotoModalOpen(true)}>
                     <img
                       src={editIcon}
                       alt="edit profile"
-                      className="absolute bg-white rounded-full p-1 top-4 left-12 w-10 h-10 shadow-md"
+                      className="absolute bg-white rounded-full p-1 top-2 left-2 w-10 h-10 shadow-md"
                     />
                   </Link>
                   <img
                     src={therapist.picture_url}
                     alt={therapist.fullName}
-                    className="w-full h-auto rounded-md mb-4 max-w-xs shadow-2xl w-"
+                    className="rounded-xl shadow-xl w-48 md:w-72"
                   />
                 </div>
               ) : (
-                <div className="w-96 ml-16 mt-16">
+                <div className="w-fit mx-auto mb-6 flex justify-center items-center">
                   <img
                     src={therapist.picture_url}
                     alt={therapist.fullName}
-                    className="w-full h-auto rounded-md mb-4 max-w-xs shadow-2xl"
+                    className="rounded-xl shadow-xl w-48 md:w-72"
                   />
                 </div>
               )}
