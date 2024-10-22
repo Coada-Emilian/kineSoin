@@ -66,6 +66,27 @@ export const fetchPatients = async () => {
   }
 };
 
+export const handlePatientStatusChange = async (id: number, status: string) => {
+  if (id && status) {
+    try {
+      const response = await axios.put(`/admin/patients/${id}`, { status });
+      if (response.status === 200) {
+        console.log('Patient status updated successfully');
+        return true;
+      } else {
+        console.error('Failed to update patient status', response.data);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error updating patient status:', error);
+      return false;
+    }
+  } else {
+    console.error('Patient ID or status is missing or invalid');
+    return false;
+  }
+}
+
 export const fetchPatient = async (id: number) => {
   try {
     const response = await axios.get(`/admin/patients/${id}`);

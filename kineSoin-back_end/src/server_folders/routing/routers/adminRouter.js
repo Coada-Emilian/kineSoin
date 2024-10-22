@@ -64,6 +64,10 @@ adminRouter.get(
   '/patients/:patient_id',
   wrapper(patientController.getOnePatient)
 );
+adminRouter.put(
+  '/patients/:patient_id',
+  wrapper(patientController.updatePatientStatus)
+);
 
 adminRouter.get(
   '/afflictions',
