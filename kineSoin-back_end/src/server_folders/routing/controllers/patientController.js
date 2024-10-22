@@ -432,7 +432,11 @@ const patientController = {
         'street_number',
         'postal_code',
       ],
-      order: [['status', 'ASC']],
+      order: [
+        ['status', 'ASC'],
+        ['name', 'ASC'],
+      ],
+
       include: [
         {
           association: 'therapist',
