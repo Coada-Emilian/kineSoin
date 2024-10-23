@@ -85,6 +85,7 @@ adminRouter.get(
   '/afflictions/:affliction_id',
   wrapper(afflictionController.getOneAffliction)
 );
+
 adminRouter.put(
   '/afflictions/:affliction_id',
   wrapper(afflictionController.updateAffliction)
@@ -103,4 +104,8 @@ adminRouter.delete('/medics/:medic_id', wrapper(medicController.deleteMedic));
 adminRouter.get(
   '/bodyRegions',
   wrapper(afflictionController.getAllBodyRegions)
+);
+adminRouter.get(
+  '/bodyRegions/:body_region_id',
+  wrapper(afflictionController.getOneBodyRegion)
 );

@@ -109,15 +109,110 @@ const afflictionController = {
     }
   },
 
-  updateAffliction: async (req, res) => {
-    const admin_id = parseInt(req.admin.id, 10);
+  // updateAffliction: async (req, res) => {
+  //   const adminId = 1;
 
-    checkIsIdNumber(admin_id);
+  //   checkIsIdNumber(adminId);
+
+  //   const affliction_id = parseInt(req.params.affliction_id, 10);
+
+  //   checkIsIdNumber(affliction_id);
+
+  //   const foundAffliction = await Affliction.findByPk(affliction_id);
+
+  //   if (!foundAffliction) {
+  //     return res.status(404).json({ message: 'Affliction not found.' });
+  //   }
+
+  //   const { body_region_id, name, description, insurance_code, is_operated } =
+  //     req.body;
+
+  //   const newAffliction = {
+  //     admin_id: adminId,
+  //     body_region_id: body_region_id
+  //       ? parseInt(body_region_id, 10)
+  //       : undefined || foundAffliction.body_region_id,
+  //     name: name || foundAffliction.name,
+  //     description: description || foundAffliction.description,
+  //     insurance_code: insurance_code || foundAffliction.insurance_code,
+  //     is_operated:
+  //       is_operated === 'true'
+  //         ? true
+  //         : (is_operated === 'false' ? false : undefined) ||
+  //           foundAffliction.is_operated,
+  //   };
+
+  //   const updatedAfflictionSchema = Joi.object({
+  //     body_region_id: Joi.number().integer().optional(),
+  //     name: Joi.string().max(50).optional(),
+  //     description: Joi.string().optional(),
+  //     insurance_code: Joi.string().max(255).optional(),
+  //     is_operated: Joi.boolean().optional(),
+  //   }).min(1);
+
+  //   if (!req.body) {
+  //     return res.status(400).json({
+  //       message:
+  //         'The request body cannot be empty. Please provide the necessary data.',
+  //     });
+  //   }
+
+  //   const { error } = updatedAfflictionSchema.validate(req.body);
+
+  //   if (error) {
+  //     return res.status(400).json({ message: error.details[0].message });
+  //   }
+
+  //   const updatedAffliction = await foundAffliction.update(newAffliction);
+
+  //   if (!updatedAffliction) {
+  //     return res
+  //       .status(500)
+  //       .json({ message: 'Error while updating affliction.' });
+  //   } else {
+  //     return res.status(200).json({
+  //       message: 'Affliction updated successfully',
+  //     });
+  //   }
+  // },
+
+  updateAffliction: async (req, res) => {
+    const adminId = parseInt(req.admin_id, 10);
+    checkIsIdNumber(adminId);
 
     const affliction_id = parseInt(req.params.affliction_id, 10);
-
     checkIsIdNumber(affliction_id);
 
+    const foundAffliction = await Affliction.findByPk(affliction_id);
+    console.log('Found Affliction:', foundAffliction);
+
+    if (!foundAffliction) {
+      console.error('Affliction not found');
+      return res.status(404).json({ message: 'Affliction not found.' });
+    }
+
+    // Extract fields from request body
+    const { body_region_id, name, description, insurance_code, is_operated } =
+      req.body;
+
+    // Construct newAffliction with conditional updates, only if values are provided
+    const newAffliction = {
+      ...(body_region_id
+        ? { body_region_id: parseInt(body_region_id, 10) }
+        : {}),
+      ...(name ? { name } : {}),
+      ...(description ? { description } : {}),
+      ...(insurance_code ? { insurance_code } : {}),
+      ...(is_operated === 'true' || is_operated === 'false'
+        ? { is_operated: is_operated === 'true' }
+        : {}),
+    };
+
+    if (Object.keys(newAffliction).length > 5) {
+      newAffliction.admin_id = foundAffliction.admin_id;
+    }
+
+    // Validate newAffliction object using Joi
     const updatedAfflictionSchema = Joi.object({
       body_region_id: Joi.number().integer().optional(),
       name: Joi.string().max(50).optional(),
@@ -126,47 +221,35 @@ const afflictionController = {
       is_operated: Joi.boolean().optional(),
     }).min(1);
 
-    if (!req.body) {
+    if (!Object.keys(newAffliction).length) {
+      console.error('Request body is empty or invalid');
       return res.status(400).json({
         message:
           'The request body cannot be empty. Please provide the necessary data.',
       });
     }
 
-    const { error } = updatedAfflictionSchema.validate(req.body);
+    const { error } = updatedAfflictionSchema.validate(newAffliction);
+    console.log('Validation Error:', error);
 
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
+    }
+
+    // Perform the update
+    const updatedAffliction = await foundAffliction.update(newAffliction);
+    console.log('Updated Affliction:', updatedAffliction);
+
+    if (!updatedAffliction) {
+      console.error('Error while updating affliction');
+      return res
+        .status(500)
+        .json({ message: 'Error while updating affliction.' });
     } else {
-      const { body_region_id, name, description, insurance_code, is_operated } =
-        req.body;
-
-      const foundAffliction = await Affliction.findByPk(affliction_id);
-
-      if (!foundAffliction) {
-        return res.status(404).json({ message: 'Affliction not found.' });
-      } else {
-        const newAffliction = {
-          body_region_id: body_region_id || foundAffliction.body_region_id,
-          name: name || foundAffliction.name,
-          description: description || foundAffliction.description,
-          insurance_code: insurance_code || foundAffliction.insurance_code,
-          is_operated: is_operated || foundAffliction.is_operated,
-        };
-
-        const updatedAffliction = await foundAffliction.update(newAffliction);
-
-        if (!updatedAffliction) {
-          return res
-            .status(500)
-            .json({ message: 'Error while updating affliction.' });
-        } else {
-          return res.status(200).json({
-            message: 'Affliction updated successfully',
-            updatedAffliction,
-          });
-        }
-      }
+      console.log('Affliction updated successfully');
+      return res.status(200).json({
+        message: 'Affliction updated successfully',
+      });
     }
   },
 
@@ -203,6 +286,22 @@ const afflictionController = {
       return res.status(404).json({ message: 'No body regions found.' });
     } else {
       return res.status(200).json(foundBodyRegions);
+    }
+  },
+
+  getOneBodyRegion: async (req, res) => {
+    const region_id = parseInt(req.params.body_region_id, 10);
+
+    checkIsIdNumber(region_id);
+
+    const foundBodyRegion = await Body_region.findByPk(region_id, {
+      attributes: ['id', 'name'],
+    });
+
+    if (!foundBodyRegion) {
+      return res.status(404).json({ message: 'Body region not found.' });
+    } else {
+      return res.status(200).json(foundBodyRegion);
     }
   },
 };
