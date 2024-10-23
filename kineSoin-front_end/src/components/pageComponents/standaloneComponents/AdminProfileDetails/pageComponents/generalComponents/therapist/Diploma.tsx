@@ -1,4 +1,4 @@
-import { ITherapist } from '../../../../../../@types/ITherapist';
+import { ITherapist } from '../../../../../../../@types/ITherapist';
 
 interface DiplomaProps {
   therapist: ITherapist;

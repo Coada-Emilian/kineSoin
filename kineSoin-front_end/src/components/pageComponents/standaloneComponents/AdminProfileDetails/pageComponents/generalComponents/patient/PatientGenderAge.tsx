@@ -1,4 +1,4 @@
-import { IPatient } from '../../../../../../@types/IPatient';
+import { IPatient } from '../../../../../../../@types/IPatient';
 
 interface PatientGenderAgeProps {
   patient: IPatient;

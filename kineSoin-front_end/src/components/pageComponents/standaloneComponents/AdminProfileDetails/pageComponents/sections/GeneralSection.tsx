@@ -1,11 +1,11 @@
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
-import EditProfileName from '../generalComponents/EditProfileName';
-import EditProfileSurname from '../generalComponents/EditProfileSurname';
-import ProfileId from '../generalComponents/ProfileId';
-import ProfileName from '../generalComponents/ProfileName';
-import ProfileStatus from '../generalComponents/ProfileStatus';
+import EditProfileName from '../generalComponents/common/EditProfileName';
+import EditProfileSurname from '../generalComponents/common/EditProfileSurname';
+import ProfileId from '../generalComponents/common/ProfileId';
+import ProfileName from '../generalComponents/common/ProfileName';
+import ProfileStatus from '../generalComponents/common/ProfileStatus';
 
 interface GeneralSectionProps {
   patient?: IPatient | null;

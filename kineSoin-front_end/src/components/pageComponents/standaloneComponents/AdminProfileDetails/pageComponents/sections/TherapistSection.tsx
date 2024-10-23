@@ -1,12 +1,12 @@
 import { ITherapist } from '../../../../../../@types/ITherapist';
-import Diploma from '../generalComponents/Diploma';
-import EditDiploma from '../generalComponents/EditDiploma';
-import EditExperience from '../generalComponents/EditExperience';
-import EditSpecialty from '../generalComponents/EditSpecialty';
-import EditTherapistDescription from '../generalComponents/EditTherapistDescription';
-import Experience from '../generalComponents/Experience';
-import Specialty from '../generalComponents/Specialty';
-import TherapistDescription from '../generalComponents/TherapistDescription';
+import Diploma from '../generalComponents/therapist/Diploma';
+import EditDiploma from '../generalComponents/therapist/EditDiploma';
+import EditExperience from '../generalComponents/therapist/EditExperience';
+import EditSpecialty from '../generalComponents/therapist/EditSpecialty';
+import EditTherapistDescription from '../generalComponents/therapist/EditTherapistDescription';
+import Experience from '../generalComponents/therapist/Experience';
+import Specialty from '../generalComponents/therapist/Specialty';
+import TherapistDescription from '../generalComponents/therapist/TherapistDescription';
 
 interface TherapistSectionProps {
   isProfileEditing: boolean;

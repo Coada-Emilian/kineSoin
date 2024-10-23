@@ -1,6 +1,6 @@
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../@types/ITherapist';
+import { IAffliction } from '../../../../../../../@types/IAffliction';
+import { IPatient } from '../../../../../../../@types/IPatient';
+import { ITherapist } from '../../../../../../../@types/ITherapist';
 
 interface ProfileIdProps {
   therapist?: ITherapist | null;

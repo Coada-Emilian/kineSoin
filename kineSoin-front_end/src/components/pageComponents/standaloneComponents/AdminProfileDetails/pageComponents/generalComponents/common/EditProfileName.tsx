@@ -1,5 +1,5 @@
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { ITherapist } from '../../../../../../@types/ITherapist';
+import { IAffliction } from '../../../../../../../@types/IAffliction';
+import { ITherapist } from '../../../../../../../@types/ITherapist';
 
 interface EditProfileNameProps {
   therapist?: ITherapist | null;

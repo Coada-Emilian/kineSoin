@@ -4,13 +4,7 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import editIcon from '/icons/edit.svg';
 import axios from '../../../../axios.ts';
 
-import {
-  Description,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
 import { Link } from 'react-router-dom';
@@ -18,23 +12,11 @@ import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import { handlePatientStatusChange } from '../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../@types/IAffliction';
-import ProfileStatus from './pageComponents/generalComponents/ProfileStatus.tsx';
-import ProfileId from './pageComponents/generalComponents/ProfileId.tsx';
-import EditProfileName from './pageComponents/generalComponents/EditProfileName.tsx';
-import EditProfileSurname from './pageComponents/generalComponents/EditProfileSurname.tsx';
-import ProfileName from './pageComponents/generalComponents/ProfileName.tsx';
-import EditDiploma from './pageComponents/generalComponents/EditDiploma.tsx';
-import Diploma from './pageComponents/generalComponents/Diploma.tsx';
-import EditExperience from './pageComponents/generalComponents/EditExperience.tsx';
-import Experience from './pageComponents/generalComponents/Experience.tsx';
-import EditSpecialty from './pageComponents/generalComponents/EditSpecialty.tsx';
-import Specialty from './pageComponents/generalComponents/Specialty.tsx';
-import EditTherapistDescription from './pageComponents/generalComponents/EditTherapistDescription.tsx';
-import TherapistDescription from './pageComponents/generalComponents/TherapistDescription.tsx';
-import PatientGenderAge from './pageComponents/generalComponents/PatientGenderAge.tsx';
-import FirstSection from './pageComponents/sections/GeneralSection.tsx';
+
 import GeneralSection from './pageComponents/sections/GeneralSection.tsx';
-import TherapistSection from './pageComponents/generalComponents/TherapistSection.tsx';
+import TherapistSection from './pageComponents/sections/TherapistSection.tsx';
+import PatientSection from './pageComponents/sections/PatientSection.tsx';
+import AfflictionSection from './pageComponents/sections/AfflictionSection.tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
@@ -152,93 +134,15 @@ export default function AdminProfileDetails({
               />
             )}
 
-            {patient && (
-              <>
-                <PatientGenderAge patient={patient} />
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl">
-                    <h4 className="font-bold ">Adresse :</h4>
-                    <span className="italic font-normal">
-                      {patient.address}
-                    </span>
-                  </div>
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl">
-                    <h4 className="font-bold ">Téléphone :</h4>
-                    <span className="italic font-normal">
-                      {patient.phone_number}
-                    </span>
-                  </div>
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl">
-                    <h4 className="font-bold ">Thérapeute :</h4>
-                    <span className="italic font-normal">
-                      {patient.therapist}
-                    </span>
-                  </div>
-                </section>
-              </>
-            )}
+            {patient && <PatientSection patient={patient} />}
 
             {affliction && (
-              <>
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl md:flex md:gap-1">
-                    <h4 className="font-bold ">Region concernée :</h4>
-                    <span className="italic font-normal">
-                      {affliction.body_region?.name}
-                    </span>
-                  </div>
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl md:flex md:gap-1">
-                    <h4 className="font-bold ">Cotation :</h4>
-                    <span className="italic font-normal">
-                      {affliction.insurance_code}
-                    </span>
-                  </div>
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  <div className="md:text-2xl md:flex md:gap-1">
-                    <h4 className="font-bold ">Est opérée :</h4>
-                    <span className="italic font-normal">
-                      {affliction.is_operated ? 'Oui' : 'Non'}
-                    </span>
-                  </div>
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  {isProfileEditing ? (
-                    <div className="flex flex-col gap-2 justify-start mb-2">
-                      <label
-                        htmlFor="affliction_description"
-                        className="font-semibold"
-                      >
-                        Description :
-                      </label>
-                      <textarea
-                        name="description"
-                        id="affliction_description"
-                        className="border-2 border-gray-300 rounded-md px-2 font-normal italic "
-                        rows={7}
-                        placeholder={affliction.description}
-                        value={afflictionDescription}
-                        onChange={(e) =>
-                          setAfflictionDescription(e.target.value)
-                        }
-                      ></textarea>
-                    </div>
-                  ) : (
-                    <div className="md:text-2xl">
-                      <h4 className="font-bold ">Description :</h4>
-                      <span className="italic font-normal">
-                        {affliction.description}
-                      </span>
-                    </div>
-                  )}
-                </section>
-              </>
+              <AfflictionSection
+                affliction={affliction}
+                afflictionDescription={afflictionDescription}
+                setAfflictionDescription={setAfflictionDescription}
+                isProfileEditing={isProfileEditing}
+              />
             )}
           </div>
 

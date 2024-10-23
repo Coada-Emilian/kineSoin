@@ -1,5 +1,5 @@
-import { IPatient } from '../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../@types/ITherapist';
+import { IPatient } from '../../../../../../../@types/IPatient';
+import { ITherapist } from '../../../../../../../@types/ITherapist';
 
 interface ProfileStatusProps {
   therapist?: ITherapist | null;
