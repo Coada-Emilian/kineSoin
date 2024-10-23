@@ -126,11 +126,6 @@ export default function AdminProfileDetails({
       formData.append('is_operated', String(afflictionOperatedStatus));
     }
 
-    console.log('Form Data Entries:');
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-
     if (affliction && affliction.id) {
       try {
         const response = await axios.put(

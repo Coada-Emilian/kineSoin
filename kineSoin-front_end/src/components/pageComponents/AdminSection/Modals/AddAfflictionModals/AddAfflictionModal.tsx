@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
+import { IBodyRegion } from '../../../../../@types/IBodyRegion';
+import NameInput from './NameInput';
+import RegionInput from './RegionInput';
+import InsuranceCodeInput from './InsuranceCodeInput';
+import OperatedStatusInput from './OperatedStatusInput';
+import DescriptionInput from './DescriptionInput';
+import axios from '../../../../../axios.ts';
+import { handleAfflictionCreation } from '../../../../../utils/apiUtils';
 
 interface AddAfflictionModalProps {
   isAddAfflictionModalOpen: boolean;
@@ -11,6 +19,42 @@ export default function AddAfflictionModal({
   isAddAfflictionModalOpen,
   setIsAddAfflictionModalOpen,
 }: AddAfflictionModalProps) {
+  const [chosenBodyRegionId, setChosenBodyRegionId] = useState<
+    number | undefined
+  >(undefined);
+  const [loading, setLoading] = useState(true);
+  const [afflictionOperatedStatus, setAfflictionOperatedStatus] =
+    useState<boolean>(false);
+
+  const handleAfflictionSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    if (chosenBodyRegionId !== undefined) {
+      formData.append('body_region_id', chosenBodyRegionId.toString());
+    }
+    formData.append('is_operated', afflictionOperatedStatus.toString());
+
+    try {
+      const createdAffliction = await handleAfflictionCreation(formData);
+
+      if (createdAffliction) {
+        console.log('Affliction added successfully', createdAffliction);
+        setIsAddAfflictionModalOpen(false);
+        window.location.reload(); // Consider using a more controlled state update instead of reload
+      } else {
+        console.error('Failed to create affliction');
+      }
+    } catch (error) {
+      console.error('Error updating affliction:', error);
+    }
+  };
+
+  {
+    loading && <p>Loading...</p>;
+  }
   return (
     <ReactModal
       isOpen={isAddAfflictionModalOpen}
@@ -35,76 +79,30 @@ export default function AddAfflictionModal({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter une affliction
         </h2>
-        <form className="space-y-4">
-          <div>
-            <label
-              htmlFor="therapist-name_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Nom
-            </label>
-            <input
-              type="text"
-              id="therapist-name_input"
-              name="name"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              required
+        <form className="space-y-4" onSubmit={handleAfflictionSubmit}>
+          <NameInput />
+          <RegionInput
+            setLoading={setLoading}
+            setChosenBodyRegionId={setChosenBodyRegionId}
+          />
+
+          <div className="flex gap-1">
+            <InsuranceCodeInput />
+            <OperatedStatusInput
+              setAfflictionOperatedStatus={setAfflictionOperatedStatus}
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="therapist-surname_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Prénom
-            </label>
-            <input
-              type="text"
-              id="therapist-surname_input"
-              name="surname"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="therapist-licence-code_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Code ADELI
-            </label>
-            <input
-              type="text"
-              id="therapist-licence-code_input"
-              name="licence_code"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="therapist-licence-code_input"
-              className="block text-xs md:text-sm font-medium text-gray-700 mb-2"
-            >
-              Charger une photo
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              className="block w-full text-xs md:text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-blue-50 file:text-primaryBlue file:text-xs md:file:text-sm hover:file:bg-secondaryBlue cursor-pointer"
-            />
-          </div>
-
-          <p className="text-red-500 text-center text-xs md:text-sm">
-            Etape 1 / 3 : Informations personnelles
-          </p>
+          <DescriptionInput />
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Continuer" btnType="button" normalButton />
-            <CustomButton btnText="Annuler" btnType="button" cancelButton />
+            <CustomButton btnText="Valider" btnType="submit" normalButton />
+            <CustomButton
+              btnText="Annuler"
+              btnType="button"
+              cancelButton
+              onClick={() => setIsAddAfflictionModalOpen(false)}
+            />
           </div>
         </form>
       </div>
