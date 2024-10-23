@@ -1,23 +1,15 @@
 import { useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import editIcon from '/icons/edit.svg';
 import axios from '../../../../axios.ts';
-
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
-import { Link } from 'react-router-dom';
 import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import { handlePatientStatusChange } from '../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../@types/IAffliction';
-
 import GeneralSection from './pageComponents/sections/GeneralSection.tsx';
 import TherapistSection from './pageComponents/sections/TherapistSection.tsx';
 import PatientSection from './pageComponents/sections/PatientSection.tsx';
 import AfflictionSection from './pageComponents/sections/AfflictionSection.tsx';
-import EditTherapistImage from './pageComponents/generalComponents/therapist/EditTherapistImage.tsx';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 
@@ -91,14 +83,22 @@ export default function AdminProfileDetails({
   };
 
   const toggleStatus = (status: string) => {
-    if (status === 'active') {
-      setButtonMessage('Active');
+    if (status === 'active' || status === 'opérée') {
+      if (status === 'active') {
+        setButtonMessage('Active');
+        setTherapistStatus('active');
+      } else if (status === 'opérée') {
+        setButtonMessage('Opérée');
+      }
       setBackgroundColor('bg-green-300 hover:bg-green-500');
-      setTherapistStatus('active');
-    } else if (status === 'inactive') {
-      setButtonMessage('Inactive');
+    } else if (status === 'inactive' || status === 'non-opérée') {
+      if (status === 'inactive') {
+        setButtonMessage('Inactive');
+        setTherapistStatus('inactive');
+      } else if (status === 'non-opérée') {
+        setButtonMessage('Non-opérée');
+      }
       setBackgroundColor('bg-gray-200 hover:bg-gray-400');
-      setTherapistStatus('inactive');
     } else if (status === 'pending') {
       setButtonMessage('Pending');
       setBackgroundColor('bg-yellow-300 hover:bg-yellow-500');

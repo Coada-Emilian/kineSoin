@@ -19,7 +19,10 @@ export default function AfflictionSection({
 }: AfflictionSectionProps) {
   return (
     <>
-      <AfflictionBodyRegion affliction={affliction} />
+      <AfflictionBodyRegion
+        isProfileEditing={isProfileEditing}
+        affliction={affliction}
+      />
       <AfflictionInsuranceCode affliction={affliction} />
       <AfflictionOperatedStatus affliction={affliction} />
       <AfflictionDescriptionSection
