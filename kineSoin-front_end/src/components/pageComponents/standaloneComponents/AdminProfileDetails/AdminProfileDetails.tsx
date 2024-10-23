@@ -4,7 +4,13 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import editIcon from '/icons/edit.svg';
 import axios from '../../../../axios.ts';
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import {
+  Description,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
 import { Link } from 'react-router-dom';
@@ -12,6 +18,23 @@ import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import { handlePatientStatusChange } from '../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../@types/IAffliction';
+import ProfileStatus from './pageComponents/generalComponents/ProfileStatus.tsx';
+import ProfileId from './pageComponents/generalComponents/ProfileId.tsx';
+import EditProfileName from './pageComponents/generalComponents/EditProfileName.tsx';
+import EditProfileSurname from './pageComponents/generalComponents/EditProfileSurname.tsx';
+import ProfileName from './pageComponents/generalComponents/ProfileName.tsx';
+import EditDiploma from './pageComponents/generalComponents/EditDiploma.tsx';
+import Diploma from './pageComponents/generalComponents/Diploma.tsx';
+import EditExperience from './pageComponents/generalComponents/EditExperience.tsx';
+import Experience from './pageComponents/generalComponents/Experience.tsx';
+import EditSpecialty from './pageComponents/generalComponents/EditSpecialty.tsx';
+import Specialty from './pageComponents/generalComponents/Specialty.tsx';
+import EditTherapistDescription from './pageComponents/generalComponents/EditTherapistDescription.tsx';
+import TherapistDescription from './pageComponents/generalComponents/TherapistDescription.tsx';
+import PatientGenderAge from './pageComponents/generalComponents/PatientGenderAge.tsx';
+import FirstSection from './pageComponents/sections/GeneralSection.tsx';
+import GeneralSection from './pageComponents/sections/GeneralSection.tsx';
+import TherapistSection from './pageComponents/generalComponents/TherapistSection.tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
@@ -113,200 +136,25 @@ export default function AdminProfileDetails({
                   ? 'patient'
                   : 'affliction'}
             </h1>
-            <section className="md:text-2xl">
-              {(therapist || patient) && (
-                <h4 className="font-bold mb-2">
-                  Statut:{' '}
-                  <span
-                    className={`italic p-2 rounded-md 
-        ${therapist?.status === 'active' ? 'bg-green-300' : ''}
-        ${therapist?.status === 'inactive' ? 'bg-gray-200' : ''}
-        ${therapist?.status === 'pending' ? 'bg-yellow-300' : ''}
-        ${therapist?.status === 'banned' ? 'bg-red-300' : ''}
-        ${patient?.status === 'active' ? 'bg-green-300' : ''}
-        ${patient?.status === 'inactive' ? 'bg-gray-200' : ''}
-        ${patient?.status === 'pending' ? 'bg-yellow-300' : ''}
-        ${patient?.status === 'banned' ? 'bg-red-300' : ''}
-        ${!therapist && !patient ? 'bg-gray-200' : ''}`}
-                  >
-                    {therapist?.status?.toUpperCase() ||
-                      patient?.status?.toUpperCase()}
-                  </span>
-                </h4>
-              )}
-              <h4 className="font-semibold mb-2">
-                #ID :{' '}
-                <span className="italic font-normal">
-                  {therapist ? therapist.id : ''}
-                  {patient ? patient.id : ''}
-                  {affliction ? affliction.id : ''}
-                </span>
-              </h4>
-
-              {isProfileEditing ? (
-                <div className="flex flex-col gap-2 mb-2 ">
-                  <div className="flex gap-2 items-center">
-                    <label
-                      htmlFor={`${therapist ? 'therapist_name' : ''}${affliction ? ' affliction_name' : ''}`.trim()}
-                      className="font-semibold"
-                    >
-                      Nom :
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      id={`${therapist ? 'therapist_name' : ''}${affliction ? ' affliction_name' : ''}`.trim()}
-                      className="border-2 border-gray-300 rounded-md px-2 italic"
-                      placeholder={
-                        (therapist && therapist.name) ||
-                        (affliction && affliction.name)
-                      }
-                    />
-                  </div>
-                  {therapist && (
-                    <div className="flex gap-2 items-center">
-                      <label htmlFor="name" className="font-semibold">
-                        Prénom :
-                      </label>
-                      <input
-                        type="text"
-                        name="surname"
-                        id="therapist_surname"
-                        className="border-2 border-gray-300 rounded-md px-2 italic"
-                        placeholder={therapist && therapist.surname}
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <h4 className="font-semibold mb-2">
-                  Nom :{' '}
-                  <span className="italic font-normal">
-                    {therapist && therapist.fullName}
-                    {patient && patient.fullName}
-                    {affliction && affliction.name}
-                  </span>
-                </h4>
-              )}
-            </section>
+            <GeneralSection
+              patient={patient}
+              therapist={therapist}
+              affliction={affliction}
+              isProfileEditing={isProfileEditing}
+            />
 
             {therapist && (
-              <>
-                <section className="mb-2 md:text-2xl">
-                  {isProfileEditing ? (
-                    <div className="flex gap-2 items-center mb-2 ">
-                      <label htmlFor="diploma" className="font-semibold">
-                        Diplôme :
-                      </label>
-                      <input
-                        type="text"
-                        name="diploma"
-                        id="therapist_diploma"
-                        className="border-2 border-gray-300 rounded-md px-2 italic"
-                        placeholder={therapist.diploma}
-                      />
-                    </div>
-                  ) : (
-                    <div className="md:text-2xl">
-                      <h4 className="font-bold ">Diplôme :</h4>
-                      <span className="italic font-normal">
-                        {therapist.diploma}
-                      </span>
-                    </div>
-                  )}
-                </section>
-                <section className="mb-2 md:text-2xl">
-                  {isProfileEditing ? (
-                    <div className="flex gap-2 items-center mb-2">
-                      <label htmlFor="experience" className="font-semibold">
-                        Expérience :
-                      </label>
-                      <input
-                        type="text"
-                        name="experience"
-                        id="therapist_experience"
-                        className="border-2 border-gray-300 rounded-md px-2"
-                        placeholder={therapist.experience}
-                      />
-                    </div>
-                  ) : (
-                    <div>
-                      <h4 className="font-bold">Experience :</h4>
-                      <span className="italic font-normal">
-                        {therapist.experience}
-                      </span>
-                    </div>
-                  )}
-                </section>
-
-                <section className="mb-2 md:text-2xl">
-                  {isProfileEditing ? (
-                    <div className="flex gap-2 items-center mb-2">
-                      <label htmlFor="specialty" className="font-semibold">
-                        Spécialité :
-                      </label>
-                      <input
-                        type="text"
-                        name="specialty"
-                        id="therapist_specialty"
-                        className="border-2 border-gray-300 rounded-md px-2"
-                        placeholder={therapist.specialty}
-                      />
-                    </div>
-                  ) : (
-                    <div>
-                      <h4 className="font-bold">Spécialité :</h4>
-                      <span className="italic font-normal">
-                        {therapist.specialty}
-                      </span>
-                    </div>
-                  )}
-                </section>
-
-                <section className="mb-2 md:text-2xl">
-                  {isProfileEditing ? (
-                    <div className="flex flex-col gap-2 justify-start mb-2">
-                      <label htmlFor="description" className="font-semibold">
-                        Description :
-                      </label>
-                      <textarea
-                        name="description"
-                        id="therapist_description"
-                        className="border-2 border-gray-300 rounded-md px-2 font-normal italic "
-                        rows={7}
-                        placeholder={therapist.description}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                      ></textarea>
-                    </div>
-                  ) : (
-                    <div>
-                      <h4 className="font-bold ">Description :</h4>
-                      <p className="font-normal italic">
-                        {therapist.description}
-                      </p>
-                    </div>
-                  )}
-                </section>
-              </>
+              <TherapistSection
+                isProfileEditing={isProfileEditing}
+                therapist={therapist}
+                description={description}
+                setDescription={setDescription}
+              />
             )}
 
             {patient && (
               <>
-                <section className="mb-2 md:text-2xl">
-                  <div className="flex gap-6 items-center">
-                    <div className="md:text-2xl flex gap-1 items-center">
-                      <h4 className="font-bold ">Age :</h4>
-                      <span className="italic font-normal">{patient.age}</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                      <h4 className="font-bold">Genre :</h4>
-                      <span className="italic font-normal">
-                        {patient.gender}
-                      </span>
-                    </div>
-                  </div>
-                </section>
+                <PatientGenderAge patient={patient} />
                 <section className="mb-2 md:text-2xl">
                   <div className="md:text-2xl">
                     <h4 className="font-bold ">Adresse :</h4>
