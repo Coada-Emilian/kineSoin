@@ -17,6 +17,9 @@ import GeneralSection from './pageComponents/sections/GeneralSection.tsx';
 import TherapistSection from './pageComponents/sections/TherapistSection.tsx';
 import PatientSection from './pageComponents/sections/PatientSection.tsx';
 import AfflictionSection from './pageComponents/sections/AfflictionSection.tsx';
+import EditTherapistImage from './pageComponents/generalComponents/therapist/EditTherapistImage.tsx';
+import ImageSection from './pageComponents/sections/ImageSection.tsx';
+import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
@@ -147,209 +150,24 @@ export default function AdminProfileDetails({
           </div>
 
           <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 rounded-md">
-            {isProfileEditing ? (
-              therapist && (
-                <div className="relative w-fit mx-auto mb-6 items-center flex justify-center">
-                  <Link to="#" onClick={() => setIsEditPhotoModalOpen(true)}>
-                    <img
-                      src={editIcon}
-                      alt="edit profile"
-                      className="absolute bg-white rounded-full p-1 top-2 left-2 w-10 h-10 shadow-md"
-                    />
-                  </Link>
-                  <img
-                    src={therapist && therapist.picture_url}
-                    alt={therapist && therapist.fullName}
-                    className="rounded-xl shadow-xl w-48 md:w-72"
-                  />
-                </div>
-              )
-            ) : (
-              <div className="w-fit mx-auto mb-6 flex justify-center items-center">
-                {therapist && (
-                  <img
-                    src={therapist.picture_url}
-                    alt={therapist.fullName}
-                    className="rounded-xl shadow-xl w-48 md:w-72"
-                  />
-                )}
-                {patient && (
-                  <img
-                    src={patient.picture_url}
-                    alt={patient.fullName}
-                    className="rounded-xl shadow-xl w-48 md:w-72"
-                  />
-                )}
-              </div>
-            )}
-
-            <div className="buttons flex gap-2 items-center justify-between mb-8">
-              {isProfileEditing ? (
-                <>
-                  <Menu as="div" className="relative inline-block text-left">
-                    <div>
-                      <MenuButton
-                        className={`inline-flex w-full justify-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
-                      >
-                        {buttonMessage}
-                        <ChevronDownIcon
-                          aria-hidden="true"
-                          className="-mr-1 h-5 w-5 text-gray-400"
-                        />
-                      </MenuButton>
-                    </div>
-
-                    <MenuItems
-                      transition
-                      className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-200 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                    >
-                      <div className="py-1">
-                        <MenuItem>
-                          <Link
-                            to="#"
-                            className="block px-4 py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
-                            onClick={() => toggleStatus('active')}
-                          >
-                            Active
-                          </Link>
-                        </MenuItem>
-                        <MenuItem>
-                          <Link
-                            to="#"
-                            className="block px-4 py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
-                            onClick={() => toggleStatus('inactive')}
-                          >
-                            Inactive
-                          </Link>
-                        </MenuItem>
-                      </div>
-                    </MenuItems>
-                  </Menu>
-                  <CustomButton
-                    btnText="Valider"
-                    btnType="submit"
-                    normalButton
-                  />
-                  <CustomButton
-                    btnText="Annuler"
-                    btnType="button"
-                    cancelButton
-                    onClick={() => setIsProfileEditing(false)}
-                  />
-                </>
-              ) : (
-                <>
-                  {therapist && (
-                    <CustomButton
-                      btnText="Modifier kinésithérapeute"
-                      btnType="button"
-                      modifyButton
-                      onClick={() => setIsProfileEditing(true)}
-                    />
-                  )}
-
-                  {affliction && (
-                    <CustomButton
-                      btnText="Modifier affliction"
-                      btnType="button"
-                      modifyButton
-                      onClick={() => setIsProfileEditing(true)}
-                    />
-                  )}
-
-                  {patient && (
-                    <Menu as="div" className="relative inline-block text-left">
-                      <div>
-                        <MenuButton
-                          className={`inline-flex w-full justify-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
-                        >
-                          {buttonMessage}
-                          <ChevronDownIcon
-                            aria-hidden="true"
-                            className="-mr-1 h-5 w-5 text-gray-400"
-                          />
-                        </MenuButton>
-                      </div>
-
-                      <MenuItems
-                        transition
-                        className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-200 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                      >
-                        <div className="py-1">
-                          <MenuItem>
-                            <Link
-                              to="#"
-                              className="block px-4 py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
-                              onClick={() => {
-                                toggleStatus('active');
-                                handlePatientStatusChanges(
-                                  patient.id,
-                                  'active'
-                                );
-                              }}
-                            >
-                              Active
-                            </Link>
-                          </MenuItem>
-                          <MenuItem>
-                            <Link
-                              to="#"
-                              className="block px-4 py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
-                              onClick={() => {
-                                toggleStatus('inactive');
-                                handlePatientStatusChanges(
-                                  patient.id,
-                                  'inactive'
-                                );
-                              }}
-                            >
-                              Inactive
-                            </Link>
-                          </MenuItem>
-                          <MenuItem>
-                            <Link
-                              to="#"
-                              className="block px-4 py-2 text-sm text-gray-700 bg-yellow-300 font-medium data-[focus]:bg-yellow-500 data-[focus]:text-gray-900"
-                              onClick={() => {
-                                toggleStatus('pending');
-                                handlePatientStatusChanges(
-                                  patient.id,
-                                  'pending'
-                                );
-                              }}
-                            >
-                              Pending
-                            </Link>
-                          </MenuItem>
-                          <MenuItem>
-                            <Link
-                              to="#"
-                              className="block px-4 py-2 text-sm text-gray-700 bg-red-300 font-medium data-[focus]:bg-red-500 data-[focus]:text-gray-900"
-                              onClick={() => {
-                                toggleStatus('banned');
-                                handlePatientStatusChanges(
-                                  patient.id,
-                                  'banned'
-                                );
-                              }}
-                            >
-                              Banned
-                            </Link>
-                          </MenuItem>
-                        </div>
-                      </MenuItems>
-                    </Menu>
-                  )}
-
-                  <CustomButton
-                    btnText="Supprimer"
-                    btnType="button"
-                    deleteButton
-                    onClick={() => setIsDeleteModalOpen(true)}
-                  />
-                </>
-              )}
-            </div>
+            <ImageSection
+              therapist={therapist}
+              patient={patient}
+              isProfileEditing={isProfileEditing}
+              setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
+            />
+            <ButtonsSection
+              isProfileEditing={isProfileEditing}
+              buttonMessage={buttonMessage}
+              backgroundColor={backgroundColor}
+              toggleStatus={toggleStatus}
+              setIsProfileEditing={setIsProfileEditing}
+              handlePatientStatusChanges={handlePatientStatusChanges}
+              setIsDeleteModalOpen={setIsDeleteModalOpen}
+              patient={patient}
+              therapist={therapist}
+              affliction={affliction}
+            />
           </div>
         </div>
       </form>
