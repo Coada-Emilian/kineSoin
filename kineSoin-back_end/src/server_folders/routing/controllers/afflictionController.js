@@ -2,7 +2,7 @@
 
 import Joi from 'joi';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
-import { Affliction } from '../../models/associations.js';
+import { Affliction, Body_region } from '../../models/associations.js';
 
 const afflictionController = {
   getAllAfflictions: async (req, res) => {
@@ -191,6 +191,18 @@ const afflictionController = {
           .status(200)
           .json({ message: 'Affliction deleted successfully.' });
       }
+    }
+  },
+
+  getAllBodyRegions: async (req, res) => {
+    const foundBodyRegions = await Body_region.findAll({
+      attributes: ['id', 'name'],
+    });
+
+    if (!foundBodyRegions) {
+      return res.status(404).json({ message: 'No body regions found.' });
+    } else {
+      return res.status(200).json(foundBodyRegions);
     }
   },
 };

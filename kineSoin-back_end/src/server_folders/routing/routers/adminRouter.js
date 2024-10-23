@@ -99,3 +99,8 @@ adminRouter.post('/medics', wrapper(medicController.createMedic));
 adminRouter.get('/medics/:medic_id', wrapper(medicController.getOneMedic));
 adminRouter.put('/medics/:medic_id', wrapper(medicController.updateMedic));
 adminRouter.delete('/medics/:medic_id', wrapper(medicController.deleteMedic));
+
+adminRouter.get(
+  '/bodyRegions',
+  wrapper(afflictionController.getAllBodyRegions)
+);
