@@ -63,7 +63,7 @@ export default function CustomButton({
       modifyButton ||
       deleteButton
     ) {
-      return 'text-sm p-4 py-2 min-w-24 my-0 mx-auto';
+      return 'text-xxs md:text-xl xl:text-base p-4 py-2 min-w-24 my-0 mx-auto';
     } else if (
       activeButton ||
       inactiveButton ||
@@ -71,9 +71,9 @@ export default function CustomButton({
       pendingButton ||
       bannedButton
     ) {
-      return 'text-sm p-1 px-2 max-w-24 my-0 mx-0';
+      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-24 my-0 mx-0';
     } else if (addButton) {
-      return 'text-sm p-1 px-2 max-w-52 my-0 mx-0';
+      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0';
     }
   };
 

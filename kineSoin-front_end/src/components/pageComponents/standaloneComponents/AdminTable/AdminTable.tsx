@@ -13,6 +13,7 @@ import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModals/Ad
 import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
 import AddAfflictionModal from '../../AdminSection/Modals/AddAfflictionModals/AddAfflictionModal';
+import RegionModal from '../../AdminSection/Modals/RegionModal/RegionModal';
 
 interface AdminTableProps {
   allTherapists?: ITherapist[];
@@ -277,7 +278,7 @@ export default function AdminTable({
           )}
           {allAfflictions && (
             <>
-              <div className="flex gap-2 ">
+              <div className="flex gap-1">
                 <CustomButton
                   btnText="Tous"
                   allButton
@@ -310,7 +311,7 @@ export default function AdminTable({
                   onClick={() => setIsRegionModalOpen(true)}
                 />
                 <CustomButton
-                  btnText="Ajouter une affliction"
+                  btnText="Ajouter affliction"
                   addButton
                   onClick={() => setIsAddAfflictionModalOpen(true)}
                 />
@@ -374,7 +375,7 @@ export default function AdminTable({
                   {allTherapists && allPatients && 'Statut'}
                   {allAfflictions && 'Region concernée'}
                 </th>
-                {allAfflictions && (
+                {allAfflictions && windowWidth > 768 && (
                   <th className="border border-gray-300 px-4 py-2 text-center">
                     Cotation
                   </th>
@@ -594,9 +595,11 @@ export default function AdminTable({
                       <p>{affliction.body_region?.name ?? 'N/A'}</p>
                     </td>
 
-                    <td className="text-center border border-gray-300 ">
-                      {affliction.insurance_code}
-                    </td>
+                    {windowWidth > 768 && (
+                      <td className="text-center border border-gray-300 ">
+                        {affliction.insurance_code}
+                      </td>
+                    )}
 
                     <td className="border border-gray-300 py-2 px-2 text-center">
                       {windowWidth < 768 ? (
@@ -708,6 +711,13 @@ export default function AdminTable({
         <AddAfflictionModal
           isAddAfflictionModalOpen={isAddAfflictionModalOpen}
           setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
+        />
+      )}
+      {isRegionModalOpen && (
+        <RegionModal
+          windowWidth={windowWidth}
+          isRegionModalOpen={isRegionModalOpen}
+          setIsRegionModalOpen={setIsRegionModalOpen}
         />
       )}
     </>
