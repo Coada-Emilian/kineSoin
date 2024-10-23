@@ -35,7 +35,9 @@ const afflictionController = {
   },
 
   createAffliction: async (req, res) => {
-    const admin_id = parseInt(req.admin.id, 10);
+    // const admin_id = parseInt(req.admin_id, 10);
+
+    const admin_id = 1;
 
     checkIsIdNumber(admin_id);
 
@@ -108,8 +110,6 @@ const afflictionController = {
       return res.status(200).json(foundAffliction);
     }
   },
-
-  // updateAffliction: async (req, res) => {
   //   const adminId = 1;
 
   //   checkIsIdNumber(adminId);
@@ -184,18 +184,16 @@ const afflictionController = {
     checkIsIdNumber(affliction_id);
 
     const foundAffliction = await Affliction.findByPk(affliction_id);
-    console.log('Found Affliction:', foundAffliction);
+ 
 
     if (!foundAffliction) {
       console.error('Affliction not found');
       return res.status(404).json({ message: 'Affliction not found.' });
     }
 
-    // Extract fields from request body
     const { body_region_id, name, description, insurance_code, is_operated } =
       req.body;
 
-    // Construct newAffliction with conditional updates, only if values are provided
     const newAffliction = {
       ...(body_region_id
         ? { body_region_id: parseInt(body_region_id, 10) }
@@ -230,7 +228,7 @@ const afflictionController = {
     }
 
     const { error } = updatedAfflictionSchema.validate(newAffliction);
-    console.log('Validation Error:', error);
+
 
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
@@ -238,7 +236,6 @@ const afflictionController = {
 
     // Perform the update
     const updatedAffliction = await foundAffliction.update(newAffliction);
-    console.log('Updated Affliction:', updatedAffliction);
 
     if (!updatedAffliction) {
       console.error('Error while updating affliction');

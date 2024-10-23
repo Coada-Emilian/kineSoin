@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS "afflictions" (
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "body_region_id" INT REFERENCES "body_regions"("id") ON DELETE CASCADE,
     "name" VARCHAR(50) NOT NULL,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
     "insurance_code" VARCHAR(255) NOT NULL,
     "is_operated" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
