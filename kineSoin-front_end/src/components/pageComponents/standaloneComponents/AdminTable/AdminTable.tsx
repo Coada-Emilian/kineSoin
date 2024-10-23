@@ -12,7 +12,6 @@ import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModals/Ad
 import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP3';
 import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
-import { all } from 'axios';
 import AddAfflictionModal from '../../AdminSection/Modals/AddAfflictionModals/AddAfflictionModal';
 
 interface AdminTableProps {
@@ -39,6 +38,8 @@ export default function AdminTable({
 
   const [isAddAfflictionModalOpen, setIsAddAfflictionModalOpen] =
     useState(false);
+
+  const [isRegionModalOpen, setIsRegionModalOpen] = useState(false);
 
   const [isAddTherapistModalP1Open, setIsAddTherapistModalP1Open] =
     useState(false);
@@ -158,12 +159,19 @@ export default function AdminTable({
     }
   };
 
-  const openDeleteModal = (therapist?: ITherapist, patient?: IPatient) => {
+  const openDeleteModal = (
+    therapist?: ITherapist,
+    patient?: IPatient,
+    affliction?: IAffliction
+  ) => {
     if (therapist) {
       setSelectedTherapist(therapist);
     }
     if (patient) {
       setSelectedPatient(patient);
+    }
+    if (affliction) {
+      setSelectedAffliction(affliction);
     }
     setIsDeleteModalOpen(true);
   };
@@ -295,7 +303,12 @@ export default function AdminTable({
                   }}
                 />
               </div>
-              <div>
+              <div className="flex gap-2">
+                <CustomButton
+                  btnText="Voir regions"
+                  addButton
+                  onClick={() => setIsRegionModalOpen(true)}
+                />
                 <CustomButton
                   btnText="Ajouter une affliction"
                   addButton
@@ -617,9 +630,9 @@ export default function AdminTable({
                         <Link
                           to="#"
                           className="w-12"
-                          // onClick={() => {
-                          //   openDeleteModal(undefined, patient);
-                          // }}
+                          onClick={() => {
+                            openDeleteModal(undefined, undefined, affliction);
+                          }}
                         >
                           <img
                             src={deleteIcon}
@@ -633,9 +646,9 @@ export default function AdminTable({
                         <Link
                           to="#"
                           className="w-25 flex justify-center items-center"
-                          // onClick={() => {
-                          //   openDeleteModal(undefined, patient);
-                          // }}
+                          onClick={() => {
+                            openDeleteModal(undefined, undefined, affliction);
+                          }}
                         >
                           <img
                             src={deleteIcon}
@@ -661,6 +674,7 @@ export default function AdminTable({
           setIsDeleteModalOpen={setIsDeleteModalOpen}
           therapist={selectedTherapist}
           patient={selectedPatient}
+          affliction={selectedAffliction}
         />
       )}
 

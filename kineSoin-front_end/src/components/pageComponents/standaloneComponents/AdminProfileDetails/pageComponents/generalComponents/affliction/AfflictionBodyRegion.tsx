@@ -9,11 +9,15 @@ import { fetchBodyRegions } from '../../../../../../../utils/apiUtils';
 interface AfflictionBodyRegionProps {
   affliction: IAffliction;
   isProfileEditing: boolean;
+  setChosenBodyRegionId: React.Dispatch<
+    React.SetStateAction<number | undefined>
+  >;
 }
 
 export default function AfflictionBodyRegion({
   affliction,
   isProfileEditing,
+  setChosenBodyRegionId,
 }: AfflictionBodyRegionProps) {
   const [regionName, setRegionName] = useState(affliction.body_region?.name);
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
@@ -66,7 +70,10 @@ export default function AfflictionBodyRegion({
                     <Link
                       to="#"
                       className="block px-4 py-2 text-sm text-gray-700 bg-white font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
-                      onClick={() => setRegionName(region.name)}
+                      onClick={() => {
+                        setRegionName(region.name);
+                        setChosenBodyRegionId(region.id);
+                      }}
                     >
                       {region.name}
                     </Link>

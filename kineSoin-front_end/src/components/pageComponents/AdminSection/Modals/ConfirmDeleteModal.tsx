@@ -1,17 +1,20 @@
 import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
 import {
+  handleAfflictionDelete,
   handlePatientDelete,
   handleTherapistDelete,
 } from '../../../../utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
 import { IPatient } from '../../../../@types/IPatient';
+import { IAffliction } from '../../../../@types/IAffliction';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   therapist?: ITherapist | null;
   patient?: IPatient | null;
+  affliction?: IAffliction | null;
 }
 
 export default function ConfirmDeleteModal({
@@ -19,6 +22,7 @@ export default function ConfirmDeleteModal({
   setIsDeleteModalOpen,
   therapist,
   patient,
+  affliction,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   return (
@@ -42,13 +46,23 @@ export default function ConfirmDeleteModal({
       }}
     >
       <div className="flex flex-col text-center gap-3 w-fit">
-        <p>
-          Êtes-vous sûr de vouloir supprimer le profile de{' '}
-          <span className="font-semibold">
-            {therapist && therapist.fullName} {patient && patient.fullName}
-          </span>{' '}
-          ?
-        </p>
+        {(patient || therapist) && (
+          <p>
+            Êtes-vous sûr de vouloir supprimer le profile de{' '}
+            <span className="font-semibold">
+              {therapist ? therapist.fullName : patient?.fullName}
+            </span>{' '}
+            ?
+          </p>
+        )}
+
+        {affliction && (
+          <p>
+            Êtes-vous sûr de vouloir supprimer l'affliction{' '}
+            <span className="font-semibold">{affliction.name}</span> ?
+          </p>
+        )}
+
         <span className="text-red-500 font-medium">
           Cette action est irréversible.
         </span>
@@ -64,6 +78,10 @@ export default function ConfirmDeleteModal({
               } else if (patient) {
                 handlePatientDelete(patient.id);
                 navigate('/admin/patients');
+                window.location.reload();
+              } else if (affliction) {
+                handleAfflictionDelete(affliction.id);
+                navigate('/admin/afflictions');
                 window.location.reload();
               }
             }}

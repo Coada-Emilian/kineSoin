@@ -1,3 +1,5 @@
+import { IAffliction } from '../../../../../../../@types/IAffliction';
+
 interface EditAfflictionDescriptionProps {
   affliction: IAffliction;
   afflictionDescription: string;

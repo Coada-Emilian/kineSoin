@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
 import axios from '../../../../axios.ts';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
@@ -34,43 +34,12 @@ export default function AdminProfileDetails({
   const [therapistStatus, setTherapistStatus] = useState(
     therapist?.status || 'inactive'
   );
-
-  const handleTherapistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    if (selectedFile) {
-      formData.append('file', selectedFile);
-    }
-    formData.append('status' as string, therapistStatus);
-    if (therapist && therapist.id) {
-      try {
-        const response = await axios.put(
-          `/admin/therapists/${therapist.id}`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          console.log('Therapist profile updated successfully');
-          setIsProfileEditing(false);
-          window.location.reload();
-        } else {
-          console.error('Failed to update therapist profile', response.data);
-        }
-      } catch (error) {
-        console.error('Error updating therapist profile:', error);
-      }
-    } else {
-      console.error('Therapist ID is missing or invalid');
-    }
-  };
-
   const [afflictionDescription, setAfflictionDescription] = useState('');
+  const [chosenBodyRegionId, setChosenBodyRegionId] = useState<
+    number | undefined
+  >(undefined);
+  const [afflictionOperatedStatus, setAfflictionOperatedStatus] =
+    useState<boolean>(false);
 
   const handlePatientStatusChanges = async (id: number, status: string) => {
     const response = handlePatientStatusChange(id, status);
@@ -108,10 +77,102 @@ export default function AdminProfileDetails({
     }
   };
 
+  const handleTherapistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+    }
+    formData.append('status' as string, therapistStatus);
+    if (therapist && therapist.id) {
+      try {
+        const response = await axios.put(
+          `/admin/therapists/${therapist.id}`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          console.log('Therapist profile updated successfully');
+          setIsProfileEditing(false);
+          window.location.reload();
+        } else {
+          console.error('Failed to update therapist profile', response.data);
+        }
+      } catch (error) {
+        console.error('Error updating therapist profile:', error);
+      }
+    } else {
+      console.error('Therapist ID is missing or invalid');
+    }
+  };
+
+  const handleAfflictionUpdate = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    if (chosenBodyRegionId !== undefined) {
+      formData.append('body_region_id', String(chosenBodyRegionId));
+    }
+    if (afflictionOperatedStatus !== undefined) {
+      formData.append('is_operated', String(afflictionOperatedStatus));
+    }
+
+    console.log('Form Data Entries:');
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
+    if (affliction && affliction.id) {
+      try {
+        const response = await axios.put(
+          `/admin/afflictions/${affliction.id}`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          console.log('Affliction updated successfully');
+          setIsProfileEditing(false);
+          window.location.reload();
+        } else {
+          console.error('Failed to update affliction', response.data);
+        }
+      } catch (error) {
+        console.error('Error updating affliction:', error);
+      }
+    } else {
+      console.error('Affliction ID is missing or invalid');
+    }
+  };
+
   return (
     <>
-      <form action="*" onSubmit={handleTherapistSubmit}>
-        <div className="flex flex-col md:flex-row md:space-x-6 md:m-20">
+      <form
+        action="*"
+        onSubmit={
+          therapist
+            ? handleTherapistSubmit
+            : affliction
+              ? handleAfflictionUpdate
+              : undefined
+        }
+      >
+        <div
+          className={`flex flex-col ${affliction ? '' : 'md:flex-row'} md:space-x-6 md:m-20`}
+        >
           <div className="flex-1 p-4 rounded-md">
             <h1 className="font-bold mb-4 text-xl md:text-4xl md:mb-6">
               Inspection{' '}
@@ -145,6 +206,8 @@ export default function AdminProfileDetails({
                 afflictionDescription={afflictionDescription}
                 setAfflictionDescription={setAfflictionDescription}
                 isProfileEditing={isProfileEditing}
+                setChosenBodyRegionId={setChosenBodyRegionId}
+                setAfflictionOperatedStatus={setAfflictionOperatedStatus}
               />
             )}
           </div>
@@ -177,6 +240,7 @@ export default function AdminProfileDetails({
           therapist={therapist}
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}
+          affliction={affliction}
         />
       )}
       {isEditPhotoModalOpen && therapist && (

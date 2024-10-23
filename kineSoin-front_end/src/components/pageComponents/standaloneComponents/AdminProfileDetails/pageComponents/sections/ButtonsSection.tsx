@@ -37,31 +37,28 @@ export default function ButtonsSection({
     <div className="buttons flex gap-2 items-center justify-between mb-8">
       {isProfileEditing ? (
         <>
-          <Menu as="div" className="relative inline-block text-left">
-            <div>
-              <MenuButton
-                className={`inline-flex w-full justify-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
-              >
-                {buttonMessage}
-                <ChevronDownIcon
-                  aria-hidden="true"
-                  className="-mr-1 h-5 w-5 text-gray-400"
-                />
-              </MenuButton>
-            </div>
+          {therapist && (
+            <Menu as="div" className="relative inline-block text-left">
+              <div>
+                <MenuButton
+                  className={`inline-flex w-full justify-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
+                >
+                  {buttonMessage}
+                  <ChevronDownIcon
+                    aria-hidden="true"
+                    className="-mr-1 h-5 w-5 text-gray-400"
+                  />
+                </MenuButton>
+              </div>
 
-            <MenuItems
-              transition
-              className="absolute left-0 z-10  w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-200 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-            >
-              {therapist && (
+              <MenuItems
+                transition
+                className="absolute left-0 z-10  w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-200 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              >
                 <TherapistStatusButtons toggleStatus={toggleStatus} />
-              )}
-              {affliction && (
-                <AfflictionStatusButtons toggleStatus={toggleStatus} />
-              )}
-            </MenuItems>
-          </Menu>
+              </MenuItems>
+            </Menu>
+          )}
 
           <CustomButton btnText="Valider" btnType="submit" normalButton />
 
@@ -74,18 +71,9 @@ export default function ButtonsSection({
         </>
       ) : (
         <>
-          {therapist && (
+          {!patient && (
             <CustomButton
-              btnText="Modifier kinésithérapeute"
-              btnType="button"
-              modifyButton
-              onClick={() => setIsProfileEditing(true)}
-            />
-          )}
-
-          {affliction && (
-            <CustomButton
-              btnText="Modifier affliction"
+              btnText={`Modifier ${affliction ? 'affliction' : therapist ? 'kinésithérapeute' : undefined}`}
               btnType="button"
               modifyButton
               onClick={() => setIsProfileEditing(true)}

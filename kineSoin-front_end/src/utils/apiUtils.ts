@@ -167,3 +167,19 @@ export const fetchBodyRegions = async () => {
     return null;
   }
 };
+
+export const handleAfflictionDelete = async (id: number) => {
+  try {
+    const response = await axios.delete(`/admin/afflictions/${id}`);
+    if (response.status === 200) {
+      console.log('Affliction deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete affliction', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error deleting affliction:', error);
+    return false;
+  }
+};
