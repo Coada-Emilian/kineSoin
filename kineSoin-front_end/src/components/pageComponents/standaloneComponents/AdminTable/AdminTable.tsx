@@ -1,11 +1,10 @@
 import { ITherapist } from '../../../../@types/ITherapist';
-import editIcon from '/icons/edit.png';
-import deleteIcon from '/icons/delete.png';
+
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import refreshIcon from '/icons/refresh.png';
+
 import axios from '../../../../axios';
 import AddTherapistModalP1 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP1';
 import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP2';
@@ -14,11 +13,22 @@ import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
 import AddAfflictionModal from '../../AdminSection/Modals/AddAfflictionModals/AddAfflictionModal';
 import RegionModal from '../../AdminSection/Modals/RegionModal/RegionModal';
+import { IMedic } from '../../../../@types/IMedic';
+import TherapistStatusButtons from './pageComponents/Therapist/TherapistStatusButtons';
+import PatientStatusButtons from './pageComponents/Patient/PatientStatusButtons';
+import AfflictionStatusButtons from './pageComponents/Affliction/AfflictionStatusButtons';
+import AfflictionUtilityButtons from './pageComponents/Affliction/AfflictionUtilityButtons';
+import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
+import TableTitle from './pageComponents/Common/TableTitle';
+import { Tab } from '@headlessui/react';
+import TableHead from './pageComponents/Common/TableHead';
+import TableBody from './pageComponents/Common/TableBody';
 
 interface AdminTableProps {
   allTherapists?: ITherapist[];
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
+  allMedics?: IMedic[];
   windowWidth: number;
 }
 
@@ -26,6 +36,7 @@ export default function AdminTable({
   allTherapists,
   allPatients,
   allAfflictions,
+  allMedics,
   windowWidth,
 }: AdminTableProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -36,6 +47,7 @@ export default function AdminTable({
   const [selectedPatient, setSelectedPatient] = useState<IPatient | null>(null);
   const [selectedAffliction, setSelectedAffliction] =
     useState<IAffliction | null>(null);
+  const [selectedMedic, setSelectedMedic] = useState<IMedic | null>(null);
 
   const [isAddAfflictionModalOpen, setIsAddAfflictionModalOpen] =
     useState(false);
@@ -61,6 +73,9 @@ export default function AdminTable({
   );
   const [renderedAfflictions, setRenderedAfflictions] = useState<IAffliction[]>(
     allAfflictions || []
+  );
+  const [renderedMedics, setRenderedMedics] = useState<IMedic[]>(
+    allMedics || []
   );
 
   const [addForm, setAddForm] = useState({
@@ -89,6 +104,10 @@ export default function AdminTable({
   useEffect(() => {
     setRenderedAfflictions(allAfflictions || []);
   }, [allAfflictions]);
+
+  useEffect(() => {
+    setRenderedMedics(allMedics || []);
+  }, [allMedics]);
 
   useEffect(() => {
     renderTherapists();
@@ -178,14 +197,11 @@ export default function AdminTable({
   };
 
   const handleStatusChange = async (therapistId: number) => {
-    const response = await axios.put(
-      `/admin/therapists/${therapistId}/toggleStatus`
-    );
+    const response = await handleTherapistStatusChange(therapistId);
     if (response) {
-      console.log('Status changed successfully');
       window.location.reload();
     } else {
-      console.log('Error changing status');
+      console.error('Failed to change therapist status');
     }
   };
 
@@ -195,32 +211,7 @@ export default function AdminTable({
         <div className="buttons mb-6 flex flex-row justify-between md:ml-10 md:mr-10">
           {allTherapists && (
             <>
-              <div className="flex gap-2 ">
-                <CustomButton
-                  btnText="Tous"
-                  allButton
-                  onClick={() => {
-                    setTherapistStatus('all');
-                    renderTherapists();
-                  }}
-                />
-                <CustomButton
-                  btnText="Actifs"
-                  activeButton
-                  onClick={() => {
-                    setTherapistStatus('active');
-                    renderTherapists();
-                  }}
-                />
-                <CustomButton
-                  btnText="Inactifs"
-                  inactiveButton
-                  onClick={() => {
-                    setTherapistStatus('inactive');
-                    renderTherapists();
-                  }}
-                />
-              </div>
+              <TherapistStatusButtons setTherapistStatus={setTherapistStatus} />
               <div>
                 <CustomButton
                   btnText="Ajouter un kiné"
@@ -231,443 +222,52 @@ export default function AdminTable({
             </>
           )}
           {allPatients && (
-            <>
-              <div className="flex gap-2 ">
-                <CustomButton
-                  btnText="Tous"
-                  allButton
-                  onClick={() => {
-                    setPatientStatus('all');
-                    renderPatients();
-                  }}
-                />
-                <CustomButton
-                  btnText="Actifs"
-                  activeButton
-                  onClick={() => {
-                    setPatientStatus('active');
-                    renderPatients();
-                  }}
-                />
-                <CustomButton
-                  btnText="Inactifs"
-                  inactiveButton
-                  onClick={() => {
-                    setPatientStatus('inactive');
-                    renderPatients();
-                  }}
-                />
-                <CustomButton
-                  btnText="En attente"
-                  pendingButton
-                  onClick={() => {
-                    setPatientStatus('pending');
-                    renderPatients();
-                  }}
-                />
-                <CustomButton
-                  btnText="Banis"
-                  bannedButton
-                  onClick={() => {
-                    setPatientStatus('banned');
-                    renderPatients();
-                  }}
-                />
-              </div>
-            </>
+            <PatientStatusButtons setPatientStatus={setPatientStatus} />
           )}
           {allAfflictions && (
             <>
-              <div className="flex gap-1">
-                <CustomButton
-                  btnText="Tous"
-                  allButton
-                  onClick={() => {
-                    setAfflictionStatus('all');
-                    renderAfflictions();
-                  }}
-                />
-                <CustomButton
-                  btnText="Opérées"
-                  activeButton
-                  onClick={() => {
-                    setAfflictionStatus('operated');
-                    renderAfflictions();
-                  }}
-                />
-                <CustomButton
-                  btnText="Non opérées"
-                  inactiveButton
-                  onClick={() => {
-                    setAfflictionStatus('non-operated');
-                    renderTherapists();
-                  }}
-                />
-              </div>
-              <div className="flex gap-2">
-                <CustomButton
-                  btnText="Voir regions"
-                  addButton
-                  onClick={() => setIsRegionModalOpen(true)}
-                />
-                <CustomButton
-                  btnText="Ajouter affliction"
-                  addButton
-                  onClick={() => setIsAddAfflictionModalOpen(true)}
-                />
-              </div>
+              <AfflictionStatusButtons
+                setAfflictionStatus={setAfflictionStatus}
+              />
+              <AfflictionUtilityButtons
+                setIsRegionModalOpen={setIsRegionModalOpen}
+                setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
+              />
             </>
           )}
         </div>
 
         <div>
-          <h2 className="text-center text-2xl font-semibold mb-4 md:text-left mb: ml-10">
-            {allTherapists &&
-              (therapistStatus === 'all'
-                ? 'Tous les kinésithérapeutes'
-                : therapistStatus === 'active'
-                  ? 'Kinésithérapeutes actifs'
-                  : therapistStatus === 'inactive'
-                    ? 'Kinésithérapeutes inactifs'
-                    : '')}
-            {allPatients &&
-              (patientStatus === 'all'
-                ? 'Tous les patients'
-                : patientStatus === 'active'
-                  ? 'Patients actifs'
-                  : patientStatus === 'inactive'
-                    ? 'Patients inactifs'
-                    : patientStatus === 'banned'
-                      ? 'Patients bannis'
-                      : patientStatus === 'pending'
-                        ? 'Patients en attente'
-                        : '')}
-            {allAfflictions &&
-              (afflictionStatus === 'all'
-                ? 'Toutes les afflictions'
-                : afflictionStatus === 'operated'
-                  ? 'Afflictions opérées'
-                  : afflictionStatus === 'non-operated'
-                    ? 'Afflictions non opérées'
-                    : '')}
-          </h2>
+          <TableTitle
+            allTherapists={allTherapists}
+            allPatients={allPatients}
+            allAfflictions={allAfflictions}
+            therapistStatus={therapistStatus}
+            patientStatus={patientStatus}
+            afflictionStatus={afflictionStatus}
+            allMedics={allMedics}
+          />
         </div>
 
         <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6">
-          <thead
-            className={
-              windowWidth < 450
-                ? 'bg-gray-100 text-xs'
-                : 'bg-gray-100 text-sm md:text-base'
-            }
-          >
-            <tr>
-              <>
-                <th className="border border-gray-300 px-4 py-2 text-center">
-                  #id
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-center">
-                  {allTherapists && 'Nom kiné'}
-                  {allPatients && 'Nom patient'}
-                  {allAfflictions && 'Nom affliction'}
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-center">
-                  {allTherapists && allPatients && 'Statut'}
-                  {allAfflictions && 'Region concernée'}
-                </th>
-                {allAfflictions && windowWidth > 768 && (
-                  <th className="border border-gray-300 px-4 py-2 text-center">
-                    Cotation
-                  </th>
-                )}
-                <th
-                  className="border border-gray-300 px-4 py-2 text-center"
-                  colSpan={2}
-                >
-                  Action
-                </th>
-              </>
-            </tr>
-          </thead>
-          <tbody
-            className={windowWidth < 450 ? 'text-xxs' : 'text-xs md:text-sm'}
-          >
-            {allTherapists &&
-              renderedTherapists.map((therapist: ITherapist) => {
-                return (
-                  <tr
-                    key={therapist.id}
-                    className="odd:bg-white even:bg-gray-50"
-                  >
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {therapist.id}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {therapist.fullName}
-                    </td>
-                    <td
-                      className={`border border-gray-300 ${
-                        therapist.status === 'active'
-                          ? 'bg-green-300'
-                          : 'bg-gray-200'
-                      } px-4 py-2 text-center flex gap-1 items-center justify-center`}
-                    >
-                      <Link to="#" className="hidden md:block">
-                        <img
-                          src={refreshIcon}
-                          alt="change status"
-                          className="max-w-6"
-                          onClick={() => handleStatusChange(therapist.id)}
-                        />
-                      </Link>
-
-                      <p>{therapist.status.toUpperCase()}</p>
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {windowWidth < 768 ? (
-                        <Link to={`/admin/therapists/${therapist.id}`}>
-                          <img
-                            src={editIcon}
-                            alt="edit"
-                            className={
-                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                            }
-                          />
-                        </Link>
-                      ) : (
-                        <Link
-                          to={`/admin/therapists/${therapist.id}`}
-                          className="w-25 flex items-center justify-center"
-                        >
-                          <img
-                            src={editIcon}
-                            alt="edit"
-                            className="w-5 h-5 mx-1"
-                          />{' '}
-                          <p className="text-blue-300 font-semibold">
-                            Inspecter
-                          </p>
-                        </Link>
-                      )}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {windowWidth < 768 ? (
-                        <Link
-                          to="#"
-                          className="w-12"
-                          onClick={() => openDeleteModal(therapist, undefined)}
-                        >
-                          <img
-                            src={deleteIcon}
-                            alt="delete"
-                            className={
-                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                            }
-                          />
-                        </Link>
-                      ) : (
-                        <Link
-                          to="#"
-                          className="w-25 flex justify-center items-center"
-                          onClick={() => openDeleteModal(therapist, undefined)}
-                        >
-                          <img
-                            src={deleteIcon}
-                            alt="supprimer"
-                            className="w-5 mx-1"
-                          />
-                          <p className="text-red-600 font-semibold">
-                            Supprimer
-                          </p>
-                        </Link>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            {allPatients &&
-              renderedPatients.map((patient: IPatient) => {
-                return (
-                  <tr key={patient.id} className="odd:bg-white even:bg-gray-50">
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {patient.id}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {patient.fullName}
-                    </td>
-                    <td
-                      className={`border border-gray-300 ${
-                        patient.status === 'active'
-                          ? 'bg-green-300'
-                          : patient.status === 'pending'
-                            ? 'bg-yellow-300'
-                            : patient.status === 'banned'
-                              ? 'bg-red-300'
-                              : 'bg-gray-200'
-                      } px-4 py-2 text-center flex gap-1 items-center justify-center`}
-                    >
-                      <p>{patient.status.toUpperCase()}</p>
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {windowWidth < 768 ? (
-                        <Link to={`/admin/patients/${patient.id}`}>
-                          <img
-                            src={editIcon}
-                            alt="edit"
-                            className={
-                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                            }
-                          />
-                        </Link>
-                      ) : (
-                        <Link
-                          to={`/admin/patients/${patient.id}`}
-                          className="w-25 flex items-center justify-center"
-                        >
-                          <img
-                            src={editIcon}
-                            alt="edit"
-                            className="w-5 h-5 mx-1"
-                          />{' '}
-                          <p className="text-blue-300 font-semibold">
-                            Inspecter
-                          </p>
-                        </Link>
-                      )}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {windowWidth < 768 ? (
-                        <Link
-                          to="#"
-                          className="w-12"
-                          onClick={() => {
-                            openDeleteModal(undefined, patient);
-                          }}
-                        >
-                          <img
-                            src={deleteIcon}
-                            alt="delete"
-                            className={
-                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                            }
-                          />
-                        </Link>
-                      ) : (
-                        <Link
-                          to="#"
-                          className="w-25 flex justify-center items-center"
-                          onClick={() => {
-                            openDeleteModal(undefined, patient);
-                          }}
-                        >
-                          <img
-                            src={deleteIcon}
-                            alt="supprimer"
-                            className="w-5 mx-1"
-                          />
-                          <p className="text-red-600 font-semibold">
-                            Supprimer
-                          </p>
-                        </Link>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            {allAfflictions &&
-              renderedAfflictions.map((affliction: IAffliction) => {
-                return (
-                  <tr
-                    key={affliction.id}
-                    className="odd:bg-white even:bg-gray-50"
-                  >
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {affliction.id}
-                    </td>
-
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {affliction.name}
-                    </td>
-
-                    <td
-                      className={`border border-gray-300 px-4 py-2 my-auto text-center flex gap-1 items-center justify-center`}
-                    >
-                      <p>{affliction.body_region?.name ?? 'N/A'}</p>
-                    </td>
-
-                    {windowWidth > 768 && (
-                      <td className="text-center border border-gray-300 ">
-                        {affliction.insurance_code}
-                      </td>
-                    )}
-
-                    <td className="border border-gray-300 py-2 px-2 text-center">
-                      {windowWidth < 768 ? (
-                        <Link to={`/admin/afflictions/${affliction.id}`}>
-                          <img
-                            src={editIcon}
-                            alt="edit"
-                            className={
-                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                            }
-                          />
-                        </Link>
-                      ) : (
-                        <Link
-                          to={`/admin/afflictions/${affliction.id}`}
-                          className="w-25 flex items-center justify-center"
-                        >
-                          <img
-                            src={editIcon}
-                            alt="edit"
-                            className="w-5 h-5 mx-1"
-                          />{' '}
-                          <p className="text-blue-300 font-semibold">
-                            Inspecter
-                          </p>
-                        </Link>
-                      )}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 text-center">
-                      {windowWidth < 768 ? (
-                        <Link
-                          to="#"
-                          className="w-12"
-                          onClick={() => {
-                            openDeleteModal(undefined, undefined, affliction);
-                          }}
-                        >
-                          <img
-                            src={deleteIcon}
-                            alt="delete"
-                            className={
-                              windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                            }
-                          />
-                        </Link>
-                      ) : (
-                        <Link
-                          to="#"
-                          className="w-25 flex justify-center items-center"
-                          onClick={() => {
-                            openDeleteModal(undefined, undefined, affliction);
-                          }}
-                        >
-                          <img
-                            src={deleteIcon}
-                            alt="supprimer"
-                            className="w-5 mx-1"
-                          />
-                          <p className="text-red-600 font-semibold">
-                            Supprimer
-                          </p>
-                        </Link>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
+          <TableHead
+            windowWidth={windowWidth}
+            allTherapists={allTherapists}
+            allPatients={allPatients}
+            allAfflictions={allAfflictions}
+            allMedics={allMedics}
+          />
+          <TableBody
+            windowWidth={windowWidth}
+            allTherapists={allTherapists}
+            allPatients={allPatients}
+            allAfflictions={allAfflictions}
+            renderedAfflictions={renderedAfflictions}
+            renderedPatients={renderedPatients}
+            renderedTherapists={renderedTherapists}
+            handleStatusChange={handleStatusChange}
+            openDeleteModal={openDeleteModal}
+          />
         </table>
       </div>
 

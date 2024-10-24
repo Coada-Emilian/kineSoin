@@ -239,3 +239,34 @@ export const handleRegionDelete = async (id: number) => {
     return false;
   }
 };
+
+export const fetchMedics = async () => {
+  try {
+    const response = await axios.get('/admin/medics');
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch medics', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching medics:', error);
+    return [];
+  }
+};
+
+export const handleTherapistStatusChange = async (id: number) => {
+  try {
+    const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
+    if (response.status === 200) {
+      console.log('Therapist status updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update therapist status', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating therapist status:', error);
+    return false;
+  }
+};

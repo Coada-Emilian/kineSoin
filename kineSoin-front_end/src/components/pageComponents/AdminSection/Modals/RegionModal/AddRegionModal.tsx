@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleRegionCreation } from '../../../../../utils/apiUtils';
@@ -16,7 +15,6 @@ export default function AddRegionModal({
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
-    console.log('formData:', formData);
     const response = await handleRegionCreation(formData);
     if (response) {
       setIsAddRegionModalOpen(false);

@@ -125,6 +125,7 @@ function App() {
             path="afflictions/:id"
             element={<AdminAfflictionPage windowWidth={windowWidth} />}
           />
+          <Route path="medics" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       )}
