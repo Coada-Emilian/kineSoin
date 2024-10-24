@@ -5,6 +5,7 @@ import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IMedic } from '../../../../../../@types/IMedic';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];
@@ -13,7 +14,8 @@ interface TherapistTableBodyProps {
   openDeleteModal: (
     therapist?: ITherapist,
     patient?: IPatient,
-    affliction?: IAffliction
+    affliction?: IAffliction,
+    medic?: IMedic
   ) => void;
 }
 
@@ -72,7 +74,9 @@ export default function TherapistTableBody({
             <Link
               to="#"
               className="w-12"
-              onClick={() => openDeleteModal(therapist, undefined)}
+              onClick={() =>
+                openDeleteModal(therapist, undefined, undefined, undefined)
+              }
             >
               <img
                 src={deleteIcon}
@@ -84,7 +88,9 @@ export default function TherapistTableBody({
             <Link
               to="#"
               className="w-25 flex justify-center items-center"
-              onClick={() => openDeleteModal(therapist, undefined)}
+              onClick={() =>
+                openDeleteModal(therapist, undefined, undefined, undefined)
+              }
             >
               <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />
               <p className="text-red-600 font-semibold">Supprimer</p>

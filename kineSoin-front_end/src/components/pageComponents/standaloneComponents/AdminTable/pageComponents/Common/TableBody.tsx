@@ -1,7 +1,9 @@
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
 import AfflictionTableBody from '../Affliction/AfflictionTableBody';
+import MedicTableBody from '../Medic/MedicTableBody';
 import PatientTableBody from '../Patient/PatientTableBody';
 import TherapistTableBody from '../Therapist/TherapistTableBody';
 
@@ -10,6 +12,7 @@ interface TableBodyProps {
   allTherapists?: ITherapist[];
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
+  allMedics?: IMedic[];
   renderedTherapists: ITherapist[];
   renderedPatients: IPatient[];
   renderedAfflictions: IAffliction[];
@@ -17,7 +20,8 @@ interface TableBodyProps {
   openDeleteModal: (
     therapist?: ITherapist,
     patient?: IPatient,
-    affliction?: IAffliction
+    affliction?: IAffliction,
+    medic?: IMedic
   ) => void;
 }
 
@@ -26,6 +30,7 @@ export default function TableBody({
   allTherapists,
   allPatients,
   allAfflictions,
+  allMedics,
   renderedTherapists,
   renderedPatients,
   renderedAfflictions,
@@ -55,6 +60,13 @@ export default function TableBody({
           renderedAfflictions={renderedAfflictions}
           windowWidth={windowWidth}
           openDeleteModal={openDeleteModal}
+        />
+      )}
+      {allMedics && (
+        <MedicTableBody
+          windowWidth={windowWidth}
+          openDeleteModal={openDeleteModal}
+          allMedics={allMedics}
         />
       )}
     </tbody>

@@ -255,6 +255,22 @@ export const fetchMedics = async () => {
   }
 };
 
+export const handleMedicDelete = async (id: number) => {
+  try {
+    const response = await axios.delete(`/admin/medics/${id}`);
+    if (response.status === 200) {
+      console.log('Medic profile deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete medic profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error deleting medic profile:', error);
+    return false;
+  }
+};
+
 export const handleTherapistStatusChange = async (id: number) => {
   try {
     const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);

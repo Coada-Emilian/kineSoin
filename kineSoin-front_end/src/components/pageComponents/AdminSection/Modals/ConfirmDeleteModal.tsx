@@ -2,12 +2,14 @@ import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
 import {
   handleAfflictionDelete,
+  handleMedicDelete,
   handlePatientDelete,
   handleTherapistDelete,
 } from '../../../../utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
 import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
+import { IMedic } from '../../../../@types/IMedic';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
@@ -15,6 +17,7 @@ interface ConfirmDeleteModalProps {
   therapist?: ITherapist | null;
   patient?: IPatient | null;
   affliction?: IAffliction | null;
+  medic?: IMedic | null;
 }
 
 export default function ConfirmDeleteModal({
@@ -23,6 +26,7 @@ export default function ConfirmDeleteModal({
   therapist,
   patient,
   affliction,
+  medic,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   return (
@@ -46,11 +50,17 @@ export default function ConfirmDeleteModal({
       }}
     >
       <div className="flex flex-col text-center gap-3 w-fit">
-        {(patient || therapist) && (
+        {(patient || therapist || medic) && (
           <p>
             Êtes-vous sûr de vouloir supprimer le profile de{' '}
             <span className="font-semibold">
-              {therapist ? therapist.fullName : patient?.fullName}
+              {therapist
+                ? therapist.fullName
+                : patient
+                  ? patient.fullName
+                  : medic
+                    ? medic.fullName
+                    : ''}
             </span>{' '}
             ?
           </p>
@@ -82,6 +92,10 @@ export default function ConfirmDeleteModal({
               } else if (affliction) {
                 handleAfflictionDelete(affliction.id);
                 navigate('/admin/afflictions');
+                window.location.reload();
+              } else if (medic) {
+                handleMedicDelete(medic.id);
+                navigate('/admin/medics');
                 window.location.reload();
               }
             }}

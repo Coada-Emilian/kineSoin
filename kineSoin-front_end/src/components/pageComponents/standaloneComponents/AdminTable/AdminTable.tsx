@@ -1,11 +1,7 @@
 import { ITherapist } from '../../../../@types/ITherapist';
-
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-
-import axios from '../../../../axios';
 import AddTherapistModalP1 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP1';
 import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP2';
 import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP3';
@@ -20,7 +16,6 @@ import AfflictionStatusButtons from './pageComponents/Affliction/AfflictionStatu
 import AfflictionUtilityButtons from './pageComponents/Affliction/AfflictionUtilityButtons';
 import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
 import TableTitle from './pageComponents/Common/TableTitle';
-import { Tab } from '@headlessui/react';
 import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
 
@@ -182,7 +177,8 @@ export default function AdminTable({
   const openDeleteModal = (
     therapist?: ITherapist,
     patient?: IPatient,
-    affliction?: IAffliction
+    affliction?: IAffliction,
+    medic?: IMedic
   ) => {
     if (therapist) {
       setSelectedTherapist(therapist);
@@ -192,6 +188,9 @@ export default function AdminTable({
     }
     if (affliction) {
       setSelectedAffliction(affliction);
+    }
+    if (medic) {
+      setSelectedMedic(medic);
     }
     setIsDeleteModalOpen(true);
   };
@@ -261,6 +260,7 @@ export default function AdminTable({
             windowWidth={windowWidth}
             allTherapists={allTherapists}
             allPatients={allPatients}
+            allMedics={allMedics}
             allAfflictions={allAfflictions}
             renderedAfflictions={renderedAfflictions}
             renderedPatients={renderedPatients}
@@ -278,6 +278,7 @@ export default function AdminTable({
           therapist={selectedTherapist}
           patient={selectedPatient}
           affliction={selectedAffliction}
+          medic={selectedMedic}
         />
       )}
 

@@ -1,53 +1,44 @@
 import { Link } from 'react-router-dom';
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
+import { IPatient } from '../../../../../../@types/IPatient';
+import { IAffliction } from '../../../../../../@types/IAffliction';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import { IMedic } from '../../../../../../@types/IMedic';
 
-interface AfflictionTableBodyProps {
+interface MedicTableBodyProps {
   windowWidth: number;
-  renderedAfflictions: IAffliction[];
   openDeleteModal: (
     therapist?: ITherapist,
     patient?: IPatient,
     affliction?: IAffliction,
     medic?: IMedic
   ) => void;
+  allMedics: IMedic[];
 }
 
-export default function AfflictionTableBody({
+export default function MedicTableBody({
   windowWidth,
-  renderedAfflictions,
   openDeleteModal,
-}: AfflictionTableBodyProps) {
-  return renderedAfflictions.map((affliction: IAffliction) => {
+  allMedics,
+}: MedicTableBodyProps) {
+  return allMedics.map((medic: IMedic) => {
     return (
-      <tr key={affliction.id} className="odd:bg-white even:bg-gray-50">
+      <tr key={medic.id} className="odd:bg-white even:bg-gray-50">
         <td className="border border-gray-300 px-4 py-2 text-center">
-          {affliction.id}
+          {medic.id}
         </td>
-
         <td className="border border-gray-300 px-4 py-2 text-center">
-          {affliction.name}
+          {medic.fullName}
         </td>
-
-        <td
-          className={`border border-gray-300 px-4 py-2 my-auto text-center flex gap-1 items-center justify-center`}
-        >
-          <p>{affliction.body_region?.name ?? 'N/A'}</p>
+        <td>
+          <div className="border border-gray-300 px-4 py-2 text-center">
+            {medic.licence_code}
+          </div>
         </td>
-
-        {windowWidth > 768 && (
-          <td className="text-center border border-gray-300 ">
-            {affliction.insurance_code}
-          </td>
-        )}
-
-        <td className="border border-gray-300 py-2 px-2 text-center">
+        <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
-            <Link to={`/admin/afflictions/${affliction.id}`}>
+            <Link to={`/admin/medics/${medic.id}`}>
               <img
                 src={editIcon}
                 alt="edit"
@@ -56,7 +47,7 @@ export default function AfflictionTableBody({
             </Link>
           ) : (
             <Link
-              to={`/admin/afflictions/${affliction.id}`}
+              to={`/admin/medics/${medic.id}`}
               className="w-25 flex items-center justify-center"
             >
               <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
@@ -70,7 +61,7 @@ export default function AfflictionTableBody({
               to="#"
               className="w-12"
               onClick={() => {
-                openDeleteModal(undefined, undefined, affliction, undefined);
+                openDeleteModal(undefined, undefined, undefined, medic);
               }}
             >
               <img
@@ -84,7 +75,7 @@ export default function AfflictionTableBody({
               to="#"
               className="w-25 flex justify-center items-center"
               onClick={() => {
-                openDeleteModal(undefined, undefined, affliction, undefined);
+                openDeleteModal(undefined, undefined, undefined, medic);
               }}
             >
               <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />
