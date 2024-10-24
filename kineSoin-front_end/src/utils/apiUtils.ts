@@ -203,3 +203,39 @@ export const handleAfflictionCreation = async (formData: FormData) => {
     return false;
   }
 };
+
+export const handleRegionCreation = async (formData: FormData) => {
+  try {
+    const response = await axios.post('/admin/bodyRegions', formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 201) {
+      console.log('Region created successfully');
+      return true;
+    } else {
+      console.error('Failed to create region', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error creating region:', error);
+    return false;
+  }
+};
+
+export const handleRegionDelete = async (id: number) => {
+  try {
+    const response = await axios.delete(`/admin/bodyRegions/${id}`);
+    if (response.status === 200) {
+      console.log('Region deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete region', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error deleting region:', error);
+    return false;
+  }
+};

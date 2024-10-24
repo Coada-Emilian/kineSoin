@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
 import axios from '../../../../axios.ts';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';

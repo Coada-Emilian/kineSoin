@@ -2,8 +2,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchBodyRegions } from '../../../../../utils/apiUtils';
-import { IBodyRegion } from '../../../../../@types/IBodyRegion';
+import { fetchBodyRegions } from '../../../../../../utils/apiUtils';
+import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
 
 interface RegionInputProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;

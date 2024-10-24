@@ -2,11 +2,11 @@ import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { IBodyRegion } from '../../../../../@types/IBodyRegion';
-import NameInput from './NameInput';
-import RegionInput from './RegionInput';
-import InsuranceCodeInput from './InsuranceCodeInput';
-import OperatedStatusInput from './OperatedStatusInput';
-import DescriptionInput from './DescriptionInput';
+import NameInput from './pageComponents/NameInput.tsx';
+import RegionInput from './pageComponents/RegionInput.tsx';
+import InsuranceCodeInput from './pageComponents/InsuranceCodeInput.tsx';
+import OperatedStatusInput from './pageComponents/OperatedStatusInput.tsx';
+import DescriptionInput from './pageComponents/DescriptionInput.tsx';
 import axios from '../../../../../axios.ts';
 import { handleAfflictionCreation } from '../../../../../utils/apiUtils';
 

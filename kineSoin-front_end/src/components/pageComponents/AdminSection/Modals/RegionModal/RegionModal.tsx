@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import editIcon from '/icons/edit.png';
 import deleteIcon from '/icons/delete.png';
-import { fetchBodyRegions } from '../../../../../utils/apiUtils';
+import {
+  fetchBodyRegions,
+  handleRegionDelete,
+} from '../../../../../utils/apiUtils';
 import { IBodyRegion } from '../../../../../@types/IBodyRegion';
 import { Link } from 'react-router-dom';
+import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
+import AddRegionModal from './AddRegionModal';
 
 interface RegionModalProps {
   isRegionModalOpen: boolean;
@@ -18,11 +22,22 @@ export default function RegionModal({
   setIsRegionModalOpen,
 }: RegionModalProps) {
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+  const [isAddRegionModalOpen, setIsAddRegionModalOpen] = useState(false);
+
   useEffect(() => {
     fetchBodyRegions().then((bodyRegions) => {
       setBodyRegions(bodyRegions);
     });
   }, []);
+
+  const deleteRegion = async (id: number) => {
+    const response = await handleRegionDelete(id);
+    if (response) {
+      window.location.reload();
+    } else {
+      console.error('Failed to delete region');
+    }
+  };
 
   return (
     <ReactModal
@@ -56,22 +71,19 @@ export default function RegionModal({
                 <th className="border border-gray-300 px-4 py-1 text-center">
                   Nom region
                 </th>
-                <th
-                  className="border border-gray-300 px-4 py-1 text-center"
-                  colSpan={2}
-                >
-                  Action
+                <th className="border border-gray-300 px-4 py-1 text-center">
+                  Suppression
                 </th>
               </>
             </tr>
           </thead>
           <tbody
-            className={windowWidth < 450 ? 'text-xxs' : 'text-xs md:text-sm'}
+            className={windowWidth < 450 ? 'text-xs' : 'text-xs md:text-sm'}
           >
             {bodyRegions.map((region: IBodyRegion) => (
               <tr
                 key={region.id}
-                className="odd:bg-white even:bg-gray-50 text-xs h-fit"
+                className="odd:bg-white even:bg-gray-50 text-xs md:text-md h-fit"
               >
                 <td className="border border-gray-300 px-4 py-1 text-center">
                   {region.id}
@@ -80,56 +92,34 @@ export default function RegionModal({
                   {region.name}
                 </td>
                 <td className="border border-gray-300 px-4 py-1 text-center">
-                  {windowWidth < 768 ? (
-                    <Link to={`/admin/therapists/${region.id}`}>
-                      <img
-                        src={editIcon}
-                        alt="edit"
-                        className={
-                          windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                        }
-                      />
-                    </Link>
-                  ) : (
-                    <Link
-                      to={`/admin/therapists/${region.id}`}
-                      className="w-25 flex items-center justify-center"
-                    >
-                      <img src={editIcon} alt="edit" className="w-3 mx-1" />
-                      <p className="text-blue-300 font-semibold">Inspecter</p>
-                    </Link>
-                  )}
-                </td>
-                <td className="border border-gray-300 px-4 py-1 text-center">
-                  {windowWidth < 768 ? (
-                    <Link to="#" className="w-12">
-                      <img
-                        src={deleteIcon}
-                        alt="delete"
-                        className={
-                          windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                        }
-                      />
-                    </Link>
-                  ) : (
-                    <Link
-                      to="#"
-                      className="w-25 flex justify-center items-center"
-                    >
-                      <img
-                        src={deleteIcon}
-                        alt="supprimer"
-                        className="w-3 mx-1"
-                      />
-                      <p className="text-red-600 font-semibold">Supprimer</p>
-                    </Link>
-                  )}
+                  <Link to="#" className="w-12">
+                    <img
+                      src={deleteIcon}
+                      alt="delete"
+                      className="w-4 h-4 mx-auto md:w-6 md:h-6"
+                      onClick={() => deleteRegion(region.id)}
+                    />
+                  </Link>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div className="flex justify-center">
+          <CustomButton
+            btnText="Ajouter une region"
+            btnType="button"
+            addButton
+            onClick={() => setIsAddRegionModalOpen(true)}
+          />
+        </div>
       </div>
+      {isAddRegionModalOpen && (
+        <AddRegionModal
+          isAddRegionModalOpen={isAddRegionModalOpen}
+          setIsAddRegionModalOpen={setIsAddRegionModalOpen}
+        />
+      )}
     </ReactModal>
   );
 }

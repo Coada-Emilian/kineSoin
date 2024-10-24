@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ITherapist } from '../../../../@types/ITherapist';
-import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
-import AdminProfileDetails from '../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
-import { fetchTherapist } from '../../../../utils/apiUtils.ts';
+import { ITherapist } from '../../../../../@types/ITherapist';
+import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
+import { fetchTherapist } from '../../../../../utils/apiUtils.ts';
 
 interface AdminTherapistPageProps {
   windowWidth: number;

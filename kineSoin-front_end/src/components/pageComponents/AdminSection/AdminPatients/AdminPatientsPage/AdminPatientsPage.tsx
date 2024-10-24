@@ -1,9 +1,9 @@
-import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
-import AdminTable from '../../standaloneComponents/AdminTable/AdminTable.tsx';
+import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
-import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import { fetchPatients } from '../../../../utils/apiUtils.ts';
-import { IPatient } from '../../../../@types/IPatient';
+import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import { fetchPatients } from '../../../../../utils/apiUtils.ts';
+import { IPatient } from '../../../../../@types/IPatient';
 
 interface AdminPatientsPageProps {
   windowWidth: number;

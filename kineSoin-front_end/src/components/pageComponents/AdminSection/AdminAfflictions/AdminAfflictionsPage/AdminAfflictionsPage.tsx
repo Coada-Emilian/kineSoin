@@ -1,9 +1,9 @@
-import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
-import AdminTable from '../../standaloneComponents/AdminTable/AdminTable.tsx';
+import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
-import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import { fetchAfflictions } from '../../../../utils/apiUtils.ts';
-import { IAffliction } from '../../../../@types/IAffliction';
+import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import { fetchAfflictions } from '../../../../../utils/apiUtils.ts';
+import { IAffliction } from '../../../../../@types/IAffliction';
 
 interface AdminAfflictionsPageProps {
   windowWidth: number;

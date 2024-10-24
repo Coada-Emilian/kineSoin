@@ -6,14 +6,14 @@ import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapi
 import { Outlet, Route, Routes } from 'react-router-dom';
 import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
 import AdminNavBar from './components/pageComponents/standaloneComponents/AdminNavBar/AdminNavBar';
-import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapistsPage/AdminTherapistsPage';
+import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistsPage/AdminTherapistsPage';
 import AdminFooter from './components/pageComponents/standaloneComponents/AdminFooter/AdminFooter';
-import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapistPage/AdminTherapistPage';
+import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistPage/AdminTherapistPage';
 import ErrorPage from './components/pageComponents/AdminSection/ErrorPage/ErrorPage';
-import AdminPatientsPage from './components/pageComponents/AdminSection/AdminPatientsPage/AdminPatientsPage';
-import AdminPatientPage from './components/pageComponents/AdminSection/AdminPatientPage/AdminPatientPage';
-import AdminAfflictionsPage from './components/pageComponents/AdminSection/AdminAfflictionsPage/AdminAfflictionsPage';
-import AdminAfflictionPage from './components/pageComponents/AdminSection/AdminAfflictionPage/AdminAfflictionPage';
+import AdminPatientsPage from './components/pageComponents/AdminSection/AdminPatients/AdminPatientsPage/AdminPatientsPage';
+import AdminPatientPage from './components/pageComponents/AdminSection/AdminPatients/AdminPatientPage/AdminPatientPage';
+import AdminAfflictionsPage from './components/pageComponents/AdminSection/AdminAfflictions/AdminAfflictionsPage/AdminAfflictionsPage';
+import AdminAfflictionPage from './components/pageComponents/AdminSection/AdminAfflictions/AdminAfflictionPage/AdminAfflictionPage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { IPatient } from '../../../../@types/IPatient';
-import AdminMobileNav from '../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import AdminSideNav from '../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
-import AdminProfileDetails from '../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
-import { fetchPatient } from '../../../../utils/apiUtils.ts';
+import { IPatient } from '../../../../../@types/IPatient';
+import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
+import { fetchPatient } from '../../../../../utils/apiUtils.ts';
 
 interface AdminPatientPageProps {
   windowWidth: number;
