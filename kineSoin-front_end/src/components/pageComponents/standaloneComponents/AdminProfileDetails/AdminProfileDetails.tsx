@@ -17,6 +17,7 @@ import AfflictionSection from './pageComponents/sections/AfflictionSection.tsx';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import { IMedic } from '../../../../@types/IMedic';
+import MedicSection from './pageComponents/sections/MedicSection.tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
@@ -159,7 +160,7 @@ export default function AdminProfileDetails({
         }
       >
         <div
-          className={`flex flex-col ${affliction ? '' : 'md:flex-row'} md:space-x-6 md:m-20`}
+          className={`flex flex-col ${affliction || medic ? '' : 'md:flex-row'} md:space-x-6 md:m-20`}
         >
           <div className="flex-1 p-4 rounded-md">
             <h1 className="font-bold mb-4 text-xl md:text-4xl md:mb-6">
@@ -201,6 +202,10 @@ export default function AdminProfileDetails({
                 setAfflictionOperatedStatus={setAfflictionOperatedStatus}
               />
             )}
+
+            {medic && (
+              <MedicSection medic={medic} isProfileEditing={isProfileEditing} />
+            )}
           </div>
 
           <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 rounded-md">
@@ -221,6 +226,7 @@ export default function AdminProfileDetails({
               patient={patient}
               therapist={therapist}
               affliction={affliction}
+              medic={medic}
             />
           </div>
         </div>
@@ -232,6 +238,7 @@ export default function AdminProfileDetails({
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}
           affliction={affliction}
+          medic={medic}
         />
       )}
       {isEditPhotoModalOpen && therapist && (

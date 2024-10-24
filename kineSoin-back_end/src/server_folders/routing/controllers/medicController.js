@@ -64,6 +64,12 @@ const medicController = {
     } else {
       const sentMedic = {
         id: foundMedic.id,
+        name: foundMedic.name,
+        surname: foundMedic.surname,
+        street_number: foundMedic.street_number,
+        street_name: foundMedic.street_name,
+        postal_code: foundMedic.postal_code,
+        city: foundMedic.city,
         fullName: `${foundMedic.name} ${foundMedic.surname}`,
         address: `${foundMedic.street_number} ${foundMedic.street_name}, ${foundMedic.postal_code} ${foundMedic.city}`,
         phone_number: foundMedic.phone_number,

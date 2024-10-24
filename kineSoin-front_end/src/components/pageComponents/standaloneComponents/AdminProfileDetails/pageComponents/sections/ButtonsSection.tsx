@@ -1,12 +1,12 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { ITherapist } from '../../../../../../@types/ITherapist';
 import TherapistStatusButtons from '../generalComponents/therapist/TherapistStatusButtons';
-import AfflictionStatusButtons from '../generalComponents/affliction/AfflictionStatusButtons';
 import PatientStatusButtons from '../generalComponents/patient/PatientStatusButtons';
+import { IMedic } from '../../../../../../@types/IMedic';
 
 interface ButtonsSectionProps {
   isProfileEditing: boolean;
@@ -17,6 +17,7 @@ interface ButtonsSectionProps {
   patient?: IPatient;
   affliction?: IAffliction;
   therapist?: ITherapist;
+  medic?: IMedic;
   handlePatientStatusChanges: (id: number, status: string) => Promise<void>;
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -30,6 +31,7 @@ export default function ButtonsSection({
   patient,
   affliction,
   therapist,
+  medic,
   handlePatientStatusChanges,
   setIsDeleteModalOpen,
 }: ButtonsSectionProps) {
@@ -73,7 +75,7 @@ export default function ButtonsSection({
         <>
           {!patient && (
             <CustomButton
-              btnText={`Modifier ${affliction ? 'affliction' : therapist ? 'kinésithérapeute' : undefined}`}
+              btnText={`Modifier ${affliction ? 'affliction' : therapist ? 'kinésithérapeute' : medic ? 'médecin' : ''}`}
               btnType="button"
               modifyButton
               onClick={() => setIsProfileEditing(true)}

@@ -18,6 +18,7 @@ import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
 import TableTitle from './pageComponents/Common/TableTitle';
 import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
+import AddMedicModal from '../../AdminSection/Modals/AddMedicModals/AddMedicModal';
 
 interface AdminTableProps {
   allTherapists?: ITherapist[];
@@ -55,6 +56,8 @@ export default function AdminTable({
     useState(false);
   const [isAddTherapistModalP3Open, setIsAddTherapistModalP3Open] =
     useState(false);
+
+  const [isAddMedicModalOpen, setIsAddMedicModalOpen] = useState(false);
 
   const [therapistStatus, setTherapistStatus] = useState('all');
   const [patientStatus, setPatientStatus] = useState('all');
@@ -200,7 +203,9 @@ export default function AdminTable({
   return (
     <>
       <div>
-        <div className="buttons mb-6 flex flex-row justify-between md:ml-10 md:mr-10">
+        <div
+          className={`buttons mb-6 flex flex-row  ${allMedics ? 'justify-end' : 'justify-between'} md:ml-10 md:mr-10`}
+        >
           {allTherapists && (
             <>
               <TherapistStatusButtons setTherapistStatus={setTherapistStatus} />
@@ -226,6 +231,15 @@ export default function AdminTable({
                 setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
               />
             </>
+          )}
+          {allMedics && (
+            <div className="flex ">
+              <CustomButton
+                btnText="Ajouter un médecin"
+                addButton
+                onClick={() => setIsAddMedicModalOpen(true)}
+              />
+            </div>
           )}
         </div>
 
@@ -312,6 +326,12 @@ export default function AdminTable({
           windowWidth={windowWidth}
           isRegionModalOpen={isRegionModalOpen}
           setIsRegionModalOpen={setIsRegionModalOpen}
+        />
+      )}
+      {isAddMedicModalOpen && (
+        <AddMedicModal
+          isAddMedicModalOpen={isAddMedicModalOpen}
+          setIsAddMedicModalOpen={setIsAddMedicModalOpen}
         />
       )}
     </>
