@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
-import axios from '../../../../axios.ts';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
 import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
