@@ -69,9 +69,6 @@ export default function AdminTable({
   const [renderedAfflictions, setRenderedAfflictions] = useState<IAffliction[]>(
     allAfflictions || []
   );
-  const [renderedMedics, setRenderedMedics] = useState<IMedic[]>(
-    allMedics || []
-  );
 
   const [addForm, setAddForm] = useState({
     name: '',
@@ -99,10 +96,6 @@ export default function AdminTable({
   useEffect(() => {
     setRenderedAfflictions(allAfflictions || []);
   }, [allAfflictions]);
-
-  useEffect(() => {
-    setRenderedMedics(allMedics || []);
-  }, [allMedics]);
 
   useEffect(() => {
     renderTherapists();

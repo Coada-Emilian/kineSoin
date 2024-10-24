@@ -1,4 +1,5 @@
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
 import EditProfileName from '../generalComponents/common/EditProfileName';
@@ -11,6 +12,7 @@ interface GeneralSectionProps {
   patient?: IPatient | null;
   therapist?: ITherapist | null;
   affliction?: IAffliction | null;
+  medic?: IMedic | null;
   isProfileEditing: boolean;
 }
 
@@ -18,6 +20,7 @@ export default function GeneralSection({
   patient,
   therapist,
   affliction,
+  medic,
   isProfileEditing,
 }: GeneralSectionProps) {
   return (
@@ -30,18 +33,26 @@ export default function GeneralSection({
         therapist={therapist}
         patient={patient}
         affliction={affliction}
+        medic={medic}
       />
 
       {isProfileEditing ? (
         <div className="flex flex-col gap-2 mb-2 ">
-          <EditProfileName therapist={therapist} affliction={affliction} />
-          {therapist && <EditProfileSurname therapist={therapist} />}
+          <EditProfileName
+            therapist={therapist}
+            affliction={affliction}
+            medic={medic}
+          />
+          {(therapist || medic) && (
+            <EditProfileSurname therapist={therapist} medic={medic} />
+          )}
         </div>
       ) : (
         <ProfileName
           therapist={therapist}
           patient={patient}
           affliction={affliction}
+          medic={medic}
         />
       )}
     </section>

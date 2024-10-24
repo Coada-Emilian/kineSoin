@@ -271,6 +271,21 @@ export const handleMedicDelete = async (id: number) => {
   }
 };
 
+export const fetchMedic = async (id: number) => {
+  try {
+    const response = await axios.get(`/admin/medics/${id}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch medic', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching medic:', error);
+    return null;
+  }
+};
+
 export const handleTherapistStatusChange = async (id: number) => {
   try {
     const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
@@ -286,3 +301,43 @@ export const handleTherapistStatusChange = async (id: number) => {
     return false;
   }
 };
+
+export const handleTherapistUpdate = async (formData: FormData, id: number) => {
+  try {
+    const response = await axios.put(`/admin/therapists/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Therapist profile updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update therapist profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating therapist profile:', error);
+    return false;
+  }
+};
+
+export const handleAfflictionUpdates = async (formData: FormData, id: number) => {
+  try {
+    const response = await axios.put(`/admin/afflictions/${id}`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Affliction updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update affliction', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating affliction:', error);
+    return false;
+  }
+}

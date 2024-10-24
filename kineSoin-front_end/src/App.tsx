@@ -130,6 +130,10 @@ function App() {
             path="medics"
             element={<AdminMedicsPage windowWidth={windowWidth} />}
           />
+          {/* <Route
+            path="medics/:id"
+            element={<AdminMedicPage windowWidth={windowWidth} />}
+          /> */}
           <Route path="*" element={<ErrorPage />} />
         </Route>
       )}

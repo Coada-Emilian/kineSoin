@@ -1,10 +1,14 @@
-import {useState } from 'react';
+import { useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
 import axios from '../../../../axios.ts';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
 import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
-import { handlePatientStatusChange } from '../../../../utils/apiUtils.ts';
+import {
+  handleAfflictionUpdates,
+  handlePatientStatusChange,
+  handleTherapistUpdate,
+} from '../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../@types/IAffliction';
 import GeneralSection from './pageComponents/sections/GeneralSection.tsx';
 import TherapistSection from './pageComponents/sections/TherapistSection.tsx';
@@ -12,17 +16,20 @@ import PatientSection from './pageComponents/sections/PatientSection.tsx';
 import AfflictionSection from './pageComponents/sections/AfflictionSection.tsx';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
+import { IMedic } from '../../../../@types/IMedic';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
   patient?: IPatient;
   affliction?: IAffliction;
+  medic?: IMedic;
 }
 
 export default function AdminProfileDetails({
   therapist,
   patient,
   affliction,
+  medic,
 }: AdminProfileDetailsProps) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -87,22 +94,12 @@ export default function AdminProfileDetails({
     formData.append('status' as string, therapistStatus);
     if (therapist && therapist.id) {
       try {
-        const response = await axios.put(
-          `/admin/therapists/${therapist.id}`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          console.log('Therapist profile updated successfully');
+        const response = await handleTherapistUpdate(formData, therapist.id);
+        if (response) {
           setIsProfileEditing(false);
           window.location.reload();
         } else {
-          console.error('Failed to update therapist profile', response.data);
+          console.error('Failed to update therapist profile', response);
         }
       } catch (error) {
         console.error('Error updating therapist profile:', error);
@@ -128,22 +125,12 @@ export default function AdminProfileDetails({
 
     if (affliction && affliction.id) {
       try {
-        const response = await axios.put(
-          `/admin/afflictions/${affliction.id}`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          console.log('Affliction updated successfully');
+        const response = await handleAfflictionUpdates(formData, affliction.id);
+        if (response) {
           setIsProfileEditing(false);
           window.location.reload();
         } else {
-          console.error('Failed to update affliction', response.data);
+          console.error('Failed to update affliction', response);
         }
       } catch (error) {
         console.error('Error updating affliction:', error);
@@ -151,6 +138,10 @@ export default function AdminProfileDetails({
     } else {
       console.error('Affliction ID is missing or invalid');
     }
+  };
+
+  const handleMedicUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log('Medic update');
   };
 
   return (
@@ -162,7 +153,9 @@ export default function AdminProfileDetails({
             ? handleTherapistSubmit
             : affliction
               ? handleAfflictionUpdate
-              : undefined
+              : medic
+                ? handleMedicUpdate
+                : undefined
         }
       >
         <div
@@ -175,12 +168,15 @@ export default function AdminProfileDetails({
                 ? 'kinésithérapeute'
                 : patient
                   ? 'patient'
-                  : 'affliction'}
+                  : medic
+                    ? 'medic'
+                    : 'affliction'}
             </h1>
             <GeneralSection
               patient={patient}
               therapist={therapist}
               affliction={affliction}
+              medic={medic}
               isProfileEditing={isProfileEditing}
             />
 
