@@ -105,7 +105,11 @@ adminRouter.get(
   '/bodyRegions',
   wrapper(afflictionController.getAllBodyRegions)
 );
-adminRouter.get(
+adminRouter.post(
+  '/bodyRegions',
+  wrapper(afflictionController.createBodyRegion)
+);
+adminRouter.delete(
   '/bodyRegions/:body_region_id',
-  wrapper(afflictionController.getOneBodyRegion)
+  wrapper(afflictionController.deleteBodyRegion)
 );

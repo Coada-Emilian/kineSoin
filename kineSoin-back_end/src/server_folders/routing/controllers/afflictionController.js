@@ -184,7 +184,6 @@ const afflictionController = {
     checkIsIdNumber(affliction_id);
 
     const foundAffliction = await Affliction.findByPk(affliction_id);
- 
 
     if (!foundAffliction) {
       console.error('Affliction not found');
@@ -228,7 +227,6 @@ const afflictionController = {
     }
 
     const { error } = updatedAfflictionSchema.validate(newAffliction);
-
 
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
@@ -286,21 +284,68 @@ const afflictionController = {
     }
   },
 
-  getOneBodyRegion: async (req, res) => {
-    const region_id = parseInt(req.params.body_region_id, 10);
+  createBodyRegion: async (req, res) => {
+    // const admin_id = parseInt(req.admin_id, 10);
+    const admin_id = 1;
 
-    checkIsIdNumber(region_id);
+    checkIsIdNumber(admin_id);
 
-    const foundBodyRegion = await Body_region.findByPk(region_id, {
-      attributes: ['id', 'name'],
+    const newBodyRegionSchema = Joi.object({
+      name: Joi.string().max(50).required(),
     });
+
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
+
+    const { error } = newBodyRegionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    } else {
+      const { name } = req.body;
+
+      const newBodyRegion = await Body_region.create({
+        admin_id,
+        name,
+      });
+
+      if (!newBodyRegion) {
+        return res
+          .status(500)
+          .json({ message: 'Error while creating body region.' });
+      } else {
+        return res.status(201).json(newBodyRegion);
+      }
+    }
+  },
+
+  deleteBodyRegion: async (req, res) => {
+    const body_region_id = parseInt(req.params.body_region_id, 10);
+
+    checkIsIdNumber(body_region_id);
+
+    const foundBodyRegion = await Body_region.findByPk(body_region_id);
 
     if (!foundBodyRegion) {
       return res.status(404).json({ message: 'Body region not found.' });
     } else {
-      return res.status(200).json(foundBodyRegion);
+      const deletedBodyRegion = await foundBodyRegion.destroy();
+
+      if (!deletedBodyRegion) {
+        return res
+          .status(500)
+          .json({ message: 'Error while deleting body region.' });
+      } else {
+        return res
+          .status(200)
+          .json({ message: 'Body region deleted successfully.' });
+      }
     }
-  },
+  }
 };
 
 export default afflictionController;
