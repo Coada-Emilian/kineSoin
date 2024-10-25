@@ -20,12 +20,11 @@ import { useState } from 'react';
 import { handleAfflictionCreation } from '../../../../../utils/apiUtils';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
-import RegionInput from './pageComponents/RegionInput.tsx';
-import InsuranceCodeInput from './pageComponents/InsuranceCodeInput.tsx';
-import OperatedStatusInput from './pageComponents/OperatedStatusInput.tsx';
-import DescriptionInput from './pageComponents/DescriptionInput.tsx';
+import RegionInput from '../Components/RegionInput.tsx';
+import OperatedStatusInput from '../Components/OperatedStatusInput.tsx';
 import NameInput from '../Components/NameInput.tsx';
 import LicenceCodeInput from '../Components/LicenceCodeInput.tsx';
+import DescriptionInput from '../Components/DescriptionInput.tsx';
 
 interface AddAfflictionModalProps {
   isAddAfflictionModalOpen: boolean;
@@ -104,12 +103,13 @@ export default function AddAfflictionModal({
 
           <div className="flex gap-1">
             <LicenceCodeInput affliction />
+
             <OperatedStatusInput
               setAfflictionOperatedStatus={setAfflictionOperatedStatus}
             />
           </div>
 
-          <DescriptionInput />
+          <DescriptionInput affliction />
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />

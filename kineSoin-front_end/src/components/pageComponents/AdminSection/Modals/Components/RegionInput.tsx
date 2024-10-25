@@ -3,8 +3,8 @@ import { DNA } from 'react-loader-spinner';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchBodyRegions } from '../../../../../../utils/apiUtils';
-import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
+import { fetchBodyRegions } from '../../../../../utils/apiUtils';
+import { IBodyRegion } from '../../../../../@types/IBodyRegion';
 
 interface RegionInputProps {
   setChosenBodyRegionId: React.Dispatch<number | undefined>;

@@ -3,8 +3,12 @@ import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleMedicCreation } from '../../../../../utils/apiUtils';
 import NameInput from '../Components/NameInput';
 import SurnameInput from '../Components/SurnameInput';
-import InsuranceCodeInput from '../AddAfflictionModals/pageComponents/InsuranceCodeInput';
 import LicenceCodeInput from '../Components/LicenceCodeInput';
+import TelephoneNumberInput from '../Components/TelephoneNumberInput';
+import StreetNumberInput from '../Components/StreetNumberInput';
+import StreetNameInput from '../Components/StreetNameInput';
+import PostalCodeInput from '../Components/PostalCodeInput';
+import CityInput from '../Components/CityInput';
 
 interface AddMedicModalProps {
   isAddMedicModalOpen: boolean;
@@ -60,6 +64,15 @@ export default function AddMedicModal({
           <NameInput medic />
           <SurnameInput medic />
           <LicenceCodeInput medic />
+          <TelephoneNumberInput medic />
+          <div>
+            <StreetNumberInput medic />
+            <StreetNameInput medic />
+          </div>
+          <div>
+            <PostalCodeInput medic />
+            <CityInput medic />
+          </div>
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
             <CustomButton

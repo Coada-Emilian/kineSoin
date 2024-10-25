@@ -35,6 +35,10 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
+import DiplomaInput from '../Components/DiplomaInput';
+import ExperienceInput from '../Components/ExperienceInput';
+import SpecialtyInput from '../Components/SpecialtyInput';
+import DescriptionInput from '../Components/DescriptionInput';
 
 interface AddTherapistModalP2Props {
   setAddForm: React.Dispatch<
@@ -67,7 +71,7 @@ export default function AddTherapistModalP2({
   // State variables to store therapist details
   const [therapistDiploma, setTherapistDiploma] = useState('');
   const [therapistExperience, setTherapistExperience] = useState('');
-  const [therapistSpecialty, setTherapistRepeatedSpecialty] = useState('');
+  const [therapistSpecialty, setTherapistSpecialty] = useState('');
   const [therapistDescription, setTherapistDescription] = useState('');
 
   // Function to add therapist details to form state and open the next step
@@ -114,83 +118,26 @@ export default function AddTherapistModalP2({
         </h2>
 
         <form className="space-y-4">
-          <div>
-            <label
-              htmlFor="therapist-diploma_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Diplôme
-            </label>
+          <DiplomaInput
+            therapistDiploma={therapistDiploma}
+            setTherapistDiploma={setTherapistDiploma}
+          />
 
-            <input
-              type="text"
-              id="therapist-diploma_input"
-              name="diploma"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistDiploma}
-              onChange={(e) => setTherapistDiploma(e.target.value)}
-              required
-            />
-          </div>
+          <ExperienceInput
+            therapistExperience={therapistExperience}
+            setTherapistExperience={setTherapistExperience}
+          />
 
-          <div>
-            <label
-              htmlFor="therapist-experience_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Experience
-            </label>
+          <SpecialtyInput
+            therapistSpecialty={therapistSpecialty}
+            setTherapistSpecialty={setTherapistSpecialty}
+          />
 
-            <input
-              type="text"
-              id="therapist-experience_input"
-              name="experience"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistExperience}
-              onChange={(e) => setTherapistExperience(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="therapist-specialty_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Spécialité
-            </label>
-
-            <input
-              type="text"
-              id="therapist-specialty_input"
-              name="specialty"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistSpecialty}
-              onChange={(e) => setTherapistRepeatedSpecialty(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="therapist-description_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Description
-            </label>
-
-            <textarea
-              name="description"
-              id="therapist-description_input"
-              placeholder="Description du kinésithérapeute"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistDescription}
-              onChange={(e) => setTherapistDescription(e.target.value)}
-              required
-              rows={5}
-              cols={32}
-            ></textarea>
-          </div>
+          <DescriptionInput
+            therapist
+            setTherapistDescription={setTherapistDescription}
+            therapistDescription={therapistDescription}
+          />
 
           <p className="text-red-500 text-center text-xs md:text-sm">
             Etape 2 / 3 : Etudes

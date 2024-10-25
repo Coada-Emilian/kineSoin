@@ -3,6 +3,11 @@ import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleInsuranceOrganismCreation } from '../../../../../utils/apiUtils';
 import NameInput from '../Components/NameInput';
 import LicenceCodeInput from '../Components/LicenceCodeInput';
+import TelephoneNumberInput from '../Components/TelephoneNumberInput';
+import StreetNumberInput from '../Components/StreetNumberInput';
+import StreetNameInput from '../Components/StreetNameInput';
+import PostalCodeInput from '../Components/PostalCodeInput';
+import CityInput from '../Components/CityInput';
 
 interface AddInsuranceModalProps {
   isAddInsuranceModalOpen: boolean;
@@ -57,6 +62,15 @@ export default function AddInsuranceModal({
         <form className="space-y-4" onSubmit={createInsurance}>
           <NameInput insurance />
           <LicenceCodeInput insurance />
+          <TelephoneNumberInput insurance />
+          <div className="flex gap-2">
+            <StreetNumberInput insurance />
+            <StreetNameInput insurance />
+          </div>
+          <div className="flex gap-2">
+            <PostalCodeInput insurance />
+            <CityInput insurance />
+          </div>
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
             <CustomButton
