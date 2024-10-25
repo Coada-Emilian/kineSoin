@@ -2,7 +2,7 @@
 
 import Joi from 'joi';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
-import { Patient, Patient_Insurance } from '../../models/index.js';
+import { Patient, Patient_Insurance, Insurance } from '../../models/index.js';
 
 const insuranceController = {
   getInsurance: async (req, res) => {
@@ -164,6 +164,18 @@ const insuranceController = {
       return res
         .status(200)
         .json({ message: 'The insurance was added', addedInsurance });
+    }
+  },
+
+  getAllInsuranceOrganisms: async (req, res) => {
+    const allInsurances = await Insurance.findAll({
+      attributes: ['id', 'name', 'amc_code'],
+    });
+
+    if (!allInsurances) {
+      return res.status(400).json({ message: 'No insurance found' });
+    } else {
+      return res.status(200).json(allInsurances);
     }
   },
 };
