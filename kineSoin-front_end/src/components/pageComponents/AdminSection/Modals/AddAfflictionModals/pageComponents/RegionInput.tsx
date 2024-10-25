@@ -1,4 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { DNA } from 'react-loader-spinner';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,16 +7,17 @@ import { fetchBodyRegions } from '../../../../../../utils/apiUtils';
 import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
 
 interface RegionInputProps {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setChosenBodyRegionId: React.Dispatch<number | undefined>;
 }
 
 export default function RegionInput({
-  setLoading,
   setChosenBodyRegionId,
 }: RegionInputProps) {
   const [regionName, setRegionName] = useState('Choisir une région');
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+
+  // State to store the loading status
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchBodyRegions()
@@ -26,6 +28,21 @@ export default function RegionInput({
         setLoading(false);
       });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <DNA
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="md:text-2xl md:flex md:items-center md:gap-1">

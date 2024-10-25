@@ -1,6 +1,7 @@
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleRegionCreation } from '../../../../../utils/apiUtils';
+import NameInput from '../Components/NameInput';
 
 interface AddRegionModalProps {
   isAddRegionModalOpen: boolean;
@@ -48,21 +49,7 @@ export default function AddRegionModal({
           Ajouter une region
         </h2>
         <form className="space-y-4" onSubmit={createRegion}>
-          <div>
-            <label
-              htmlFor="region-name_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Nom
-            </label>
-            <input
-              type="text"
-              id="region-name_input"
-              name="name"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              required
-            />
-          </div>
+          <NameInput region />
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />

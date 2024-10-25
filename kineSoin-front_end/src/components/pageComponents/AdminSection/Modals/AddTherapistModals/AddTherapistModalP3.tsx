@@ -1,8 +1,38 @@
+/**
+ * @file AddTherapistModalP3.tsx
+ * @description This modal component enables an admin to add a new therapist by
+ * filling out a multi-step form. The third step requires essential information,
+ * such as the therapist's email, password, status, and photo. It handles the
+ * submission of the therapist's details to the server for registration.
+ *
+ * @interface AddTherapistModalP3Props
+ * @param {Object} addForm - An object containing the details of the therapist to be added.
+ * @param {string} addForm.name - The therapist's first name.
+ * @param {string} addForm.surname - The therapist's last name.
+ * @param {string} addForm.email - The therapist's email address.
+ * @param {string} addForm.password - The therapist's account password.
+ * @param {string} addForm.repeated_password - Confirmation of the password.
+ * @param {string} addForm.description - A description of the therapist's practice.
+ * @param {string} addForm.diploma - The therapist's diploma information.
+ * @param {string} addForm.experience - The therapist's years of experience.
+ * @param {string} addForm.specialty - The therapist's specialty.
+ * @param {string} addForm.licence_code - The therapist's licensing code.
+ * @param {string} addForm.status - The therapist's status (e.g., active or inactive).
+ * @param {File|unknown} addForm.photo - The therapist's photo file.
+ * @param {boolean} isAddTherapistModalP3Open - Indicates if the modal is open.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP3Open -
+ * Function to toggle the visibility of the modal.
+ *
+ * @returns {JSX.Element} The rendered AddTherapistModalP3 component, featuring input
+ * fields for the therapist's email, password, status, and action buttons for submission
+ * or cancellation.
+ */
+
 import { useState } from 'react';
+import { isAxiosError } from 'axios';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton.tsx';
 import axios from '../../../../../axios.ts';
-import { isAxiosError } from 'axios';
 import openedEyeIcon from '/icons/eye.svg';
 import closedEyeIcon from '/icons/eye-closed.svg';
 import questionIcon from '/icons/question-circle.svg';
@@ -31,22 +61,49 @@ export default function AddTherapistModalP3({
   isAddTherapistModalP3Open,
   setIsAddTherapistModalP3Open,
 }: AddTherapistModalP3Props) {
-  const [therapistData, setTherapistData] = useState({
-    email: '',
-    password: '',
-    repeated_password: '',
-    status: '',
-  });
+  // State to store the therapist's email, password, and status
+  const [therapistEmail, setTherapistEmail] = useState('');
+  const [therapistPassword, setTherapistPassword] = useState('');
+  const [therapistRepeatedPassword, setTherapistRepeatedPassword] =
+    useState('');
+  const [therapistStatus, setTherapistStatus] = useState('');
 
+  // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
 
+  // State to store error messages
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Immediately prepare the addForm state for submission
+    if (therapistPassword.length < 12) {
+      setErrorMessage('Le mot de passe doit contenir au moins 12 caractères.');
+    } else if (!/(?=.*[a-z])/.test(therapistPassword)) {
+      setErrorMessage('Le mot de passe doit contenir au moins une minuscule.');
+    } else if (!/(?=.*[A-Z])/.test(therapistPassword)) {
+      setErrorMessage('Le mot de passe doit contenir au moins une majuscule.');
+    } else if (!/(?=.*\d)/.test(therapistPassword)) {
+      setErrorMessage('Le mot de passe doit contenir au moins un chiffre.');
+    } else if (!/(?=.*\W)/.test(therapistPassword)) {
+      setErrorMessage(
+        'Le mot de passe doit contenir au moins un caractère spécial.'
+      );
+    } else if (therapistPassword !== therapistRepeatedPassword) {
+      setErrorMessage('Les mots de passe ne correspondent pas.');
+    }
+
+    if (errorMessage) {
+      return;
+    }
+
     const updatedAddForm = {
       ...addForm,
-      ...therapistData,
+      email: therapistEmail,
+      password: therapistPassword,
+      repeated_password: therapistRepeatedPassword,
+      status: therapistStatus,
     };
 
     const formData = new FormData();
@@ -78,14 +135,12 @@ export default function AddTherapistModalP3({
         console.log('Failed to add therapist:', response.data);
       }
     } catch (error: any) {
-      // Check if the error is an Axios error and log the message
       if (isAxiosError(error)) {
         console.log(
           'Failed to add therapist:',
           error.response?.data?.message || error.message
         );
       } else {
-        // Log any other error types
         console.log('Failed to add therapist:', error);
       }
     }
@@ -115,6 +170,7 @@ export default function AddTherapistModalP3({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter un kinésithérapeute
         </h2>
+
         <form className="space-y-4" onSubmit={handleSubmit} method="post">
           <div>
             <label
@@ -123,15 +179,14 @@ export default function AddTherapistModalP3({
             >
               E-mail
             </label>
+
             <input
               type="email"
               id="therapist-email_input"
               name="email"
               className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistData.email}
-              onChange={(e) =>
-                setTherapistData((prev) => ({ ...prev, email: e.target.value }))
-              }
+              value={therapistEmail}
+              onChange={(e) => setTherapistEmail(e.target.value)}
               required
             />
           </div>
@@ -165,15 +220,11 @@ export default function AddTherapistModalP3({
                 id="therapist-password_input"
                 name="password"
                 className=" block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-                value={therapistData.password}
-                onChange={(e) =>
-                  setTherapistData((prev) => ({
-                    ...prev,
-                    password: e.target.value,
-                  }))
-                }
+                value={therapistPassword}
+                onChange={(e) => setTherapistPassword(e.target.value)}
                 required
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -194,21 +245,18 @@ export default function AddTherapistModalP3({
             >
               Confirmer mot de passe
             </label>
+
             <div className="flex justify-between bg-white rounded-md shadow-sm border">
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="therapist-repeated-password_input"
                 name="repeated_password"
                 className=" block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-                value={therapistData.repeated_password}
-                onChange={(e) =>
-                  setTherapistData((prev) => ({
-                    ...prev,
-                    repeated_password: e.target.value,
-                  }))
-                }
+                value={therapistRepeatedPassword}
+                onChange={(e) => setTherapistRepeatedPassword(e.target.value)}
                 required
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -229,16 +277,12 @@ export default function AddTherapistModalP3({
             >
               Statut
             </label>
+
             <select
               id="therapistStatus"
               className="mt-1 text-xs md:text-sm block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={therapistData.status}
-              onChange={(e) =>
-                setTherapistData((prev) => ({
-                  ...prev,
-                  status: e.target.value,
-                }))
-              }
+              value={therapistStatus}
+              onChange={(e) => setTherapistStatus(e.target.value as string)}
             >
               {' '}
               <option value="">Choisir un statut</option>
@@ -247,8 +291,13 @@ export default function AddTherapistModalP3({
             </select>
           </div>
 
+          {errorMessage && (
+            <p className="text-xs text-red-500 text-center">{errorMessage}</p>
+          )}
+
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
+
             <CustomButton
               btnText="Annuler"
               btnType="button"

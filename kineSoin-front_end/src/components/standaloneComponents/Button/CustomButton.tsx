@@ -1,3 +1,28 @@
+/**
+ * @file CustomButton.tsx
+ * @description A versatile button component that can render different styles and behaviors based on props.
+ * The component supports various button types, including normal, cancel, validate, modify, delete, and status buttons
+ * such as active, inactive, pending, and banned. It allows customization of button text, click behavior, and styles.
+ *
+ * @interface ButtonProps
+ * @param {string} btnText - The text to display on the button.
+ * @param {boolean} [normalButton] - If true, applies the normal button style.
+ * @param {boolean} [cancelButton] - If true, applies the cancel button style.
+ * @param {boolean} [validateButton] - If true, applies the validate button style.
+ * @param {boolean} [modifyButton] - If true, applies the modify button style.
+ * @param {boolean} [deleteButton] - If true, applies the delete button style.
+ * @param {boolean} [activeButton] - If true, applies the active button style.
+ * @param {boolean} [inactiveButton] - If true, applies the inactive button style.
+ * @param {boolean} [pendingButton] - If true, applies the pending button style.
+ * @param {boolean} [bannedButton] - If true, applies the banned button style.
+ * @param {boolean} [addButton] - If true, applies the add button style.
+ * @param {boolean} [allButton] - If true, applies the all button style.
+ * @param {string} [btnType] - The type of the button, can be 'button', 'submit', or 'reset'. Defaults to 'button'.
+ * @param {function} [onClick] - The function to call when the button is clicked.
+ *
+ * @returns {JSX.Element} The rendered CustomButton component with appropriate styles and behavior.
+ */
+
 interface ButtonProps {
   btnText: string;
   normalButton?: boolean;

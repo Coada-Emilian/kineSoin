@@ -1,3 +1,19 @@
+/**
+ * @file AfflictionUtilityButtons.tsx
+ * @description A component that renders utility buttons for managing afflictions.
+ * It provides options to view regions and add a new affliction. Clicking a button
+ * will open the respective modal by updating the provided state functions.
+ *
+ * @interface AfflictionUtilityButtonsProps
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsRegionModalOpen -
+ * A state updater function to control the visibility of the region modal.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddAfflictionModalOpen -
+ * A state updater function to control the visibility of the add affliction modal.
+ *
+ * @returns {JSX.Element} The rendered AfflictionUtilityButtons component with buttons
+ * to view regions and add an affliction.
+ */
+
 import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';
 
 interface AfflictionUtilityButtonsProps {
@@ -16,10 +32,14 @@ export default function AfflictionUtilityButtons({
         addButton
         onClick={() => setIsRegionModalOpen(true)}
       />
+
       <CustomButton
         btnText="Ajouter affliction"
         addButton
-        onClick={() => setIsAddAfflictionModalOpen(true)}
+        onClick={() => {
+          console.log('clicked');
+          setIsAddAfflictionModalOpen(true);
+        }}
       />
     </div>
   );

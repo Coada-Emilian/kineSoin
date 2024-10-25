@@ -1,10 +1,34 @@
+/**
+ * @file AfflictionTableBody.tsx
+ * @description A component that renders a table body for afflictions, displaying
+ * their details, including ID, name, body region, insurance code, and actions
+ * (edit and delete) for each affliction in the provided list.
+ *
+ * @interface AfflictionTableBodyProps
+ * @param {number} windowWidth - The current width of the window, used to adjust
+ * the styling and layout of the table cells.
+ * @param {IAffliction[]} renderedAfflictions - An array of afflictions to render
+ * in the table body.
+ * @param {(
+ *   therapist?: ITherapist,
+ *   patient?: IPatient,
+ *   affliction?: IAffliction,
+ *   medic?: IMedic
+ * ) => void} openDeleteModal - A function that opens the delete modal for a
+ * specific affliction and other entities based on the provided parameters.
+ *
+ * @returns {JSX.Element} The rendered AfflictionTableBody component displaying
+ * a row for each affliction with its ID, name, body region, insurance code,
+ * edit, and delete actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
+import { IMedic } from '../../../../../../@types/IMedic';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import { IMedic } from '../../../../../../@types/IMedic';
 
 interface AfflictionTableBodyProps {
   windowWidth: number;
@@ -64,6 +88,7 @@ export default function AfflictionTableBody({
             </Link>
           )}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link

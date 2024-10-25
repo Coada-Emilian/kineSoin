@@ -1,10 +1,33 @@
+/**
+ * @file MedicTableBody.tsx
+ * @description A component that renders a table body for medics, displaying
+ * their details including ID, full name, license code, and actions
+ * (edit and delete) for each medic in the provided list.
+ *
+ * @interface MedicTableBodyProps
+ * @param {number} windowWidth - The current width of the window, used to adjust
+ * the styling and layout of the table cells.
+ * @param {(
+ *   therapist?: ITherapist,
+ *   patient?: IPatient,
+ *   affliction?: IAffliction,
+ *   medic?: IMedic
+ * ) => void} openDeleteModal - A function that opens the delete modal for a
+ * specific medic and other entities based on the provided parameters.
+ * @param {IMedic[]} allMedics - An array of medics to render in the table body.
+ *
+ * @returns {JSX.Element} The rendered MedicTableBody component displaying
+ * a row for each medic with their ID, full name, license code, edit,
+ * and delete actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { ITherapist } from '../../../../../../@types/ITherapist';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IMedic } from '../../../../../../@types/IMedic';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import { IMedic } from '../../../../../../@types/IMedic';
 
 interface MedicTableBodyProps {
   windowWidth: number;
@@ -28,14 +51,17 @@ export default function MedicTableBody({
         <td className="border border-gray-300 px-4 py-2 text-center">
           {medic.id}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {medic.fullName}
         </td>
+
         <td>
           <div className="border border-gray-300 px-4 py-2 text-center">
             {medic.licence_code}
           </div>
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link to={`/admin/medics/${medic.id}`}>
@@ -55,6 +81,7 @@ export default function MedicTableBody({
             </Link>
           )}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link

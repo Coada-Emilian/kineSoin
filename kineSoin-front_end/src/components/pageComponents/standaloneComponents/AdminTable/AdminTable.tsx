@@ -1,25 +1,52 @@
+/**
+ * @file AdminTable.tsx
+ * @description A React component that displays an administrative table for managing therapists, patients, afflictions, medics, and insurances.
+ * This component allows administrators to view, filter, and manage different entities, including the ability to add new entries, change statuses, and delete records.
+ *
+ * The component consists of various sections:
+ * - Buttons for managing therapists, patients, afflictions, medics, and insurances.
+ * - A table displaying the current records of therapists, patients, and afflictions with options to change their statuses.
+ * - Modals for adding new therapists, afflictions, medics, and insurances, as well as confirming deletions.
+ *
+ * @imports
+ * - ITherapist, IPatient, IAffliction, IMedic, IInsurance types for TypeScript type definitions.
+ * - Various utility functions for handling API calls and state management.
+ * - Modal components for adding and confirming deletions of entities.
+ *
+ * @component AdminTable
+ * @param {Object} props - The component props.
+ * @param {ITherapist[]} [props.allTherapists] - List of all therapists.
+ * @param {IPatient[]} [props.allPatients] - List of all patients.
+ * @param {IAffliction[]} [props.allAfflictions] - List of all afflictions.
+ * @param {IMedic[]} [props.allMedics] - List of all medics.
+ * @param {IInsurance[]} [props.allInsurances] - List of all insurances.
+ * @param {number} props.windowWidth - The current window width for responsive design.
+ *
+ * @returns {JSX.Element} The rendered AdminTable component.
+ */
+
 import { ITherapist } from '../../../../@types/ITherapist';
 import { useEffect, useState } from 'react';
+import { IPatient } from '../../../../@types/IPatient';
+import { IAffliction } from '../../../../@types/IAffliction';
+import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
+import { IMedic } from '../../../../@types/IMedic';
+import { IInsurance } from '../../../../@types/IInsurance';
+import AddAfflictionModal from '../../AdminSection/Modals/AddAfflictionModals/AddAfflictionModal';
+import RegionModal from '../../AdminSection/Modals/RegionModal/RegionModal';
+import TherapistStatusButtons from './pageComponents/Therapist/TherapistStatusButtons';
+import PatientStatusButtons from './pageComponents/Patient/PatientStatusButtons';
+import AfflictionStatusButtons from './pageComponents/Affliction/AfflictionStatusButtons';
+import AfflictionUtilityButtons from './pageComponents/Affliction/AfflictionUtilityButtons';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import AddTherapistModalP1 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP1';
 import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP2';
 import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP3';
-import { IPatient } from '../../../../@types/IPatient';
-import { IAffliction } from '../../../../@types/IAffliction';
-import AddAfflictionModal from '../../AdminSection/Modals/AddAfflictionModals/AddAfflictionModal';
-import RegionModal from '../../AdminSection/Modals/RegionModal/RegionModal';
-import { IMedic } from '../../../../@types/IMedic';
-import TherapistStatusButtons from './pageComponents/Therapist/TherapistStatusButtons';
-import PatientStatusButtons from './pageComponents/Patient/PatientStatusButtons';
-import AfflictionStatusButtons from './pageComponents/Affliction/AfflictionStatusButtons';
-import AfflictionUtilityButtons from './pageComponents/Affliction/AfflictionUtilityButtons';
-import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
 import TableTitle from './pageComponents/Common/TableTitle';
 import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
 import AddMedicModal from '../../AdminSection/Modals/AddMedicModals/AddMedicModal';
-import { IInsurance } from '../../../../@types/IInsurance';
 import AddInsuranceModal from '../../AdminSection/Modals/AddInsuranceModals/AddInsuranceModal';
 
 interface AdminTableProps {
@@ -39,8 +66,7 @@ export default function AdminTable({
   allInsurances,
   windowWidth,
 }: AdminTableProps) {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
+  // States for selected therapist, patient, affliction, medic, insurance
   const [selectedTherapist, setSelectedTherapist] = useState<ITherapist | null>(
     null
   );
@@ -52,25 +78,26 @@ export default function AdminTable({
     null
   );
 
+  // States for modal opening
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAddAfflictionModalOpen, setIsAddAfflictionModalOpen] =
     useState(false);
-
   const [isRegionModalOpen, setIsRegionModalOpen] = useState(false);
-
   const [isAddTherapistModalP1Open, setIsAddTherapistModalP1Open] =
     useState(false);
   const [isAddTherapistModalP2Open, setIsAddTherapistModalP2Open] =
     useState(false);
   const [isAddTherapistModalP3Open, setIsAddTherapistModalP3Open] =
     useState(false);
-
   const [isAddMedicModalOpen, setIsAddMedicModalOpen] = useState(false);
   const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
 
+  // States for status changes
   const [therapistStatus, setTherapistStatus] = useState('all');
   const [patientStatus, setPatientStatus] = useState('all');
   const [afflictionStatus, setAfflictionStatus] = useState('all');
 
+  // States for rendered therapists, patients, afflictions
   const [renderedTherapists, setRenderedTherapists] = useState<ITherapist[]>(
     allTherapists || []
   );
@@ -81,6 +108,7 @@ export default function AdminTable({
     allAfflictions || []
   );
 
+  // State for the add form
   const [addForm, setAddForm] = useState({
     name: '',
     surname: '',
@@ -96,14 +124,13 @@ export default function AdminTable({
     photo: '' as File | unknown,
   });
 
+  // useEffects to set rendered therapists, patients, afflictions
   useEffect(() => {
     setRenderedTherapists(allTherapists || []);
   }, [allTherapists]);
-
   useEffect(() => {
     setRenderedPatients(allPatients || []);
   }, [allPatients]);
-
   useEffect(() => {
     setRenderedAfflictions(allAfflictions || []);
   }, [allAfflictions]);
@@ -111,15 +138,14 @@ export default function AdminTable({
   useEffect(() => {
     renderTherapists();
   }, [therapistStatus]);
-
   useEffect(() => {
     renderPatients();
   }, [patientStatus]);
-
   useEffect(() => {
     renderAfflictions();
   }, [afflictionStatus]);
 
+  // Function to render therapists
   const renderTherapists = () => {
     if (therapistStatus === 'all') {
       setRenderedTherapists(allTherapists ?? []);
@@ -136,6 +162,7 @@ export default function AdminTable({
     }
   };
 
+  // Function to render patients
   const renderPatients = () => {
     if (patientStatus === 'all') {
       setRenderedPatients(allPatients ?? []);
@@ -162,6 +189,7 @@ export default function AdminTable({
     }
   };
 
+  // Function to render afflictions
   const renderAfflictions = () => {
     if (afflictionStatus === 'all') {
       setRenderedAfflictions(allAfflictions ?? []);
@@ -178,6 +206,7 @@ export default function AdminTable({
     }
   };
 
+  // Function to open delete modal
   const openDeleteModal = (
     therapist?: ITherapist,
     patient?: IPatient,
@@ -203,6 +232,7 @@ export default function AdminTable({
     setIsDeleteModalOpen(true);
   };
 
+  // Function to handle status change
   const handleStatusChange = async (therapistId: number) => {
     const response = await handleTherapistStatusChange(therapistId);
     if (response) {
@@ -221,6 +251,7 @@ export default function AdminTable({
           {allTherapists && (
             <>
               <TherapistStatusButtons setTherapistStatus={setTherapistStatus} />
+
               <div>
                 <CustomButton
                   btnText="Ajouter un kiné"
@@ -230,20 +261,24 @@ export default function AdminTable({
               </div>
             </>
           )}
+
           {allPatients && (
             <PatientStatusButtons setPatientStatus={setPatientStatus} />
           )}
+
           {allAfflictions && (
             <>
               <AfflictionStatusButtons
                 setAfflictionStatus={setAfflictionStatus}
               />
+
               <AfflictionUtilityButtons
                 setIsRegionModalOpen={setIsRegionModalOpen}
                 setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
               />
             </>
           )}
+
           {allMedics && (
             <div className="flex ">
               <CustomButton
@@ -253,6 +288,7 @@ export default function AdminTable({
               />
             </div>
           )}
+
           {allInsurances && (
             <div className="flex ">
               <CustomButton
@@ -286,6 +322,7 @@ export default function AdminTable({
             allMedics={allMedics}
             allInsurances={allInsurances}
           />
+
           <TableBody
             windowWidth={windowWidth}
             allTherapists={allTherapists}
@@ -346,6 +383,7 @@ export default function AdminTable({
           setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
         />
       )}
+
       {isRegionModalOpen && (
         <RegionModal
           windowWidth={windowWidth}
@@ -353,12 +391,14 @@ export default function AdminTable({
           setIsRegionModalOpen={setIsRegionModalOpen}
         />
       )}
+
       {isAddMedicModalOpen && (
         <AddMedicModal
           isAddMedicModalOpen={isAddMedicModalOpen}
           setIsAddMedicModalOpen={setIsAddMedicModalOpen}
         />
       )}
+
       {isAddInsuranceModalOpen && (
         <AddInsuranceModal
           isAddInsuranceModalOpen={isAddInsuranceModalOpen}

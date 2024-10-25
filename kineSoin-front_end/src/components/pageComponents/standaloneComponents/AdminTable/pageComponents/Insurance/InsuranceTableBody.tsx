@@ -1,11 +1,36 @@
+/**
+ * @file InsuranceTableBody.tsx
+ * @description A component that renders a table body for insurance records,
+ * displaying their details including ID, name, AMC code, and actions
+ * (edit and delete) for each insurance in the provided list.
+ *
+ * @interface InsuranceTableBodyProps
+ * @param {number} windowWidth - The current width of the window, used to adjust
+ * the styling and layout of the table cells.
+ * @param {(
+ *   therapist?: ITherapist,
+ *   patient?: IPatient,
+ *   affliction?: IAffliction,
+ *   medic?: IMedic,
+ *   insurance?: IInsurance
+ * ) => void} openDeleteModal - A function that opens the delete modal for a
+ * specific insurance and other entities based on the provided parameters.
+ * @param {IInsurance[]} allInsurances - An array of insurance records to render
+ * in the table body.
+ *
+ * @returns {JSX.Element} The rendered InsuranceTableBody component displaying
+ * a row for each insurance with its ID, name, AMC code, edit,
+ * and delete actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
-import deleteIcon from '/icons/delete.png';
-import editIcon from '/icons/edit.png';
 import { IMedic } from '../../../../../../@types/IMedic';
 import { IInsurance } from '../../../../../../@types/IInsurance';
+import deleteIcon from '/icons/delete.png';
+import editIcon from '/icons/edit.png';
 
 interface InsuranceTableBodyProps {
   windowWidth: number;
@@ -58,6 +83,7 @@ export default function InsuranceTableBody({
             </Link>
           )}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link

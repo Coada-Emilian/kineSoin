@@ -1,6 +1,41 @@
+/**
+ * @file AddTherapistModalP1.tsx
+ * @description A modal component for adding a therapist's personal information,
+ * including their name, surname, ADELI license code, and profile photo. The modal
+ * allows users to input therapist details, upload a photo, and preview it before
+ * moving on to the next step of a multi-step form. Users can also cancel the action
+ * to close the modal without saving changes.
+ *
+ * @interface AddTherapistModalP1Props
+ * @param {React.Dispatch<React.SetStateAction<{
+ *   name: string;
+ *   surname: string;
+ *   email: string;
+ *   password: string;
+ *   repeated_password: string;
+ *   description: string;
+ *   diploma: string;
+ *   experience: string;
+ *   specialty: string;
+ *   licence_code: string;
+ *   status: string;
+ *   photo: File | unknown;
+ * }>>} setAddForm - A function to update the state of the therapist's form details.
+ * @param {boolean} isAddTherapistModalP1Open - A boolean indicating whether the
+ * add therapist modal is open or closed.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP1Open -
+ * A function to update the state of the add therapist modal's visibility.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP2Open -
+ * A function to open the second step modal in the multi-step form.
+ *
+ * @returns {JSX.Element} The rendered AddTherapistModalP1 component, containing
+ * input fields for therapist information and action buttons for continuing or cancelling.
+ */
+
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
+import NameInput from '../Components/NameInput';
 
 interface AddTherapistModalP1Props {
   setAddForm: React.Dispatch<
@@ -30,13 +65,16 @@ export default function AddTherapistModalP1({
   setIsAddTherapistModalP1Open,
   setIsAddTherapistModalP2Open,
 }: AddTherapistModalP1Props) {
+  // State to store therapist details
   const [therapistName, setTherapistName] = useState('');
   const [therapistSurname, setTherapistSurname] = useState('');
   const [therapistLicenceCode, setTherapistLicenceCode] = useState('');
   const [file, setFile] = useState<File | null>(null);
 
+  // State to store the preview URL of the uploaded photo
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  // Function to handle file input change and set the file and
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -45,6 +83,7 @@ export default function AddTherapistModalP1({
     }
   };
 
+  // Function to add form details and move to the next step
   const addFormDetails = () => {
     const name = therapistName;
     const surname = therapistSurname;
@@ -92,24 +131,13 @@ export default function AddTherapistModalP1({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter un kinésithérapeute
         </h2>
+
         <form className="space-y-4">
-          <div>
-            <label
-              htmlFor="therapist-name_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Nom
-            </label>
-            <input
-              type="text"
-              id="therapist-name_input"
-              name="name"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistName}
-              onChange={(e) => setTherapistName(e.target.value)}
-              required
-            />
-          </div>
+          <NameInput
+            therapist
+            therapistName={therapistName}
+            setTherapistName={setTherapistName}
+          />
 
           <div>
             <label
@@ -118,6 +146,7 @@ export default function AddTherapistModalP1({
             >
               Prénom
             </label>
+
             <input
               type="text"
               id="therapist-surname_input"
@@ -136,6 +165,7 @@ export default function AddTherapistModalP1({
             >
               Code ADELI
             </label>
+
             <input
               type="text"
               id="therapist-licence-code_input"
@@ -154,6 +184,7 @@ export default function AddTherapistModalP1({
             >
               Charger une photo
             </label>
+
             <input
               type="file"
               accept="image/*"
@@ -183,6 +214,7 @@ export default function AddTherapistModalP1({
               normalButton
               onClick={addFormDetails}
             />
+
             <CustomButton
               btnText="Annuler"
               btnType="button"

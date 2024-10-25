@@ -1,3 +1,37 @@
+/**
+ * @file AddTherapistModalP2.tsx
+ * @description A modal component for collecting additional details about a therapist,
+ * including their diploma, experience, specialty, and a description. This modal is
+ * the second step in a multi-step form for adding a therapist. It allows users to
+ * input relevant information and either proceed to the next step or cancel the action.
+ *
+ * @interface AddTherapistModalP2Props
+ * @param {React.Dispatch<React.SetStateAction<{
+ *   name: string;
+ *   surname: string;
+ *   email: string;
+ *   password: string;
+ *   repeated_password: string;
+ *   description: string;
+ *   diploma: string;
+ *   experience: string;
+ *   specialty: string;
+ *   licence_code: string;
+ *   status: string;
+ *   photo: File | unknown;
+ * }>>} setAddForm - A function to update the state of the therapist's form details.
+ * @param {boolean} isAddTherapistModalP2Open - A boolean indicating whether the
+ * add therapist modal (step 2) is open or closed.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP2Open -
+ * A function to update the state of the modal's visibility.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP3Open -
+ * A function to open the next step modal in the multi-step form.
+ *
+ * @returns {JSX.Element} The rendered AddTherapistModalP2 component, containing
+ * input fields for additional therapist information and action buttons for continuing
+ * or cancelling the form process.
+ */
+
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
@@ -30,30 +64,19 @@ export default function AddTherapistModalP2({
   setIsAddTherapistModalP2Open,
   setIsAddTherapistModalP3Open,
 }: AddTherapistModalP2Props) {
+  // State variables to store therapist details
   const [therapistDiploma, setTherapistDiploma] = useState('');
   const [therapistExperience, setTherapistExperience] = useState('');
   const [therapistSpecialty, setTherapistRepeatedSpecialty] = useState('');
   const [therapistDescription, setTherapistDescription] = useState('');
 
+  // Function to add therapist details to form state and open the next step
   const addFormDetails = () => {
     const diploma = therapistDiploma;
     const experience = therapistExperience;
     const specialty = therapistSpecialty;
     const description = therapistDescription;
-    // setAddForm({
-    //   name: addForm.name,
-    //   surname: addForm.surname,
-    //   email: '',
-    //   password: '',
-    //   repeated_password: '',
-    //   description: description,
-    //   diploma: diploma,
-    //   experience: experience,
-    //   specialty: specialty,
-    //   licence_code: addForm.licence_code,
-    //   status: '',
-    //   photo: addForm.photo,
-    // });
+
     setAddForm((prev) => ({
       ...prev,
       description,
@@ -89,6 +112,7 @@ export default function AddTherapistModalP2({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter un kinésithérapeute
         </h2>
+
         <form className="space-y-4">
           <div>
             <label
@@ -97,6 +121,7 @@ export default function AddTherapistModalP2({
             >
               Diplôme
             </label>
+
             <input
               type="text"
               id="therapist-diploma_input"
@@ -115,6 +140,7 @@ export default function AddTherapistModalP2({
             >
               Experience
             </label>
+
             <input
               type="text"
               id="therapist-experience_input"
@@ -133,6 +159,7 @@ export default function AddTherapistModalP2({
             >
               Spécialité
             </label>
+
             <input
               type="text"
               id="therapist-specialty_input"
@@ -151,6 +178,7 @@ export default function AddTherapistModalP2({
             >
               Description
             </label>
+
             <textarea
               name="description"
               id="therapist-description_input"
@@ -175,6 +203,7 @@ export default function AddTherapistModalP2({
               normalButton
               onClick={addFormDetails}
             />
+
             <CustomButton
               btnText="Annuler"
               btnType="button"

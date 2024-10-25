@@ -1,3 +1,29 @@
+/**
+ * @file ConfirmDeleteModal.tsx
+ * @description A modal component that prompts the user for confirmation before
+ * deleting a specified entity (therapist, patient, affliction, medic, or insurance).
+ * The modal displays a warning about the irreversibility of the action and
+ * provides options to confirm or cancel the deletion.
+ *
+ * @interface ConfirmDeleteModalProps
+ * @param {boolean} isDeleteModalOpen - A boolean indicating whether the delete
+ * modal is open or closed.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsDeleteModalOpen -
+ * A function to update the state of the delete modal's visibility.
+ * @param {ITherapist | null} [therapist] - The therapist object to be deleted,
+ * if applicable.
+ * @param {IPatient | null} [patient] - The patient object to be deleted, if
+ * applicable.
+ * @param {IAffliction | null} [affliction] - The affliction object to be deleted,
+ * if applicable.
+ * @param {IMedic | null} [medic] - The medic object to be deleted, if applicable.
+ * @param {IInsurance | null} [insurance] - The insurance object to be deleted,
+ * if applicable.
+ *
+ * @returns {JSX.Element} The rendered ConfirmDeleteModal component, displaying
+ * confirmation messages and action buttons for deletion.
+ */
+
 import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
 import {
@@ -12,6 +38,7 @@ import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
 import { IMedic } from '../../../../@types/IMedic';
 import { IInsurance } from '../../../../@types/IInsurance';
+import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
@@ -33,6 +60,7 @@ export default function ConfirmDeleteModal({
   insurance,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
+  
   return (
     <ReactModal
       isOpen={isDeleteModalOpen}
@@ -87,9 +115,11 @@ export default function ConfirmDeleteModal({
         <span className="text-red-500 font-medium">
           Cette action est irréversible.
         </span>
+
         <div className="flex justify-center mt-4 gap-4">
-          <button
-            className="rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 text-sm p-2 px-4"
+          <CustomButton
+            btnText="Confirmer la suppression"
+            deleteButton
             onClick={() => {
               setIsDeleteModalOpen(false);
               if (therapist) {
@@ -114,15 +144,13 @@ export default function ConfirmDeleteModal({
                 window.location.reload();
               }
             }}
-          >
-            Confirmer la suppression
-          </button>
-          <button
-            className="rounded-lg text-gray-700 font-bold bg-gray-200 hover:bg-gray-300 text-sm p-2 px-4"
+          />
+
+          <CustomButton
+            btnText="Annuler"
+            cancelButton
             onClick={() => setIsDeleteModalOpen(false)}
-          >
-            Annuler
-          </button>
+          />
         </div>
       </div>
     </ReactModal>

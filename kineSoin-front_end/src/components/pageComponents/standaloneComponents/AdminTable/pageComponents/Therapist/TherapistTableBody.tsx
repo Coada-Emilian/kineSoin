@@ -1,11 +1,37 @@
+/**
+ * @file TherapistTableBody.tsx
+ * @description A component that renders a table body for therapists, displaying
+ * their details, status, and actions (edit and delete) for each therapist in the
+ * provided list.
+ *
+ * @interface TherapistTableBodyProps
+ * @param {ITherapist[]} renderedTherapists - An array of therapists to render in
+ * the table body.
+ * @param {number} windowWidth - The current width of the window, used to adjust
+ * the styling and layout of the table cells.
+ * @param {(id: number) => void} handleStatusChange - A function that handles
+ * the status change of a given therapist identified by its ID.
+ * @param {(
+ *   therapist?: ITherapist,
+ *   patient?: IPatient,
+ *   affliction?: IAffliction,
+ *   medic?: IMedic
+ * ) => void} openDeleteModal - A function that opens the delete modal for a
+ * specific therapist and other entities based on the provided parameters.
+ *
+ * @returns {JSX.Element} The rendered TherapistTableBody component displaying
+ * a row for each therapist with their ID, full name, status, edit, and delete
+ * actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { ITherapist } from '../../../../../../@types/ITherapist';
-import deleteIcon from '/icons/delete.png';
-import editIcon from '/icons/edit.png';
-import refreshIcon from '/icons/refresh.png';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { IMedic } from '../../../../../../@types/IMedic';
+import deleteIcon from '/icons/delete.png';
+import editIcon from '/icons/edit.png';
+import refreshIcon from '/icons/refresh.png';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];
@@ -31,9 +57,11 @@ export default function TherapistTableBody({
         <td className="border border-gray-300 px-4 py-2 text-center">
           {therapist.id}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {therapist.fullName}
         </td>
+
         <td
           className={`border border-gray-300 ${
             therapist.status === 'active' ? 'bg-green-300' : 'bg-gray-200'
@@ -50,6 +78,7 @@ export default function TherapistTableBody({
 
           <p>{therapist.status.toUpperCase()}</p>
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link to={`/admin/therapists/${therapist.id}`}>
@@ -69,6 +98,7 @@ export default function TherapistTableBody({
             </Link>
           )}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link

@@ -1,14 +1,30 @@
+/**
+ * @file AddAfflictionModal.tsx
+ * @description This modal component allows users to add a new affliction by
+ * filling out a form with relevant details. It handles the submission of the
+ * affliction's information to the server for registration and provides a
+ * user interface for input. The modal includes loading state handling
+ * and can be closed upon successful submission or cancellation.
+ *
+ * @interface AddAfflictionModalProps
+ * @param {boolean} isAddAfflictionModalOpen - Indicates if the modal is currently open.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddAfflictionModalOpen -
+ * Function to toggle the visibility of the modal.
+ *
+ * @returns {JSX.Element} The rendered AddAfflictionModal component, featuring input
+ * fields for the affliction's name, body region, insurance code, operated status,
+ * and description, along with action buttons for submission or cancellation.
+ */
+
 import { useState } from 'react';
+import { handleAfflictionCreation } from '../../../../../utils/apiUtils';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
-import { IBodyRegion } from '../../../../../@types/IBodyRegion';
-import NameInput from './pageComponents/NameInput.tsx';
 import RegionInput from './pageComponents/RegionInput.tsx';
 import InsuranceCodeInput from './pageComponents/InsuranceCodeInput.tsx';
 import OperatedStatusInput from './pageComponents/OperatedStatusInput.tsx';
 import DescriptionInput from './pageComponents/DescriptionInput.tsx';
-import axios from '../../../../../axios.ts';
-import { handleAfflictionCreation } from '../../../../../utils/apiUtils';
+import NameInput from '../Components/NameInput.tsx';
 
 interface AddAfflictionModalProps {
   isAddAfflictionModalOpen: boolean;
@@ -19,13 +35,16 @@ export default function AddAfflictionModal({
   isAddAfflictionModalOpen,
   setIsAddAfflictionModalOpen,
 }: AddAfflictionModalProps) {
+  // State to store the chosen body region ID
   const [chosenBodyRegionId, setChosenBodyRegionId] = useState<
     number | undefined
   >(undefined);
-  const [loading, setLoading] = useState(true);
+
+  // State to store the operated status
   const [afflictionOperatedStatus, setAfflictionOperatedStatus] =
     useState<boolean>(false);
 
+  // Function to handle the submission of the affliction form
   const handleAfflictionSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -43,7 +62,7 @@ export default function AddAfflictionModal({
       if (createdAffliction) {
         console.log('Affliction added successfully', createdAffliction);
         setIsAddAfflictionModalOpen(false);
-        window.location.reload(); // Consider using a more controlled state update instead of reload
+        window.location.reload();
       } else {
         console.error('Failed to create affliction');
       }
@@ -52,9 +71,7 @@ export default function AddAfflictionModal({
     }
   };
 
-  {
-    loading && <p>Loading...</p>;
-  }
+
   return (
     <ReactModal
       isOpen={isAddAfflictionModalOpen}
@@ -79,10 +96,11 @@ export default function AddAfflictionModal({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter une affliction
         </h2>
+
         <form className="space-y-4" onSubmit={handleAfflictionSubmit}>
-          <NameInput />
+          <NameInput affliction />
+
           <RegionInput
-            setLoading={setLoading}
             setChosenBodyRegionId={setChosenBodyRegionId}
           />
 

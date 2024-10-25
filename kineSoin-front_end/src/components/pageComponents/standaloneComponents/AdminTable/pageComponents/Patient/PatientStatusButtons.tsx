@@ -1,3 +1,17 @@
+/**
+ * @file PatientStatusButtons.tsx
+ * @description A component that renders buttons for filtering patient statuses.
+ * It provides options to view all patients, active patients, inactive patients,
+ * patients pending approval, and banned patients. Clicking a button will update
+ * the patient status through the provided `setPatientStatus` function.
+ *
+ * @interface PatientStatusButtonsProps
+ * @param {function} setPatientStatus - A function to update the patient status.
+ *
+ * @returns {JSX.Element} The rendered PatientStatusButtons component with buttons
+ * for each patient status.
+ */
+
 import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';
 
 interface PatientStatusButtonsProps {
@@ -16,6 +30,7 @@ export default function PatientStatusButtons({
           setPatientStatus('all');
         }}
       />
+
       <CustomButton
         btnText="Actifs"
         activeButton
@@ -23,6 +38,7 @@ export default function PatientStatusButtons({
           setPatientStatus('active');
         }}
       />
+
       <CustomButton
         btnText="Inactifs"
         inactiveButton
@@ -30,6 +46,7 @@ export default function PatientStatusButtons({
           setPatientStatus('inactive');
         }}
       />
+
       <CustomButton
         btnText="En attente"
         pendingButton
@@ -37,6 +54,7 @@ export default function PatientStatusButtons({
           setPatientStatus('pending');
         }}
       />
+
       <CustomButton
         btnText="Banis"
         bannedButton

@@ -1,10 +1,34 @@
+/**
+ * @file PatientTableBody.tsx
+ * @description A component that renders a table body for patients, displaying
+ * their details, status, and actions (edit and delete) for each patient in the
+ * provided list.
+ *
+ * @interface PatientTableBodyProps
+ * @param {IPatient[]} renderedPatients - An array of patients to render in the
+ * table body.
+ * @param {number} windowWidth - The current width of the window, used to adjust
+ * the styling and layout of the table cells.
+ * @param {(
+ *   therapist?: ITherapist,
+ *   patient?: IPatient,
+ *   affliction?: IAffliction,
+ *   medic?: IMedic
+ * ) => void} openDeleteModal - A function that opens the delete modal for a
+ * specific patient and other entities based on the provided parameters.
+ *
+ * @returns {JSX.Element} The rendered PatientTableBody component displaying
+ * a row for each patient with their ID, full name, status, edit, and delete
+ * actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { ITherapist } from '../../../../../../@types/ITherapist';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IMedic } from '../../../../../../@types/IMedic';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import { IMedic } from '../../../../../../@types/IMedic';
 
 interface PatientTableBodyProps {
   renderedPatients: IPatient[];
@@ -28,9 +52,11 @@ export default function PatientTableBody({
         <td className="border border-gray-300 px-4 py-2 text-center">
           {patient.id}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {patient.fullName}
         </td>
+
         <td
           className={`border border-gray-300 ${
             patient.status === 'active'
@@ -44,6 +70,7 @@ export default function PatientTableBody({
         >
           <p>{patient.status.toUpperCase()}</p>
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link to={`/admin/patients/${patient.id}`}>
@@ -63,6 +90,7 @@ export default function PatientTableBody({
             </Link>
           )}
         </td>
+
         <td className="border border-gray-300 px-4 py-2 text-center">
           {windowWidth < 768 ? (
             <Link
