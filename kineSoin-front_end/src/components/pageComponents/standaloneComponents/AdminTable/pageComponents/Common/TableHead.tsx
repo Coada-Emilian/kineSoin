@@ -1,4 +1,5 @@
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
@@ -9,6 +10,7 @@ interface TableHeadProps {
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
   allMedics?: IMedic[];
+  allInsurances?: IInsurance[];
 }
 
 export default function TableHead({
@@ -17,6 +19,7 @@ export default function TableHead({
   allPatients,
   allAfflictions,
   allMedics,
+  allInsurances,
 }: TableHeadProps) {
   return (
     <thead
@@ -34,11 +37,13 @@ export default function TableHead({
             {allPatients && 'Nom patient'}
             {allAfflictions && 'Nom affliction'}
             {allMedics && 'Nom médecin'}
+            {allInsurances && 'Nom organisme'}
           </th>
           <th className="border border-gray-300 px-4 py-2 text-center">
             {allTherapists ? 'Statut' : allPatients && 'Statut'}
             {allAfflictions && 'Region concernée'}
             {allMedics && 'Code ADELI'}
+            {allInsurances && 'Code AMC'}
           </th>
           {allAfflictions && windowWidth > 768 && (
             <th className="border border-gray-300 px-4 py-2 text-center">

@@ -2,18 +2,24 @@ import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNa
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
 import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import { fetchMedics } from '../../../../../utils/apiUtils.ts';
+import {
+  fetchInsuranceOrganisms,
+  fetchMedics,
+} from '../../../../../utils/apiUtils.ts';
 import { IMedic } from '../../../../../@types/IMedic';
+import { IInsurance } from '../../../../../@types/IInsurance';
 
-interface AdminMedicsPageProps {
+interface AdminInsurancesPageProps {
   windowWidth: number;
 }
 
-export default function AdminMedicsPage({ windowWidth }: AdminMedicsPageProps) {
-  const [allMedics, setAllMedics] = useState<IMedic[]>([]);
+export default function AdminInsurancesPage({
+  windowWidth,
+}: AdminInsurancesPageProps) {
+  const [allInsurances, setAllInsurances] = useState<IInsurance[]>([]);
   useEffect(() => {
-    fetchMedics().then((allMedics) => {
-      setAllMedics(allMedics);
+    fetchInsuranceOrganisms().then((allInsuranceOrganisms) => {
+      setAllInsurances(allInsuranceOrganisms);
     });
   }, []);
 
@@ -21,7 +27,7 @@ export default function AdminMedicsPage({ windowWidth }: AdminMedicsPageProps) {
     <main className="w-full">
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
-          <AdminTable allMedics={allMedics} windowWidth={windowWidth} />
+          <AdminTable allInsurances={allInsurances} windowWidth={windowWidth} />
           <AdminMobileNav />
         </div>
       ) : (
@@ -30,7 +36,10 @@ export default function AdminMedicsPage({ windowWidth }: AdminMedicsPageProps) {
             <AdminSideNav />
           </div>
           <div className="w-3/4">
-            <AdminTable allMedics={allMedics} windowWidth={windowWidth} />
+            <AdminTable
+              allInsurances={allInsurances}
+              windowWidth={windowWidth}
+            />
           </div>
         </div>
       )}

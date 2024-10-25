@@ -119,3 +119,11 @@ adminRouter.get(
   '/insuranceOrganisms',
   wrapper(insuranceController.getAllInsuranceOrganisms)
 );
+adminRouter.delete(
+  '/insuranceOrganisms/:insurance_id',
+  wrapper(insuranceController.deleteInsuranceOrganism)
+);
+adminRouter.post(
+  '/insuranceOrganisms',
+  wrapper(insuranceController.createInsuranceOrganism)
+);

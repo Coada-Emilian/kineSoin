@@ -16,6 +16,7 @@ import AdminAfflictionsPage from './components/pageComponents/AdminSection/Admin
 import AdminAfflictionPage from './components/pageComponents/AdminSection/AdminAfflictions/AdminAfflictionPage/AdminAfflictionPage';
 import AdminMedicsPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicsPage/AdminMedicsPage';
 import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicPage/AdminMedicPage';
+import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -134,6 +135,10 @@ function App() {
           <Route
             path="medics/:id"
             element={<AdminMedicPage windowWidth={windowWidth} />}
+          />
+          <Route
+            path="insurances"
+            element={<AdminInsurancesPage windowWidth={windowWidth} />}
           />
           <Route path="*" element={<ErrorPage />} />
         </Route>

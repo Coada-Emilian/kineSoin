@@ -178,6 +178,91 @@ const insuranceController = {
       return res.status(200).json(allInsurances);
     }
   },
+
+  deleteInsuranceOrganism: async (req, res) => {
+    const insuranceId = parseInt(req.params.insurance_id, 10);
+
+    checkIsIdNumber(insuranceId);
+
+    const foundInsurance = await Insurance.findByPk(insuranceId);
+
+    if (!foundInsurance) {
+      return res.status(400).json({ message: 'Insurance not found' });
+    } else {
+      const response = await foundInsurance.destroy();
+
+      if (response) {
+        return res
+          .status(200)
+          .json({ message: 'The insurance was deleted', response });
+      } else {
+        return res
+          .status(400)
+          .json({ message: 'The insurance was not deleted', response });
+      }
+    }
+  },
+
+  createInsuranceOrganism: async (req, res) => {
+    const adminId = req.session.admin_id;
+    checkIsIdNumber(adminId);
+
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    }
+
+    const {
+      name,
+      amc_code,
+      street_number,
+      street_name,
+      postal_code,
+      city,
+      phone_number,
+    } = req.body;
+
+    const sentInsurance = {
+      admin_id: adminId,
+      name,
+      amc_code,
+      street_number,
+      street_name,
+      postal_code,
+      city,
+      phone_number,
+    };
+
+    const createInsuranceSchema = Joi.object({
+      admin_id: Joi.number().optional(),
+      name: Joi.string().optional(),
+      amc_code: Joi.string().optional(),
+      street_number: Joi.string().optional(),
+      street_name: Joi.string().optional(),
+      postal_code: Joi.string().optional(),
+      city: Joi.string().optional(),
+      phone_number: Joi.string().optional(),
+    }).min(1);
+
+    const { error } = createInsuranceSchema.validate(sentInsurance);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const response = await Insurance.create(sentInsurance);
+
+    if (response) {
+      return res
+        .status(200)
+        .json({ message: 'Insurance organism created', response });
+    } else {
+      return res
+        .status(400)
+        .json({ message: 'Insurance organism not created', response });
+    }
+  },
 };
 
 export default insuranceController;

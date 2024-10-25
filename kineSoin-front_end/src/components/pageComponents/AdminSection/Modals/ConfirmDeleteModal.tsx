@@ -2,6 +2,7 @@ import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
 import {
   handleAfflictionDelete,
+  handleInsuranceOrganismDelete,
   handleMedicDelete,
   handlePatientDelete,
   handleTherapistDelete,
@@ -10,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
 import { IMedic } from '../../../../@types/IMedic';
+import { IInsurance } from '../../../../@types/IInsurance';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
@@ -18,6 +20,7 @@ interface ConfirmDeleteModalProps {
   patient?: IPatient | null;
   affliction?: IAffliction | null;
   medic?: IMedic | null;
+  insurance?: IInsurance | null;
 }
 
 export default function ConfirmDeleteModal({
@@ -27,6 +30,7 @@ export default function ConfirmDeleteModal({
   patient,
   affliction,
   medic,
+  insurance,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   return (
@@ -73,6 +77,13 @@ export default function ConfirmDeleteModal({
           </p>
         )}
 
+        {insurance && (
+          <p>
+            Êtes-vous sûr de vouloir supprimer l'organisme{' '}
+            <span className="font-semibold">{insurance.name}</span> ?
+          </p>
+        )}
+
         <span className="text-red-500 font-medium">
           Cette action est irréversible.
         </span>
@@ -96,6 +107,10 @@ export default function ConfirmDeleteModal({
               } else if (medic) {
                 handleMedicDelete(medic.id);
                 navigate('/admin/medics');
+                window.location.reload();
+              } else if (insurance) {
+                handleInsuranceOrganismDelete(insurance.id);
+                navigate('/admin/insurances');
                 window.location.reload();
               }
             }}

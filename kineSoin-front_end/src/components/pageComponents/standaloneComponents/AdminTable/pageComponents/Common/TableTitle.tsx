@@ -1,4 +1,5 @@
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
@@ -8,6 +9,7 @@ interface TableTitleProps {
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
   allMedics?: IMedic[];
+  allInsurances?: IInsurance[];
   therapistStatus?: string;
   patientStatus?: string;
   afflictionStatus?: string;
@@ -18,6 +20,7 @@ export default function TableTitle({
   allPatients,
   allAfflictions,
   allMedics,
+  allInsurances,
   therapistStatus,
   patientStatus,
   afflictionStatus,
@@ -53,6 +56,7 @@ export default function TableTitle({
               ? 'Afflictions non opérées'
               : '')}
       {allMedics && 'Tous les médecins'}
+      {allInsurances && "Toutes les organismes d'assurance"}
     </h2>
   );
 }

@@ -19,12 +19,15 @@ import TableTitle from './pageComponents/Common/TableTitle';
 import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
 import AddMedicModal from '../../AdminSection/Modals/AddMedicModals/AddMedicModal';
+import { IInsurance } from '../../../../@types/IInsurance';
+import AddInsuranceModal from '../../AdminSection/Modals/AddInsuranceModals/AddInsuranceModal';
 
 interface AdminTableProps {
   allTherapists?: ITherapist[];
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
   allMedics?: IMedic[];
+  allInsurances?: IInsurance[];
   windowWidth: number;
 }
 
@@ -33,6 +36,7 @@ export default function AdminTable({
   allPatients,
   allAfflictions,
   allMedics,
+  allInsurances,
   windowWidth,
 }: AdminTableProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -44,6 +48,9 @@ export default function AdminTable({
   const [selectedAffliction, setSelectedAffliction] =
     useState<IAffliction | null>(null);
   const [selectedMedic, setSelectedMedic] = useState<IMedic | null>(null);
+  const [selectedInsurance, setSelectedInsurance] = useState<IInsurance | null>(
+    null
+  );
 
   const [isAddAfflictionModalOpen, setIsAddAfflictionModalOpen] =
     useState(false);
@@ -58,6 +65,7 @@ export default function AdminTable({
     useState(false);
 
   const [isAddMedicModalOpen, setIsAddMedicModalOpen] = useState(false);
+  const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
 
   const [therapistStatus, setTherapistStatus] = useState('all');
   const [patientStatus, setPatientStatus] = useState('all');
@@ -174,7 +182,8 @@ export default function AdminTable({
     therapist?: ITherapist,
     patient?: IPatient,
     affliction?: IAffliction,
-    medic?: IMedic
+    medic?: IMedic,
+    insurance?: IInsurance
   ) => {
     if (therapist) {
       setSelectedTherapist(therapist);
@@ -187,6 +196,9 @@ export default function AdminTable({
     }
     if (medic) {
       setSelectedMedic(medic);
+    }
+    if (insurance) {
+      setSelectedInsurance(insurance);
     }
     setIsDeleteModalOpen(true);
   };
@@ -204,7 +216,7 @@ export default function AdminTable({
     <>
       <div>
         <div
-          className={`buttons mb-6 flex flex-row  ${allMedics ? 'justify-end' : 'justify-between'} md:ml-10 md:mr-10`}
+          className={`buttons mb-6 flex flex-row  ${allMedics || allInsurances ? 'justify-end' : 'justify-between'} md:ml-10 md:mr-10`}
         >
           {allTherapists && (
             <>
@@ -241,6 +253,15 @@ export default function AdminTable({
               />
             </div>
           )}
+          {allInsurances && (
+            <div className="flex ">
+              <CustomButton
+                btnText="Ajouter un organisme d'assurance"
+                addButton
+                onClick={() => setIsAddInsuranceModalOpen(true)}
+              />
+            </div>
+          )}
         </div>
 
         <div>
@@ -248,6 +269,7 @@ export default function AdminTable({
             allTherapists={allTherapists}
             allPatients={allPatients}
             allAfflictions={allAfflictions}
+            allInsurances={allInsurances}
             therapistStatus={therapistStatus}
             patientStatus={patientStatus}
             afflictionStatus={afflictionStatus}
@@ -262,6 +284,7 @@ export default function AdminTable({
             allPatients={allPatients}
             allAfflictions={allAfflictions}
             allMedics={allMedics}
+            allInsurances={allInsurances}
           />
           <TableBody
             windowWidth={windowWidth}
@@ -269,6 +292,7 @@ export default function AdminTable({
             allPatients={allPatients}
             allMedics={allMedics}
             allAfflictions={allAfflictions}
+            allInsurances={allInsurances}
             renderedAfflictions={renderedAfflictions}
             renderedPatients={renderedPatients}
             renderedTherapists={renderedTherapists}
@@ -286,6 +310,7 @@ export default function AdminTable({
           patient={selectedPatient}
           affliction={selectedAffliction}
           medic={selectedMedic}
+          insurance={selectedInsurance}
         />
       )}
 
@@ -332,6 +357,12 @@ export default function AdminTable({
         <AddMedicModal
           isAddMedicModalOpen={isAddMedicModalOpen}
           setIsAddMedicModalOpen={setIsAddMedicModalOpen}
+        />
+      )}
+      {isAddInsuranceModalOpen && (
+        <AddInsuranceModal
+          isAddInsuranceModalOpen={isAddInsuranceModalOpen}
+          setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
         />
       )}
     </>
