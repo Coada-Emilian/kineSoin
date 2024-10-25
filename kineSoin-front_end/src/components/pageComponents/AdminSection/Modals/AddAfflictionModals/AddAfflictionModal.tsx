@@ -25,6 +25,7 @@ import InsuranceCodeInput from './pageComponents/InsuranceCodeInput.tsx';
 import OperatedStatusInput from './pageComponents/OperatedStatusInput.tsx';
 import DescriptionInput from './pageComponents/DescriptionInput.tsx';
 import NameInput from '../Components/NameInput.tsx';
+import LicenceCodeInput from '../Components/LicenceCodeInput.tsx';
 
 interface AddAfflictionModalProps {
   isAddAfflictionModalOpen: boolean;
@@ -71,7 +72,6 @@ export default function AddAfflictionModal({
     }
   };
 
-
   return (
     <ReactModal
       isOpen={isAddAfflictionModalOpen}
@@ -100,12 +100,10 @@ export default function AddAfflictionModal({
         <form className="space-y-4" onSubmit={handleAfflictionSubmit}>
           <NameInput affliction />
 
-          <RegionInput
-            setChosenBodyRegionId={setChosenBodyRegionId}
-          />
+          <RegionInput setChosenBodyRegionId={setChosenBodyRegionId} />
 
           <div className="flex gap-1">
-            <InsuranceCodeInput />
+            <LicenceCodeInput affliction />
             <OperatedStatusInput
               setAfflictionOperatedStatus={setAfflictionOperatedStatus}
             />

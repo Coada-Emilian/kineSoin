@@ -37,6 +37,8 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import NameInput from '../Components/NameInput';
 import SurnameInput from '../Components/SurnameInput';
+import LicenceCode from '../../../standaloneComponents/AdminProfileDetails/pageComponents/generalComponents/common/LicenceCode';
+import LicenceCodeInput from '../Components/LicenceCodeInput';
 
 interface AddTherapistModalP1Props {
   setAddForm: React.Dispatch<
@@ -146,26 +148,13 @@ export default function AddTherapistModalP1({
             setTherapistName={setTherapistSurname}
           />
 
+          <LicenceCodeInput
+            therapist
+            therapistLicenceCode={therapistLicenceCode}
+            setTherapistLicenceCode={setTherapistLicenceCode}
+          />
           <div>
-            <label
-              htmlFor="therapist-licence-code_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Code ADELI
-            </label>
-
-            <input
-              type="text"
-              id="therapist-licence-code_input"
-              name="licence_code"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistLicenceCode}
-              onChange={(e) => setTherapistLicenceCode(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
+            
             <label
               htmlFor="therapist-licence-code_input"
               className="block text-xs md:text-sm font-medium text-gray-700 mb-2"

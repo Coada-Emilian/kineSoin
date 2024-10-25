@@ -2,6 +2,7 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleInsuranceOrganismCreation } from '../../../../../utils/apiUtils';
 import NameInput from '../Components/NameInput';
+import LicenceCodeInput from '../Components/LicenceCodeInput';
 
 interface AddInsuranceModalProps {
   isAddInsuranceModalOpen: boolean;
@@ -55,7 +56,7 @@ export default function AddInsuranceModal({
         </h2>
         <form className="space-y-4" onSubmit={createInsurance}>
           <NameInput insurance />
-
+          <LicenceCodeInput insurance />
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
             <CustomButton
