@@ -2,11 +2,7 @@ import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNa
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
 import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
-import {
-  fetchInsuranceOrganisms,
-  fetchMedics,
-} from '../../../../../utils/apiUtils.ts';
-import { IMedic } from '../../../../../@types/IMedic';
+import { fetchInsuranceOrganisms } from '../../../../../utils/apiUtils.ts';
 import { IInsurance } from '../../../../../@types/IInsurance';
 
 interface AdminInsurancesPageProps {

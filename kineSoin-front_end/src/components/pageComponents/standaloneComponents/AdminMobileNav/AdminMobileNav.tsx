@@ -1,11 +1,9 @@
-import { Icons } from 'react-toastify';
 import afflictionIcon from '/icons/affliction.png';
 import doctorIcon from '/icons/doctor.png';
 import insuranceIcon from '/icons/insurance.png';
 import patientIcon from '/icons/patient.png';
 import therapistIcon from '/icons/therapist.png';
 import { Link } from 'react-router-dom';
-import path from 'path';
 
 export default function AdminMobileNav() {
   const links = [
@@ -44,8 +42,8 @@ export default function AdminMobileNav() {
           key={index}
           className=" flex flex-col items-center justify-center text-center"
         >
-          <img src={link.icon} alt={link.name} className="w-10 mb-2" />
-          <p className="text-sm font-medium">{link.name}</p>
+          <img src={link.icon} alt={link.name} className="w-8 mb-2" />
+          <p className="text-xs font-medium">{link.name}</p>
         </Link>
       ))}
     </div>

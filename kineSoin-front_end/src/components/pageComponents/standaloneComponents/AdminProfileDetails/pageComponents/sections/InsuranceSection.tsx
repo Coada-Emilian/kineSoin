@@ -1,5 +1,4 @@
 import { IInsurance } from '../../../../../../@types/IInsurance';
-import { IMedic } from '../../../../../../@types/IMedic';
 import Address from '../generalComponents/common/Address';
 import EditAddress from '../generalComponents/common/EditAddress';
 import EditLicenceCode from '../generalComponents/common/EditLicenceCode';

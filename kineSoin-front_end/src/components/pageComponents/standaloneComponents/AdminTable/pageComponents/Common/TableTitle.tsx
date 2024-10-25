@@ -26,7 +26,7 @@ export default function TableTitle({
   afflictionStatus,
 }: TableTitleProps) {
   return (
-    <h2 className="text-center text-2xl font-semibold mb-4 md:text-left mb: ml-10">
+    <h2 className="text-center text-2xl font-semibold mb-4 md:text-left ml-10">
       {allTherapists &&
         (therapistStatus === 'all'
           ? 'Tous les kinésithérapeutes'
@@ -56,7 +56,7 @@ export default function TableTitle({
               ? 'Afflictions non opérées'
               : '')}
       {allMedics && 'Tous les médecins'}
-      {allInsurances && "Toutes les organismes d'assurance"}
+      {allInsurances && "Tous les organismes d'assurance"}
     </h2>
   );
 }
