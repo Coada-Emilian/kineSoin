@@ -255,6 +255,26 @@ export const fetchMedics = async () => {
   }
 };
 
+export const handleMedicUpdates = async (formData: FormData, id: number) => {
+  try {
+    const response = await axios.put(`/admin/medics/${id}`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Medic profile updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update medic profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating medic profile:', error);
+    return false;
+  }
+};
+
 export const handleMedicDelete = async (id: number) => {
   try {
     const response = await axios.delete(`/admin/medics/${id}`);
@@ -322,7 +342,10 @@ export const handleTherapistUpdate = async (formData: FormData, id: number) => {
   }
 };
 
-export const handleAfflictionUpdates = async (formData: FormData, id: number) => {
+export const handleAfflictionUpdates = async (
+  formData: FormData,
+  id: number
+) => {
   try {
     const response = await axios.put(`/admin/afflictions/${id}`, formData, {
       headers: {
@@ -340,4 +363,4 @@ export const handleAfflictionUpdates = async (formData: FormData, id: number) =>
     console.error('Error updating affliction:', error);
     return false;
   }
-}
+};

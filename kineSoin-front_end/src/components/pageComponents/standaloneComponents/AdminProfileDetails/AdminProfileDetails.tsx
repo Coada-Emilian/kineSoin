@@ -5,6 +5,7 @@ import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import {
   handleAfflictionUpdates,
+  handleMedicUpdates,
   handlePatientStatusChange,
   handleTherapistUpdate,
 } from '../../../../utils/apiUtils.ts';
@@ -141,7 +142,24 @@ export default function AdminProfileDetails({
   };
 
   const handleMedicUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('Medic update');
+   e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    if (medic && medic.id) {
+      try {
+        const response = await handleMedicUpdates(formData, medic.id);
+        if (response) {
+          setIsProfileEditing(false);
+          window.location.reload();
+        } else {
+          console.error('Failed to update medic', response);
+        }
+      } catch (error) {
+        console.error('Error updating medic:', error);
+      }
+    } else {
+      console.error('Medic ID is missing or invalid');
+    }
   };
 
   return (

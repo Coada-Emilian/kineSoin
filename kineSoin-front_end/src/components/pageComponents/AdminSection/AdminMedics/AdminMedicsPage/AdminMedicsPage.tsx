@@ -18,7 +18,7 @@ export default function AdminMedicsPage({ windowWidth }: AdminMedicsPageProps) {
   }, []);
 
   return (
-    <main className="w-full h-screen">
+    <main className="w-full">
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminTable allMedics={allMedics} windowWidth={windowWidth} />

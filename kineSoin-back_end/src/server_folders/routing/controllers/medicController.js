@@ -142,15 +142,47 @@ const medicController = {
   },
 
   updateMedic: async (req, res) => {
-    const admin_id = parseInt(req.admin_id, 10);
-
+    // const admin_id = parseInt(req.admin_id, 10);
+    const admin_id = 1;
     checkIsIdNumber(admin_id);
 
     const medic_id = parseInt(req.params.medic_id, 10);
-
     checkIsIdNumber(medic_id);
 
+    const foundMedic = await Medic.findByPk(medic_id);
+
+    if (!foundMedic) {
+      return res.status(404).json({ message: 'Medic not found.' });
+    }
+
+    const {
+      name,
+      surname,
+      street_number,
+      street_name,
+      postal_code,
+      city,
+      phone_number,
+      licence_code,
+    } = req.body;
+
+    const newMedic = {
+      admin_id,
+      name: name === '' ? foundMedic.name : name,
+      surname: surname === '' ? foundMedic.surname : surname,
+      street_number:
+        street_number === '' ? foundMedic.street_number : street_number,
+      street_name: street_name === '' ? foundMedic.street_name : street_name,
+      postal_code: postal_code === '' ? foundMedic.postal_code : postal_code,
+      city: city === '' ? foundMedic.city : city,
+      phone_number:
+        phone_number === '' ? foundMedic.phone_number : phone_number,
+      licence_code:
+        licence_code === '' ? foundMedic.licence_code : licence_code,
+    };
+
     const medicUpdateSchema = Joi.object({
+      admin_id: Joi.number().required(),
       name: Joi.string().optional(),
       surname: Joi.string().optional(),
       street_number: Joi.string().optional(),
@@ -168,51 +200,20 @@ const medicController = {
       });
     }
 
-    const { error } = medicUpdateSchema.validate(req.body);
+    const { error } = medicUpdateSchema.validate(newMedic);
 
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
+    }
+
+    const updatedMedic = await foundMedic.update(newMedic);
+
+    if (!updatedMedic) {
+      return res.status(500).json({ message: 'Error while updating medic.' });
     } else {
-      const {
-        name,
-        surname,
-        street_number,
-        street_name,
-        postal_code,
-        city,
-        phone_number,
-        licence_code,
-      } = req.body;
-
-      const foundMedic = await Medic.findByPk(medic_id);
-
-      if (!foundMedic) {
-        return res.status(404).json({ message: 'Medic not found.' });
-      } else {
-        const newMedic = {
-          admin_id,
-          name: name || foundMedic.name,
-          surname: surname || foundMedic.surname,
-          street_number: street_number || foundMedic.street_number,
-          street_name: street_name || foundMedic.street_name,
-          postal_code: postal_code || foundMedic.postal_code,
-          city: city || foundMedic.city,
-          phone_number: phone_number || foundMedic.phone_number,
-          licence_code: licence_code || foundMedic.licence_code,
-        };
-
-        const updatedMedic = await foundMedic.update(newMedic);
-
-        if (!updatedMedic) {
-          return res
-            .status(500)
-            .json({ message: 'Error while updating medic.' });
-        } else {
-          return res
-            .status(200)
-            .json({ message: 'Medic updated successfully.', updatedMedic });
-        }
-      }
+      return res
+        .status(200)
+        .json({ message: 'Medic updated successfully.', updatedMedic });
     }
   },
 

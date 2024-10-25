@@ -47,7 +47,7 @@ const AdminMedicPage = ({ windowWidth }: AdminMedicPageProps) => {
   }
 
   return (
-    <main className="w-full h-fit">
+    <main className="w-full h-full">
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminProfileDetails medic={medic} />
