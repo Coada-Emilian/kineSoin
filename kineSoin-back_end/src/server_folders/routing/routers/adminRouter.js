@@ -131,3 +131,7 @@ adminRouter.get(
   '/insuranceOrganisms/:insurance_id',
   wrapper(insuranceController.getOneInsuranceOrganism)
 );
+adminRouter.put(
+  '/insuranceOrganisms/:insurance_id',
+  wrapper(insuranceController.updateInsuranceOrganism)
+);

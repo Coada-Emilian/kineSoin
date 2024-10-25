@@ -5,6 +5,7 @@ import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import {
   handleAfflictionUpdates,
+  handleInsuranceOrganismUpdate,
   handleMedicUpdates,
   handlePatientStatusChange,
   handleTherapistUpdate,
@@ -168,7 +169,26 @@ export default function AdminProfileDetails({
 
   const handleInsuranceUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Insurance update');
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    if (insurance && insurance.id) {
+      try {
+        const response = await handleInsuranceOrganismUpdate(
+          formData,
+          insurance.id
+        );
+        if (response) {
+          setIsProfileEditing(false);
+          window.location.reload();
+        } else {
+          console.error('Failed to update insurance', response);
+        }
+      } catch (error) {
+        console.error('Error updating insurance:', error);
+      }
+    } else {
+      console.error('Insurance ID is missing or invalid)');
+    }
   };
 
   return (

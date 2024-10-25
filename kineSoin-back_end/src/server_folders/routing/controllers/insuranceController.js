@@ -300,6 +300,75 @@ const insuranceController = {
       return res.status(200).json(sentInsurance);
     }
   },
+
+  updateInsuranceOrganism: async (req, res) => {
+    const adminId = req.session.admin_id;
+    checkIsIdNumber(adminId);
+    const insuranceId = parseInt(req.params.insurance_id, 10);
+    checkIsIdNumber(insuranceId);
+
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    }
+
+    const {
+      name,
+      amc_code,
+      street_number,
+      street_name,
+      postal_code,
+      city,
+      phone_number,
+    } = req.body;
+
+    const foundInsurance = await Insurance.findByPk(insuranceId);
+
+    if (!foundInsurance) {
+      return res.status(400).json({ message: 'Insurance not found' });
+    }
+
+    const sentInsurance = {
+      admin_id: adminId,
+      name: name || foundInsurance.name,
+      amc_code: amc_code || foundInsurance.amc_code,
+      street_number: street_number || foundInsurance.street_number,
+      street_name: street_name || foundInsurance.street_name,
+      postal_code: postal_code || foundInsurance.postal_code,
+      city: city || foundInsurance.city,
+      phone_number: phone_number || foundInsurance.phone_number,
+    };
+
+    const updateInsuranceSchema = Joi.object({
+      admin_id: Joi.number().optional(),
+      name: Joi.string().optional(),
+      amc_code: Joi.string().optional(),
+      street_number: Joi.string().optional(),
+      street_name: Joi.string().optional(),
+      postal_code: Joi.string().optional(),
+      city: Joi.string().optional(),
+      phone_number: Joi.string().optional(),
+    }).min(1);
+
+    const { error } = updateInsuranceSchema.validate(sentInsurance);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const response = await foundInsurance.update(sentInsurance);
+
+    if (response) {
+      return res
+        .status(200)
+        .json({ message: 'Insurance organism updated', response });
+    } else {
+      return res
+        .status(400)
+        .json({ message: 'Insurance organism not updated', response });
+    }
+  },
 };
 
 export default insuranceController;
