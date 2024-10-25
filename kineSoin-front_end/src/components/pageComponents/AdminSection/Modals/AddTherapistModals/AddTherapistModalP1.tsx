@@ -36,6 +36,7 @@ import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import NameInput from '../Components/NameInput';
+import SurnameInput from '../Components/SurnameInput';
 
 interface AddTherapistModalP1Props {
   setAddForm: React.Dispatch<
@@ -139,24 +140,11 @@ export default function AddTherapistModalP1({
             setTherapistName={setTherapistName}
           />
 
-          <div>
-            <label
-              htmlFor="therapist-surname_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Prénom
-            </label>
-
-            <input
-              type="text"
-              id="therapist-surname_input"
-              name="surname"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              value={therapistSurname}
-              onChange={(e) => setTherapistSurname(e.target.value)}
-              required
-            />
-          </div>
+          <SurnameInput
+            therapist
+            therapistName={therapistSurname}
+            setTherapistName={setTherapistSurname}
+          />
 
           <div>
             <label

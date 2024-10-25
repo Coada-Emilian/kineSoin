@@ -2,6 +2,7 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleMedicCreation } from '../../../../../utils/apiUtils';
 import NameInput from '../Components/NameInput';
+import SurnameInput from '../Components/SurnameInput';
 
 interface AddMedicModalProps {
   isAddMedicModalOpen: boolean;
@@ -55,7 +56,8 @@ export default function AddMedicModal({
         </h2>
         <form className="space-y-4" onSubmit={createMedic}>
           <NameInput medic />
-
+          <SurnameInput medic />
+          
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
             <CustomButton
