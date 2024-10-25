@@ -110,6 +110,12 @@ export default function ButtonsSection({
             deleteButton
             onClick={() => setIsDeleteModalOpen(true)}
           />
+          <CustomButton
+            btnText="Retour"
+            btnType="button"
+            cancelButton
+            onClick={() => window.history.back()}
+          />
         </>
       )}
     </div>

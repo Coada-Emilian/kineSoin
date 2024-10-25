@@ -258,23 +258,23 @@ const authentificationController = {
         message:
           'Unauthorized access. Please check your credentials and try again.',
       });
+    } else {
+      const jwtContent = { admin_id: foundAdmin.id };
+
+      const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
+        expiresIn: '3h',
+        algorithm: 'HS256',
+      });
+
+      req.session.admin_id = foundAdmin.id;
+
+      res.status(200).json({
+        message: 'Admin logged in successfully.',
+        id: foundAdmin.id,
+        name: foundAdmin.name,
+        token,
+      });
     }
-
-    const jwtContent = { admin_id: foundAdmin.id };
-
-    const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
-      expiresIn: '3h',
-      algorithm: 'HS256',
-    });
-
-    req.admin_id = foundAdmin.id;
-
-    res.status(200).json({
-      message: 'Admin logged in successfully.',
-      id: foundAdmin.id,
-      name: foundAdmin.name,
-      token,
-    });
   },
 };
 

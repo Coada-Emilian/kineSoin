@@ -1,15 +1,99 @@
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
+import { handleMedicCreation } from '../../../../../utils/apiUtils';
 
 interface AddMedicModalProps {
   isAddMedicModalOpen: boolean;
   setIsAddMedicModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface FieldConfig {
+  label: string;
+  id: string;
+  name: string;
+  required?: boolean;
+  className?: string;
+}
+
+const fullWidthFields: FieldConfig[] = [
+  { label: 'Nom', id: 'medic-name_input', name: 'name' },
+  { label: 'Prénom', id: 'medic-surname_input', name: 'surname' },
+  {
+    label: 'Numéro téléphone',
+    id: 'medic-phone-number_input',
+    name: 'phone_number',
+  },
+  { label: 'Code ADELI', id: 'medic-licence-code_input', name: 'licence_code' },
+];
+
+const halfWidthFields: { left: FieldConfig; right: FieldConfig }[] = [
+  {
+    left: {
+      label: 'Numéro rue',
+      id: 'medic-street-number_input',
+      name: 'street_number',
+    },
+    right: {
+      label: 'Nom rue',
+      id: 'medic-street-name_input',
+      name: 'street_name',
+    },
+  },
+  {
+    left: {
+      label: 'Code postal',
+      id: 'medic-postal-code_input',
+      name: 'postal_code',
+    },
+    right: { label: 'Ville', id: 'medic-city_input', name: 'city' },
+  },
+];
+
+const FormField = ({
+  label,
+  id,
+  name,
+  required = true,
+  className = '',
+}: FieldConfig) => (
+  <div className={className}>
+    <label
+      htmlFor={id}
+      className="block text-xs md:text-sm font-medium text-gray-700"
+    >
+      {label}
+    </label>
+    <input
+      type="text"
+      id={id}
+      name={name}
+      className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
+      required={required}
+    />
+  </div>
+);
+
 export default function AddMedicModal({
   isAddMedicModalOpen,
   setIsAddMedicModalOpen,
 }: AddMedicModalProps) {
+  const createMedic = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    try {
+      const response = await handleMedicCreation(formData);
+      if (response) {
+        form.reset();
+        setIsAddMedicModalOpen(false);
+        window.location.reload();
+      } else {
+        console.error(response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ReactModal
       isOpen={isAddMedicModalOpen}
@@ -32,74 +116,28 @@ export default function AddMedicModal({
     >
       <div className="space-y-4">
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
-          Ajouter un kinésithérapeute
+          Ajouter un médecin
         </h2>
-        <form className="space-y-4">
-          <div>
-            <label
-              htmlFor="therapist-name_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Nom
-            </label>
-            <input
-              type="text"
-              id="therapist-name_input"
-              name="name"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              required
-            />
-          </div>
+        <form className="space-y-4" onSubmit={createMedic}>
+          {fullWidthFields.map((field) => (
+            <FormField key={field.id} {...field} />
+          ))}
 
-          <div>
-            <label
-              htmlFor="therapist-surname_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Prénom
-            </label>
-            <input
-              type="text"
-              id="therapist-surname_input"
-              name="surname"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="therapist-licence-code_input"
-              className="block text-xs md:text-sm font-medium text-gray-700"
-            >
-              Code ADELI
-            </label>
-            <input
-              type="text"
-              id="therapist-licence-code_input"
-              name="licence_code"
-              className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="therapist-licence-code_input"
-              className="block text-xs md:text-sm font-medium text-gray-700 mb-2"
-            >
-              Charger une photo
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              className="block w-full text-xs md:text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-blue-50 file:text-primaryBlue file:text-xs md:file:text-sm hover:file:bg-secondaryBlue cursor-pointer"
-            />
-          </div>
+          {halfWidthFields.map(({ left, right }, index) => (
+            <div className="flex gap-2" key={index}>
+              <FormField {...left} className="w-2/5" />
+              <FormField {...right} />
+            </div>
+          ))}
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Continuer" btnType="button" normalButton />
-            <CustomButton btnText="Annuler" btnType="button" cancelButton />
+            <CustomButton btnText="Valider" btnType="submit" normalButton />
+            <CustomButton
+              btnText="Annuler"
+              btnType="button"
+              cancelButton
+              onClick={() => setIsAddMedicModalOpen(false)}
+            />
           </div>
         </form>
       </div>

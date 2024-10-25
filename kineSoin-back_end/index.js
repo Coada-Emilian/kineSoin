@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
+import session from 'express-session';
 
 import { bodySanitizer } from './src/server_folders/middlewares/bodySanitizer.js';
 import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
@@ -21,6 +22,17 @@ const corsOptions = {
   origin: process.env.ALLOWED_DOMAINS,
   optionsSuccessStatus: 200,
 };
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60,
+    },
+  })
+);
 
 app.use(cors(corsOptions));
 

@@ -81,7 +81,7 @@ const medicController = {
   },
 
   createMedic: async (req, res) => {
-    const admin_id = parseInt(req.admin_id, 10);
+    const admin_id = req.session.admin_id;
 
     checkIsIdNumber(admin_id);
 
