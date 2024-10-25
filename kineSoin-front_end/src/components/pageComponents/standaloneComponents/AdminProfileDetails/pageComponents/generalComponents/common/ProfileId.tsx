@@ -1,4 +1,5 @@
 import { IAffliction } from '../../../../../../../@types/IAffliction';
+import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
@@ -8,6 +9,7 @@ interface ProfileIdProps {
   patient?: IPatient | null;
   affliction?: IAffliction | null;
   medic?: IMedic | null;
+  insurance?: IInsurance | null;
 }
 
 export default function ProfileId({
@@ -15,6 +17,7 @@ export default function ProfileId({
   patient,
   affliction,
   medic,
+  insurance,
 }: ProfileIdProps) {
   return (
     <h4 className="font-semibold mb-2">
@@ -28,7 +31,9 @@ export default function ProfileId({
               ? affliction.id
               : medic
                 ? medic.id
-                : ''}
+                : insurance
+                  ? insurance.id
+                  : ''}
       </span>
     </h4>
   );

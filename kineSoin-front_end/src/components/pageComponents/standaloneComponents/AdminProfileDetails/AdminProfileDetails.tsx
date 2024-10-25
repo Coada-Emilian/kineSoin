@@ -18,12 +18,15 @@ import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import { IMedic } from '../../../../@types/IMedic';
 import MedicSection from './pageComponents/sections/MedicSection.tsx';
+import { IInsurance } from '../../../../@types/IInsurance';
+import InsuranceSection from './pageComponents/sections/InsuranceSection.tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
   patient?: IPatient;
   affliction?: IAffliction;
   medic?: IMedic;
+  insurance?: IInsurance;
 }
 
 export default function AdminProfileDetails({
@@ -31,6 +34,7 @@ export default function AdminProfileDetails({
   patient,
   affliction,
   medic,
+  insurance,
 }: AdminProfileDetailsProps) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -142,7 +146,7 @@ export default function AdminProfileDetails({
   };
 
   const handleMedicUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
-   e.preventDefault();
+    e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     if (medic && medic.id) {
@@ -162,6 +166,11 @@ export default function AdminProfileDetails({
     }
   };
 
+  const handleInsuranceUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('Insurance update');
+  };
+
   return (
     <>
       <form
@@ -173,11 +182,13 @@ export default function AdminProfileDetails({
               ? handleAfflictionUpdate
               : medic
                 ? handleMedicUpdate
-                : undefined
+                : insurance
+                  ? handleInsuranceUpdate
+                  : undefined
         }
       >
         <div
-          className={`flex flex-col ${affliction || medic ? '' : 'md:flex-row'} md:space-x-6 md:m-20`}
+          className={`flex flex-col ${affliction || medic || insurance ? '' : 'md:flex-row'} md:space-x-6 md:m-20`}
         >
           <div className="flex-1 p-4 rounded-md">
             <h1 className="font-bold mb-4 text-xl md:text-4xl md:mb-6">
@@ -188,13 +199,18 @@ export default function AdminProfileDetails({
                   ? 'patient'
                   : medic
                     ? 'medic'
-                    : 'affliction'}
+                    : affliction
+                      ? 'affliction'
+                      : insurance
+                        ? "organisme d'assurance"
+                        : ''}
             </h1>
             <GeneralSection
               patient={patient}
               therapist={therapist}
               affliction={affliction}
               medic={medic}
+              insurance={insurance}
               isProfileEditing={isProfileEditing}
             />
 
@@ -223,6 +239,13 @@ export default function AdminProfileDetails({
             {medic && (
               <MedicSection medic={medic} isProfileEditing={isProfileEditing} />
             )}
+
+            {insurance && (
+              <InsuranceSection
+                insurance={insurance}
+                isProfileEditing={isProfileEditing}
+              />
+            )}
           </div>
 
           <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 rounded-md">
@@ -244,6 +267,7 @@ export default function AdminProfileDetails({
               therapist={therapist}
               affliction={affliction}
               medic={medic}
+              insurance={insurance}
             />
           </div>
         </div>
@@ -256,6 +280,7 @@ export default function AdminProfileDetails({
           setIsDeleteModalOpen={setIsDeleteModalOpen}
           affliction={affliction}
           medic={medic}
+          insurance={insurance}
         />
       )}
       {isEditPhotoModalOpen && therapist && (

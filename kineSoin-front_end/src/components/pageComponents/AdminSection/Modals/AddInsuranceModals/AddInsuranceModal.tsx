@@ -2,7 +2,6 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import {
   handleInsuranceOrganismCreation,
-  handleMedicCreation,
 } from '../../../../../utils/apiUtils';
 
 interface AddInsuranceModalProps {

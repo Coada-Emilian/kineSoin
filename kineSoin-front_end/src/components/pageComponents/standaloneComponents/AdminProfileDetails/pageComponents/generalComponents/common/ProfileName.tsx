@@ -1,4 +1,5 @@
 import { IAffliction } from '../../../../../../../@types/IAffliction';
+import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
@@ -8,6 +9,7 @@ interface ProfileNameProps {
   patient?: IPatient | null;
   affliction?: IAffliction | null;
   medic?: IMedic | null;
+  insurance?: IInsurance | null;
 }
 
 export default function ProfileName({
@@ -15,6 +17,7 @@ export default function ProfileName({
   patient,
   affliction,
   medic,
+  insurance,
 }: ProfileNameProps) {
   return (
     <h4 className="font-semibold mb-2">
@@ -28,7 +31,9 @@ export default function ProfileName({
               ? medic.fullName
               : affliction
                 ? affliction.name
-                : ''}
+                : insurance
+                  ? insurance.name
+                  : ''}
       </span>
     </h4>
   );

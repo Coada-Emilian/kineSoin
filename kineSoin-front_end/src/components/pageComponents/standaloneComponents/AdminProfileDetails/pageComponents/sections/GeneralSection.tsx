@@ -1,4 +1,5 @@
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
@@ -13,6 +14,7 @@ interface GeneralSectionProps {
   therapist?: ITherapist | null;
   affliction?: IAffliction | null;
   medic?: IMedic | null;
+  insurance?: IInsurance | null;
   isProfileEditing: boolean;
 }
 
@@ -21,6 +23,7 @@ export default function GeneralSection({
   therapist,
   affliction,
   medic,
+  insurance,
   isProfileEditing,
 }: GeneralSectionProps) {
   return (
@@ -34,6 +37,7 @@ export default function GeneralSection({
         patient={patient}
         affliction={affliction}
         medic={medic}
+        insurance={insurance}
       />
 
       {isProfileEditing ? (
@@ -42,6 +46,7 @@ export default function GeneralSection({
             therapist={therapist}
             affliction={affliction}
             medic={medic}
+            insurance={insurance}
           />
           {(therapist || medic) && (
             <EditProfileSurname therapist={therapist} medic={medic} />
@@ -53,6 +58,7 @@ export default function GeneralSection({
           patient={patient}
           affliction={affliction}
           medic={medic}
+          insurance={insurance}
         />
       )}
     </section>

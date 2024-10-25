@@ -1,3 +1,4 @@
+import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';
 import Address from '../generalComponents/common/Address';
 import EditAddress from '../generalComponents/common/EditAddress';
@@ -6,38 +7,38 @@ import EditPhoneNumber from '../generalComponents/common/EditPhoneNumber';
 import LicenceCode from '../generalComponents/common/LicenceCode';
 import PhoneNumber from '../generalComponents/common/PhoneNumber';
 
-interface MedicSectionProps {
+interface InsuranceSectionProps {
   isProfileEditing: boolean;
-  medic: IMedic;
+  insurance: IInsurance;
 }
 
-export default function MedicSection({
+export default function InsuranceSection({
   isProfileEditing,
-  medic,
-}: MedicSectionProps) {
+  insurance,
+}: InsuranceSectionProps) {
   return (
     <>
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditAddress medic={medic} />
+          <EditAddress insurance={insurance} />
         ) : (
-          <Address medic={medic} />
+          <Address insurance={insurance} />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditPhoneNumber medic={medic} />
+          <EditPhoneNumber insurance={insurance} />
         ) : (
-          <PhoneNumber medic={medic} />
+          <PhoneNumber insurance={insurance} />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditLicenceCode medic={medic} />
+          <EditLicenceCode insurance={insurance} />
         ) : (
-          <LicenceCode medic={medic} />
+          <LicenceCode insurance={insurance} />
         )}
       </section>
     </>

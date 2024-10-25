@@ -127,3 +127,7 @@ adminRouter.post(
   '/insuranceOrganisms',
   wrapper(insuranceController.createInsuranceOrganism)
 );
+adminRouter.get(
+  '/insuranceOrganisms/:insurance_id',
+  wrapper(insuranceController.getOneInsuranceOrganism)
+);

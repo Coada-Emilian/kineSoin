@@ -7,6 +7,7 @@ import { ITherapist } from '../../../../../../@types/ITherapist';
 import TherapistStatusButtons from '../generalComponents/therapist/TherapistStatusButtons';
 import PatientStatusButtons from '../generalComponents/patient/PatientStatusButtons';
 import { IMedic } from '../../../../../../@types/IMedic';
+import { IInsurance } from '../../../../../../@types/IInsurance';
 
 interface ButtonsSectionProps {
   isProfileEditing: boolean;
@@ -18,6 +19,7 @@ interface ButtonsSectionProps {
   affliction?: IAffliction;
   therapist?: ITherapist;
   medic?: IMedic;
+  insurance?: IInsurance;
   handlePatientStatusChanges: (id: number, status: string) => Promise<void>;
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -32,6 +34,7 @@ export default function ButtonsSection({
   affliction,
   therapist,
   medic,
+  insurance,
   handlePatientStatusChanges,
   setIsDeleteModalOpen,
 }: ButtonsSectionProps) {
@@ -75,7 +78,7 @@ export default function ButtonsSection({
         <>
           {!patient && (
             <CustomButton
-              btnText={`Modifier ${affliction ? 'affliction' : therapist ? 'kinésithérapeute' : medic ? 'médecin' : ''}`}
+              btnText={`Modifier ${affliction ? 'affliction' : therapist ? 'kinésithérapeute' : medic ? 'médecin' : insurance ? '' : ''}`}
               btnType="button"
               modifyButton
               onClick={() => setIsProfileEditing(true)}

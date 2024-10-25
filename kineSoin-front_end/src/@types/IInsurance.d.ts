@@ -7,5 +7,6 @@ export interface IInsurance {
   street_name: string;
   postal_code: string;
   city: string;
+  address?: string;
   phone_number: string;
 }

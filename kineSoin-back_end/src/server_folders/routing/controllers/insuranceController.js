@@ -263,6 +263,43 @@ const insuranceController = {
         .json({ message: 'Insurance organism not created', response });
     }
   },
+
+  getOneInsuranceOrganism: async (req, res) => {
+    const insuranceId = parseInt(req.params.insurance_id, 10);
+
+    checkIsIdNumber(insuranceId);
+
+    const foundInsurance = await Insurance.findByPk(insuranceId, {
+      attributes: [
+        'id',
+        'name',
+        'amc_code',
+        'street_number',
+        'street_name',
+        'postal_code',
+        'city',
+        'phone_number',
+      ],
+    });
+
+    const sentInsurance = {
+      id: foundInsurance.id,
+      name: foundInsurance.name,
+      amc_code: foundInsurance.amc_code,
+      street_number: foundInsurance.street_number,
+      street_name: foundInsurance.street_name,
+      postal_code: foundInsurance.postal_code,
+      city: foundInsurance.city,
+      address: `${foundInsurance.street_number} ${foundInsurance.street_name}, ${foundInsurance.postal_code} ${foundInsurance.city}`,
+      phone_number: foundInsurance.phone_number,
+    };
+
+    if (!foundInsurance) {
+      return res.status(400).json({ message: 'Insurance not found' });
+    } else {
+      return res.status(200).json(sentInsurance);
+    }
+  },
 };
 
 export default insuranceController;

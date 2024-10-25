@@ -1,10 +1,12 @@
+import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 
 interface EditAddressProps {
-  medic: IMedic;
+  medic?: IMedic;
+  insurance?: IInsurance;
 }
 
-export default function EditAddress({ medic }: EditAddressProps) {
+export default function EditAddress({ medic, insurance }: EditAddressProps) {
   return (
     <>
       <div className="flex gap-2 items-center mb-2 ">
@@ -16,7 +18,7 @@ export default function EditAddress({ medic }: EditAddressProps) {
           name="street_number"
           id="medic-street_number"
           className="border-2 border-gray-300 rounded-md px-2 italic"
-          placeholder={medic.street_number || ''}
+          placeholder={medic?.street_number || insurance?.street_number || ''}
         />
       </div>
 
@@ -29,7 +31,7 @@ export default function EditAddress({ medic }: EditAddressProps) {
           name="street_name"
           id="medic-street_name"
           className="border-2 border-gray-300 rounded-md px-2 italic"
-          placeholder={medic.street_name || ''}
+          placeholder={medic?.street_name || insurance?.street_name || ''}
         />
       </div>
 
@@ -42,7 +44,7 @@ export default function EditAddress({ medic }: EditAddressProps) {
           name="postal_code"
           id="medic-postal_code"
           className="border-2 border-gray-300 rounded-md px-2 italic"
-          placeholder={medic.postal_code || ''}
+          placeholder={medic?.postal_code || insurance?.postal_code || ''}
         />
       </div>
 
@@ -55,7 +57,7 @@ export default function EditAddress({ medic }: EditAddressProps) {
           name="city"
           id="medic-city"
           className="border-2 border-gray-300 rounded-md px-2 italic"
-          placeholder={medic.city || ''}
+          placeholder={medic?.city || insurance?.city || ''}
         />
       </div>
     </>
