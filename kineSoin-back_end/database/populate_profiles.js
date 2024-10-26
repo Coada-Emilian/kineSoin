@@ -1,4 +1,23 @@
-// Purpose: Populate the database with profiles from the data files.
+/**
+ * @fileoverview This file populates the database with profiles from various data files.
+ *
+ * It connects to a PostgreSQL database and inserts profiles for administrators, therapists,
+ * patients, and medics using hashed passwords for security. The data is loaded from JSON files
+ * and each profile is inserted into its respective table in the database.
+ *
+ * Usage:
+ * - The script connects to the database, reads profile data from JSON files, hashes passwords,
+ * and inserts the data into the appropriate tables. It also logs the results of the insert
+ * operations to the console.
+ *
+ * @module DatabasePopulator
+ * @requires pgClient
+ * @requires Scrypt
+ * @requires patient_data.json
+ * @requires medic_data.json
+ * @requires therapist_data.json
+ * @requires admin_data.json
+ */
 
 import { pgClient } from './pgClient.js';
 import { Scrypt } from '../src/server_folders/authentification/Scrypt.js';
