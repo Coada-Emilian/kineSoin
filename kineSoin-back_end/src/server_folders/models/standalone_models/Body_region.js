@@ -1,4 +1,27 @@
-// Purpose: Model for Body_region table.
+/**
+ * @fileoverview This module defines the model for the `body_regions`
+ * table in the database using Sequelize. The `Body_region` class
+ * extends the Sequelize `Model` and represents different body regions
+ * that can be associated with afflictions or therapies in the system.
+ *
+ * The model includes attributes for storing body region details,
+ * including the name of the region, the ID of the admin who created
+ * it, and timestamps for record creation and updates.
+ *
+ * @module BodyRegionModel
+ *
+ * @extends Model
+ *
+ * @property {number} id - The primary key of the body region record,
+ *                         auto-incremented.
+ * @property {number} admin_id - The ID of the administrator who created
+ *                               the body region, referencing the
+ *                               `administrators` table.
+ * @property {string} name - The name of the body region (must be provided).
+ * @property {Date} created_at - The date when the record was created,
+ *                               defaults to the current date and time.
+ * @property {Date} updated_at - The date when the record was last updated.
+ */
 
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';

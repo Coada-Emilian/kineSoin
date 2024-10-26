@@ -1,4 +1,47 @@
-// Purpose: Define the associations between the models.
+/**
+ * @fileoverview This module defines the associations between
+ * various models in the database using Sequelize. The relationships
+ * include one-to-many, many-to-one, and many-to-many associations
+ * for the models related to the kinesitherapy management system.
+ *
+ * The associations defined in this file facilitate:
+ * - Administrators managing therapists, medics, afflictions, body
+ *   regions, and insurances.
+ * - Therapists interacting with patients, appointments, and messages.
+ * - Patients having prescriptions, appointments, and messaging
+ *   capabilities with therapists.
+ * - Medics managing prescriptions.
+ * - Afflictions associated with body regions and prescriptions.
+ * - Body regions categorizing afflictions.
+ * - Many-to-many relationships between patients and insurances via
+ *   a junction table.
+ *
+ * @module ModelAssociations
+ *
+ * @requires Admin
+ * @requires Affliction
+ * @requires Appointment
+ * @requires Body_region
+ * @requires Medic
+ * @requires Patient
+ * @requires Prescription
+ * @requires Therapist
+ * @requires Patient_message
+ * @requires Therapist_message
+ * @requires Insurance
+ * @requires Patient_Insurance
+ *
+ * @example
+ * // Create a new therapist for an admin
+ * const newTherapist = await Therapist.create({
+ *   name: 'John',
+ *   surname: 'Doe',
+ *   admin_id: adminId,
+ * });
+ *
+ * // Retrieve patients associated with a therapist
+ * const patients = await newTherapist.getPatients();
+ */
 
 import { Admin } from './standalone_models/Admin.js';
 import { Affliction } from './standalone_models/Affliction.js';
@@ -223,7 +266,6 @@ Appointment.belongsTo(Prescription, {
   foreignKey: 'prescription_id',
   as: 'prescription',
 });
-
 
 export {
   Admin,
