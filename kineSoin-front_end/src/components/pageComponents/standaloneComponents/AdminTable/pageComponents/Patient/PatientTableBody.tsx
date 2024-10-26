@@ -17,7 +17,6 @@ import { IAffliction } from '../../../../../../@types/IAffliction';
 import { IMedic } from '../../../../../../@types/IMedic';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import { useEffect } from 'react';
 
 interface PatientTableBodyProps {
   renderedPatients: IPatient[];

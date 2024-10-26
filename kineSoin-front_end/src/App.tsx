@@ -18,6 +18,7 @@ import AdminMedicsPage from './components/pageComponents/AdminSection/AdminMedic
 import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicPage/AdminMedicPage';
 import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
+import Homepage from './components/pageComponents/PublicSection/homepage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -90,6 +91,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Homepage />}></Route>
       <Route
         path="/loginAdmin"
         element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
