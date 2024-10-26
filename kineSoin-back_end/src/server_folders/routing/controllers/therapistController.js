@@ -398,6 +398,7 @@ const therapistController = {
       experience: Joi.string().max(50).allow('').optional(),
       specialty: Joi.string().max(50).allow('').optional(),
       description: Joi.string().allow('').optional(),
+      licence_code: Joi.string().max(9).optional(),
     }).min(1);
 
     if (!req.body) {
@@ -423,6 +424,7 @@ const therapistController = {
         experience,
         specialty,
         description,
+        licence_code,
       } = req.body;
 
       const newProfile = {
@@ -433,6 +435,7 @@ const therapistController = {
         experience: experience || foundTherapist.experience,
         specialty: specialty || foundTherapist.specialty,
         description: description || foundTherapist.description,
+        licence_code: licence_code || foundTherapist.licence_code,
       };
 
       if (req.file) {
@@ -545,7 +548,7 @@ const therapistController = {
         const picture_id = req.file.filename;
 
         const newTherapist = {
-          admin_id: adminId,
+          admin_id: adminId || 1,
           name,
           surname,
           email,

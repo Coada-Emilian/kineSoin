@@ -142,8 +142,7 @@ const medicController = {
   },
 
   updateMedic: async (req, res) => {
-    // const admin_id = parseInt(req.admin_id, 10);
-    const admin_id = 1;
+    const admin_id = parseInt(req.session.admin_id, 10);
     checkIsIdNumber(admin_id);
 
     const medic_id = parseInt(req.params.medic_id, 10);
@@ -167,7 +166,7 @@ const medicController = {
     } = req.body;
 
     const newMedic = {
-      admin_id,
+      admin_id: admin_id || foundMedic.admin_id,
       name: name === '' ? foundMedic.name : name,
       surname: surname === '' ? foundMedic.surname : surname,
       street_number:

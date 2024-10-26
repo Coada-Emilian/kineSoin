@@ -112,7 +112,7 @@ const afflictionController = {
   },
 
   updateAffliction: async (req, res) => {
-    const adminId = parseInt(req.admin_id, 10);
+    const adminId = parseInt(req.session.admin_id, 10);
     checkIsIdNumber(adminId);
 
     const affliction_id = parseInt(req.params.affliction_id, 10);
@@ -280,7 +280,7 @@ const afflictionController = {
           .json({ message: 'Body region deleted successfully.' });
       }
     }
-  }
+  },
 };
 
 export default afflictionController;
