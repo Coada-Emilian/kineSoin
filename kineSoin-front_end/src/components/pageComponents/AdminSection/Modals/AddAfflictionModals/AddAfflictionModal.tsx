@@ -113,6 +113,7 @@ export default function AddAfflictionModal({
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
+            
             <CustomButton
               btnText="Annuler"
               btnType="button"

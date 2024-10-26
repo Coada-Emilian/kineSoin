@@ -61,18 +61,26 @@ export default function AddInsuranceModal({
         </h2>
         <form className="space-y-4" onSubmit={createInsurance}>
           <NameInput insurance />
+
           <LicenceCodeInput insurance />
+
           <TelephoneNumberInput insurance />
+
           <div className="flex gap-2">
             <StreetNumberInput insurance />
+
             <StreetNameInput insurance />
           </div>
+
           <div className="flex gap-2">
             <PostalCodeInput insurance />
+
             <CityInput insurance />
           </div>
+
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
+            
             <CustomButton
               btnText="Annuler"
               btnType="button"

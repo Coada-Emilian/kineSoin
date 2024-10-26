@@ -24,7 +24,7 @@ Insurance.init(
       allowNull: false,
     },
     amc_code: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(9),
       allowNull: false,
       unique: true,
     },

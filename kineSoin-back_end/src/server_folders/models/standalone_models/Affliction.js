@@ -34,7 +34,7 @@ Affliction.init(
       type: DataTypes.TEXT,
     },
     insurance_code: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     is_operated: {

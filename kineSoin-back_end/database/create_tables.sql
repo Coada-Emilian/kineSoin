@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS "insurance_organisms" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
     "name" VARCHAR(255) NOT NULL, 
-    "amc_code" VARCHAR(50) UNIQUE NOT NULL, 
+    "amc_code" VARCHAR(9) UNIQUE NOT NULL, 
     "street_number" VARCHAR(10),
     "street_name" VARCHAR(50) NOT NULL,
     "postal_code" VARCHAR(10) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS "therapists" (
     "password" VARCHAR(255) NOT NULL,
     "picture_url" TEXT NOT NULL,
     "picture_id" TEXT,
-    "licence_code" VARCHAR(255) UNIQUE NOT NULL,
+    "licence_code" VARCHAR(9) UNIQUE NOT NULL,
     "status" VARCHAR(10) NOT NULL DEFAULT 'active',
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS "medics" (
     "postal_code" VARCHAR(10) NOT NULL,
     "city" VARCHAR(100) NOT NULL, 
     "phone_number" VARCHAR(25) NOT NULL,
-    "licence_code" VARCHAR(255) UNIQUE NOT NULL,
+    "licence_code" VARCHAR(9) UNIQUE NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS "afflictions" (
     "body_region_id" INT REFERENCES "body_regions"("id") ON DELETE SET NULL,
     "name" VARCHAR(50) NOT NULL,
     "description" TEXT,
-    "insurance_code" VARCHAR(255) NOT NULL,
+    "insurance_code" VARCHAR(10) NOT NULL,
     "is_operated" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
@@ -173,8 +173,8 @@ CREATE TABLE IF NOT EXISTS "patient_insurances" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "patient_id" INT REFERENCES "patients"("id") ON DELETE SET NULL,
     "insurance_id" INT REFERENCES "insurance_organisms"("id") ON DELETE SET NULL,
-    "adherent_code" VARCHAR(50) UNIQUE NOT NULL,
-    "contract_number" VARCHAR(50) UNIQUE NOT NULL,
+    "adherent_code" VARCHAR(12) UNIQUE NOT NULL,
+    "contract_number" VARCHAR(15) UNIQUE NOT NULL,
     "start_date" DATE NOT NULL,
     "end_date" DATE NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),

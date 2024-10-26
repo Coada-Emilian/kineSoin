@@ -62,19 +62,28 @@ export default function AddMedicModal({
         </h2>
         <form className="space-y-4" onSubmit={createMedic}>
           <NameInput medic />
+
           <SurnameInput medic />
+
           <LicenceCodeInput medic />
+
           <TelephoneNumberInput medic />
-          <div>
+
+          <div className="flex gap-2">
             <StreetNumberInput medic />
+            
             <StreetNameInput medic />
           </div>
-          <div>
+
+          <div className="flex gap-2">
             <PostalCodeInput medic />
+
             <CityInput medic />
           </div>
+
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
+            
             <CustomButton
               btnText="Annuler"
               btnType="button"
