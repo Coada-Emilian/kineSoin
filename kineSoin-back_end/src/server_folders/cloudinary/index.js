@@ -1,4 +1,26 @@
-// Purpose: Configure cloudinary storage for image uploads.
+/**
+ * @fileoverview This module configures Cloudinary storage for image uploads, facilitating
+ * the storage of various types of images and documents related to patients, therapists,
+ * prescriptions, and insurance.
+ *
+ * It sets up the Cloudinary API with credentials from environment variables and creates
+ * specific storage configurations for:
+ * - Patient photos
+ * - Therapist photos
+ * - Prescription scans
+ * - Insurance scans
+ *
+ * Each storage configuration specifies a dedicated folder in Cloudinary and allows
+ * specific image formats for uploads.
+ *
+ * Usage:
+ * - Import the configured storage objects for use with multer middleware in routes handling
+ * image uploads.
+ *
+ * @module CloudinaryConfig
+ * @requires cloudinary
+ * @requires multer-storage-cloudinary
+ */
 
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
