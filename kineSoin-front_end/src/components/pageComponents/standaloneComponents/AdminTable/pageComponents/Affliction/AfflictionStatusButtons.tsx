@@ -1,15 +1,11 @@
 /**
  * @file AfflictionStatusButtons.tsx
- * @description A component that renders buttons for filtering affliction statuses.
- * It provides options to view all afflictions, operated afflictions, and non-operated
- * afflictions. Clicking a button will update the affliction status through the provided
- * `setAfflictionStatus` function.
+ * @description A React functional component that renders buttons for selecting the status of afflictions. It provides options to filter afflictions based on their status: "All," "Operated," and "Non-operated."
  *
- * @interface AfflictionStatusButtonsProps
- * @param {function} setAfflictionStatus - A function to update the affliction status.
+ * @param {Object} props - The props for the AfflictionStatusButtons component.
+ * @param {function(string): void} props.setAfflictionStatus - A function to handle the status change, which takes a status string ('all', 'operated', or 'non-operated') as an argument.
  *
- * @returns {JSX.Element} The rendered AfflictionStatusButtons component with buttons
- * for each affliction status.
+ * @returns {JSX.Element} The rendered AfflictionStatusButtons component with options to set the affliction status.
  */
 
 import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';
@@ -38,7 +34,7 @@ export default function AfflictionStatusButtons({
           setAfflictionStatus('operated');
         }}
       />
-      
+
       <CustomButton
         btnText="Non opérées"
         inactiveButton

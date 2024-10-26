@@ -1,42 +1,21 @@
 /**
  * @file TableBody.tsx
- * @description A component that renders the body of a table dynamically based on the
- * provided therapist, patient, affliction, medic, and insurance data. It displays
- * corresponding rows for each entity based on the available data and handles status
- * changes and deletion of entities.
+ * @description A React functional component that renders a table body for displaying various entities such as therapists, patients, afflictions, medics, and insurances. It conditionally renders the corresponding table bodies based on the available data.
  *
- * @interface TableBodyProps
- * @param {number} windowWidth - The current width of the window, used to adjust
- * the styling and font size of the table body.
- * @param {ITherapist[]} [allTherapists] - An optional array of therapists that
- * determines whether to render therapist-related rows.
- * @param {IPatient[]} [allPatients] - An optional array of patients that determines
- * whether to render patient-related rows.
- * @param {IAffliction[]} [allAfflictions] - An optional array of afflictions that
- * determines whether to render affliction-related rows.
- * @param {IMedic[]} [allMedics] - An optional array of medics that determines whether
- * to render medic-related rows.
- * @param {IInsurance[]} [allInsurances] - An optional array of insurances that
- * determines whether to render insurance-related rows.
- * @param {ITherapist[]} renderedTherapists - An array of therapists to render in the
- * table body.
- * @param {IPatient[]} renderedPatients - An array of patients to render in the
- * table body.
- * @param {IAffliction[]} renderedAfflictions - An array of afflictions to render in
- * the table body.
- * @param {(id: number) => void} handleStatusChange - A function that handles the
- * status change of a given entity identified by its ID.
- * @param {(
- *   therapist?: ITherapist,
- *   patient?: IPatient,
- *   affliction?: IAffliction,
- *   medic?: IMedic,
- *   insurance?: IInsurance
- * ) => void} openDeleteModal - A function that opens the delete modal for a specific
- * entity based on the provided parameters.
+ * @param {Object} props - The props for the TableBody component.
+ * @param {number} props.windowWidth - The current window width, used to adjust styles and layout.
+ * @param {ITherapist[]} [props.allTherapists] - An optional array of all therapists.
+ * @param {IPatient[]} [props.allPatients] - An optional array of all patients.
+ * @param {IAffliction[]} [props.allAfflictions] - An optional array of all afflictions.
+ * @param {IMedic[]} [props.allMedics] - An optional array of all medics.
+ * @param {IInsurance[]} [props.allInsurances] - An optional array of all insurances.
+ * @param {ITherapist[]} props.renderedTherapists - An array of therapists to render in the table.
+ * @param {IPatient[]} props.renderedPatients - An array of patients to render in the table.
+ * @param {IAffliction[]} props.renderedAfflictions - An array of afflictions to render in the table.
+ * @param {function(number): void} props.handleStatusChange - A function to handle status changes for a specific entity by ID.
+ * @param {function(ITherapist | IPatient | IAffliction | IMedic | IInsurance): void} props.openDeleteModal - A function to open a delete modal for the specified entity.
  *
- * @returns {JSX.Element} The rendered TableBody component displaying rows for the
- * relevant entities based on the provided props.
+ * @returns {JSX.Element} The rendered table body containing rows for therapists, patients, afflictions, medics, and insurances as applicable.
  */
 
 import { IAffliction } from '../../../../../../@types/IAffliction';

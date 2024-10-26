@@ -1,3 +1,18 @@
+/**
+ * @file TherapistOutput.tsx
+ * @description A React functional component for displaying therapist details. Depending on the provided props, it can render the diploma, experience, specialty, description, or license code of the therapist.
+ *
+ * @param {Object} props - The props for the TherapistOutput component.
+ * @param {ITherapist} props.therapist - The therapist object containing relevant information, such as diploma, experience, specialty, description, and license code.
+ * @param {boolean} [props.isDiplomaOutput] - Indicates if the diploma should be displayed.
+ * @param {boolean} [props.isExperienceOutput] - Indicates if the experience should be displayed.
+ * @param {boolean} [props.isSpecialtyOutput] - Indicates if the specialty should be displayed.
+ * @param {boolean} [props.isDescriptionOutput] - Indicates if the description should be displayed.
+ * @param {boolean} [props.isLicenceCodeOutput] - Indicates if the license code should be displayed.
+ *
+ * @returns {JSX.Element} The rendered TherapistOutput component with appropriate information based on the provided props.
+ */
+
 import { ITherapist } from '../../../../../../../@types/ITherapist';
 
 interface TherapistOutputProps {

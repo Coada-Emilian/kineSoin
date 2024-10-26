@@ -1,3 +1,17 @@
+/**
+ * @file PatientOutput.tsx
+ * @description A React functional component that displays various information about a patient, including their age, gender, address, phone number, or therapist based on the provided props.
+ *
+ * @param {Object} props - The props for the PatientOutput component.
+ * @param {IPatient} props.patient - The patient object containing relevant information.
+ * @param {boolean} [props.isAddressOutput] - Optional flag to indicate whether to display the patient's address.
+ * @param {boolean} [props.isPhoneNumberOutput] - Optional flag to indicate whether to display the patient's phone number.
+ * @param {boolean} [props.isTherapistOutput] - Optional flag to indicate whether to display the patient's therapist.
+ * @param {boolean} [props.isAgeGenderOutput] - Optional flag to indicate whether to display the patient's age and gender.
+ *
+ * @returns {JSX.Element} The rendered PatientOutput component displaying patient information based on the provided flags.
+ */
+
 import { useEffect, useState } from 'react';
 import { IPatient } from '../../../../../../../@types/IPatient';
 

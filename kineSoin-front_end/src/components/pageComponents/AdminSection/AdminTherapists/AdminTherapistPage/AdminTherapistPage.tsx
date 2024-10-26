@@ -1,3 +1,19 @@
+/**
+ * @file AdminTherapistPage.tsx
+ * @description A React component that displays the details of a specific therapist
+ * in the admin interface. It fetches therapist data based on the therapist's ID
+ * from the URL parameters and displays it in a profile detail format. The layout
+ * adapts based on the window width, showing a side navigation for larger screens
+ * and a mobile navigation for smaller screens.
+ *
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to determine
+ * the layout (mobile or desktop).
+ *
+ * @returns {JSX.Element} The rendered AdminTherapistPage component, which includes the
+ * therapist's profile details and navigation elements.
+ */
+
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ITherapist } from '../../../../../@types/ITherapist';

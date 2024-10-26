@@ -1,3 +1,22 @@
+/**
+ * @file EditPhotoModal.tsx
+ * @description A React component that displays a modal for editing a therapist's photo.
+ * The modal allows the user to select a new photo, preview it, and confirm or cancel the
+ * changes.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isEditPhotoModalOpen - A boolean indicating if the modal is open.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsEditPhotoModalOpen - A
+ * function to set the modal's open state.
+ * @param {ITherapist} props.therapist - The therapist object for whom the photo is being edited.
+ * @param {React.Dispatch<React.SetStateAction<File | null>>} props.setSelectedFile - A function
+ * to set the selected file (new photo).
+ *
+ * @returns {JSX.Element} The rendered EditPhotoModal component, which includes a preview of
+ * the therapist's current photo, a file input for selecting a new photo, and buttons to
+ * confirm or cancel the changes.
+ */
+
 import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
 import { useState } from 'react';

@@ -1,3 +1,16 @@
+/**
+ * @file EditTherapistButtons.tsx
+ * @description A React functional component that provides a dropdown menu with options to edit the status of a therapist and buttons to validate or cancel the action.
+ *
+ * @param {Object} props - The props for the EditTherapistButtons component.
+ * @param {string} props.buttonMessage - The message to display on the menu button.
+ * @param {string} props.backgroundColor - The background color class to apply to the menu button.
+ * @param {Function} props.toggleStatus - A function that takes a status string as an argument to toggle the therapist's status.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsProfileEditing - A state setter function to control the editing state of the therapist's profile.
+ *
+ * @returns {JSX.Element} The rendered EditTherapistButtons component, including a dropdown menu for status options and buttons for validation and cancellation.
+ */
+
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';

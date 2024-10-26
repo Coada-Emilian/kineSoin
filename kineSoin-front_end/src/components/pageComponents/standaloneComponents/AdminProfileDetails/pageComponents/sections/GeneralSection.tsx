@@ -1,3 +1,18 @@
+/**
+ * @file GeneralSection.tsx
+ * @description A React functional component that renders a general section for displaying and editing profile information related to patients, therapists, afflictions, medics, and insurance organizations in the KineSoin application. The component includes functionalities for displaying profile IDs, names, surnames, and statuses, with editing capabilities based on the editing state.
+ *
+ * @param {Object} props - The props for the GeneralSection component.
+ * @param {IPatient|null} [props.patient] - An optional patient object or null if not applicable.
+ * @param {ITherapist|null} [props.therapist] - An optional therapist object or null if not applicable.
+ * @param {IAffliction|null} [props.affliction] - An optional affliction object or null if not applicable.
+ * @param {IMedic|null} [props.medic] - An optional medic object or null if not applicable.
+ * @param {IInsurance|null} [props.insurance] - An optional insurance organization object or null if not applicable.
+ * @param {boolean} props.isProfileEditing - A boolean indicating if the profile is in editing mode.
+ *
+ * @returns {JSX.Element} The rendered GeneralSection component, which includes profile status, ID, name, and surname, with appropriate editing interfaces based on the editing state.
+ */
+
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';

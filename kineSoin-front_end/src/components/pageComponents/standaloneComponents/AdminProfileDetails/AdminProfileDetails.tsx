@@ -1,3 +1,22 @@
+/**
+ * @file AdminProfileDetails.tsx
+ * @description A React functional component that manages the display and editing of
+ * admin profile details within the KineSoin application. This component allows the admin
+ * to inspect and update various entities, including therapists, patients, afflictions,
+ * medics, and insurance details. It features sections for general information, specific
+ * entity details, image management, and status toggling.
+ *
+ * @param {Object} props - The component props.
+ * @param {ITherapist} [props.therapist] - An optional therapist object containing therapist details.
+ * @param {IPatient} [props.patient] - An optional patient object containing patient details.
+ * @param {IAffliction} [props.affliction] - An optional affliction object containing affliction details.
+ * @param {IMedic} [props.medic] - An optional medic object containing medic details.
+ * @param {IInsurance} [props.insurance] - An optional insurance object containing insurance details.
+ *
+ * @returns {JSX.Element} The rendered AdminProfileDetails component, which includes
+ * various sections for viewing and editing profile information.
+ */
+
 import { useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';

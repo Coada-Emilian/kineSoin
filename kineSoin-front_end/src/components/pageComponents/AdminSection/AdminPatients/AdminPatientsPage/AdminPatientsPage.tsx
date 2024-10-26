@@ -1,36 +1,16 @@
 /**
- * @fileoverview This component displays the admin page for managing and viewing
- * details of all patients. It fetches the list of patients and renders it in a
- * table format, adjusting the layout based on the current window width for
- * responsive design.
+ * @file AdminPatientsPage.tsx
+ * @description A React component that displays a list of patients in the admin interface.
+ * It fetches patient data from the server and presents it in a table format. The layout
+ * adjusts based on the window width, displaying a side navigation for larger screens
+ * and a mobile navigation for smaller screens.
  *
- * @module AdminPatientsPage
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to determine
+ * the layout (mobile or desktop).
  *
- * @requires react
- * @requires react-router-dom
- * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
- * @requires ../../../standaloneComponents/AdminTable/AdminTable.tsx
- * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
- * @requires ../../../../../utils/apiUtils.ts
- * @requires ../../../../../@types/IPatient
- *
- * @typedef {Object} AdminPatientsPageProps
- * @property {number} windowWidth - The current width of the window, used for
- * responsive layout.
- *
- * @param {AdminPatientsPageProps} props - The props for the component.
- *
- * @returns {JSX.Element} The rendered admin patients page, displaying a table
- * of all patients.
- *
- * @example
- * // Using the AdminPatientsPage component
- * import AdminPatientsPage from './AdminPatientsPage';
- *
- * const App = () => {
- *   const windowWidth = window.innerWidth; // Example width, should be derived from state
- *   return <AdminPatientsPage windowWidth={windowWidth} />;
- * };
+ * @returns {JSX.Element} The rendered AdminPatientsPage component, which includes a
+ * table of patients and navigation elements.
  */
 
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';

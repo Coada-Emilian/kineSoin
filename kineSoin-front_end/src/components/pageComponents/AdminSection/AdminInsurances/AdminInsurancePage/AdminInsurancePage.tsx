@@ -1,37 +1,17 @@
 /**
- * @fileoverview This component displays detailed information about a specific
- * insurance organism in the admin panel. It retrieves the insurance data
- * based on the ID obtained from the URL parameters and presents it in a
- * responsive layout suitable for both mobile and desktop views.
+ * @file AdminInsurancePage.tsx
+ * @description A React component that displays detailed information about a specific
+ * insurance organism in an admin panel. It fetches insurance data from an API based
+ * on the provided insurance ID in the URL parameters. The layout adapts based on the
+ * window width, providing a responsive design with separate navigation for mobile and
+ * desktop views. It also includes a loading indicator while fetching data.
  *
- * @module AdminInsurancePage
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to
+ * determine the layout of the component (mobile vs desktop).
  *
- * @requires react-router-dom
- * @requires react
- * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
- * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
- * @requires ../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx
- * @requires ../../../../../utils/apiUtils.ts
- * @requires ../../../../../@types/IInsurance
- * @requires ../../../../../utils/DNALoader.tsx
- *
- * @typedef {Object} AdminInsurancePageProps
- * @property {number} windowWidth - The width of the window to determine
- *                                   layout responsiveness.
- *
- * @param {AdminInsurancePageProps} props - The props for the component.
- *
- * @returns {JSX.Element} The rendered component displaying the insurance
- *                        details or a loading state.
- *
- * @example
- * // Using the AdminInsurancePage component
- * import AdminInsurancePage from './AdminInsurancePage';
- *
- * const MyApp = () => {
- *   const windowWidth = window.innerWidth; // get window width dynamically
- *   return <AdminInsurancePage windowWidth={windowWidth} />;
- * };
+ * @returns {JSX.Element} The rendered AdminInsurancePage component, which displays
+ * the details of the insurance organism and navigation elements.
  */
 
 import { useParams } from 'react-router-dom';

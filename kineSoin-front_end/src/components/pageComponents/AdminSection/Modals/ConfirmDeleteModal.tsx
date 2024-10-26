@@ -1,27 +1,21 @@
 /**
  * @file ConfirmDeleteModal.tsx
- * @description A modal component that prompts the user for confirmation before
- * deleting a specified entity (therapist, patient, affliction, medic, or insurance).
- * The modal displays a warning about the irreversibility of the action and
- * provides options to confirm or cancel the deletion.
+ * @description A React component that displays a confirmation modal for deleting a profile,
+ * affliction, or insurance organism. The modal prompts the user for confirmation and executes
+ * the deletion action if confirmed.
  *
- * @interface ConfirmDeleteModalProps
- * @param {boolean} isDeleteModalOpen - A boolean indicating whether the delete
- * modal is open or closed.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsDeleteModalOpen -
- * A function to update the state of the delete modal's visibility.
- * @param {ITherapist | null} [therapist] - The therapist object to be deleted,
- * if applicable.
- * @param {IPatient | null} [patient] - The patient object to be deleted, if
- * applicable.
- * @param {IAffliction | null} [affliction] - The affliction object to be deleted,
- * if applicable.
- * @param {IMedic | null} [medic] - The medic object to be deleted, if applicable.
- * @param {IInsurance | null} [insurance] - The insurance object to be deleted,
- * if applicable.
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isDeleteModalOpen - A boolean indicating if the modal is open.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsDeleteModalOpen - A
+ * function to set the modal's open state.
+ * @param {ITherapist | null} [props.therapist] - An optional therapist object for deletion.
+ * @param {IPatient | null} [props.patient] - An optional patient object for deletion.
+ * @param {IAffliction | null} [props.affliction] - An optional affliction object for deletion.
+ * @param {IMedic | null} [props.medic] - An optional medic object for deletion.
+ * @param {IInsurance | null} [props.insurance] - An optional insurance object for deletion.
  *
- * @returns {JSX.Element} The rendered ConfirmDeleteModal component, displaying
- * confirmation messages and action buttons for deletion.
+ * @returns {JSX.Element} The rendered ConfirmDeleteModal component, which includes
+ * confirmation prompts and buttons for confirming or canceling the deletion.
  */
 
 import ReactModal from 'react-modal';
@@ -60,7 +54,7 @@ export default function ConfirmDeleteModal({
   insurance,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
-  
+
   return (
     <ReactModal
       isOpen={isDeleteModalOpen}

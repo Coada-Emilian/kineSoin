@@ -1,36 +1,16 @@
 /**
- * @fileoverview This component displays a list of all afflictions in the
- * admin panel. It fetches the afflictions data from an API and presents
- * it in a table format. The layout is responsive, adjusting based on
- * the window width to provide an optimal user experience on both mobile
- * and desktop devices.
+ * @file AdminAfflictionsPage.tsx
+ * @description A React component that displays a list of afflictions in an admin
+ * panel. It fetches affliction data from an API and provides a responsive layout
+ * that adapts based on the window width. The component renders a different layout
+ * for mobile and desktop views, utilizing separate navigation components.
  *
- * @module AdminAfflictionsPage
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to
+ * determine the layout of the component (mobile vs desktop).
  *
- * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
- * @requires ../../../standaloneComponents/AdminTable/AdminTable.tsx
- * @requires react
- * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
- * @requires ../../../../../utils/apiUtils.ts
- * @requires ../../../../../@types/IAffliction
- *
- * @typedef {Object} AdminAfflictionsPageProps
- * @property {number} windowWidth - The width of the window to determine
- *                                   layout responsiveness.
- *
- * @param {AdminAfflictionsPageProps} props - The props for the component.
- *
- * @returns {JSX.Element} The rendered component displaying the list of
- *                        afflictions.
- *
- * @example
- * // Using the AdminAfflictionsPage component
- * import AdminAfflictionsPage from './AdminAfflictionsPage';
- *
- * const MyApp = () => {
- *   const windowWidth = window.innerWidth; // get window width dynamically
- *   return <AdminAfflictionsPage windowWidth={windowWidth} />;
- * };
+ * @returns {JSX.Element} The rendered AdminAfflictionsPage component, which displays
+ * the table of afflictions and appropriate navigation elements.
  */
 
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';

@@ -1,34 +1,16 @@
 /**
- * @fileoverview This component renders the admin login form. It allows
- * administrators to enter their email and password to log in to the admin
- * panel. On successful login, the admin token and data are stored in
- * local storage, and the user is redirected to the therapists page.
+ * @file AdminLogin.tsx
+ * @description A React component that handles the admin login process. It includes
+ * a form for entering email and password, checks the credentials against the server
+ * using an Axios POST request, and navigates to the therapist management page upon
+ * successful login. The component also displays error messages for invalid credentials.
  *
- * @module AdminLogin
+ * @param {Object} props - The component props.
+ * @param {React.Dispatch<React.SetStateAction<string | null>>} props.setAdminProfileToken - A state setter function
+ * to update the admin profile token in the parent component.
  *
- * @requires ../../../standaloneComponents/Button/CustomButton.tsx
- * @requires ../../../../axios.ts
- * @requires ../../../../localStorage/adminLocalStorage.ts
- * @requires react
- * @requires axios
- * @requires react-router-dom
- *
- * @typedef {Object} AdminLoginProps
- * @property {React.Dispatch<React.SetStateAction<string | null>>} setAdminProfileToken -
- * A function to update the admin profile token state.
- *
- * @param {AdminLoginProps} props - The props for the component.
- *
- * @returns {JSX.Element} The rendered admin login form.
- *
- * @example
- * // Using the AdminLogin component
- * import AdminLogin from './AdminLogin';
- *
- * const App = () => {
- *   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(null);
- *   return <AdminLogin setAdminProfileToken={setAdminProfileToken} />;
- * };
+ * @returns {JSX.Element} The rendered AdminLogin component, which includes
+ * a login form and error messages as needed.
  */
 
 import CustomButton from '../../../standaloneComponents/Button/CustomButton.tsx';

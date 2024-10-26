@@ -1,3 +1,17 @@
+/**
+ * @file ProfileName.tsx
+ * @description A React functional component that displays the name of a therapist, patient, medic, affliction, or insurance based on the provided props.
+ *
+ * @param {Object} props - The props for the ProfileName component.
+ * @param {ITherapist|null} [props.therapist] - Optional therapist object containing the therapist's full name.
+ * @param {IPatient|null} [props.patient] - Optional patient object containing the patient's full name.
+ * @param {IAffliction|null} [props.affliction] - Optional affliction object containing the affliction's name.
+ * @param {IMedic|null} [props.medic] - Optional medic object containing the medic's full name.
+ * @param {IInsurance|null} [props.insurance] - Optional insurance object containing the insurance's name.
+ *
+ * @returns {JSX.Element} The rendered ProfileName component displaying the relevant name based on the provided props.
+ */
+
 import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';

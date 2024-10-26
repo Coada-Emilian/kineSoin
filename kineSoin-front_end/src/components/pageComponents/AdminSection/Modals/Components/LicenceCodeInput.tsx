@@ -1,3 +1,22 @@
+/**
+ * @file LicenceCodeInput.tsx
+ * @description A React functional component that renders an input field for
+ * entering a license code. The component conditionally displays different labels
+ * and input names based on the provided props to indicate whether the input is
+ * for a therapist, affliction, medic, or insurance.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} [props.therapist] - Indicates if the input is for a therapist.
+ * @param {boolean} [props.affliction] - Indicates if the input is for an affliction.
+ * @param {boolean} [props.medic] - Indicates if the input is for a medic.
+ * @param {boolean} [props.insurance] - Indicates if the input is for insurance.
+ * @param {string} [props.therapistLicenceCode] - The current value of the therapist's license code.
+ * @param {function} [props.setTherapistLicenceCode] - A callback function to update the therapist's license code.
+ *
+ * @returns {JSX.Element} The rendered LicenceCodeInput component, which includes
+ * a label and an input field for entering a license code based on the specified context.
+ */
+
 interface LicenceCodeInputProps {
   therapist?: boolean;
   affliction?: boolean;

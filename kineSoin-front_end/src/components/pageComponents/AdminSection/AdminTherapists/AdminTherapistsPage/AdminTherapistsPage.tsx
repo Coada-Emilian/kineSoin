@@ -1,15 +1,16 @@
 /**
- * AdminTherapistsPage component.
+ * @file AdminTherapistsPage.tsx
+ * @description A React component that displays the admin page for managing therapists.
+ * It fetches and renders a list of therapists in a table format. The layout adapts based
+ * on the window width, displaying a side navigation for larger screens and a mobile navigation
+ * for smaller screens.
  *
- * This component provides a responsive interface for administrators
- * to manage therapists. It fetches therapist data from the API and
- * displays it in a table format, with a sidebar for navigation on
- * larger screens and a mobile-friendly navigation on smaller devices.
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to determine
+ * the layout (mobile or desktop).
  *
- * @param {number} windowWidth - The current width of the window, used to determine
- * the layout of the component.
- *
- * @returns {JSX.Element} The rendered component.
+ * @returns {JSX.Element} The rendered AdminTherapistsPage component, including the
+ * therapist management table and navigation elements.
  */
 
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';

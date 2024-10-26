@@ -1,3 +1,16 @@
+/**
+ * @file EditProfileName.tsx
+ * @description A React functional component that renders an editable name field for various profile types, including therapists, afflictions, medics, and insurance providers. The input field label and placeholder dynamically update based on the profile type passed as props.
+ *
+ * @param {Object} props - The props for the EditProfileName component.
+ * @param {ITherapist | null} [props.therapist] - Optional therapist object containing profile details, including the name.
+ * @param {IAffliction | null} [props.affliction] - Optional affliction object containing profile details, including the name.
+ * @param {IMedic | null} [props.medic] - Optional medic object containing profile details, including the name.
+ * @param {IInsurance | null} [props.insurance] - Optional insurance object containing profile details, including the name.
+ *
+ * @returns {JSX.Element} The rendered EditProfileName component, displaying an input field with a dynamic label and placeholder based on the profile type.
+ */
+
 import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';

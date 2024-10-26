@@ -1,19 +1,16 @@
 /**
  * @file AddAfflictionModal.tsx
- * @description This modal component allows users to add a new affliction by
- * filling out a form with relevant details. It handles the submission of the
- * affliction's information to the server for registration and provides a
- * user interface for input. The modal includes loading state handling
- * and can be closed upon successful submission or cancellation.
+ * @description A modal component for collecting information to add a new affliction.
+ * It includes fields for the affliction's name, region, license code, operated status, and description.
+ * The modal provides a form that submits the collected data to create a new affliction and options to validate or cancel.
  *
  * @interface AddAfflictionModalProps
- * @param {boolean} isAddAfflictionModalOpen - Indicates if the modal is currently open.
+ * @param {boolean} isAddAfflictionModalOpen - A boolean indicating whether the add affliction modal is open or closed.
  * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddAfflictionModalOpen -
- * Function to toggle the visibility of the modal.
+ * A function to update the state of the modal's visibility.
  *
- * @returns {JSX.Element} The rendered AddAfflictionModal component, featuring input
- * fields for the affliction's name, body region, insurance code, operated status,
- * and description, along with action buttons for submission or cancellation.
+ * @returns {JSX.Element} The rendered AddAfflictionModal component, containing input fields for affliction details
+ * and action buttons for validating or cancelling the action.
  */
 
 import { useState } from 'react';
@@ -113,7 +110,7 @@ export default function AddAfflictionModal({
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
-            
+
             <CustomButton
               btnText="Annuler"
               btnType="button"

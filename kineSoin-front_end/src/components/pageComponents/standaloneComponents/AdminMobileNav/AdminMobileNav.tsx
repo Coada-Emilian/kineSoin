@@ -1,3 +1,13 @@
+/**
+ * @file AdminMobileNav.tsx
+ * @description A React functional component that renders a mobile navigation menu for the admin
+ * section of the KineSoin application. The navigation includes links to various sections such as
+ * therapists, patients, afflictions, medics, and insurances, each with an associated icon.
+ *
+ * @returns {JSX.Element} The rendered AdminMobileNav component, which displays a series of
+ * navigational links in a flexible layout for mobile devices.
+ */
+
 import afflictionIcon from '/icons/affliction.png';
 import doctorIcon from '/icons/doctor.png';
 import insuranceIcon from '/icons/insurance.png';

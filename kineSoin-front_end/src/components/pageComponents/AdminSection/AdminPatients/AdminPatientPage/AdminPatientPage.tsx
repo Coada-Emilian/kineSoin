@@ -1,36 +1,16 @@
 /**
- * @fileoverview This component renders the admin page for viewing and managing
- * details of a specific patient. It fetches the patient's information based on
- * the provided ID in the URL and displays it, adjusting the layout based on
- * the window width for responsiveness.
+ * @file AdminPatientPage.tsx
+ * @description A React component that displays detailed information about a specific
+ * patient in the admin interface. It fetches patient data from the server and presents
+ * it in a profile details format. The layout adapts based on the window width,
+ * utilizing a side navigation for larger screens and mobile navigation for smaller screens.
  *
- * @module AdminPatientPage
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to determine
+ * the layout (mobile or desktop).
  *
- * @requires react
- * @requires react-router-dom
- * @requires ../../../../../@types/IPatient
- * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
- * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
- * @requires ../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx
- * @requires ../../../../../utils/apiUtils.ts
- *
- * @typedef {Object} AdminPatientPageProps
- * @property {number} windowWidth - The current width of the window, used for
- * responsive layout.
- *
- * @param {AdminPatientPageProps} props - The props for the component.
- *
- * @returns {JSX.Element} The rendered admin patient page, displaying the
- * patient's profile details.
- *
- * @example
- * // Using the AdminPatientPage component
- * import AdminPatientPage from './AdminPatientPage';
- *
- * const App = () => {
- *   const windowWidth = window.innerWidth; // Example width, should be derived from state
- *   return <AdminPatientPage windowWidth={windowWidth} />;
- * };
+ * @returns {JSX.Element} The rendered AdminPatientPage component, which includes
+ * the patient's profile details and navigation elements.
  */
 
 import { useParams } from 'react-router-dom';

@@ -1,3 +1,13 @@
+/**
+ * @file AfflictionStatusButtons.tsx
+ * @description A React functional component that displays buttons for toggling the affliction's operation status. This component provides buttons labeled "Opérée" and "Non-opérée," each calling a toggle function with the corresponding status when clicked.
+ *
+ * @param {Object} props - The props for the AfflictionStatusButtons component.
+ * @param {function} props.toggleStatus - A function to update the affliction's status based on the selected option. Accepts a status string as a parameter.
+ *
+ * @returns {JSX.Element} The rendered AfflictionStatusButtons component, with buttons to select either an operated or non-operated status.
+ */
+
 import { MenuItem } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 

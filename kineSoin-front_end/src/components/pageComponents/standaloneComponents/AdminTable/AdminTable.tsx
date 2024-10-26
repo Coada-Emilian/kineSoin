@@ -1,28 +1,16 @@
 /**
  * @file AdminTable.tsx
- * @description A React component that displays an administrative table for managing therapists, patients, afflictions, medics, and insurances.
- * This component allows administrators to view, filter, and manage different entities, including the ability to add new entries, change statuses, and delete records.
+ * @description A React functional component that renders an administrative table for managing therapists, patients, afflictions, medics, and insurance organizations in the KineSoin application. This component provides a user interface for displaying lists, filtering by status, and managing entities through various modals for adding, editing, or deleting records.
  *
- * The component consists of various sections:
- * - Buttons for managing therapists, patients, afflictions, medics, and insurances.
- * - A table displaying the current records of therapists, patients, and afflictions with options to change their statuses.
- * - Modals for adding new therapists, afflictions, medics, and insurances, as well as confirming deletions.
+ * @param {Object} props - The props for the AdminTable component.
+ * @param {ITherapist[]} [props.allTherapists] - An optional array of all therapists.
+ * @param {IPatient[]} [props.allPatients] - An optional array of all patients.
+ * @param {IAffliction[]} [props.allAfflictions] - An optional array of all afflictions.
+ * @param {IMedic[]} [props.allMedics] - An optional array of all medics.
+ * @param {IInsurance[]} [props.allInsurances] - An optional array of all insurance organizations.
+ * @param {number} props.windowWidth - The current width of the window for responsive design.
  *
- * @imports
- * - ITherapist, IPatient, IAffliction, IMedic, IInsurance types for TypeScript type definitions.
- * - Various utility functions for handling API calls and state management.
- * - Modal components for adding and confirming deletions of entities.
- *
- * @component AdminTable
- * @param {Object} props - The component props.
- * @param {ITherapist[]} [props.allTherapists] - List of all therapists.
- * @param {IPatient[]} [props.allPatients] - List of all patients.
- * @param {IAffliction[]} [props.allAfflictions] - List of all afflictions.
- * @param {IMedic[]} [props.allMedics] - List of all medics.
- * @param {IInsurance[]} [props.allInsurances] - List of all insurances.
- * @param {number} props.windowWidth - The current window width for responsive design.
- *
- * @returns {JSX.Element} The rendered AdminTable component.
+ * @returns {JSX.Element} The rendered AdminTable component, including buttons for managing entities and a table displaying the relevant data.
  */
 
 import { ITherapist } from '../../../../@types/ITherapist';

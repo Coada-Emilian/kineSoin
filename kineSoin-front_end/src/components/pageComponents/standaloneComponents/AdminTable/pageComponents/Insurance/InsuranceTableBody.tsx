@@ -1,26 +1,13 @@
 /**
  * @file InsuranceTableBody.tsx
- * @description A component that renders a table body for insurance records,
- * displaying their details including ID, name, AMC code, and actions
- * (edit and delete) for each insurance in the provided list.
+ * @description A React functional component that renders the body of a table displaying insurance information. It maps over an array of insurances, generating table rows with details and actions (edit and delete) for each insurance entry.
  *
- * @interface InsuranceTableBodyProps
- * @param {number} windowWidth - The current width of the window, used to adjust
- * the styling and layout of the table cells.
- * @param {(
- *   therapist?: ITherapist,
- *   patient?: IPatient,
- *   affliction?: IAffliction,
- *   medic?: IMedic,
- *   insurance?: IInsurance
- * ) => void} openDeleteModal - A function that opens the delete modal for a
- * specific insurance and other entities based on the provided parameters.
- * @param {IInsurance[]} allInsurances - An array of insurance records to render
- * in the table body.
+ * @param {Object} props - The props for the InsuranceTableBody component.
+ * @param {number} props.windowWidth - The current width of the window, used to conditionally render styles and content based on the screen size.
+ * @param {IInsurance[]} props.allInsurances - An array of insurance objects to be displayed in the table.
+ * @param {function} props.openDeleteModal - A function to open the delete confirmation modal for a specific insurance, receiving the insurance as an argument.
  *
- * @returns {JSX.Element} The rendered InsuranceTableBody component displaying
- * a row for each insurance with its ID, name, AMC code, edit,
- * and delete actions.
+ * @returns {JSX.Element} The rendered table body containing rows for each insurance, with action buttons for editing and deleting entries.
  */
 
 import { Link } from 'react-router-dom';

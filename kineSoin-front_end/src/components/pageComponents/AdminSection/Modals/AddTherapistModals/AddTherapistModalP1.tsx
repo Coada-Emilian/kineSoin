@@ -1,10 +1,9 @@
 /**
  * @file AddTherapistModalP1.tsx
- * @description A modal component for adding a therapist's personal information,
- * including their name, surname, ADELI license code, and profile photo. The modal
- * allows users to input therapist details, upload a photo, and preview it before
- * moving on to the next step of a multi-step form. Users can also cancel the action
- * to close the modal without saving changes.
+ * @description A modal component for collecting initial details about a therapist,
+ * including their name, surname, license code, and photo. This modal is the first step
+ * in a multi-step form for adding a therapist. It allows users to input relevant
+ * information and either proceed to the next step or cancel the action.
  *
  * @interface AddTherapistModalP1Props
  * @param {React.Dispatch<React.SetStateAction<{
@@ -22,14 +21,15 @@
  *   photo: File | unknown;
  * }>>} setAddForm - A function to update the state of the therapist's form details.
  * @param {boolean} isAddTherapistModalP1Open - A boolean indicating whether the
- * add therapist modal is open or closed.
+ * add therapist modal (step 1) is open or closed.
  * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP1Open -
- * A function to update the state of the add therapist modal's visibility.
+ * A function to update the state of the modal's visibility.
  * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP2Open -
- * A function to open the second step modal in the multi-step form.
+ * A function to open the next step modal in the multi-step form.
  *
  * @returns {JSX.Element} The rendered AddTherapistModalP1 component, containing
- * input fields for therapist information and action buttons for continuing or cancelling.
+ * input fields for therapist details and action buttons for continuing
+ * or cancelling the form process.
  */
 
 import { useState } from 'react';

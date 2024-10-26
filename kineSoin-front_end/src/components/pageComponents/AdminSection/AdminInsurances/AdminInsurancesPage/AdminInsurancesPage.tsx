@@ -1,34 +1,16 @@
 /**
- * @fileoverview This component displays a list of all insurance organisms
- * in the admin panel. It fetches the insurance data and presents it in a
- * responsive layout that adjusts based on the window width.
+ * @file AdminInsurancesPage.tsx
+ * @description A React component that displays a list of insurance organisms in an
+ * admin panel. It fetches insurance data from an API and renders it in a table format,
+ * adapting its layout based on the window width for responsive design.
+ * The component also includes navigation elements for mobile and desktop views.
  *
- * @module AdminInsurancesPage
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to
+ * determine the layout of the component (mobile vs desktop).
  *
- * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
- * @requires ../../../standaloneComponents/AdminTable/AdminTable.tsx
- * @requires react
- * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
- * @requires ../../../../../utils/apiUtils.ts
- * @requires ../../../../../@types/IInsurance
- *
- * @typedef {Object} AdminInsurancesPageProps
- * @property {number} windowWidth - The width of the window to determine
- *                                   layout responsiveness.
- *
- * @param {AdminInsurancesPageProps} props - The props for the component.
- *
- * @returns {JSX.Element} The rendered component displaying the list of
- *                        insurance organisms or a loading state.
- *
- * @example
- * // Using the AdminInsurancesPage component
- * import AdminInsurancesPage from './AdminInsurancesPage';
- *
- * const MyApp = () => {
- *   const windowWidth = window.innerWidth; // get window width dynamically
- *   return <AdminInsurancesPage windowWidth={windowWidth} />;
- * };
+ * @returns {JSX.Element} The rendered AdminInsurancesPage component,
+ * which includes a table of insurance organisms and navigation elements.
  */
 
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';

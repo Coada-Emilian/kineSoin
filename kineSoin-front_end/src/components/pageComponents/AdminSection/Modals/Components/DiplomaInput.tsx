@@ -1,3 +1,20 @@
+/**
+ * @file DiplomaInput.tsx
+ * @description A React functional component that renders an input field for
+ * entering a therapist's diploma information. It includes a label and an
+ * input field that manages the diploma value through the provided state
+ * setter function.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.therapistDiploma - The current value of the therapist's
+ * diploma, which is displayed in the input field.
+ * @param {React.Dispatch<React.SetStateAction<string>>} props.setTherapistDiploma
+ * - The function to update the state for the therapist's diploma.
+ *
+ * @returns {JSX.Element} The rendered DiplomaInput component, which includes
+ * a label and an input field for entering the diploma information.
+ */
+
 interface DiplomaInputProps {
   therapistDiploma: string;
   setTherapistDiploma: React.Dispatch<React.SetStateAction<string>>;

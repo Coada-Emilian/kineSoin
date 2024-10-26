@@ -1,3 +1,19 @@
+/**
+ * @file RegionModal.tsx
+ * @description A React component that renders a modal displaying a list of body regions.
+ * The modal allows users to view, delete, and add body regions. It fetches the regions
+ * from an API and displays them in a table format.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isRegionModalOpen - A boolean indicating if the modal is open.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsRegionModalOpen - A
+ * function to set the modal's open state.
+ * @param {number} props.windowWidth - The current window width for responsive styling.
+ *
+ * @returns {JSX.Element} The rendered RegionModal component, which includes
+ * a table of body regions and options to delete or add regions.
+ */
+
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import deleteIcon from '/icons/delete.png';

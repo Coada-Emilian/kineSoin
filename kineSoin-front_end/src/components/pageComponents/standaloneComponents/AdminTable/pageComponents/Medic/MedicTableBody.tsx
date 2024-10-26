@@ -1,24 +1,13 @@
 /**
  * @file MedicTableBody.tsx
- * @description A component that renders a table body for medics, displaying
- * their details including ID, full name, license code, and actions
- * (edit and delete) for each medic in the provided list.
+ * @description A React functional component that renders the body of a table displaying medic information. It maps over an array of medics, generating table rows with details and actions (edit and delete) for each medic entry.
  *
- * @interface MedicTableBodyProps
- * @param {number} windowWidth - The current width of the window, used to adjust
- * the styling and layout of the table cells.
- * @param {(
- *   therapist?: ITherapist,
- *   patient?: IPatient,
- *   affliction?: IAffliction,
- *   medic?: IMedic
- * ) => void} openDeleteModal - A function that opens the delete modal for a
- * specific medic and other entities based on the provided parameters.
- * @param {IMedic[]} allMedics - An array of medics to render in the table body.
+ * @param {Object} props - The props for the MedicTableBody component.
+ * @param {number} props.windowWidth - The current width of the window, used to conditionally render styles and content based on the screen size.
+ * @param {function} props.openDeleteModal - A function to open the delete confirmation modal for a specific medic, receiving the medic as an argument.
+ * @param {IMedic[]} props.allMedics - An array of medic objects to be displayed in the table.
  *
- * @returns {JSX.Element} The rendered MedicTableBody component displaying
- * a row for each medic with their ID, full name, license code, edit,
- * and delete actions.
+ * @returns {JSX.Element} The rendered table body containing rows for each medic, with action buttons for editing and deleting entries.
  */
 
 import { Link } from 'react-router-dom';

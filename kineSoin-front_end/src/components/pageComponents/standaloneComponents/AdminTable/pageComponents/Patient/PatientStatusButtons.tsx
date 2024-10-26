@@ -1,15 +1,11 @@
 /**
  * @file PatientStatusButtons.tsx
- * @description A component that renders buttons for filtering patient statuses.
- * It provides options to view all patients, active patients, inactive patients,
- * patients pending approval, and banned patients. Clicking a button will update
- * the patient status through the provided `setPatientStatus` function.
+ * @description A React functional component that renders a set of buttons to filter patient statuses. Each button, when clicked, updates the patient status using a provided function.
  *
- * @interface PatientStatusButtonsProps
- * @param {function} setPatientStatus - A function to update the patient status.
+ * @param {Object} props - The props for the PatientStatusButtons component.
+ * @param {function} props.setPatientStatus - A function that updates the patient status based on the button clicked. Accepts a string representing the status.
  *
- * @returns {JSX.Element} The rendered PatientStatusButtons component with buttons
- * for each patient status.
+ * @returns {JSX.Element} The rendered buttons for filtering patient statuses, including options for all, active, inactive, pending, and banned patients.
  */
 
 import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';

@@ -1,36 +1,17 @@
 /**
- * @fileoverview This component displays the details of a specific affliction
- * in the admin panel. It fetches the affliction data based on the ID from the
- * URL parameters and presents it to the user. The layout is responsive,
- * adjusting based on the window width to accommodate mobile and desktop views.
+ * @file AdminAfflictionPage.tsx
+ * @description A React component that displays the details of a specific affliction
+ * in an admin panel. It fetches affliction data from an API based on the affliction ID
+ * extracted from the URL parameters and provides a responsive layout that adapts
+ * based on the window width. The component renders a different layout for mobile
+ * and desktop views, utilizing separate navigation components.
  *
- * @module AdminAfflictionPage
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to
+ * determine the layout of the component (mobile vs desktop).
  *
- * @requires react-router-dom
- * @requires react
- * @requires ../../../../../utils/apiUtils.ts
- * @requires ../../../../../@types/IAffliction
- * @requires react-loader-spinner
- * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
- * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
- * @requires ../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx
- *
- * @typedef {Object} AdminAfflictionPageProps
- * @property {number} windowWidth - The width of the window to determine
- *                                   layout responsiveness.
- *
- * @param {AdminAfflictionPageProps} props - The props for the component.
- *
- * @returns {JSX.Element} The rendered component displaying the affliction details.
- *
- * @example
- * // Using the AdminAfflictionPage component
- * import AdminAfflictionPage from './AdminAfflictionPage';
- *
- * const MyApp = () => {
- *   const windowWidth = window.innerWidth; // get window width dynamically
- *   return <AdminAfflictionPage windowWidth={windowWidth} />;
- * };
+ * @returns {JSX.Element} The rendered AdminAfflictionPage component, which displays
+ * the details of the affliction and appropriate navigation elements.
  */
 
 import { useParams } from 'react-router-dom';

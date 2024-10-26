@@ -1,25 +1,13 @@
 /**
  * @file PatientTableBody.tsx
- * @description A component that renders a table body for patients, displaying
- * their details, status, and actions (edit and delete) for each patient in the
- * provided list.
+ * @description A React functional component that renders a table body for displaying a list of patients. Each row includes patient details and actions for editing and deleting the patient.
  *
- * @interface PatientTableBodyProps
- * @param {IPatient[]} renderedPatients - An array of patients to render in the
- * table body.
- * @param {number} windowWidth - The current width of the window, used to adjust
- * the styling and layout of the table cells.
- * @param {(
- *   therapist?: ITherapist,
- *   patient?: IPatient,
- *   affliction?: IAffliction,
- *   medic?: IMedic
- * ) => void} openDeleteModal - A function that opens the delete modal for a
- * specific patient and other entities based on the provided parameters.
+ * @param {Object} props - The props for the PatientTableBody component.
+ * @param {IPatient[]} props.renderedPatients - An array of patient objects to be displayed in the table.
+ * @param {number} props.windowWidth - The current width of the window, used to adjust the layout and size of the icons.
+ * @param {function} props.openDeleteModal - A function to open a modal for deleting a patient. Accepts optional therapist, patient, affliction, and medic parameters.
  *
- * @returns {JSX.Element} The rendered PatientTableBody component displaying
- * a row for each patient with their ID, full name, status, edit, and delete
- * actions.
+ * @returns {JSX.Element} The rendered table body rows containing patient data, including ID, full name, status, and action buttons for editing and deleting.
  */
 
 import { Link } from 'react-router-dom';

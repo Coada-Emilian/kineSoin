@@ -1,3 +1,15 @@
+/**
+ * @file PatientStatusButtons.tsx
+ * @description A React functional component that provides buttons to change the status of a patient. It utilizes Headless UI's MenuItem and MenuItems components for dropdown functionality.
+ *
+ * @param {Object} props - The props for the PatientStatusButtons component.
+ * @param {Function} props.toggleStatus - A function to toggle the status of the patient.
+ * @param {Function} props.handlePatientStatusChanges - A function to handle changes to the patient's status, which is asynchronous and returns a promise.
+ * @param {IPatient} props.patient - The patient object containing the patient's details, including their ID.
+ *
+ * @returns {JSX.Element} The rendered PatientStatusButtons component containing menu items for changing the patient's status.
+ */
+
 import { MenuItem, MenuItems } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IPatient } from '../../../../../../../@types/IPatient';

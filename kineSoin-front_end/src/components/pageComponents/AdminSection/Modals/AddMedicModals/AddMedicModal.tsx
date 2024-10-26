@@ -1,3 +1,18 @@
+/**
+ * @file AddMedicModal.tsx
+ * @description A modal component for collecting information to add a new medical professional.
+ * It includes fields for the medic's name, surname, license code, telephone number, and address details.
+ * The modal provides a form that submits the collected data to create a new medic and options to validate or cancel.
+ *
+ * @interface AddMedicModalProps
+ * @param {boolean} isAddMedicModalOpen - A boolean indicating whether the add medic modal is open or closed.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddMedicModalOpen -
+ * A function to update the state of the modal's visibility.
+ *
+ * @returns {JSX.Element} The rendered AddMedicModal component, containing input fields for medic details
+ * and action buttons for validating or cancelling the action.
+ */
+
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleMedicCreation } from '../../../../../utils/apiUtils';
@@ -71,7 +86,7 @@ export default function AddMedicModal({
 
           <div className="flex gap-2">
             <StreetNumberInput medic />
-            
+
             <StreetNameInput medic />
           </div>
 
@@ -83,7 +98,7 @@ export default function AddMedicModal({
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
-            
+
             <CustomButton
               btnText="Annuler"
               btnType="button"

@@ -1,3 +1,22 @@
+/**
+ * @file CityInput.tsx
+ * @description A React functional component that renders an input field for a city name.
+ * It supports conditional rendering of the input's `id` based on the props `medic`
+ * and `insurance`, which may alter the context in which the input is used (e.g.,
+ * for a medical form or an insurance form).
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} [props.medic] - Optional flag that indicates if the input is
+ * intended for a medical context. If true, the input's `id` will be prefixed with
+ * 'medic-' for identification.
+ * @param {boolean} [props.insurance] - Optional flag that indicates if the input is
+ * intended for an insurance context. If true, the input's `id` will be prefixed with
+ * 'insurance-' for identification.
+ *
+ * @returns {JSX.Element} The rendered CityInput component, which includes a label
+ * and an input field for entering a city name.
+ */
+
 interface CityInputProps {
   medic?: boolean;
   insurance?: boolean;

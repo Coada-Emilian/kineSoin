@@ -1,3 +1,18 @@
+/**
+ * @file AdminNavBar.tsx
+ * @description A React functional component that renders a navigation bar for the admin section
+ * of the KineSoin application. The navigation bar includes a logo that changes based on the
+ * window width and a logout button for the admin user.
+ *
+ * @param {Object} props - The component props.
+ * @param {number} props.windowWidth - The current width of the window, used to determine the
+ * appropriate logo and layout.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsAdminAuthenticated - A state
+ * setter function to update the authentication status of the admin user upon logout.
+ *
+ * @returns {JSX.Element} The rendered AdminNavBar component, including the logo and logout button.
+ */
+
 import { Link } from 'react-router-dom';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
@@ -36,7 +51,11 @@ export default function AdminNavBar({
               <img src={LogoutIcon} alt="Se déconnecter" className="w-6 mr-3" />
             </Link>
           ) : (
-            <Button btnText="Se déconnecter" normalButton onClick={handleLogout} />
+            <Button
+              btnText="Se déconnecter"
+              normalButton
+              onClick={handleLogout}
+            />
           )}
         </div>
       </nav>

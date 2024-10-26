@@ -1,25 +1,13 @@
 /**
  * @file AfflictionTableBody.tsx
- * @description A component that renders a table body for afflictions, displaying
- * their details, including ID, name, body region, insurance code, and actions
- * (edit and delete) for each affliction in the provided list.
+ * @description A React functional component that renders the body of an affliction table. It displays a list of afflictions, providing options to edit or delete each affliction.
  *
- * @interface AfflictionTableBodyProps
- * @param {number} windowWidth - The current width of the window, used to adjust
- * the styling and layout of the table cells.
- * @param {IAffliction[]} renderedAfflictions - An array of afflictions to render
- * in the table body.
- * @param {(
- *   therapist?: ITherapist,
- *   patient?: IPatient,
- *   affliction?: IAffliction,
- *   medic?: IMedic
- * ) => void} openDeleteModal - A function that opens the delete modal for a
- * specific affliction and other entities based on the provided parameters.
+ * @param {Object} props - The props for the AfflictionTableBody component.
+ * @param {number} props.windowWidth - The current width of the window, used to adjust the layout responsively.
+ * @param {IAffliction[]} props.renderedAfflictions - An array of affliction objects to be displayed in the table.
+ * @param {function(ITherapist?, IPatient?, IAffliction?, IMedic?): void} props.openDeleteModal - A function that opens a modal for deleting an affliction, taking optional parameters for the therapist, patient, affliction, and medic.
  *
- * @returns {JSX.Element} The rendered AfflictionTableBody component displaying
- * a row for each affliction with its ID, name, body region, insurance code,
- * edit, and delete actions.
+ * @returns {JSX.Element} The rendered AfflictionTableBody component, consisting of table rows with details of each affliction and actions to edit or delete.
  */
 
 import { Link } from 'react-router-dom';

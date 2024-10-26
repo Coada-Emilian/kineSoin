@@ -1,3 +1,26 @@
+/**
+ * @file GeneralInput.tsx
+ * @description A React functional component that renders an input field with a dynamic label and placeholder. This component is designed to display and edit various fields for both medic and insurance profiles, such as address details, contact information, and unique codes.
+ *
+ * @param {Object} props - The props for the GeneralInput component.
+ * @param {IMedic} [props.medic] - Optional medic object containing profile details, including street number, street name, postal code, city, phone number, and licence code.
+ * @param {IInsurance} [props.insurance] - Optional insurance object containing profile details, including street number, street name, postal code, city, phone number, and AMC code.
+ * @param {boolean} [props.isMedicStreetNumberInput] - Flag indicating whether the input field is for the medic's street number.
+ * @param {boolean} [props.isInsuranceStreetNumberInput] - Flag indicating whether the input field is for the insurance's street number.
+ * @param {boolean} [props.isMedicStreetNameInput] - Flag indicating whether the input field is for the medic's street name.
+ * @param {boolean} [props.isInsuranceStreetNameInput] - Flag indicating whether the input field is for the insurance's street name.
+ * @param {boolean} [props.isMedicPostalCodeInput] - Flag indicating whether the input field is for the medic's postal code.
+ * @param {boolean} [props.isInsurancePostalCodeInput] - Flag indicating whether the input field is for the insurance's postal code.
+ * @param {boolean} [props.isMedicCityInput] - Flag indicating whether the input field is for the medic's city.
+ * @param {boolean} [props.isInsuranceCityInput] - Flag indicating whether the input field is for the insurance's city.
+ * @param {boolean} [props.isMedicPhoneNumberInput] - Flag indicating whether the input field is for the medic's phone number.
+ * @param {boolean} [props.isInsurancePhoneNumberInput] - Flag indicating whether the input field is for the insurance's phone number.
+ * @param {boolean} [props.isMedicLicenceCodeInput] - Flag indicating whether the input field is for the medic's licence code.
+ * @param {boolean} [props.isInsuranceAMCCodeInput] - Flag indicating whether the input field is for the insurance's AMC code.
+ *
+ * @returns {JSX.Element} The rendered GeneralInput component, displaying an input field with a label and placeholder dynamically set based on the selected medic or insurance attribute.
+ */
+
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 

@@ -1,3 +1,20 @@
+/**
+ * @file Input.tsx
+ * @description A React functional component that conditionally renders address, phone number, and unique code input fields for either a medic or insurance profile using the GeneralInput component.
+ *
+ * @param {Object} props - The props for the Input component.
+ * @param {IMedic} [props.medic] - Optional medic object containing profile details for address, phone number, and licence code.
+ * @param {IInsurance} [props.insurance] - Optional insurance object containing profile details for address, phone number, and AMC code.
+ * @param {boolean} [props.isMedicAddressInput] - Flag indicating whether the medic's address input fields should be rendered.
+ * @param {boolean} [props.isInsuranceAddressInput] - Flag indicating whether the insurance's address input fields should be rendered.
+ * @param {boolean} [props.isMedicPhoneNumberInput] - Flag indicating whether the input field for the medic's phone number should be rendered.
+ * @param {boolean} [props.isInsurancePhoneNumberInput] - Flag indicating whether the input field for the insurance's phone number should be rendered.
+ * @param {boolean} [props.isMedicLicenceCodeInput] - Flag indicating whether the input field for the medic's licence code should be rendered.
+ * @param {boolean} [props.isInsuranceAMCCodeInput] - Flag indicating whether the input field for the insurance's AMC code should be rendered.
+ *
+ * @returns {JSX.Element} The rendered Input component, displaying GeneralInput fields based on the medic or insurance profile and selected attributes.
+ */
+
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import GeneralInput from './GeneralInput';

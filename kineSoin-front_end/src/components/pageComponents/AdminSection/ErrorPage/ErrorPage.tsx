@@ -1,3 +1,13 @@
+/**
+ * @file ErrorPage.tsx
+ * @description A React component that displays a custom error page for a 404 Not Found error.
+ * It informs the user that the requested page cannot be found and provides a link to return
+ * to the admin dashboard.
+ *
+ * @returns {JSX.Element} The rendered ErrorPage component, including a title, message,
+ * and a link for navigation back to the admin dashboard.
+ */
+
 import { Link } from 'react-router-dom';
 
 export default function ErrorPage() {

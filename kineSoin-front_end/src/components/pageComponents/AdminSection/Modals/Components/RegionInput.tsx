@@ -1,3 +1,17 @@
+/**
+ * @file RegionInput.tsx
+ * @description A React component that allows users to select a body region
+ * from a dropdown menu. It fetches the body regions from an API and updates
+ * the chosen region's ID in the parent component's state.
+ *
+ * @param {Object} props - The component props.
+ * @param {React.Dispatch<number | undefined>} props.setChosenBodyRegionId -
+ * A function to update the state of the chosen body region ID in the parent component.
+ *
+ * @returns {JSX.Element} The rendered RegionInput component, which includes
+ * a dropdown menu for selecting a body region.
+ */
+
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';

@@ -1,3 +1,18 @@
+/**
+ * @file StatusInput.tsx
+ * @description A React component for selecting a therapist's status.
+ * This component includes a labeled dropdown menu that allows the user
+ * to choose the therapist's current status (active or inactive).
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.therapistStatus - The current status value of the therapist.
+ * @param {function} props.setTherapistStatus - A function to update the therapist's status
+ * state in the parent component.
+ *
+ * @returns {JSX.Element} The rendered StatusInput component, which includes
+ * a dropdown for selecting the therapist's status.
+ */
+
 interface StatusInputProps {
   therapistStatus: string;
   setTherapistStatus: (status: string) => void;

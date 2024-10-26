@@ -1,25 +1,16 @@
 /**
  * @file TableHead.tsx
- * @description A component that renders the header of a table dynamically based on the
- * provided therapist, patient, affliction, medic, and insurance data. The header adjusts
- * its columns based on the entities present and the window width for responsive design.
+ * @description A React functional component that renders the header of a table displaying various entities such as therapists, patients, afflictions, medics, and insurances. It adjusts the header content and styles based on the provided data and the current window width.
  *
- * @interface TableHeadProps
- * @param {number} windowWidth - The current width of the window, used to adjust the
- * styling and font size of the table header.
- * @param {ITherapist[]} [allTherapists] - An optional array of therapists to determine
- * the presence of therapist-related columns in the table.
- * @param {IPatient[]} [allPatients] - An optional array of patients to determine the
- * presence of patient-related columns in the table.
- * @param {IAffliction[]} [allAfflictions] - An optional array of afflictions to determine
- * the presence of affliction-related columns in the table.
- * @param {IMedic[]} [allMedics] - An optional array of medics to determine the presence
- * of medic-related columns in the table.
- * @param {IInsurance[]} [allInsurances] - An optional array of insurances to determine
- * the presence of insurance-related columns in the table.
+ * @param {Object} props - The props for the TableHead component.
+ * @param {number} props.windowWidth - The current window width, used to adjust styles and layout.
+ * @param {ITherapist[]} [props.allTherapists] - An optional array of all therapists. If present, the header will include a column for "Nom kiné."
+ * @param {IPatient[]} [props.allPatients] - An optional array of all patients. If present, the header will include a column for "Nom patient."
+ * @param {IAffliction[]} [props.allAfflictions] - An optional array of all afflictions. If present, the header will include a column for "Nom affliction" and "Region concernée."
+ * @param {IMedic[]} [props.allMedics] - An optional array of all medics. If present, the header will include a column for "Nom médecin" and "Code ADELI."
+ * @param {IInsurance[]} [props.allInsurances] - An optional array of all insurances. If present, the header will include a column for "Nom organisme" and "Code AMC."
  *
- * @returns {JSX.Element} The rendered TableHead component displaying a dynamic header
- * for the table based on the provided props.
+ * @returns {JSX.Element} The rendered table head containing the column headers based on the available data.
  */
 
 import { IAffliction } from '../../../../../../@types/IAffliction';
