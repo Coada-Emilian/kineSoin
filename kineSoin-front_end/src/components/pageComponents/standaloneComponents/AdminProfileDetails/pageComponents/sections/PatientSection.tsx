@@ -1,8 +1,5 @@
 import { IPatient } from '../../../../../../@types/IPatient';
-import PatientAddress from '../generalComponents/patient/PatientAddress';
-import PatientGenderAge from '../generalComponents/patient/PatientGenderAge';
-import PatientPhoneNumber from '../generalComponents/patient/PatientPhoneNumber';
-import PatientTherapist from '../generalComponents/patient/PatientTherapist';
+import PatientOutput from '../generalComponents/patient/PacientOutput';
 
 interface PatientSectionProps {
   patient: IPatient;
@@ -10,10 +7,13 @@ interface PatientSectionProps {
 export default function PatientSection({ patient }: PatientSectionProps) {
   return (
     <>
-      <PatientGenderAge patient={patient} />
-      <PatientAddress patient={patient} />
-      <PatientPhoneNumber patient={patient} />
-      <PatientTherapist patient={patient} />
+      <PatientOutput patient={patient} isAgeGenderOutput />
+
+      <PatientOutput patient={patient} isAddressOutput />
+
+      <PatientOutput patient={patient} isPhoneNumberOutput />
+      
+      <PatientOutput patient={patient} isTherapistOutput />
     </>
   );
 }

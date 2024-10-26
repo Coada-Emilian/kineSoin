@@ -1,12 +1,6 @@
 import { ITherapist } from '../../../../../../@types/ITherapist';
-import Diploma from '../generalComponents/therapist/Diploma';
-import EditDiploma from '../generalComponents/therapist/EditDiploma';
-import EditExperience from '../generalComponents/therapist/EditExperience';
-import EditSpecialty from '../generalComponents/therapist/EditSpecialty';
-import EditTherapistDescription from '../generalComponents/therapist/EditTherapistDescription';
-import Experience from '../generalComponents/therapist/Experience';
-import Specialty from '../generalComponents/therapist/Specialty';
-import TherapistDescription from '../generalComponents/therapist/TherapistDescription';
+import TherapistInput from '../generalComponents/therapist/TherapistInput';
+import TherapistOutput from '../generalComponents/therapist/TherapistOutput';
 
 interface TherapistSectionProps {
   isProfileEditing: boolean;
@@ -25,37 +19,38 @@ export default function TherapistSection({
     <>
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditDiploma therapist={therapist} />
+          <TherapistInput therapist={therapist} isDiplomaInput />
         ) : (
-          <Diploma therapist={therapist} />
+          <TherapistOutput therapist={therapist} isDiplomaOutput />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditExperience therapist={therapist} />
+          <TherapistInput therapist={therapist} isExperienceInput />
         ) : (
-          <Experience therapist={therapist} />
+          <TherapistOutput therapist={therapist} isExperienceOutput />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditSpecialty therapist={therapist} />
+          <TherapistInput therapist={therapist} isSpecialtyInput />
         ) : (
-          <Specialty therapist={therapist} />
+          <TherapistOutput therapist={therapist} isSpecialtyOutput />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditTherapistDescription
+          <TherapistInput
             therapist={therapist}
             description={description}
             setDescription={setDescription}
+            isDescriptionInput
           />
         ) : (
-          <TherapistDescription therapist={therapist} />
+          <TherapistOutput therapist={therapist} isDescriptionOutput />
         )}
       </section>
     </>
