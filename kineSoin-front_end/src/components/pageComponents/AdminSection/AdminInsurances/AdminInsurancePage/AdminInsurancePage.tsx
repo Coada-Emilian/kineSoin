@@ -1,11 +1,47 @@
+/**
+ * @fileoverview This component displays detailed information about a specific
+ * insurance organism in the admin panel. It retrieves the insurance data
+ * based on the ID obtained from the URL parameters and presents it in a
+ * responsive layout suitable for both mobile and desktop views.
+ *
+ * @module AdminInsurancePage
+ *
+ * @requires react-router-dom
+ * @requires react
+ * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
+ * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
+ * @requires ../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx
+ * @requires ../../../../../utils/apiUtils.ts
+ * @requires ../../../../../@types/IInsurance
+ * @requires ../../../../../utils/DNALoader.tsx
+ *
+ * @typedef {Object} AdminInsurancePageProps
+ * @property {number} windowWidth - The width of the window to determine
+ *                                   layout responsiveness.
+ *
+ * @param {AdminInsurancePageProps} props - The props for the component.
+ *
+ * @returns {JSX.Element} The rendered component displaying the insurance
+ *                        details or a loading state.
+ *
+ * @example
+ * // Using the AdminInsurancePage component
+ * import AdminInsurancePage from './AdminInsurancePage';
+ *
+ * const MyApp = () => {
+ *   const windowWidth = window.innerWidth; // get window width dynamically
+ *   return <AdminInsurancePage windowWidth={windowWidth} />;
+ * };
+ */
+
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import { fetchInsuranceOrganism } from '../../../../../utils/apiUtils.ts';
-import { DNA } from 'react-loader-spinner';
 import { IInsurance } from '../../../../../@types/IInsurance';
+import DNALoader from '../../../../../utils/DNALoader.tsx';
 
 interface AdminInsurancePageProps {
   windowWidth: number;
@@ -28,18 +64,7 @@ const AdminInsurancePage = ({ windowWidth }: AdminInsurancePageProps) => {
   }, [insuranceId]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <DNA
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
-        />
-      </div>
-    );
+    return DNALoader();
   }
 
   if (!insurance) {

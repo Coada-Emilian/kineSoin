@@ -1,3 +1,38 @@
+/**
+ * @fileoverview This component displays a list of all afflictions in the
+ * admin panel. It fetches the afflictions data from an API and presents
+ * it in a table format. The layout is responsive, adjusting based on
+ * the window width to provide an optimal user experience on both mobile
+ * and desktop devices.
+ *
+ * @module AdminAfflictionsPage
+ *
+ * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
+ * @requires ../../../standaloneComponents/AdminTable/AdminTable.tsx
+ * @requires react
+ * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
+ * @requires ../../../../../utils/apiUtils.ts
+ * @requires ../../../../../@types/IAffliction
+ *
+ * @typedef {Object} AdminAfflictionsPageProps
+ * @property {number} windowWidth - The width of the window to determine
+ *                                   layout responsiveness.
+ *
+ * @param {AdminAfflictionsPageProps} props - The props for the component.
+ *
+ * @returns {JSX.Element} The rendered component displaying the list of
+ *                        afflictions.
+ *
+ * @example
+ * // Using the AdminAfflictionsPage component
+ * import AdminAfflictionsPage from './AdminAfflictionsPage';
+ *
+ * const MyApp = () => {
+ *   const windowWidth = window.innerWidth; // get window width dynamically
+ *   return <AdminAfflictionsPage windowWidth={windowWidth} />;
+ * };
+ */
+
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';

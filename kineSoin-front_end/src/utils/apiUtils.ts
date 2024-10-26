@@ -1,5 +1,6 @@
 import axios from '../axios.ts';
 
+// Admin therapist API calls
 export const handleTherapistDelete = async (id: number) => {
   if (id) {
     try {
@@ -51,6 +52,43 @@ export const fetchTherapist = async (id: number) => {
   }
 };
 
+export const handleTherapistStatusChange = async (id: number) => {
+  try {
+    const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
+    if (response.status === 200) {
+      console.log('Therapist status updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update therapist status', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating therapist status:', error);
+    return false;
+  }
+};
+
+export const handleTherapistUpdate = async (formData: FormData, id: number) => {
+  try {
+    const response = await axios.put(`/admin/therapists/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Therapist profile updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update therapist profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating therapist profile:', error);
+    return false;
+  }
+};
+
+// Admin patient API calls
 export const fetchPatients = async () => {
   try {
     const response = await axios.get('/admin/allPatients');
@@ -123,6 +161,7 @@ export const handlePatientDelete = async (id: number) => {
   }
 };
 
+// Admin affliction API calls
 export const fetchAfflictions = async () => {
   try {
     const response = await axios.get('/admin/afflictions');
@@ -149,21 +188,6 @@ export const fetchAffliction = async (id: number) => {
     }
   } catch (error) {
     console.error('Error fetching affliction:', error);
-    return null;
-  }
-};
-
-export const fetchBodyRegions = async () => {
-  try {
-    const response = await axios.get('/admin/bodyRegions');
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch body regions', response.data);
-      return null;
-    }
-  } catch (error) {
-    console.error('Error fetching body regions:', error);
     return null;
   }
 };
@@ -204,6 +228,45 @@ export const handleAfflictionCreation = async (formData: FormData) => {
   }
 };
 
+export const handleAfflictionUpdates = async (
+  formData: FormData,
+  id: number
+) => {
+  try {
+    const response = await axios.put(`/admin/afflictions/${id}`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Affliction updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update affliction', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating affliction:', error);
+    return false;
+  }
+};
+
+// Admin body region API calls
+export const fetchBodyRegions = async () => {
+  try {
+    const response = await axios.get('/admin/bodyRegions');
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch body regions', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching body regions:', error);
+    return null;
+  }
+};
+
 export const handleRegionCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/bodyRegions', formData, {
@@ -240,6 +303,7 @@ export const handleRegionDelete = async (id: number) => {
   }
 };
 
+// Admin medic API calls
 export const fetchMedics = async () => {
   try {
     const response = await axios.get('/admin/medics');
@@ -326,65 +390,7 @@ export const fetchMedic = async (id: number) => {
   }
 };
 
-export const handleTherapistStatusChange = async (id: number) => {
-  try {
-    const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
-    if (response.status === 200) {
-      console.log('Therapist status updated successfully');
-      return true;
-    } else {
-      console.error('Failed to update therapist status', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error updating therapist status:', error);
-    return false;
-  }
-};
-
-export const handleTherapistUpdate = async (formData: FormData, id: number) => {
-  try {
-    const response = await axios.put(`/admin/therapists/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    if (response.status === 200) {
-      console.log('Therapist profile updated successfully');
-      return true;
-    } else {
-      console.error('Failed to update therapist profile', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error updating therapist profile:', error);
-    return false;
-  }
-};
-
-export const handleAfflictionUpdates = async (
-  formData: FormData,
-  id: number
-) => {
-  try {
-    const response = await axios.put(`/admin/afflictions/${id}`, formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status === 200) {
-      console.log('Affliction updated successfully');
-      return true;
-    } else {
-      console.error('Failed to update affliction', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error updating affliction:', error);
-    return false;
-  }
-};
-
+// Admin insurance organism API calls
 export const fetchInsuranceOrganisms = async () => {
   try {
     const response = await axios.get('/admin/insuranceOrganisms');

@@ -1,10 +1,10 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { DNA } from 'react-loader-spinner';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchBodyRegions } from '../../../../../utils/apiUtils';
 import { IBodyRegion } from '../../../../../@types/IBodyRegion';
+import DNALoader from '../../../../../utils/DNALoader';
 
 interface RegionInputProps {
   setChosenBodyRegionId: React.Dispatch<number | undefined>;
@@ -30,18 +30,7 @@ export default function RegionInput({
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <DNA
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
-        />
-      </div>
-    );
+    return DNALoader();
   }
 
   return (

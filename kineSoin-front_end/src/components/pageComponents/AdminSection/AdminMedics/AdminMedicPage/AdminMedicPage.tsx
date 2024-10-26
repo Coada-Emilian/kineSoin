@@ -5,7 +5,7 @@ import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNa
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import { fetchMedic } from '../../../../../utils/apiUtils.ts';
 import { IMedic } from '../../../../../@types/IMedic';
-import { DNA } from 'react-loader-spinner';
+import DNALoader from '../../../../../utils/DNALoader.tsx';
 
 interface AdminMedicPageProps {
   windowWidth: number;
@@ -28,18 +28,7 @@ const AdminMedicPage = ({ windowWidth }: AdminMedicPageProps) => {
   }, [medicId]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <DNA
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
-        />
-      </div>
-    );
+    return DNALoader();
   }
 
   if (!medic) {
