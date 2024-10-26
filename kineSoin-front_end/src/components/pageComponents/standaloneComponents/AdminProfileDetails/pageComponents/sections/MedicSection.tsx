@@ -1,10 +1,6 @@
 import { IMedic } from '../../../../../../@types/IMedic';
-import Address from '../generalComponents/common/Address';
-import EditAddress from '../generalComponents/common/EditAddress';
-import EditLicenceCode from '../generalComponents/common/EditLicenceCode';
-import EditPhoneNumber from '../generalComponents/common/EditPhoneNumber';
-import LicenceCode from '../generalComponents/common/LicenceCode';
-import PhoneNumber from '../generalComponents/common/PhoneNumber';
+import Input from '../generalComponents/common/Input';
+import Output from '../generalComponents/common/Output';
 
 interface MedicSectionProps {
   isProfileEditing: boolean;
@@ -19,25 +15,25 @@ export default function MedicSection({
     <>
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditAddress medic={medic} />
+          <Input medic={medic} isMedicAddressInput />
         ) : (
-          <Address medic={medic} />
+          <Output medic={medic} isMedicAddressOutput />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditPhoneNumber medic={medic} />
+          <Input medic={medic} isMedicPhoneNumberInput />
         ) : (
-          <PhoneNumber medic={medic} />
+          <Output medic={medic} isMedicPhoneNumberOutput />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditLicenceCode medic={medic} />
+          <Input medic={medic} isMedicLicenceCodeInput />
         ) : (
-          <LicenceCode medic={medic} />
+          <Output medic={medic} isMedicLicenceCodeOutput />
         )}
       </section>
     </>

@@ -1,8 +1,6 @@
-import AfflictionBodyRegion from '../generalComponents/affliction/AfflictionBodyRegion';
-import AfflictionInsuranceCode from '../generalComponents/affliction/AfflictionInsuranceCode';
-import AfflictionOperatedStatus from '../generalComponents/affliction/AfflictionOperatedStatus';
-import AfflictionDescriptionSection from '../generalComponents/affliction/AfflictionDescriptionSection';
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import AfflictionInput from '../generalComponents/affliction/AfflictionInput';
+import AfflictionOutput from '../generalComponents/affliction/AfflictionOutput';
 
 interface AfflictionSectionProps {
   affliction: IAffliction;
@@ -25,26 +23,50 @@ export default function AfflictionSection({
 }: AfflictionSectionProps) {
   return (
     <>
-      <AfflictionBodyRegion
-        isProfileEditing={isProfileEditing}
-        affliction={affliction}
-        setChosenBodyRegionId={setChosenBodyRegionId}
-      />
-      <AfflictionInsuranceCode
-        isProfileEditing={isProfileEditing}
-        affliction={affliction}
-      />
-      <AfflictionOperatedStatus
-        isProfileEditing={isProfileEditing}
-        affliction={affliction}
-        setAfflictionOperatedStatus={setAfflictionOperatedStatus}
-      />
-      <AfflictionDescriptionSection
-        affliction={affliction}
-        afflictionDescription={afflictionDescription}
-        setAfflictionDescription={setAfflictionDescription}
-        isProfileEditing={isProfileEditing}
-      />
+      <section className="mb-2 md:text-2xl">
+        {isProfileEditing ? (
+          <AfflictionInput
+            affliction={affliction}
+            setChosenBodyRegionId={setChosenBodyRegionId}
+            isRegionInput
+          />
+        ) : (
+          <AfflictionOutput affliction={affliction} isRegionOutput />
+        )}
+      </section>
+
+      <section className="mb-2 md:text-2xl">
+        {isProfileEditing ? (
+          <AfflictionInput affliction={affliction} isInsuranceCodeInput />
+        ) : (
+          <AfflictionOutput affliction={affliction} isInsuranceCodeOutput />
+        )}
+      </section>
+
+      <section className="mb-2 md:text-2xl">
+        {isProfileEditing ? (
+          <AfflictionInput
+            affliction={affliction}
+            isOperatedInput
+            setAfflictionOperatedStatus={setAfflictionOperatedStatus}
+          />
+        ) : (
+          <AfflictionOutput affliction={affliction} isOperatedOutput />
+        )}
+      </section>
+
+      <section className="mb-2 md:text-2xl">
+        {isProfileEditing ? (
+          <AfflictionInput
+            affliction={affliction}
+            isDescriptionInput
+            afflictionDescription={afflictionDescription}
+            setAfflictionDescription={setAfflictionDescription}
+          />
+        ) : (
+          <AfflictionOutput isDescriptionOutput affliction={affliction} />
+        )}
+      </section>
     </>
   );
 }

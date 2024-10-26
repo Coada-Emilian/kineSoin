@@ -1,10 +1,6 @@
 import { IInsurance } from '../../../../../../@types/IInsurance';
-import Address from '../generalComponents/common/Address';
-import EditAddress from '../generalComponents/common/EditAddress';
-import EditLicenceCode from '../generalComponents/common/EditLicenceCode';
-import EditPhoneNumber from '../generalComponents/common/EditPhoneNumber';
-import LicenceCode from '../generalComponents/common/LicenceCode';
-import PhoneNumber from '../generalComponents/common/PhoneNumber';
+import Input from '../generalComponents/common/Input';
+import Output from '../generalComponents/common/Output';
 
 interface InsuranceSectionProps {
   isProfileEditing: boolean;
@@ -19,25 +15,25 @@ export default function InsuranceSection({
     <>
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditAddress insurance={insurance} />
+          <Input insurance={insurance} isInsuranceAddressInput />
         ) : (
-          <Address insurance={insurance} />
+          <Output insurance={insurance} isInsuranceAddressOutput />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditPhoneNumber insurance={insurance} />
+          <Input insurance={insurance} isInsurancePhoneNumberInput />
         ) : (
-          <PhoneNumber insurance={insurance} />
+          <Output insurance={insurance} isInsurancePhoneNumberOutput />
         )}
       </section>
 
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
-          <EditLicenceCode insurance={insurance} />
+          <Input insurance={insurance} isInsuranceAMCCodeInput />
         ) : (
-          <LicenceCode insurance={insurance} />
+          <Output insurance={insurance} isInsuranceAMCCodeOutput />
         )}
       </section>
     </>
