@@ -361,6 +361,7 @@ const therapistController = {
         'specialty',
         'picture_url',
         'status',
+        'licence_code',
       ],
     });
 
@@ -379,6 +380,7 @@ const therapistController = {
       experience: foundTherapist.experience,
       specialty: foundTherapist.specialty,
       status: foundTherapist.status,
+      licence_code: foundTherapist.licence_code,
     };
 
     return res.status(200).json(sentTherapist);
