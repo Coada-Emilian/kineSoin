@@ -17,7 +17,7 @@ export default function EditProfileName({
   insurance,
 }: EditProfileNameProps) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center ">
       <label
         htmlFor={`${therapist ? 'therapist_name' : affliction ? 'affliction_name' : medic ? 'medic_name' : insurance ? 'insurance_name' : ''}`.trim()}
         className="font-semibold"

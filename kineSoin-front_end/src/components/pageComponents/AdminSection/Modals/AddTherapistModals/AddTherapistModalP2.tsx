@@ -74,8 +74,19 @@ export default function AddTherapistModalP2({
   const [therapistSpecialty, setTherapistSpecialty] = useState('');
   const [therapistDescription, setTherapistDescription] = useState('');
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   // Function to add therapist details to form state and open the next step
   const addFormDetails = () => {
+    if (
+      !therapistDiploma ||
+      !therapistExperience ||
+      !therapistSpecialty ||
+      !therapistDescription
+    ) {
+      setErrorMessage('Veuillez remplir tous les champs');
+      return;
+    }
     const diploma = therapistDiploma;
     const experience = therapistExperience;
     const specialty = therapistSpecialty;
@@ -116,6 +127,10 @@ export default function AddTherapistModalP2({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter un kinésithérapeute
         </h2>
+
+        {errorMessage && (
+          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        )}
 
         <form className="space-y-4">
           <DiplomaInput

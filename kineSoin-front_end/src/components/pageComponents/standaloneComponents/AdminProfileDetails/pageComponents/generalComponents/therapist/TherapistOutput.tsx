@@ -6,6 +6,7 @@ interface TherapistOutputProps {
   isExperienceOutput?: boolean;
   isSpecialtyOutput?: boolean;
   isDescriptionOutput?: boolean;
+  isLicenceCodeOutput?: boolean;
 }
 
 export default function TherapistOutput({
@@ -14,9 +15,12 @@ export default function TherapistOutput({
   isExperienceOutput,
   isSpecialtyOutput,
   isDescriptionOutput,
+  isLicenceCodeOutput,
 }: TherapistOutputProps) {
   return (
-    <div className="md:text-2xl">
+    <div
+      className={isLicenceCodeOutput ? 'md:text-2xl flex gap-1' : 'md:text-2xl'}
+    >
       <h4 className="font-bold ">
         {isDiplomaOutput
           ? 'Diplôme :'
@@ -26,7 +30,9 @@ export default function TherapistOutput({
               ? 'Spécialité :'
               : isDescriptionOutput
                 ? 'Description :'
-                : ''}
+                : isLicenceCodeOutput
+                  ? 'Code ADELI :'
+                  : ''}
       </h4>
 
       <span className="italic font-normal">
@@ -38,7 +44,9 @@ export default function TherapistOutput({
               ? therapist.specialty
               : isDescriptionOutput
                 ? therapist.description
-                : ''}
+                : isLicenceCodeOutput
+                  ? therapist.licence_code
+                  : ''}
       </span>
     </div>
   );

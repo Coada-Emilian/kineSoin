@@ -37,7 +37,6 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import NameInput from '../Components/NameInput';
 import SurnameInput from '../Components/SurnameInput';
-import LicenceCode from '../../../standaloneComponents/AdminProfileDetails/pageComponents/generalComponents/common/LicenceCode';
 import LicenceCodeInput from '../Components/LicenceCodeInput';
 import ImageInput from '../Components/ImageInput';
 
@@ -78,6 +77,10 @@ export default function AddTherapistModalP1({
   // State to store the preview URL of the uploaded photo
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  const [codeErrorMessage, setCodeErrorMessage] = useState<string>('');
+
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
   // Function to handle file input change and set the file and
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -89,10 +92,19 @@ export default function AddTherapistModalP1({
 
   // Function to add form details and move to the next step
   const addFormDetails = () => {
+    if (!therapistName || !therapistSurname || !therapistLicenceCode || !file) {
+      setErrorMessage('Veuillez remplir tous les champs');
+      return;
+    }
     const name = therapistName;
     const surname = therapistSurname;
+    if (therapistLicenceCode.length > 9) {
+      setErrorMessage('Le code ADELI doit contenir 9 chiffres');
+      return;
+    }
     const licence_code = therapistLicenceCode;
     const photo = file;
+
     setAddForm({
       name,
       surname,
@@ -136,6 +148,10 @@ export default function AddTherapistModalP1({
           Ajouter un kinésithérapeute
         </h2>
 
+        {errorMessage && (
+          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        )}
+
         <form className="space-y-4">
           <NameInput
             therapist
@@ -154,6 +170,10 @@ export default function AddTherapistModalP1({
             therapistLicenceCode={therapistLicenceCode}
             setTherapistLicenceCode={setTherapistLicenceCode}
           />
+
+          {codeErrorMessage && (
+            <p className="text-red-500 text-xs">{codeErrorMessage}</p>
+          )}
 
           <ImageInput handleFileChange={handleFileChange} />
 

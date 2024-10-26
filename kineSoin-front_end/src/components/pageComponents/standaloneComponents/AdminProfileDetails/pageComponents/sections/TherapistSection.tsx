@@ -19,6 +19,14 @@ export default function TherapistSection({
     <>
       <section className="mb-2 md:text-2xl">
         {isProfileEditing ? (
+          <TherapistInput therapist={therapist} isLicenceCodeInput />
+        ) : (
+          <TherapistOutput therapist={therapist} isLicenceCodeOutput />
+        )}
+      </section>
+      
+      <section className="mb-2 md:text-2xl">
+        {isProfileEditing ? (
           <TherapistInput therapist={therapist} isDiplomaInput />
         ) : (
           <TherapistOutput therapist={therapist} isDiplomaOutput />
