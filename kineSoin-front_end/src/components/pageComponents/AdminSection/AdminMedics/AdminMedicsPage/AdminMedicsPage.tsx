@@ -1,3 +1,37 @@
+/**
+ * @fileoverview This component renders the admin page for viewing and managing
+ * a list of medics. It fetches all medics' information and displays it in a
+ * table format, adjusting the layout based on the window width for
+ * responsiveness.
+ *
+ * @module AdminMedicsPage
+ *
+ * @requires react
+ * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
+ * @requires ../../../standaloneComponents/AdminTable/AdminTable.tsx
+ * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
+ * @requires ../../../../../utils/apiUtils.ts
+ * @requires ../../../../../@types/IMedic
+ *
+ * @typedef {Object} AdminMedicsPageProps
+ * @property {number} windowWidth - The current width of the window, used for
+ * responsive layout.
+ *
+ * @param {AdminMedicsPageProps} props - The props for the component.
+ *
+ * @returns {JSX.Element} The rendered admin medics page, displaying a table
+ * of medics.
+ *
+ * @example
+ * // Using the AdminMedicsPage component
+ * import AdminMedicsPage from './AdminMedicsPage';
+ *
+ * const App = () => {
+ *   const windowWidth = window.innerWidth; // Example width, should be derived from state
+ *   return <AdminMedicsPage windowWidth={windowWidth} />;
+ * };
+ */
+
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';

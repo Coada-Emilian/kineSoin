@@ -1,3 +1,36 @@
+/**
+ * @fileoverview This component renders the admin login form. It allows
+ * administrators to enter their email and password to log in to the admin
+ * panel. On successful login, the admin token and data are stored in
+ * local storage, and the user is redirected to the therapists page.
+ *
+ * @module AdminLogin
+ *
+ * @requires ../../../standaloneComponents/Button/CustomButton.tsx
+ * @requires ../../../../axios.ts
+ * @requires ../../../../localStorage/adminLocalStorage.ts
+ * @requires react
+ * @requires axios
+ * @requires react-router-dom
+ *
+ * @typedef {Object} AdminLoginProps
+ * @property {React.Dispatch<React.SetStateAction<string | null>>} setAdminProfileToken -
+ * A function to update the admin profile token state.
+ *
+ * @param {AdminLoginProps} props - The props for the component.
+ *
+ * @returns {JSX.Element} The rendered admin login form.
+ *
+ * @example
+ * // Using the AdminLogin component
+ * import AdminLogin from './AdminLogin';
+ *
+ * const App = () => {
+ *   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(null);
+ *   return <AdminLogin setAdminProfileToken={setAdminProfileToken} />;
+ * };
+ */
+
 import CustomButton from '../../../standaloneComponents/Button/CustomButton.tsx';
 import axios from '../../../../axios.ts';
 import { setAdminTokenAndDataInLocalStorage } from '../../../../localStorage/adminLocalStorage.ts';
@@ -97,7 +130,11 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
             />
           </div>
           <div className="flex justify-center">
-            <CustomButton btnText="Se connecter" normalButton btnType="submit" />
+            <CustomButton
+              btnText="Se connecter"
+              normalButton
+              btnType="submit"
+            />
           </div>
         </form>
       </section>

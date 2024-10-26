@@ -1,3 +1,38 @@
+/**
+ * @fileoverview This component displays the admin page for managing and viewing
+ * details of all patients. It fetches the list of patients and renders it in a
+ * table format, adjusting the layout based on the current window width for
+ * responsive design.
+ *
+ * @module AdminPatientsPage
+ *
+ * @requires react
+ * @requires react-router-dom
+ * @requires ../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx
+ * @requires ../../../standaloneComponents/AdminTable/AdminTable.tsx
+ * @requires ../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx
+ * @requires ../../../../../utils/apiUtils.ts
+ * @requires ../../../../../@types/IPatient
+ *
+ * @typedef {Object} AdminPatientsPageProps
+ * @property {number} windowWidth - The current width of the window, used for
+ * responsive layout.
+ *
+ * @param {AdminPatientsPageProps} props - The props for the component.
+ *
+ * @returns {JSX.Element} The rendered admin patients page, displaying a table
+ * of all patients.
+ *
+ * @example
+ * // Using the AdminPatientsPage component
+ * import AdminPatientsPage from './AdminPatientsPage';
+ *
+ * const App = () => {
+ *   const windowWidth = window.innerWidth; // Example width, should be derived from state
+ *   return <AdminPatientsPage windowWidth={windowWidth} />;
+ * };
+ */
+
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
