@@ -74,7 +74,7 @@ export default function AddTherapistModalP3({
   // State to store error messages
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [submitError, setSubmitError] = useState('');
+  const [submitErrorMessage, setSubmitErrorMessage] = useState('');
 
   // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,7 +85,7 @@ export default function AddTherapistModalP3({
       !therapistRepeatedPassword ||
       !therapistStatus
     ) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setSubmitErrorMessage('Veuillez remplir tous les champs.');
       return;
     }
     let valid = true;
@@ -199,8 +199,10 @@ export default function AddTherapistModalP3({
           Ajouter un kinésithérapeute
         </h2>
 
-        {errorMessage && (
-          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        {submitErrorMessage && (
+          <p className="text-red-500 text-xs text-center">
+            {submitErrorMessage}
+          </p>
         )}
 
         <form className="space-y-4" onSubmit={handleSubmit} method="post">
