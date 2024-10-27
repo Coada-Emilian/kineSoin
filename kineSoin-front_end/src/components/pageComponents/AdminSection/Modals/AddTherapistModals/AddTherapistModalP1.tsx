@@ -98,8 +98,8 @@ export default function AddTherapistModalP1({
     }
     const name = therapistName;
     const surname = therapistSurname;
-    if (therapistLicenceCode.length > 9) {
-      setErrorMessage('Le code ADELI doit contenir 9 chiffres');
+    if (therapistLicenceCode.length > 9 || therapistLicenceCode.length < 9) {
+      setCodeErrorMessage('Le code ADELI doit contenir 9 chiffres');
       return;
     }
     const licence_code = therapistLicenceCode;

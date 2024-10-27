@@ -32,7 +32,6 @@ export default function AfflictionUtilityButtons({
         btnText="Ajouter affliction"
         addButton
         onClick={() => {
-          console.log('clicked');
           setIsAddAfflictionModalOpen(true);
         }}
       />

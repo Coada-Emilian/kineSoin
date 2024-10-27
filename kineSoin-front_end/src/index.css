@@ -4,6 +4,10 @@
   font-size: 0.625rem; /* 10px */
 }
 
+.text-xxxs {
+  font-size: 0.5rem; /* 8px */
+}
+
 .italic {
   font-style: italic;
 }

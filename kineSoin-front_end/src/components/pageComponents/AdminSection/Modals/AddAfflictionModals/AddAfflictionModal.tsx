@@ -48,6 +48,7 @@ export default function AddAfflictionModal({
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
+
     if (chosenBodyRegionId !== undefined) {
       formData.append('body_region_id', chosenBodyRegionId.toString());
     }

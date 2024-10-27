@@ -5,7 +5,7 @@ import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLo
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
-import AdminNavBar from './components/pageComponents/standaloneComponents/AdminNavBar/AdminNavBar';
+import NavBar from './components/pageComponents/standaloneComponents/NavBar/NavBar';
 import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistsPage/AdminTherapistsPage';
 import AdminFooter from './components/pageComponents/standaloneComponents/AdminFooter/AdminFooter';
 import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistPage/AdminTherapistPage';
@@ -18,7 +18,7 @@ import AdminMedicsPage from './components/pageComponents/AdminSection/AdminMedic
 import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicPage/AdminMedicPage';
 import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
-import Homepage from './components/pageComponents/PublicSection/homepage';
+import Homepage from './components/pageComponents/PublicSection/Homepage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -91,7 +91,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Homepage />}></Route>
+      <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>
       <Route
         path="/loginAdmin"
         element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
@@ -163,9 +163,10 @@ function AdminLayout({
 }) {
   return (
     <>
-      <AdminNavBar
+      <NavBar
         setIsAdminAuthenticated={setIsAdminAuthenticated}
         windowWidth={windowWidth}
+        isAdminNavBar
       />
       <Outlet />
       <AdminFooter />

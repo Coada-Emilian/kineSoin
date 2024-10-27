@@ -15,11 +15,14 @@ module.exports = {
         primaryBlue: '#003249',
         secondaryBlue: '#007EA7',
         lightGrey: '#cdcdcd',
+        container: '#DAF1F1',
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
       },
       backgroundImage: {
+        homePage: "url('/images/homepage_main_photo.webp')",
+
         firstForm: "url('/img/first-form.webp')",
         secondForm: "url('/img/second-form.webp')",
         thirdForm: "url('/img/senior-laugh.webp')",

@@ -24,7 +24,7 @@
  */
 
 interface ButtonProps {
-  btnText: string;
+  btnText: string | JSX.Element;
   normalButton?: boolean;
   cancelButton?: boolean;
   validateButton?: boolean;
