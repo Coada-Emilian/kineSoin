@@ -15,7 +15,7 @@
 
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
-import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import { useEffect, useState } from 'react';
 import { fetchTherapists } from '../../../../../utils/apiUtils.ts';
 import { ITherapist } from '../../../../../@types/ITherapist';
@@ -42,7 +42,7 @@ export default function AdminTherapistsPage({
         <div className="flex flex-col justify-between h-full p-4">
           <AdminTable allTherapists={allTherapists} windowWidth={windowWidth} />
 
-          <AdminMobileNav />
+          <MobileNav isAdminMobileNav />
         </div>
       ) : (
         <div className="flex">

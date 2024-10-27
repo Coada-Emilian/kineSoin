@@ -41,7 +41,7 @@ export default function DescriptionSection() {
   ];
 
   return (
-    <div className="bg-container py-12 flex flex-col px-2 rounded-tr-[75px]">
+    <div className="bg-container py-12 flex flex-col px-2 rounded-tr-[75px] mb-4">
       <div className="flex flex-wrap justify-around">
         {' '}
         {firstArticles.map((article, index) => (

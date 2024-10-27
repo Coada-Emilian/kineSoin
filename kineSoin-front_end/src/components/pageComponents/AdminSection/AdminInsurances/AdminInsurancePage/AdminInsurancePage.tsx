@@ -16,7 +16,7 @@
 
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import { fetchInsuranceOrganism } from '../../../../../utils/apiUtils.ts';
@@ -56,7 +56,7 @@ const AdminInsurancePage = ({ windowWidth }: AdminInsurancePageProps) => {
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminProfileDetails insurance={insurance} />
-          <AdminMobileNav />
+          <MobileNav isAdminMobileNav/>
         </div>
       ) : (
         <div className="flex">

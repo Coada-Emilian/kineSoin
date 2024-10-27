@@ -16,7 +16,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IPatient } from '../../../../../@types/IPatient';
-import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import { fetchPatient } from '../../../../../utils/apiUtils.ts';
@@ -54,7 +54,7 @@ const AdminPatientPage = ({ windowWidth }: AdminPatientPageProps) => {
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminProfileDetails patient={patient} />
-          <AdminMobileNav />
+          <MobileNav isAdminMobileNav />
         </div>
       ) : (
         <div className="flex">

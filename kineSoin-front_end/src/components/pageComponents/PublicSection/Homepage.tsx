@@ -1,5 +1,6 @@
-import AdminFooter from '../standaloneComponents/AdminFooter/AdminFooter';
+import Footer from '../standaloneComponents/Footer/Footer';
 import Main from '../standaloneComponents/Main/Main';
+import MobileNav from '../standaloneComponents/MobileNav/MobileNav';
 import NavBar from '../standaloneComponents/NavBar/NavBar';
 
 interface HomepageProps {
@@ -11,8 +12,8 @@ export default function Homepage({ windowWidth }: HomepageProps) {
     <>
       <NavBar windowWidth={windowWidth} isPublicNavBar />
       <Main />
-      <AdminFooter />
+      <Footer isPublicFooter />
+      {windowWidth < 768 && <MobileNav isPublicMobileNav />}
     </>
   );
 }
-

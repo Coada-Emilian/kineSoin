@@ -18,7 +18,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchAffliction } from '../../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../../@types/IAffliction';
-import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import DNALoader from '../../../../../utils/DNALoader.tsx';
@@ -56,7 +56,7 @@ const AdminAfflictionPage = ({ windowWidth }: AdminAfflictionPageProps) => {
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminProfileDetails affliction={affliction} />
-          <AdminMobileNav />
+          <MobileNav isAdminMobileNav/>
         </div>
       ) : (
         <div className="flex">

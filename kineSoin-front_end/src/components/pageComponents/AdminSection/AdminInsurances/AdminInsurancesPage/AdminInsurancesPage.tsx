@@ -16,7 +16,7 @@
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
-import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import { fetchInsuranceOrganisms } from '../../../../../utils/apiUtils.ts';
 import { IInsurance } from '../../../../../@types/IInsurance';
 
@@ -39,7 +39,7 @@ export default function AdminInsurancesPage({
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminTable allInsurances={allInsurances} windowWidth={windowWidth} />
-          <AdminMobileNav />
+          <MobileNav isAdminMobileNav/>
         </div>
       ) : (
         <div className="flex">

@@ -7,7 +7,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
 import NavBar from './components/pageComponents/standaloneComponents/NavBar/NavBar';
 import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistsPage/AdminTherapistsPage';
-import AdminFooter from './components/pageComponents/standaloneComponents/AdminFooter/AdminFooter';
+import Footer from './components/pageComponents/standaloneComponents/Footer/Footer';
 import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistPage/AdminTherapistPage';
 import ErrorPage from './components/pageComponents/AdminSection/ErrorPage/ErrorPage';
 import AdminPatientsPage from './components/pageComponents/AdminSection/AdminPatients/AdminPatientsPage/AdminPatientsPage';
@@ -169,7 +169,7 @@ function AdminLayout({
         isAdminNavBar
       />
       <Outlet />
-      <AdminFooter />
+      <Footer isAdminFooter />
     </>
   );
 }

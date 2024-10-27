@@ -16,7 +16,7 @@
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
-import AdminMobileNav from '../../../standaloneComponents/AdminMobileNav/AdminMobileNav.tsx';
+import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import { fetchAfflictions } from '../../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../../@types/IAffliction';
 
@@ -42,7 +42,7 @@ export default function AdminAfflictionsPage({
             allAfflictions={allAfflictions}
             windowWidth={windowWidth}
           />
-          <AdminMobileNav />
+          <MobileNav isAdminMobileNav/>
         </div>
       ) : (
         <div className="flex">

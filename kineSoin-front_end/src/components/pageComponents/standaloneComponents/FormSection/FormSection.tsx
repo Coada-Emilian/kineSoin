@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function FormSection() {
   return (
     <section className="bg-homePage bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] md:items-center gap-12 flex md:px-16 md:h-screen flex-1 md:relative">
@@ -12,7 +14,13 @@ export default function FormSection() {
           accéder à tous nos services personnalisés et planifier vos séances en
           ligne.
         </p>
-        <p>Inscrivez-vous ici !</p>
+        <p>
+          Inscrivez-vous{' '}
+          <Link to="#" className="font-bold">
+            ici
+          </Link>{' '}
+          {''}!
+        </p>
       </div>
     </section>
   );
