@@ -33,12 +33,13 @@ module.exports = {
           "url('/images/patientConnexionPage_mainAlt.webp')",
         therapistConnectionPage:
           "url('/images/therapistConnexionPage_main.webp')",
-        firstForm: "url('/img/first-form.webp')",
-        secondForm: "url('/img/second-form.webp')",
-        thirdForm: "url('/img/senior-laugh.webp')",
-        fourthForm: "url('/img/fourth-form.webp')",
-        endForm: "url('/img/senior-yoga.webp')",
-        connectionForm: "url('/img/connection-form.webp')",
+        patientFirstRegisterPage:
+          "url('/images/patientRegisterFirstForm_mainAlt.webp')",
+        patientSecondRegisterPage:
+          "url('/images/patientRegisterSecondForm_main.webp')",
+        patientThirdRegisterPage:
+          "url('/images/patientRegisterThirdForm_main.webp')",
+        confirmationPage: "url('/images/confirmationPage.webp')",
       },
       boxShadow: {
         mobileNav: '2px 0px 14px 3px rgba(0,0,0,0.2)',

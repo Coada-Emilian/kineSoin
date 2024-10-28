@@ -20,7 +20,6 @@ import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminI
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
 import Homepage from './components/pageComponents/PublicSection/Homepage';
 import LoginPage from './components/pageComponents/PublicSection/LoginPage';
-import MobileNav from './components/pageComponents/standaloneComponents/MobileNav/MobileNav';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -184,6 +183,10 @@ function App() {
         path="/loginAdmin"
         element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
       />
+      <Route
+        path="/registerPatient"
+        element={<LoginPage isPatientRegisterPage windowWidth={windowWidth} />}
+      ></Route>
 
       {isAdminAuthenticated && (
         <Route

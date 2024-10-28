@@ -1,3 +1,4 @@
+
 import Footer from '../standaloneComponents/Footer/Footer';
 import Main from '../standaloneComponents/Main/Main';
 import MobileNav from '../standaloneComponents/MobileNav/MobileNav';
@@ -11,6 +12,7 @@ interface LoginPageProps {
   setTherapistProfileToken?: React.Dispatch<
     React.SetStateAction<string | null>
   >;
+  isPatientRegisterPage?: boolean;
 }
 
 export default function LoginPage({
@@ -19,15 +21,17 @@ export default function LoginPage({
   setPatientProfileToken,
   isTherapistLoginPage,
   setTherapistProfileToken,
+  isPatientRegisterPage,
 }: LoginPageProps) {
   return (
     <>
       <NavBar windowWidth={windowWidth} isPublicNavBar />
       <Main
         isPatientLoginPageMain={isPatientLoginPage ?? false}
+        isTherapistLoginPageMain={isTherapistLoginPage ?? false}
+        isPatientRegisterPageMain={isPatientRegisterPage ?? false}
         setPatientProfileToken={setPatientProfileToken}
         setTherapistProfileToken={setTherapistProfileToken}
-        isTherapistLoginPageMain={isTherapistLoginPage ?? false}
       />
       <Footer isPublicFooter />
       {windowWidth < 768 && <MobileNav isPublicMobileNav />}
