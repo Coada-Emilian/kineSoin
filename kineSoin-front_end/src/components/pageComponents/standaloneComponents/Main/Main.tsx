@@ -12,6 +12,14 @@ interface MainProps {
     React.SetStateAction<string | null>
   >;
   isPatientRegisterPageMain?: boolean;
+  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
+  isRegisterPageRendered?: boolean;
+  isFirstFormValidated: boolean;
+  setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  isSecondFormValidated: boolean;
+  setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  isThirdFormValidated: boolean;
+  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Main({
@@ -21,16 +29,18 @@ export default function Main({
   setPatientProfileToken,
   setTherapistProfileToken,
   isPatientRegisterPageMain,
+  setIsRegisterPageRendered,
+  isRegisterPageRendered,
+  isFirstFormValidated,
+  setIsFirstFormValidated,
+  isSecondFormValidated,
+  setIsSecondFormValidated,
+  isThirdFormValidated,
+  setIsThirdFormValidated,
 }: MainProps) {
-  const [isFirstFormValidated, setIsFirstFormValidated] =
-    useState<boolean>(false);
-  const [isSecondFormValidated, setIsSecondFormValidated] =
-    useState<boolean>(false);
-  const [isThirdFormValidated, setIsThirdFormValidated] =
-    useState<boolean>(false);
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
-      <div className="flex flex-col w-full h-fit">
+      <div className="flex flex-col w-full h-full">
         <>
           <FormSection
             isHomePageFormSection={isHomePageMain ?? false}
@@ -38,18 +48,14 @@ export default function Main({
             isTherapistLoginPageFormSection={isTherapistLoginPageMain ?? false}
             setPatientProfileToken={setPatientProfileToken}
             setTherapistProfileToken={setTherapistProfileToken}
-            isPatientRegisterPageFormSection={
-              isPatientRegisterPageMain ?? false
-            }
-            isPatientRegisterPageSecondFormSection={
-              isFirstFormValidated ?? false
-            }
-            isPatientRegisterPageThirdFormSection={
-              isSecondFormValidated ?? false
-            }
-            isPatientConfirmationSection={isThirdFormValidated ?? false}
+            isRegisterPageRendered={isRegisterPageRendered ?? false}
+            isFirstFormValidated={isFirstFormValidated}
+            isSecondFormValidated={isSecondFormValidated}
+            isThirdFormValidated={isThirdFormValidated}
+            setIsRegisterPageRendered={setIsRegisterPageRendered ?? (() => {})}
             setIsFirstFormValidated={setIsFirstFormValidated}
             setIsSecondFormValidated={setIsSecondFormValidated}
+            setIsThirdFormValidated={setIsThirdFormValidated}
           />
           <HeadBand />
           <DescriptionSection

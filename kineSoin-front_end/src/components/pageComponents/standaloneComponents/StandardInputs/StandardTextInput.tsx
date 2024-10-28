@@ -3,56 +3,34 @@ interface StandardTextInputProps {
   isSurnameInput?: boolean;
   isBirthNameInput?: boolean;
   patientRegisterName?: string;
-  setPatientRegisterName?: React.Dispatch<React.SetStateAction<string>>;
   patientRegisterSurname?: string;
-  setPatientRegisterSurname?: React.Dispatch<React.SetStateAction<string>>;
   patientRegisterBirthName?: string;
-  setPatientRegisterBirthName?: React.Dispatch<React.SetStateAction<string>>;
   isStreetNumberInput?: boolean;
   isStreetNameInput?: boolean;
   isPostalCodeInput?: boolean;
   isCityInput?: boolean;
   isTelephoneInput?: boolean;
   patientRegisterStreetNumber?: string;
-  setPatientRegisterStreetNumber?: React.Dispatch<React.SetStateAction<string>>;
   patientRegisterStreetName?: string;
-  setPatientRegisterStreetName?: React.Dispatch<React.SetStateAction<string>>;
   patientRegisterPostalCode?: string;
-  setPatientRegisterPostalCode?: React.Dispatch<React.SetStateAction<string>>;
   patientRegisterCity?: string;
-  setPatientRegisterCity?: React.Dispatch<React.SetStateAction<string>>;
   patientRegisterTelephone?: string;
-  setPatientRegisterTelephone?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function StandardTextInput({
   isNameInput,
   isSurnameInput,
   isBirthNameInput,
-  patientRegisterName,
-  setPatientRegisterName,
-  patientRegisterSurname,
-  setPatientRegisterSurname,
-  patientRegisterBirthName,
-  setPatientRegisterBirthName,
   isStreetNumberInput,
   isStreetNameInput,
   isPostalCodeInput,
   isCityInput,
   isTelephoneInput,
-  patientRegisterStreetNumber,
-  setPatientRegisterStreetNumber,
-  patientRegisterStreetName,
-  setPatientRegisterStreetName,
-  patientRegisterPostalCode,
-  setPatientRegisterPostalCode,
-  patientRegisterCity,
-  setPatientRegisterCity,
-  patientRegisterTelephone,
-  setPatientRegisterTelephone,
 }: StandardTextInputProps) {
   return (
-    <div className="mb-4">
+    <div
+      className={`${isStreetNumberInput || isPostalCodeInput ? 'w-4/12' : 'w-full'} flex flex-col gap-2 mb-4`}
+    >
       <label
         htmlFor={`${
           isNameInput
@@ -73,7 +51,7 @@ export default function StandardTextInput({
                           ? 'patient-register-telephone_input'
                           : ''
         }`}
-        className="text-gray-600 text-sm font-medium"
+        className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-gray-600 font-medium`}
       >
         {isNameInput
           ? 'Nom'
@@ -82,7 +60,7 @@ export default function StandardTextInput({
             : isBirthNameInput
               ? 'Nom de naissance'
               : isStreetNumberInput
-                ? 'Numéro de rue'
+                ? 'N° de rue'
                 : isStreetNameInput
                   ? 'Nom de rue'
                   : isPostalCodeInput
@@ -143,7 +121,7 @@ export default function StandardTextInput({
               : isBirthNameInput
                 ? 'Entrez votre nom de naissance'
                 : isStreetNumberInput
-                  ? 'Numéro de rue'
+                  ? 'N° de rue'
                   : isStreetNameInput
                     ? 'Nom de rue'
                     : isPostalCodeInput
@@ -154,46 +132,7 @@ export default function StandardTextInput({
                           ? 'Numéro de téléphone'
                           : ''
         }`}
-        value={`${
-          isNameInput
-            ? patientRegisterName
-            : isSurnameInput
-              ? patientRegisterSurname
-              : isBirthNameInput
-                ? patientRegisterBirthName
-                : isStreetNumberInput
-                  ? patientRegisterStreetNumber
-                  : isStreetNameInput
-                    ? patientRegisterStreetName
-                    : isPostalCodeInput
-                      ? patientRegisterPostalCode
-                      : isCityInput
-                        ? patientRegisterCity
-                        : isTelephoneInput
-                          ? patientRegisterTelephone
-                          : ''
-        }`}
-        onChange={(e) => {
-          `${
-            setPatientRegisterName
-              ? setPatientRegisterName(e.target.value)
-              : setPatientRegisterSurname
-                ? setPatientRegisterSurname(e.target.value)
-                : setPatientRegisterBirthName
-                  ? setPatientRegisterBirthName(e.target.value)
-                  : setPatientRegisterStreetNumber
-                    ? setPatientRegisterStreetNumber(e.target.value)
-                    : setPatientRegisterStreetName
-                      ? setPatientRegisterStreetName(e.target.value)
-                      : setPatientRegisterPostalCode
-                        ? setPatientRegisterPostalCode(e.target.value)
-                        : setPatientRegisterCity
-                          ? setPatientRegisterCity(e.target.value)
-                          : setPatientRegisterTelephone
-                            ? setPatientRegisterTelephone(e.target.value)
-                            : ''
-          }`;
-        }}
+        required={!isStreetNumberInput}
       />
     </div>
   );

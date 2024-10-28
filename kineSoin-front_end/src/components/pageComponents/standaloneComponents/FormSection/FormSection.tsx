@@ -10,6 +10,7 @@ import {
 } from '../../../../utils/apiUtils';
 import StandardTextInput from '../StandardInputs/StandardTextInput';
 import StandardDateInput from '../StandardInputs/StandardDateInput';
+import StandardDropdownInput from '../StandardInputs/StandardDropdownInput';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
@@ -19,25 +20,29 @@ interface FormSectionProps {
   setTherapistProfileToken?: React.Dispatch<
     React.SetStateAction<string | null>
   >;
-  isPatientRegisterPageFormSection?: boolean;
-  isPatientRegisterPageSecondFormSection?: boolean;
-  isPatientRegisterPageThirdFormSection?: boolean;
-  isPatientConfirmationSection?: boolean;
   setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  isRegisterPageRendered: boolean;
+  isFirstFormValidated: boolean;
+  isSecondFormValidated: boolean;
+  isThirdFormValidated: boolean;
+  setIsRegisterPageRendered: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function FormSection({
   isHomePageFormSection,
   isPatientLoginPageFormSection,
   isTherapistLoginPageFormSection,
+  isRegisterPageRendered,
+  isFirstFormValidated,
+  isSecondFormValidated,
+  isThirdFormValidated,
   setPatientProfileToken,
   setTherapistProfileToken,
-  isPatientRegisterPageFormSection,
-  isPatientRegisterPageSecondFormSection,
-  isPatientRegisterPageThirdFormSection,
   setIsFirstFormValidated,
   setIsSecondFormValidated,
-  isPatientConfirmationSection,
+  setIsThirdFormValidated,
+  setIsRegisterPageRendered,
 }: FormSectionProps) {
   const [patientLoginPassword, setPatientLoginPassword] = useState<string>('');
   const [patientLoginEmail, setPatientLoginEmail] = useState<string>('');
@@ -47,34 +52,10 @@ export default function FormSection({
   const [patientErrorMessage, setPatientErrorMessage] = useState<string>('');
   const [therapistErrorMessage, setTherapistErrorMessage] =
     useState<string>('');
-
   const [sentPatientData, setSentPatientData] = useState({});
-
-  useEffect(() => {
-    console.log(sentPatientData);
-  }),
-    [sentPatientData];
-
-  const [patientRegisterName, setPatientRegisterName] = useState<string>('');
-  const [patientRegisterSurname, setPatientRegisterSurname] =
-    useState<string>('');
-  const [patientRegisterBirthName, setPatientRegisterBirthName] =
-    useState<string>('');
-  const [patientRegisterBirthDate, setPatientRegisterBirthDate] =
-    useState<Date>(new Date());
-  const [patientRegisterStreetNumber, setPatientRegisterStreetNumber] =
-    useState<string>('');
-  const [patientRegisterStreetName, setPatientRegisterStreetName] =
-    useState<string>('');
-  const [patientRegisterPostalCode, setPatientRegisterPostalCode] =
-    useState<string>('');
-  const [patientRegisterCity, setPatientRegisterCity] = useState<string>('');
-  const [patientRegisterTelephone, setPatientRegisterTelephone] =
-    useState<string>('');
-
-  useEffect(() => {
-    console.log(isPatientRegisterPageFormSection);
-  }, [isPatientRegisterPageFormSection]);
+  const [registeredPatientGender, setRegisteredPatientGender] = useState('');
+  const [registeredPatientBirthDate, setRegisteredPatientBirthDate] =
+    useState<string>();
 
   const checkPatientCredentials = async (
     e: React.FormEvent<HTMLFormElement>
@@ -136,71 +117,107 @@ export default function FormSection({
     e.preventDefault();
     setPatientErrorMessage('');
 
-    // Check if all required fields are filled
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+
     if (
-      !patientRegisterName ||
-      !patientRegisterSurname ||
-      !patientRegisterBirthName ||
-      !patientRegisterBirthDate
+      !formData.get('name') ||
+      !formData.get('birth_name') ||
+      !formData.get('surname')
     ) {
       setPatientErrorMessage('Veuillez remplir tous les champs');
       return;
-    }
-
-    const currentDate = new Date();
-    const birthYear = patientRegisterBirthDate.getFullYear();
-    const age = currentDate.getFullYear() - birthYear;
-
-    if (currentDate <= patientRegisterBirthDate) {
-      setPatientErrorMessage('Date de naissance invalide');
+    } else if (
+      registeredPatientBirthDate &&
+      registeredPatientBirthDate > currentDate.toISOString().split('T')[0]
+    ) {
+      setPatientErrorMessage('Veuillez entrer une date valide');
       return;
+    } else {
+      const age =
+        currentYear - Number(registeredPatientBirthDate?.split('-')[0]);
+      if (age < 18) {
+        setPatientErrorMessage('Vous devez être majeur pour vous inscrire');
+        return;
+      }
     }
+
+    const sentData = {
+      name: formData.get('name'),
+      birth_name: formData.get('birth_name'),
+      surname: formData.get('surname'),
+      birth_date: registeredPatientBirthDate,
+    };
+    setPatientErrorMessage('');
+    setSentPatientData(sentData);
+    setIsRegisterPageRendered(false);
+    setIsFirstFormValidated(true);
+  };
+
+  const handleSecondPatientRegisterForm = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    setPatientErrorMessage('');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
     if (
-      age < 18 ||
-      (age === 18 &&
-        currentDate <
-          new Date(patientRegisterBirthDate.setFullYear(birthYear + 18)))
+      !formData.get('postal_code') ||
+      !formData.get('city') ||
+      !formData.get('street_number') ||
+      !formData.get('street_name') ||
+      !formData.get('phone_number')
     ) {
-      setPatientErrorMessage('Vous devez être majeur pour vous inscrire');
-      return;
+      setPatientErrorMessage('Veuillez remplir tous les champs');
+    } else if (registeredPatientGender === '') {
+      setPatientErrorMessage('Veuillez sélectionner votre genre');
     }
-
-    const patientData = {
-      name: patientRegisterName,
-      surname: patientRegisterSurname,
-      birthName: patientRegisterBirthName,
-      birthDate: patientRegisterBirthDate,
+    const sentData = {
+      street_number: formData.get('street_number'),
+      street_name: formData.get('street_name'),
+      postal_code: formData.get('postal_code'),
+      city: formData.get('city'),
+      phone_number: formData.get('phone_number'),
+      gender: registeredPatientGender,
     };
-    setSentPatientData(patientData);
 
-    setIsFirstFormValidated(true);
-    isPatientRegisterPageFormSection = false;
+    setPatientErrorMessage('');
+    setSentPatientData({ ...sentPatientData, ...sentData });
+    setIsFirstFormValidated(false);
+    setIsSecondFormValidated(true);
   };
+
+  useEffect(() => {
+    console.log(sentPatientData);
+  }, [sentPatientData]);
 
   return (
     <section
       className={`${
         isHomePageFormSection
-          ? 'bg-homePage'
+          ? 'bg-homePage md:p-96'
           : isPatientLoginPageFormSection
             ? 'bg-patientConnectionPage'
             : isTherapistLoginPageFormSection
               ? 'bg-therapistConnectionPage'
-              : isPatientRegisterPageFormSection
+              : isRegisterPageRendered
                 ? 'bg-patientFirstRegisterPage'
-                : isPatientRegisterPageSecondFormSection
+                : isFirstFormValidated
                   ? 'bg-patientSecondRegisterPage'
-                  : isPatientRegisterPageThirdFormSection
-                    ? 'bg-patientSecondRegisterPage'
-                    : isPatientConfirmationSection
+                  : isSecondFormValidated
+                    ? 'bg-patientThirdRegisterPage'
+                    : isThirdFormValidated
                       ? 'bg-confirmationPage'
                       : ''
       } bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
     >
       {' '}
       <div
-        className={`${!isHomePageFormSection ? 'opacity-90 max-w-80' : 'opacity-75 md:absolute md:top-32 md:left-16 lg:left-20 xl:top-16 2xl:top-24'} font-normal text-sm h-fit my-auto lg:text-base xl:text-xs w-10/12 md:w-1/3 text-primaryBlue bg-white p-6 rounded-3xl italic`}
+        className={`${!isHomePageFormSection ? 'opacity-90 max-w-80' : 'opacity-75 md:absolute md:top-32 md:left-16 lg:left-20 xl:top-16 2xl:top-24'} font-normal text-sm h-fit my-auto lg:text-base xl:text-xs w-10/12 md:w-2/3 text-primaryBlue bg-white p-6 rounded-3xl italic`}
       >
         {isHomePageFormSection ? (
           <>
@@ -218,12 +235,7 @@ export default function FormSection({
               </Link>{' '}
             </p>
           </>
-        ) : isPatientLoginPageFormSection ||
-          isTherapistLoginPageFormSection ||
-          isPatientRegisterPageFormSection ||
-          isPatientRegisterPageSecondFormSection ||
-          isPatientRegisterPageThirdFormSection ||
-          isPatientConfirmationSection ? (
+        ) : (
           <form
             action="#"
             onSubmit={
@@ -231,18 +243,20 @@ export default function FormSection({
                 ? checkPatientCredentials
                 : isTherapistLoginPageFormSection
                   ? checkTherapistCredentials
-                  : isPatientRegisterPageFormSection
+                  : isRegisterPageRendered
                     ? handleFirstPatientRegisterForm
-                    : undefined
+                    : isFirstFormValidated
+                      ? handleSecondPatientRegisterForm
+                      : undefined
             }
           >
             <h2 className="text-xl font-semibold text-center text-gray-700 mb-2">
               {(isPatientLoginPageFormSection ||
                 isTherapistLoginPageFormSection) &&
                 `Connexion ${isPatientLoginPageFormSection ? 'Patient' : 'Thérapeute'}`}
-              {(isPatientRegisterPageFormSection ||
-                isPatientRegisterPageSecondFormSection ||
-                isPatientRegisterPageThirdFormSection) &&
+              {(isRegisterPageRendered ||
+                isFirstFormValidated ||
+                isSecondFormValidated) &&
                 'Inscription'}
             </h2>
 
@@ -286,68 +300,47 @@ export default function FormSection({
               </>
             )}
 
-            {isPatientRegisterPageFormSection && (
+            {isRegisterPageRendered && (
               <>
-                <StandardTextInput
-                  isNameInput
-                  patientRegisterName={patientRegisterName}
-                  setPatientRegisterName={setPatientRegisterName}
-                />
-                <StandardTextInput
-                  isBirthNameInput
-                  patientRegisterBirthName={patientRegisterBirthName}
-                  setPatientRegisterBirthName={setPatientRegisterBirthName}
-                />
-                <StandardTextInput
-                  isSurnameInput
-                  patientRegisterSurname={patientRegisterSurname}
-                  setPatientRegisterSurname={setPatientRegisterSurname}
-                />
+                <StandardTextInput isNameInput />
+                <StandardTextInput isBirthNameInput />
+                <StandardTextInput isSurnameInput />
                 <StandardDateInput
-                  patientRegisterBirthDate={patientRegisterBirthDate}
-                  setPatientRegisterBirthDate={setPatientRegisterBirthDate}
+                  setRegisteredPatientBirthDate={setRegisteredPatientBirthDate}
                 />
               </>
             )}
 
-            {isPatientRegisterPageSecondFormSection && (
-                <>
-                  <StandardTextInput
-                    isStreetNumberInput
-                    patientRegisterStreetNumber={patientRegisterStreetNumber}
-                    setPatientRegisterStreetNumber={
-                      setPatientRegisterStreetNumber
-                    }
-                  />
-                  <StandardTextInput
-                    isStreetNameInput
-                    patientRegisterStreetName={patientRegisterStreetName}
-                    setPatientRegisterStreetName={setPatientRegisterStreetName}
-                  />
-                  <StandardTextInput
-                    isPostalCodeInput
-                    patientRegisterPostalCode={patientRegisterPostalCode}
-                    setPatientRegisterPostalCode={setPatientRegisterPostalCode}
-                  />
-                  <StandardTextInput
-                    isCityInput
-                    patientRegisterCity={patientRegisterCity}
-                    setPatientRegisterCity={setPatientRegisterCity}
-                  />
-                  <StandardTextInput
-                    isTelephoneInput
-                    patientRegisterTelephone={patientRegisterTelephone}
-                    setPatientRegisterTelephone={setPatientRegisterTelephone}
-                  />
-                </>
-              )}
+            {isFirstFormValidated && (
+              <>
+                <StandardDropdownInput
+                  registeredPatientGender={registeredPatientGender}
+                  setRegisteredPatientGender={setRegisteredPatientGender}
+                />
+                <div className="flex gap-2 items-center justify-between">
+                  <StandardTextInput isStreetNumberInput />
+                  <StandardTextInput isStreetNameInput />
+                </div>
+                <div className="flex gap-2 items-center justify-between">
+                  <StandardTextInput isPostalCodeInput />
+                  <StandardTextInput isCityInput />
+                </div>
+                <StandardTextInput isTelephoneInput />
+              </>
+            )}
+
+            {isSecondFormValidated && <StandardTextInput />}
 
             {isPatientLoginPageFormSection && (
               <>
                 <div className="text-xs mb-4 text-center mt-4">
                   <p>
                     Pas encore membre?{' '}
-                    <Link to="/registerPatient" className="text-primaryRed">
+                    <Link
+                      to="/registerPatient"
+                      className="text-primaryRed"
+                      onClick={() => setIsRegisterPageRendered(true)}
+                    >
                       Inscrivez-vous ici
                     </Link>
                   </p>
@@ -356,28 +349,35 @@ export default function FormSection({
             )}
             <div className="flex items-center">
               <CustomButton
-                btnText={`${isPatientRegisterPageFormSection ? 'Valider' : 'Connexion'}`}
+                btnText={`${isRegisterPageRendered || isFirstFormValidated ? 'Valider' : 'Connexion'}`}
                 btnType="submit"
                 normalButton
               />
             </div>
-            {isPatientRegisterPageFormSection && (
-              <>
-                <div className="text-xs mb-4 text-center mt-4">
-                  <p>
-                    Déjà membre?{' '}
-                    <Link to="/loginPatient" className="text-primaryRed">
-                      Connectez-vous ici
-                    </Link>
-                  </p>
-                </div>
-                <div className="text-sm mb-4 text-center mt-4">
-                  Etape 1/3: Informations personnelles
-                </div>
-              </>
-            )}
+            {isRegisterPageRendered ||
+              (isFirstFormValidated && (
+                <>
+                  <div className="text-xs mb-4 text-center mt-4">
+                    <p>
+                      Déjà membre?{' '}
+                      <Link
+                        to="/loginPatient"
+                        className="text-primaryRed"
+                        onClick={() => setIsRegisterPageRendered(false)}
+                      >
+                        Connectez-vous ici
+                      </Link>
+                    </p>
+                  </div>
+                  <div className="text-sm mb-4 text-center mt-4">
+                    {isRegisterPageRendered
+                      ? 'Etape 1/3: Informations personnelles'
+                      : 'Etape 2/3: Informations de contact'}
+                  </div>
+                </>
+              ))}
           </form>
-        ) : null}
+        )}
       </div>
     </section>
   );

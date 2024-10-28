@@ -26,6 +26,10 @@ interface NavBarProps {
   isAdminNavBar?: boolean;
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   isPublicNavBar?: boolean;
+  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function NavBar({
@@ -33,6 +37,10 @@ export default function NavBar({
   isAdminNavBar,
   setIsAdminAuthenticated,
   isPublicNavBar,
+  setIsRegisterPageRendered,
+  setIsFirstFormValidated,
+  setIsSecondFormValidated,
+  setIsThirdFormValidated,
 }: NavBarProps) {
   const handleAdminLogout = () => {
     removeAdminTokenFromLocalStorage();
@@ -47,7 +55,23 @@ export default function NavBar({
       <nav
         className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-3 `}
       >
-        <Link to="/">
+        <Link
+          to="/"
+          onClick={() => {
+            if (setIsRegisterPageRendered) {
+              setIsRegisterPageRendered(false);
+              if (setIsFirstFormValidated) {
+                setIsFirstFormValidated(false);
+              }
+              if (setIsSecondFormValidated) {
+                setIsSecondFormValidated(false);
+              }
+              if (setIsThirdFormValidated) {
+                setIsThirdFormValidated(false);
+              }
+            }
+          }}
+        >
           <img
             src={windowWidth < 768 ? Logo2 : Logo1}
             alt="Retour a l'accueil"
@@ -75,13 +99,47 @@ export default function NavBar({
 
           {isPublicNavBar && (
             <div className="flex gap-2">
-              <Link to="/loginTherapist" className="hidden md:block">
+              <Link
+                to="/loginTherapist"
+                className="hidden md:block"
+                onClick={() => {
+                  if (setIsRegisterPageRendered) {
+                    setIsRegisterPageRendered(false);
+                    if (setIsFirstFormValidated) {
+                      setIsFirstFormValidated(false);
+                    }
+                    if (setIsSecondFormValidated) {
+                      setIsSecondFormValidated(false);
+                    }
+                    if (setIsThirdFormValidated) {
+                      setIsThirdFormValidated(false);
+                    }
+                  }
+                }}
+              >
                 <CustomButton
                   btnText={<>Connexion thérapeute</>}
                   navBarButton
                 />
               </Link>
-              <Link to="/loginPatient" className="hidden md:block">
+              <Link
+                to="/loginPatient"
+                className="hidden md:block"
+                onClick={() => {
+                  if (setIsRegisterPageRendered) {
+                    setIsRegisterPageRendered(false);
+                    if (setIsFirstFormValidated) {
+                      setIsFirstFormValidated(false);
+                    }
+                    if (setIsSecondFormValidated) {
+                      setIsSecondFormValidated(false);
+                    }
+                    if (setIsThirdFormValidated) {
+                      setIsThirdFormValidated(false);
+                    }
+                  }
+                }}
+              >
                 <CustomButton btnText={<>Connexion patient</>} navBarButton />
               </Link>
             </div>
