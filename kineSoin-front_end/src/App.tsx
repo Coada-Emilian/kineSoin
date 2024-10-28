@@ -19,7 +19,7 @@ import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics
 import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
 import Homepage from './components/pageComponents/PublicSection/Homepage';
-import PatientLoginPage from './components/pageComponents/PublicSection/PatientLoginPage';
+import LoginPage from './components/pageComponents/PublicSection/LoginPage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -100,7 +100,7 @@ function App() {
       <Route
         path="/loginPatient"
         element={
-          <PatientLoginPage
+          <LoginPage
             windowWidth={windowWidth}
             setPatientProfileToken={setPatientProfileToken}
           />
