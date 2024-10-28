@@ -6,12 +6,18 @@ interface MainProps {
   isHomePageMain?: boolean;
   isPatientLoginPageMain?: boolean;
   isTherapistLoginPageMain?: boolean;
+  setPatientProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+  setTherapistProfileToken?: React.Dispatch<
+    React.SetStateAction<string | null>
+  >;
 }
 
 export default function Main({
   isHomePageMain,
   isPatientLoginPageMain,
   isTherapistLoginPageMain,
+  setPatientProfileToken,
+  setTherapistProfileToken,
 }: MainProps) {
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
@@ -21,6 +27,8 @@ export default function Main({
             isHomePageFormSection={isHomePageMain ?? false}
             isPatientLoginPageFormSection={isPatientLoginPageMain ?? false}
             isTherapistLoginPageFormSection={isTherapistLoginPageMain ?? false}
+            setPatientProfileToken={setPatientProfileToken}
+            setTherapistProfileToken={setTherapistProfileToken}
           />
           <HeadBand />
           <DescriptionSection

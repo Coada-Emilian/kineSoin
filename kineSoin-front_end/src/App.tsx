@@ -95,6 +95,68 @@ function App() {
     };
   }, [adminProfileToken, isAdminAuthenticated]);
 
+  useEffect(() => {
+    const checkPatientAuthentication = () => {
+      const response = getPatientTokenAndDataFromLocalStorage();
+      const token = response?.token;
+      if (token && token === patientProfileToken) {
+        setIsPatientAuthenticated(true);
+        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
+      } else {
+        setIsPatientAuthenticated(false);
+        setPatientProfileToken(null);
+        delete axios.defaults.headers.common.Authorization;
+      }
+    };
+    checkPatientAuthentication();
+
+    const handlePatientStorageChange = (event: StorageEvent) => {
+      if (event.key === 'token') {
+        checkPatientAuthentication();
+      }
+    };
+
+    window.addEventListener('storage', handlePatientStorageChange);
+
+    const intervalId = setInterval(checkPatientAuthentication, 5000);
+
+    return () => {
+      window.removeEventListener('storage', handlePatientStorageChange);
+      clearInterval(intervalId);
+    };
+  }, [patientProfileToken, isPatientAuthenticated]);
+
+  useEffect(() => {
+    const checkTherapistAuthentication = () => {
+      const response = getTherapistTokenAndDataFromLocalStorage();
+      const token = response?.token;
+      if (token && token === therapistProfileToken) {
+        setIsTherapistAuthenticated(true);
+        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
+      } else {
+        setIsTherapistAuthenticated(false);
+        setTherapistProfileToken(null);
+        delete axios.defaults.headers.common.Authorization;
+      }
+    };
+    checkTherapistAuthentication();
+
+    const handleTherapistStorageChange = (event: StorageEvent) => {
+      if (event.key === 'token') {
+        checkTherapistAuthentication();
+      }
+    };
+
+    window.addEventListener('storage', handleTherapistStorageChange);
+
+    const intervalId = setInterval(checkTherapistAuthentication, 5000);
+
+    return () => {
+      window.removeEventListener('storage', handleTherapistStorageChange);
+      clearInterval(intervalId);
+    };
+  }, [therapistProfileToken, isTherapistAuthenticated]);
+
   return (
     <Routes>
       <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>

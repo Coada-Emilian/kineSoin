@@ -4,19 +4,88 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useState } from 'react';
 import StandardPasswordInput from '../StandardInputs/StandardPasswordInput';
 import StandardEmailInput from '../StandardInputs/StandardEmailInput';
+import {
+  handlePatientConnection,
+  handleTherapistConnection,
+} from '../../../../utils/apiUtils';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
   isPatientLoginPageFormSection?: boolean;
   isTherapistLoginPageFormSection?: boolean;
+  setPatientProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+  setTherapistProfileToken?: React.Dispatch<
+    React.SetStateAction<string | null>
+  >;
 }
 export default function FormSection({
   isHomePageFormSection,
   isPatientLoginPageFormSection,
   isTherapistLoginPageFormSection,
+  setPatientProfileToken,
+  setTherapistProfileToken,
 }: FormSectionProps) {
-  const [patientLoginPassword, setPatientLoginPassword] = useState('');
-  const [patientLoginEmail, setPatientLoginEmail] = useState('');
+  const [patientLoginPassword, setPatientLoginPassword] = useState<string>('');
+  const [patientLoginEmail, setPatientLoginEmail] = useState<string>('');
+  const [therapistLoginPassword, setTherapistLoginPassword] =
+    useState<string>('');
+  const [therapistLoginEmail, setTherapistLoginEmail] = useState<string>('');
+  const [patientErrorMessage, setPatientErrorMessage] = useState<string>('');
+  const [therapistErrorMessage, setTherapistErrorMessage] =
+    useState<string>('');
+
+  const checkPatientCredentials = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    setPatientErrorMessage('');
+
+    if (!patientLoginEmail || !patientLoginPassword) {
+      setPatientErrorMessage('Veuillez remplir tous les champs');
+      return;
+    }
+
+    const response = await handlePatientConnection(
+      patientLoginEmail,
+      patientLoginPassword
+    );
+
+    if (response) {
+      if (setPatientProfileToken) {
+        setPatientProfileToken(response);
+        console.log("great, you're connected");
+      } else {
+        setPatientErrorMessage('Email et/ou Mot de passe invalide');
+      }
+    } else {
+      setPatientErrorMessage('Email et/ou Mot de passe invalide');
+    }
+  };
+
+  const checkTherapistCredentials = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    setTherapistErrorMessage('');
+    if (!therapistLoginEmail || !therapistLoginPassword) {
+      setTherapistErrorMessage('Veuillez remplir tous les champs');
+      return;
+    }
+    const response = await handleTherapistConnection(
+      therapistLoginEmail,
+      therapistLoginPassword
+    );
+    if (response) {
+      if (setTherapistProfileToken) {
+        setTherapistProfileToken(response);
+        console.log("great, you're connected");
+      } else {
+        setTherapistErrorMessage('Email et/ou Mot de passe invalide');
+      }
+    } else {
+      setTherapistErrorMessage('Email et/ou Mot de passe invalide');
+    }
+  };
   return (
     <section
       className={`${isHomePageFormSection ? 'bg-homePage' : isPatientLoginPageFormSection ? 'bg-patientConnectionPage' : isTherapistLoginPageFormSection ? 'bg-therapistConnectionPage' : ''} bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-screen md:relative`}
@@ -42,24 +111,60 @@ export default function FormSection({
             </p>
           </>
         ) : isPatientLoginPageFormSection || isTherapistLoginPageFormSection ? (
-          <form action="#">
+          <form
+            action="#"
+            onSubmit={
+              isPatientLoginPageFormSection
+                ? checkPatientCredentials
+                : isTherapistLoginPageFormSection
+                  ? checkTherapistCredentials
+                  : undefined
+            }
+          >
             <h2 className="text-xl font-semibold text-center text-gray-700 mb-2">
               Connexion{' '}
               {isPatientLoginPageFormSection ? 'Patient' : 'Thérapeute'}
             </h2>
+
             <img src={mainLogo} alt="kinesoin" className="w-14 mx-auto mb-4" />
 
-            <StandardEmailInput
-              isPatientLoginPageEmailInput
-              patientLoginEmail={patientLoginEmail}
-              setPatientLoginEmail={setPatientLoginEmail}
-            />
+            {patientErrorMessage || therapistErrorMessage ? (
+              <p className="text-center text-red-600 font-medium mb-2">
+                {patientErrorMessage || therapistErrorMessage}
+              </p>
+            ) : null}
 
-            <StandardPasswordInput
-              isPatientLoginPagePasswordInput
-              patientLoginPassword={patientLoginPassword}
-              setPatientLoginPassword={setPatientLoginPassword}
-            />
+            {isPatientLoginPageFormSection && (
+              <>
+                <StandardEmailInput
+                  isPatientLoginPageEmailInput
+                  patientLoginEmail={patientLoginEmail}
+                  setPatientLoginEmail={setPatientLoginEmail}
+                />
+
+                <StandardPasswordInput
+                  isPatientLoginPagePasswordInput
+                  patientLoginPassword={patientLoginPassword}
+                  setPatientLoginPassword={setPatientLoginPassword}
+                />
+              </>
+            )}
+
+            {isTherapistLoginPageFormSection && (
+              <>
+                {' '}
+                <StandardEmailInput
+                  isTherapistLoginPageEmailInput
+                  therapistLoginEmail={therapistLoginEmail}
+                  setTherapistLoginEmail={setTherapistLoginEmail}
+                />
+                <StandardPasswordInput
+                  isTherapistLoginPagePasswordInput
+                  therapistLoginPassword={therapistLoginPassword}
+                  setTherapistLoginPassword={setTherapistLoginPassword}
+                />
+              </>
+            )}
 
             {isPatientLoginPageFormSection && (
               <>

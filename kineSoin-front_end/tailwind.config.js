@@ -16,7 +16,7 @@ module.exports = {
         secondaryBlue: '#007EA7',
         primaryRed: '#D85071',
         lightGrey: '#cdcdcd',
-        container: '#DAF1F1',
+        container: '#BFF3F3',
       },
       fontSize: {
         xxs: '0.636rem',

@@ -23,11 +23,12 @@ export default function LoginPage({
   return (
     <>
       <NavBar windowWidth={windowWidth} isPublicNavBar />
-      {isPatientLoginPage ? (
-        <Main isPatientLoginPageMain />
-      ) : isTherapistLoginPage ? (
-        <Main isTherapistLoginPageMain />
-      ) : null}
+      <Main
+        isPatientLoginPageMain={isPatientLoginPage ?? false}
+        setPatientProfileToken={setPatientProfileToken}
+        setTherapistProfileToken={setTherapistProfileToken}
+        isTherapistLoginPageMain={isTherapistLoginPage ?? false}
+      />
       <Footer isPublicFooter />
       {windowWidth < 768 && <MobileNav isPublicMobileNav />}
     </>
