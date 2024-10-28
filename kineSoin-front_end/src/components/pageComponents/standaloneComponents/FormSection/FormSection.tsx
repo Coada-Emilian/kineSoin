@@ -8,16 +8,18 @@ import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
   isPatientLoginPageFormSection?: boolean;
+  isTherapistLoginPageFormSection?: boolean;
 }
 export default function FormSection({
   isHomePageFormSection,
   isPatientLoginPageFormSection,
+  isTherapistLoginPageFormSection,
 }: FormSectionProps) {
   const [patientLoginPassword, setPatientLoginPassword] = useState('');
   const [patientLoginEmail, setPatientLoginEmail] = useState('');
   return (
     <section
-      className={`${isHomePageFormSection ? 'bg-homePage' : isPatientLoginPageFormSection ? 'bg-patientConnectionPage' : ''} bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-screen md:relative`}
+      className={`${isHomePageFormSection ? 'bg-homePage' : isPatientLoginPageFormSection ? 'bg-patientConnectionPage' : isTherapistLoginPageFormSection ? 'bg-therapistConnectionPage' : ''} bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-screen md:relative`}
     >
       {' '}
       <div
@@ -34,17 +36,16 @@ export default function FormSection({
               planifier vos séances en ligne.
             </p>
             <p>
-              Inscrivez-vous{' '}
-              <Link to="#" className="font-bold">
-                ici
+              <Link to="#" className="font-bold text-primaryRed">
+                Inscrivez-vous ici !
               </Link>{' '}
-              !
             </p>
           </>
-        ) : isPatientLoginPageFormSection ? (
+        ) : isPatientLoginPageFormSection || isTherapistLoginPageFormSection ? (
           <form action="#">
             <h2 className="text-xl font-semibold text-center text-gray-700 mb-2">
-              Connexion patient
+              Connexion{' '}
+              {isPatientLoginPageFormSection ? 'Patient' : 'Thérapeute'}
             </h2>
             <img src={mainLogo} alt="kinesoin" className="w-14 mx-auto mb-4" />
 
@@ -59,6 +60,19 @@ export default function FormSection({
               patientLoginPassword={patientLoginPassword}
               setPatientLoginPassword={setPatientLoginPassword}
             />
+
+            {isPatientLoginPageFormSection && (
+              <>
+                <div className="text-base mb-4 text-center mt-4">
+                  <p>
+                    Pas encore membre?{' '}
+                    <Link to="/" className="text-primaryRed">
+                      Inscrivez-vous ici
+                    </Link>
+                  </p>
+                </div>
+              </>
+            )}
             <div className="flex items-center">
               <CustomButton btnText="Connexion" btnType="submit" normalButton />
             </div>

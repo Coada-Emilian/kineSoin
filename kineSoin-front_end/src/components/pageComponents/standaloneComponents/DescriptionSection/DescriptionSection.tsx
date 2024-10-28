@@ -7,15 +7,19 @@ import HomePageArticle from './HomePageArticle';
 import ArticleRow from './ArticleRow';
 import firstPatientLoginPhoto from '/images/patientConnexionPage_right.webp';
 import secondPatientLoginPhoto from '/images/patientConnexionPage_left.webp';
+import firstTherapistLoginPhoto from '/images/therapistConnexionPage_right.webp';
+import secondTherapistLoginPhoto from '/images/therapistConnexionPage_left.webp';
 
 interface DescriptionSectionProps {
   isHomePageDescriptionSection?: boolean;
   isPatientLoginPageDescriptionSection?: boolean;
+  isTherapistLoginPageDescriptionSection?: boolean;
 }
 
 export default function DescriptionSection({
   isHomePageDescriptionSection,
   isPatientLoginPageDescriptionSection,
+  isTherapistLoginPageDescriptionSection,
 }: DescriptionSectionProps) {
   const homePageFirstArticles = [
     {
@@ -69,19 +73,68 @@ export default function DescriptionSection({
             ))}
           </div>
         </>
-      ) : isPatientLoginPageDescriptionSection ? (
+      ) : isPatientLoginPageDescriptionSection ||
+        isTherapistLoginPageDescriptionSection ? (
         <div className="flex flex-col">
           <ArticleRow
-            articleImage={firstPatientLoginPhoto}
-            articleAlt="Homme faisant des exercices"
-            articleParagraph="Nous sommes ravis de vous accueillir sur notre plateforme dédiée à la kinésithérapie. Ici, vous trouverez un espace conçu pour faciliter votre parcours de santé, vous permettant d’accéder à des soins de qualité et à des professionnels de santé qualifiés."
-            articleTitle="Bienvenue dans la communauté kineSoin !"
+            articleImage={
+              isPatientLoginPageDescriptionSection
+                ? firstPatientLoginPhoto
+                : isTherapistLoginPageDescriptionSection
+                  ? firstTherapistLoginPhoto
+                  : ''
+            }
+            articleAlt={
+              isPatientLoginPageDescriptionSection
+                ? 'Homme faisant des exercices'
+                : isTherapistLoginPageDescriptionSection
+                  ? 'Kinésithérapeute faisant du massage plantaire'
+                  : ''
+            }
+            articleParagraph={
+              isPatientLoginPageDescriptionSection
+                ? '"Nous sommes ravis de vous accueillir sur notre plateforme dédiée à la kinésithérapie. Ici, vous trouverez un espace conçu pour faciliter votre parcours de santé, vous permettant d’accéder à des soins de qualité et à des professionnels de santé qualifiés."'
+                : isTherapistLoginPageDescriptionSection
+                  ? "KineSoin est conçu pour les thérapeutes souhaitant élargir leur pratique et améliorer la communication avec leurs clients. Profitez d’une plateforme intuitive qui vous offre des ressources précieuses et un réseau de professionnels engagés. Ensemble, transformons des vies par le biais d'une thérapie bienveillante."
+                  : ''
+            }
+            articleTitle={
+              isPatientLoginPageDescriptionSection
+                ? 'Bienvenue dans la communauté kineSoin !'
+                : isTherapistLoginPageDescriptionSection
+                  ? 'Bienvenue sur KineSoin'
+                  : ''
+            }
           />
           <ArticleRow
-            articleImage={secondPatientLoginPhoto}
-            articleAlt="Homme faisant des exercices accompagnée d'une thérapeute"
-            articleParagraph="Notre objectif est de vous accompagner à chaque étape de votre rétablissement. Profitez de notre interface conviviale pour prendre rendez-vous, échanger avec vos praticiens et suivre vos progrès. Ensemble, nous veillons à ce que votre expérience soit optimale et agréable."
-            articleTitle="Votre bien-être, notre priorité"
+            articleImage={
+              isPatientLoginPageDescriptionSection
+                ? secondPatientLoginPhoto
+                : isTherapistLoginPageDescriptionSection
+                  ? secondTherapistLoginPhoto
+                  : ''
+            }
+            articleAlt={
+              isPatientLoginPageDescriptionSection
+                ? "Homme faisant des exercices accompagnée d'une thérapeute"
+                : isTherapistLoginPageDescriptionSection
+                  ? 'Portrait Kinésithérapeute'
+                  : ''
+            }
+            articleParagraph={
+              isPatientLoginPageDescriptionSection
+                ? 'Notre objectif est de vous accompagner à chaque étape de votre rétablissement. Profitez de notre interface conviviale pour prendre rendez-vous, échanger avec vos praticiens et suivre vos progrès. Ensemble, nous veillons à ce que votre expérience soit optimale et agréable.'
+                : isTherapistLoginPageDescriptionSection
+                  ? 'Grâce à KineSoin, découvrez des outils pour simplifier votre gestion de cabinet et enrichir vos interactions avec les clients. Notre plateforme facilite la prise de rendez-vous et le suivi des progrès, vous permettant de vous concentrer sur ce qui compte vraiment - le bien-être de vos patients. Rejoignez-nous pour créer un impact positif dans votre communauté.'
+                  : ''
+            }
+            articleTitle={
+              isPatientLoginPageDescriptionSection
+                ? 'Votre bien-être, notre priorité'
+                : isTherapistLoginPageDescriptionSection
+                  ? 'Optimisez votre pratique'
+                  : ''
+            }
             isReversed
           />
         </div>

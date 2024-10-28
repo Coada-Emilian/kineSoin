@@ -75,7 +75,7 @@ export default function NavBar({
 
           {isPublicNavBar && (
             <div className="flex gap-2">
-              <Link to="#" className="hidden md:block">
+              <Link to="/loginTherapist" className="hidden md:block">
                 <CustomButton
                   btnText={<>Connexion thérapeute</>}
                   navBarButton

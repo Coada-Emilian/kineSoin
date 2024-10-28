@@ -14,6 +14,7 @@ module.exports = {
         secondaryTeal: '#00E0D1',
         primaryBlue: '#003249',
         secondaryBlue: '#007EA7',
+        primaryRed: '#D85071',
         lightGrey: '#cdcdcd',
         container: '#DAF1F1',
       },
@@ -30,6 +31,8 @@ module.exports = {
         homePage: "url('/images/homepage_main_photo.webp')",
         patientConnectionPage:
           "url('/images/patientConnexionPage_mainAlt.webp')",
+        therapistConnectionPage:
+          "url('/images/therapistConnexionPage_main.webp')",
         firstForm: "url('/img/first-form.webp')",
         secondForm: "url('/img/second-form.webp')",
         thirdForm: "url('/img/senior-laugh.webp')",

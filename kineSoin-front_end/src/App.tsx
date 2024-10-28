@@ -97,10 +97,7 @@ function App() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Homepage windowWidth={windowWidth} />}
-      ></Route>
+      <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>
       <Route
         path="/loginPatient"
         element={
@@ -108,6 +105,16 @@ function App() {
             isPatientLoginPage
             windowWidth={windowWidth}
             setPatientProfileToken={setPatientProfileToken}
+          />
+        }
+      ></Route>
+      <Route
+        path="/loginTherapist"
+        element={
+          <LoginPage
+            isTherapistLoginPage
+            windowWidth={windowWidth}
+            setTherapistProfileToken={setTherapistProfileToken}
           />
         }
       ></Route>
