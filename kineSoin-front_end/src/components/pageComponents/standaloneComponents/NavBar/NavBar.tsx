@@ -81,7 +81,7 @@ export default function NavBar({
                   navBarButton
                 />
               </Link>
-              <Link to="#" className="hidden md:block">
+              <Link to="/loginPatient" className="hidden md:block">
                 <CustomButton btnText={<>Connexion patient</>} navBarButton />
               </Link>
             </div>

@@ -19,6 +19,7 @@ import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics
 import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
 import Homepage from './components/pageComponents/PublicSection/Homepage';
+import PatientLoginPage from './components/pageComponents/PublicSection/PatientLoginPage';
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -40,7 +41,7 @@ function App() {
   }, []);
 
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
-  const [isPatientAuthenticated, setIsPAtientAuthenticated] = useState(false);
+  const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
     useState(false);
   const [patientProfileToken, setPatientProfileToken] = useState<string | null>(
@@ -96,6 +97,15 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>
+      <Route
+        path="/loginPatient"
+        element={
+          <PatientLoginPage
+            windowWidth={windowWidth}
+            setPatientProfileToken={setPatientProfileToken}
+          />
+        }
+      ></Route>
       <Route
         path="/loginAdmin"
         element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}

@@ -1,19 +1,21 @@
 import Footer from '../standaloneComponents/Footer/Footer';
-import Main from '../standaloneComponents/Main/Main';
 import MobileNav from '../standaloneComponents/MobileNav/MobileNav';
 import NavBar from '../standaloneComponents/NavBar/NavBar';
 
-interface HomepageProps {
+interface PatientLoginPageProps {
   windowWidth: number;
+  setPatientProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export default function Homepage({ windowWidth }: HomepageProps) {
+export default function PatientLoginPage({
+  windowWidth,
+  setPatientProfileToken,
+}: PatientLoginPageProps) {
   return (
     <>
       <NavBar windowWidth={windowWidth} isPublicNavBar />
-      <Main />
       <Footer isPublicFooter />
-      
+      {windowWidth < 768 && <MobileNav isPublicMobileNav />}
     </>
   );
 }

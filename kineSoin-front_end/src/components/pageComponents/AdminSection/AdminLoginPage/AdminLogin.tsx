@@ -45,7 +45,6 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
       );
 
       setAdminProfileToken(response.data.token);
-
       navigate('/admin/therapists');
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 401) {
