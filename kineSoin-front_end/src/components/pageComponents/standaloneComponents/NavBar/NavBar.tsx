@@ -77,23 +77,12 @@ export default function NavBar({
             <div className="flex gap-2">
               <Link to="#" className="hidden md:block">
                 <CustomButton
-                  btnText={
-                    <>
-                      Connexion <br /> kinésithérapeute
-                    </>
-                  }
-                  normalButton
+                  btnText={<>Connexion thérapeute</>}
+                  navBarButton
                 />
               </Link>
               <Link to="#" className="hidden md:block">
-                <CustomButton
-                  btnText={
-                    <>
-                      Connexion <br /> patient
-                    </>
-                  }
-                  normalButton
-                />
+                <CustomButton btnText={<>Connexion patient</>} navBarButton />
               </Link>
             </div>
           )}

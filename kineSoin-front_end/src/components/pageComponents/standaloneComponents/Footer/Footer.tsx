@@ -57,9 +57,7 @@ export default function Footer({ isAdminFooter, isPublicFooter }: FooterProps) {
           </div>
 
           <div className="footer-copyright_container text-center mb-2">
-            <p>
-              <p>&copy; {currentYear} KineSoin. Tous droits réservés.</p>
-            </p>
+            <p>&copy; {currentYear} KineSoin. Tous droits réservés.</p>
           </div>
 
           <div className="footer-links_container flex justify-center w-full">

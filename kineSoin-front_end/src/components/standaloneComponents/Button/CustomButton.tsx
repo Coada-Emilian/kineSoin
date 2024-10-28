@@ -36,6 +36,7 @@ interface ButtonProps {
   inactiveButton?: boolean;
   pendingButton?: boolean;
   bannedButton?: boolean;
+  navBarButton?: boolean;
   onClick?: () => void;
   btnType?: 'button' | 'submit' | 'reset';
 }
@@ -51,13 +52,14 @@ export default function CustomButton({
   inactiveButton,
   pendingButton,
   bannedButton,
+  navBarButton,
   addButton,
   allButton,
   btnType,
   onClick,
 }: ButtonProps) {
   const getBtnBackground = () => {
-    if (normalButton) {
+    if (normalButton || navBarButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal';
     } else if (cancelButton) {
       return 'bg-gray-200 hover:bg-gray-300';
@@ -99,6 +101,8 @@ export default function CustomButton({
       return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-24 my-0 mx-0';
     } else if (addButton) {
       return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0';
+    } else if (navBarButton) {
+      return 'text-xxs md:text-xs lg:text-sm  px-2 py-2 max-w-36 lg:max-w-40 xl:max-w-44 my-0 mx-0';
     }
   };
 

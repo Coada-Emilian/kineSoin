@@ -3,6 +3,7 @@ import appointmentIcon from '/icons/appointment.png';
 import healthcareIcon from '/icons/healthcare.png';
 import priorityIcon from '/icons/priority.png';
 import therapistIcon from '/icons/therapist.png';
+import HomePageArticle from './HomePageArticle';
 
 export default function DescriptionSection() {
   const firstArticles = [
@@ -41,45 +42,17 @@ export default function DescriptionSection() {
   ];
 
   return (
-    <div className="bg-container py-12 flex flex-col px-2 rounded-tr-[75px] mb-4">
+    <div className="bg-container py-12 flex flex-col px-2 rounded-tr-[75px]">
       <div className="flex flex-wrap justify-around">
         {' '}
         {firstArticles.map((article, index) => (
-          <article key={index} className="flex flex-col gap-4 mb-6 w-28 ">
-            <img
-              src={article.imgSrc}
-              alt="graph"
-              className="w-12 object-cover mx-auto"
-            />
-            <div>
-              <h4 className="font-bold text-center text-xxs">
-                {article.title}
-              </h4>
-              <p className="text-gray-600 text-center text-xxxs mx-auto">
-                {article.description}
-              </p>
-            </div>
-          </article>
+          <HomePageArticle key={index} article={article} />
         ))}
       </div>
       <div className="flex flex-wrap justify-around">
         {' '}
         {secondArticles.map((article, index) => (
-          <article key={index} className="flex flex-col gap-4 mb-6 w-28 ">
-            <img
-              src={article.imgSrc}
-              alt="graph"
-              className="w-12 object-cover mx-auto"
-            />
-            <div>
-              <h4 className="font-bold text-center text-xxs">
-                {article.title}
-              </h4>
-              <p className="text-gray-600 text-center text-xxxs mx-auto">
-                {article.description}
-              </p>
-            </div>
-          </article>
+          <HomePageArticle key={index} article={article} />
         ))}
       </div>
     </div>

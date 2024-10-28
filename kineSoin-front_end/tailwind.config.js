@@ -17,6 +17,12 @@ module.exports = {
         lightGrey: '#cdcdcd',
         container: '#DAF1F1',
       },
+      fontSize: {
+        xxs: '0.636rem',
+        xxxs: '0.5rem',
+        xxxxs: '0.4rem',
+      },
+
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
       },
