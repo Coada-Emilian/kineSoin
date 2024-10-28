@@ -4,9 +4,20 @@ import healthcareIcon from '/icons/healthcare.png';
 import priorityIcon from '/icons/priority.png';
 import therapistIcon from '/icons/therapist.png';
 import HomePageArticle from './HomePageArticle';
+import ArticleRow from './ArticleRow';
+import firstPatientLoginPhoto from '/images/patientConnexionPage_right.webp';
+import secondPatientLoginPhoto from '/images/patientConnexionPage_left.webp';
 
-export default function DescriptionSection() {
-  const firstArticles = [
+interface DescriptionSectionProps {
+  isHomePageDescriptionSection?: boolean;
+  isPatientLoginPageDescriptionSection?: boolean;
+}
+
+export default function DescriptionSection({
+  isHomePageDescriptionSection,
+  isPatientLoginPageDescriptionSection,
+}: DescriptionSectionProps) {
+  const homePageFirstArticles = [
     {
       imgSrc: graphIcon,
       title: 'Un suivi adapté à vos besoins',
@@ -26,7 +37,7 @@ export default function DescriptionSection() {
         'Consultez vos dossiers, recevez des rappels et accédez à vos prescriptions en ligne, où que vous soyez.',
     },
   ];
-  const secondArticles = [
+  const homePageSecondArticles = [
     {
       imgSrc: priorityIcon,
       title: 'Votre santé, notre priorité',
@@ -43,18 +54,38 @@ export default function DescriptionSection() {
 
   return (
     <div className="bg-container py-12 flex flex-col px-2 rounded-tr-[75px]">
-      <div className="flex flex-wrap justify-around">
-        {' '}
-        {firstArticles.map((article, index) => (
-          <HomePageArticle key={index} article={article} />
-        ))}
-      </div>
-      <div className="flex flex-wrap justify-around">
-        {' '}
-        {secondArticles.map((article, index) => (
-          <HomePageArticle key={index} article={article} />
-        ))}
-      </div>
+      {isHomePageDescriptionSection ? (
+        <>
+          <div className="flex flex-wrap justify-around">
+            {' '}
+            {homePageFirstArticles.map((article, index) => (
+              <HomePageArticle key={index} article={article} />
+            ))}
+          </div>
+          <div className="flex flex-wrap justify-around">
+            {' '}
+            {homePageSecondArticles.map((article, index) => (
+              <HomePageArticle key={index} article={article} />
+            ))}
+          </div>
+        </>
+      ) : isPatientLoginPageDescriptionSection ? (
+        <div className="flex flex-col">
+          <ArticleRow
+            articleImage={firstPatientLoginPhoto}
+            articleAlt="Homme faisant des exercices"
+            articleParagraph="Nous sommes ravis de vous accueillir sur notre plateforme dédiée à la kinésithérapie. Ici, vous trouverez un espace conçu pour faciliter votre parcours de santé, vous permettant d’accéder à des soins de qualité et à des professionnels de santé qualifiés."
+            articleTitle="Bienvenue dans la communauté kineSoin !"
+          />
+          <ArticleRow
+            articleImage={secondPatientLoginPhoto}
+            articleAlt="Homme faisant des exercices accompagnée d'une thérapeute"
+            articleParagraph="Notre objectif est de vous accompagner à chaque étape de votre rétablissement. Profitez de notre interface conviviale pour prendre rendez-vous, échanger avec vos praticiens et suivre vos progrès. Ensemble, nous veillons à ce que votre expérience soit optimale et agréable."
+            articleTitle="Votre bien-être, notre priorité"
+            isReversed
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

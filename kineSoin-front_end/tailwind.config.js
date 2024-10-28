@@ -28,7 +28,8 @@ module.exports = {
       },
       backgroundImage: {
         homePage: "url('/images/homepage_main_photo.webp')",
-
+        patientConnectionPage:
+          "url('/images/patientConnexionPage_mainAlt.webp')",
         firstForm: "url('/img/first-form.webp')",
         secondForm: "url('/img/second-form.webp')",
         thirdForm: "url('/img/senior-laugh.webp')",
