@@ -4,7 +4,7 @@ export default function FormSection() {
   return (
     <section className="bg-homePage bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-screen md:relative">
       {' '}
-      <div className=" font-normal text-sm h-fit my-auto lg:text-base xl:text-xl w-10/12 md:w-1/3 text-primaryBlue bg-white p-6 rounded-3xl opacity-75 md:absolute md:top-32 md:left-16 lg:left-20 xl:top-16 italic">
+      <div className=" font-normal text-sm h-fit my-auto lg:text-base xl:text-xl w-10/12 md:w-1/3 text-primaryBlue bg-white p-6 rounded-3xl opacity-75 md:absolute md:top-32 md:left-16 lg:left-20 xl:top-16 2xl:top-24 italic">
         {' '}
         <p className="mb-2">Bienvenue sur kineSoin !</p>
         <p className="mb-2">

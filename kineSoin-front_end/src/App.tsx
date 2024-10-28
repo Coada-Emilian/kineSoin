@@ -28,6 +28,10 @@ function App() {
   };
 
   useEffect(() => {
+    console.log('windowWidth', windowWidth);
+  }, [windowWidth]);
+
+  useEffect(() => {
     window.addEventListener('resize', handleResize);
 
     return () => {
