@@ -217,7 +217,7 @@ export default function FormSection({
     >
       {' '}
       <div
-        className={`${!isHomePageFormSection ? 'opacity-90 max-w-80' : 'opacity-75 md:absolute md:top-32 md:left-16 lg:left-20 xl:top-16 2xl:top-24'} font-normal text-sm h-fit my-auto lg:text-base xl:text-xs w-10/12 md:w-2/3 text-primaryBlue bg-white p-6 rounded-3xl italic`}
+        className={`${!isHomePageFormSection ? 'opacity-90 max-w-80' : 'opacity-75 md:w-72 md:absolute md:top-32 md:left-16 lg:left-20 lg:w-96 xl:top-32 xl:w-1/3 xl:text-lg 2xl:top-52'} font-normal text-sm h-fit my-auto lg:text-base xl:text-xs w-10/12 md:w-2/3 text-primaryBlue bg-white p-6 rounded-3xl italic`}
       >
         {isHomePageFormSection ? (
           <>
