@@ -13,6 +13,7 @@ import StandardDateInput from '../StandardInputs/StandardDateInput';
 import StandardDropdownInput from '../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
 import StandardFileInput from '../StandardInputs/StandardFileInput';
+import axios from '../../../../axios.ts';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
@@ -285,15 +286,43 @@ export default function FormSection({
       const sentData = {
         email: formData.get('email'),
         password: formData.get('password'),
-        image: patientImage,
+        repeated_password: formData.get('confirm-password'),
+        photo: patientImage,
       };
       setSentPatientData({ ...sentPatientData, ...sentData });
       setIsSecondFormValidated(false);
       setIsThirdFormValidated(true);
+
+      // try {
+      //   await axios.post('/public/registerPatient', sentPatientData, {
+      //     headers: {
+      //       'Content-Type': 'multipart/form-data',
+      //     },
+      //   });
+      // } catch (error) {
+      //   console.error(error);
+      // }
     }
   };
-
   useEffect(() => {
+    const registerPatient = async () => {
+      console.log(sentPatientData);
+      if (isThirdFormValidated) {
+        try {
+          const response = await axios.post(
+            '/public/registerPatient',
+            sentPatientData,
+            {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            }
+          );
+          console.log(response);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    registerPatient();
     console.log(sentPatientData);
   }, [sentPatientData]);
 
@@ -345,6 +374,7 @@ export default function FormSection({
         ) : (
           <form
             action="#"
+            encType={isSecondFormValidated ? 'multipart/form-data' : undefined}
             onSubmit={
               isPatientLoginPageFormSection
                 ? checkPatientCredentials

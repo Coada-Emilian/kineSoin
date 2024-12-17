@@ -11,7 +11,7 @@ import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 const authentificationController = {
   registerPatient: async (req, res) => {
     const registerSchema = Joi.object({
-      therapist_id: Joi.number().required(),
+      therapist_id: Joi.number().optional(),
       name: Joi.string().max(50).required(),
       birth_name: Joi.string().max(50),
       surname: Joi.string().max(50).required(),
@@ -99,6 +99,7 @@ const authentificationController = {
         phone_number,
         email,
         password: hashedPassword,
+        status: 'pending',
         picture_url,
         picture_id,
       });

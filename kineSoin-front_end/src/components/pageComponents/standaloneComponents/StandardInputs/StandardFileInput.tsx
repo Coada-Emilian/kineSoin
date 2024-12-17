@@ -14,37 +14,40 @@ export default function StandardFileInput({
 }: StandardFileInputProps) {
   const [isPatientRegisterImageModalOpen, setIsPatientRegisterImageModalOpen] =
     useState<boolean>(false);
-
   const [fileName, setFileName] = useState<string>(
     'Aucun fichier sélectionné...'
   );
-
   const [isImageUploaded, setIsImageUploaded] = useState<boolean>(false);
 
   return (
     <div className="mb-4">
       <div className="flex gap-2 items-center mb-2">
         <label className="text-primaryBlue text-sm font-medium">
-          Chargez votre photo
+          {isPatientRegisterImageInput && 'Chargez votre photo'}
         </label>
-        {isImageUploaded && <img src={checkIcon} alt="" className="w-6" />}
+        {isPatientRegisterImageInput && isImageUploaded && (
+          <img src={checkIcon} alt="" className="w-6" />
+        )}
       </div>
 
       <div className="flex rounded-md shadow-sm border">
         <input
           type="text"
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic"
-          value={fileName}
+          value={isPatientRegisterImageInput ? fileName : ''}
           onChange={() => {}}
         />
 
         <button
           type="button"
-          onClick={() => setIsPatientRegisterImageModalOpen(true)}
+          onClick={() => {
+            isPatientRegisterImageInput &&
+              setIsPatientRegisterImageModalOpen(true);
+          }}
         >
           <img
             src={addIcon}
-            alt="Ajouter une photo"
+            alt={isPatientRegisterImageInput ? 'Ajouter une photo' : ''}
             className="h-6 my-auto px-2 w-auto opacity-90"
           />
         </button>
