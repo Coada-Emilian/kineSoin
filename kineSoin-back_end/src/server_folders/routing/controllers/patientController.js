@@ -562,7 +562,8 @@ const patientController = {
       status: foundPatient.status,
       picture_url: foundPatient.picture_url,
       prescriptions: newPrescriptions,
-      medic: foundPatient.prescriptions?.[0]?.medic || null, // Handle cases with no prescriptions
+      medic: foundPatient.prescriptions?.[0]?.medic || null,
+      email: foundPatient.email, // Handle cases with no prescriptions
     };
 
     return res.status(200).json(sentPatient);

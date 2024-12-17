@@ -20,6 +20,7 @@ import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
 import EditProfileName from '../generalComponents/common/EditProfileName';
 import EditProfileSurname from '../generalComponents/common/EditProfileSurname';
+import ProfileEmail from '../generalComponents/common/ProfileEmail';
 import ProfileId from '../generalComponents/common/ProfileId';
 import ProfileName from '../generalComponents/common/ProfileName';
 import ProfileStatus from '../generalComponents/common/ProfileStatus';
@@ -68,13 +69,16 @@ export default function GeneralSection({
           )}
         </div>
       ) : (
-        <ProfileName
-          therapist={therapist}
-          patient={patient}
-          affliction={affliction}
-          medic={medic}
-          insurance={insurance}
-        />
+        <>
+          <ProfileName
+            therapist={therapist}
+            patient={patient}
+            affliction={affliction}
+            medic={medic}
+            insurance={insurance}
+          />
+          {patient && <ProfileEmail patient={patient} />}
+        </>
       )}
     </section>
   );

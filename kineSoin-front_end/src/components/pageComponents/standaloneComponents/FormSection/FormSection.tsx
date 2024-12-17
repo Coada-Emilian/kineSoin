@@ -74,6 +74,8 @@ export default function FormSection({
 
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
+  const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
+    useState<boolean>(false);
   // Patient login function
   const checkPatientCredentials = async (
     e: React.FormEvent<HTMLFormElement>
@@ -297,7 +299,6 @@ export default function FormSection({
 
   useEffect(() => {
     const registerPatient = async () => {
-      console.log(sentPatientData);
       if (isThirdFormValidated) {
         try {
           const response = await axios.post(
@@ -307,14 +308,16 @@ export default function FormSection({
               headers: { 'Content-Type': 'multipart/form-data' },
             }
           );
-          console.log(response);
+          if (response.status === 201) {
+            console.log('Patient registered');
+            setIsGlobalFormSubmitted(true);
+          }
         } catch (error) {
           console.error(error);
         }
       }
     };
     registerPatient();
-    console.log(sentPatientData);
   }, [sentPatientData]);
 
   return (
@@ -388,7 +391,7 @@ export default function FormSection({
                 isFirstFormValidated ||
                 isSecondFormValidated) &&
                 'Inscription Patient'}
-              {isThirdFormValidated && "Confirmation d'inscription"}
+              {isGlobalFormSubmitted && "Confirmation d'inscription"}
             </h2>
 
             <img src={mainLogo} alt="kinesoin" className="w-14 mx-auto mb-4" />
@@ -492,15 +495,17 @@ export default function FormSection({
               </>
             )}
 
-            {isThirdFormValidated && (
+            {isGlobalFormSubmitted && (
               <div className="text-base">
                 <p className="mb-4 indent-4">
-                  Votre inscription a bien été enregistrée !
+                  {isGlobalFormSubmitted
+                    ? 'Votre inscription a bien été enregistrée !'
+                    : "Nous avons rencontré un problème lors de l'inscription. Veuillez réessayer ultérieurement."}
                 </p>
                 <p className="mb-4 indent-4">
-                  Merci de vous être inscrit sur KineSoin. Votre compte est en
-                  cours de validation et sera activé prochainement. Vous
-                  recevrez une confirmation dès son activation.
+                  {isGlobalFormSubmitted
+                    ? 'Merci de vous être inscrit sur KineSoin. Votre compte est en cours de validation et sera activé prochainement. Vous recevrez une confirmation dès son activation.'
+                    : "Une erreur est survenue lors de l'inscription. Cela peut être dû à une connexion instable ou à un problème temporaire sur nos serveurs. Veuillez vérifier votre connexion Internet et réessayer dans quelques minutes. Si le problème persiste, contactez notre support technique pour obtenir de l'aide."}
                 </p>
                 <p className="indent-4">
                   <Link
