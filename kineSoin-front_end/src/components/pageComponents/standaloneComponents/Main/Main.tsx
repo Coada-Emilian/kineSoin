@@ -19,6 +19,7 @@ interface MainProps {
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   isThirdFormValidated?: boolean;
   setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+ 
 }
 
 export default function Main({
@@ -35,6 +36,7 @@ export default function Main({
   setIsSecondFormValidated,
   isThirdFormValidated,
   setIsThirdFormValidated,
+
 }: MainProps) {
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
@@ -54,6 +56,7 @@ export default function Main({
             setIsFirstFormValidated={setIsFirstFormValidated ?? (() => {})}
             setIsSecondFormValidated={setIsSecondFormValidated ?? (() => {})}
             setIsThirdFormValidated={setIsThirdFormValidated ?? (() => {})}
+   
           />
 
           <HeadBand />

@@ -12,6 +12,7 @@ import StandardTextInput from '../StandardInputs/StandardTextInput';
 import StandardDateInput from '../StandardInputs/StandardDateInput';
 import StandardDropdownInput from '../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
+import StandardFileInput from '../StandardInputs/StandardFileInput';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
@@ -63,6 +64,14 @@ export default function FormSection({
   const [registeredPatientGender, setRegisteredPatientGender] = useState('');
   const [registeredPatientBirthDate, setRegisteredPatientBirthDate] =
     useState<string>();
+
+  const [patientRegisterEmail, setPatientRegisterEmail] = useState<string>('');
+  const [patientRegisterPassword, setPatientRegisterPassword] =
+    useState<string>('');
+  const [patientRegisterConfirmPassword, setPatientRegisterConfirmPassword] =
+    useState<string>('');
+
+  const [patientImage, setPatientImage] = useState<File | null>(null);
 
   // Patient login function
   const checkPatientCredentials = async (
@@ -144,7 +153,8 @@ export default function FormSection({
     if (
       !formData.get('name') ||
       !formData.get('birth_name') ||
-      !formData.get('surname')
+      !formData.get('surname') ||
+      !formData.get('birth-date')
     ) {
       setPatientErrorMessage('Veuillez remplir tous les champs');
       return;
@@ -156,13 +166,18 @@ export default function FormSection({
     ) {
       setPatientErrorMessage('Veuillez entrer une date valide');
       return;
+    } // Check if the patient gender is empty
+    else if (registeredPatientGender === '') {
+      setPatientErrorMessage('Veuillez sélectionner votre genre');
     }
-    // Check if the patient is under 18 years old
+    // Check if the patient is under 12 years old
     else {
       const age =
         currentYear - Number(registeredPatientBirthDate?.split('-')[0]);
-      if (age < 18) {
-        setPatientErrorMessage('Vous devez être majeur pour vous inscrire');
+      if (age < 12) {
+        setPatientErrorMessage(
+          'Vous devez avoir au moins 12 ans pour vous inscrire'
+        );
         return;
       }
     }
@@ -173,6 +188,7 @@ export default function FormSection({
       birth_name: formData.get('birth_name'),
       surname: formData.get('surname'),
       birth_date: registeredPatientBirthDate,
+      gender: registeredPatientGender,
     };
 
     // Set the patient error message to an empty string
@@ -205,10 +221,6 @@ export default function FormSection({
     ) {
       setPatientErrorMessage('Veuillez remplir tous les champs');
     }
-    // Check if the patient gender is empty
-    else if (registeredPatientGender === '') {
-      setPatientErrorMessage('Veuillez sélectionner votre genre');
-    }
 
     // Create an object with the form data
     const sentData = {
@@ -217,7 +229,6 @@ export default function FormSection({
       postal_code: formData.get('postal_code'),
       city: formData.get('city'),
       phone_number: formData.get('phone_number'),
-      gender: registeredPatientGender,
     };
 
     // Set the patient error message to an empty string
@@ -227,6 +238,59 @@ export default function FormSection({
     // Set the second form as validated and the third form as not validated
     setIsFirstFormValidated(false);
     setIsSecondFormValidated(true);
+  };
+
+  const handleThirdPatientRegisterForm = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    setPatientErrorMessage('');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    if (
+      !patientImage ||
+      !formData.get('email') ||
+      !formData.get('password') ||
+      !formData.get('confirm-password')
+    ) {
+      setPatientErrorMessage('Veuillez remplir tous les champs');
+      return;
+    } else if (formData.get('password') !== formData.get('confirm-password')) {
+      setPatientErrorMessage('Les mots de passe ne correspondent pas');
+      return;
+    } else if ((formData.get('password') as string).length < 12) {
+      setPatientErrorMessage(
+        'Le mot de passe doit contenir au moins 12 caractères'
+      );
+      return;
+    } else if (
+      !/\d/.test(formData.get('password') as string) ||
+      !/[a-z]/.test(formData.get('password') as string) ||
+      !/[A-Z]/.test(formData.get('password') as string)
+    ) {
+      setPatientErrorMessage(
+        'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre'
+      );
+      return;
+    } else if (
+      !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(
+        formData.get('email') as string
+      )
+    ) {
+      setPatientErrorMessage('Veuillez entrer une adresse email valide');
+      return;
+    } else {
+      const sentData = {
+        email: formData.get('email'),
+        password: formData.get('password'),
+        image: patientImage,
+      };
+      setSentPatientData({ ...sentPatientData, ...sentData });
+      setIsSecondFormValidated(false);
+      setIsThirdFormValidated(true);
+    }
   };
 
   useEffect(() => {
@@ -290,7 +354,9 @@ export default function FormSection({
                     ? handleFirstPatientRegisterForm
                     : isFirstFormValidated
                       ? handleSecondPatientRegisterForm
-                      : undefined
+                      : isSecondFormValidated
+                        ? handleThirdPatientRegisterForm
+                        : (e) => e.preventDefault()
             }
           >
             <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
@@ -348,19 +414,19 @@ export default function FormSection({
                 <StandardTextInput isBirthNameInput />
                 <StandardTextInput isSurnameInput />
                 <StandardDateInput
+                  isPatientRegisterBirthdateInput
                   setRegisteredPatientBirthDate={setRegisteredPatientBirthDate}
+                />
+                <StandardDropdownInput
+                  isGenderDropdownInput
+                  registeredPatientGender={registeredPatientGender}
+                  setRegisteredPatientGender={setRegisteredPatientGender}
                 />
               </>
             )}
 
             {isFirstFormValidated && (
               <>
-                <StandardDropdownInput
-                  isGenderDropdownInput
-                  registeredPatientGender={registeredPatientGender}
-                  setRegisteredPatientGender={setRegisteredPatientGender}
-                />
-
                 <div className="flex gap-2 items-center justify-between">
                   <StandardTextInput isStreetNumberInput />
                   <StandardTextInput isStreetNameInput />
@@ -376,7 +442,33 @@ export default function FormSection({
               </>
             )}
 
-            {isSecondFormValidated && <StandardTextInput />}
+            {isSecondFormValidated && (
+              <>
+                <StandardFileInput
+                  isPatientRegisterImageInput
+                  setPatientImage={setPatientImage}
+                />
+                <StandardEmailInput
+                  isPatientRegisterEmailInput
+                  patientRegisterEmail={patientRegisterEmail}
+                  setPatientRegisterEmail={setPatientRegisterEmail}
+                />
+                <StandardPasswordInput
+                  isPatientRegisterPasswordInput
+                  patientRegisterPassword={patientRegisterPassword}
+                  setPatientRegisterPassword={setPatientRegisterPassword}
+                />
+                <StandardPasswordInput
+                  isPatientRegisterConfirmPasswordInput
+                  patientRegisterConfirmPassword={
+                    patientRegisterConfirmPassword
+                  }
+                  setPatientRegisterConfirmPassword={
+                    setPatientRegisterConfirmPassword
+                  }
+                />
+              </>
+            )}
 
             {isPatientLoginPageFormSection && (
               <>
@@ -396,33 +488,42 @@ export default function FormSection({
             )}
             <div className="flex items-center">
               <CustomButton
-                btnText={`${isRegisterPageRendered || isFirstFormValidated ? 'Valider' : 'Connexion'}`}
+                btnText={`${isRegisterPageRendered || isFirstFormValidated ? 'Valider' : isSecondFormValidated ? 'Inscription' : 'Connexion'}`}
                 btnType="submit"
                 normalButton
               />
             </div>
-            {isRegisterPageRendered ||
-              (isFirstFormValidated && (
-                <>
-                  <div className="text-xs mb-4 text-center mt-4">
-                    <p>
-                      Déjà membre?{' '}
-                      <Link
-                        to="/loginPatient"
-                        className="text-primaryRed"
-                        onClick={() => setIsRegisterPageRendered(false)}
-                      >
-                        Connectez-vous ici
-                      </Link>
-                    </p>
-                  </div>
-                  <div className="text-sm mb-4 text-center mt-4">
-                    {isRegisterPageRendered
-                      ? 'Etape 1/3: Informations personnelles'
-                      : 'Etape 2/3: Informations de contact'}
-                  </div>
-                </>
-              ))}
+            {(isRegisterPageRendered ||
+              isFirstFormValidated ||
+              isSecondFormValidated) && (
+              <>
+                <div className="text-xs mb-4 text-center mt-4">
+                  <p>
+                    Déjà membre?{' '}
+                    <Link
+                      to="/loginPatient"
+                      className="text-primaryRed"
+                      onClick={() => {
+                        setIsRegisterPageRendered(false),
+                          setIsFirstFormValidated(false),
+                          setIsSecondFormValidated(false);
+                      }}
+                    >
+                      Connectez-vous ici
+                    </Link>
+                  </p>
+                </div>
+                <div className="text-sm mb-4 text-center mt-4">
+                  {isRegisterPageRendered
+                    ? 'Etape 1/3: Informations personnelles'
+                    : isFirstFormValidated
+                      ? 'Etape 2/3: Informations de contact'
+                      : isSecondFormValidated
+                        ? 'Etape 3/3: Informations de compte'
+                        : ''}
+                </div>
+              </>
+            )}
           </form>
         )}
       </div>
