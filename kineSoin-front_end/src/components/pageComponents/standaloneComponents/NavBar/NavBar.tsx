@@ -24,8 +24,9 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 interface NavBarProps {
   windowWidth: number;
   isAdminNavBar?: boolean;
-  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdminAuthenticated?: boolean;
   isPublicNavBar?: boolean;
+  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,12 +37,14 @@ export default function NavBar({
   windowWidth,
   isAdminNavBar,
   setIsAdminAuthenticated,
+  isAdminAuthenticated,
   isPublicNavBar,
   setIsRegisterPageRendered,
   setIsFirstFormValidated,
   setIsSecondFormValidated,
   setIsThirdFormValidated,
 }: NavBarProps) {
+  // Function to handle the admin logout
   const handleAdminLogout = () => {
     removeAdminTokenFromLocalStorage();
     if (setIsAdminAuthenticated) {
@@ -51,9 +54,9 @@ export default function NavBar({
   };
 
   return (
-    <header className="bg-white bg-opacity-90 md:sticky top-0 w-full py-4 z-10">
+    <header className="bg-white bg-opacity-90 sticky top-0 w-full py-1 z-10">
       <nav
-        className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-3 `}
+        className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}
       >
         <Link
           to="/"
@@ -81,6 +84,7 @@ export default function NavBar({
 
         <div className={`${isPublicNavBar && 'hidden md:block'}`}>
           {isAdminNavBar &&
+            isAdminAuthenticated &&
             (windowWidth < 768 ? (
               <Link to="#" onClick={handleAdminLogout}>
                 <img
@@ -122,6 +126,7 @@ export default function NavBar({
                   navBarButton
                 />
               </Link>
+              
               <Link
                 to="/loginPatient"
                 className="hidden md:block"

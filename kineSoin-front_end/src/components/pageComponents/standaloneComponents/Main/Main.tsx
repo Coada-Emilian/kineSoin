@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import DescriptionSection from '../DescriptionSection/DescriptionSection';
 import FormSection from '../FormSection/FormSection';
 import HeadBand from '../HeadBand/HeadBand';
@@ -14,12 +13,12 @@ interface MainProps {
   isPatientRegisterPageMain?: boolean;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   isRegisterPageRendered?: boolean;
-  isFirstFormValidated: boolean;
-  setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  isSecondFormValidated: boolean;
-  setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  isThirdFormValidated: boolean;
-  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  isFirstFormValidated?: boolean;
+  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  isSecondFormValidated?: boolean;
+  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  isThirdFormValidated?: boolean;
+  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Main({
@@ -28,7 +27,6 @@ export default function Main({
   isTherapistLoginPageMain,
   setPatientProfileToken,
   setTherapistProfileToken,
-  isPatientRegisterPageMain,
   setIsRegisterPageRendered,
   isRegisterPageRendered,
   isFirstFormValidated,
@@ -49,15 +47,17 @@ export default function Main({
             setPatientProfileToken={setPatientProfileToken}
             setTherapistProfileToken={setTherapistProfileToken}
             isRegisterPageRendered={isRegisterPageRendered ?? false}
-            isFirstFormValidated={isFirstFormValidated}
-            isSecondFormValidated={isSecondFormValidated}
-            isThirdFormValidated={isThirdFormValidated}
+            isFirstFormValidated={isFirstFormValidated ?? false}
+            isSecondFormValidated={isSecondFormValidated ?? false}
+            isThirdFormValidated={isThirdFormValidated ?? false}
             setIsRegisterPageRendered={setIsRegisterPageRendered ?? (() => {})}
-            setIsFirstFormValidated={setIsFirstFormValidated}
-            setIsSecondFormValidated={setIsSecondFormValidated}
-            setIsThirdFormValidated={setIsThirdFormValidated}
+            setIsFirstFormValidated={setIsFirstFormValidated ?? (() => {})}
+            setIsSecondFormValidated={setIsSecondFormValidated ?? (() => {})}
+            setIsThirdFormValidated={setIsThirdFormValidated ?? (() => {})}
           />
+
           <HeadBand />
+
           <DescriptionSection
             isHomePageDescriptionSection={isHomePageMain ?? false}
             isPatientLoginPageDescriptionSection={

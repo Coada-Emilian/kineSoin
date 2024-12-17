@@ -22,16 +22,15 @@ import Homepage from './components/pageComponents/PublicSection/Homepage';
 import LoginPage from './components/pageComponents/PublicSection/LoginPage';
 
 function App() {
+  // Use state to keep track of the window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  // Make sure the windowWidth state always has the current window width
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
   };
 
-  useEffect(() => {
-    console.log('windowWidth', windowWidth);
-  }, [windowWidth]);
-
+  // Listen for window resize events
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 
@@ -40,22 +39,27 @@ function App() {
     };
   }, []);
 
+  // Authentication
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
     useState(false);
+
+  // Tokens
   const [patientProfileToken, setPatientProfileToken] = useState<string | null>(
     () => {
       const response = getPatientTokenAndDataFromLocalStorage();
       return response ? response.token : null;
     }
   );
+
   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
     () => {
       const response = getAdminTokenAndDataFromLocalStorage();
       return response ? response.token : null;
     }
   );
+
   const [therapistProfileToken, setTherapistProfileToken] = useState<
     string | null
   >(() => {
@@ -63,7 +67,9 @@ function App() {
     return response ? response.token : null;
   });
 
+  // Check if the admin is authenticated
   useEffect(() => {
+    // Check if the admin is authenticated
     const checkAdminAuthentication = () => {
       const response = getAdminTokenAndDataFromLocalStorage();
       const token = response?.token;
@@ -78,23 +84,29 @@ function App() {
     };
     checkAdminAuthentication();
 
+    // Listen for changes in the local storage
     const handleAdminStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
         checkAdminAuthentication();
       }
     };
 
+    // Add event listener for storage change
     window.addEventListener('storage', handleAdminStorageChange);
 
+    // Check every 5 seconds if the admin is authenticated
     const intervalId = setInterval(checkAdminAuthentication, 5000);
 
+    // Cleanup
     return () => {
       window.removeEventListener('storage', handleAdminStorageChange);
       clearInterval(intervalId);
     };
   }, [adminProfileToken, isAdminAuthenticated]);
 
+  // Check if the patient is authenticated
   useEffect(() => {
+    // Check if the patient is authenticated
     const checkPatientAuthentication = () => {
       const response = getPatientTokenAndDataFromLocalStorage();
       const token = response?.token;
@@ -109,16 +121,20 @@ function App() {
     };
     checkPatientAuthentication();
 
+    // Listen for changes in the local storage
     const handlePatientStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
         checkPatientAuthentication();
       }
     };
 
+    // Add event listener for storage change
     window.addEventListener('storage', handlePatientStorageChange);
 
+    // Check every 5 seconds if the patient is authenticated
     const intervalId = setInterval(checkPatientAuthentication, 5000);
 
+    // Cleanup
     return () => {
       window.removeEventListener('storage', handlePatientStorageChange);
       clearInterval(intervalId);
@@ -126,6 +142,7 @@ function App() {
   }, [patientProfileToken, isPatientAuthenticated]);
 
   useEffect(() => {
+    // Check if the therapist is authenticated
     const checkTherapistAuthentication = () => {
       const response = getTherapistTokenAndDataFromLocalStorage();
       const token = response?.token;
@@ -140,16 +157,20 @@ function App() {
     };
     checkTherapistAuthentication();
 
+    // Listen for changes in the local storage
     const handleTherapistStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
         checkTherapistAuthentication();
       }
     };
 
+    // Add event listener for storage change
     window.addEventListener('storage', handleTherapistStorageChange);
 
+    // Check every 5 seconds if the therapist is authenticated
     const intervalId = setInterval(checkTherapistAuthentication, 5000);
 
+    // Cleanup
     return () => {
       window.removeEventListener('storage', handleTherapistStorageChange);
       clearInterval(intervalId);
@@ -158,7 +179,9 @@ function App() {
 
   return (
     <Routes>
+
       <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>
+
       <Route
         path="/loginPatient"
         element={
@@ -169,6 +192,7 @@ function App() {
           />
         }
       ></Route>
+
       <Route
         path="/loginTherapist"
         element={
@@ -179,6 +203,7 @@ function App() {
           />
         }
       ></Route>
+
       <Route
         path="/loginAdmin"
         element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
@@ -188,11 +213,12 @@ function App() {
         element={<LoginPage isPatientRegisterPage windowWidth={windowWidth} />}
       ></Route>
 
-      {isAdminAuthenticated && (
+      {isAdminAuthenticated ? (
         <Route
           path="/admin"
           element={
             <AdminLayout
+              isAdminAuthenticated={isAdminAuthenticated}
               setIsAdminAuthenticated={setIsAdminAuthenticated}
               windowWidth={windowWidth}
             />
@@ -240,21 +266,37 @@ function App() {
           />
           <Route path="*" element={<ErrorPage />} />
         </Route>
+      ) : (
+        <Route
+          path="/admin"
+          element={
+            <AdminLayout
+              isAdminAuthenticated={isAdminAuthenticated}
+              setIsAdminAuthenticated={setIsAdminAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        >
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
       )}
     </Routes>
   );
 }
 
 function AdminLayout({
+  isAdminAuthenticated,
   setIsAdminAuthenticated,
   windowWidth,
 }: {
+  isAdminAuthenticated: boolean;
   setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   windowWidth: number;
 }) {
   return (
     <>
       <NavBar
+        isAdminAuthenticated={isAdminAuthenticated}
         setIsAdminAuthenticated={setIsAdminAuthenticated}
         windowWidth={windowWidth}
         isAdminNavBar

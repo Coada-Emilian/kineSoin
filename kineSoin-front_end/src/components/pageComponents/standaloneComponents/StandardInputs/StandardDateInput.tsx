@@ -11,7 +11,7 @@ export default function StandardDateInput({
     <div className="mb-4">
       <label
         htmlFor="patient-register-birth_date_input"
-        className="text-gray-600 text-sm font-medium"
+        className="text-primaryBlue text-sm font-medium"
       >
         Date de naissance
       </label>
@@ -20,7 +20,7 @@ export default function StandardDateInput({
         type="date"
         name="birth-date"
         id="patient-register-birth_date_input"
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
         onChange={(e) => {
           setRegisteredPatientBirthDate &&
             setRegisteredPatientBirthDate(e.target.value);

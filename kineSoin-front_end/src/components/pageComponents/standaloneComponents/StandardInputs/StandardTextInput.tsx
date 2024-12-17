@@ -9,7 +9,6 @@ interface StandardTextInputProps {
   isStreetNameInput?: boolean;
   isPostalCodeInput?: boolean;
   isCityInput?: boolean;
-  isTelephoneInput?: boolean;
   patientRegisterStreetNumber?: string;
   patientRegisterStreetName?: string;
   patientRegisterPostalCode?: string;
@@ -25,7 +24,6 @@ export default function StandardTextInput({
   isStreetNameInput,
   isPostalCodeInput,
   isCityInput,
-  isTelephoneInput,
 }: StandardTextInputProps) {
   return (
     <div
@@ -47,11 +45,9 @@ export default function StandardTextInput({
                       ? 'patient-register-postal_code_input'
                       : isCityInput
                         ? 'patient-register-city_input'
-                        : isTelephoneInput
-                          ? 'patient-register-telephone_input'
-                          : ''
+                        : ''
         }`}
-        className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-gray-600 font-medium`}
+        className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
         {isNameInput
           ? 'Nom'
@@ -67,9 +63,7 @@ export default function StandardTextInput({
                     ? 'Code postal'
                     : isCityInput
                       ? 'Ville'
-                      : isTelephoneInput
-                        ? 'Téléphone'
-                        : ''}
+                      : ''}
       </label>
 
       <input
@@ -89,9 +83,7 @@ export default function StandardTextInput({
                       ? 'postal_code'
                       : isCityInput
                         ? 'city'
-                        : isTelephoneInput
-                          ? 'phone_number'
-                          : ''
+                        : ''
         }`}
         id={`${
           isNameInput
@@ -108,11 +100,9 @@ export default function StandardTextInput({
                       ? 'patient-register-postal_code_input'
                       : isCityInput
                         ? 'patient-register-city_input'
-                        : isTelephoneInput
-                          ? 'patient-register-telephone_input'
-                          : ''
+                        : ''
         }`}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder={`${
           isNameInput
             ? 'Entrez votre nom'
@@ -128,9 +118,7 @@ export default function StandardTextInput({
                       ? 'Code postal'
                       : isCityInput
                         ? 'Ville'
-                        : isTelephoneInput
-                          ? 'Numéro de téléphone'
-                          : ''
+                        : ''
         }`}
         required={!isStreetNumberInput}
       />

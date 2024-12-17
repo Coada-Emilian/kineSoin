@@ -22,6 +22,7 @@ const corsOptions = {
   origin: process.env.ALLOWED_DOMAINS,
   optionsSuccessStatus: 200,
 };
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
