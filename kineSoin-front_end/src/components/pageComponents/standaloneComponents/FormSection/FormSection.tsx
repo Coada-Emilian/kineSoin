@@ -292,18 +292,9 @@ export default function FormSection({
       setSentPatientData({ ...sentPatientData, ...sentData });
       setIsSecondFormValidated(false);
       setIsThirdFormValidated(true);
-
-      // try {
-      //   await axios.post('/public/registerPatient', sentPatientData, {
-      //     headers: {
-      //       'Content-Type': 'multipart/form-data',
-      //     },
-      //   });
-      // } catch (error) {
-      //   console.error(error);
-      // }
     }
   };
+
   useEffect(() => {
     const registerPatient = async () => {
       console.log(sentPatientData);
@@ -397,6 +388,7 @@ export default function FormSection({
                 isFirstFormValidated ||
                 isSecondFormValidated) &&
                 'Inscription Patient'}
+              {isThirdFormValidated && "Confirmation d'inscription"}
             </h2>
 
             <img src={mainLogo} alt="kinesoin" className="w-14 mx-auto mb-4" />
@@ -500,6 +492,27 @@ export default function FormSection({
               </>
             )}
 
+            {isThirdFormValidated && (
+              <div className="text-base">
+                <p className="mb-4 indent-4">
+                  Votre inscription a bien été enregistrée !
+                </p>
+                <p className="mb-4 indent-4">
+                  Merci de vous être inscrit sur KineSoin. Votre compte est en
+                  cours de validation et sera activé prochainement. Vous
+                  recevrez une confirmation dès son activation.
+                </p>
+                <p className="indent-4">
+                  <Link
+                    to="/registerPatient"
+                    className="font-bold text-primaryRed"
+                  >
+                    Retour à l'accueil
+                  </Link>{' '}
+                </p>
+              </div>
+            )}
+
             {isPatientLoginPageFormSection && (
               <>
                 <div className="text-xs mb-4 text-center mt-4">
@@ -516,13 +529,16 @@ export default function FormSection({
                 </div>
               </>
             )}
-            <div className="flex items-center">
-              <CustomButton
-                btnText={`${isRegisterPageRendered || isFirstFormValidated ? 'Valider' : isSecondFormValidated ? 'Inscription' : 'Connexion'}`}
-                btnType="submit"
-                normalButton
-              />
-            </div>
+            {!isThirdFormValidated && (
+              <div className="flex items-center">
+                <CustomButton
+                  btnText={`${isRegisterPageRendered || isFirstFormValidated ? 'Valider' : isSecondFormValidated ? 'Inscription' : 'Connexion'}`}
+                  btnType="submit"
+                  normalButton
+                />
+              </div>
+            )}
+
             {(isRegisterPageRendered ||
               isFirstFormValidated ||
               isSecondFormValidated) && (
