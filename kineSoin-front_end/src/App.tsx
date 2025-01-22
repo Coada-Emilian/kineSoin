@@ -179,7 +179,6 @@ function App() {
 
   return (
     <Routes>
-
       <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>
 
       <Route
@@ -208,6 +207,7 @@ function App() {
         path="/loginAdmin"
         element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
       />
+
       <Route
         path="/registerPatient"
         element={<LoginPage isPatientRegisterPage windowWidth={windowWidth} />}
@@ -277,7 +277,6 @@ function App() {
             />
           }
         >
-          <Route path="*" element={<ErrorPage />} />
         </Route>
       )}
     </Routes>

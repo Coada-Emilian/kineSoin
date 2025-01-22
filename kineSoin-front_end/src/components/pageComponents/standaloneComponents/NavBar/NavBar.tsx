@@ -126,7 +126,7 @@ export default function NavBar({
                   navBarButton
                 />
               </Link>
-              
+
               <Link
                 to="/loginPatient"
                 className="hidden md:block"

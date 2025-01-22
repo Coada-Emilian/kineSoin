@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import DescriptionSection from '../DescriptionSection/DescriptionSection';
 import FormSection from '../FormSection/FormSection';
 import HeadBand from '../HeadBand/HeadBand';
@@ -6,37 +7,35 @@ interface MainProps {
   isHomePageMain?: boolean;
   isPatientLoginPageMain?: boolean;
   isTherapistLoginPageMain?: boolean;
+  isPatientRegisterPageMain?: boolean;
+  isRegisterPageRendered?: boolean;
+  isFirstFormValidated?: boolean;
+  isSecondFormValidated?: boolean;
+  isThirdFormValidated?: boolean;
   setPatientProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
   setTherapistProfileToken?: React.Dispatch<
     React.SetStateAction<string | null>
   >;
-  isPatientRegisterPageMain?: boolean;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
-  isRegisterPageRendered?: boolean;
-  isFirstFormValidated?: boolean;
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-  isSecondFormValidated?: boolean;
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-  isThirdFormValidated?: boolean;
   setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
- 
 }
 
 export default function Main({
   isHomePageMain,
   isPatientLoginPageMain,
   isTherapistLoginPageMain,
+  isRegisterPageRendered,
+  isFirstFormValidated,
+  isSecondFormValidated,
+  isThirdFormValidated,
   setPatientProfileToken,
   setTherapistProfileToken,
   setIsRegisterPageRendered,
-  isRegisterPageRendered,
-  isFirstFormValidated,
   setIsFirstFormValidated,
-  isSecondFormValidated,
   setIsSecondFormValidated,
-  isThirdFormValidated,
   setIsThirdFormValidated,
-
 }: MainProps) {
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
@@ -56,7 +55,6 @@ export default function Main({
             setIsFirstFormValidated={setIsFirstFormValidated ?? (() => {})}
             setIsSecondFormValidated={setIsSecondFormValidated ?? (() => {})}
             setIsThirdFormValidated={setIsThirdFormValidated ?? (() => {})}
-   
           />
 
           <HeadBand />
@@ -68,6 +66,18 @@ export default function Main({
             }
             isTherapistLoginPageDescriptionSection={
               isTherapistLoginPageMain ?? false
+            }
+            isPatientRegisterFirstFormPageDescriptionSection={
+              isRegisterPageRendered ?? false
+            }
+            isPatientRegisterSecondFormPageDescriptionSection={
+              isFirstFormValidated ?? false
+            }
+            isPatientRegisterThirdFormPageDescriptionSection={
+              isSecondFormValidated ?? false
+            }
+            isPatientConfirmationPageDescriptionSection={
+              isThirdFormValidated ?? false
             }
           />
         </>
