@@ -14,11 +14,11 @@
  */
 
 import { Link } from 'react-router-dom';
+import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
 import LogoutIcon from '/icons/logout.png';
 import Button from '../../../standaloneComponents/Button/CustomButton';
-import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 
 interface NavBarProps {
@@ -36,9 +36,9 @@ interface NavBarProps {
 export default function NavBar({
   windowWidth,
   isAdminNavBar,
-  setIsAdminAuthenticated,
   isAdminAuthenticated,
   isPublicNavBar,
+  setIsAdminAuthenticated,
   setIsRegisterPageRendered,
   setIsFirstFormValidated,
   setIsSecondFormValidated,

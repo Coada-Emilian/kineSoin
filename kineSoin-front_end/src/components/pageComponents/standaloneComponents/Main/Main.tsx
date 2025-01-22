@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import DescriptionSection from '../DescriptionSection/DescriptionSection';
 import FormSection from '../FormSection/FormSection';
 import HeadBand from '../HeadBand/HeadBand';

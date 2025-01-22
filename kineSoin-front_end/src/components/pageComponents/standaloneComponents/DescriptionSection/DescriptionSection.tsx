@@ -89,12 +89,7 @@ export default function DescriptionSection({
             ))}
           </div>
         </>
-      ) : isPatientLoginPageDescriptionSection ||
-        isTherapistLoginPageDescriptionSection ||
-        isPatientRegisterFirstFormPageDescriptionSection ||
-        isPatientRegisterSecondFormPageDescriptionSection ||
-        isPatientRegisterThirdFormPageDescriptionSection ||
-        isPatientConfirmationPageDescriptionSection ? (
+      ) : (
         <div className="flex flex-col">
           <ArticleRow
             articleImage={
@@ -223,8 +218,6 @@ export default function DescriptionSection({
             }
           />
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

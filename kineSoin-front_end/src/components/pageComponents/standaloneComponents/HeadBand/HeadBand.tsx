@@ -6,6 +6,7 @@ export default function HeadBand() {
       <p className="text-center text-primaryBlue italic font-semibold mb-2 text-sm md:text-xl">
         "Votre santé, nos soins experts"
       </p>
+
       <img src={logo} alt="kinesoin" className="w-14 md:w-20" />
     </div>
   );

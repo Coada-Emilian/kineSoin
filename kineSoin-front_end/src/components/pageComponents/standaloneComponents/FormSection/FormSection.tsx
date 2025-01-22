@@ -350,15 +350,18 @@ export default function FormSection({
             <p className="mb-2 indent-4">
               Bienvenue sur <span className="font-bold">kineSoin</span> !
             </p>
+
             <p className="mb-2 indent-4">
               Votre espace dédié à la kinésithérapie et à votre bien-être.
               Prenez soin de votre santé en toute simplicité en prenant
               rendez-vous avec nos professionnels qualifiés.
             </p>
+
             <p className="mb-2 indent-4">
               Inscrivez-vous dès maintenant pour accéder à tous nos services
               personnalisés et planifier vos séances en ligne.
             </p>
+
             <p className="indent-4">
               <Link to="/registerPatient" className="font-bold text-primaryRed">
                 Inscrivez-vous ici !
@@ -387,6 +390,7 @@ export default function FormSection({
               {(isPatientLoginPageFormSection ||
                 isTherapistLoginPageFormSection) &&
                 `Connexion ${isPatientLoginPageFormSection ? 'Patient' : 'Thérapeute'}`}
+
               {(isRegisterPageRendered ||
                 isFirstFormValidated ||
                 isSecondFormValidated) &&
@@ -409,6 +413,7 @@ export default function FormSection({
                   patientLoginEmail={patientLoginEmail}
                   setPatientLoginEmail={setPatientLoginEmail}
                 />
+
                 <StandardPasswordInput
                   isPatientLoginPagePasswordInput
                   patientLoginPassword={patientLoginPassword}
@@ -436,12 +441,16 @@ export default function FormSection({
             {isRegisterPageRendered && (
               <>
                 <StandardTextInput isNameInput />
+
                 <StandardTextInput isBirthNameInput />
+
                 <StandardTextInput isSurnameInput />
+
                 <StandardDateInput
                   isPatientRegisterBirthdateInput
                   setRegisteredPatientBirthDate={setRegisteredPatientBirthDate}
                 />
+
                 <StandardDropdownInput
                   isGenderDropdownInput
                   registeredPatientGender={registeredPatientGender}
@@ -454,15 +463,16 @@ export default function FormSection({
               <>
                 <div className="flex gap-2 items-center justify-between">
                   <StandardTextInput isStreetNumberInput />
+
                   <StandardTextInput isStreetNameInput />
                 </div>
 
                 <div className="flex gap-2 items-center justify-between">
                   <StandardTextInput isPostalCodeInput />
+
                   <StandardTextInput isCityInput />
                 </div>
 
-                {/* <StandardTextInput isTelephoneInput /> */}
                 <StandardTelephoneInput isPatientTelephoneInput />
               </>
             )}
@@ -473,16 +483,19 @@ export default function FormSection({
                   isPatientRegisterImageInput
                   setPatientImage={setPatientImage}
                 />
+
                 <StandardEmailInput
                   isPatientRegisterEmailInput
                   patientRegisterEmail={patientRegisterEmail}
                   setPatientRegisterEmail={setPatientRegisterEmail}
                 />
+
                 <StandardPasswordInput
                   isPatientRegisterPasswordInput
                   patientRegisterPassword={patientRegisterPassword}
                   setPatientRegisterPassword={setPatientRegisterPassword}
                 />
+
                 <StandardPasswordInput
                   isPatientRegisterConfirmPasswordInput
                   patientRegisterConfirmPassword={
@@ -502,11 +515,13 @@ export default function FormSection({
                     ? 'Votre inscription a bien été enregistrée !'
                     : "Nous avons rencontré un problème lors de l'inscription. Veuillez réessayer ultérieurement."}
                 </p>
+
                 <p className="mb-4 indent-4">
                   {isGlobalFormSubmitted
                     ? 'Merci de vous être inscrit sur KineSoin. Votre compte est en cours de validation et sera activé prochainement. Vous recevrez une confirmation dès son activation.'
                     : "Une erreur est survenue lors de l'inscription. Cela peut être dû à une connexion instable ou à un problème temporaire sur nos serveurs. Veuillez vérifier votre connexion Internet et réessayer dans quelques minutes. Si le problème persiste, contactez notre support technique pour obtenir de l'aide."}
                 </p>
+
                 <p className="indent-4">
                   <Link to="/" className="font-bold text-primaryRed">
                     Retour à l'accueil
@@ -531,6 +546,7 @@ export default function FormSection({
                 </div>
               </>
             )}
+
             {!isThirdFormValidated && (
               <div className="flex items-center">
                 <CustomButton
@@ -561,6 +577,7 @@ export default function FormSection({
                     </Link>
                   </p>
                 </div>
+
                 <div className="text-sm mb-4 text-center mt-4">
                   {isRegisterPageRendered
                     ? 'Etape 1/3: Informations personnelles'

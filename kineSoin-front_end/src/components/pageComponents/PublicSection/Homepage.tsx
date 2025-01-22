@@ -11,8 +11,11 @@ export default function Homepage({ windowWidth }: HomepageProps) {
   return (
     <>
       <NavBar windowWidth={windowWidth} isPublicNavBar />
+
       <Main isHomePageMain />
+
       <Footer isPublicFooter />
+
       {windowWidth < 768 && <MobileNav isPublicMobileNav />}
     </>
   );

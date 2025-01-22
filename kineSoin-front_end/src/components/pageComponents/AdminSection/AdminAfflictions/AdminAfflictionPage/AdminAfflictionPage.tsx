@@ -56,7 +56,8 @@ const AdminAfflictionPage = ({ windowWidth }: AdminAfflictionPageProps) => {
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminProfileDetails affliction={affliction} />
-          <MobileNav isAdminMobileNav/>
+
+          <MobileNav isAdminMobileNav />
         </div>
       ) : (
         <div className="flex">
