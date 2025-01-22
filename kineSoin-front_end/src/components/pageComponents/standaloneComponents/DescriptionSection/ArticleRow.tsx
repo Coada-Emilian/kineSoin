@@ -22,6 +22,7 @@ export default function ArticleRow({
             alt={articleAlt}
             className="rounded-3xl shadow-xl w-72 hidden md:block lg:w-80 xl:w-1/3 mx-auto mb-6"
           />
+
           <div className="text-primaryBlue italic text-sm md:text-lg md:w-1/2 font-medium px-4">
             <h4 className="mb-6 font-semibold text-base">{articleTitle}</h4>
             <p className="mb-6">{articleParagraph}</p>
@@ -33,10 +34,11 @@ export default function ArticleRow({
             <h4 className="mb-6 font-semibold text-base">{articleTitle}</h4>
             <p className="mb-6">{articleParagraph}</p>
           </div>
+
           <img
             src={articleImage}
             alt={articleAlt}
-            className="rounded-3xl shadow-xl w-72 hidden md:block lg:w-80 xl:w-1/3 mx-auto mb-6"
+            className="rounded-3xl shadow-xl w-72 md:block lg:w-80 xl:w-1/3 mx-auto mb-6"
           />
         </>
       )}

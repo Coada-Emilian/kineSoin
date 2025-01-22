@@ -8,7 +8,6 @@
  * navigational links in a flexible layout for mobile devices.
  */
 
-import { Icons } from 'react-toastify';
 import afflictionIcon from '/icons/affliction.png';
 import doctorIcon from '/icons/doctor.png';
 import insuranceIcon from '/icons/insurance.png';
@@ -20,11 +19,13 @@ import { Link } from 'react-router-dom';
 interface MobileNavProps {
   isAdminMobileNav?: boolean;
   isPublicMobileNav?: boolean;
+  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function MobileNav({
   isAdminMobileNav,
   isPublicMobileNav,
+  setIsRegisterPageRendered,
 }: MobileNavProps) {
   const adminLinks = [
     {
@@ -59,19 +60,24 @@ export default function MobileNav({
       name: 'Connexion kiné',
       path: '/loginTherapist',
       icon: therapistIcon,
+      onClick: () =>
+        setIsRegisterPageRendered && setIsRegisterPageRendered(false),
     },
     {
       name: 'Inscription patient',
       path: '/registerPatient',
       icon: mainLogo,
+      onClick: () =>
+        setIsRegisterPageRendered && setIsRegisterPageRendered(true),
     },
     {
       name: 'Connexion patient',
       path: '/loginPatient',
       icon: patientIcon,
+      onClick: () =>
+        setIsRegisterPageRendered && setIsRegisterPageRendered(false),
     },
   ];
-
   return (
     <>
       {isAdminMobileNav && (
@@ -88,6 +94,7 @@ export default function MobileNav({
           ))}
         </div>
       )}
+
       {isPublicMobileNav && (
         <div className="flex gap-2 justify-around w-full py-4 bg-container">
           {publicLinks.map((link, index) => (

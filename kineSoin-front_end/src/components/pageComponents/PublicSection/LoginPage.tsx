@@ -62,7 +62,12 @@ export default function LoginPage({
 
       <Footer isPublicFooter />
 
-      {windowWidth < 768 && <MobileNav isPublicMobileNav />}
+      {windowWidth < 768 && (
+        <MobileNav
+          isPublicMobileNav
+          setIsRegisterPageRendered={setIsRegisterPageRendered}
+        />
+      )}
     </>
   );
 }

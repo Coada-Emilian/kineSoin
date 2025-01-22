@@ -394,7 +394,12 @@ export default function FormSection({
               {(isRegisterPageRendered ||
                 isFirstFormValidated ||
                 isSecondFormValidated) &&
+                !(
+                  isPatientLoginPageFormSection ||
+                  isTherapistLoginPageFormSection
+                ) &&
                 'Inscription Patient'}
+
               {isGlobalFormSubmitted && "Confirmation d'inscription"}
             </h2>
 
