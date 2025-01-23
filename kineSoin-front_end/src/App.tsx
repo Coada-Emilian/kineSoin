@@ -20,6 +20,8 @@ import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminI
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
 import Homepage from './components/pageComponents/PublicSection/Homepage';
 import LoginPage from './components/pageComponents/PublicSection/LoginPage';
+import MobileNav from './components/pageComponents/standaloneComponents/MobileNav/MobileNav';
+import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboard/PatientDashboard';
 
 function App() {
   // Use state to keep track of the window width
@@ -295,7 +297,9 @@ function App() {
               windowWidth={windowWidth}
             />
           }
-        ></Route>
+        >
+          <Route path="dashboard" element={<PatientDashboard />} />
+        </Route>
       ) : (
         <Route
           path="/patient"
@@ -355,7 +359,9 @@ function PatientLayout({
         isPatientNavBar
       />
       <Outlet />
-      <Footer isPatientFooter/>
+      <Footer isPatientFooter />
+
+      {windowWidth < 768 && <MobileNav isPublicMobileNav />}
     </>
   );
 }
