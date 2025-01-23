@@ -30,7 +30,7 @@ function App() {
     setWindowWidth(window.innerWidth);
   };
 
-  // Listen for window resize events
+  // useEffect to listen for window resize events
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 
@@ -39,7 +39,7 @@ function App() {
     };
   }, []);
 
-  // Authentication
+  // Authentication states
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
@@ -67,7 +67,7 @@ function App() {
     return response ? response.token : null;
   });
 
-  // Check if the admin is authenticated
+  // useEffect to check if the admin is authenticated
   useEffect(() => {
     // Check if the admin is authenticated
     const checkAdminAuthentication = () => {
@@ -104,7 +104,7 @@ function App() {
     };
   }, [adminProfileToken, isAdminAuthenticated]);
 
-  // Check if the patient is authenticated
+  // useEffect to check if the patient is authenticated
   useEffect(() => {
     // Check if the patient is authenticated
     const checkPatientAuthentication = () => {
@@ -141,6 +141,7 @@ function App() {
     };
   }, [patientProfileToken, isPatientAuthenticated]);
 
+  // useEffect to check if the therapist is authenticated
   useEffect(() => {
     // Check if the therapist is authenticated
     const checkTherapistAuthentication = () => {
@@ -179,6 +180,7 @@ function App() {
 
   return (
     <Routes>
+      {/* Public routes */}
       <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>
 
       <Route
@@ -213,6 +215,7 @@ function App() {
         element={<LoginPage isPatientRegisterPage windowWidth={windowWidth} />}
       ></Route>
 
+      {/* Admin routes */}
       {isAdminAuthenticated ? (
         <Route
           path="/admin"
@@ -277,6 +280,7 @@ function App() {
             />
           }
         >
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       )}
     </Routes>
