@@ -61,7 +61,7 @@ export default function NavBar({
   };
 
   const [patientNotificationQuantity, setPatientNotificationQuantity] =
-    useState(0);
+    useState(5);
 
   return (
     <header className="bg-white bg-opacity-90 sticky top-0 w-full py-1 z-10">
@@ -162,18 +162,14 @@ export default function NavBar({
 
           {isPatientNavBar && (
             <div className="flex gap-2">
-              {patientNotificationQuantity > 0 && (
-                <div className="flex items-center">
-                  <p className="bg-red-600 px-2 py-1 rounded-full text-white text-xs md:text-sm flex items-center">
-                    {patientNotificationQuantity}
-                  </p>
-                </div>
-              )}
-
               <Link to="#">
                 <CustomButton
                   btnText={<>Notifications</>}
                   patientNotificationButton
+                  patientNotificationQuantity={patientNotificationQuantity}
+                  setPatientNotificationQuantity={
+                    setPatientNotificationQuantity
+                  }
                 />
               </Link>
 

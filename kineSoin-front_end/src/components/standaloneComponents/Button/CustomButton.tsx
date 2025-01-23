@@ -44,6 +44,8 @@ interface ButtonProps {
   patientLogoutButton?: boolean;
   onClick?: () => void;
   btnType?: 'button' | 'submit' | 'reset';
+  patientNotificationQuantity?: number;
+  setPatientNotificationQuantity?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function CustomButton({
@@ -64,6 +66,8 @@ export default function CustomButton({
   patientNotificationButton,
   patientLogoutButton,
   onClick,
+  patientNotificationQuantity,
+  setPatientNotificationQuantity,
 }: ButtonProps) {
   const getBtnBackground = () => {
     if (normalButton || navBarButton) {
@@ -119,14 +123,25 @@ export default function CustomButton({
     }
   };
 
-  const btnClasses = `rounded-lg text-primaryBlue hover:text-white font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton) && 'flex items-center gap-1'}`;
+  const btnClasses = `rounded-lg text-primaryBlue hover:text-white font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton) && 'flex items-center gap-2 relative'}`;
 
   const patientNotificationIcon = (
-    <img src={NotificationIcon} alt="Notification" className="max-w-6" />
+    <>
+      <img src={NotificationIcon} alt="Notification" className="max-w-8" />
+      {patientNotificationQuantity && patientNotificationQuantity > 0 ? (
+        <div className="flex items-center">
+          <p className="bg-red-600 px-1 md:px-2 rounded-full text-white text-xxs md:text-xxs flex items-center absolute top-1 left-8 md:left-7">
+            {patientNotificationQuantity}
+          </p>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 
   const patientLogoutIcon = (
-    <img src={LogoutIcon} alt="Logout" className="max-w-6" />
+    <img src={LogoutIcon} alt="Logout" className="max-w-8" />
   );
 
   return (
