@@ -3,6 +3,7 @@ import PatientAppointmentCard from '../../PatientSection/PatientAppointmentCard/
 import UserHeadband from '../UserHeadband/UserHeadband';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import { fetchPatientAppointments } from '../../../../utils/apiUtils';
+import { IAppointment } from '../../../../@types/IAppointment';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -11,22 +12,26 @@ interface PrivateMainProps {
 export default function PrivateMain({
   isPatientDashboardMain,
 }: PrivateMainProps) {
-  const [patientId, setPatientId] = useState('');
-  const [pastAppointments, setPastAppointments] = useState([]);
-  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [patientId, setPatientId] = useState<number>();
+  const [pastAppointments, setPastAppointments] = useState<IAppointment[]>([]);
+  const [upcomingAppointments, setUpcomingAppointments] = useState<
+    IAppointment[]
+  >([]);
   useEffect(() => {
     const response = getPatientTokenAndDataFromLocalStorage();
     if (response) {
-      setPatientId(response.id || '');
+      setPatientId(response.id ? Number(response.id) : undefined);
     }
   }, []);
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      const response = await fetchPatientAppointments();
-      setPastAppointments(response.pastAppointments);
-      setUpcomingAppointments(response.futureAppointments);
-      console.log(upcomingAppointments);
+      if (patientId !== undefined) {
+        const response = await fetchPatientAppointments(patientId);
+        setPastAppointments(response.pastAppointments);
+        setUpcomingAppointments(response.futureAppointments);
+        console.log(upcomingAppointments);
+      }
     };
     fetchAppointments();
   }, [patientId]);
@@ -39,7 +44,10 @@ export default function PrivateMain({
           <div className="flex gap-4">
             {upcomingAppointments.length > 0 &&
               upcomingAppointments.map((appointment) => (
-                <PatientAppointmentCard />
+                <PatientAppointmentCard
+                  key={appointment.id}
+                  appointment={appointment}
+                />
               ))}
           </div>
         </>

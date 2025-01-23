@@ -156,8 +156,6 @@ const authentificationController = {
         });
       }
 
-      req.patient_id = foundPatient.id;
-
       const jwtContent = { patient_id: foundPatient.id };
 
       const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {

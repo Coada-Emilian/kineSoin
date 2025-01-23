@@ -43,7 +43,7 @@ patientRouter.post('/me/insurance', wrapper(insuranceController.addInsurance));
 
 // Proposed appointments routes
 patientRouter.get(
-  '/me/proposedAppointments',
+  '/:patientId/proposedAppointments',
   wrapper(appointmentController.getAllProposedAppointments)
 );
 patientRouter.get(
@@ -57,7 +57,7 @@ patientRouter.post(
 
 // Appointments routes
 patientRouter.get(
-  '/me/appointments',
+  '/:patient_id/appointments',
   wrapper(appointmentController.getAllAppointments)
 );
 patientRouter.get(

@@ -541,9 +541,9 @@ export const handleTherapistConnection = async (
 };
 
 // Patient API calls
-export const fetchPatientAppointments = async () => {
+export const fetchPatientAppointments = async (id: number) => {
   try {
-    const response = await axios.get(`/patient/me/appointments`);
+    const response = await axios.get(`/patient/${id}/appointments`);
     if (response.status === 200) {
       return response.data;
     } else {

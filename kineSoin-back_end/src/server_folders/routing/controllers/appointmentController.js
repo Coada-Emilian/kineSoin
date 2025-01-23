@@ -213,9 +213,7 @@ const appointmentController = {
   },
 
   getAllAppointments: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -223,6 +221,10 @@ const appointmentController = {
       where: { patient_id: patientId, is_canceled: false },
       attributes: ['id', 'is_accepted', 'date', 'time'],
       include: [
+        {
+          association: 'therapist',
+          attributes: ['name', 'surname', 'specialty'],
+        },
         {
           association: 'prescription',
           attributes: [
@@ -260,21 +262,31 @@ const appointmentController = {
 
     const currentDate = new Date();
 
-    const futureAppointments = foundAppointments.filter((appointment) => {
-      const appointmentDateTime = new Date(
-        `${appointment.date}T${appointment.time}`
-      );
+    const futureAppointments = foundAppointments
+      .filter((appointment) => {
+        const appointmentDateTime = new Date(
+          `${appointment.date}T${appointment.time}`
+        );
+        return appointmentDateTime > currentDate;
+      })
+      .sort((a, b) => {
+        const dateA = new Date(`${a.date}T${a.time}`);
+        const dateB = new Date(`${b.date}T${b.time}`);
+        return dateA - dateB; // Ascending order
+      });
 
-      return appointmentDateTime > currentDate;
-    });
-
-    const pastAppointments = foundAppointments.filter((appointment) => {
-      const appointmentDateTime = new Date(
-        `${appointment.date}T${appointment.time}`
-      );
-
-      return appointmentDateTime < currentDate;
-    });
+    const pastAppointments = foundAppointments
+      .filter((appointment) => {
+        const appointmentDateTime = new Date(
+          `${appointment.date}T${appointment.time}`
+        );
+        return appointmentDateTime < currentDate;
+      })
+      .sort((a, b) => {
+        const dateA = new Date(`${a.date}T${a.time}`);
+        const dateB = new Date(`${b.date}T${b.time}`);
+        return dateB - dateA; // Descending order
+      });
 
     res.status(200).json({ futureAppointments, pastAppointments });
   },
