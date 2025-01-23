@@ -17,6 +17,7 @@ module.exports = {
         primaryRed: '#D85071',
         lightGrey: '#cdcdcd',
         container: '#BFF3F3',
+        cardHeader: '#007EA7',
       },
       fontSize: {
         xxs: '0.636rem',

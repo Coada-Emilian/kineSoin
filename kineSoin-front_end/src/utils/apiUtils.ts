@@ -539,3 +539,19 @@ export const handleTherapistConnection = async (
     return false;
   }
 };
+
+// Patient API calls
+export const fetchPatientAppointments = async () => {
+  try {
+    const response = await axios.get(`/patient/me/appointments`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient appointments', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching patient appointments:', error);
+    return [];
+  }
+};

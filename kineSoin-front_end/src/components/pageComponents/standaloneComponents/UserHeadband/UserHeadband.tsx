@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 
-export default function UserHeadband() {
+interface UserHeadbandProps {
+  isPatientHeadband?: boolean;
+}
+
+export default function UserHeadband({ isPatientHeadband }: UserHeadbandProps) {
   const [patientFullName, setPatientFullName] = useState('');
   const [patientPictureUrl, setPatientPictureUrl] = useState('');
   useEffect(() => {
@@ -12,13 +16,15 @@ export default function UserHeadband() {
     }
   }, []);
   return (
-    <div className="flex justify-around bg-gray-200 p-5 items-center">
+    <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center">
       <img
-        src={patientPictureUrl}
-        alt={patientFullName}
-        className="w-16 h-16 rounded-full object-cover shadow-2xl"
+        src={isPatientHeadband ? patientPictureUrl : undefined}
+        alt={isPatientHeadband ? patientFullName : undefined}
+        className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-around"
       />
-      <p className="text-xs italic">Bienvenue {patientFullName} !</p>
+      <p className="text-primaryBlue text-xs md:text-sm xl:text-base italic">
+        Bienvenue {isPatientHeadband && patientFullName} !
+      </p>
     </div>
   );
 }
