@@ -355,7 +355,7 @@ function PatientLayout({
         isPatientNavBar
       />
       <Outlet />
-      <Footer />
+      <Footer isPatientFooter/>
     </>
   );
 }

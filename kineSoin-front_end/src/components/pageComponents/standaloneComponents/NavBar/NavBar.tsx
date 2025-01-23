@@ -20,6 +20,7 @@ import Logo2 from '/logos/kinesoin-logo-2.webp';
 import LogoutIcon from '/icons/logout.png';
 import Button from '../../../standaloneComponents/Button/CustomButton';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import { useState } from 'react';
 
 interface NavBarProps {
   windowWidth: number;
@@ -58,6 +59,9 @@ export default function NavBar({
     }
     window.location.href = '/loginAdmin';
   };
+
+  const [patientNotificationQuantity, setPatientNotificationQuantity] =
+    useState(0);
 
   return (
     <header className="bg-white bg-opacity-90 sticky top-0 w-full py-1 z-10">
@@ -158,46 +162,23 @@ export default function NavBar({
 
           {isPatientNavBar && (
             <div className="flex gap-2">
-              <Link
-                to="/loginTherapist"
-                className="hidden md:block"
-                onClick={() => {
-                  if (setIsRegisterPageRendered) {
-                    setIsRegisterPageRendered(false);
-                    if (setIsFirstFormValidated) {
-                      setIsFirstFormValidated(false);
-                    }
-                    if (setIsSecondFormValidated) {
-                      setIsSecondFormValidated(false);
-                    }
-                    if (setIsThirdFormValidated) {
-                      setIsThirdFormValidated(false);
-                    }
-                  }
-                }}
-              >
-                <CustomButton btnText={<>Notifications</>} navBarButton />
+              {patientNotificationQuantity > 0 && (
+                <div className="flex items-center">
+                  <p className="bg-red-600 px-2 py-1 rounded-full text-white text-xs md:text-sm flex items-center">
+                    {patientNotificationQuantity}
+                  </p>
+                </div>
+              )}
+
+              <Link to="#">
+                <CustomButton
+                  btnText={<>Notifications</>}
+                  patientNotificationButton
+                />
               </Link>
 
-              <Link
-                to="/loginPatient"
-                className="hidden md:block"
-                onClick={() => {
-                  if (setIsRegisterPageRendered) {
-                    setIsRegisterPageRendered(false);
-                    if (setIsFirstFormValidated) {
-                      setIsFirstFormValidated(false);
-                    }
-                    if (setIsSecondFormValidated) {
-                      setIsSecondFormValidated(false);
-                    }
-                    if (setIsThirdFormValidated) {
-                      setIsThirdFormValidated(false);
-                    }
-                  }
-                }}
-              >
-                <CustomButton btnText={<>Déconnexion</>} navBarButton />
+              <Link to="/loginPatient">
+                <CustomButton btnText={<>Déconnexion</>} patientLogoutButton />
               </Link>
             </div>
           )}

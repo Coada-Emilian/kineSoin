@@ -23,6 +23,9 @@
  * @returns {JSX.Element} The rendered CustomButton component with appropriate styles and behavior.
  */
 
+import NotificationIcon from '/icons/notification.png';
+import LogoutIcon from '/icons/logout.png';
+
 interface ButtonProps {
   btnText: string | JSX.Element;
   normalButton?: boolean;
@@ -37,6 +40,8 @@ interface ButtonProps {
   pendingButton?: boolean;
   bannedButton?: boolean;
   navBarButton?: boolean;
+  patientNotificationButton?: boolean;
+  patientLogoutButton?: boolean;
   onClick?: () => void;
   btnType?: 'button' | 'submit' | 'reset';
 }
@@ -56,6 +61,8 @@ export default function CustomButton({
   addButton,
   allButton,
   btnType,
+  patientNotificationButton,
+  patientLogoutButton,
   onClick,
 }: ButtonProps) {
   const getBtnBackground = () => {
@@ -79,6 +86,8 @@ export default function CustomButton({
       return 'bg-yellow-300 hover:bg-yellow-500';
     } else if (bannedButton) {
       return 'bg-red-300 hover:bg-red-500';
+    } else if (patientNotificationButton || patientLogoutButton) {
+      return 'md:bg-primaryTeal md:hover:bg-secondaryTeal';
     }
   };
 
@@ -101,16 +110,40 @@ export default function CustomButton({
       return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-24 my-0 mx-0';
     } else if (addButton) {
       return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0';
-    } else if (navBarButton) {
+    } else if (
+      navBarButton ||
+      patientNotificationButton ||
+      patientLogoutButton
+    ) {
       return 'text-xxs md:text-xs lg:text-sm  px-2 py-2 max-w-36 lg:max-w-40 xl:max-w-44 my-0 mx-0';
     }
   };
 
-  const btnClasses = `rounded-lg text-primaryBlue hover:text-white font-bold black ${getBtnBackground()} ${getSizeAndPadding()}`;
+  const btnClasses = `rounded-lg text-primaryBlue hover:text-white font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton) && 'flex items-center gap-1'}`;
+
+  const patientNotificationIcon = (
+    <img src={NotificationIcon} alt="Notification" className="max-w-6" />
+  );
+
+  const patientLogoutIcon = (
+    <img src={LogoutIcon} alt="Logout" className="max-w-6" />
+  );
 
   return (
     <button type={btnType} onClick={onClick} className={btnClasses}>
-      {btnText}
+      <>
+        {patientNotificationButton && patientNotificationIcon}
+        {patientLogoutButton && patientLogoutIcon}
+        <span
+          className={
+            patientLogoutButton || patientNotificationButton
+              ? 'hidden md:block'
+              : undefined
+          }
+        >
+          {btnText}
+        </span>
+      </>
     </button>
   );
 }
