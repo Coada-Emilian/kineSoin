@@ -283,6 +283,8 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Route>
       )}
+
+      {/* Patient routes */}
     </Routes>
   );
 }
@@ -306,6 +308,28 @@ function AdminLayout({
       />
       <Outlet />
       <Footer isAdminFooter />
+    </>
+  );
+}
+
+function PatientLayout({
+  isPatientAuthenticated,
+  setIsPatientAuthenticated,
+  windowWidth,
+}: {
+  isPatientAuthenticated: boolean;
+  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  windowWidth: number;
+}) {
+  return (
+    <>
+      <NavBar
+        windowWidth={windowWidth}
+        isPatientAuthenticated={isPatientAuthenticated}
+        setIsPatientAuthenticated={setIsPatientAuthenticated}
+      />
+      <Outlet />
+      <Footer />
     </>
   );
 }

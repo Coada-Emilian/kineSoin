@@ -76,6 +76,7 @@ export default function FormSection({
 
   const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
     useState<boolean>(false);
+
   // Patient login function
   const checkPatientCredentials = async (
     e: React.FormEvent<HTMLFormElement>
@@ -99,6 +100,7 @@ export default function FormSection({
     if (response) {
       if (setPatientProfileToken) {
         setPatientProfileToken(response);
+        console.log(response);
         console.log("Great, you're connected!");
       } else {
         setPatientErrorMessage('Email et/ou Mot de passe invalide');
@@ -243,6 +245,7 @@ export default function FormSection({
     setIsSecondFormValidated(true);
   };
 
+  // Patient registration function for the third form
   const handleThirdPatientRegisterForm = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -297,6 +300,7 @@ export default function FormSection({
     }
   };
 
+  // useEffect hook to register the patient
   useEffect(() => {
     const registerPatient = async () => {
       if (isThirdFormValidated) {
