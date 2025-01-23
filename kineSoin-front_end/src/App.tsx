@@ -285,6 +285,31 @@ function App() {
       )}
 
       {/* Patient routes */}
+      {isPatientAuthenticated ? (
+        <Route
+          path="/patient"
+          element={
+            <PatientLayout
+              isPatientAuthenticated={isPatientAuthenticated}
+              setIsPatientAuthenticated={setIsPatientAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        ></Route>
+      ) : (
+        <Route
+          path="/patient"
+          element={
+            <PatientLayout
+              isPatientAuthenticated={isPatientAuthenticated}
+              setIsPatientAuthenticated={setIsPatientAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        >
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+      )}
     </Routes>
   );
 }
@@ -327,6 +352,7 @@ function PatientLayout({
         windowWidth={windowWidth}
         isPatientAuthenticated={isPatientAuthenticated}
         setIsPatientAuthenticated={setIsPatientAuthenticated}
+        isPatientNavBar
       />
       <Outlet />
       <Footer />

@@ -14,6 +14,7 @@ import StandardDropdownInput from '../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
 import StandardFileInput from '../StandardInputs/StandardFileInput';
 import axios from '../../../../axios.ts';
+import { useNavigate } from 'react-router-dom';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
@@ -77,6 +78,8 @@ export default function FormSection({
   const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
     useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   // Patient login function
   const checkPatientCredentials = async (
     e: React.FormEvent<HTMLFormElement>
@@ -100,8 +103,7 @@ export default function FormSection({
     if (response) {
       if (setPatientProfileToken) {
         setPatientProfileToken(response);
-        console.log(response);
-        console.log("Great, you're connected!");
+        navigate('/patient');
       } else {
         setPatientErrorMessage('Email et/ou Mot de passe invalide');
       }

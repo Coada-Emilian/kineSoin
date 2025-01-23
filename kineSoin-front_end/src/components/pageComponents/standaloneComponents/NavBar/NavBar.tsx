@@ -26,11 +26,14 @@ interface NavBarProps {
   isAdminNavBar?: boolean;
   isAdminAuthenticated?: boolean;
   isPublicNavBar?: boolean;
+  isPatientNavBar?: boolean;
+  isPatientAuthenticated?: boolean;
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function NavBar({
@@ -38,11 +41,14 @@ export default function NavBar({
   isAdminNavBar,
   isAdminAuthenticated,
   isPublicNavBar,
+  isPatientNavBar,
+  isPatientAuthenticated,
   setIsAdminAuthenticated,
   setIsRegisterPageRendered,
   setIsFirstFormValidated,
   setIsSecondFormValidated,
   setIsThirdFormValidated,
+  setIsPatientAuthenticated,
 }: NavBarProps) {
   // Function to handle the admin logout
   const handleAdminLogout = () => {
@@ -146,6 +152,52 @@ export default function NavBar({
                 }}
               >
                 <CustomButton btnText={<>Connexion patient</>} navBarButton />
+              </Link>
+            </div>
+          )}
+
+          {isPatientNavBar && (
+            <div className="flex gap-2">
+              <Link
+                to="/loginTherapist"
+                className="hidden md:block"
+                onClick={() => {
+                  if (setIsRegisterPageRendered) {
+                    setIsRegisterPageRendered(false);
+                    if (setIsFirstFormValidated) {
+                      setIsFirstFormValidated(false);
+                    }
+                    if (setIsSecondFormValidated) {
+                      setIsSecondFormValidated(false);
+                    }
+                    if (setIsThirdFormValidated) {
+                      setIsThirdFormValidated(false);
+                    }
+                  }
+                }}
+              >
+                <CustomButton btnText={<>Notifications</>} navBarButton />
+              </Link>
+
+              <Link
+                to="/loginPatient"
+                className="hidden md:block"
+                onClick={() => {
+                  if (setIsRegisterPageRendered) {
+                    setIsRegisterPageRendered(false);
+                    if (setIsFirstFormValidated) {
+                      setIsFirstFormValidated(false);
+                    }
+                    if (setIsSecondFormValidated) {
+                      setIsSecondFormValidated(false);
+                    }
+                    if (setIsThirdFormValidated) {
+                      setIsThirdFormValidated(false);
+                    }
+                  }
+                }}
+              >
+                <CustomButton btnText={<>Déconnexion</>} navBarButton />
               </Link>
             </div>
           )}
