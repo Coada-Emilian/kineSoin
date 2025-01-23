@@ -61,7 +61,7 @@ export default function NavBar({
   };
 
   const [patientNotificationQuantity, setPatientNotificationQuantity] =
-    useState(5);
+    useState(0);
 
   return (
     <header className="bg-white bg-opacity-90 sticky top-0 w-full py-1 z-10">

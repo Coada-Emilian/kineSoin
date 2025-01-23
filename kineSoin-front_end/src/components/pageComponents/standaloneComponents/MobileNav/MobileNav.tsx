@@ -78,6 +78,7 @@ export default function MobileNav({
         setIsRegisterPageRendered && setIsRegisterPageRendered(false),
     },
   ];
+
   return (
     <>
       {isAdminMobileNav && (

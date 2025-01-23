@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from '../standaloneComponents/Footer/Footer';
 import Main from '../standaloneComponents/Main/Main';
 import MobileNav from '../standaloneComponents/MobileNav/MobileNav';
@@ -32,6 +32,12 @@ export default function LoginPage({
     useState<boolean>(false);
   const [isThirdFormValidated, setIsThirdFormValidated] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    isPatientRegisterPage
+      ? setIsRegisterPageRendered(true)
+      : setIsRegisterPageRendered(false);
+  }, [isPatientRegisterPage]);
 
   return (
     <>
