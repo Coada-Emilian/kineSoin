@@ -1,23 +1,4 @@
-/**
- * @fileoverview This file populates the database with profiles from various data files.
- *
- * It connects to a PostgreSQL database and inserts profiles for administrators, therapists,
- * patients, and medics using hashed passwords for security. The data is loaded from JSON files
- * and each profile is inserted into its respective table in the database.
- *
- * Usage:
- * - The script connects to the database, reads profile data from JSON files, hashes passwords,
- * and inserts the data into the appropriate tables. It also logs the results of the insert
- * operations to the console.
- *
- * @module DatabasePopulator
- * @requires pgClient
- * @requires Scrypt
- * @requires patient_data.json
- * @requires medic_data.json
- * @requires therapist_data.json
- * @requires admin_data.json
- */
+// Purpose: Populate the database with profiles of patients, therapists, medics and administrators.
 
 import { pgClient } from './pgClient.js';
 import { Scrypt } from '../src/server_folders/authentification/Scrypt.js';
@@ -34,8 +15,9 @@ for (const admin of admins) {
   const hashedPassword = Scrypt.hash(admin.password);
   const query = `INSERT INTO administrators (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
   const result = await pgClient.query(query, [name, email, hashedPassword]);
-  console.log(result.rows);
 }
+
+console.log('🛠️ Admins inserted 🛠️');
 
 // Inserting therapist profiles into the database
 for (const therapist of therapists) {
@@ -71,8 +53,39 @@ for (const therapist of therapists) {
     licence_code,
     status,
   ]);
-  console.log(result.rows);
 }
+
+console.log('💆🏻‍♀️ Therapists inserted 💆🏻‍♀️');
+
+// Inserting medic profiles into the database
+for (const medic of medics) {
+  const {
+    admin_id,
+    name,
+    surname,
+    street_number,
+    street_name,
+    postal_code,
+    city,
+    phone_number,
+    licence_code,
+  } = medic;
+
+  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+  const result = await pgClient.query(query, [
+    admin_id,
+    name,
+    surname,
+    street_number,
+    street_name,
+    postal_code,
+    city,
+    phone_number,
+    licence_code,
+  ]);
+}
+
+console.log('👩🏻‍⚕️ Medics inserted 👩🏻‍⚕️');
 
 // Inserting patient profiles into the database
 for (const patient of patients) {
@@ -114,36 +127,8 @@ for (const patient of patients) {
     status,
     picture_url,
   ]);
-  console.log(result.rows);
 }
 
-// Inserting medic profiles into the database
-for (const medic of medics) {
-  const {
-    admin_id,
-    name,
-    surname,
-    street_number,
-    street_name,
-    postal_code,
-    city,
-    phone_number,
-    licence_code,
-  } = medic;
-
-  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
-  const result = await pgClient.query(query, [
-    admin_id,
-    name,
-    surname,
-    street_number,
-    street_name,
-    postal_code,
-    city,
-    phone_number,
-    licence_code,
-  ]);
-  console.log(result.rows);
-}
+console.log('👩‍👩‍👦‍👦 Patients inserted 👩‍👩‍👦‍👦');
 
 await pgClient.end();
