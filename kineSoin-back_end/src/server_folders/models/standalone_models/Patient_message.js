@@ -1,30 +1,4 @@
-/**
- * @fileoverview This module defines the model for the `patient_messages`
- * table in the database using Sequelize. The `Patient_message` class
- * extends the Sequelize `Model` and represents messages exchanged
- * between patients and therapists in the system.
- *
- * The model includes attributes for storing details related to each
- * message, including sender and receiver IDs, message content, and
- * timestamps.
- *
- * @module PatientMessageModel
- *
- * @extends Model
- *
- * @property {number} id - The primary key of the message record,
- *                         auto-incremented.
- * @property {number} sender_id - The ID of the patient sending the
- *                                message, referencing the `patients` table.
- * @property {number} receiver_id - The ID of the therapist receiving the
- *                                  message, referencing the `therapists` table.
- * @property {string} content - The content of the message (must be provided).
- * @property {Date} date - The date when the message was sent (must be provided).
- * @property {Time} time - The time when the message was sent (must be provided).
- * @property {Date} created_at - The date when the record was created,
- *                               defaults to the current date and time.
- * @property {Date} updated_at - The date when the record was last updated.
- */
+// Purpose: Sequelize model of the standalone table 'patient_messages' that stores the data of the messages sent by patients to their therapists.
 
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';

@@ -1,37 +1,4 @@
-/**
- * @fileoverview This module defines the model for the `afflictions`
- * table in the database using Sequelize. The `Affliction` class extends
- * the Sequelize `Model` and represents various afflictions that patients
- * may have, including their details and relationships to administrators
- * and body regions.
- *
- * The model includes attributes for storing information related to
- * afflictions, including the name, description, insurance code, and
- * operational status, as well as timestamps for record creation and updates.
- *
- * @module AfflictionModel
- *
- * @extends Model
- *
- * @property {number} id - The primary key of the affliction record,
- *                         auto-incremented.
- * @property {number} admin_id - The ID of the admin who created or
- *                               manages the affliction, referencing
- *                               the `administrators` table.
- * @property {number} body_region_id - The ID of the body region
- *                                      associated with the affliction,
- *                                      referencing the `therapists` table.
- * @property {string} name - The name of the affliction (up to 50 characters).
- * @property {string} description - A detailed description of the
- *                                  affliction (optional).
- * @property {string} insurance_code - The insurance code associated
- *                                     with the affliction (up to 10 characters).
- * @property {boolean} is_operated - Indicates whether the affliction
- *                                   has been operated on (defaults to false).
- * @property {Date} created_at - The date when the record was created,
- *                               defaults to the current date and time.
- * @property {Date} updated_at - The date when the record was last updated.
- */
+// Purpose: Sequelize model of the standalone table 'afflictions' that stores the data of the afflictions that can be treated by the therapists.
 
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';

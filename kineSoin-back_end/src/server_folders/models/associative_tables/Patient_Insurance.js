@@ -1,33 +1,4 @@
-/**
- * @fileoverview This module defines the model for the `patient_insurances`
- * table in the database using Sequelize. The `Patient_Insurance` class
- * extends the Sequelize `Model` and represents the relationship between
- * patients and their insurance details.
- *
- * The model includes attributes for storing information related to
- * insurance, including the patient ID, insurance ID, adherent code,
- * contract number, start and end dates of coverage, and timestamps for
- * record creation and updates.
- *
- * @module PatientInsuranceModel
- *
- * @extends Model
- *
- * @property {number} id - The primary key of the patient insurance record,
- *                         auto-incremented.
- * @property {number} patient_id - The ID of the patient associated with
- *                                 this insurance.
- * @property {number} insurance_id - The ID of the insurance organism.
- * @property {string} adherent_code - A unique code for the insurance
- *                                    adherent (12 characters).
- * @property {string} contract_number - A unique number for the insurance
- *                                      contract (15 characters).
- * @property {Date} start_date - The date when the insurance coverage starts.
- * @property {Date} end_date - The date when the insurance coverage ends.
- * @property {Date} created_at - The date when the record was created,
- *                               defaults to the current date and time.
- * @property {Date} updated_at - The date when the record was last updated.
- */
+// Purpose: Sequelize model of the associative table 'patient_insurances' that links patients to their insurance organisms.
 
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
