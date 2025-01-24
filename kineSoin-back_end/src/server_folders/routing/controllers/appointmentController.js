@@ -9,6 +9,7 @@ import {
 } from '../../models/associations.js';
 
 const appointmentController = {
+  // Get all proposed appointments for a patient
   getAllProposedAppointments: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
     const patientId = 1;
@@ -85,6 +86,7 @@ const appointmentController = {
     res.status(200).json(sentData);
   },
 
+  // Get one proposed appointment for a patient
   getOneProposedAppointment: async (req, res) => {
     // const patient_id = parseInt(req.patient_id, 10);
 
@@ -143,6 +145,7 @@ const appointmentController = {
     }
   },
 
+  // Accept one proposed appointment for a patient
   acceptOneProposedAppointment: async (req, res) => {
     // const patientId=parseInt(req.patient_id, 10);
 
@@ -212,6 +215,7 @@ const appointmentController = {
     }
   },
 
+  // Get all appointments for a patient
   getAllAppointments: async (req, res) => {
     const patientId = parseInt(req.params.patient_id, 10);
 
@@ -291,6 +295,7 @@ const appointmentController = {
     res.status(200).json({ futureAppointments, pastAppointments });
   },
 
+  // Get one appointment for a patient
   getOneAppointment: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -341,6 +346,7 @@ const appointmentController = {
     }
   },
 
+  // Cancel one appointment for a patient
   cancelOneAppointment: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -378,6 +384,7 @@ const appointmentController = {
     }
   },
 
+  // Get all appointments for a therapist
   addNewAppointment: async (req, res) => {
     // const therapistId = parseInt(req.body.therapist_id, 10);
 
@@ -436,6 +443,7 @@ const appointmentController = {
     }
   },
 
+  //  Get all appointments for a therapist
   getAllMyAppointments: async (req, res) => {
     // const therapist_id = parseInt(req.therapist_id, 10);
 

@@ -9,6 +9,7 @@ import { Patient, Therapist, Admin } from '../../models/index.js';
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 
 const authentificationController = {
+  // Register a new patient
   registerPatient: async (req, res) => {
     const registerSchema = Joi.object({
       therapist_id: Joi.number().optional(),
@@ -122,6 +123,7 @@ const authentificationController = {
     }
   },
 
+  // Login therapist
   loginPatient: async (req, res) => {
     const loginSchema = Joi.object({
       email: Joi.string()
@@ -173,6 +175,7 @@ const authentificationController = {
     }
   },
 
+  // Login therapist
   loginTherapist: async (req, res) => {
     const loginSchema = Joi.object({
       email: Joi.string()
@@ -234,6 +237,7 @@ const authentificationController = {
     }
   },
 
+  // Login admin
   loginAdmin: async (req, res) => {
     const loginSchema = Joi.object({
       email: Joi.string()

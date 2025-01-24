@@ -1,16 +1,16 @@
-// Purpose: Define the routes for the admin user.
+// Purpose: Router for the admin routes of the application.
 
 import { Router } from 'express';
-import multer from 'multer';
+import { authenticateAdmin } from '../../middlewares/authenticateAdmin.js';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
+import multer from 'multer';
 import patientController from '../controllers/patientController.js';
 import therapistController from '../controllers/therapistController.js';
 import authentificationController from '../controllers/authentificationController.js';
 import afflictionController from '../controllers/afflictionController.js';
 import medicController from '../controllers/medicController.js';
 import insuranceController from '../controllers/insuranceController.js';
-import { authenticateAdmin } from '../../middlewares/authenticateAdmin.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 

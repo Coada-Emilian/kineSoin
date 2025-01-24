@@ -5,6 +5,7 @@ import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Affliction, Body_region } from '../../models/associations.js';
 
 const afflictionController = {
+  // Get all afflictions
   getAllAfflictions: async (req, res) => {
     const foundAfflictions = await Affliction.findAll({
       attributes: [
@@ -34,6 +35,7 @@ const afflictionController = {
     }
   },
 
+  // Create a new affliction
   createAffliction: async (req, res) => {
     // const admin_id = parseInt(req.admin_id, 10);
 
@@ -83,6 +85,7 @@ const afflictionController = {
     }
   },
 
+  // Get one affliction
   getOneAffliction: async (req, res) => {
     const affliction_id = parseInt(req.params.affliction_id, 10);
 
@@ -111,6 +114,7 @@ const afflictionController = {
     }
   },
 
+  // Update an affliction
   updateAffliction: async (req, res) => {
     const adminId = parseInt(req.session.admin_id, 10);
     checkIsIdNumber(adminId);
@@ -183,6 +187,7 @@ const afflictionController = {
     }
   },
 
+  // Delete an affliction
   deleteAffliction: async (req, res) => {
     const afflictionId = parseInt(req.params.affliction_id, 10);
 
@@ -207,6 +212,7 @@ const afflictionController = {
     }
   },
 
+  // Get all body regions
   getAllBodyRegions: async (req, res) => {
     const foundBodyRegions = await Body_region.findAll({
       attributes: ['id', 'name'],
@@ -219,6 +225,7 @@ const afflictionController = {
     }
   },
 
+  // Create a new body region
   createBodyRegion: async (req, res) => {
     // const admin_id = parseInt(req.admin_id, 10);
     const admin_id = 1;
@@ -258,6 +265,7 @@ const afflictionController = {
     }
   },
 
+  // Get one body region
   deleteBodyRegion: async (req, res) => {
     const body_region_id = parseInt(req.params.body_region_id, 10);
 

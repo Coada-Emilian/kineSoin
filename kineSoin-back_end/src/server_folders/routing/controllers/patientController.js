@@ -14,6 +14,7 @@ import { Patient } from '../../models/associations.js';
 multer({ storage: patientPhotoStorage });
 
 const patientController = {
+  // Get the patient's dashboard data
   getPatientDashboardData: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -107,6 +108,7 @@ const patientController = {
     res.status(200).json(sentPatientData);
   },
 
+  // Get the patient's profile data
   getConnectedPatient: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -196,6 +198,7 @@ const patientController = {
     res.status(200).json(sentPatientData);
   },
 
+  // Delete the patient's account
   deleteConnectedPatient: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -212,6 +215,7 @@ const patientController = {
     }
   },
 
+  // Update the patient's profile
   updateConnectedPatient: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -340,6 +344,7 @@ const patientController = {
     }
   },
 
+  // Upload the patient's photo
   uploadPatientPhoto: async (req, res) => {
     const patientId = parseInt(req.patient_id, 10);
 
@@ -386,6 +391,7 @@ const patientController = {
     }
   },
 
+  // Get all the therapist's patients
   getAllMyPatients: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
 
@@ -418,6 +424,7 @@ const patientController = {
     return res.status(200).json(sentPatients);
   },
 
+  // Get all patients
   getAllPatients: async (req, res) => {
     const foundPatients = await Patient.findAll({
       attributes: [
@@ -469,6 +476,7 @@ const patientController = {
     return res.status(200).json(sentPatients);
   },
 
+  // Get one patient
   getOnePatient: async (req, res) => {
     const patientId = parseInt(req.params.patient_id, 10);
 
@@ -568,6 +576,8 @@ const patientController = {
 
     return res.status(200).json(sentPatient);
   },
+
+  // Update the patient's status
   updatePatientStatus: async (req, res) => {
     const patientId = parseInt(req.params.patient_id, 10);
 
@@ -604,6 +614,7 @@ const patientController = {
     }
   },
 
+  // Delete a patient
   deletePatient: async (req, res) => {
     const patientId = parseInt(req.params.patient_id, 10);
 

@@ -1,24 +1,11 @@
-/**
- * @file AdminLogin.tsx
- * @description A React component that handles the admin login process. It includes
- * a form for entering email and password, checks the credentials against the server
- * using an Axios POST request, and navigates to the therapist management page upon
- * successful login. The component also displays error messages for invalid credentials.
- *
- * @param {Object} props - The component props.
- * @param {React.Dispatch<React.SetStateAction<string | null>>} props.setAdminProfileToken - A state setter function
- * to update the admin profile token in the parent component.
- *
- * @returns {JSX.Element} The rendered AdminLogin component, which includes
- * a login form and error messages as needed.
- */
+// Purpose: The purpose of this component is to render the login page for the admin.
 
 import CustomButton from '../../../standaloneComponents/Button/CustomButton.tsx';
-import axios from '../../../../axios.ts';
 import { setAdminTokenAndDataInLocalStorage } from '../../../../localStorage/adminLocalStorage.ts';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { handleAdminLogin } from '../../../../utils/apiUtils.ts';
 
 interface AdminLoginProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -33,18 +20,15 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
     try {
       setIsError(false);
 
-      const response = await axios.post('/admin/login', {
-        email,
-        password,
-      });
+      const response = await handleAdminLogin(email, password);
 
       setAdminTokenAndDataInLocalStorage(
-        response.data.token,
-        response.data.name,
-        response.data.id
+        response.token,
+        response.name,
+        response.id
       );
 
-      setAdminProfileToken(response.data.token);
+      setAdminProfileToken(response.token);
       navigate('/admin/therapists');
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 401) {
@@ -56,12 +40,14 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
       }
     }
   };
+
   return (
     <main className="flex items-center justify-center min-h-screen w-11/12 mx-auto md:w-full bg-gray-100">
       <section className="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue">
           Connexion administrateur
         </h1>
+
         {isError ? (
           <p className="text-center text-red-600 font-semibold">
             Email et/ou Mot de passe invalide
@@ -83,8 +69,9 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
               htmlFor="email"
               className="block text-sm font-medium text-primaryBlue"
             >
-              Adresse email
+              Adresse e-mail
             </label>
+
             <input
               type="email"
               placeholder="E-mail"
@@ -94,6 +81,7 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
               required
             />
           </div>
+
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -101,6 +89,7 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
             >
               Mot de passe
             </label>
+
             <input
               type="password"
               name="password"
@@ -110,6 +99,7 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
               required
             />
           </div>
+
           <div className="flex justify-center">
             <CustomButton
               btnText="Se connecter"

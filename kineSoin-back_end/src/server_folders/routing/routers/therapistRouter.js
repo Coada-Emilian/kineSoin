@@ -12,20 +12,23 @@ const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
 export const therapistRouter = Router();
 
-
 therapistRouter.get(
   '/me/dashboard',
   wrapper(therapistController.getTherapistDashboardData)
 );
+
 therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
+
 therapistRouter.delete(
   '/me',
   wrapper(therapistController.deleteConnectedTherapist)
 );
+
 therapistRouter.patch(
   '/me',
   wrapper(therapistController.updateConnectedTherapist)
 );
+
 therapistRouter.post(
   '/me/uploadPhoto',
   uploadTherapistPhoto.single('photo'),
@@ -36,14 +39,17 @@ therapistRouter.get(
   '/me/pendingPatients',
   wrapper(patientController.getPendingPatients)
 );
+
 therapistRouter.get(
   '/me/allMyPatients',
   wrapper(patientController.getAllMyPatients)
 );
+
 therapistRouter.get(
   '/me/allPatients',
   wrapper(patientController.getAllPatients)
 );
+
 therapistRouter.get(
   '/me/patients/:patient_id',
   wrapper(patientController.getOnePatient)
@@ -53,6 +59,7 @@ therapistRouter.post(
   '/me/newAppointment',
   wrapper(appointmentController.addNewAppointment)
 );
+
 therapistRouter.get(
   '/me/appointments',
   wrapper(appointmentController.getAllMyAppointments)

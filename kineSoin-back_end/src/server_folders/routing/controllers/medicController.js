@@ -5,6 +5,7 @@ import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Medic } from '../../models/associations.js';
 
 const medicController = {
+  // Get all medics
   getAllMedics: async (req, res) => {
     const foundMedics = await Medic.findAll({
       attributes: [
@@ -40,6 +41,7 @@ const medicController = {
     }
   },
 
+  // Get one medic
   getOneMedic: async (req, res) => {
     const medic_id = parseInt(req.params.medic_id, 10);
 
@@ -80,6 +82,7 @@ const medicController = {
     }
   },
 
+  // Create a medic
   createMedic: async (req, res) => {
     const admin_id = req.session.admin_id;
 
@@ -141,6 +144,7 @@ const medicController = {
     }
   },
 
+  // Update a medic
   updateMedic: async (req, res) => {
     const admin_id = parseInt(req.session.admin_id, 10);
     checkIsIdNumber(admin_id);
@@ -216,6 +220,7 @@ const medicController = {
     }
   },
 
+  // Delete a medic
   deleteMedic: async (req, res) => {
     const medic_id = parseInt(req.params.medic_id, 10);
 

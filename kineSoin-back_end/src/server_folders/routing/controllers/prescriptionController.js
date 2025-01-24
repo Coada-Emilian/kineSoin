@@ -6,6 +6,7 @@ import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Patient, Prescription } from '../../models/associations.js';
 
 const prescriptionController = {
+  // Get all prescriptions
   getAllPrescriptions: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -57,6 +58,7 @@ const prescriptionController = {
     }
   },
 
+  // Get one prescription
   getOnePrescription: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -96,6 +98,7 @@ const prescriptionController = {
     }
   },
 
+  // Add a new prescription
   addNewPrescription: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -104,7 +107,7 @@ const prescriptionController = {
     checkIsIdNumber(patientId);
 
     const foundPatient = await Patient.findByPk(patientId);
-    
+
     checkPatientStatus(foundPatient);
 
     const prescriptionSchema = Joi.object({
@@ -115,10 +118,12 @@ const prescriptionController = {
       date: Joi.date().required(),
     });
 
-    if(!req.body) {
-      return res.status(400).json({ message: 'Please provide the prescription details' });
+    if (!req.body) {
+      return res
+        .status(400)
+        .json({ message: 'Please provide the prescription details' });
     }
-    
+
     const { error } = prescriptionSchema.validate(req.body);
 
     if (error) {

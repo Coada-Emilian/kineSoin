@@ -11,6 +11,7 @@ import { Patient, Appointment, Therapist } from '../../models/associations.js';
 multer({ storage: therapistPhotoStorage });
 
 const therapistController = {
+  // Get therapist dashboard data
   getTherapistDashboardData: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
 
@@ -61,6 +62,7 @@ const therapistController = {
     });
   },
 
+  // Get patient's therapist data
   getPersonalTherapist: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -115,6 +117,7 @@ const therapistController = {
     }
   },
 
+  // Get therapist's data
   getConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
 
@@ -156,6 +159,7 @@ const therapistController = {
     res.status(200).json(sentTherapist);
   },
 
+  // Delete therapist
   deleteConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
 
@@ -174,6 +178,7 @@ const therapistController = {
     }
   },
 
+  // Update therapist's data
   updateConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);
 
@@ -280,6 +285,7 @@ const therapistController = {
       .json({ message: 'Therapist updated successfully!', foundTherapist });
   },
 
+  // Upload therapist's photo
   uploadTherapistPhoto: async (req, res) => {
     const therapistId = parseInt(req.therapist_id, 10);
 
@@ -321,6 +327,7 @@ const therapistController = {
     }
   },
 
+  // Get all therapists
   getAllTherapists: async (req, res) => {
     const foundTherapists = await Therapist.findAll({
       attributes: ['id', 'name', 'surname', 'status'],
@@ -345,6 +352,7 @@ const therapistController = {
     return res.status(200).json(allTherapists);
   },
 
+  // Get one therapist
   getOneTherapist: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
 
@@ -386,6 +394,7 @@ const therapistController = {
     return res.status(200).json(sentTherapist);
   },
 
+  // Update therapist
   updateTherapist: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
     checkIsIdNumber(therapistId);
@@ -467,6 +476,7 @@ const therapistController = {
     }
   },
 
+  // Delete therapist
   deleteTherapist: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
 
@@ -483,6 +493,7 @@ const therapistController = {
     }
   },
 
+  // Create therapist
   createTherapist: async (req, res) => {
     const adminId = parseInt(req.admin_id, 10);
 
@@ -586,6 +597,7 @@ const therapistController = {
     }
   },
 
+  // Toggle therapist status
   toggleTherapistStatus: async (req, res) => {
     const therapistId = parseInt(req.params.therapist_id, 10);
     checkIsIdNumber(therapistId);

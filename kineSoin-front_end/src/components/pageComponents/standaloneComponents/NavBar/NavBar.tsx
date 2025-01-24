@@ -1,17 +1,7 @@
-/**
- * @file AdminNavBar.tsx
- * @description A React functional component that renders a navigation bar for the admin section
- * of the KineSoin application. The navigation bar includes a logo that changes based on the
- * window width and a logout button for the admin user.
- *
- * @param {Object} props - The component props.
- * @param {number} props.windowWidth - The current width of the window, used to determine the
- * appropriate logo and layout.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsAdminAuthenticated - A state
- * setter function to update the authentication status of the admin user upon logout.
- *
- * @returns {JSX.Element} The rendered AdminNavBar component, including the logo and logout button.
- */
+// Purpose: The purpose of this component is to render the navigation bar of the website.
+// The navigation bar is responsive and changes its layout depending on the screen size.
+// The navigation bar is used in the public pages, the admin pages and the patient pages.
+// The navigation bar is used to navigate between the different pages of the website. The navigation bar is also used to log in and log out of the website.
 
 import { Link } from 'react-router-dom';
 import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
@@ -60,11 +50,12 @@ export default function NavBar({
     window.location.href = '/loginAdmin';
   };
 
+  // State to manage the patient notification quantity
   const [patientNotificationQuantity, setPatientNotificationQuantity] =
     useState(0);
 
   return (
-    <header className="bg-white bg-opacity-90 sticky top-0 w-full py-1 z-10">
+    <header className="bg-white bg-opacity-70 sticky top-0 w-full py-1 z-10">
       <nav
         className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}
       >
@@ -104,9 +95,9 @@ export default function NavBar({
                 />
               </Link>
             ) : (
-              <Button
-                btnText="Se déconnecter"
-                normalButton
+              <CustomButton
+                btnText={<>Se déconnecter</>}
+                navBarButton
                 onClick={handleAdminLogout}
               />
             ))}

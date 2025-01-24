@@ -5,6 +5,7 @@ import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Patient, Patient_Insurance, Insurance } from '../../models/index.js';
 
 const insuranceController = {
+  // Get the insurance information for a patient
   getInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -64,6 +65,7 @@ const insuranceController = {
     }
   },
 
+  // Update the insurance information for a patient
   updateInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -122,6 +124,7 @@ const insuranceController = {
     }
   },
 
+  // Add insurance information for a patient
   addInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
@@ -167,6 +170,7 @@ const insuranceController = {
     }
   },
 
+  // Get all insurance organisms
   getAllInsuranceOrganisms: async (req, res) => {
     const allInsurances = await Insurance.findAll({
       attributes: ['id', 'name', 'amc_code'],
@@ -179,6 +183,7 @@ const insuranceController = {
     }
   },
 
+  // Delete an insurance organism
   deleteInsuranceOrganism: async (req, res) => {
     const insuranceId = parseInt(req.params.insurance_id, 10);
 
@@ -203,6 +208,7 @@ const insuranceController = {
     }
   },
 
+  // Create an insurance organism
   createInsuranceOrganism: async (req, res) => {
     const adminId = req.session.admin_id;
     checkIsIdNumber(adminId);
@@ -264,6 +270,7 @@ const insuranceController = {
     }
   },
 
+  // Get one insurance organism
   getOneInsuranceOrganism: async (req, res) => {
     const insuranceId = parseInt(req.params.insurance_id, 10);
 
@@ -301,6 +308,7 @@ const insuranceController = {
     }
   },
 
+  // Update an insurance organism
   updateInsuranceOrganism: async (req, res) => {
     const adminId = req.session.admin_id;
     checkIsIdNumber(adminId);
