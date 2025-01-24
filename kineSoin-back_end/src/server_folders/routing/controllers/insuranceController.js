@@ -211,6 +211,7 @@ const insuranceController = {
   // Create an insurance organism
   createInsuranceOrganism: async (req, res) => {
     const adminId = req.session.admin_id;
+    
     checkIsIdNumber(adminId);
 
     if (!req.body) {

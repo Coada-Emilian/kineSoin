@@ -37,9 +37,7 @@ const afflictionController = {
 
   // Create a new affliction
   createAffliction: async (req, res) => {
-    // const admin_id = parseInt(req.admin_id, 10);
-
-    const admin_id = 1;
+    const admin_id = req.session.admin_id;
 
     checkIsIdNumber(admin_id);
 
@@ -216,6 +214,7 @@ const afflictionController = {
   getAllBodyRegions: async (req, res) => {
     const foundBodyRegions = await Body_region.findAll({
       attributes: ['id', 'name'],
+      order: [['name', 'ASC']],
     });
 
     if (!foundBodyRegions) {
@@ -227,8 +226,7 @@ const afflictionController = {
 
   // Create a new body region
   createBodyRegion: async (req, res) => {
-    // const admin_id = parseInt(req.admin_id, 10);
-    const admin_id = 1;
+    const admin_id = req.session.admin_id;
 
     checkIsIdNumber(admin_id);
 

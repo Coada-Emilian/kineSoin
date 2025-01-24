@@ -331,7 +331,10 @@ const therapistController = {
   getAllTherapists: async (req, res) => {
     const foundTherapists = await Therapist.findAll({
       attributes: ['id', 'name', 'surname', 'status'],
-      order: [['id', 'ASC']],
+      order: [
+        ['status', 'ASC'],
+        ['name', 'ASC'],
+      ],
     });
 
     if (!foundTherapists) {
@@ -407,7 +410,7 @@ const therapistController = {
       experience: Joi.string().max(50).allow('').optional(),
       specialty: Joi.string().max(50).allow('').optional(),
       description: Joi.string().allow('').optional(),
-      licence_code: Joi.string().max(9).optional(),
+      licence_code: Joi.string().max(9).allow('').optional(),
     }).min(1);
 
     if (!req.body) {
@@ -425,6 +428,7 @@ const therapistController = {
       if (!foundTherapist) {
         return res.status(400).json({ message: 'Therapist not found' });
       }
+
       const {
         status,
         name,
@@ -559,7 +563,7 @@ const therapistController = {
         const picture_id = req.file.filename;
 
         const newTherapist = {
-          admin_id: adminId || 1,
+          admin_id: adminId,
           name,
           surname,
           email,
