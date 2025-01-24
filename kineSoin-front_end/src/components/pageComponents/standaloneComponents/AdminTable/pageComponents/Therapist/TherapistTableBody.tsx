@@ -1,15 +1,4 @@
-/**
- * @file TherapistTableBody.tsx
- * @description A React functional component that renders a table body for displaying therapists. Each row contains information about a therapist, including their ID, name, status, and actions for editing or deleting the entry.
- *
- * @param {Object} props - The props for the TherapistTableBody component.
- * @param {ITherapist[]} props.renderedTherapists - An array of therapist objects to be displayed in the table.
- * @param {number} props.windowWidth - The current width of the window, used for responsive rendering.
- * @param {function} props.handleStatusChange - A function that changes the status of a therapist based on their ID.
- * @param {function} props.openDeleteModal - A function that opens a modal to confirm the deletion of a therapist, accepting optional parameters for other entities.
- *
- * @returns {JSX.Element} The rendered table rows for the therapists, each including action buttons for editing and deleting.
- */
+// Purpose: Display the body of the table with therapist data.
 
 import { Link } from 'react-router-dom';
 import { ITherapist } from '../../../../../../@types/ITherapist';

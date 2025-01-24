@@ -1,21 +1,4 @@
-/**
- * @file AdminProfileDetails.tsx
- * @description A React functional component that manages the display and editing of
- * admin profile details within the KineSoin application. This component allows the admin
- * to inspect and update various entities, including therapists, patients, afflictions,
- * medics, and insurance details. It features sections for general information, specific
- * entity details, image management, and status toggling.
- *
- * @param {Object} props - The component props.
- * @param {ITherapist} [props.therapist] - An optional therapist object containing therapist details.
- * @param {IPatient} [props.patient] - An optional patient object containing patient details.
- * @param {IAffliction} [props.affliction] - An optional affliction object containing affliction details.
- * @param {IMedic} [props.medic] - An optional medic object containing medic details.
- * @param {IInsurance} [props.insurance] - An optional insurance object containing insurance details.
- *
- * @returns {JSX.Element} The rendered AdminProfileDetails component, which includes
- * various sections for viewing and editing profile information.
- */
+// Purpose: Provide the AdminProfileDetails component which displays the profile details of a therapist, patient, affliction, medic, or insurance.
 
 import { useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
@@ -56,10 +39,16 @@ export default function AdminProfileDetails({
   medic,
   insurance,
 }: AdminProfileDetailsProps) {
+  // State variables
   const [isProfileEditing, setIsProfileEditing] = useState(false);
+
+  // Modal state variables
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditPhotoModalOpen, setIsEditPhotoModalOpen] = useState(false);
+
+  // Form state variables
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const [buttonMessage, setButtonMessage] = useState('Changer le statut');
   const [backgroundColor, setBackgroundColor] = useState('bg-white');
   const [description, setDescription] = useState(therapist?.description || '');
@@ -73,6 +62,7 @@ export default function AdminProfileDetails({
   const [afflictionOperatedStatus, setAfflictionOperatedStatus] =
     useState<boolean>(false);
 
+  // Function to handle patient status changes
   const handlePatientStatusChanges = async (id: number, status: string) => {
     const response = handlePatientStatusChange(id, status);
     if (await response) {
@@ -83,6 +73,7 @@ export default function AdminProfileDetails({
     }
   };
 
+  // Function to toggle the status of the therapist, patient, medic, or insurance
   const toggleStatus = (status: string) => {
     if (status === 'active' || status === 'opérée') {
       if (status === 'active') {
@@ -109,14 +100,19 @@ export default function AdminProfileDetails({
     }
   };
 
+  // Function to handle therapist profile updates
   const handleTherapistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
+
+    // Append the selected file to the form data
     if (selectedFile) {
       formData.append('file', selectedFile);
     }
     formData.append('status' as string, therapistStatus);
+
+    // Append the description to the form data
     if (therapist && therapist.id) {
       try {
         const response = await handleTherapistUpdate(formData, therapist.id);
@@ -134,6 +130,7 @@ export default function AdminProfileDetails({
     }
   };
 
+  // Function to handle affliction updates
   const handleAfflictionUpdate = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -165,6 +162,7 @@ export default function AdminProfileDetails({
     }
   };
 
+  // Function to handle medic updates
   const handleMedicUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -186,6 +184,7 @@ export default function AdminProfileDetails({
     }
   };
 
+  // Function to handle insurance updates
   const handleInsuranceUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -244,6 +243,7 @@ export default function AdminProfileDetails({
                         ? "organisme d'assurance"
                         : ''}
             </h1>
+
             <GeneralSection
               patient={patient}
               therapist={therapist}
@@ -311,6 +311,7 @@ export default function AdminProfileDetails({
           </div>
         </div>
       </form>
+
       {isDeleteModalOpen && (
         <ConfirmDeleteModal
           patient={patient}
@@ -322,6 +323,7 @@ export default function AdminProfileDetails({
           insurance={insurance}
         />
       )}
+
       {isEditPhotoModalOpen && therapist && (
         <EditPhotoModal
           isEditPhotoModalOpen={isEditPhotoModalOpen}

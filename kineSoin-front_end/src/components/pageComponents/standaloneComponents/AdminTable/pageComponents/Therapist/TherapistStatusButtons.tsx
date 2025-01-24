@@ -1,12 +1,4 @@
-/**
- * @file TherapistStatusButtons.tsx
- * @description A React functional component that renders buttons for selecting the status of therapists. It allows users to filter therapists by their status (all, active, inactive).
- *
- * @param {Object} props - The props for the TherapistStatusButtons component.
- * @param {function} props.setTherapistStatus - A function that sets the status of the therapists based on the button clicked. Accepts a status string as a parameter.
- *
- * @returns {JSX.Element} The rendered buttons for selecting therapist statuses, each triggering a status update on click.
- */
+// Purpose: The purpose of this component is to render the therapist status buttons.
 
 import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';
 

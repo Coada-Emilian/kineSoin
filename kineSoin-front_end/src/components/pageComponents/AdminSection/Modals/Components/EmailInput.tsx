@@ -1,19 +1,4 @@
-/**
- * @file EmailInput.tsx
- * @description A React functional component that renders an input field for
- * entering a therapist's email address. It includes a label and an input
- * field that manages the email value through the provided state setter
- * function.
- *
- * @param {Object} props - The component props.
- * @param {string} props.therapistEmail - The current value of the therapist's
- * email, which is displayed in the input field.
- * @param {(email: string) => void} props.setTherapistEmail - The function to
- * update the state for the therapist's email.
- *
- * @returns {JSX.Element} The rendered EmailInput component, which includes
- * a label and an input field for entering the email address.
- */
+// Purpose: The purpose of this component is to render the email input field of the add therapist modal.
 
 interface EmailInputProps {
   therapistEmail: string;

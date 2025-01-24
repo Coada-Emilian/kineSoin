@@ -1,18 +1,4 @@
-/**
- * @file RegionModal.tsx
- * @description A React component that renders a modal displaying a list of body regions.
- * The modal allows users to view, delete, and add body regions. It fetches the regions
- * from an API and displays them in a table format.
- *
- * @param {Object} props - The component props.
- * @param {boolean} props.isRegionModalOpen - A boolean indicating if the modal is open.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsRegionModalOpen - A
- * function to set the modal's open state.
- * @param {number} props.windowWidth - The current window width for responsive styling.
- *
- * @returns {JSX.Element} The rendered RegionModal component, which includes
- * a table of body regions and options to delete or add regions.
- */
+// Purpose: The purpose of this component is to render the admin therapists page.
 
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
@@ -37,6 +23,7 @@ export default function RegionModal({
   isRegionModalOpen,
   setIsRegionModalOpen,
 }: RegionModalProps) {
+  // State to store all body regions fetched
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
   const [isAddRegionModalOpen, setIsAddRegionModalOpen] = useState(false);
 
@@ -77,6 +64,7 @@ export default function RegionModal({
     >
       <div className="space-y-4">
         <h2 className="text-sm md:text-base font-bold mb-2 md:mb-4">Regions</h2>
+
         <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6">
           <thead className="bg-gray-100 text-xs md:text-sm">
             <tr className="h-fit">
@@ -84,15 +72,18 @@ export default function RegionModal({
                 <th className="border border-gray-300 px-4 py-1 text-center">
                   #id
                 </th>
+
                 <th className="border border-gray-300 px-4 py-1 text-center">
                   Nom region
                 </th>
+
                 <th className="border border-gray-300 px-4 py-1 text-center">
                   Suppression
                 </th>
               </>
             </tr>
           </thead>
+
           <tbody
             className={windowWidth < 450 ? 'text-xs' : 'text-xs md:text-sm'}
           >
@@ -104,9 +95,11 @@ export default function RegionModal({
                 <td className="border border-gray-300 px-4 py-1 text-center">
                   {region.id}
                 </td>
+
                 <td className="border border-gray-300 px-4 py-1 text-center">
                   {region.name}
                 </td>
+
                 <td className="border border-gray-300 px-4 py-1 text-center">
                   <Link to="#" className="w-12">
                     <img
@@ -121,6 +114,7 @@ export default function RegionModal({
             ))}
           </tbody>
         </table>
+
         <div className="flex justify-center">
           <CustomButton
             btnText="Ajouter une region"
@@ -129,6 +123,7 @@ export default function RegionModal({
             onClick={() => setIsAddRegionModalOpen(true)}
           />
         </div>
+        
       </div>
       {isAddRegionModalOpen && (
         <AddRegionModal

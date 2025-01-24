@@ -1,17 +1,4 @@
-/**
- * @file ImageInput.tsx
- * @description A React functional component that renders an input field for
- * uploading an image. It includes a label and a file input field that allows
- * users to select an image file from their device. The component handles
- * file changes through the provided callback function.
- *
- * @param {Object} props - The component props.
- * @param {function} props.handleFileChange - A callback function that is called
- * when the user selects a file. It receives the event as an argument.
- *
- * @returns {JSX.Element} The rendered ImageInput component, which includes
- * a label and a file input field for image uploads.
- */
+// Purpose: The purpose of this component is to render the image input field of the therapist modal.
 
 interface ImageInputProps {
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

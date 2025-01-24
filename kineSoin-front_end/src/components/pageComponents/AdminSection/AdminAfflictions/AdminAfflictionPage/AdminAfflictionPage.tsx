@@ -1,18 +1,4 @@
-/**
- * @file AdminAfflictionPage.tsx
- * @description A React component that displays the details of a specific affliction
- * in an admin panel. It fetches affliction data from an API based on the affliction ID
- * extracted from the URL parameters and provides a responsive layout that adapts
- * based on the window width. The component renders a different layout for mobile
- * and desktop views, utilizing separate navigation components.
- *
- * @param {Object} props - The component props.
- * @param {number} props.windowWidth - The current width of the window, used to
- * determine the layout of the component (mobile vs desktop).
- *
- * @returns {JSX.Element} The rendered AdminAfflictionPage component, which displays
- * the details of the affliction and appropriate navigation elements.
- */
+// Purpose: Provide the page for the admin to view an affliction's profile.
 
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';

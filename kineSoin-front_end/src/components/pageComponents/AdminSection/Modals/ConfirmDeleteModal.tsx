@@ -1,22 +1,4 @@
-/**
- * @file ConfirmDeleteModal.tsx
- * @description A React component that displays a confirmation modal for deleting a profile,
- * affliction, or insurance organism. The modal prompts the user for confirmation and executes
- * the deletion action if confirmed.
- *
- * @param {Object} props - The component props.
- * @param {boolean} props.isDeleteModalOpen - A boolean indicating if the modal is open.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsDeleteModalOpen - A
- * function to set the modal's open state.
- * @param {ITherapist | null} [props.therapist] - An optional therapist object for deletion.
- * @param {IPatient | null} [props.patient] - An optional patient object for deletion.
- * @param {IAffliction | null} [props.affliction] - An optional affliction object for deletion.
- * @param {IMedic | null} [props.medic] - An optional medic object for deletion.
- * @param {IInsurance | null} [props.insurance] - An optional insurance object for deletion.
- *
- * @returns {JSX.Element} The rendered ConfirmDeleteModal component, which includes
- * confirmation prompts and buttons for confirming or canceling the deletion.
- */
+// Purpose: Provide the ConfirmDeleteModal component which displays a modal to confirm the deletion of a profile.
 
 import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
@@ -33,6 +15,8 @@ import { IAffliction } from '../../../../@types/IAffliction';
 import { IMedic } from '../../../../@types/IMedic';
 import { IInsurance } from '../../../../@types/IInsurance';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import DNALoader from '../../../../utils/DNALoader';
+import { useState } from 'react';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
@@ -54,6 +38,11 @@ export default function ConfirmDeleteModal({
   insurance,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  if (isLoading) {
+    return DNALoader();
+  }
 
   return (
     <ReactModal
@@ -116,27 +105,35 @@ export default function ConfirmDeleteModal({
             deleteButton
             onClick={() => {
               setIsDeleteModalOpen(false);
-              if (therapist) {
-                handleTherapistDelete(therapist.id);
-                navigate('/admin/therapists');
-                window.location.reload();
-              } else if (patient) {
-                handlePatientDelete(patient.id);
-                navigate('/admin/patients');
-                window.location.reload();
-              } else if (affliction) {
-                handleAfflictionDelete(affliction.id);
-                navigate('/admin/afflictions');
-                window.location.reload();
-              } else if (medic) {
-                handleMedicDelete(medic.id);
-                navigate('/admin/medics');
-                window.location.reload();
-              } else if (insurance) {
-                handleInsuranceOrganismDelete(insurance.id);
-                navigate('/admin/insurances');
-                window.location.reload();
+              setIsLoading(true);
+              {
+                therapist
+                  ? handleTherapistDelete(therapist.id)
+                  : patient
+                    ? handlePatientDelete(patient.id)
+                    : affliction
+                      ? handleAfflictionDelete(affliction.id)
+                      : medic
+                        ? handleMedicDelete(medic.id)
+                        : insurance
+                          ? handleInsuranceOrganismDelete(insurance.id)
+                          : '';
               }
+              setIsLoading(false);
+              navigate(
+                therapist
+                  ? '/admin/therapists'
+                  : patient
+                    ? '/admin/patients'
+                    : affliction
+                      ? '/admin/afflictions'
+                      : medic
+                        ? '/admin/medics'
+                        : insurance
+                          ? '/admin/insurances'
+                          : ''
+              );
+              window.location.reload();
             }}
           />
 

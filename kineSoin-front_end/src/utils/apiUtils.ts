@@ -3,6 +3,8 @@ import { setPatientTokenAndDataInLocalStorage } from '../localStorage/patientLoc
 import { setTherapistTokenAndDataInLocalStorage } from '../localStorage/therapistLocalStorage.ts';
 
 // Admin therapist API calls
+
+// Admin deleting a therapist
 export const handleTherapistDelete = async (id: number) => {
   if (id) {
     try {
@@ -24,6 +26,7 @@ export const handleTherapistDelete = async (id: number) => {
   }
 };
 
+// Admin fetching therapists
 export const fetchTherapists = async () => {
   try {
     const response = await axios.get('/admin/therapists');
@@ -39,6 +42,7 @@ export const fetchTherapists = async () => {
   }
 };
 
+// Admin fetching a therapist
 export const fetchTherapist = async (id: number) => {
   try {
     const response = await axios.get(`/admin/therapists/${id}`);
@@ -54,6 +58,7 @@ export const fetchTherapist = async (id: number) => {
   }
 };
 
+// Admin updating therapist status
 export const handleTherapistStatusChange = async (id: number) => {
   try {
     const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
@@ -91,6 +96,8 @@ export const handleTherapistUpdate = async (formData: FormData, id: number) => {
 };
 
 // Admin patient API calls
+
+// Admin fetching patients
 export const fetchPatients = async () => {
   try {
     const response = await axios.get('/admin/allPatients');
@@ -127,6 +134,7 @@ export const handlePatientStatusChange = async (id: number, status: string) => {
   }
 };
 
+// Admin fetching a patient
 export const fetchPatient = async (id: number) => {
   try {
     const response = await axios.get(`/admin/patients/${id}`);
@@ -142,6 +150,7 @@ export const fetchPatient = async (id: number) => {
   }
 };
 
+// Admin deleting a patient
 export const handlePatientDelete = async (id: number) => {
   if (id) {
     try {
@@ -194,6 +203,7 @@ export const fetchAffliction = async (id: number) => {
   }
 };
 
+// Admin deleting an affliction
 export const handleAfflictionDelete = async (id: number) => {
   try {
     const response = await axios.delete(`/admin/afflictions/${id}`);
@@ -210,6 +220,7 @@ export const handleAfflictionDelete = async (id: number) => {
   }
 };
 
+// Admin creating an affliction
 export const handleAfflictionCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/afflictions', formData, {
@@ -254,6 +265,8 @@ export const handleAfflictionUpdates = async (
 };
 
 // Admin body region API calls
+
+// Admin fetching body regions
 export const fetchBodyRegions = async () => {
   try {
     const response = await axios.get('/admin/bodyRegions');
@@ -269,6 +282,7 @@ export const fetchBodyRegions = async () => {
   }
 };
 
+// Admin creating a body region
 export const handleRegionCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/bodyRegions', formData, {
@@ -289,6 +303,7 @@ export const handleRegionCreation = async (formData: FormData) => {
   }
 };
 
+// Admin deleting a body region
 export const handleRegionDelete = async (id: number) => {
   try {
     const response = await axios.delete(`/admin/bodyRegions/${id}`);
@@ -341,6 +356,7 @@ export const handleMedicUpdates = async (formData: FormData, id: number) => {
   }
 };
 
+// Admin deleting a medic
 export const handleMedicDelete = async (id: number) => {
   try {
     const response = await axios.delete(`/admin/medics/${id}`);
@@ -357,6 +373,7 @@ export const handleMedicDelete = async (id: number) => {
   }
 };
 
+// Admin creating a medic
 export const handleMedicCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/medics', formData, {
@@ -408,6 +425,7 @@ export const fetchInsuranceOrganisms = async () => {
   }
 };
 
+// Admin deleting an insurance organism
 export const handleInsuranceOrganismDelete = async (id: number) => {
   try {
     const response = await axios.delete(`/admin/insuranceOrganisms/${id}`);
@@ -424,6 +442,7 @@ export const handleInsuranceOrganismDelete = async (id: number) => {
   }
 };
 
+// Admin creating an insurance organism
 export const handleInsuranceOrganismCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/insuranceOrganisms', formData, {
@@ -570,6 +589,26 @@ export const handleAdminLogin = async (email: string, password: string) => {
     }
   } catch (error) {
     console.error('Error connecting admin:', error);
+    return false;
+  }
+};
+
+export const handleTherapistCreation = async (formData: FormData) => {
+  try {
+    const response = await axios.post('/admin/therapists', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 201) {
+      console.log('Therapist created successfully');
+      return true;
+    } else {
+      console.error('Failed to create therapist', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error creating therapist:', error);
     return false;
   }
 };

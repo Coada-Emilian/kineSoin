@@ -111,7 +111,7 @@ export default function CustomButton({
       pendingButton ||
       bannedButton
     ) {
-      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-24 my-0 mx-0';
+      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0';
     } else if (addButton) {
       return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0';
     } else if (

@@ -1,17 +1,4 @@
-/**
- * @file AdminTable.tsx
- * @description A React functional component that renders an administrative table for managing therapists, patients, afflictions, medics, and insurance organizations in the KineSoin application. This component provides a user interface for displaying lists, filtering by status, and managing entities through various modals for adding, editing, or deleting records.
- *
- * @param {Object} props - The props for the AdminTable component.
- * @param {ITherapist[]} [props.allTherapists] - An optional array of all therapists.
- * @param {IPatient[]} [props.allPatients] - An optional array of all patients.
- * @param {IAffliction[]} [props.allAfflictions] - An optional array of all afflictions.
- * @param {IMedic[]} [props.allMedics] - An optional array of all medics.
- * @param {IInsurance[]} [props.allInsurances] - An optional array of all insurance organizations.
- * @param {number} props.windowWidth - The current width of the window for responsive design.
- *
- * @returns {JSX.Element} The rendered AdminTable component, including buttons for managing entities and a table displaying the relevant data.
- */
+// Purpose: The purpose of this component is to render the admin table.
 
 import { ITherapist } from '../../../../@types/ITherapist';
 import { useEffect, useState } from 'react';
@@ -123,6 +110,7 @@ export default function AdminTable({
     setRenderedAfflictions(allAfflictions || []);
   }, [allAfflictions]);
 
+  // useEffects to render therapists, patients, afflictions
   useEffect(() => {
     renderTherapists();
   }, [therapistStatus]);
@@ -133,7 +121,7 @@ export default function AdminTable({
     renderAfflictions();
   }, [afflictionStatus]);
 
-  // Function to render therapists
+  // Function to render therapists based on status
   const renderTherapists = () => {
     if (therapistStatus === 'all') {
       setRenderedTherapists(allTherapists ?? []);
@@ -220,7 +208,7 @@ export default function AdminTable({
     setIsDeleteModalOpen(true);
   };
 
-  // Function to handle status change
+  // Function to handle therapist status change
   const handleStatusChange = async (therapistId: number) => {
     const response = await handleTherapistStatusChange(therapistId);
     if (response) {
@@ -280,7 +268,7 @@ export default function AdminTable({
           {allInsurances && (
             <div className="flex ">
               <CustomButton
-                btnText="Ajouter un organisme d'assurance"
+                btnText="Ajouter une assurance"
                 addButton
                 onClick={() => setIsAddInsuranceModalOpen(true)}
               />

@@ -281,9 +281,7 @@ function App() {
               windowWidth={windowWidth}
             />
           }
-        >
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
+        ></Route>
       )}
 
       {/* Patient routes */}
@@ -328,7 +326,7 @@ function AdminLayout({
   windowWidth: number;
 }) {
   return (
-    <>
+    <div className="flex flex-col justify-between min-h-screen">
       <NavBar
         isAdminAuthenticated={isAdminAuthenticated}
         setIsAdminAuthenticated={setIsAdminAuthenticated}
@@ -337,7 +335,7 @@ function AdminLayout({
       />
       <Outlet />
       <Footer isAdminFooter />
-    </>
+    </div>
   );
 }
 

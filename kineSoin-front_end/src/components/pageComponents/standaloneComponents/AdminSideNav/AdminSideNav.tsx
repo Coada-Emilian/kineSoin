@@ -1,13 +1,4 @@
-/**
- * @file AdminSideNav.tsx
- * @description A React functional component that renders a side navigation menu for
- * the admin section of the KineSoin application. This component provides navigation links
- * to different administrative sections, including therapists, patients, afflictions,
- * medics, and insurance organizations. Each link changes style based on its active state.
- *
- * @returns {JSX.Element} The rendered AdminSideNav component, which includes
- * navigation links for the admin panel.
- */
+// Purpose: The purpose of this component is to render the admin side navigation.
 
 import { NavLink } from 'react-router-dom';
 

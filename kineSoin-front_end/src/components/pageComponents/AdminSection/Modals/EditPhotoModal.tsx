@@ -1,21 +1,4 @@
-/**
- * @file EditPhotoModal.tsx
- * @description A React component that displays a modal for editing a therapist's photo.
- * The modal allows the user to select a new photo, preview it, and confirm or cancel the
- * changes.
- *
- * @param {Object} props - The component props.
- * @param {boolean} props.isEditPhotoModalOpen - A boolean indicating if the modal is open.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsEditPhotoModalOpen - A
- * function to set the modal's open state.
- * @param {ITherapist} props.therapist - The therapist object for whom the photo is being edited.
- * @param {React.Dispatch<React.SetStateAction<File | null>>} props.setSelectedFile - A function
- * to set the selected file (new photo).
- *
- * @returns {JSX.Element} The rendered EditPhotoModal component, which includes a preview of
- * the therapist's current photo, a file input for selecting a new photo, and buttons to
- * confirm or cancel the changes.
- */
+// Purpose: Provide a modal to edit the therapist's photo.
 
 import ReactModal from 'react-modal';
 import { ITherapist } from '../../../../@types/ITherapist';
@@ -71,6 +54,7 @@ export default function EditPhotoModal({
         <h2 className="text-lg font-semibold">
           Modifier la photo du thérapeute
         </h2>
+
         {previewUrl ? (
           <img
             src={previewUrl}
@@ -87,6 +71,7 @@ export default function EditPhotoModal({
           onChange={handleFileChange}
           className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-primaryBlue hover:file:bg-secondaryBlue cursor-pointer"
         />
+
         <div className="flex justify-end gap-4">
           <CustomButton
             btnText="Confirmer"

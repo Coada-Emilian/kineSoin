@@ -1,17 +1,4 @@
-/**
- * @file AdminAfflictionsPage.tsx
- * @description A React component that displays a list of afflictions in an admin
- * panel. It fetches affliction data from an API and provides a responsive layout
- * that adapts based on the window width. The component renders a different layout
- * for mobile and desktop views, utilizing separate navigation components.
- *
- * @param {Object} props - The component props.
- * @param {number} props.windowWidth - The current width of the window, used to
- * determine the layout of the component (mobile vs desktop).
- *
- * @returns {JSX.Element} The rendered AdminAfflictionsPage component, which displays
- * the table of afflictions and appropriate navigation elements.
- */
+// Purpose: Provide the main content for the Admin Afflictions Page.
 
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
@@ -42,13 +29,15 @@ export default function AdminAfflictionsPage({
             allAfflictions={allAfflictions}
             windowWidth={windowWidth}
           />
-          <MobileNav isAdminMobileNav/>
+
+          <MobileNav isAdminMobileNav />
         </div>
       ) : (
         <div className="flex">
           <div className="w-1/4 border-r-2 border-r-lightGrey h-screen border-solid">
             <AdminSideNav />
           </div>
+
           <div className="w-3/4">
             <AdminTable
               allAfflictions={allAfflictions}

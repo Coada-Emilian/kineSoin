@@ -1,20 +1,4 @@
-/**
- * @file AfflictionInput.tsx
- * @description A React functional component that displays input sections for managing affliction details, allowing selection of body regions, editing of insurance codes, descriptions, and specifying whether an affliction is operated. This component utilizes conditional rendering based on various flags to display specific fields relevant to the affliction's details.
- *
- * @param {Object} props - The props for the AfflictionInput component.
- * @param {IAffliction} props.affliction - The affliction details object containing information about the affliction.
- * @param {React.Dispatch<React.SetStateAction<number | undefined>>} [props.setChosenBodyRegionId] - An optional function to set the selected body region ID.
- * @param {boolean} [props.isRegionInput] - Optional flag indicating if a body region input should be displayed.
- * @param {boolean} [props.isInsuranceCodeInput] - Optional flag indicating if an insurance code input should be displayed.
- * @param {boolean} [props.isOperatedInput] - Optional flag indicating if an operation status input should be displayed.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} [props.setAfflictionOperatedStatus] - Optional function to update the operated status of the affliction.
- * @param {boolean} [props.isDescriptionInput] - Optional flag indicating if a description input should be displayed.
- * @param {string} [props.afflictionDescription] - Optional affliction description string.
- * @param {React.Dispatch<React.SetStateAction<string>>} [props.setAfflictionDescription] - Optional function to update the affliction description in state.
- *
- * @returns {JSX.Element} The rendered AfflictionInput component, conditionally displaying various inputs for managing affliction details based on the provided flags.
- */
+// Purpose: Provide the AfflictionInput component which displays the affliction input fields.
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';

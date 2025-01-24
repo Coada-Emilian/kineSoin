@@ -1,13 +1,4 @@
-/**
- * @file InsuranceSection.tsx
- * @description A React functional component that renders an insurance information section within a profile, allowing for editing and displaying insurance details. The component conditionally renders input fields for editing or output fields for displaying insurance information based on the editing state.
- *
- * @param {Object} props - The props for the InsuranceSection component.
- * @param {boolean} props.isProfileEditing - A boolean indicating if the profile is in editing mode.
- * @param {IInsurance} props.insurance - An object representing the insurance details to be displayed or edited.
- *
- * @returns {JSX.Element} The rendered InsuranceSection component, which contains input or output fields for insurance address, phone number, and AMC code, depending on the editing state.
- */
+// Purpose: Provide the InsuranceSection component which displays the insurance details of the patient.
 
 import { IInsurance } from '../../../../../../@types/IInsurance';
 import Input from '../generalComponents/common/Input';

@@ -1,21 +1,4 @@
-/**
- * @file TelephoneNumberInput.tsx
- * @description A React component for inputting a telephone number.
- * This component can be used in contexts for either medical professionals
- * or insurance-related forms, with appropriate labeling and input IDs
- * based on the context.
- *
- * @param {Object} props - The component props.
- * @param {boolean} [props.medic] - Optional flag indicating if the input
- * is for a medic context. If true, the input will be tailored for
- * medical professionals with specific IDs.
- * @param {boolean} [props.insurance] - Optional flag indicating if the
- * input is for an insurance context. If true, a different ID will be
- * assigned to the input field.
- *
- * @returns {JSX.Element} The rendered TelephoneNumberInput component,
- * which includes a label and a text input field for the telephone number.
- */
+// Purpose: The purpose of this component is to render the telephone number input.
 
 interface TelephoneNumberInputProps {
   medic?: boolean;
@@ -32,7 +15,7 @@ export default function TelephoneNumberInput({
         htmlFor={`${medic ? 'medic-telephone_input' : insurance ? 'insurance-telephone_input' : ''}`}
         className="block text-xs md:text-sm font-medium text-gray-700"
       >
-        Numero telephone :
+        Numéro téléphone :
       </label>
 
       <input

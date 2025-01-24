@@ -1,18 +1,4 @@
-/**
- * @file AdminTherapistPage.tsx
- * @description A React component that displays the details of a specific therapist
- * in the admin interface. It fetches therapist data based on the therapist's ID
- * from the URL parameters and displays it in a profile detail format. The layout
- * adapts based on the window width, showing a side navigation for larger screens
- * and a mobile navigation for smaller screens.
- *
- * @param {Object} props - The component props.
- * @param {number} props.windowWidth - The current width of the window, used to determine
- * the layout (mobile or desktop).
- *
- * @returns {JSX.Element} The rendered AdminTherapistPage component, which includes the
- * therapist's profile details and navigation elements.
- */
+// Purpose: Provide the page for the admin to view a therapist's profile.
 
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -21,6 +7,7 @@ import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import { fetchTherapist } from '../../../../../utils/apiUtils.ts';
+import DNALoader from '../../../../../utils/DNALoader.tsx';
 
 interface AdminTherapistPageProps {
   windowWidth: number;
@@ -43,7 +30,7 @@ const AdminTherapistPage = ({ windowWidth }: AdminTherapistPageProps) => {
   }, [therapistId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return DNALoader();
   }
 
   if (!therapist) {
@@ -55,6 +42,7 @@ const AdminTherapistPage = ({ windowWidth }: AdminTherapistPageProps) => {
       {windowWidth < 768 ? (
         <div className="flex flex-col justify-between h-full p-4">
           <AdminProfileDetails therapist={therapist} />
+
           <MobileNav isAdminMobileNav />
         </div>
       ) : (
@@ -62,6 +50,7 @@ const AdminTherapistPage = ({ windowWidth }: AdminTherapistPageProps) => {
           <div className="w-1/4 border-r-2 border-r-lightGrey h-screen border-solid">
             <AdminSideNav />
           </div>
+
           <div className="w-3/4">
             <AdminProfileDetails therapist={therapist} />
           </div>

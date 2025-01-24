@@ -1,18 +1,4 @@
-/**
- * @file SpecialtyInput.tsx
- * @description A React component for inputting a therapist's specialty.
- * This component includes a labeled text input field and manages the
- * therapist's specialty state.
- *
- * @param {Object} props - The component props.
- * @param {string} props.therapistSpecialty - The current specialty value
- * of the therapist.
- * @param {React.Dispatch<React.SetStateAction<string>>} props.setTherapistSpecialty -
- * A function to update the therapist's specialty state in the parent component.
- *
- * @returns {JSX.Element} The rendered SpecialtyInput component, which includes
- * a text input field for entering a therapist's specialty.
- */
+// Purpose: The purpose of this component is to render the input field for the therapist's specialty.
 
 interface SpecialtyInputProps {
   therapistSpecialty: string;

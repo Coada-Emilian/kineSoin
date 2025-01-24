@@ -1,36 +1,4 @@
-/**
- * @file AddTherapistModalP1.tsx
- * @description A modal component for collecting initial details about a therapist,
- * including their name, surname, license code, and photo. This modal is the first step
- * in a multi-step form for adding a therapist. It allows users to input relevant
- * information and either proceed to the next step or cancel the action.
- *
- * @interface AddTherapistModalP1Props
- * @param {React.Dispatch<React.SetStateAction<{
- *   name: string;
- *   surname: string;
- *   email: string;
- *   password: string;
- *   repeated_password: string;
- *   description: string;
- *   diploma: string;
- *   experience: string;
- *   specialty: string;
- *   licence_code: string;
- *   status: string;
- *   photo: File | unknown;
- * }>>} setAddForm - A function to update the state of the therapist's form details.
- * @param {boolean} isAddTherapistModalP1Open - A boolean indicating whether the
- * add therapist modal (step 1) is open or closed.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP1Open -
- * A function to update the state of the modal's visibility.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP2Open -
- * A function to open the next step modal in the multi-step form.
- *
- * @returns {JSX.Element} The rendered AddTherapistModalP1 component, containing
- * input fields for therapist details and action buttons for continuing
- * or cancelling the form process.
- */
+// Purpose: Provide the first step of the modal to add a therapist.
 
 import { useState } from 'react';
 import ReactModal from 'react-modal';
@@ -96,12 +64,16 @@ export default function AddTherapistModalP1({
       setErrorMessage('Veuillez remplir tous les champs');
       return;
     }
+
     const name = therapistName;
+
     const surname = therapistSurname;
+
     if (therapistLicenceCode.length > 9 || therapistLicenceCode.length < 9) {
       setCodeErrorMessage('Le code ADELI doit contenir 9 chiffres');
       return;
     }
+
     const licence_code = therapistLicenceCode;
     const photo = file;
 
@@ -119,6 +91,7 @@ export default function AddTherapistModalP1({
       status: '',
       photo,
     });
+    
     setIsAddTherapistModalP1Open(false);
     setIsAddTherapistModalP2Open(true);
   };

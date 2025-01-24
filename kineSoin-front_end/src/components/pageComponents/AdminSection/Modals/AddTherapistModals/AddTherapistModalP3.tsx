@@ -1,42 +1,12 @@
-/**
- * @file AddTherapistModalP3.tsx
- * @description This modal component enables an admin to add a new therapist by
- * filling out a multi-step form. The third step requires essential information,
- * such as the therapist's email, password, status, and photo. It handles the
- * submission of the therapist's details to the server for registration.
- *
- * @interface AddTherapistModalP3Props
- * @param {Object} addForm - An object containing the details of the therapist to be added.
- * @param {string} addForm.name - The therapist's first name.
- * @param {string} addForm.surname - The therapist's last name.
- * @param {string} addForm.email - The therapist's email address.
- * @param {string} addForm.password - The therapist's account password.
- * @param {string} addForm.repeated_password - Confirmation of the password.
- * @param {string} addForm.description - A description of the therapist's practice.
- * @param {string} addForm.diploma - The therapist's diploma information.
- * @param {string} addForm.experience - The therapist's years of experience.
- * @param {string} addForm.specialty - The therapist's specialty.
- * @param {string} addForm.licence_code - The therapist's licensing code.
- * @param {string} addForm.status - The therapist's status (e.g., active or inactive).
- * @param {File|unknown} addForm.photo - The therapist's photo file.
- * @param {boolean} isAddTherapistModalP3Open - Indicates if the modal is open.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP3Open -
- * Function to toggle the visibility of the modal.
- *
- * @returns {JSX.Element} The rendered AddTherapistModalP3 component, featuring input
- * fields for the therapist's email, password, status, and action buttons for submission
- * or cancellation.
- */
+// Purpose: The purpose of this component is to render the third part of the add therapist modal.
 
 import { useState } from 'react';
-import { isAxiosError } from 'axios';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton.tsx';
-import axios from '../../../../../axios.ts';
-
 import EmailInput from '../Components/EmailInput.tsx';
 import PasswordInput from '../Components/PasswordInput.tsx';
 import StatusInput from '../Components/StatusInput.tsx';
+import { handleTherapistCreation } from '../../../../../utils/apiUtils.ts';
 
 interface AddTherapistModalP3Props {
   addForm: {
@@ -142,35 +112,14 @@ export default function AddTherapistModalP3({
     formData.append('status', updatedAddForm.status);
     formData.append('photo', updatedAddForm.photo as Blob);
 
-    try {
-      const response = await axios.post('/admin/therapists', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+    const success = await handleTherapistCreation(formData);
 
-      if (response.status === 201) {
-        console.log('Therapist added successfully:', response.data);
-        setIsAddTherapistModalP3Open(false);
-        window.location.reload();
-      } else {
-        setErrorMessage('Failed to add therapist. Please try again.');
-        console.log('Failed to add therapist:', response.data);
-      }
-    } catch (error: any) {
-      if (isAxiosError(error)) {
-        setErrorMessage(
-          error.response?.data?.message ||
-            "Erreur lors de l'ajout du thérapeute."
-        );
-        console.log(
-          'Failed to add therapist:',
-          error.response?.data?.message || error.message
-        );
-      } else {
-        setErrorMessage("Erreur lors de l'ajout du thérapeute.");
-        console.log('Failed to add therapist:', error);
-      }
+    if (success) {
+      console.log('Therapist added successfully');
+      setIsAddTherapistModalP3Open(false);
+      window.location.reload();
+    } else {
+      setErrorMessage("Erreur lors de l'ajout du thérapeute.");
     }
   };
 

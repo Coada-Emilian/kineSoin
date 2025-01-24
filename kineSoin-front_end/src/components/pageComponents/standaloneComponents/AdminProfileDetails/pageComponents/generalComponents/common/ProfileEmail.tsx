@@ -1,3 +1,5 @@
+// Purpose: Provide the ProfileEmail component which displays the email of a profile.
+
 import { IPatient } from '../../../../../../../@types/IPatient';
 
 interface ProfileEmailProps {

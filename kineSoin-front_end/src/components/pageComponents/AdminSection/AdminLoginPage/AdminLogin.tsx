@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { handleAdminLogin } from '../../../../utils/apiUtils.ts';
+import DNALoader from '../../../../utils/DNALoader.tsx';
 
 interface AdminLoginProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -14,11 +15,14 @@ interface AdminLoginProps {
 export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
   const [isError, setIsError] = useState<boolean>(false);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const navigate = useNavigate();
 
   const checkCredentials = async (email: string, password: string) => {
     try {
       setIsError(false);
+      setIsLoading(true);
 
       const response = await handleAdminLogin(email, password);
 
@@ -29,7 +33,9 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
       );
 
       setAdminProfileToken(response.token);
+
       navigate('/admin/therapists');
+      setIsLoading(false);
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 401) {
         setIsError(true);
@@ -40,6 +46,10 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
       }
     }
   };
+
+  if (isLoading) {
+    return DNALoader();
+  }
 
   return (
     <main className="flex items-center justify-center min-h-screen w-11/12 mx-auto md:w-full bg-gray-100">

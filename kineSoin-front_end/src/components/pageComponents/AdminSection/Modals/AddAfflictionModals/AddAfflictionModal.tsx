@@ -1,17 +1,4 @@
-/**
- * @file AddAfflictionModal.tsx
- * @description A modal component for collecting information to add a new affliction.
- * It includes fields for the affliction's name, region, license code, operated status, and description.
- * The modal provides a form that submits the collected data to create a new affliction and options to validate or cancel.
- *
- * @interface AddAfflictionModalProps
- * @param {boolean} isAddAfflictionModalOpen - A boolean indicating whether the add affliction modal is open or closed.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddAfflictionModalOpen -
- * A function to update the state of the modal's visibility.
- *
- * @returns {JSX.Element} The rendered AddAfflictionModal component, containing input fields for affliction details
- * and action buttons for validating or cancelling the action.
- */
+// Purpose: The purpose of this component is to render the add affliction modal.
 
 import { useState } from 'react';
 import { handleAfflictionCreation } from '../../../../../utils/apiUtils';

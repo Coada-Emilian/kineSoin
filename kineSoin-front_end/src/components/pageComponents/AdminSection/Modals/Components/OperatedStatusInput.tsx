@@ -1,18 +1,4 @@
-/**
- * @file OperatedStatusInput.tsx
- * @description A React component that allows users to select whether an affliction
- * has been operated on. The component uses a dropdown menu to toggle between
- * "Oui" (Yes) and "Non" (No), updating the selected status and calling a
- * provided callback to set the operated status.
- *
- * @param {Object} props - The component props.
- * @param {function} props.setAfflictionOperatedStatus - A callback function to update
- * the operated status of the affliction. Takes a boolean value indicating whether
- * the affliction has been operated on.
- *
- * @returns {JSX.Element} The rendered OperatedStatusInput component, including a
- * button that displays the current status and a dropdown menu for selection.
- */
+// Purpose: The purpose of this component is to render the operated status input.
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
@@ -33,6 +19,7 @@ export default function OperatedStatusInput({
         <h4 className="block text-xs md:text-sm font-medium text-gray-700">
           Est opérée
         </h4>
+
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <MenuButton

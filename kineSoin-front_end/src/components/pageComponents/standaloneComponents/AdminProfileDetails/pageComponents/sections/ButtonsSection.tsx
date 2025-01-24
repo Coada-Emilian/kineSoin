@@ -1,23 +1,4 @@
-/**
- * @file ButtonsSection.tsx
- * @description A React functional component that renders a section of buttons for managing various entities in the KineSoin application, including therapists, patients, afflictions, medics, and insurance organizations. The component provides different button functionalities based on whether the profile is in editing mode or not, allowing for status changes, validation, cancellation, and deletion of records.
- *
- * @param {Object} props - The props for the ButtonsSection component.
- * @param {boolean} props.isProfileEditing - A boolean indicating if the profile is in editing mode.
- * @param {string} props.buttonMessage - The message displayed on the main button.
- * @param {string} props.backgroundColor - The background color for the button styles.
- * @param {function} props.toggleStatus - A function to toggle the status of the entity.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsProfileEditing - A function to set the profile editing state.
- * @param {IPatient} [props.patient] - An optional patient object.
- * @param {IAffliction} [props.affliction] - An optional affliction object.
- * @param {ITherapist} [props.therapist] - An optional therapist object.
- * @param {IMedic} [props.medic] - An optional medic object.
- * @param {IInsurance} [props.insurance] - An optional insurance organization object.
- * @param {function} props.handlePatientStatusChanges - A function to handle changes to a patient's status.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsDeleteModalOpen - A function to open or close the delete confirmation modal.
- *
- * @returns {JSX.Element} The rendered ButtonsSection component, which includes buttons for managing the selected entity's profile, with functionalities for editing, validating, cancelling, deleting, and navigating back.
- */
+// Purpose: Provide the ButtonsSection component which displays the buttons for the profile details page.
 
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';

@@ -1,17 +1,4 @@
-/**
- * @file AddInsuranceModal.tsx
- * @description A modal component for collecting information to add a new insurance organization.
- * It includes fields for the insurance organization's name, license code, telephone number, and address details.
- * The modal provides a form that submits the collected data to create a new insurance organization and options to validate or cancel.
- *
- * @interface AddInsuranceModalProps
- * @param {boolean} isAddInsuranceModalOpen - A boolean indicating whether the add insurance modal is open or closed.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddInsuranceModalOpen -
- * A function to update the state of the modal's visibility.
- *
- * @returns {JSX.Element} The rendered AddInsuranceModal component, containing input fields for insurance details
- * and action buttons for validating or cancelling the action.
- */
+// Purpose: The purpose of this component is to render the admin therapists page.
 
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
@@ -50,6 +37,7 @@ export default function AddInsuranceModal({
       console.error(error);
     }
   };
+
   return (
     <ReactModal
       isOpen={isAddInsuranceModalOpen}
@@ -74,6 +62,7 @@ export default function AddInsuranceModal({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter un organisme d'assurance
         </h2>
+
         <form className="space-y-4" onSubmit={createInsurance}>
           <NameInput insurance />
 

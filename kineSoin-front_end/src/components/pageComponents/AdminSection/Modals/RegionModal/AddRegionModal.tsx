@@ -1,17 +1,4 @@
-/**
- * @file AddRegionModal.tsx
- * @description A React component that renders a modal for adding a new region.
- * This modal includes an input field for the region's name and buttons to
- * submit the form or cancel the operation.
- *
- * @param {Object} props - The component props.
- * @param {boolean} props.isAddRegionModalOpen - A boolean indicating if the modal is open.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsAddRegionModalOpen - A
- * function to set the modal's open state.
- *
- * @returns {JSX.Element} The rendered AddRegionModal component, which includes
- * a form for region creation and buttons for submitting or cancelling.
- */
+// Purpose: The purpose of this component is to render the add region modal.
 
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
@@ -63,11 +50,13 @@ export default function AddRegionModal({
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
           Ajouter une region
         </h2>
+
         <form className="space-y-4" onSubmit={createRegion}>
           <NameInput region />
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
+            
             <CustomButton
               btnText="Annuler"
               btnType="button"

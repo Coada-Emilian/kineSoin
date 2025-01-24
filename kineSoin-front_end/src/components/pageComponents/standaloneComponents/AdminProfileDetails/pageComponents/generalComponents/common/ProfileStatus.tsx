@@ -1,13 +1,4 @@
-/**
- * @file ProfileStatus.tsx
- * @description A React functional component that displays the status of a therapist or patient. The status is highlighted with different background colors based on its value.
- *
- * @param {Object} props - The props for the ProfileStatus component.
- * @param {ITherapist|null} [props.therapist] - Optional therapist object containing the therapist's status.
- * @param {IPatient|null} [props.patient] - Optional patient object containing the patient's status.
- *
- * @returns {JSX.Element} The rendered ProfileStatus component displaying the relevant status based on the provided props, with styling indicating the status type.
- */
+// Purpose: Display the status of the user.
 
 import { IPatient } from '../../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../../@types/ITherapist';

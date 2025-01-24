@@ -1,13 +1,4 @@
-/**
- * @file EditProfileSurname.tsx
- * @description A React functional component that renders an editable surname field for therapist or medic profiles. The input field label and placeholder dynamically update based on the profile type passed as props.
- *
- * @param {Object} props - The props for the EditProfileSurname component.
- * @param {ITherapist | null} [props.therapist] - Optional therapist object containing profile details, including the surname.
- * @param {IMedic | null} [props.medic] - Optional medic object containing profile details, including the surname.
- *
- * @returns {JSX.Element} The rendered EditProfileSurname component, displaying an input field with a dynamic label and placeholder based on the profile type.
- */
+// Purpose: Provide the EditProfileSurname component which allows the user to edit the surname of a profile.
 
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
@@ -29,6 +20,7 @@ export default function EditProfileSurname({
       >
         Prénom :
       </label>
+
       <input
         type="text"
         name="surname"

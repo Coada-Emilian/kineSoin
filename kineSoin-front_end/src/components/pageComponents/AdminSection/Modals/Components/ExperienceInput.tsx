@@ -1,19 +1,4 @@
-/**
- * @file ExperienceInput.tsx
- * @description A React functional component that renders an input field for
- * entering a therapist's experience. It includes a label and an input
- * field that manages the experience value through the provided state setter
- * function.
- *
- * @param {Object} props - The component props.
- * @param {string} props.therapistExperience - The current value of the therapist's
- * experience, which is displayed in the input field.
- * @param {React.Dispatch<React.SetStateAction<string>>} props.setTherapistExperience -
- * The function to update the state for the therapist's experience.
- *
- * @returns {JSX.Element} The rendered ExperienceInput component, which includes
- * a label and an input field for entering the experience.
- */
+// Purpose: The purpose of this component is to render the input field for the therapist's experience.
 
 interface ExperienceInputProps {
   therapistExperience: string;

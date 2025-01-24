@@ -1,15 +1,4 @@
-/**
- * @file PostalCodeInput.tsx
- * @description A React component for inputting postal codes. It conditionally
- * renders the input field based on the type of user (medic or insurance).
- *
- * @param {Object} props - The component props.
- * @param {boolean} [props.medic] - Indicates if the input is for a medic.
- * @param {boolean} [props.insurance] - Indicates if the input is for insurance.
- *
- * @returns {JSX.Element} The rendered PostalCodeInput component, which includes
- * a label and an input field for postal code entry.
- */
+// Purpose: The purpose of this component is to render the postal code input field.
 
 interface PostalCodeInputProps {
   medic?: boolean;
@@ -28,6 +17,7 @@ export default function PostalCodeInput({
       >
         Code postal
       </label>
+
       <input
         type="text"
         name="postal_code"

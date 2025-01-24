@@ -1,12 +1,4 @@
-/**
- * @file MobileNav.tsx
- * @description A React functional component that renders a mobile navigation menu for the admin
- * section of the KineSoin application. The navigation includes links to various sections such as
- * therapists, patients, afflictions, medics, and insurances, each with an associated icon.
- *
- * @returns {JSX.Element} The rendered MobileNav component, which displays a series of
- * navigational links in a flexible layout for mobile devices.
- */
+// Purpose: Provide a mobile navigation bar for the admin and public pages.
 
 import afflictionIcon from '/icons/affliction.png';
 import doctorIcon from '/icons/doctor.png';
@@ -14,7 +6,7 @@ import insuranceIcon from '/icons/insurance.png';
 import patientIcon from '/icons/patient.png';
 import therapistIcon from '/icons/therapist.png';
 import mainLogo from '/logos/Main-Logo.png';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 interface MobileNavProps {
   isAdminMobileNav?: boolean;
@@ -29,11 +21,6 @@ export default function MobileNav({
 }: MobileNavProps) {
   const adminLinks = [
     {
-      name: 'Kinés',
-      path: '/admin/therapists',
-      icon: therapistIcon,
-    },
-    {
       name: 'Patients',
       path: '/admin/patients',
       icon: patientIcon,
@@ -42,6 +29,11 @@ export default function MobileNav({
       name: 'Afflictions',
       path: '/admin/afflictions',
       icon: afflictionIcon,
+    },
+    {
+      name: 'Kinés',
+      path: '/admin/therapists',
+      icon: therapistIcon,
     },
     {
       name: 'Médecins',
@@ -84,14 +76,20 @@ export default function MobileNav({
       {isAdminMobileNav && (
         <div className="flex gap-2 justify-around w-full">
           {adminLinks.map((link, index) => (
-            <Link
+            <NavLink
               to={link.path}
               key={index}
-              className=" flex flex-col items-center justify-center text-center"
+              className={({ isActive }) =>
+                `flex flex-col items-center bg-gray-50 opacity-90 justify-center text-center border rounded-lg p-1 ${
+                  isActive
+                    ? 'text-secondaryBlue font-bold italic ring-1 ring-secondaryBlue ring-offset-2'
+                    : 'text-primaryBlue'
+                }`
+              }
             >
               <img src={link.icon} alt={link.name} className="w-8 mb-2" />
               <p className="text-xs font-medium">{link.name}</p>
-            </Link>
+            </NavLink>
           ))}
         </div>
       )}
@@ -99,14 +97,20 @@ export default function MobileNav({
       {isPublicMobileNav && (
         <div className="flex gap-2 justify-around w-full py-4 bg-container">
           {publicLinks.map((link, index) => (
-            <Link
+            <NavLink
               to={link.path}
               key={index}
-              className=" flex flex-col items-center justify-center text-center"
+              className={({ isActive }) =>
+                `flex flex-col items-center bg-white opacity-90 justify-center text-center border  rounded-lg p-2 ${
+                  isActive
+                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
+                    : 'text-primaryBlue'
+                }`
+              }
             >
               <img src={link.icon} alt={link.name} className="w-10 mb-2" />
               <p className="text-xs font-medium">{link.name}</p>
-            </Link>
+            </NavLink>
           ))}
         </div>
       )}

@@ -1,19 +1,4 @@
-/**
- * @file Output.tsx
- * @description A React functional component that conditionally displays various output details for a medic or insurance profile, such as address, license/AMC code, or phone number.
- *
- * @param {Object} props - The props for the Output component.
- * @param {IMedic} [props.medic] - Optional medic object containing the medic's details.
- * @param {IInsurance} [props.insurance] - Optional insurance object containing the insurance details.
- * @param {boolean} [props.isMedicAddressOutput] - Flag to display the medic's address.
- * @param {boolean} [props.isInsuranceAddressOutput] - Flag to display the insurance's address.
- * @param {boolean} [props.isMedicLicenceCodeOutput] - Flag to display the medic's license code (ADELI).
- * @param {boolean} [props.isInsuranceAMCCodeOutput] - Flag to display the insurance's AMC code.
- * @param {boolean} [props.isMedicPhoneNumberOutput] - Flag to display the medic's phone number.
- * @param {boolean} [props.isInsurancePhoneNumberOutput] - Flag to display the insurance's phone number.
- *
- * @returns {JSX.Element} The rendered Output component displaying the relevant information based on the provided props.
- */
+// Purpose: Provide the Output component which displays the medic's or insurance's address, licence code, AMC code, or phone number.
 
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';

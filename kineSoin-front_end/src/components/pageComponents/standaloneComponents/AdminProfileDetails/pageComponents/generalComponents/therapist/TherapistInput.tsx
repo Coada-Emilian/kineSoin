@@ -1,19 +1,4 @@
-/**
- * @file TherapistInput.tsx
- * @description A React functional component for rendering input fields related to therapist details. Depending on the provided props, it can display fields for diploma, experience, specialty, description, or license code.
- *
- * @param {Object} props - The props for the TherapistInput component.
- * @param {ITherapist} props.therapist - The therapist object containing relevant information, such as diploma, experience, specialty, description, and license code.
- * @param {boolean} [props.isDiplomaInput] - Indicates if the diploma input field should be displayed.
- * @param {boolean} [props.isExperienceInput] - Indicates if the experience input field should be displayed.
- * @param {boolean} [props.isSpecialtyInput] - Indicates if the specialty input field should be displayed.
- * @param {boolean} [props.isDescriptionInput] - Indicates if the description textarea should be displayed.
- * @param {string} [props.description] - The current value of the description textarea.
- * @param {React.Dispatch<React.SetStateAction<string>>} [props.setDescription] - A state setter function to update the description.
- * @param {boolean} [props.isLicenceCodeInput] - Indicates if the license code input field should be displayed.
- *
- * @returns {JSX.Element} The rendered TherapistInput component with appropriate input fields based on the provided props.
- */
+// Purpose: Provide the TherapistInput component which displays the therapist's profile details input fields.
 
 import { ITherapist } from '../../../../../../../@types/ITherapist';
 

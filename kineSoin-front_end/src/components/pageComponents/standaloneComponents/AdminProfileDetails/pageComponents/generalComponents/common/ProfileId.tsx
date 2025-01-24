@@ -1,16 +1,4 @@
-/**
- * @file ProfileId.tsx
- * @description A React functional component that displays the ID of a profile based on the provided props for therapist, patient, affliction, medic, or insurance.
- *
- * @param {Object} props - The props for the ProfileId component.
- * @param {ITherapist|null} [props.therapist] - Optional therapist object containing the therapist's details.
- * @param {IPatient|null} [props.patient] - Optional patient object containing the patient's details.
- * @param {IAffliction|null} [props.affliction] - Optional affliction object containing the affliction's details.
- * @param {IMedic|null} [props.medic] - Optional medic object containing the medic's details.
- * @param {IInsurance|null} [props.insurance] - Optional insurance object containing the insurance details.
- *
- * @returns {JSX.Element} The rendered ProfileId component displaying the relevant ID based on the provided props.
- */
+// Purpose: Provide a component that displays the ID of the profile being viewed.
 
 import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../../@types/IInsurance';

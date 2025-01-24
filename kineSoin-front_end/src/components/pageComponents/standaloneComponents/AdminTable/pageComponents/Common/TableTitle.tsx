@@ -1,19 +1,4 @@
-/**
- * @file TableTitle.tsx
- * @description A React functional component that renders the title of a table based on the type of entities (therapists, patients, afflictions, medics, insurances) and their respective statuses. The title adjusts dynamically to reflect the current selection of entities.
- *
- * @param {Object} props - The props for the TableTitle component.
- * @param {ITherapist[]} [props.allTherapists] - An optional array of all therapists. If present, the title will include therapist-related text based on their status.
- * @param {IPatient[]} [props.allPatients] - An optional array of all patients. If present, the title will include patient-related text based on their status.
- * @param {IAffliction[]} [props.allAfflictions] - An optional array of all afflictions. If present, the title will include affliction-related text based on their status.
- * @param {IMedic[]} [props.allMedics] - An optional array of all medics. If present, the title will state "Tous les médecins."
- * @param {IInsurance[]} [props.allInsurances] - An optional array of all insurances. If present, the title will state "Tous les organismes d'assurance."
- * @param {string} [props.therapistStatus] - An optional status for therapists, which can determine the title text.
- * @param {string} [props.patientStatus] - An optional status for patients, which can determine the title text.
- * @param {string} [props.afflictionStatus] - An optional status for afflictions, which can determine the title text.
- *
- * @returns {JSX.Element} The rendered table title displaying relevant information based on the props provided.
- */
+// Purpose: The purpose of this component is to render the title of the table in the admin section.
 
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../@types/IInsurance';

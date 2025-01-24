@@ -1,24 +1,4 @@
-/**
- * @file PasswordInput.tsx
- * @description A React component that provides a password input field with an
- * option to show or hide the password. It supports repeated password input for
- * confirmation. The component displays a tooltip with password requirements
- * when creating a new password.
- *
- * @param {Object} props - The component props.
- * @param {boolean} [props.repeatedPassword] - Indicates if the input is for
- * confirming the password.
- * @param {string} [props.therapistPassword] - The current password value.
- * @param {function} [props.setTherapistPassword] - A callback function to
- * update the therapist password.
- * @param {string} [props.therapistRepeatedPassword] - The current repeated
- * password value.
- * @param {function} [props.setTherapistRepeatedPassword] - A callback function
- * to update the repeated therapist password.
- *
- * @returns {JSX.Element} The rendered PasswordInput component, including input
- * fields for password entry and a button to toggle password visibility.
- */
+// Purpose: The purpose of this component is to render a password input field.
 
 import { useState } from 'react';
 import questionIcon from '/icons/question-circle.svg';
