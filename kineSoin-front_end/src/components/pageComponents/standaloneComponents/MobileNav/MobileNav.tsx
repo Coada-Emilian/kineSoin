@@ -6,18 +6,24 @@ import insuranceIcon from '/icons/insurance.png';
 import patientIcon from '/icons/patient.png';
 import therapistIcon from '/icons/therapist.png';
 import mainLogo from '/logos/Main-Logo.png';
-import { Link, NavLink } from 'react-router-dom';
+import appointmentLogo from '/icons/appointment.png';
+import newFileLogo from '/icons/new-document.png';
+import conversationLogo from '/icons/conversation.png';
+import patientInfoLogo from '/icons/patient-info.png';
+import { NavLink } from 'react-router-dom';
 
 interface MobileNavProps {
   isAdminMobileNav?: boolean;
   isPublicMobileNav?: boolean;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
+  isPatientMobileNav?: boolean;
 }
 
 export default function MobileNav({
   isAdminMobileNav,
   isPublicMobileNav,
   setIsRegisterPageRendered,
+  isPatientMobileNav,
 }: MobileNavProps) {
   const adminLinks = [
     {
@@ -71,6 +77,31 @@ export default function MobileNav({
     },
   ];
 
+  const patientLinks = [
+    {
+      name: 'Nouvelle ordonnance',
+      path: '/patient/new-prescription',
+      icon: newFileLogo,
+    },
+    {
+      name: 'Rendez-vous',
+      path: '/patient/appointments',
+      icon: appointmentLogo,
+    },
+    { name: 'Mon kine', path: '/patient/my-therapist', icon: therapistIcon },
+    {
+      name: 'Messages',
+      path: '/patient/messages',
+      icon: conversationLogo,
+    },
+
+    {
+      name: 'Mes informations',
+      path: '/patient/my-info',
+      icon: patientInfoLogo,
+    },
+  ];
+
   return (
     <>
       {isAdminMobileNav && (
@@ -80,7 +111,7 @@ export default function MobileNav({
               to={link.path}
               key={index}
               className={({ isActive }) =>
-                `flex flex-col items-center bg-gray-50 opacity-90 justify-center text-center border rounded-lg p-1 ${
+                `flex flex-col w-16 items-center bg-gray-50 opacity-90 justify-center text-center border rounded-lg p-1 ${
                   isActive
                     ? 'text-secondaryBlue font-bold italic ring-1 ring-secondaryBlue ring-offset-2'
                     : 'text-primaryBlue'
@@ -101,15 +132,36 @@ export default function MobileNav({
               to={link.path}
               key={index}
               className={({ isActive }) =>
-                `flex flex-col items-center bg-white opacity-90 justify-center text-center border  rounded-lg p-2 ${
+                `flex flex-col w-16 items-center bg-white opacity-90 justify-center text-center border  rounded-lg p-2 ${
                   isActive
                     ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
                     : 'text-primaryBlue'
                 }`
               }
             >
-              <img src={link.icon} alt={link.name} className="w-10 mb-2" />
+              <img src={link.icon} alt={link.name} className="w-8 mb-2" />
               <p className="text-xs font-medium">{link.name}</p>
+            </NavLink>
+          ))}
+        </div>
+      )}
+
+      {isPatientMobileNav && (
+        <div className="flex gap-2 justify-around w-full py-4 bg-container">
+          {patientLinks.map((link, index) => (
+            <NavLink
+              to={link.path}
+              key={index}
+              className={({ isActive }) =>
+                `flex flex-col w-16 items-center bg-white opacity-90 justify-center text-center border  rounded-lg p-2 ${
+                  isActive
+                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
+                    : 'text-primaryBlue'
+                }`
+              }
+            >
+              <img src={link.icon} alt={link.name} className="w-8 mb-2" />
+              <p className="text-xxs font-medium">{link.name}</p>
             </NavLink>
           ))}
         </div>

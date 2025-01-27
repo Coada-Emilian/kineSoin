@@ -359,7 +359,7 @@ function PatientLayout({
       <Outlet />
       <Footer isPatientFooter />
 
-      {windowWidth < 768 && <MobileNav isPublicMobileNav />}
+      {windowWidth < 768 && <MobileNav isPatientMobileNav />}
     </>
   );
 }
