@@ -54,11 +54,12 @@ export default function PrivateMain({
               <SideNav isPatientSideNav />
             </div>
 
-            <div className="flex gap-4 flex-col text-center py-4 md:py-0 justify-center md:justify-start items-center w-full">
-              <p className="text-xl font-semibold italic">
+            <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 md:py-0 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6">
+              <p className="text-xl font-semibold italic ">
                 Rendez-vous à venir
               </p>
-              <div className="flex flex-col gap-4 md:flex-row justify-center items-center w-full px-6">
+
+              <div className="flex flex-col gap-4 md:flex-row md:flex-wrap justify-center md:justify-start items-center w-full mb-4">
                 {upcomingAppointments.length > 0 &&
                   upcomingAppointments.map((appointment) => (
                     <PatientAppointmentCard
@@ -68,11 +69,14 @@ export default function PrivateMain({
                   ))}
               </div>
 
-              <CustomButton
-                btnText={'Voir plus'}
-                navBarButton
-                onClick={handleAppointmentRedirect}
-              />
+              <div className="md:hidden">
+                {' '}
+                <CustomButton
+                  btnText={'Voir plus'}
+                  navBarButton
+                  onClick={handleAppointmentRedirect}
+                />
+              </div>
             </div>
           </div>
         </main>

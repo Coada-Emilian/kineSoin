@@ -111,7 +111,7 @@ export default function MobileNav({
               to={link.path}
               key={index}
               className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-gray-50 opacity-90 justify-center text-center border rounded-lg p-1 ${
+                `flex flex-col w-16 items-center bg-gray-50 bg-opacity-50 justify-center text-center border rounded-lg p-1 ${
                   isActive
                     ? 'text-secondaryBlue font-bold italic ring-1 ring-secondaryBlue ring-offset-2'
                     : 'text-primaryBlue'
@@ -132,7 +132,7 @@ export default function MobileNav({
               to={link.path}
               key={index}
               className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-white opacity-90 justify-center text-center border  rounded-lg p-2 ${
+                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border  rounded-lg p-2 ${
                   isActive
                     ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
                     : 'text-primaryBlue'
@@ -153,7 +153,7 @@ export default function MobileNav({
               to={link.path}
               key={index}
               className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-white opacity-90 justify-center text-center border  rounded-lg p-2 ${
+                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border  rounded-lg p-2 ${
                   isActive
                     ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
                     : 'text-primaryBlue'

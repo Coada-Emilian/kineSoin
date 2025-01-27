@@ -50,7 +50,7 @@ export default function PatientAppointmentCard({
   }, [appointment.date, appointment.time]);
 
   return (
-    <div className="w-3/4 md:w-1/2 border border-gray-700 rounded-xl text-xxs md:text-sm">
+    <div className="w-3/4 md:w-3/12 border border-gray-700 rounded-xl text-xxs md:text-sm">
       <div className="flex justify-between gap-5 bg-cardHeader rounded-t-xl p-2 ">
         <div className="flex gap-2 items-center">
           <img src={CalendarIcon} alt="Date" className="w-5" />
