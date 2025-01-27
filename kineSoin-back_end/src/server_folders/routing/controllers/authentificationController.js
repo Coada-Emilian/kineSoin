@@ -165,8 +165,6 @@ const authentificationController = {
         algorithm: 'HS256',
       });
 
-      req.session.patient_id = foundPatient.id;
-
       res.status(200).json({
         message: 'Patient logged in successfully.',
         id: foundPatient.id,

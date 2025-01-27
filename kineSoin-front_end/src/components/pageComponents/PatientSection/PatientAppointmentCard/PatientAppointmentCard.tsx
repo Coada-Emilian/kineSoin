@@ -50,12 +50,13 @@ export default function PatientAppointmentCard({
   }, [appointment.date, appointment.time]);
 
   return (
-    <div className="w-fit border border-gray-700 rounded-xl">
-      <div className="flex justify-between gap-5 bg-cardHeader rounded-t-xl p-5">
+    <div className="w-3/4 border border-gray-700 rounded-xl text-xxs">
+      <div className="flex justify-between gap-5 bg-cardHeader rounded-t-xl p-2 ">
         <div className="flex gap-2 items-center">
           <img src={CalendarIcon} alt="Date" className="w-5" />
           <p className="text-white">{appointmentDate}</p>
         </div>
+
         <div className="flex gap-2 items-center">
           <img src={TimeIcon} alt="Time" className="w-5" />
           <p className="text-white">{appointmentTime}</p>

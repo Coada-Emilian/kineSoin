@@ -14,24 +14,22 @@ export default function PrivateMain({
   isPatientDashboardMain,
 }: PrivateMainProps) {
   const [patientId, setPatientId] = useState<number>();
-  const [pastAppointments, setPastAppointments] = useState<IAppointment[]>([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState<
     IAppointment[]
   >([]);
+
   useEffect(() => {
     const response = getPatientTokenAndDataFromLocalStorage();
     if (response) {
-      setPatientId(response.id ? Number(response.id) : undefined);
+      setPatientId(response.id ? parseInt(response.id, 10) : undefined);
     }
-  }, []);
+  }, [patientId]);
 
   useEffect(() => {
     const fetchAppointments = async () => {
       if (patientId !== undefined) {
         const response = await fetchPatientAppointments(patientId);
-        setPastAppointments(response.pastAppointments);
         setUpcomingAppointments(response.futureAppointments);
-        console.log(upcomingAppointments);
       }
     };
     fetchAppointments();
@@ -42,6 +40,7 @@ export default function PrivateMain({
       {isPatientDashboardMain && (
         <>
           <UserHeadband isPatientHeadband />
+
           <div className="flex gap-4 flex-col text-center py-4 bg-gray-200 justify-center items-center">
             <p className="text-xl font-semibold italic">Rendez-vous à venir</p>
             {upcomingAppointments.length > 0 &&
@@ -51,6 +50,7 @@ export default function PrivateMain({
                   appointment={appointment}
                 />
               ))}
+
             <CustomButton btnText={'Voir plus'} navBarButton />
           </div>
         </>

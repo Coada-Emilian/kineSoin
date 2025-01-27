@@ -11,6 +11,7 @@ import LogoutIcon from '/icons/logout.png';
 import Button from '../../../standaloneComponents/Button/CustomButton';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useState } from 'react';
+import { removePatientTokenFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 
 interface NavBarProps {
   windowWidth: number;
@@ -48,6 +49,14 @@ export default function NavBar({
       setIsAdminAuthenticated(false);
     }
     window.location.href = '/loginAdmin';
+  };
+
+  const handlePatientLogout = () => {
+    removePatientTokenFromLocalStorage();
+    if (setIsPatientAuthenticated) {
+      setIsPatientAuthenticated(false);
+    }
+    window.location.href = '/loginPatient';
   };
 
   // State to manage the patient notification quantity
@@ -164,7 +173,7 @@ export default function NavBar({
                 />
               </Link>
 
-              <Link to="/loginPatient">
+              <Link to="/loginPatient" onClick={handlePatientLogout}>
                 <CustomButton btnText={<>Déconnexion</>} patientLogoutButton />
               </Link>
             </div>
