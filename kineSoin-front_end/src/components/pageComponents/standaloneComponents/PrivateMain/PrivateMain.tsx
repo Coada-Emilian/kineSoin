@@ -5,6 +5,8 @@ import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage
 import { fetchPatientAppointments } from '../../../../utils/apiUtils';
 import { IAppointment } from '../../../../@types/IAppointment';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import { useNavigate } from 'react-router-dom';
+import SideNav from '../../../standaloneComponents/SideNav/SideNav';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -35,25 +37,45 @@ export default function PrivateMain({
     fetchAppointments();
   }, [patientId]);
 
+  const navigate = useNavigate();
+
+  const handleAppointmentRedirect = () => {
+    navigate('/patient/appointments');
+  };
+
   return (
     <>
       {isPatientDashboardMain && (
-        <>
+        <main className=" bg-gray-200">
           <UserHeadband isPatientHeadband />
 
-          <div className="flex gap-4 flex-col text-center py-4 bg-gray-200 justify-center items-center">
-            <p className="text-xl font-semibold italic">Rendez-vous à venir</p>
-            {upcomingAppointments.length > 0 &&
-              upcomingAppointments.map((appointment) => (
-                <PatientAppointmentCard
-                  key={appointment.id}
-                  appointment={appointment}
-                />
-              ))}
+          <div className="md:flex h-screen gap-4 mb-2 ">
+            <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block">
+              <SideNav isPatientSideNav />
+            </div>
 
-            <CustomButton btnText={'Voir plus'} navBarButton />
+            <div className="flex gap-4 flex-col text-center py-4 md:py-0 justify-center md:justify-start items-center w-full">
+              <p className="text-xl font-semibold italic">
+                Rendez-vous à venir
+              </p>
+              <div className="flex flex-col gap-4 md:flex-row justify-center items-center w-full px-6">
+                {upcomingAppointments.length > 0 &&
+                  upcomingAppointments.map((appointment) => (
+                    <PatientAppointmentCard
+                      key={appointment.id}
+                      appointment={appointment}
+                    />
+                  ))}
+              </div>
+
+              <CustomButton
+                btnText={'Voir plus'}
+                navBarButton
+                onClick={handleAppointmentRedirect}
+              />
+            </div>
           </div>
-        </>
+        </main>
       )}
     </>
   );

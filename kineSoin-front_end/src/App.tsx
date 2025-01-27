@@ -349,7 +349,7 @@ function PatientLayout({
   windowWidth: number;
 }) {
   return (
-    <>
+    <div className="flex flex-col justify-between min-h-screen">
       <NavBar
         windowWidth={windowWidth}
         isPatientAuthenticated={isPatientAuthenticated}
@@ -360,7 +360,7 @@ function PatientLayout({
       <Footer isPatientFooter />
 
       {windowWidth < 768 && <MobileNav isPatientMobileNav />}
-    </>
+    </div>
   );
 }
 

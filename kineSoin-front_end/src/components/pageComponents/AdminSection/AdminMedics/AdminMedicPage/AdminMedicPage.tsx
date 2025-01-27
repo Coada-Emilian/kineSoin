@@ -3,7 +3,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
-import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminSideNav from '../../../../standaloneComponents/SideNav/SideNav.tsx';
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import { fetchMedic } from '../../../../../utils/apiUtils.ts';
 import { IMedic } from '../../../../../@types/IMedic';
@@ -48,7 +48,7 @@ const AdminMedicPage = ({ windowWidth }: AdminMedicPageProps) => {
       ) : (
         <div className="flex">
           <div className="w-1/4 border-r-2 border-r-lightGrey h-screen border-solid">
-            <AdminSideNav />
+            <AdminSideNav isAdminSideNav />
           </div>
 
           <div className="w-3/4">

@@ -1,6 +1,6 @@
 // Purpose: Provide the main content for the Admin Afflictions Page.
 
-import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminSideNav from '../../../../standaloneComponents/SideNav/SideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import { useEffect, useState } from 'react';
 import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
@@ -35,7 +35,7 @@ export default function AdminAfflictionsPage({
       ) : (
         <div className="flex">
           <div className="w-1/4 border-r-2 border-r-lightGrey h-screen border-solid">
-            <AdminSideNav />
+            <AdminSideNav isAdminSideNav/>
           </div>
 
           <div className="w-3/4">

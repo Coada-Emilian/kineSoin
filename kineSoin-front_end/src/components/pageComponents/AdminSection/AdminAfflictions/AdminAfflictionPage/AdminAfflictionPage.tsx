@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { fetchAffliction } from '../../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../../@types/IAffliction';
 import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
-import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminSideNav from '../../../../standaloneComponents/SideNav/SideNav.tsx';
 import AdminProfileDetails from '../../../standaloneComponents/AdminProfileDetails/AdminProfileDetails.tsx';
 import DNALoader from '../../../../../utils/DNALoader.tsx';
 
@@ -48,7 +48,7 @@ const AdminAfflictionPage = ({ windowWidth }: AdminAfflictionPageProps) => {
       ) : (
         <div className="flex">
           <div className="w-1/4 border-r-2 border-r-lightGrey h-screen border-solid">
-            <AdminSideNav />
+            <AdminSideNav isAdminSideNav />
           </div>
 
           <div className="w-3/4">

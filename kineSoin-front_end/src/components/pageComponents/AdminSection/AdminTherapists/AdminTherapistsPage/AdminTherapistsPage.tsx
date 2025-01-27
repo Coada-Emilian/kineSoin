@@ -1,6 +1,6 @@
 // Purpose: The purpose of this component is to render the admin therapists page.
 
-import AdminSideNav from '../../../standaloneComponents/AdminSideNav/AdminSideNav.tsx';
+import AdminSideNav from '../../../../standaloneComponents/SideNav/SideNav.tsx';
 import AdminTable from '../../../standaloneComponents/AdminTable/AdminTable.tsx';
 import MobileNav from '../../../standaloneComponents/MobileNav/MobileNav.tsx';
 import { useEffect, useState } from 'react';
@@ -45,7 +45,7 @@ export default function AdminTherapistsPage({
       ) : (
         <div className="flex">
           <div className="w-1/4 border-r-2 border-r-lightGrey h-screen border-solid">
-            <AdminSideNav />
+            <AdminSideNav isAdminSideNav />
           </div>
 
           <div className="w-3/4">
