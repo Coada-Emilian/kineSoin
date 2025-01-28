@@ -8,17 +8,27 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import SideNav from '../../../standaloneComponents/SideNav/SideNav';
 
+import PatientNewPrescriptionForm from '../../PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
+
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
+  isPatientMain?: boolean;
+  isPatientPrescriptionMain?: boolean;
+  windowWidth?: number;
 }
 
 export default function PrivateMain({
   isPatientDashboardMain,
+  isPatientMain,
+  isPatientPrescriptionMain,
+  windowWidth,
 }: PrivateMainProps) {
   const [patientId, setPatientId] = useState<number>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
     IAppointment[]
   >([]);
+
+  const [scanPreview, setScanPreview] = useState<string | null>(null);
 
   useEffect(() => {
     const response = getPatientTokenAndDataFromLocalStorage();
@@ -45,38 +55,72 @@ export default function PrivateMain({
 
   return (
     <>
-      {isPatientDashboardMain && (
+      {isPatientMain && (
         <main className=" bg-gray-200">
           <UserHeadband isPatientHeadband />
 
           <div className="md:flex h-screen gap-4 mb-2 ">
-            <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block">
-              <SideNav isPatientSideNav />
-            </div>
+            {windowWidth && windowWidth > 768 && (
+              <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block">
+                <SideNav isPatientSideNav />
+              </div>
+            )}
 
-            <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 md:py-0 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6">
+            <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6">
               <p className="text-xl font-semibold italic ">
-                Rendez-vous à venir
+                {isPatientDashboardMain && 'Rendez-vous à venir'}
+                {isPatientPrescriptionMain && 'Ajouter une nouvelle ordonnance'}
               </p>
 
-              <div className="flex flex-col gap-4 md:flex-row md:flex-wrap justify-center md:justify-start items-center w-full mb-4">
-                {upcomingAppointments.length > 0 &&
-                  upcomingAppointments.map((appointment) => (
-                    <PatientAppointmentCard
-                      key={appointment.id}
-                      appointment={appointment}
-                    />
-                  ))}
-              </div>
+              {isPatientDashboardMain && (
+                <>
+                  <div className="flex flex-col gap-4 md:flex-row md:flex-wrap justify-center md:justify-start items-center w-full mb-4">
+                    {upcomingAppointments.length > 0 &&
+                      upcomingAppointments.map((appointment) => (
+                        <PatientAppointmentCard
+                          key={appointment.id}
+                          appointment={appointment}
+                        />
+                      ))}
+                  </div>
 
-              <div className="md:hidden">
-                {' '}
-                <CustomButton
-                  btnText={'Voir plus'}
-                  navBarButton
-                  onClick={handleAppointmentRedirect}
-                />
-              </div>
+                  <div className="md:hidden">
+                    {' '}
+                    <CustomButton
+                      btnText={'Voir plus'}
+                      navBarButton
+                      onClick={handleAppointmentRedirect}
+                    />
+                  </div>
+                </>
+              )}
+
+              {isPatientPrescriptionMain && (
+                <div className="flex gap-4">
+                  <div>
+                    <PatientNewPrescriptionForm
+                      windowWidth={windowWidth}
+                      patientId={patientId}
+                      scanPreview={scanPreview}
+                      setScanPreview={setScanPreview}
+                    />
+                  </div>
+                  <div>
+                    {scanPreview && (
+                      <div className="mt-4 flex flex-col items-center gap-2 hidden md:block">
+                        <p className="text-gray-700 text-sm mb-4">
+                          Aperçu du scan{' '}
+                        </p>
+                        <img
+                          src={scanPreview}
+                          alt="Aperçu du fichier"
+                          className="w-56 object-contain border"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </main>

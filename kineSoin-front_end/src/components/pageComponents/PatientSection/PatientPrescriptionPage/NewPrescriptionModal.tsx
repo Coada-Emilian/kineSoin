@@ -1,28 +1,31 @@
-import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import { useState } from 'react';
 
-interface PatientRegisterImageModalProps {
-  isPatientRegisterImageModalOpen: boolean;
-  setIsPatientRegisterImageModalOpen: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
-  setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
-  fileName: string;
+interface NewPrescriptionModalProps {
   setFileName: React.Dispatch<React.SetStateAction<string>>;
-  setIsImageUploaded: React.Dispatch<React.SetStateAction<boolean>>;
+  setPrescriptionScan?: React.Dispatch<React.SetStateAction<File | null>>;
+  isNewPrescriptionModalOpen: boolean;
+  setIsNewPrescriptionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  windowWidth?: number;
+  setIsScanUploaded: React.Dispatch<React.SetStateAction<boolean>>;
+  fileName: string;
+  scanPreview?: string | null;
+  setScanPreview?: React.Dispatch<React.SetStateAction<string | null>>;
 }
-export default function PatientRegisterImageModal({
-  isPatientRegisterImageModalOpen,
-  setIsPatientRegisterImageModalOpen,
-  setPatientImage,
-  fileName,
+
+export default function NewPrescriptionModal({
   setFileName,
-  setIsImageUploaded,
-}: PatientRegisterImageModalProps) {
- 
-  const windowWidth = window.innerWidth;
-   const [preview, setPreview] = useState<string | null>(null);
+  setPrescriptionScan,
+  isNewPrescriptionModalOpen,
+  setIsNewPrescriptionModalOpen,
+  windowWidth,
+  setIsScanUploaded,
+  fileName,
+  scanPreview,
+  setScanPreview,
+}: NewPrescriptionModalProps) {
+  const [preview, setPreview] = useState<string | null>(null);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -30,8 +33,11 @@ export default function PatientRegisterImageModal({
       // Create a URL for the file preview
       const previewUrl = URL.createObjectURL(file);
       setPreview(previewUrl);
-      if (setPatientImage) {
-        setPatientImage(file);
+      if (setScanPreview) {
+        setScanPreview(previewUrl);
+      }
+      if (setPrescriptionScan) {
+        setPrescriptionScan(file);
       }
     } else {
       setFileName('Aucun fichier sélectionné');
@@ -40,8 +46,8 @@ export default function PatientRegisterImageModal({
 
   return (
     <ReactModal
-      isOpen={isPatientRegisterImageModalOpen}
-      onRequestClose={() => setIsPatientRegisterImageModalOpen(false)}
+      isOpen={isNewPrescriptionModalOpen}
+      onRequestClose={() => setIsNewPrescriptionModalOpen(false)}
       style={{
         content: {
           width: '80vw',
@@ -59,21 +65,21 @@ export default function PatientRegisterImageModal({
       }}
     >
       <h3 className="text-xl text-center font-semibold text-primaryBlue italic">
-        Chargez votre photo
+        Chargez votre scan
       </h3>
 
       <div className="flex flex-col gap-4 mt-4">
         <input
           type="file"
           accept="image/*"
-          name="photo"
-          id="patient-register-image_input"
+          name="scan"
+          id="new-prescription-scan_input"
           className="hidden"
           onChange={handleFileChange}
         />
 
         <label
-          htmlFor="patient-register-image_input"
+          htmlFor="new-prescription-scan_input"
           className="w-full flex gap-2 items-center justify-between px-1 py-1 border rounded-md cursor-pointer text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-secondaryTeal"
         >
           <span className="text-center">
@@ -103,8 +109,7 @@ export default function PatientRegisterImageModal({
             btnText="Valider"
             normalButton
             onClick={() => {
-              setIsPatientRegisterImageModalOpen(false),
-                setIsImageUploaded(true);
+              setIsNewPrescriptionModalOpen(false), setIsScanUploaded(true);
             }}
           />
         </div>

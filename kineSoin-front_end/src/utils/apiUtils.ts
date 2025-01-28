@@ -612,3 +612,31 @@ export const handleTherapistCreation = async (formData: FormData) => {
     return false;
   }
 };
+
+export const handleNewPrescriptionCreation = async (
+  id: number,
+  formData: FormData
+) => {
+  try {
+    const response = await axios.post(
+      `/patient/${id}/prescriptions`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+
+    if (response.status === 201) {
+      console.log('Prescription created successfully');
+      return true;
+    } else {
+      console.error('Failed to create prescription', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error creating prescription:', error);
+    return false;
+  }
+};

@@ -14,6 +14,8 @@ interface StandardTextInputProps {
   patientRegisterPostalCode?: string;
   patientRegisterCity?: string;
   patientRegisterTelephone?: string;
+  isAppointmentNumberInput?: boolean;
+  
 }
 
 export default function StandardTextInput({
@@ -24,6 +26,7 @@ export default function StandardTextInput({
   isStreetNameInput,
   isPostalCodeInput,
   isCityInput,
+  isAppointmentNumberInput,
 }: StandardTextInputProps) {
   return (
     <div
@@ -45,7 +48,9 @@ export default function StandardTextInput({
                       ? 'patient-register-postal_code_input'
                       : isCityInput
                         ? 'patient-register-city_input'
-                        : ''
+                        : isAppointmentNumberInput
+                          ? 'appointment-number_input'
+                          : ''
         }`}
         className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
@@ -63,7 +68,9 @@ export default function StandardTextInput({
                     ? 'Code postal'
                     : isCityInput
                       ? 'Ville'
-                      : ''}
+                      : isAppointmentNumberInput
+                        ? 'Quantité seances prescrites :'
+                        : ''}
       </label>
 
       <input
@@ -83,7 +90,9 @@ export default function StandardTextInput({
                       ? 'postal_code'
                       : isCityInput
                         ? 'city'
-                        : ''
+                        : isAppointmentNumberInput
+                          ? 'appointment_quantity'
+                          : ''
         }`}
         id={`${
           isNameInput
@@ -100,7 +109,9 @@ export default function StandardTextInput({
                       ? 'patient-register-postal_code_input'
                       : isCityInput
                         ? 'patient-register-city_input'
-                        : ''
+                        : isAppointmentNumberInput
+                          ? 'appointment-number_input'
+                          : ''
         }`}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder={`${
@@ -118,7 +129,9 @@ export default function StandardTextInput({
                       ? 'Code postal'
                       : isCityInput
                         ? 'Ville'
-                        : ''
+                        : isAppointmentNumberInput
+                          ? 'Seances prescrites'
+                          : ''
         }`}
         required={!isStreetNumberInput}
       />

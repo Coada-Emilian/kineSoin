@@ -21,7 +21,8 @@ import AdminInsurancePage from './components/pageComponents/AdminSection/AdminIn
 import Homepage from './components/pageComponents/PublicSection/Homepage';
 import LoginPage from './components/pageComponents/PublicSection/LoginPage';
 import MobileNav from './components/pageComponents/standaloneComponents/MobileNav/MobileNav';
-import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboard/PatientDashboard';
+import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboardPage/PatientDashboardPage';
+import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
 
 function App() {
   // Use state to keep track of the window width
@@ -296,7 +297,14 @@ function App() {
             />
           }
         >
-          <Route path="dashboard" element={<PatientDashboard />} />
+          <Route
+            path="dashboard"
+            element={<PatientDashboard windowWidth={windowWidth} />}
+          />
+          <Route
+            path="new-prescription"
+            element={<PatientPrescriptionPage windowWidth={windowWidth} />}
+          ></Route>
         </Route>
       ) : (
         <Route
