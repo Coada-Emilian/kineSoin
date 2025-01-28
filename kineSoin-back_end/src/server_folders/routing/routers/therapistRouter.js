@@ -35,10 +35,10 @@ therapistRouter.post(
   therapistController.uploadTherapistPhoto
 );
 
-therapistRouter.get(
-  '/me/pendingPatients',
-  wrapper(patientController.getPendingPatients)
-);
+// therapistRouter.get(
+//   '/me/pendingPatients',
+//   wrapper(patientController.getPendingPatients)
+// );
 
 therapistRouter.get(
   '/me/allMyPatients',

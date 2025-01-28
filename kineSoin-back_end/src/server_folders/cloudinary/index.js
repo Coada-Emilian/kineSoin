@@ -33,7 +33,7 @@ const prescriptionScanStorage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'prescription_scans',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf'],
+    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf', 'webp'],
   },
 });
 
@@ -42,7 +42,7 @@ const insuranceScanStorage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'insurance_scans',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf'],
+    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf', 'webp'],
   },
 });
 

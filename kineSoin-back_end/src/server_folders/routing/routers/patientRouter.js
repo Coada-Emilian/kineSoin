@@ -99,7 +99,7 @@ patientRouter.get(
 );
 
 patientRouter.post(
-  '/me/prescriptions',
+  '/:patient_id/prescriptions',
   uploadPrescriptionScan.single('scan'),
   wrapper(prescriptionController.addNewPrescription)
 );

@@ -100,9 +100,7 @@ const prescriptionController = {
 
   // Add a new prescription
   addNewPrescription: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -144,9 +142,9 @@ const prescriptionController = {
         .json({ message: 'Please upload a prescription scan' });
     }
 
-    const { filePath, filename } = req.file;
+    const { path, filename } = req.file;
 
-    const picture_url = filePath;
+    const picture_url = path;
     const picture_id = filename;
 
     const uploadedPrescription = await Prescription.create({
