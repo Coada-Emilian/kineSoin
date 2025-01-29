@@ -33,13 +33,9 @@ export default function PatientMessagesField({
     ...(receivedPatientMessages || []),
   ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  useEffect(() => {
-    console.log(allMessages);
-  }, [allMessages]);
-
   return (
     allMessages.length > 0 && (
-      <div className="flex flex-col gap-6 px-6 w-full">
+      <div className="flex flex-col gap-6 px-6 w-full h-[500px] md:h-[700px] overflow-y-auto">
         {allMessages.map((message) => (
           <MessageCard
             key={message.content}
