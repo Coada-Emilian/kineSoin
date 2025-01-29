@@ -79,6 +79,11 @@ patientRouter.put(
   wrapper(appointmentController.cancelOneAppointment)
 );
 
+patientRouter.get(
+  '/:patient_id/prescriptions/:prescription_id/appointments',
+  wrapper(appointmentController.getAllAppointmentsForPrescription)
+)
+
 // Messages routes
 patientRouter.get('/me/messages', wrapper(messageController.getAllMessages));
 
@@ -89,7 +94,7 @@ patientRouter.post(
 
 // Prescriptions routes
 patientRouter.get(
-  '/me/prescriptions',
+  '/:patient_id/prescriptions',
   wrapper(prescriptionController.getAllPrescriptions)
 );
 

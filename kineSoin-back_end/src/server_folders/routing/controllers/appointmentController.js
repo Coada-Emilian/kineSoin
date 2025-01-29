@@ -491,6 +491,80 @@ const appointmentController = {
 
     res.status(200).json({ foundAppointments });
   },
+
+  getAllAppointmentsForPrescription: async (req, res) => {
+    const patientId = parseInt(req.params.patient_id, 10);
+    const prescriptionId = parseInt(req.params.prescription_id, 10);
+
+    checkIsIdNumber(patientId);
+    checkIsIdNumber(prescriptionId);
+
+    const currentDate = new Date();
+
+    const foundAppointments = await Appointment.findAll({
+      where: {
+        patient_id: patientId,
+        prescription_id: prescriptionId,
+        is_canceled: false,
+      },
+      attributes: ['id', 'is_accepted', 'date', 'time'],
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['name', 'surname', 'specialty'],
+        },
+        {
+          association: 'prescription',
+          attributes: [
+            'appointment_quantity',
+            'at_home_care',
+            'date',
+            'picture_url',
+          ],
+          include: [
+            {
+              association: 'affliction',
+              attributes: [
+                'id',
+                'name',
+                'description',
+                'is_operated',
+                'insurance_code',
+              ],
+            },
+            {
+              association: 'medic',
+              attributes: ['id', 'name', 'surname', 'licence_code'],
+            },
+          ],
+        },
+      ],
+      order: [
+        ['date', 'ASC'],
+        ['time', 'ASC'],
+      ],
+    });
+
+    if (!foundAppointments.length) {
+      return res.status(200).json({ message: 'No appointments found' });
+    } else {
+      const futureAppointments = foundAppointments.filter((appointment) => {
+        const appointmentDateTime = new Date(
+          `${appointment.date}T${appointment.time}`
+        );
+        return appointmentDateTime > currentDate;
+      });
+
+      const pastAppointments = foundAppointments.filter((appointment) => {
+        const appointmentDateTime = new Date(
+          `${appointment.date}T${appointment.time}`
+        );
+        return appointmentDateTime < currentDate;
+      });
+
+      res.status(200).json({ futureAppointments, pastAppointments });
+    }
+  },
 };
 
 export default appointmentController;

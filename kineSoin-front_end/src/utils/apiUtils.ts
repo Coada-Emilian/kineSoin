@@ -640,3 +640,41 @@ export const handleNewPrescriptionCreation = async (
     return false;
   }
 };
+
+export const fetchPatientPrescriptions = async (id: number) => {
+  try {
+    const response = await axios.get(`/patient/${id}/prescriptions`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient prescriptions', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching patient prescriptions:', error);
+    return [];
+  }
+};
+
+export const fetchPatientAppointmentsByPrescription = async (
+  prescription_id: number,
+  patient_id: number
+) => {
+  try {
+    const response = await axios.get(
+      `/patient/${patient_id}/prescriptions/${prescription_id}/appointments`
+    );
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error(
+        'Failed to fetch appointments by prescription',
+        response.data
+      );
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching appointments by prescription:', error);
+    return [];
+  }
+};

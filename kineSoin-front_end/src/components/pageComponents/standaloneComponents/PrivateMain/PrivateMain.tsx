@@ -9,12 +9,14 @@ import { useNavigate } from 'react-router-dom';
 import SideNav from '../../../standaloneComponents/SideNav/SideNav';
 
 import PatientNewPrescriptionForm from '../../PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
+import PatientAppointmentsCalendar from '../../PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
   isPatientMain?: boolean;
   isPatientPrescriptionMain?: boolean;
   windowWidth?: number;
+  isPatientAppointmentsMain?: boolean;
 }
 
 export default function PrivateMain({
@@ -22,6 +24,7 @@ export default function PrivateMain({
   isPatientMain,
   isPatientPrescriptionMain,
   windowWidth,
+  isPatientAppointmentsMain,
 }: PrivateMainProps) {
   const [patientId, setPatientId] = useState<number>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
@@ -72,6 +75,7 @@ export default function PrivateMain({
               <p className="text-xl font-semibold italic ">
                 {isPatientDashboardMain && 'Rendez-vous à venir'}
                 {isPatientPrescriptionMain && 'Ajouter une nouvelle ordonnance'}
+                {isPatientAppointmentsMain && 'Mes rendez-vous'}
               </p>
 
               {isPatientDashboardMain && (
@@ -121,6 +125,10 @@ export default function PrivateMain({
                     )}
                   </div>
                 </div>
+              )}
+
+              {isPatientAppointmentsMain && (
+                <PatientAppointmentsCalendar patientId={patientId} />
               )}
             </div>
           </div>

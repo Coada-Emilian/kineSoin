@@ -1,5 +1,9 @@
+import { useEffect, useState } from 'react';
 import { IAffliction } from '../../../../@types/IAffliction';
 import { IMedic } from '../../../../@types/IMedic';
+import { IPrescription } from '../../../../@types/IPrescription';
+import { fetchPatientAppointmentsByPrescription } from '../../../../utils/apiUtils';
+import { IAppointment } from '../../../../@types/IAppointment';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -17,6 +21,11 @@ interface StandardChoiceDropdownProps {
     React.SetStateAction<number | undefined>
   >;
   afflictions?: IAffliction[];
+  patientPrescriptions?: IPrescription[];
+  isPrescriptionDropdownInput?: boolean;
+  patientId?: number;
+  setFutureAppointments?: React.Dispatch<React.SetStateAction<IAppointment[]>>;
+  setPastAppointments?: React.Dispatch<React.SetStateAction<IAppointment[]>>;
 }
 
 export default function StandardChoiceDropdown({
@@ -31,7 +40,27 @@ export default function StandardChoiceDropdown({
   isAfflictionDropdownInput,
   setNewPrescriptionAfflictionId,
   afflictions,
+  patientPrescriptions,
+  isPrescriptionDropdownInput,
+  patientId,
+  setFutureAppointments,
+  setPastAppointments,
 }: StandardChoiceDropdownProps) {
+  const fetchAppointmentsByPrescription = async (
+    prescriptionId: number,
+    patientId: number
+  ) => {
+    const response = await fetchPatientAppointmentsByPrescription(
+      prescriptionId,
+      patientId
+    );
+    if (response) {
+      setFutureAppointments &&
+        setFutureAppointments(response.futureAppointments);
+      setPastAppointments && setPastAppointments(response.pastAppointments);
+    }
+  };
+
   return (
     <div className="mb-4">
       <label
@@ -71,22 +100,50 @@ export default function StandardChoiceDropdown({
             ? registeredPatientGender
             : undefined
         }
+        // onChange={(e) => {
+        //   isGenderDropdownInput &&
+        //     setRegisteredPatientGender &&
+        //     setRegisteredPatientGender(e.target.value);
+
+        //   isMedicDropdownInput &&
+        //     setNewPrescriptionMedicId &&
+        //     setNewPrescriptionMedicId(Number(e.target.value));
+
+        //   isAtHomeCareDropdownInput &&
+        //     setAtHomeCare &&
+        //     setAtHomeCare(e.target.value === 'true');
+
+        //   isAfflictionDropdownInput &&
+        //     setNewPrescriptionAfflictionId &&
+        //     setNewPrescriptionAfflictionId(Number(e.target.value));
+        // }}
+
         onChange={(e) => {
-          isGenderDropdownInput &&
-            setRegisteredPatientGender &&
+          if (isGenderDropdownInput && setRegisteredPatientGender) {
             setRegisteredPatientGender(e.target.value);
+          }
 
-          isMedicDropdownInput &&
-            setNewPrescriptionMedicId &&
+          if (isMedicDropdownInput && setNewPrescriptionMedicId) {
             setNewPrescriptionMedicId(Number(e.target.value));
+          }
 
-          isAtHomeCareDropdownInput &&
-            setAtHomeCare &&
+          if (isAtHomeCareDropdownInput && setAtHomeCare) {
             setAtHomeCare(e.target.value === 'true');
+          }
 
-          isAfflictionDropdownInput &&
-            setNewPrescriptionAfflictionId &&
+          if (isAfflictionDropdownInput && setNewPrescriptionAfflictionId) {
             setNewPrescriptionAfflictionId(Number(e.target.value));
+          }
+
+          if (isPrescriptionDropdownInput) {
+            const selectedPrescriptionId = Number(e.target.value);
+            if (selectedPrescriptionId && patientId) {
+              fetchAppointmentsByPrescription(
+                selectedPrescriptionId,
+                patientId
+              );
+            }
+          }
         }}
         className="block w-full p-2 border border-gray-300 rounded-md"
       >
@@ -133,6 +190,18 @@ export default function StandardChoiceDropdown({
               ))}
             <option value="other">Autre</option>
             {/* ToDO - add a new medic modal */}
+          </>
+        )}
+
+        {isPrescriptionDropdownInput && (
+          <>
+            <option value="">Sélectionnez une ordonnance</option>
+            {patientPrescriptions &&
+              patientPrescriptions.map((prescription) => (
+                <option key={prescription.id} value={prescription.id}>
+                  {prescription.date}
+                </option>
+              ))}
           </>
         )}
       </select>
