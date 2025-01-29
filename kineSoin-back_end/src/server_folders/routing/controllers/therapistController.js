@@ -64,9 +64,7 @@ const therapistController = {
 
   // Get patient's therapist data
   getPersonalTherapist: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -75,7 +73,6 @@ const therapistController = {
       include: [
         {
           association: 'therapist',
-          where: { status: 'active' },
           attributes: [
             'id',
             'name',

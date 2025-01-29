@@ -25,6 +25,7 @@ import PatientDashboard from './components/pageComponents/PatientSection/Patient
 import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
 import PatientAppointmentsPage from './components/pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsPage';
 import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPage/PatientMessagesPage';
+import PatientTherapistPage from './components/pageComponents/PatientSection/PatientTherapistPage/PatientTherapistPage';
 
 function App() {
   // Use state to keep track of the window width
@@ -314,6 +315,10 @@ function App() {
           <Route
             path="messages"
             element={<PatientMessagesPage windowWidth={windowWidth} />}
+          />
+          <Route
+            path="my-therapist"
+            element={<PatientTherapistPage windowWidth={windowWidth} />}
           />
         </Route>
       ) : (

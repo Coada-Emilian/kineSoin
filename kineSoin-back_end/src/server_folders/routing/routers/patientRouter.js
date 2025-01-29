@@ -25,7 +25,10 @@ patientRouter.get(
   wrapper(patientController.getPatientDashboardData)
 );
 
-patientRouter.get('/me', wrapper(patientController.getConnectedPatient));
+patientRouter.get(
+  '/:patient_id',
+  wrapper(patientController.getConnectedPatient)
+);
 
 patientRouter.delete('/me', wrapper(patientController.deleteConnectedPatient));
 
@@ -82,10 +85,13 @@ patientRouter.put(
 patientRouter.get(
   '/:patient_id/prescriptions/:prescription_id/appointments',
   wrapper(appointmentController.getAllAppointmentsForPrescription)
-)
+);
 
 // Messages routes
-patientRouter.get('/:patient_id/messages', wrapper(messageController.getAllMessages));
+patientRouter.get(
+  '/:patient_id/messages',
+  wrapper(messageController.getAllMessages)
+);
 
 patientRouter.post(
   '/:patient_id/messages',
@@ -111,6 +117,6 @@ patientRouter.post(
 
 // Therapist routes
 patientRouter.get(
-  '/me/myTherapist',
+  '/:patient_id/therapist',
   wrapper(therapistController.getPersonalTherapist)
 );

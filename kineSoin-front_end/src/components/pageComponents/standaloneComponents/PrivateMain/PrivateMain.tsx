@@ -12,6 +12,7 @@ import PatientNewPrescriptionForm from '../../PatientSection/PatientPrescription
 import PatientAppointmentsCalendar from '../../PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
 import PatientMessagesField from '../../PatientSection/PatientMessagesPage/PatientMessagesField';
 import MessageForm from '../../PatientSection/PatientMessagesPage/MessageForm';
+import TherapistCard from '../../PatientSection/PatientTherapistPage/TherapistCard';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -20,6 +21,7 @@ interface PrivateMainProps {
   windowWidth?: number;
   isPatientAppointmentsMain?: boolean;
   isPatientMessagesMain?: boolean;
+  isPatientTherapistPage?: boolean;
 }
 
 export default function PrivateMain({
@@ -29,6 +31,7 @@ export default function PrivateMain({
   windowWidth,
   isPatientAppointmentsMain,
   isPatientMessagesMain,
+  isPatientTherapistPage,
 }: PrivateMainProps) {
   const [patientId, setPatientId] = useState<number>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
@@ -64,11 +67,11 @@ export default function PrivateMain({
     <>
       {isPatientMain && (
         <main
-          className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''}`}
+          className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''} h-max`}
         >
           <UserHeadband isPatientHeadband />
 
-          <div className="md:flex h-screen gap-4 mb-2 ">
+          <div className="md:flex h-fit md:h-screen gap-4 mb-2 ">
             {windowWidth && windowWidth > 768 && (
               <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block">
                 <SideNav isPatientSideNav />
@@ -81,6 +84,7 @@ export default function PrivateMain({
                 {isPatientPrescriptionMain && 'Ajouter une nouvelle ordonnance'}
                 {isPatientAppointmentsMain && 'Mes rendez-vous'}
                 {isPatientMessagesMain && 'Mes messages'}
+                {isPatientTherapistPage && 'Mon thérapeute'}
               </p>
 
               {isPatientDashboardMain && (
@@ -107,7 +111,7 @@ export default function PrivateMain({
               )}
 
               {isPatientPrescriptionMain && (
-                <div className="flex justify-between items-center w-full">
+                <div className="flex justify-center md:justify-start items-center w-full">
                   <PatientNewPrescriptionForm
                     windowWidth={windowWidth}
                     patientId={patientId}
@@ -144,6 +148,10 @@ export default function PrivateMain({
                   />
                   <MessageForm patientId={patientId} />
                 </div>
+              )}
+
+              {isPatientTherapistPage && (
+                <TherapistCard patientId={patientId} />
               )}
             </div>
           </div>

@@ -717,3 +717,18 @@ export const handlePatientMessageCreation = async (
     return false;
   }
 };
+
+export const fetchPatientTherapist = async (id: number) => {
+  try {
+    const response = await axios.get(`/patient/${id}/therapist`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient data', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching patient data:', error);
+    return null;
+  }
+};
