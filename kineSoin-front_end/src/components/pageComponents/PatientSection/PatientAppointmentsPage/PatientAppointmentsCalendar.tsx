@@ -62,8 +62,13 @@ export default function PatientAppointmentsCalendar({
   }, [futureAppointments, pastAppointments]);
 
   // Event style getter to apply different colors based on event status
-  const eventStyleGetter = (event) => {
-    let style = {
+  interface EventStyle {
+    backgroundColor: string;
+    borderRadius: string;
+  }
+
+  const eventStyleGetter = (event: CalendarEvent): { style: EventStyle } => {
+    let style: EventStyle = {
       backgroundColor: 'green', // Default to green for future events
       borderRadius: '5px',
     };
@@ -76,7 +81,14 @@ export default function PatientAppointmentsCalendar({
   };
 
   // Event click handler
-  const handleEventClick = (event) => {
+  interface CalendarEvent {
+    title: string;
+    start: Date;
+    end: Date;
+    status: string;
+  }
+
+  const handleEventClick = (event: CalendarEvent): void => {
     alert(`Event clicked: ${event.title}`);
   };
 
