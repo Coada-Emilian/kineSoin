@@ -1,5 +1,6 @@
 import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import dayjs from 'dayjs';
+import 'dayjs/locale/fr'; // Import French locale for Day.js
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import StandardChoiceDropdown from '../../standaloneComponents/StandardInputs/StandardDropdownInput';
 import { useEffect, useState } from 'react';
@@ -14,10 +15,21 @@ interface PatientAppointmentsCalendarProps {
 export default function PatientAppointmentsCalendar({
   patientId,
 }: PatientAppointmentsCalendarProps) {
+  // Set the Day.js locale to French globally
+  dayjs.locale('fr');
+
+  // Set up the localizer with Day.js
   const localizer = dayjsLocalizer(dayjs);
 
   const [patientPrescriptions, setPatientPrescriptions] = useState<
     IPrescription[]
+  >([]);
+  const [futureAppointments, setFutureAppointments] = useState<IAppointment[]>(
+    []
+  );
+  const [pastAppointments, setPastAppointments] = useState<IAppointment[]>([]);
+  const [calendarEvents, setCalendarEvents] = useState<
+    { title: string; start: Date; end: Date; status: string }[] // Add status field
   >([]);
 
   useEffect(() => {
@@ -30,29 +42,44 @@ export default function PatientAppointmentsCalendar({
     fetchPatientPrescriptionsAndSet();
   }, [patientId]);
 
-  const [futureAppointments, setFutureAppointments] = useState<IAppointment[]>(
-    []
-  );
-  const [pastAppointments, setPastAppointments] = useState<IAppointment[]>([]);
-  const [calendarEvents, setCalendarEvents] = useState<
-    { title: string; start: Date; end: Date }[]
-  >([]);
-
+  // Update calendar events based on future and past appointments
   useEffect(() => {
-    const events = futureAppointments.map((appointment) => {
-      return {
-        title: `Appointment ${appointment.id}`,
-        start: new Date(appointment.date),
-        end: new Date(appointment.date),
-      };
-    });
+    const events = [
+      ...futureAppointments.map((appointment) => ({
+        title: `Rendez-vous #${appointment.id}`,
+        start: dayjs(appointment.date).toDate(),
+        end: dayjs(appointment.date).toDate(),
+        status: 'future', // Mark as future event
+      })),
+      ...pastAppointments.map((appointment) => ({
+        title: `Rendez-vous #${appointment.id}`,
+        start: dayjs(appointment.date).toDate(),
+        end: dayjs(appointment.date).toDate(),
+        status: 'past', // Mark as past event
+      })),
+    ];
     setCalendarEvents(events);
   }, [futureAppointments, pastAppointments]);
 
-  useEffect(() => {
-    console.log('futureAppointments', futureAppointments);
-    console.log('pastAppointments', pastAppointments);
-  }, [futureAppointments, pastAppointments]);
+  // Event style getter to apply different colors based on event status
+  const eventStyleGetter = (event) => {
+    let style = {
+      backgroundColor: 'green', // Default to green for future events
+      borderRadius: '5px',
+    };
+
+    if (event.status === 'past') {
+      style.backgroundColor = 'red'; // Red for past events
+    }
+
+    return { style };
+  };
+
+  // Event click handler
+  const handleEventClick = (event) => {
+    alert(`Event clicked: ${event.title}`);
+  };
+
   return (
     <>
       <StandardChoiceDropdown
@@ -69,6 +96,13 @@ export default function PatientAppointmentsCalendar({
           events={calendarEvents}
           startAccessor="start"
           endAccessor="end"
+          culture="fr" // Use French culture
+          formats={{
+            dayFormat: 'DD MMM', // Customize the day format
+            monthHeaderFormat: 'MMMM YYYY', // Customize the month header format
+          }}
+          eventPropGetter={eventStyleGetter}
+          onSelectEvent={handleEventClick}
         />
       </div>
     </>
