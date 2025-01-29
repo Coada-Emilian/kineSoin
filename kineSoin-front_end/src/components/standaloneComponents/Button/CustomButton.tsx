@@ -46,6 +46,8 @@ interface ButtonProps {
   btnType?: 'button' | 'submit' | 'reset';
   patientNotificationQuantity?: number;
   setPatientNotificationQuantity?: React.Dispatch<React.SetStateAction<number>>;
+  mobileButton?: boolean;
+  mobileDeleteButton?: boolean;
 }
 
 export default function CustomButton({
@@ -68,15 +70,17 @@ export default function CustomButton({
   onClick,
   patientNotificationQuantity,
   setPatientNotificationQuantity,
+  mobileButton,
+  mobileDeleteButton,
 }: ButtonProps) {
   const getBtnBackground = () => {
-    if (normalButton || navBarButton) {
+    if (normalButton || navBarButton || mobileButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal';
     } else if (cancelButton) {
       return 'bg-gray-200 hover:bg-gray-300';
     } else if (modifyButton) {
       return 'bg-blue-300 hover:bg-blue-500';
-    } else if (deleteButton) {
+    } else if (deleteButton || mobileDeleteButton) {
       return 'bg-red-300 hover:bg-red-500';
     } else if (activeButton) {
       return 'bg-green-300 hover:bg-green-500';
@@ -117,7 +121,9 @@ export default function CustomButton({
     } else if (
       navBarButton ||
       patientNotificationButton ||
-      patientLogoutButton
+      patientLogoutButton ||
+      mobileButton ||
+      mobileDeleteButton
     ) {
       return 'text-xxs md:text-xs lg:text-sm  px-2 py-2 max-w-36 lg:max-w-40 xl:max-w-44 my-0 mx-0';
     }

@@ -41,37 +41,37 @@ export default function PatientCard({ patientId }: PatientCardProps) {
             />
           </div>
         )}
-        <div className="text-primaryBlue w-2/4 p-8 h-full flex flex-col justify-between gap-2 text-center">
+        <div className="text-primaryBlue text-xs md:text-sm font-bold italic w-3/4 md:w-1/4 p-8 h-full flex flex-col justify-between gap-2 text-center">
           <div>
             <p className=" text-lg font-bold">
               {patientData?.fullName}, {patientData?.age} ans
             </p>
           </div>
           <div>
-            <p className=" text-sm font-bold italic mb-2">Adresse :</p>
-            <p className=" text-sm font-bold italic text-left p-4 border border-primaryBlue rounded-lg mb-2">
+            <p className="mb-2">Adresse :</p>
+            <p className="text-left p-2 border border-primaryBlue rounded-lg mb-2">
               {patientData?.street_number} {patientData?.street_name}
             </p>
+
             <div className="flex justify-between w-full gap-2">
-              <p className=" text-sm font-bold italic text-left p-4 border border-primaryBlue rounded-lg w-1/4">
+              <p className="text-left p-2 border border-primaryBlue rounded-lg w-1/4">
                 {patientData?.postal_code}
               </p>
-              <p className=" text-sm font-bold italic text-left p-4 border border-primaryBlue rounded-lg w-3/4">
+              <p className="text-left p-2 border border-primaryBlue rounded-lg w-3/4">
                 {patientData?.city}
               </p>
             </div>
           </div>
+
           <div>
-            <p className=" text-sm font-bold italic mb-2">Numero telephone :</p>
-            <p className=" text-sm font-bold italic text-left p-4 border border-primaryBlue rounded-lg mb-2">
+            <p className=" mb-2">Numero telephone :</p>
+            <p className="  text-left p-4 border border-primaryBlue rounded-lg mb-2">
               {patientData?.phone_number}
             </p>
           </div>
           <div>
-            <p className=" text-sm font-bold italic mb-2">
-              Assurance mutuelle :
-            </p>
-            <p className=" text-sm font-bold italic text-left p-4 border border-primaryBlue rounded-lg mb-2">
+            <p className=" mb-2">Assurance mutuelle :</p>
+            <p className=" text-left p-4 border border-primaryBlue rounded-lg mb-2">
               {patientData?.insurance?.[0]?.name}
             </p>
           </div>
@@ -92,9 +92,9 @@ export default function PatientCard({ patientId }: PatientCardProps) {
             </div>
           </div> */}
           <div className="flex gap-2">
-            <CustomButton btnText={'Ajouter mutuelle'} normalButton />
-            <CustomButton btnText="Éditer mon profil" normalButton />
-            <CustomButton btnText="Supprimer mon profil" deleteButton />
+            <CustomButton btnText={'Ajouter mutuelle'} mobileButton />
+            <CustomButton btnText="Éditer mon profil" mobileButton />
+            <CustomButton btnText="Supprimer mon profil" mobileDeleteButton />
           </div>
         </div>
       </div>
