@@ -678,3 +678,42 @@ export const fetchPatientAppointmentsByPrescription = async (
     return [];
   }
 };
+
+export const fetchPatientMessages = async (id: number) => {
+  try {
+    const response = await axios.get(`/patient/${id}/messages`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient messages', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching patient messages:', error);
+    return [];
+  }
+};
+
+export const handlePatientMessageCreation = async (
+  id: number,
+  formData: FormData
+) => {
+  try {
+    const response = await axios.post(`/patient/${id}/messages`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 201) {
+      console.log('Message created successfully');
+      return true;
+    } else {
+      console.error('Failed to create message', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error creating message:', error);
+    return false;
+  }
+};

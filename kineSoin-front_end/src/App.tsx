@@ -24,6 +24,7 @@ import MobileNav from './components/pageComponents/standaloneComponents/MobileNa
 import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboardPage/PatientDashboardPage';
 import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
 import PatientAppointmentsPage from './components/pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsPage';
+import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPage/PatientMessagesPage';
 
 function App() {
   // Use state to keep track of the window width
@@ -309,6 +310,10 @@ function App() {
           <Route
             path="appointments"
             element={<PatientAppointmentsPage windowWidth={windowWidth} />}
+          />
+          <Route
+            path="messages"
+            element={<PatientMessagesPage windowWidth={windowWidth} />}
           />
         </Route>
       ) : (

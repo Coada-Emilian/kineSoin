@@ -15,7 +15,7 @@ interface StandardTextInputProps {
   patientRegisterCity?: string;
   patientRegisterTelephone?: string;
   isAppointmentNumberInput?: boolean;
-  
+  isPatientMessageInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -27,6 +27,7 @@ export default function StandardTextInput({
   isPostalCodeInput,
   isCityInput,
   isAppointmentNumberInput,
+  isPatientMessageInput,
 }: StandardTextInputProps) {
   return (
     <div
@@ -50,7 +51,9 @@ export default function StandardTextInput({
                         ? 'patient-register-city_input'
                         : isAppointmentNumberInput
                           ? 'appointment-number_input'
-                          : ''
+                          : isPatientMessageInput
+                            ? 'patient-message-input'
+                            : ''
         }`}
         className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
@@ -92,7 +95,9 @@ export default function StandardTextInput({
                         ? 'city'
                         : isAppointmentNumberInput
                           ? 'appointment_quantity'
-                          : ''
+                          : isPatientMessageInput
+                            ? 'content'
+                            : ''
         }`}
         id={`${
           isNameInput
@@ -131,7 +136,9 @@ export default function StandardTextInput({
                         ? 'Ville'
                         : isAppointmentNumberInput
                           ? 'Seances prescrites'
-                          : ''
+                          : isPatientMessageInput
+                            ? 'Tapez votre message...'
+                            : ''
         }`}
         required={!isStreetNumberInput}
       />

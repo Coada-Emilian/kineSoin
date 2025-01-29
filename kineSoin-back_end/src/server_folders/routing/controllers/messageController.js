@@ -8,9 +8,7 @@ import { Patient, Patient_message } from '../../models/associations.js';
 const messageController = {
   // Get all messages
   getAllMessages: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -65,9 +63,7 @@ const messageController = {
 
   // Send a message to the therapist
   sendMessageToTherapist: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 

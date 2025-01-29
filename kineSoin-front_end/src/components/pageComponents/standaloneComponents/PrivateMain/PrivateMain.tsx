@@ -10,6 +10,8 @@ import SideNav from '../../../standaloneComponents/SideNav/SideNav';
 
 import PatientNewPrescriptionForm from '../../PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
 import PatientAppointmentsCalendar from '../../PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
+import PatientMessagesField from '../../PatientSection/PatientMessagesPage/PatientMessagesField';
+import MessageForm from '../../PatientSection/PatientMessagesPage/MessageForm';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -17,6 +19,7 @@ interface PrivateMainProps {
   isPatientPrescriptionMain?: boolean;
   windowWidth?: number;
   isPatientAppointmentsMain?: boolean;
+  isPatientMessagesMain?: boolean;
 }
 
 export default function PrivateMain({
@@ -25,6 +28,7 @@ export default function PrivateMain({
   isPatientPrescriptionMain,
   windowWidth,
   isPatientAppointmentsMain,
+  isPatientMessagesMain,
 }: PrivateMainProps) {
   const [patientId, setPatientId] = useState<number>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
@@ -76,6 +80,7 @@ export default function PrivateMain({
                 {isPatientDashboardMain && 'Rendez-vous à venir'}
                 {isPatientPrescriptionMain && 'Ajouter une nouvelle ordonnance'}
                 {isPatientAppointmentsMain && 'Mes rendez-vous'}
+                {isPatientMessagesMain && 'Mes messages'}
               </p>
 
               {isPatientDashboardMain && (
@@ -129,6 +134,16 @@ export default function PrivateMain({
 
               {isPatientAppointmentsMain && (
                 <PatientAppointmentsCalendar patientId={patientId} />
+              )}
+
+              {isPatientMessagesMain && (
+                <div className="flex flex-col gap-4 justify-between w-full h-full">
+                  <PatientMessagesField
+                    windowWidth={windowWidth}
+                    patientId={patientId}
+                  />
+                  <MessageForm patientId={patientId} />
+                </div>
               )}
             </div>
           </div>

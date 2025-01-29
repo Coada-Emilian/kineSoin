@@ -85,10 +85,10 @@ patientRouter.get(
 )
 
 // Messages routes
-patientRouter.get('/me/messages', wrapper(messageController.getAllMessages));
+patientRouter.get('/:patient_id/messages', wrapper(messageController.getAllMessages));
 
 patientRouter.post(
-  '/me/messages',
+  '/:patient_id/messages',
   wrapper(messageController.sendMessageToTherapist)
 );
 
