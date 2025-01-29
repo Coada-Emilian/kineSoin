@@ -63,13 +63,14 @@ export default function PatientAppointmentsCalendar({
         setPastAppointments={setPastAppointments}
       />
 
-      <Calendar
-        localizer={localizer}
-        events={calendarEvents}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-      />
+      <div className="w-10/12 h-96 md:w-full md:h-full">
+        <Calendar
+          localizer={localizer}
+          events={calendarEvents}
+          startAccessor="start"
+          endAccessor="end"
+        />
+      </div>
     </>
   );
 }
