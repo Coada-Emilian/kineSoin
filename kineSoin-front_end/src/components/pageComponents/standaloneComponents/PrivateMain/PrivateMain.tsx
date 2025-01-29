@@ -56,7 +56,9 @@ export default function PrivateMain({
   return (
     <>
       {isPatientMain && (
-        <main className=" bg-gray-200">
+        <main
+          className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''}`}
+        >
           <UserHeadband isPatientHeadband />
 
           <div className="md:flex h-screen gap-4 mb-2 ">
@@ -96,25 +98,24 @@ export default function PrivateMain({
               )}
 
               {isPatientPrescriptionMain && (
-                <div className="flex gap-4">
-                  <div>
-                    <PatientNewPrescriptionForm
-                      windowWidth={windowWidth}
-                      patientId={patientId}
-                      scanPreview={scanPreview}
-                      setScanPreview={setScanPreview}
-                    />
-                  </div>
-                  <div>
+                <div className="flex justify-between items-center w-full">
+                  <PatientNewPrescriptionForm
+                    windowWidth={windowWidth}
+                    patientId={patientId}
+                    scanPreview={scanPreview}
+                    setScanPreview={setScanPreview}
+                  />
+
+                  <div className="hidden md:block md:h-full md:w-1/2">
                     {scanPreview && (
-                      <div className="mt-4 flex flex-col items-center gap-2 hidden md:block">
+                      <div className="mt-4 flex flex-col items-center gap-2 h-max">
                         <p className="text-gray-700 text-sm mb-4">
                           Aperçu du scan{' '}
                         </p>
                         <img
                           src={scanPreview}
                           alt="Aperçu du fichier"
-                          className="w-56 object-contain border"
+                          className="w-5/6 object-contain border"
                         />
                       </div>
                     )}

@@ -305,6 +305,7 @@ function App() {
             path="new-prescription"
             element={<PatientPrescriptionPage windowWidth={windowWidth} />}
           ></Route>
+
         </Route>
       ) : (
         <Route
