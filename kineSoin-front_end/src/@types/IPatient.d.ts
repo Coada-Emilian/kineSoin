@@ -1,3 +1,5 @@
+import { IInsurance } from './IInsurance';
+
 export interface IPatient {
   id: number;
   therapist_id: number;
@@ -20,4 +22,5 @@ export interface IPatient {
   status: string;
   picture_url: string;
   picture_id: string;
+  insurance?: IInsurance[];
 }

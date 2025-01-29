@@ -13,6 +13,7 @@ import PatientAppointmentsCalendar from '../../PatientSection/PatientAppointment
 import PatientMessagesField from '../../PatientSection/PatientMessagesPage/PatientMessagesField';
 import MessageForm from '../../PatientSection/PatientMessagesPage/MessageForm';
 import TherapistCard from '../../PatientSection/PatientTherapistPage/TherapistCard';
+import PatientCard from '../../PatientSection/PatientDetailsPage/PatientCard';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -22,6 +23,7 @@ interface PrivateMainProps {
   isPatientAppointmentsMain?: boolean;
   isPatientMessagesMain?: boolean;
   isPatientTherapistPage?: boolean;
+  isPatientDetailsMain?: boolean;
 }
 
 export default function PrivateMain({
@@ -32,6 +34,7 @@ export default function PrivateMain({
   isPatientAppointmentsMain,
   isPatientMessagesMain,
   isPatientTherapistPage,
+  isPatientDetailsMain,
 }: PrivateMainProps) {
   const [patientId, setPatientId] = useState<number>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
@@ -85,6 +88,7 @@ export default function PrivateMain({
                 {isPatientAppointmentsMain && 'Mes rendez-vous'}
                 {isPatientMessagesMain && 'Mes messages'}
                 {isPatientTherapistPage && 'Mon thérapeute'}
+                {isPatientDetailsMain && 'Mes informations'}
               </p>
 
               {isPatientDashboardMain && (
@@ -153,6 +157,8 @@ export default function PrivateMain({
               {isPatientTherapistPage && (
                 <TherapistCard patientId={patientId} />
               )}
+
+              {isPatientDetailsMain && <PatientCard patientId={patientId} />}
             </div>
           </div>
         </main>
