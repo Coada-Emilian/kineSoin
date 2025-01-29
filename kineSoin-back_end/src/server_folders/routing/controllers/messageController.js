@@ -21,7 +21,7 @@ const messageController = {
           include: [
             {
               association: 'sender',
-              attributes: ['name', 'surname', 'picture_url'],
+              attributes: ['name', 'surname', 'picture_url', 'therapist_id'],
             },
             {
               association: 'receiver',

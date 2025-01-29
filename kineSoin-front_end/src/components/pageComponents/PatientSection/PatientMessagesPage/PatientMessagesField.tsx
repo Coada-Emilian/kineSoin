@@ -28,27 +28,25 @@ export default function PatientMessagesField({
     fetchMessages();
   }, [patientId]);
 
+  const allMessages = [
+    ...(sentPatientMessages || []),
+    ...(receivedPatientMessages || []),
+  ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  useEffect(() => {
+    console.log(allMessages);
+  }, [allMessages]);
+
   return (
-    sentPatientMessages &&
-    receivedPatientMessages && (
-      <div className="flex flex-col gap-6 px-6 w-full ">
-        {sentPatientMessages.map((message) => (
+    allMessages.length > 0 && (
+      <div className="flex flex-col gap-6 px-6 w-full">
+        {allMessages.map((message) => (
           <MessageCard
-            key={message.id}
+            key={message.content}
             content={message.content}
             sender={message.sender}
-          
-            isPatientMessage
-            date={message.date}
-          />
-        ))}
-        {receivedPatientMessages.map((message) => (
-          <MessageCard
-            key={message.id}
-            isTherapistMessage
-            sender={message.sender}
-            content={message.content}
-          
+            isPatientMessage={'therapist_id' in message.sender} // Check if sender has therapist_id
+            isTherapistMessage={!('therapist_id' in message.sender)} // Opposite condition
             date={message.date}
           />
         ))}
