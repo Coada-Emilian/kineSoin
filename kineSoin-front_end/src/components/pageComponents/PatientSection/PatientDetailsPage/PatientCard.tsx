@@ -4,6 +4,7 @@ import { fetchPatientData } from '../../../../utils/apiUtils';
 import { IPatient } from '../../../../@types/IPatient';
 import EditIcon from '../../standaloneComponents/EditIcon/EditIcon';
 import { Link } from 'react-router-dom';
+import EditPatientModal from '../../standaloneComponents/Modals/EditPatientModal';
 
 interface PatientCardProps {
   patientId?: number;
@@ -26,9 +27,20 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     fetchData();
   }, [patientId]);
 
-  const [isInsuranceModalOpen, setIsInsuranceModalOpen] = useState(false);
+  const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
+  const [isPhotoEditModalOpen, setIsPhotoEditModalOpen] = useState(false);
+  const [isAddressEditModalOpen, setIsAddressEditModalOpen] = useState(false);
+  const [isPhoneNumberEditModalOpen, setIsPhoneNumberEditModalOpen] =
+    useState(false);
+  const [isInsuranceEditModalOpen, setIsInsuranceEditModalOpen] =
+    useState(false);
+  const [isEmailEditModalOpen, setIsEmailEditModalOpen] = useState(false);
+  const [isPasswordEditModalOpen, setIsPasswordEditModalOpen] = useState(false);
+
+  const [newPhoneNumber, setNewPhoneNumber] = useState('');
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
+
 
   return (
     <>
@@ -77,7 +89,10 @@ export default function PatientCard({ patientId }: PatientCardProps) {
             <div className="flex items-center gap-2 mb-2">
               {' '}
               {isProfileEditing && (
-                <Link to="#">
+                <Link
+                  to="#"
+                  onClick={() => setIsPhoneNumberEditModalOpen(true)}
+                >
                   <EditIcon />
                 </Link>
               )}
@@ -145,6 +160,15 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           </div>
         </div>
       </div>
+
+      {isPhoneNumberEditModalOpen && (
+        <EditPatientModal
+          phone_number={patientData?.phone_number}
+          setIsPhoneNumberEditModalOpen={setIsPhoneNumberEditModalOpen}
+          isPhoneNumberEditModalOpen={isPhoneNumberEditModalOpen}
+          setNewPhoneNumber={setNewPhoneNumber}
+        />
+      )}
     </>
   );
 }
