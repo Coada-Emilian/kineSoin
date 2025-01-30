@@ -27,20 +27,25 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     fetchData();
   }, [patientId]);
 
-  const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
-  const [isPhotoEditModalOpen, setIsPhotoEditModalOpen] = useState(false);
-  const [isAddressEditModalOpen, setIsAddressEditModalOpen] = useState(false);
+  const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] =
+    useState<boolean>(false);
+  const [isPhotoEditModalOpen, setIsPhotoEditModalOpen] =
+    useState<boolean>(false);
+  const [isAddressEditModalOpen, setIsAddressEditModalOpen] =
+    useState<boolean>(false);
   const [isPhoneNumberEditModalOpen, setIsPhoneNumberEditModalOpen] =
-    useState(false);
+    useState<boolean>(false);
   const [isInsuranceEditModalOpen, setIsInsuranceEditModalOpen] =
-    useState(false);
-  const [isEmailEditModalOpen, setIsEmailEditModalOpen] = useState(false);
-  const [isPasswordEditModalOpen, setIsPasswordEditModalOpen] = useState(false);
+    useState<boolean>(false);
+  const [isEmailEditModalOpen, setIsEmailEditModalOpen] =
+    useState<boolean>(false);
+  const [isPasswordEditModalOpen, setIsPasswordEditModalOpen] =
+    useState<boolean>(false);
 
-  const [newPhoneNumber, setNewPhoneNumber] = useState('');
+  const [newPhoneNumber, setNewPhoneNumber] = useState<string>('');
+  const [newPhoto, setNewPhoto] = useState<File | null>(null);
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
-
 
   return (
     <>
@@ -55,7 +60,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
               />
 
               {isProfileEditing && (
-                <Link to="#">
+                <Link to="#" onClick={() => setIsPhotoEditModalOpen(true)}>
                   <EditIcon isPhotoEdit />
                 </Link>
               )}
@@ -100,7 +105,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
             </div>
 
             <p className="p-2 border border-gray-400 rounded-lg w-11/12 md:w-full">
-              {patientData?.phone_number}
+              {newPhoneNumber ? newPhoneNumber : patientData?.phone_number}
             </p>
           </div>
 
@@ -167,6 +172,14 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           setIsPhoneNumberEditModalOpen={setIsPhoneNumberEditModalOpen}
           isPhoneNumberEditModalOpen={isPhoneNumberEditModalOpen}
           setNewPhoneNumber={setNewPhoneNumber}
+        />
+      )}
+      {isPhotoEditModalOpen && (
+        <EditPatientModal
+          setIsPhotoEditModalOpen={setIsPhotoEditModalOpen}
+          isPhotoEditModalOpen={isPhotoEditModalOpen}
+          setNewPhoto={setNewPhoto}
+          old_photo={patientData?.picture_url}
         />
       )}
     </>
