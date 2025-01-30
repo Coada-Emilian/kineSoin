@@ -74,7 +74,7 @@ export default function PrivateMain({
         >
           <UserHeadband isPatientHeadband />
 
-          <div className="md:flex h-fit md:h-screen gap-4 mb-2 ">
+          <div className="md:flex h-fit md:h-screen  gap-4 mb-2 ">
             {windowWidth && windowWidth > 768 && (
               <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block">
                 <SideNav isPatientSideNav />

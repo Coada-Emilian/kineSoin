@@ -30,46 +30,40 @@ export default function TherapistCard({ patientId }: TherapistCardProps) {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-1 md:gap-6 items-center w-full">
+      <div className="text-primaryBlue flex flex-col md:flex-row gap-1 md:gap-6 items-center w-full my-auto">
         {patientData && (
-          <div className="w-3/4">
+          <div className="w-3/4 flex justify-center">
             <img
               src={patientData.therapist?.picture_url}
               alt={patientData.therapist?.name}
-              className="w-full h-full rounded-xl shadow-2xl"
+              className="w-full h-full rounded-xl shadow-2xl md:w-4/6 "
             />
           </div>
         )}
-        <div className="p-8 h-full flex flex-col justify-between gap-2 text-center">
+
+        <div className="p-8 h-full flex flex-col justify-between gap-2 text-center text-sm font-bold italic md:w-1/2">
           <div>
-            <p className="text-primaryBlue text-lg font-bold">
+            <p className=" text-lg font-bold">
               {patientData?.therapist?.fullName}
             </p>
           </div>
+
           <div>
-            <p className="text-primaryBlue text-sm font-bold italic mb-2">
-              A propos de moi{' '}
-            </p>
-            <p className="text-primaryBlue text-sm font-bold italic text-left p-4 border border-primaryBlue rounded-lg">
+            <p className="  mb-2">A propos de moi </p>
+            <p className="  text-left p-4 border border-gray-400 rounded-lg">
               {patientData?.therapist?.description}
             </p>
           </div>
+
           <div>
-            <p className="text-primaryBlue text-sm font-bold italic mb-2">
-              Diplôme, Experience et Spécialité
-            </p>
-            <div className="text-primaryBlue text-sm font-bold italic text-left p-4 border border-primaryBlue rounded-lg">
-              <p className="text-primaryBlue text-sm font-bold italic">
-                {patientData?.therapist?.diploma}
-              </p>
+            <p className="mb-2">Diplôme, Experience et Spécialité</p>
 
-              <p className="text-primaryBlue text-sm font-bold italic">
-                {patientData?.therapist?.experience}
-              </p>
+            <div className="  text-left p-4 border border-gray-400 rounded-lg mb-4">
+              <p className=" ">{patientData?.therapist?.diploma}</p>
 
-              <p className="text-primaryBlue text-sm font-bold italic">
-                {patientData?.therapist?.specialty}
-              </p>
+              <p className=" ">{patientData?.therapist?.experience}</p>
+
+              <p className=" ">{patientData?.therapist?.specialty}</p>
             </div>
           </div>
 
