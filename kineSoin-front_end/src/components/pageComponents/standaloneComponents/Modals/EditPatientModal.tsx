@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
 import { fetchInsurancesAsPatient } from '../../../../utils/apiUtils';
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
+import { IInsurance } from '../../../../@types/IInsurance';
+import { format } from 'path';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +28,9 @@ interface EditPatientModalProps {
   old_city?: string;
   setIsInsuranceEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isInsuranceEditModalOpen?: boolean;
-  setNewInsurance?: React.Dispatch<React.SetStateAction<object>>;
+  setNewInsurance?: React.Dispatch<
+    React.SetStateAction<IInsurance | undefined>
+  >;
   old_insurance_name?: string;
   old_start_date?: string;
   old_end_date?: string;
@@ -181,6 +185,84 @@ export default function EditPatientModal({
     }
   };
 
+  const handleInsuranceEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newInsuranceData: Partial<
+      IInsurance & {
+        insurance_id?: string;
+        start_date?: string;
+        end_date?: string;
+        contract_number?: string;
+        adherent_code?: string;
+      }
+    > = {};
+    const insurance_id = formData.get('insurance_id') as string;
+    if (!insurance_id) {
+      setErrorMessage('Veuillez choisir une mutuelle');
+    } else if (insurance_id.match(/^[0-9]+$/) === null) {
+      setErrorMessage('Veuillez choisir une mutuelle valide');
+    } else {
+      newInsuranceData.insurance_id = insurance_id;
+    }
+    const current_date = new Date();
+    const start_date = formData.get('start_date') as string;
+    if (start_date.length === 0) {
+      setErrorMessage('Veuillez choisir une date de début');
+    } else if (new Date(start_date) > current_date) {
+      setErrorMessage(
+        'La date de début doit être ultérieure à la date actuelle'
+      );
+    } else if (start_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
+      setErrorMessage('Veuillez choisir une date de début valide');
+    } else {
+      newInsuranceData['start_date'] = start_date;
+    }
+
+    const end_date = formData.get('end_date') as string;
+    if (end_date.length === 0) {
+      setErrorMessage('Veuillez choisir une date de fin');
+    } else if (new Date(end_date) < current_date) {
+      setErrorMessage(
+        'La date de fin doit être postérieure à la date actuelle'
+      );
+    } else if (end_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
+      setErrorMessage('Veuillez choisir une date de fin valide');
+    } else {
+      newInsuranceData['end_date'] = end_date;
+    }
+
+    const contract_number = formData.get('contract_number') as string;
+    if (contract_number.length === 0) {
+      setErrorMessage('Le numéro de contrat ne peut pas être vide');
+    } else if (contract_number.length > 15) {
+      setErrorMessage(
+        'Le numéro de contrat doit contenir moins de 15 caractères'
+      );
+    } else {
+      newInsuranceData['contract_number'] = contract_number;
+    }
+
+    const adherent_code = formData.get('adherent_code') as string;
+    if (adherent_code.length === 0) {
+      setErrorMessage('Le code adhérent ne peut pas être vide');
+    } else if (adherent_code.length > 12) {
+      setErrorMessage('Le code adhérent doit contenir moins de 12 caractères');
+    } else {
+      newInsuranceData['adherent_code'] = adherent_code;
+    }
+
+    if (
+      Object.keys(newInsuranceData).length === 5 &&
+      Object.values(newInsuranceData).every(
+        (value) => typeof value === 'string' && value.length > 0
+      )
+    ) {
+      setNewInsurance && setNewInsurance(newInsuranceData as IInsurance);
+      setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
+    }
+  };
+
   return (
     <ReactModal
       isOpen={
@@ -232,7 +314,9 @@ export default function EditPatientModal({
               ? handlePhotoEdit
               : isAddressEditModalOpen
                 ? handleAddressEdit
-                : () => {}
+                : isInsuranceEditModalOpen
+                  ? handleInsuranceEdit
+                  : () => {}
         }
         className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
       >
@@ -389,50 +473,46 @@ export default function EditPatientModal({
                 oldPatientInsuranceName={old_insurance_name}
                 insuranceList={insurances}
               />
-              <label>Choisir mutuelle :</label>
-              <input
-                type="text"
-                value={old_insurance_name}
-                className="border p-2 rounded-lg"
-                readOnly
-              />
-              <div>
-                <label>Date de debut :</label>
-                <input
-                  type="text"
-                  value={old_start_date}
-                  className="border p-2 rounded-lg"
-                  readOnly
-                />
-              </div>
-              <div>
-                <label>Date de fin :</label>
-                <input
-                  type="text"
-                  value={old_end_date}
-                  className="border p-2 rounded-lg"
-                  readOnly
-                />
-              </div>
 
               <div>
-                <label>Numero contrat :</label>
-                <input
-                  type="text"
-                  value={old_contract_number}
-                  className="border p-2 rounded-lg"
-                  readOnly
-                />
+                <label>Validité :</label>
+                <div className="flex gap-1 text-xs items-center">
+                  {' '}
+                  <input
+                    type="date"
+                    defaultValue={old_start_date}
+                    className="border p-2 rounded-lg"
+                    name="start_date"
+                  />
+                  <p>au</p>
+                  <input
+                    type="date"
+                    defaultValue={old_end_date}
+                    className="border p-2 rounded-lg"
+                    name="end_date"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label>Code adherent :</label>
-                <input
-                  type="text"
-                  value={old_adherent_code}
-                  className="border p-2 rounded-lg"
-                  readOnly
-                />
+              <div className="flex gap-2 w-full">
+                <div className="w-1/2 text-xs">
+                  <label>Numero contrat :</label>
+                  <input
+                    type="text"
+                    defaultValue={old_contract_number}
+                    className="border p-2 rounded-lg w-full"
+                    name="contract_number"
+                  />
+                </div>
+                <div className="w-1/2 text-xs">
+                  <label>Code adherent :</label>
+                  <input
+                    type="text"
+                    defaultValue={old_adherent_code}
+                    className="border p-2 rounded-lg w-full"
+                    name="adherent_code"
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -440,6 +520,7 @@ export default function EditPatientModal({
 
         <div className="flex gap-2">
           <CustomButton btnText="Valider" normalButton btnType="submit" />
+
           <CustomButton
             btnText="Annuler"
             cancelButton

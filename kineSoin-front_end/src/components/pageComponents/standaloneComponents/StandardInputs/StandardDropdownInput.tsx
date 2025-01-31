@@ -71,10 +71,20 @@ export default function StandardChoiceDropdown({
 
   const [otherInsurances, setOtherInsurances] = useState<IInsurance[]>([]);
 
+  const [actualInsurance, setActualInsurance] = useState<IInsurance | null>(
+    null
+  );
+
   const identifyOldInsurance = (
     insuranceList: IInsurance[],
     oldInsuranceName: string
   ) => {
+    const oldInsurance = insuranceList.find(
+      (insurance) => insurance.name === oldInsuranceName
+    );
+    if (oldInsurance) {
+      setActualInsurance(oldInsurance);
+    }
     const otherInsurances = insuranceList.filter(
       (insurance) => insurance.name !== oldInsuranceName
     );
@@ -175,6 +185,7 @@ export default function StandardChoiceDropdown({
           }
         }}
         className="block w-full p-2 border border-gray-300 rounded-md"
+        name={isPatientInsuranceDropdownInput ? 'insurance_id' : undefined}
       >
         {isGenderDropdownInput && (
           <>
@@ -236,7 +247,9 @@ export default function StandardChoiceDropdown({
 
         {isPatientInsuranceDropdownInput && (
           <>
-            <option value="">{oldPatientInsuranceName}</option>
+            <option value={actualInsurance ? actualInsurance.id : '*'}>
+              {actualInsurance ? actualInsurance.name : ''}
+            </option>
             {otherInsurances &&
               otherInsurances.map((insurance) => (
                 <option key={insurance.id} value={insurance.id}>
