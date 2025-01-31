@@ -49,6 +49,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   const [newAddress, setNewAddress] = useState<INewAddress>({});
   const [newInsurance, setNewInsurance] = useState<IInsurance>();
   const [isInsurancePresent, setIsInsurancePresent] = useState<boolean>(false);
+  const [newEmail, setNewEmail] = useState<string>('');
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
@@ -168,15 +169,20 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           {isProfileEditing && (
             <div>
               <div className="flex items-center gap-2">
-                <EditIcon />
+                <Link to="#" onClick={() => setIsEmailEditModalOpen(true)}>
+                  <EditIcon />
+                </Link>
                 <p>Modifier adresse e-mail</p>
               </div>
               <div className="flex items-center gap-2">
-                <EditIcon />
+                <Link to="#" onClick={() => setIsPasswordEditModalOpen(true)}>
+                  <EditIcon />
+                </Link>
                 <p>Modifier mot de passe</p>
               </div>
             </div>
           )}
+
           <div className="flex gap-2">
             <CustomButton btnText={'Ajouter mutuelle'} mobileButton />
             <CustomButton
@@ -243,6 +249,15 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           old_adherent_code={
             patientData?.insurance?.[0]?.Patient_Insurance?.adherent_code
           }
+        />
+      )}
+
+      {isEmailEditModalOpen && (
+        <EditPatientModal
+          setIsEmailEditModalOpen={setIsEmailEditModalOpen}
+          isEmailEditModalOpen={isEmailEditModalOpen}
+          old_email={patientData?.email}
+          setNewEmail={setNewEmail}
         />
       )}
     </>

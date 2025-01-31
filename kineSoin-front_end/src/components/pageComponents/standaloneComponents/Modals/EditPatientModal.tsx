@@ -5,7 +5,6 @@ import UserPhotoIcon from '/icons/user-photo.png';
 import { fetchInsurancesAsPatient } from '../../../../utils/apiUtils';
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import { IInsurance } from '../../../../@types/IInsurance';
-import { format } from 'path';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,6 +36,10 @@ interface EditPatientModalProps {
   old_contract_number?: string;
   old_adherent_code?: string;
   patientId?: number;
+  setIsEmailEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isEmailEditModalOpen?: boolean;
+  old_email?: string;
+  setNewEmail?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function EditPatientModal({
@@ -67,6 +70,10 @@ export default function EditPatientModal({
   old_contract_number,
   old_adherent_code,
   patientId,
+  setIsEmailEditModalOpen,
+  isEmailEditModalOpen,
+  old_email,
+  setNewEmail,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -269,13 +276,15 @@ export default function EditPatientModal({
         !!isPhoneNumberEditModalOpen ||
         !!isPhotoEditModalOpen ||
         !!isAddressEditModalOpen ||
-        !!isInsuranceEditModalOpen
+        !!isInsuranceEditModalOpen ||
+        !!isEmailEditModalOpen
       }
       onRequestClose={() => {
         if (setIsPhoneNumberEditModalOpen) setIsPhoneNumberEditModalOpen(false);
         if (setIsPhotoEditModalOpen) setIsPhotoEditModalOpen(false);
         if (setIsAddressEditModalOpen) setIsAddressEditModalOpen(false);
         if (setIsInsuranceEditModalOpen) setIsInsuranceEditModalOpen(false);
+        if (setIsEmailEditModalOpen) setIsEmailEditModalOpen(false);
       }}
       style={{
         content: {
@@ -298,6 +307,7 @@ export default function EditPatientModal({
         {isPhotoEditModalOpen ? 'Modifier votre photo' : ''}
         {isAddressEditModalOpen ? 'Modifier votre adresse' : ''}
         {isInsuranceEditModalOpen ? 'Modifier votre mutuelle' : ''}
+        {isEmailEditModalOpen ? 'Modifier votre email' : ''}
       </h3>
 
       {errorMessage && (
@@ -530,6 +540,7 @@ export default function EditPatientModal({
               setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
               setIsAddressEditModalOpen && setIsAddressEditModalOpen(false);
               setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
+              setIsEmailEditModalOpen && setIsEmailEditModalOpen(false);
             }}
           />
         </div>
