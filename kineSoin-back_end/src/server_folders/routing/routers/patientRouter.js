@@ -54,7 +54,7 @@ patientRouter.patch(
   wrapper(insuranceController.updateInsurance)
 );
 
-patientRouter.post('/me/insurance', wrapper(insuranceController.addInsurance));
+patientRouter.post('/:patient_id/insurance', wrapper(insuranceController.addInsurance));
 
 // Proposed appointments routes
 patientRouter.get(

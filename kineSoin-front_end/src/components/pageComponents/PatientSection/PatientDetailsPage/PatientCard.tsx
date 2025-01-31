@@ -15,7 +15,7 @@ interface PatientCardProps {
 
 export default function PatientCard({ patientId }: PatientCardProps) {
   const [patientData, setPatientData] = useState<IPatient | null>(null);
-
+  const [isInsuranceAdded, setIsInsuranceAdded] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
       if (patientId !== undefined) {
@@ -28,7 +28,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
       }
     };
     fetchData();
-  }, [patientId]);
+  }, [patientId, isInsuranceAdded]);
 
   const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] =
     useState<boolean>(false);
@@ -52,6 +52,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   const [isInsurancePresent, setIsInsurancePresent] = useState<boolean>(false);
   const [newEmail, setNewEmail] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
+  const [addedPatientInsurance, setAddedPatientInsurance] =
+    useState<IInsurance>();
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
@@ -64,7 +66,10 @@ export default function PatientCard({ patientId }: PatientCardProps) {
         setIsInsurancePresent(true);
       }
     }
-  }, [patientData]);
+    if (addedPatientInsurance) {
+      setIsInsurancePresent(true);
+    }
+  }, [patientData, addedPatientInsurance]);
 
   useEffect(() => {
     console.log('newPhoneNumber :', newPhoneNumber);
@@ -73,6 +78,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     console.log('newInsurance :', newInsurance);
     console.log('newEmail :', newEmail);
     console.log('newPassword :', newPassword);
+    console.log('addedPatientInsurance :', addedPatientInsurance);
   }, [
     newPhoneNumber,
     newPhoto,
@@ -80,6 +86,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     newInsurance,
     newEmail,
     newPassword,
+    addedPatientInsurance,
   ]);
 
   return (
@@ -308,6 +315,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
           isAddInsuranceModalOpen={isAddInsuranceModalOpen}
           patientId={patientId}
+          setAddedPatientInsurance={setAddedPatientInsurance}
+          setIsInsuranceAdded={setIsInsuranceAdded}
         />
       )}
     </>

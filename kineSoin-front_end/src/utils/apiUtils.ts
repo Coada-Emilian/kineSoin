@@ -779,3 +779,26 @@ export const checkPatientCredentials = async (id: number, password: string) => {
     return false;
   }
 };
+
+export const handlePatientInsuranceAdd = async (
+  id: number,
+  formData: FormData
+) => {
+  try {
+    const response = await axios.post(`/patient/${id}/insurance`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Insurance added successfully');
+      return true;
+    } else {
+      console.error('Failed to add insurance', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error adding insurance:', error);
+    return false;
+  }
+};

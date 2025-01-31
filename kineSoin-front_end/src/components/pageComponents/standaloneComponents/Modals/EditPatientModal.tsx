@@ -5,6 +5,7 @@ import UserPhotoIcon from '/icons/user-photo.png';
 import {
   checkPatientCredentials,
   fetchInsurancesAsPatient,
+  handlePatientInsuranceAdd,
 } from '../../../../utils/apiUtils';
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import { IInsurance } from '../../../../@types/IInsurance';
@@ -50,6 +51,10 @@ interface EditPatientModalProps {
   setNewPassword?: React.Dispatch<React.SetStateAction<string>>;
   setIsAddInsuranceModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isAddInsuranceModalOpen?: boolean;
+  setAddedPatientInsurance?: React.Dispatch<
+    React.SetStateAction<IInsurance | undefined>
+  >;
+  setIsInsuranceAdded?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function EditPatientModal({
@@ -90,6 +95,8 @@ export default function EditPatientModal({
   setNewPassword,
   setIsAddInsuranceModalOpen,
   isAddInsuranceModalOpen,
+  setAddedPatientInsurance,
+  setIsInsuranceAdded,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -357,8 +364,61 @@ export default function EditPatientModal({
   const handleInsuranceAdd = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
+    const insurance_id = formData.get('insurance_id') as string;
+    if (!insurance_id) {
+      setErrorMessage('Veuillez choisir une mutuelle');
+    } else if (insurance_id.match(/^[0-9]+$/) === null) {
+      setErrorMessage('Veuillez choisir une mutuelle valide');
+    }
+    const current_date = new Date();
+    const start_date = formData.get('start_date') as string;
+    if (start_date.length === 0) {
+      setErrorMessage('Veuillez choisir une date de début');
+    } else if (new Date(start_date) > current_date) {
+      setErrorMessage(
+        'La date de début doit être ultérieure à la date actuelle'
+      );
+    } else if (start_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
+      setErrorMessage('Veuillez choisir une date de début valide');
+    }
+
+    const end_date = formData.get('end_date') as string;
+    if (end_date.length === 0) {
+      setErrorMessage('Veuillez choisir une date de fin');
+    } else if (new Date(end_date) < current_date) {
+      setErrorMessage(
+        'La date de fin doit être postérieure à la date actuelle'
+      );
+    } else if (end_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
+      setErrorMessage('Veuillez choisir une date de fin valide');
+    }
+
+    const contract_number = formData.get('contract_number') as string;
+    if (contract_number.length === 0) {
+      setErrorMessage('Le numéro de contrat ne peut pas être vide');
+    } else if (contract_number.length > 15) {
+      setErrorMessage(
+        'Le numéro de contrat doit contenir moins de 15 caractères'
+      );
+    }
+
+    const adherent_code = formData.get('adherent_code') as string;
+    if (adherent_code.length === 0) {
+      setErrorMessage('Le code adhérent ne peut pas être vide');
+    } else if (adherent_code.length > 12) {
+      setErrorMessage('Le code adhérent doit contenir moins de 12 caractères');
+    }
+
+    if (patientId) {
+      const response = await handlePatientInsuranceAdd(patientId, formData);
+      if (response) {
+        setIsInsuranceAdded && setIsInsuranceAdded(true);
+        setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
+      } else {
+        setErrorMessage('Une erreur est survenue');
+      }
+    } else {
+      setErrorMessage('Patient ID is required');
     }
   };
 

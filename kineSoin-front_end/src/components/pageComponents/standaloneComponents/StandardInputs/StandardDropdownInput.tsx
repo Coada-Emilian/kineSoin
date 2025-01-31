@@ -30,6 +30,7 @@ interface StandardChoiceDropdownProps {
   isPatientInsuranceDropdownInput?: boolean;
   oldPatientInsuranceName?: string;
   insuranceList?: IInsurance[];
+
 }
 
 export default function StandardChoiceDropdown({
@@ -52,6 +53,7 @@ export default function StandardChoiceDropdown({
   isPatientInsuranceDropdownInput,
   oldPatientInsuranceName,
   insuranceList,
+
 }: StandardChoiceDropdownProps) {
   const fetchAppointmentsByPrescription = async (
     prescriptionId: number,
@@ -92,15 +94,12 @@ export default function StandardChoiceDropdown({
     }
   };
 
+
   useEffect(() => {
     if (insuranceList && oldPatientInsuranceName) {
       identifyOldInsurance(insuranceList, oldPatientInsuranceName);
     }
   }, [insuranceList, oldPatientInsuranceName]);
-
-  useEffect(() => {
-    console.log(otherInsurances);
-  }, [otherInsurances]);
 
   return (
     <div className="mb-4">

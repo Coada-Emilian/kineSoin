@@ -149,9 +149,7 @@ const insuranceController = {
 
   // Add insurance information for a patient
   addInsurance: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 81;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
