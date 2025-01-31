@@ -47,6 +47,13 @@ export default function PatientCard({ patientId }: PatientCardProps) {
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
+  const [preview, setPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log('newPhoneNumber :', newPhoneNumber);
+    console.log('newPhoto :', newPhoto);
+  }, [newPhoneNumber, newPhoto]);
+
   return (
     <>
       <div className="flex flex-col md:flex-row gap-1 md:gap-6 items-center w-full my-auto">
@@ -54,7 +61,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           <div className="w-2/4 flex justify-center">
             <div className="relative">
               <img
-                src={patientData.picture_url}
+                src={preview ? preview : patientData.picture_url}
                 alt={patientData.name}
                 className="rounded-xl object-cover shadow-2xl"
               />
@@ -180,6 +187,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           isPhotoEditModalOpen={isPhotoEditModalOpen}
           setNewPhoto={setNewPhoto}
           old_photo={patientData?.picture_url}
+          setPreview={setPreview}
+          preview={preview}
         />
       )}
     </>

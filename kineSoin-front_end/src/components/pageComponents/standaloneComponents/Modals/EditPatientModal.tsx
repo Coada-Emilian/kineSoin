@@ -2,7 +2,6 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
-import StandardFileInput from '../StandardInputs/StandardFileInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +12,8 @@ interface EditPatientModalProps {
   isPhotoEditModalOpen?: boolean;
   setNewPhoto?: React.Dispatch<React.SetStateAction<File | null>>;
   old_photo?: string;
+  setPreview?: React.Dispatch<React.SetStateAction<string | null>>;
+  preview?: string;
 }
 
 export default function EditPatientModal({
@@ -24,7 +25,13 @@ export default function EditPatientModal({
   isPhotoEditModalOpen,
   setNewPhoto,
   old_photo,
+  setPreview,
+  preview,
 }: EditPatientModalProps) {
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const [isNewPhotoAdded, setIsNewPhotoAdded] = useState<boolean>(false);
+
   const handlePhoneNumberEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -45,9 +52,26 @@ export default function EditPatientModal({
     }
   };
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const handlePhotoEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newPhoto = formData.get('new_photo') as File;
+    if (!newPhoto) {
+      setErrorMessage('Veuillez choisir une photo');
+    } else {
+      setNewPhoto && setNewPhoto(newPhoto);
+      setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
+      setIsNewPhotoAdded && setIsNewPhotoAdded(true);
+    }
+  };
 
-  const [isNewPhotoAdded, setIsNewPhotoAdded] = useState<boolean>(false);
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setPreview && setPreview(previewUrl);
+    }
+  };
 
   return (
     <ReactModal
@@ -84,7 +108,13 @@ export default function EditPatientModal({
       )}
 
       <form
-        onSubmit={handlePhoneNumberEdit}
+        onSubmit={
+          isPhoneNumberEditModalOpen
+            ? handlePhoneNumberEdit
+            : isPhotoEditModalOpen
+              ? handlePhotoEdit
+              : () => {}
+        }
         className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
       >
         <div
@@ -143,11 +173,20 @@ export default function EditPatientModal({
 
           {isPhotoEditModalOpen && !isNewPhotoAdded && (
             <div className="mb-2 flex flex-col items-center gap-2">
-              <img
-                src={UserPhotoIcon}
-                alt="user icon"
-                className="w-32 h-32  object-cover mb-2"
-              />
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Aperçu du fichier"
+                  className="w-32 h-32 object-cover mb-2 rounded-full"
+                />
+              ) : (
+                <img
+                  src={UserPhotoIcon}
+                  alt="user icon"
+                  className="w-32 h-32 object-cover mb-2"
+                />
+              )}
+
               <label htmlFor="new-photo-input">
                 Chargez votre nouvelle photo :
               </label>
@@ -156,6 +195,7 @@ export default function EditPatientModal({
                 name="new_photo"
                 id="new-photo-input"
                 className="w-10/12"
+                onChange={handlePhotoChange}
               />
             </div>
           )}
@@ -166,7 +206,11 @@ export default function EditPatientModal({
           <CustomButton
             btnText="Annuler"
             cancelButton
-            onClick={() => setIsPhoneNumberEditModalOpen?.(false)}
+            onClick={() => {
+              setIsPhoneNumberEditModalOpen &&
+                setIsPhoneNumberEditModalOpen(false);
+              setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
+            }}
           />
         </div>
       </form>
