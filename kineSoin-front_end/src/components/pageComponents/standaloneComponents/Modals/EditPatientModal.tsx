@@ -47,6 +47,7 @@ interface EditPatientModalProps {
   setNewInsuranceName?: React.Dispatch<React.SetStateAction<string>>;
   setIsPasswordEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isPasswordEditModalOpen?: boolean;
+  setNewPassword?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function EditPatientModal({
@@ -84,6 +85,7 @@ export default function EditPatientModal({
   setNewInsuranceName,
   setIsPasswordEditModalOpen,
   isPasswordEditModalOpen,
+  setNewPassword,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -314,9 +316,35 @@ export default function EditPatientModal({
       if (patientId) {
         const response = await checkPatientCredentials(patientId, oldPassword);
         if (!response) {
-          setErrorMessage('Le mot de passe est incorrect');
+          setErrorMessage("L'ancien mot de passe est incorrect");
         } else {
-          console.log('Mot de passe correct');
+          setErrorMessage('');
+          const newPassword = formData.get('new_password') as string;
+          const repeatPassword = formData.get('repeat_password') as string;
+          if (newPassword.length === 0) {
+            setErrorMessage('Veuillez entrer votre nouveau mot de passe');
+          } else if (newPassword.length < 12) {
+            setErrorMessage(
+              'Le mot de passe doit contenir au moins 12 caractères'
+            );
+          } else if (newPassword !== repeatPassword) {
+            setErrorMessage('Les mots de passe ne correspondent pas');
+          } else if (newPassword === oldPassword) {
+            setErrorMessage(
+              "Le nouveau mot de passe doit être différent de l'ancien"
+            );
+          } else if (
+            newPassword.match(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/
+            ) === null
+          ) {
+            setErrorMessage(
+              'Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial'
+            );
+          } else {
+            setNewPassword && setNewPassword(newPassword);
+            setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
+          }
         }
       }
     }
@@ -437,7 +465,11 @@ export default function EditPatientModal({
           )}
 
           {isPasswordEditModalOpen && (
-            <StandardPasswordInput isOldPasswordInput />
+            <>
+              <StandardPasswordInput isOldPasswordInput />
+              <StandardPasswordInput isNewPasswordInput />
+              <StandardPasswordInput isRepeatPasswordInput />
+            </>
           )}
         </div>
 

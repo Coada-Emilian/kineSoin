@@ -19,6 +19,8 @@ interface StandardPasswordInputProps {
     React.SetStateAction<string>
   >;
   isOldPasswordInput?: boolean;
+  isNewPasswordInput?: boolean;
+  isRepeatPasswordInput?: boolean;
 }
 
 export default function StandardPasswordInput({
@@ -35,6 +37,8 @@ export default function StandardPasswordInput({
   setPatientRegisterPassword,
   setPatientRegisterConfirmPassword,
   isOldPasswordInput,
+  isNewPasswordInput,
+  isRepeatPasswordInput,
 }: StandardPasswordInputProps) {
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -43,26 +47,31 @@ export default function StandardPasswordInput({
     <div className="mb-4">
       <label
         htmlFor={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
-        className={`${isPatientRegisterPasswordInput && 'flex mb-1 items-center'} text-primaryBlue text-sm font-medium`}
+        className={`${isPatientRegisterPasswordInput || (isNewPasswordInput && 'flex mb-1 items-center')} text-primaryBlue text-sm font-medium`}
       >
         {isOldPasswordInput
           ? 'Ancien mot de passe'
-          : !isPatientRegisterConfirmPasswordInput
-            ? 'Mot de passe'
-            : 'Confirmation mot de passe'}
-        {isPatientRegisterPasswordInput && (
-          <p
-            className="text-sm text-center ml-4"
-            title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre
+          : isNewPasswordInput
+            ? 'Nouveau mot de passe'
+            : isRepeatPasswordInput
+              ? 'Répétez le mot de passe'
+              : !isPatientRegisterConfirmPasswordInput
+                ? 'Mot de passe'
+                : 'Confirmation mot de passe'}
+        {isPatientRegisterPasswordInput ||
+          (isNewPasswordInput && (
+            <p
+              className="text-sm text-center ml-4"
+              title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre
                 & 1 caractère spécial"
-          >
-            <img src={questionIcon} alt="aide" className="w-6 cursor-help" />
-            <span className="sr-only">
-              12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1
-              caractère spécial
-            </span>
-          </p>
-        )}
+            >
+              <img src={questionIcon} alt="aide" className="w-6 cursor-help" />
+              <span className="sr-only">
+                12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre &
+                1 caractère spécial
+              </span>
+            </p>
+          ))}
       </label>
 
       <div className="flex rounded-md shadow-sm border">
@@ -73,16 +82,24 @@ export default function StandardPasswordInput({
               ? 'confirm-password'
               : isOldPasswordInput
                 ? 'old_password'
-                : 'password'
+                : isNewPasswordInput
+                  ? 'new_password'
+                  : isRepeatPasswordInput
+                    ? 'repeat_password'
+                    : 'password'
           }
           id={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
           placeholder={
             isOldPasswordInput
               ? 'Entrez votre ancien mot de passe'
-              : !isPatientRegisterConfirmPasswordInput
-                ? 'Entrez votre mot de passe'
-                : 'Confirmez le mot de passe'
+              : isNewPasswordInput
+                ? 'Entrez votre nouveau mot de passe'
+                : isRepeatPasswordInput
+                  ? 'Répétez le mot de passe'
+                  : !isPatientRegisterConfirmPasswordInput
+                    ? 'Entrez votre mot de passe'
+                    : 'Confirmez le mot de passe'
           }
           value={
             isPatientLoginPagePasswordInput
@@ -103,7 +120,6 @@ export default function StandardPasswordInput({
                   : setPatientRegisterConfirmPassword &&
                     setPatientRegisterConfirmPassword(e.target.value)
           }
-          autoComplete="current-password"
         />
         <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
           <img

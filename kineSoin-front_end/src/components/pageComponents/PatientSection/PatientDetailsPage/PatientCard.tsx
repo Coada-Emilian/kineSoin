@@ -50,6 +50,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   const [newInsurance, setNewInsurance] = useState<IInsurance>();
   const [isInsurancePresent, setIsInsurancePresent] = useState<boolean>(false);
   const [newEmail, setNewEmail] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
@@ -70,7 +71,15 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     console.log('newAddress :', newAddress);
     console.log('newInsurance :', newInsurance);
     console.log('newEmail :', newEmail);
-  }, [newPhoneNumber, newPhoto, newAddress, newInsurance, newEmail]);
+    console.log('newPassword :', newPassword);
+  }, [
+    newPhoneNumber,
+    newPhoto,
+    newAddress,
+    newInsurance,
+    newEmail,
+    newPassword,
+  ]);
 
   return (
     <>
@@ -154,22 +163,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
                 : patientData?.insurance?.[0]?.name}
             </p>
           </div>
-          {/* <div>
-            <p className=" text-sm font-bold italic mb-2">Date de validite :</p>
-            <div className="flex justify-between items-center w-full gap-2">
-              <input
-                type="date"
-                name="start-date"
-                className="border p-2 w-2/4 rounded-xl"
-              />
-              <p>au</p>
-              <input
-                type="date"
-                name="end-date"
-                className="border p-2 w-2/4 rounded-xl"
-              />
-            </div>
-          </div> */}
+
           {isProfileEditing && (
             <div>
               <div className="flex items-center gap-2">
@@ -187,16 +181,36 @@ export default function PatientCard({ patientId }: PatientCardProps) {
             </div>
           )}
 
-          <div className="flex gap-2">
-            <CustomButton btnText={'Ajouter mutuelle'} mobileButton />
-            <CustomButton
-              btnText="Éditer mon profil"
-              mobileButton
-              onClick={() => {
-                setIsProfileEditing(true);
-              }}
-            />
-            <CustomButton btnText="Supprimer mon profil" mobileDeleteButton />
+          <div className="flex gap-2 mt-4">
+            {isProfileEditing ? (
+              <>
+                <CustomButton
+                  btnText="Enregistrer modifications"
+                  mobileButton
+                />
+                <CustomButton
+                  btnText="Annuler"
+                  mobileCancelButton
+                  onClick={() => {
+                    setIsProfileEditing(false);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <CustomButton
+                  btnText="Éditer mon profil"
+                  mobileButton
+                  onClick={() => {
+                    setIsProfileEditing(true);
+                  }}
+                />
+                <CustomButton
+                  btnText="Supprimer mon profil"
+                  mobileDeleteButton
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -271,6 +285,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           setIsPasswordEditModalOpen={setIsPasswordEditModalOpen}
           isPasswordEditModalOpen={isPasswordEditModalOpen}
           patientId={patientId}
+          setNewPassword={setNewPassword}
         />
       )}
     </>
