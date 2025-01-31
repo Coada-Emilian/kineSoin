@@ -44,10 +44,11 @@ export default function PatientCard({ patientId }: PatientCardProps) {
 
   const [newPhoneNumber, setNewPhoneNumber] = useState<string>('');
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
+  const [newAddress, setNewAddress] = useState<object>({});
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     console.log('newPhoneNumber :', newPhoneNumber);
@@ -85,7 +86,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           <div className="flex flex-col justify-center items-center md:items-start ">
             <div className="flex items-center gap-2 mb-2">
               {isProfileEditing && (
-                <Link to="#">
+                <Link to="#" onClick={() => setIsAddressEditModalOpen(true)}>
                   <EditIcon />
                 </Link>
               )}
@@ -181,6 +182,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           setNewPhoneNumber={setNewPhoneNumber}
         />
       )}
+
       {isPhotoEditModalOpen && (
         <EditPatientModal
           setIsPhotoEditModalOpen={setIsPhotoEditModalOpen}
@@ -189,6 +191,19 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           old_photo={patientData?.picture_url}
           setPreview={setPreview}
           preview={preview}
+        />
+      )}
+
+      {isAddressEditModalOpen && (
+        <EditPatientModal
+          setIsAddressEditModalOpen={setIsAddressEditModalOpen}
+          isAddressEditModalOpen={isAddressEditModalOpen}
+          setNewAddress={setNewAddress}
+          old_address={patientData?.address}
+          old_street_number={patientData?.street_number}
+          old_street_name={patientData?.street_name}
+          old_postal_code={patientData?.postal_code}
+          old_city={patientData?.city}
         />
       )}
     </>

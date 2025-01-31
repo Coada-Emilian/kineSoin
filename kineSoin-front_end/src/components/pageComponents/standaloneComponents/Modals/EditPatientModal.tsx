@@ -12,8 +12,16 @@ interface EditPatientModalProps {
   isPhotoEditModalOpen?: boolean;
   setNewPhoto?: React.Dispatch<React.SetStateAction<File | null>>;
   old_photo?: string;
-  setPreview?: React.Dispatch<React.SetStateAction<string | null>>;
+  setPreview?: React.Dispatch<React.SetStateAction<string | undefined>>;
   preview?: string;
+  setIsAddressEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isAddressEditModalOpen?: boolean;
+  setNewAddress?: React.Dispatch<React.SetStateAction<object>>;
+  old_address?: string;
+  old_street_number?: string;
+  old_street_name?: string;
+  old_postal_code?: string;
+  old_city?: string;
 }
 
 export default function EditPatientModal({
@@ -27,6 +35,14 @@ export default function EditPatientModal({
   old_photo,
   setPreview,
   preview,
+  setIsAddressEditModalOpen,
+  isAddressEditModalOpen,
+  setNewAddress,
+  old_address,
+  old_street_number,
+  old_street_name,
+  old_postal_code,
+  old_city,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -75,10 +91,15 @@ export default function EditPatientModal({
 
   return (
     <ReactModal
-      isOpen={!!isPhoneNumberEditModalOpen || !!isPhotoEditModalOpen}
+      isOpen={
+        !!isPhoneNumberEditModalOpen ||
+        !!isPhotoEditModalOpen ||
+        !!isAddressEditModalOpen
+      }
       onRequestClose={() => {
         if (setIsPhoneNumberEditModalOpen) setIsPhoneNumberEditModalOpen(false);
         if (setIsPhotoEditModalOpen) setIsPhotoEditModalOpen(false);
+        if (setIsAddressEditModalOpen) setIsAddressEditModalOpen(false);
       }}
       style={{
         content: {
@@ -99,6 +120,7 @@ export default function EditPatientModal({
       <h3 className="text-xl text-center font-semibold text-primaryBlue italic mb-2">
         {isPhoneNumberEditModalOpen ? 'Modifier le numéro de téléphone' : ''}
         {isPhotoEditModalOpen ? 'Modifier votre photo' : ''}
+        {isAddressEditModalOpen ? 'Modifier votre adresse' : ''}
       </h3>
 
       {errorMessage && (
@@ -123,6 +145,7 @@ export default function EditPatientModal({
           <label>
             {isPhoneNumberEditModalOpen ? 'Ancien numéro de téléphone :' : ''}
             {isPhotoEditModalOpen ? 'Ancienne photo :' : ''}
+            {isAddressEditModalOpen ? 'Ancienne adresse :' : ''}
           </label>
 
           {isPhoneNumberEditModalOpen && (
@@ -140,6 +163,17 @@ export default function EditPatientModal({
               alt="ancienne photo"
               className="w-32 h-32 rounded-full object-cover"
             />
+          )}
+
+          {isAddressEditModalOpen && (
+            <div className="flex flex-col gap-2">
+              <input
+                type="text"
+                value={old_address}
+                className="border p-2 rounded-lg"
+                readOnly
+              />
+            </div>
           )}
         </div>
 
@@ -159,7 +193,9 @@ export default function EditPatientModal({
               ? 'Nouveau numéro de téléphone :'
               : isPhotoEditModalOpen
                 ? 'Nouvelle photo :'
-                : ''}
+                : isAddressEditModalOpen
+                  ? 'Nouvelle adresse :'
+                  : ''}
           </label>
 
           {isPhoneNumberEditModalOpen && (
@@ -199,6 +235,55 @@ export default function EditPatientModal({
               />
             </div>
           )}
+
+          {isAddressEditModalOpen && (
+            <div className="text-xs">
+              <div className="flex gap-2 ">
+                <div className="flex flex-col w-1/3">
+                  <label htmlFor="street_number">Numéro de rue :</label>
+                  <input
+                    type="text"
+                    name="street_number"
+                    id="street_number"
+                    className="border p-2 rounded-lg"
+                    defaultValue={old_street_number}
+                  />
+                </div>
+                <div className="flex flex-col w-2/3">
+                  <label htmlFor="street_name">Nom de rue :</label>
+                  <input
+                    type="text"
+                    name="street_name"
+                    id="street_name"
+                    className="border p-2 rounded-lg"
+                    defaultValue={old_street_name}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <div className="flex flex-col w-1/3">
+                  <label htmlFor="postal_code">Code postal :</label>
+                  <input
+                    type="text"
+                    name="postal_code"
+                    id="postal_code"
+                    className="border p-2 rounded-lg"
+                    defaultValue={old_postal_code}
+                  />
+                </div>
+                <div className="flex flex-col w-2/3">
+                  <label htmlFor="city">Ville :</label>
+                  <input
+                    type="text"
+                    name="city"
+                    id="city"
+                    className="border p-2 rounded-lg"
+                    defaultValue={old_city}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex gap-2">
@@ -210,6 +295,7 @@ export default function EditPatientModal({
               setIsPhoneNumberEditModalOpen &&
                 setIsPhoneNumberEditModalOpen(false);
               setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
+              setIsAddressEditModalOpen && setIsAddressEditModalOpen(false);
             }}
           />
         </div>
