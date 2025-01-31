@@ -287,6 +287,33 @@ const authentificationController = {
       });
     }
   },
+
+  checkPatientPassword: async (req, res) => {
+    const { patient_id } = req.params;
+
+    const foundPatient = await Patient.findByPk(patient_id);
+
+    if (!foundPatient) {
+      return res.status(404).json({
+        message:
+          'Patient not found. Please check the patient ID and try again.',
+      });
+    }
+
+    const { password } = req.body;
+
+    const isPasswordValid = Scrypt.compare(password, foundPatient.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        message: 'Invalid password. Please try again.',
+      });
+    } else {
+      return res.status(200).json({
+        message: 'Password is correct.',
+      });
+    }
+  },
 };
 
 export default authentificationController;

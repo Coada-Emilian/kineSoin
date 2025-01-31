@@ -762,3 +762,20 @@ export const fetchInsurancesAsPatient = async (id: number) => {
     return [];
   }
 };
+
+export const checkPatientCredentials = async (id: number, password: string) => {
+  try {
+    const response = await axios.post(`/patient/${id}/checkCredentials`, {
+      password,
+    });
+    if (response.status === 200) {
+      return true;
+    } else {
+      console.error('Failed to check patient credentials', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error checking patient credentials:', error);
+    return false;
+  }
+};

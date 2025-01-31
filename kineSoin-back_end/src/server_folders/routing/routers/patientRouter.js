@@ -13,6 +13,7 @@ import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
 import insuranceController from '../controllers/insuranceController.js';
 import multer from 'multer';
+import authentificationController from '../controllers/authentificationController.js';
 
 const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
@@ -41,7 +42,10 @@ patientRouter.post(
 );
 
 // Insurance routes
-patientRouter.get('/:patient_id/insurances', wrapper(insuranceController.getInsurancesAsPatient));
+patientRouter.get(
+  '/:patient_id/insurances',
+  wrapper(insuranceController.getInsurancesAsPatient)
+);
 
 patientRouter.get('/me/insurance', wrapper(insuranceController.getInsurance));
 
@@ -121,4 +125,9 @@ patientRouter.post(
 patientRouter.get(
   '/:patient_id/therapist',
   wrapper(therapistController.getPersonalTherapist)
+);
+
+patientRouter.post(
+  '/:patient_id/checkCredentials',
+  wrapper(authentificationController.checkPatientPassword)
 );

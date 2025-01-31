@@ -265,6 +265,14 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           setNewEmail={setNewEmail}
         />
       )}
+
+      {isPasswordEditModalOpen && (
+        <EditPatientModal
+          setIsPasswordEditModalOpen={setIsPasswordEditModalOpen}
+          isPasswordEditModalOpen={isPasswordEditModalOpen}
+          patientId={patientId}
+        />
+      )}
     </>
   );
 }

@@ -18,6 +18,7 @@ interface StandardPasswordInputProps {
   setPatientRegisterConfirmPassword?: React.Dispatch<
     React.SetStateAction<string>
   >;
+  isOldPasswordInput?: boolean;
 }
 
 export default function StandardPasswordInput({
@@ -33,6 +34,7 @@ export default function StandardPasswordInput({
   patientRegisterConfirmPassword,
   setPatientRegisterPassword,
   setPatientRegisterConfirmPassword,
+  isOldPasswordInput,
 }: StandardPasswordInputProps) {
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -43,9 +45,11 @@ export default function StandardPasswordInput({
         htmlFor={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
         className={`${isPatientRegisterPasswordInput && 'flex mb-1 items-center'} text-primaryBlue text-sm font-medium`}
       >
-        {!isPatientRegisterConfirmPasswordInput
-          ? 'Mot de passe'
-          : 'Confirmation mot de passe'}
+        {isOldPasswordInput
+          ? 'Ancien mot de passe'
+          : !isPatientRegisterConfirmPasswordInput
+            ? 'Mot de passe'
+            : 'Confirmation mot de passe'}
         {isPatientRegisterPasswordInput && (
           <p
             className="text-sm text-center ml-4"
@@ -67,14 +71,18 @@ export default function StandardPasswordInput({
           name={
             isPatientRegisterConfirmPasswordInput
               ? 'confirm-password'
-              : 'password'
+              : isOldPasswordInput
+                ? 'old_password'
+                : 'password'
           }
           id={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
           placeholder={
-            !isPatientRegisterConfirmPasswordInput
-              ? 'Entrez votre mot de passe'
-              : 'Confirmez le mot de passe'
+            isOldPasswordInput
+              ? 'Entrez votre ancien mot de passe'
+              : !isPatientRegisterConfirmPasswordInput
+                ? 'Entrez votre mot de passe'
+                : 'Confirmez le mot de passe'
           }
           value={
             isPatientLoginPagePasswordInput
@@ -95,6 +103,7 @@ export default function StandardPasswordInput({
                   : setPatientRegisterConfirmPassword &&
                     setPatientRegisterConfirmPassword(e.target.value)
           }
+          autoComplete="current-password"
         />
         <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
           <img

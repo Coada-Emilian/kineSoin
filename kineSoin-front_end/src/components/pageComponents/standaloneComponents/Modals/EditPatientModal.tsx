@@ -2,9 +2,13 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
-import { fetchInsurancesAsPatient } from '../../../../utils/apiUtils';
+import {
+  checkPatientCredentials,
+  fetchInsurancesAsPatient,
+} from '../../../../utils/apiUtils';
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import { IInsurance } from '../../../../@types/IInsurance';
+import StandardPasswordInput from '../StandardInputs/StandardPasswordInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,6 +45,8 @@ interface EditPatientModalProps {
   old_email?: string;
   setNewEmail?: React.Dispatch<React.SetStateAction<string>>;
   setNewInsuranceName?: React.Dispatch<React.SetStateAction<string>>;
+  setIsPasswordEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isPasswordEditModalOpen?: boolean;
 }
 
 export default function EditPatientModal({
@@ -76,6 +82,8 @@ export default function EditPatientModal({
   old_email,
   setNewEmail,
   setNewInsuranceName,
+  setIsPasswordEditModalOpen,
+  isPasswordEditModalOpen,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -296,6 +304,24 @@ export default function EditPatientModal({
     }
   };
 
+  const handlePasswordEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const oldPassword = formData.get('old_password') as string;
+    if (oldPassword.length === 0) {
+      setErrorMessage('Veuillez entrer votre ancien mot de passe');
+    } else {
+      if (patientId) {
+        const response = await checkPatientCredentials(patientId, oldPassword);
+        if (!response) {
+          setErrorMessage('Le mot de passe est incorrect');
+        } else {
+          console.log('Mot de passe correct');
+        }
+      }
+    }
+  };
+
   return (
     <ReactModal
       isOpen={
@@ -303,7 +329,8 @@ export default function EditPatientModal({
         !!isPhotoEditModalOpen ||
         !!isAddressEditModalOpen ||
         !!isInsuranceEditModalOpen ||
-        !!isEmailEditModalOpen
+        !!isEmailEditModalOpen ||
+        !!isPasswordEditModalOpen
       }
       onRequestClose={() => {
         if (setIsPhoneNumberEditModalOpen) setIsPhoneNumberEditModalOpen(false);
@@ -311,6 +338,7 @@ export default function EditPatientModal({
         if (setIsAddressEditModalOpen) setIsAddressEditModalOpen(false);
         if (setIsInsuranceEditModalOpen) setIsInsuranceEditModalOpen(false);
         if (setIsEmailEditModalOpen) setIsEmailEditModalOpen(false);
+        if (setIsPasswordEditModalOpen) setIsPasswordEditModalOpen(false);
       }}
       style={{
         content: {
@@ -334,6 +362,7 @@ export default function EditPatientModal({
         {isAddressEditModalOpen ? 'Modifier votre adresse' : ''}
         {isInsuranceEditModalOpen ? 'Modifier votre mutuelle' : ''}
         {isEmailEditModalOpen ? 'Modifier votre email' : ''}
+        {isPasswordEditModalOpen ? 'Modifier votre mot de passe' : ''}
       </h3>
 
       {errorMessage && (
@@ -354,7 +383,9 @@ export default function EditPatientModal({
                   ? handleInsuranceEdit
                   : isEmailEditModalOpen
                     ? handleEmailInput
-                    : () => {}
+                    : isPasswordEditModalOpen
+                      ? handlePasswordEdit
+                      : () => {}
         }
         className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
       >
@@ -403,6 +434,10 @@ export default function EditPatientModal({
               className="border p-2 rounded-lg"
               readOnly
             />
+          )}
+
+          {isPasswordEditModalOpen && (
+            <StandardPasswordInput isOldPasswordInput />
           )}
         </div>
 
@@ -592,6 +627,7 @@ export default function EditPatientModal({
               setIsAddressEditModalOpen && setIsAddressEditModalOpen(false);
               setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
               setIsEmailEditModalOpen && setIsEmailEditModalOpen(false);
+              setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
             }}
           />
         </div>
