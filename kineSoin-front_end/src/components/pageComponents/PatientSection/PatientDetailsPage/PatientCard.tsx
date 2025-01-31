@@ -54,6 +54,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
   const [preview, setPreview] = useState<string | undefined>(undefined);
+  const [newInsuranceName, setNewInsuranceName] = useState<string>('');
 
   useEffect(() => {
     if (patientData) {
@@ -68,7 +69,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     console.log('newPhoto :', newPhoto);
     console.log('newAddress :', newAddress);
     console.log('newInsurance :', newInsurance);
-  }, [newPhoneNumber, newPhoto, newAddress, newInsurance]);
+    console.log('newEmail :', newEmail);
+  }, [newPhoneNumber, newPhoto, newAddress, newInsurance, newEmail]);
 
   return (
     <>
@@ -147,7 +149,9 @@ export default function PatientCard({ patientId }: PatientCardProps) {
             </div>
 
             <p className="p-2 border border-gray-400 rounded-lg w-11/12 md:w-full">
-              {patientData?.insurance?.[0]?.name}
+              {newInsuranceName
+                ? newInsuranceName
+                : patientData?.insurance?.[0]?.name}
             </p>
           </div>
           {/* <div>
@@ -249,6 +253,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           old_adherent_code={
             patientData?.insurance?.[0]?.Patient_Insurance?.adherent_code
           }
+          setNewInsuranceName={setNewInsuranceName}
         />
       )}
 

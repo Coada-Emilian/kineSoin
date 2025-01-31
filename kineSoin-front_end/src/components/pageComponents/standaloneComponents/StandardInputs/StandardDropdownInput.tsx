@@ -53,6 +53,7 @@ export default function StandardChoiceDropdown({
   isPatientInsuranceDropdownInput,
   oldPatientInsuranceName,
   insuranceList,
+ 
 }: StandardChoiceDropdownProps) {
   const fetchAppointmentsByPrescription = async (
     prescriptionId: number,

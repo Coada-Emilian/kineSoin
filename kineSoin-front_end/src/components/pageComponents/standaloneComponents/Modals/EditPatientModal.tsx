@@ -40,6 +40,7 @@ interface EditPatientModalProps {
   isEmailEditModalOpen?: boolean;
   old_email?: string;
   setNewEmail?: React.Dispatch<React.SetStateAction<string>>;
+  setNewInsuranceName?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function EditPatientModal({
@@ -74,6 +75,7 @@ export default function EditPatientModal({
   isEmailEditModalOpen,
   old_email,
   setNewEmail,
+  setNewInsuranceName,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -265,8 +267,32 @@ export default function EditPatientModal({
         (value) => typeof value === 'string' && value.length > 0
       )
     ) {
+      const insuranceName = insurances.find(
+        (insurance) => insurance.id === parseInt(insurance_id)
+      )?.name;
+      if (insuranceName) {
+        setNewInsuranceName && setNewInsuranceName(insuranceName);
+      }
       setNewInsurance && setNewInsurance(newInsuranceData as IInsurance);
       setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
+    }
+  };
+
+  const handleEmailInput = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newEmail = formData.get('email') as string;
+    if (newEmail.length === 0) {
+      setErrorMessage("L'email ne peut pas être vide");
+    } else if (newEmail === old_email) {
+      setErrorMessage("Le nouvel email doit être différent de l'ancien");
+    } else if (
+      newEmail.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/) === null
+    ) {
+      setErrorMessage('Veuillez entrer une adresse email valide');
+    } else {
+      setNewEmail && setNewEmail(newEmail);
+      setIsEmailEditModalOpen && setIsEmailEditModalOpen(false);
     }
   };
 
@@ -326,7 +352,9 @@ export default function EditPatientModal({
                 ? handleAddressEdit
                 : isInsuranceEditModalOpen
                   ? handleInsuranceEdit
-                  : () => {}
+                  : isEmailEditModalOpen
+                    ? handleEmailInput
+                    : () => {}
         }
         className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
       >
@@ -337,6 +365,7 @@ export default function EditPatientModal({
             {isPhoneNumberEditModalOpen ? 'Ancien numéro de téléphone :' : ''}
             {isPhotoEditModalOpen ? 'Ancienne photo :' : ''}
             {isAddressEditModalOpen ? 'Ancienne adresse :' : ''}
+            {isEmailEditModalOpen ? 'Ancien email :' : ''}
           </label>
 
           {isPhoneNumberEditModalOpen && (
@@ -366,6 +395,15 @@ export default function EditPatientModal({
               />
             </div>
           )}
+
+          {isEmailEditModalOpen && (
+            <input
+              type="text"
+              value={old_email}
+              className="border p-2 rounded-lg"
+              readOnly
+            />
+          )}
         </div>
 
         <div
@@ -386,7 +424,9 @@ export default function EditPatientModal({
                 ? 'Nouvelle photo :'
                 : isAddressEditModalOpen
                   ? 'Nouvelle adresse :'
-                  : ''}
+                  : isEmailEditModalOpen
+                    ? 'Nouvel email :'
+                    : ''}
           </label>
 
           {isPhoneNumberEditModalOpen && (
@@ -394,6 +434,7 @@ export default function EditPatientModal({
               type="text"
               name="phone_number"
               id="patient-new-phone_number"
+              placeholder={phone_number}
               className="border p-2 rounded-lg"
             />
           )}
@@ -525,6 +566,16 @@ export default function EditPatientModal({
                 </div>
               </div>
             </div>
+          )}
+
+          {isEmailEditModalOpen && (
+            <input
+              type="text"
+              name="email"
+              id="patient-new-email"
+              placeholder={old_email}
+              className="border p-2 rounded-lg"
+            />
           )}
         </div>
 
