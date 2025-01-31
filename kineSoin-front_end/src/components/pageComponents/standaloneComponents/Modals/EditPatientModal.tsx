@@ -48,6 +48,8 @@ interface EditPatientModalProps {
   setIsPasswordEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isPasswordEditModalOpen?: boolean;
   setNewPassword?: React.Dispatch<React.SetStateAction<string>>;
+  setIsAddInsuranceModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isAddInsuranceModalOpen?: boolean;
 }
 
 export default function EditPatientModal({
@@ -86,6 +88,8 @@ export default function EditPatientModal({
   setIsPasswordEditModalOpen,
   isPasswordEditModalOpen,
   setNewPassword,
+  setIsAddInsuranceModalOpen,
+  isAddInsuranceModalOpen,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -350,6 +354,14 @@ export default function EditPatientModal({
     }
   };
 
+  const handleInsuranceAdd = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+  };
+
   return (
     <ReactModal
       isOpen={
@@ -358,7 +370,8 @@ export default function EditPatientModal({
         !!isAddressEditModalOpen ||
         !!isInsuranceEditModalOpen ||
         !!isEmailEditModalOpen ||
-        !!isPasswordEditModalOpen
+        !!isPasswordEditModalOpen ||
+        !!isAddInsuranceModalOpen
       }
       onRequestClose={() => {
         if (setIsPhoneNumberEditModalOpen) setIsPhoneNumberEditModalOpen(false);
@@ -367,6 +380,7 @@ export default function EditPatientModal({
         if (setIsInsuranceEditModalOpen) setIsInsuranceEditModalOpen(false);
         if (setIsEmailEditModalOpen) setIsEmailEditModalOpen(false);
         if (setIsPasswordEditModalOpen) setIsPasswordEditModalOpen(false);
+        if (setIsAddInsuranceModalOpen) setIsAddInsuranceModalOpen(false);
       }}
       style={{
         content: {
@@ -391,6 +405,7 @@ export default function EditPatientModal({
         {isInsuranceEditModalOpen ? 'Modifier votre mutuelle' : ''}
         {isEmailEditModalOpen ? 'Modifier votre email' : ''}
         {isPasswordEditModalOpen ? 'Modifier votre mot de passe' : ''}
+        {isAddInsuranceModalOpen ? 'Ajouter une mutuelle' : ''}
       </h3>
 
       {errorMessage && (
@@ -413,7 +428,9 @@ export default function EditPatientModal({
                     ? handleEmailInput
                     : isPasswordEditModalOpen
                       ? handlePasswordEdit
-                      : () => {}
+                      : isAddInsuranceModalOpen
+                        ? handleInsuranceAdd
+                        : () => {}
         }
         className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
       >
@@ -584,11 +601,13 @@ export default function EditPatientModal({
             </div>
           )}
 
-          {isInsuranceEditModalOpen && (
+          {(isInsuranceEditModalOpen || isAddInsuranceModalOpen) && (
             <div className="flex flex-col gap-2">
               <StandardChoiceDropdown
                 isPatientInsuranceDropdownInput
-                oldPatientInsuranceName={old_insurance_name}
+                oldPatientInsuranceName={
+                  isAddInsuranceModalOpen ? undefined : old_insurance_name
+                }
                 insuranceList={insurances}
               />
 
@@ -660,6 +679,7 @@ export default function EditPatientModal({
               setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
               setIsEmailEditModalOpen && setIsEmailEditModalOpen(false);
               setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
+              setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
             }}
           />
         </div>

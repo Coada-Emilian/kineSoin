@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import EditPatientModal from '../../standaloneComponents/Modals/EditPatientModal';
 import { INewAddress } from '../../../../@types/INewAddress';
 import { IInsurance } from '../../../../@types/IInsurance';
+import AddInsuranceIcon from '/icons/add.png';
 
 interface PatientCardProps {
   patientId?: number;
@@ -158,7 +159,13 @@ export default function PatientCard({ patientId }: PatientCardProps) {
                   </Link>
                 )
               ) : (
-                <p>No insurance</p>
+                <Link to="#" onClick={() => setIsAddInsuranceModalOpen(true)}>
+                  <img
+                    src={AddInsuranceIcon}
+                    alt="add insurance"
+                    className="h-8 md:h-10 bg-white p-1 rounded-full"
+                  />
+                </Link>
               )}
 
               <p>Assurance mutuelle :</p>
@@ -293,6 +300,14 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           isPasswordEditModalOpen={isPasswordEditModalOpen}
           patientId={patientId}
           setNewPassword={setNewPassword}
+        />
+      )}
+
+      {isAddInsuranceModalOpen && (
+        <EditPatientModal
+          setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
+          isAddInsuranceModalOpen={isAddInsuranceModalOpen}
+          patientId={patientId}
         />
       )}
     </>

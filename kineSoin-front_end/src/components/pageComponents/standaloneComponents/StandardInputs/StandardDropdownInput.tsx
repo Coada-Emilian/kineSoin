@@ -5,7 +5,6 @@ import { IPrescription } from '../../../../@types/IPrescription';
 import { fetchPatientAppointmentsByPrescription } from '../../../../utils/apiUtils';
 import { IAppointment } from '../../../../@types/IAppointment';
 import { IInsurance } from '../../../../@types/IInsurance';
-import { isIP } from 'net';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -98,6 +97,10 @@ export default function StandardChoiceDropdown({
       identifyOldInsurance(insuranceList, oldPatientInsuranceName);
     }
   }, [insuranceList, oldPatientInsuranceName]);
+
+  useEffect(() => {
+    console.log(otherInsurances);
+  }, [otherInsurances]);
 
   return (
     <div className="mb-4">
@@ -231,14 +234,21 @@ export default function StandardChoiceDropdown({
         {isPatientInsuranceDropdownInput && (
           <>
             <option value={actualInsurance ? actualInsurance.id : '*'}>
-              {actualInsurance ? actualInsurance.name : ''}
+              {actualInsurance
+                ? actualInsurance.name
+                : 'Choisissez une mutuelle'}
             </option>
-            {otherInsurances &&
-              otherInsurances.map((insurance) => (
-                <option key={insurance.id} value={insurance.id}>
-                  {insurance.name}
-                </option>
-              ))}
+            {otherInsurances.length > 0
+              ? otherInsurances.map((insurance) => (
+                  <option key={insurance.id} value={insurance.id}>
+                    {insurance.name}
+                  </option>
+                ))
+              : insuranceList?.map((insurance) => (
+                  <option key={insurance.id} value={insurance.id}>
+                    {insurance.name}
+                  </option>
+                ))}
           </>
         )}
       </select>
