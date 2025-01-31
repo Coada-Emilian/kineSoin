@@ -89,6 +89,66 @@ export default function EditPatientModal({
     }
   };
 
+  const handleAddressEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newAddress: { [key: string]: string } = {};
+    const street_number = formData.get('street_number') as string;
+    if (street_number.match(/^[0-9]+$/) === null) {
+      setErrorMessage('Le numéro de rue doit contenir uniquement des chiffres');
+    } else if (street_number.length === 0) {
+      setErrorMessage('Le numéro de rue ne peut pas être vide');
+    } else if (street_number.length > 5) {
+      setErrorMessage('Le numéro de rue doit contenir moins de 6 chiffres');
+    } else {
+      newAddress['street_number'] = street_number;
+    }
+
+    const street_name = formData.get('street_name') as string;
+    if (street_name.length === 0) {
+      setErrorMessage('Le nom de rue ne peut pas être vide');
+    } else if (street_name.length > 50) {
+      setErrorMessage('Le nom de rue doit contenir moins de 50 caractères');
+    } else if (street_name.match(/^[a-zA-Z\s]+$/) === null) {
+      setErrorMessage('Le nom de rue doit contenir uniquement des lettres');
+    } else {
+      newAddress['street_name'] = street_name;
+    }
+
+    const postal_code = formData.get('postal_code') as string;
+    if (postal_code.length === 0) {
+      setErrorMessage('Le code postal ne peut pas être vide');
+    } else if (postal_code.length !== 5) {
+      setErrorMessage('Le code postal doit contenir 5 chiffres');
+    } else if (postal_code.match(/^[0-9]+$/) === null) {
+      setErrorMessage('Le code postal doit contenir uniquement des chiffres');
+    } else {
+      newAddress['postal_code'] = postal_code;
+    }
+
+    const city = formData.get('city') as string;
+    if (city.length === 0) {
+      setErrorMessage('La ville ne peut pas être vide');
+    } else if (city.length > 50) {
+      setErrorMessage('La ville doit contenir moins de 50 caractères');
+    } else if (city.match(/^[a-zA-Z\s]+$/) === null) {
+      setErrorMessage('La ville doit contenir uniquement des lettres');
+    } else {
+      newAddress['city'] = city;
+    }
+
+    const fullAddress = `${street_number} ${street_name}, ${postal_code} ${city}`;
+    newAddress['full_address'] = fullAddress;
+
+    if (
+      Object.keys(newAddress).length === 5 &&
+      Object.values(newAddress).every((value) => value.length > 0)
+    ) {
+      setNewAddress && setNewAddress(newAddress);
+      setIsAddressEditModalOpen && setIsAddressEditModalOpen(false);
+    }
+  };
+
   return (
     <ReactModal
       isOpen={
@@ -135,7 +195,9 @@ export default function EditPatientModal({
             ? handlePhoneNumberEdit
             : isPhotoEditModalOpen
               ? handlePhotoEdit
-              : () => {}
+              : isAddressEditModalOpen
+                ? handleAddressEdit
+                : () => {}
         }
         className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
       >

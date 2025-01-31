@@ -5,6 +5,7 @@ import { IPatient } from '../../../../@types/IPatient';
 import EditIcon from '../../standaloneComponents/EditIcon/EditIcon';
 import { Link } from 'react-router-dom';
 import EditPatientModal from '../../standaloneComponents/Modals/EditPatientModal';
+import { INewAddress } from '../../../../@types/INewAddress';
 
 interface PatientCardProps {
   patientId?: number;
@@ -44,7 +45,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
 
   const [newPhoneNumber, setNewPhoneNumber] = useState<string>('');
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
-  const [newAddress, setNewAddress] = useState<object>({});
+
+  const [newAddress, setNewAddress] = useState<INewAddress>({});
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
@@ -53,7 +55,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   useEffect(() => {
     console.log('newPhoneNumber :', newPhoneNumber);
     console.log('newPhoto :', newPhoto);
-  }, [newPhoneNumber, newPhoto]);
+    console.log('newAddress :', newAddress);
+  }, [newPhoneNumber, newPhoto, newAddress]);
 
   return (
     <>
@@ -94,7 +97,10 @@ export default function PatientCard({ patientId }: PatientCardProps) {
             </div>
 
             <p className="p-2 border border-gray-400 rounded-lg w-11/12 md:w-full">
-              {patientData?.address}
+              {newAddress && newAddress.full_address
+                ? newAddress.full_address
+                : patientData?.address}{' '}
+              {}
             </p>
           </div>
 
