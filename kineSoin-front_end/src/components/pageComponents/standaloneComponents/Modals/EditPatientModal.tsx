@@ -1,7 +1,9 @@
 import ReactModal from 'react-modal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
+import { fetchInsurancesAsPatient } from '../../../../utils/apiUtils';
+import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +24,15 @@ interface EditPatientModalProps {
   old_street_name?: string;
   old_postal_code?: string;
   old_city?: string;
+  setIsInsuranceEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isInsuranceEditModalOpen?: boolean;
+  setNewInsurance?: React.Dispatch<React.SetStateAction<object>>;
+  old_insurance_name?: string;
+  old_start_date?: string;
+  old_end_date?: string;
+  old_contract_number?: string;
+  old_adherent_code?: string;
+  patientId?: number;
 }
 
 export default function EditPatientModal({
@@ -43,10 +54,31 @@ export default function EditPatientModal({
   old_street_name,
   old_postal_code,
   old_city,
+  setIsInsuranceEditModalOpen,
+  isInsuranceEditModalOpen,
+  setNewInsurance,
+  old_insurance_name,
+  old_start_date,
+  old_end_date,
+  old_contract_number,
+  old_adherent_code,
+  patientId,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const [isNewPhotoAdded, setIsNewPhotoAdded] = useState<boolean>(false);
+
+  const [insurances, setInsurances] = useState<IInsurance[]>([]);
+
+  useEffect(() => {
+    const fetchInsurances = async () => {
+      if (patientId) {
+        const insurancesData = await fetchInsurancesAsPatient(patientId);
+        setInsurances(insurancesData);
+      }
+    };
+    fetchInsurances();
+  }, []);
 
   const handlePhoneNumberEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -154,12 +186,14 @@ export default function EditPatientModal({
       isOpen={
         !!isPhoneNumberEditModalOpen ||
         !!isPhotoEditModalOpen ||
-        !!isAddressEditModalOpen
+        !!isAddressEditModalOpen ||
+        !!isInsuranceEditModalOpen
       }
       onRequestClose={() => {
         if (setIsPhoneNumberEditModalOpen) setIsPhoneNumberEditModalOpen(false);
         if (setIsPhotoEditModalOpen) setIsPhotoEditModalOpen(false);
         if (setIsAddressEditModalOpen) setIsAddressEditModalOpen(false);
+        if (setIsInsuranceEditModalOpen) setIsInsuranceEditModalOpen(false);
       }}
       style={{
         content: {
@@ -181,6 +215,7 @@ export default function EditPatientModal({
         {isPhoneNumberEditModalOpen ? 'Modifier le numéro de téléphone' : ''}
         {isPhotoEditModalOpen ? 'Modifier votre photo' : ''}
         {isAddressEditModalOpen ? 'Modifier votre adresse' : ''}
+        {isInsuranceEditModalOpen ? 'Modifier votre mutuelle' : ''}
       </h3>
 
       {errorMessage && (
@@ -346,6 +381,61 @@ export default function EditPatientModal({
               </div>
             </div>
           )}
+
+          {isInsuranceEditModalOpen && (
+            <div className="flex flex-col gap-2">
+              <StandardChoiceDropdown
+                isPatientInsuranceDropdownInput
+                oldPatientInsuranceName={old_insurance_name}
+                insuranceList={insurances}
+              />
+              <label>Choisir mutuelle :</label>
+              <input
+                type="text"
+                value={old_insurance_name}
+                className="border p-2 rounded-lg"
+                readOnly
+              />
+              <div>
+                <label>Date de debut :</label>
+                <input
+                  type="text"
+                  value={old_start_date}
+                  className="border p-2 rounded-lg"
+                  readOnly
+                />
+              </div>
+              <div>
+                <label>Date de fin :</label>
+                <input
+                  type="text"
+                  value={old_end_date}
+                  className="border p-2 rounded-lg"
+                  readOnly
+                />
+              </div>
+
+              <div>
+                <label>Numero contrat :</label>
+                <input
+                  type="text"
+                  value={old_contract_number}
+                  className="border p-2 rounded-lg"
+                  readOnly
+                />
+              </div>
+
+              <div>
+                <label>Code adherent :</label>
+                <input
+                  type="text"
+                  value={old_adherent_code}
+                  className="border p-2 rounded-lg"
+                  readOnly
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex gap-2">
@@ -358,6 +448,7 @@ export default function EditPatientModal({
                 setIsPhoneNumberEditModalOpen(false);
               setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
               setIsAddressEditModalOpen && setIsAddressEditModalOpen(false);
+              setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
             }}
           />
         </div>

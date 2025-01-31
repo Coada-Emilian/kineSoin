@@ -4,6 +4,8 @@ import { IMedic } from '../../../../@types/IMedic';
 import { IPrescription } from '../../../../@types/IPrescription';
 import { fetchPatientAppointmentsByPrescription } from '../../../../utils/apiUtils';
 import { IAppointment } from '../../../../@types/IAppointment';
+import { IInsurance } from '../../../../@types/IInsurance';
+import { isIP } from 'net';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -26,6 +28,9 @@ interface StandardChoiceDropdownProps {
   patientId?: number;
   setFutureAppointments?: React.Dispatch<React.SetStateAction<IAppointment[]>>;
   setPastAppointments?: React.Dispatch<React.SetStateAction<IAppointment[]>>;
+  isPatientInsuranceDropdownInput?: boolean;
+  oldPatientInsuranceName?: string;
+  insuranceList?: IInsurance[];
 }
 
 export default function StandardChoiceDropdown({
@@ -45,6 +50,9 @@ export default function StandardChoiceDropdown({
   patientId,
   setFutureAppointments,
   setPastAppointments,
+  isPatientInsuranceDropdownInput,
+  oldPatientInsuranceName,
+  insuranceList,
 }: StandardChoiceDropdownProps) {
   const fetchAppointmentsByPrescription = async (
     prescriptionId: number,
@@ -60,6 +68,26 @@ export default function StandardChoiceDropdown({
       setPastAppointments && setPastAppointments(response.pastAppointments);
     }
   };
+
+  const [otherInsurances, setOtherInsurances] = useState<IInsurance[]>([]);
+
+  const identifyOldInsurance = (
+    insuranceList: IInsurance[],
+    oldInsuranceName: string
+  ) => {
+    const otherInsurances = insuranceList.filter(
+      (insurance) => insurance.name !== oldInsuranceName
+    );
+    if (otherInsurances.length > 0) {
+      setOtherInsurances(otherInsurances);
+    }
+  };
+
+  useEffect(() => {
+    if (insuranceList && oldPatientInsuranceName) {
+      identifyOldInsurance(insuranceList, oldPatientInsuranceName);
+    }
+  }, [insuranceList, oldPatientInsuranceName]);
 
   return (
     <div className="mb-4">
@@ -81,6 +109,7 @@ export default function StandardChoiceDropdown({
         {isMedicDropdownInput && 'Médecin prescripteur :'}
         {isAtHomeCareDropdownInput && 'A domicile ?'}
         {isAfflictionDropdownInput && 'Affection concernée :'}
+        {isPatientInsuranceDropdownInput && 'Nom mutuelle :'}
       </label>
 
       <select
@@ -200,6 +229,18 @@ export default function StandardChoiceDropdown({
               patientPrescriptions.map((prescription) => (
                 <option key={prescription.id} value={prescription.id}>
                   {prescription.date}
+                </option>
+              ))}
+          </>
+        )}
+
+        {isPatientInsuranceDropdownInput && (
+          <>
+            <option value="">{oldPatientInsuranceName}</option>
+            {otherInsurances &&
+              otherInsurances.map((insurance) => (
+                <option key={insurance.id} value={insurance.id}>
+                  {insurance.name}
                 </option>
               ))}
           </>

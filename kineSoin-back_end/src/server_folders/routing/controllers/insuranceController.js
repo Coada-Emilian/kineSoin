@@ -3,8 +3,31 @@
 import Joi from 'joi';
 import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
 import { Patient, Patient_Insurance, Insurance } from '../../models/index.js';
+import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 
 const insuranceController = {
+  getInsurancesAsPatient: async (req, res) => {
+    const patientId = parseInt(req.params.patient_id, 10);
+
+    checkIsIdNumber(patientId);
+
+    const foundPatient = await Patient.findByPk(patientId);
+
+    if (foundPatient) {
+      const response = checkPatientStatus(foundPatient);
+      if (response) {
+        const foundInsurances = await Insurance.findAll({
+          attributes: ['id', 'name'],
+        });
+
+        if (!foundInsurances) {
+          return res.status(400).json({ message: 'No insurances found' });
+        } else {
+          return res.status(200).json(foundInsurances);
+        }
+      }
+    }
+  },
   // Get the insurance information for a patient
   getInsurance: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
@@ -211,7 +234,7 @@ const insuranceController = {
   // Create an insurance organism
   createInsuranceOrganism: async (req, res) => {
     const adminId = req.session.admin_id;
-    
+
     checkIsIdNumber(adminId);
 
     if (!req.body) {

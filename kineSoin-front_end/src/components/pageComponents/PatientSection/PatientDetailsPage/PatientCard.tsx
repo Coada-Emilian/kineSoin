@@ -45,18 +45,28 @@ export default function PatientCard({ patientId }: PatientCardProps) {
 
   const [newPhoneNumber, setNewPhoneNumber] = useState<string>('');
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
-
   const [newAddress, setNewAddress] = useState<INewAddress>({});
+  const [newInsurance, setNewInsurance] = useState<string>('');
+  const [isInsurancePresent, setIsInsurancePresent] = useState<boolean>(false);
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
   const [preview, setPreview] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    if (patientData) {
+      if (patientData.insurance && patientData.insurance.length > 0) {
+        setIsInsurancePresent(true);
+      }
+    }
+  }, [patientData]);
+
+  useEffect(() => {
     console.log('newPhoneNumber :', newPhoneNumber);
     console.log('newPhoto :', newPhoto);
     console.log('newAddress :', newAddress);
-  }, [newPhoneNumber, newPhoto, newAddress]);
+    console.log('patientData: ', patientData);
+  }, [newPhoneNumber, newPhoto, newAddress, patientData]);
 
   return (
     <>
@@ -126,8 +136,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           <div className="flex flex-col justify-center items-center  md:items-start mb-2">
             <div className="flex items-center gap-2 mb-2">
               {' '}
-              {isProfileEditing && (
-                <Link to="#">
+              {isProfileEditing && isInsurancePresent && (
+                <Link to="#" onClick={() => setIsInsuranceEditModalOpen(true)}>
                   <EditIcon />
                 </Link>
               )}
@@ -210,6 +220,28 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           old_street_name={patientData?.street_name}
           old_postal_code={patientData?.postal_code}
           old_city={patientData?.city}
+        />
+      )}
+
+      {isInsuranceEditModalOpen && (
+        <EditPatientModal
+          patientId={patientId}
+          setIsInsuranceEditModalOpen={setIsInsuranceEditModalOpen}
+          isInsuranceEditModalOpen={isInsuranceEditModalOpen}
+          setNewInsurance={setNewInsurance}
+          old_insurance_name={patientData?.insurance?.[0]?.name}
+          old_start_date={
+            patientData?.insurance?.[0]?.Patient_Insurance?.start_date
+          }
+          old_end_date={
+            patientData?.insurance?.[0]?.Patient_Insurance?.end_date
+          }
+          old_contract_number={
+            patientData?.insurance?.[0]?.Patient_Insurance?.contract_number
+          }
+          old_adherent_code={
+            patientData?.insurance?.[0]?.Patient_Insurance?.adherent_code
+          }
         />
       )}
     </>

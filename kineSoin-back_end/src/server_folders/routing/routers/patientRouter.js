@@ -41,6 +41,8 @@ patientRouter.post(
 );
 
 // Insurance routes
+patientRouter.get('/:patient_id/insurances', wrapper(insuranceController.getInsurancesAsPatient));
+
 patientRouter.get('/me/insurance', wrapper(insuranceController.getInsurance));
 
 patientRouter.patch(
