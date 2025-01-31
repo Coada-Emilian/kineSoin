@@ -36,7 +36,11 @@ export default function PatientAppointmentsCalendar({
     const fetchPatientPrescriptionsAndSet = async () => {
       if (patientId !== undefined) {
         const response = await fetchPatientPrescriptions(patientId);
-        setPatientPrescriptions(response);
+        if (response) {
+          setPatientPrescriptions(response);
+        } else {
+          setPatientPrescriptions([]);
+        }
       }
     };
     fetchPatientPrescriptionsAndSet();
@@ -94,6 +98,7 @@ export default function PatientAppointmentsCalendar({
 
   return (
     <>
+      {calendarEvents.length === 0 && <p>Aucun rendez-vous à afficher</p>}
       <StandardChoiceDropdown
         isPrescriptionDropdownInput
         patientPrescriptions={patientPrescriptions}

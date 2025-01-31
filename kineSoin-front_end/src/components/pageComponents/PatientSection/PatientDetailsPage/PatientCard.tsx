@@ -148,12 +148,19 @@ export default function PatientCard({ patientId }: PatientCardProps) {
 
           <div className="flex flex-col justify-center items-center  md:items-start mb-2">
             <div className="flex items-center gap-2 mb-2">
-              {' '}
-              {isProfileEditing && isInsurancePresent && (
-                <Link to="#" onClick={() => setIsInsuranceEditModalOpen(true)}>
-                  <EditIcon />
-                </Link>
+              {isInsurancePresent ? (
+                isProfileEditing && (
+                  <Link
+                    to="#"
+                    onClick={() => setIsInsuranceEditModalOpen(true)}
+                  >
+                    <EditIcon />
+                  </Link>
+                )
+              ) : (
+                <p>No insurance</p>
               )}
+
               <p>Assurance mutuelle :</p>
             </div>
 

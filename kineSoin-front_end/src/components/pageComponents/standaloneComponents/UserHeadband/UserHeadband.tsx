@@ -22,7 +22,7 @@ export default function UserHeadband({ isPatientHeadband }: UserHeadbandProps) {
         alt={isPatientHeadband ? patientFullName : undefined}
         className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-around"
       />
-      <p className="text-primaryBlue text-xs md:text-sm xl:text-base italic">
+      <p className="text-primaryBlue text-sm font-semibold md:text-sm xl:text-base italic">
         Bienvenue {isPatientHeadband && patientFullName} !
       </p>
     </div>

@@ -94,6 +94,11 @@ export default function PrivateMain({
               {isPatientDashboardMain && (
                 <>
                   <div className="flex flex-col gap-4 md:flex-row md:flex-wrap justify-center md:justify-start items-center w-full mb-4">
+                    {upcomingAppointments.length === 0 && (
+                      <p className="text-gray-700 text-sm">
+                        Aucun rendez-vous à venir
+                      </p>
+                    )}
                     {upcomingAppointments.length > 0 &&
                       upcomingAppointments.map((appointment) => (
                         <PatientAppointmentCard

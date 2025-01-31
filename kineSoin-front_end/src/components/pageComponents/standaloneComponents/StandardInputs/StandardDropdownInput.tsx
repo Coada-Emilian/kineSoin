@@ -53,7 +53,6 @@ export default function StandardChoiceDropdown({
   isPatientInsuranceDropdownInput,
   oldPatientInsuranceName,
   insuranceList,
- 
 }: StandardChoiceDropdownProps) {
   const fetchAppointmentsByPrescription = async (
     prescriptionId: number,
@@ -140,24 +139,6 @@ export default function StandardChoiceDropdown({
             ? registeredPatientGender
             : undefined
         }
-        // onChange={(e) => {
-        //   isGenderDropdownInput &&
-        //     setRegisteredPatientGender &&
-        //     setRegisteredPatientGender(e.target.value);
-
-        //   isMedicDropdownInput &&
-        //     setNewPrescriptionMedicId &&
-        //     setNewPrescriptionMedicId(Number(e.target.value));
-
-        //   isAtHomeCareDropdownInput &&
-        //     setAtHomeCare &&
-        //     setAtHomeCare(e.target.value === 'true');
-
-        //   isAfflictionDropdownInput &&
-        //     setNewPrescriptionAfflictionId &&
-        //     setNewPrescriptionAfflictionId(Number(e.target.value));
-        // }}
-
         onChange={(e) => {
           if (isGenderDropdownInput && setRegisteredPatientGender) {
             setRegisteredPatientGender(e.target.value);
@@ -238,6 +219,7 @@ export default function StandardChoiceDropdown({
           <>
             <option value="">Sélectionnez une ordonnance</option>
             {patientPrescriptions &&
+              patientPrescriptions?.length > 0 &&
               patientPrescriptions.map((prescription) => (
                 <option key={prescription.id} value={prescription.id}>
                   {prescription.date}
