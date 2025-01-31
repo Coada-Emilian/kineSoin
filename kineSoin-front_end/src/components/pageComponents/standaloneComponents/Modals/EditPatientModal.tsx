@@ -2,6 +2,7 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
+import StandardFileInput from '../StandardInputs/StandardFileInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -141,11 +142,22 @@ export default function EditPatientModal({
           )}
 
           {isPhotoEditModalOpen && !isNewPhotoAdded && (
-            <img
-              src={UserPhotoIcon}
-              alt="user icon"
-              className="w-32 h-32  object-cover"
-            />
+            <div className="mb-2 flex flex-col items-center gap-2">
+              <img
+                src={UserPhotoIcon}
+                alt="user icon"
+                className="w-32 h-32  object-cover mb-2"
+              />
+              <label htmlFor="new-photo-input">
+                Chargez votre nouvelle photo :
+              </label>
+              <input
+                type="file"
+                name="new_photo"
+                id="new-photo-input"
+                className="w-10/12"
+              />
+            </div>
           )}
         </div>
 
