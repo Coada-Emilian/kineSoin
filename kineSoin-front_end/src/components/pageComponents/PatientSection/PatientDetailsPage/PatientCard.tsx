@@ -44,6 +44,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     useState<boolean>(false);
   const [isPasswordEditModalOpen, setIsPasswordEditModalOpen] =
     useState<boolean>(false);
+  const [isNameAndAgeEditModalOpen, setIsNameAndAgeEditModalOpen] =
+    useState<boolean>(false);
 
   const [newPhoneNumber, setNewPhoneNumber] = useState<string>('');
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
@@ -54,6 +56,9 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   const [newPassword, setNewPassword] = useState<string>('');
   const [addedPatientInsurance, setAddedPatientInsurance] =
     useState<IInsurance>();
+  const [newName, setNewName] = useState<string>('');
+  const [newSurname, setNewSurname] = useState<string>('');
+  const [newBirthDate, setNewBirthDate] = useState<string>('');
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
@@ -79,6 +84,9 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     console.log('newEmail :', newEmail);
     console.log('newPassword :', newPassword);
     console.log('addedPatientInsurance :', addedPatientInsurance);
+    console.log('newName :', newName);
+    console.log('newSurname :', newSurname);
+    console.log('newBirthDate :', newBirthDate);
   }, [
     newPhoneNumber,
     newPhoto,
@@ -87,6 +95,9 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     newEmail,
     newPassword,
     addedPatientInsurance,
+    newName,
+    newSurname,
+    newBirthDate,
   ]);
 
   return (
@@ -111,9 +122,17 @@ export default function PatientCard({ patientId }: PatientCardProps) {
         )}
 
         <div className="text-primaryBlue text-xs md:text-base font-bold italic w-3/4 md:w-1/4 p-8 h-full flex flex-col justify-between gap-2 text-center md:text-left">
-          <div>
-            <p className="text-lg font-bold">
-              {patientData?.fullName}, {patientData?.age} ans
+          <div className="flex items-center gap-2 mb-2">
+            {isProfileEditing && (
+              <Link to="#" onClick={() => setIsNameAndAgeEditModalOpen(true)}>
+                <EditIcon />
+              </Link>
+            )}
+            <p className="text-lg font-bold mx-auto">
+              {newName && newSurname
+                ? `${newName} ${newSurname}`
+                : patientData?.fullName}{' '}
+              , {patientData?.age} ans
             </p>
           </div>
 
@@ -317,6 +336,20 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           patientId={patientId}
           setAddedPatientInsurance={setAddedPatientInsurance}
           setIsInsuranceAdded={setIsInsuranceAdded}
+        />
+      )}
+
+      {isNameAndAgeEditModalOpen && (
+        <EditPatientModal
+          setIsNameAndAgeEditModalOpen={setIsNameAndAgeEditModalOpen}
+          isNameAndAgeEditModalOpen={isNameAndAgeEditModalOpen}
+          patientId={patientId}
+          old_name={patientData?.name}
+          old_surname={patientData?.surname}
+          old_birth_date={patientData?.birth_date}
+          setNewName={setNewName}
+          setNewSurname={setNewSurname}
+          setNewBirthDate={setNewBirthDate}
         />
       )}
     </>

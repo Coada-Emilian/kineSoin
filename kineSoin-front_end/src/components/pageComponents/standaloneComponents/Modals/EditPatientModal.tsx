@@ -55,6 +55,14 @@ interface EditPatientModalProps {
     React.SetStateAction<IInsurance | undefined>
   >;
   setIsInsuranceAdded?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsNameAndAgeEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isNameAndAgeEditModalOpen?: boolean;
+  old_name?: string;
+  old_surname?: string;
+  old_birth_date?: string;
+  setNewName?: React.Dispatch<React.SetStateAction<string>>;
+  setNewSurname?: React.Dispatch<React.SetStateAction<string>>;
+  setNewBirthDate?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function EditPatientModal({
@@ -97,6 +105,14 @@ export default function EditPatientModal({
   isAddInsuranceModalOpen,
   setAddedPatientInsurance,
   setIsInsuranceAdded,
+  setIsNameAndAgeEditModalOpen,
+  isNameAndAgeEditModalOpen,
+  old_name,
+  old_surname,
+  old_birth_date,
+  setNewName,
+  setNewSurname,
+  setNewBirthDate,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -422,6 +438,48 @@ export default function EditPatientModal({
     }
   };
 
+  const handleNameAndAgeEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newName = formData.get('name') as string;
+    if (newName.length === 0) {
+      setErrorMessage('Le nom ne peut pas être vide');
+    } else if (newName.length > 15) {
+      setErrorMessage('Le nom doit contenir moins de 15 caractères');
+    } else if (newName.match(/^[a-zA-Z\s]+$/) === null) {
+      setErrorMessage('Le nom doit contenir uniquement des lettres');
+    } else {
+      setNewName && setNewName(newName);
+    }
+
+    const newSurname = formData.get('surname') as string;
+    if (newSurname.length === 0) {
+      setErrorMessage('Le prénom ne peut pas être vide');
+    } else if (newSurname.length > 50) {
+      setErrorMessage('Le prénom doit contenir moins de 50 caractères');
+    } else if (newSurname.match(/^[a-zA-Z\s]+$/) === null) {
+      setErrorMessage('Le prénom doit contenir uniquement des lettres');
+    } else {
+      setNewSurname && setNewSurname(newSurname);
+    }
+
+    const newBirthDate = formData.get('birth_date') as string;
+    if (newBirthDate.length === 0) {
+      setErrorMessage('La date de naissance ne peut pas être vide');
+    } else if (new Date(newBirthDate) > new Date()) {
+      setErrorMessage('La date de naissance ne peut pas être dans le futur');
+    } else if (newBirthDate.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
+      setErrorMessage('Veuillez entrer une date de naissance valide');
+    } else {
+      setNewBirthDate && setNewBirthDate(newBirthDate);
+      setIsNameAndAgeEditModalOpen && setIsNameAndAgeEditModalOpen(false);
+    }
+
+    if (newName && newSurname && newBirthDate) {
+      setIsNameAndAgeEditModalOpen && setIsNameAndAgeEditModalOpen(false);
+    }
+  };
+
   return (
     <ReactModal
       isOpen={
@@ -431,7 +489,8 @@ export default function EditPatientModal({
         !!isInsuranceEditModalOpen ||
         !!isEmailEditModalOpen ||
         !!isPasswordEditModalOpen ||
-        !!isAddInsuranceModalOpen
+        !!isAddInsuranceModalOpen ||
+        !!isNameAndAgeEditModalOpen
       }
       onRequestClose={() => {
         if (setIsPhoneNumberEditModalOpen) setIsPhoneNumberEditModalOpen(false);
@@ -441,6 +500,7 @@ export default function EditPatientModal({
         if (setIsEmailEditModalOpen) setIsEmailEditModalOpen(false);
         if (setIsPasswordEditModalOpen) setIsPasswordEditModalOpen(false);
         if (setIsAddInsuranceModalOpen) setIsAddInsuranceModalOpen(false);
+        if (setIsNameAndAgeEditModalOpen) setIsNameAndAgeEditModalOpen(false);
       }}
       style={{
         content: {
@@ -466,6 +526,7 @@ export default function EditPatientModal({
         {isEmailEditModalOpen ? 'Modifier votre email' : ''}
         {isPasswordEditModalOpen ? 'Modifier votre mot de passe' : ''}
         {isAddInsuranceModalOpen ? 'Ajouter une mutuelle' : ''}
+        {isNameAndAgeEditModalOpen ? 'Modifier votre nom, prénom et age' : ''}
       </h3>
 
       {errorMessage && (
@@ -490,7 +551,9 @@ export default function EditPatientModal({
                       ? handlePasswordEdit
                       : isAddInsuranceModalOpen
                         ? handleInsuranceAdd
-                        : () => {}
+                        : isNameAndAgeEditModalOpen
+                          ? handleNameAndAgeEdit
+                          : () => {}
         }
         className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
       >
@@ -714,6 +777,41 @@ export default function EditPatientModal({
             </div>
           )}
 
+          {isNameAndAgeEditModalOpen && (
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
+                <label htmlFor="name">Nom :</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  className="border p-2 rounded-lg"
+                  defaultValue={old_name}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="surname">Prénom :</label>
+                <input
+                  type="text"
+                  name="surname"
+                  id="surname"
+                  className="border p-2 rounded-lg"
+                  defaultValue={old_surname}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="birth_date">Date de naissance :</label>
+                <input
+                  type="date"
+                  name="birth_date"
+                  id="birth_date"
+                  className="border p-2 rounded-lg"
+                  defaultValue={old_birth_date}
+                />
+              </div>
+            </div>
+          )}
+
           {isEmailEditModalOpen && (
             <input
               type="text"
@@ -740,6 +838,8 @@ export default function EditPatientModal({
               setIsEmailEditModalOpen && setIsEmailEditModalOpen(false);
               setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
               setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
+              setIsNameAndAgeEditModalOpen &&
+                setIsNameAndAgeEditModalOpen(false);
             }}
           />
         </div>

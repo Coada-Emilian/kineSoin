@@ -184,6 +184,8 @@ const patientController = {
     const sentPatientData = {
       fullName,
       surname: foundPatient.surname,
+      name: foundPatient.name,
+      birth_date: foundPatient.birth_date,
       picture_url,
       street_number: foundPatient.street_number,
       street_name: foundPatient.street_name,

@@ -103,7 +103,7 @@ export default function FormSection({
     if (response) {
       if (setPatientProfileToken) {
         setPatientProfileToken(response);
-        console.log(response);
+
         navigate('/patient/dashboard');
       } else {
         setPatientErrorMessage('Email et/ou Mot de passe invalide');
