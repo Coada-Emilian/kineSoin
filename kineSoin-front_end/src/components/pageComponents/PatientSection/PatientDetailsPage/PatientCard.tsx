@@ -14,8 +14,11 @@ interface PatientCardProps {
 }
 
 export default function PatientCard({ patientId }: PatientCardProps) {
+  // State to store patient data
   const [patientData, setPatientData] = useState<IPatient | null>(null);
   const [isInsuranceAdded, setIsInsuranceAdded] = useState<boolean>(false);
+
+  // Fetch patient data on component mount via patientId
   useEffect(() => {
     const fetchData = async () => {
       if (patientId !== undefined) {
@@ -30,6 +33,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     fetchData();
   }, [patientId, isInsuranceAdded]);
 
+  // State to manage modals
   const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] =
     useState<boolean>(false);
   const [isPhotoEditModalOpen, setIsPhotoEditModalOpen] =
@@ -47,24 +51,34 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   const [isNameAndAgeEditModalOpen, setIsNameAndAgeEditModalOpen] =
     useState<boolean>(false);
 
+  // States to store new patient data
   const [newPhoneNumber, setNewPhoneNumber] = useState<string>('');
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
   const [newAddress, setNewAddress] = useState<INewAddress>({});
   const [newInsurance, setNewInsurance] = useState<IInsurance>();
-  const [isInsurancePresent, setIsInsurancePresent] = useState<boolean>(false);
   const [newEmail, setNewEmail] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
-  const [addedPatientInsurance, setAddedPatientInsurance] =
-    useState<IInsurance>();
   const [newName, setNewName] = useState<string>('');
   const [newSurname, setNewSurname] = useState<string>('');
   const [newBirthDate, setNewBirthDate] = useState<string>('');
 
+  // State to store added insurance
+  const [addedPatientInsurance, setAddedPatientInsurance] =
+    useState<IInsurance>();
+
+  // State to check if insurance is present
+  const [isInsurancePresent, setIsInsurancePresent] = useState<boolean>(false);
+
+  // State to check if profile is being edited
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
+  // State to store profil preview
   const [preview, setPreview] = useState<string | undefined>(undefined);
+
+  // State to store new insurance name
   const [newInsuranceName, setNewInsuranceName] = useState<string>('');
 
+  // Check if insurance is present
   useEffect(() => {
     if (patientData) {
       if (patientData.insurance && patientData.insurance.length > 0) {
@@ -102,25 +116,27 @@ export default function PatientCard({ patientId }: PatientCardProps) {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-1 md:gap-6 items-center w-full my-auto">
+      <div className="flex flex-col md:flex-row gap-1 md:gap-6 items-center justify-center w-full my-auto">
+        {/* Patient image and details */}
         {patientData && (
-          <div className="w-2/4 flex justify-center">
-            <div className="relative">
-              <img
-                src={preview ? preview : patientData.picture_url}
-                alt={patientData.name}
-                className="rounded-xl object-cover shadow-2xl"
-              />
-
+          <div className="w-48 md:w-2/6">
+            <div className="relative shadow-2xl">
               {isProfileEditing && (
                 <Link to="#" onClick={() => setIsPhotoEditModalOpen(true)}>
                   <EditIcon isPhotoEdit />
                 </Link>
               )}
+
+              <img
+                src={preview ? preview : patientData.picture_url}
+                alt={patientData.name}
+                className="rounded-xl w-full h-full object-cover "
+              />
             </div>
           </div>
         )}
 
+        {/* Patient details */}
         <div className="text-primaryBlue text-xs md:text-base font-bold italic w-3/4 md:w-1/4 p-8 h-full flex flex-col justify-between gap-2 text-center md:text-left">
           <div className="flex items-center gap-2 mb-2">
             {isProfileEditing && (
@@ -128,6 +144,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
                 <EditIcon />
               </Link>
             )}
+
             <p className="text-lg font-bold mx-auto">
               {newName && newSurname
                 ? `${newName} ${newSurname}`
@@ -210,18 +227,21 @@ export default function PatientCard({ patientId }: PatientCardProps) {
                 <Link to="#" onClick={() => setIsEmailEditModalOpen(true)}>
                   <EditIcon />
                 </Link>
+
                 <p>Modifier adresse e-mail</p>
               </div>
+
               <div className="flex items-center gap-2">
                 <Link to="#" onClick={() => setIsPasswordEditModalOpen(true)}>
                   <EditIcon />
                 </Link>
+
                 <p>Modifier mot de passe</p>
               </div>
             </div>
           )}
 
-          <div className="flex gap-2 mt-4">
+          <div className="flex gap-2 mt-4 mx-auto">
             {isProfileEditing ? (
               <>
                 <CustomButton
@@ -233,6 +253,12 @@ export default function PatientCard({ patientId }: PatientCardProps) {
                   mobileCancelButton
                   onClick={() => {
                     setIsProfileEditing(false);
+                    setPreview(undefined);
+                    setNewName('');
+                    setNewSurname('');
+                    setNewAddress({});
+                    setNewPhoneNumber('');
+                    setNewInsuranceName('');
                   }}
                 />
               </>
