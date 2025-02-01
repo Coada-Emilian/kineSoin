@@ -14,6 +14,7 @@ import { INewAddress } from '../../../../@types/INewAddress';
 import { IInsurance } from '../../../../@types/IInsurance';
 import AddInsuranceIcon from '/icons/add.png';
 import { IPatient_Insurance } from '../../../../@types/IPatient_Insurance';
+import { updatePatientDataInLocalStorage } from '../../../../localStorage/patientLocalStorage';
 
 interface PatientCardProps {
   patientId?: number;
@@ -155,6 +156,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
           newPhotoFormData
         );
         if (response) {
+          updatePatientDataInLocalStorage(response, '');
           console.log('Photo updated successfully');
         }
       }
@@ -202,6 +204,9 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     if (patientId && [...newFormData.entries()].length > 0) {
       const response = await handlePatientUpdate(newFormData, patientId);
       if (response) {
+        if (newName && newSurname) {
+          updatePatientDataInLocalStorage('', `${newName} ${newSurname}`);
+        }
         console.log('Patient updated successfully');
         window.location.reload();
       }

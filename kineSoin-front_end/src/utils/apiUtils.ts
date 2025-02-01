@@ -858,7 +858,7 @@ export const handlePatientPhotoUpdate = async (
     });
     if (response.status === 200) {
       console.log('Photo updated successfully');
-      return true;
+      return response.data.picture_url;
     } else {
       console.error('Failed to update photo', response.data);
       return false;

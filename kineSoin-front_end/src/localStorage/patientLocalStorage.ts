@@ -32,9 +32,14 @@ export const updatePatientDataInLocalStorage = (
   newName: string
 ) => {
   if (newName) {
-    localStorage.setItem('name', newName);
+    console.log('newName from updatePatientDataInLocalStorage', newName);
+    localStorage.setItem('fullName', newName);
   }
   if (newPictureUrl) {
+    console.log(
+      'newPictureUrl from updatePatientDataInLocalStorage',
+      newPictureUrl
+    );
     localStorage.setItem('picture_url', newPictureUrl);
   }
 };

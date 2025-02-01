@@ -328,8 +328,7 @@ const patientController = {
         message: 'No file detected. Please upload a file to continue.',
       });
     }
-
-    console.log(req.file);
+    
     const { path, filename } = req.file;
 
     const foundPatient = await Patient.findByPk(patientId);

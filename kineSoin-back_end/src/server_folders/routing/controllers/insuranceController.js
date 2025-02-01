@@ -100,7 +100,7 @@ const insuranceController = {
       contract_number: Joi.string().optional(),
       start_date: Joi.date().iso().required(),
       end_date: Joi.date().iso().required().greater(Joi.ref('start_date')),
-    }).min(2);
+    }).min(1);
 
     if (!req.body) {
       return res.status(400).json({

@@ -8,6 +8,7 @@ interface UserHeadbandProps {
 export default function UserHeadband({ isPatientHeadband }: UserHeadbandProps) {
   const [patientFullName, setPatientFullName] = useState('');
   const [patientPictureUrl, setPatientPictureUrl] = useState('');
+
   useEffect(() => {
     const response = getPatientTokenAndDataFromLocalStorage();
     if (response) {
@@ -15,6 +16,7 @@ export default function UserHeadband({ isPatientHeadband }: UserHeadbandProps) {
       setPatientPictureUrl(response.picture_url || '');
     }
   }, []);
+
   return (
     <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center ">
       <img
