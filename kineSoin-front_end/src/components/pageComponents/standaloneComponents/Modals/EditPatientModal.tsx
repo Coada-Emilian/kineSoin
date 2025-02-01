@@ -681,7 +681,7 @@ export default function EditPatientModal({
           )}
 
           {isAddressEditModalOpen && (
-            <div className="text-xs">
+            <div className="text-xs md:text-sm">
               <div className="flex gap-2 ">
                 <div className="flex flex-col w-1/3">
                   <label htmlFor="street_number">Numéro de rue :</label>
@@ -739,21 +739,21 @@ export default function EditPatientModal({
                 insuranceList={insurances}
               />
 
-              <div>
+              <div className="w-full">
                 <label>Validité :</label>
-                <div className="flex gap-1 text-xs items-center">
+                <div className="flex gap-1 text-xs md:text-sm justify-between items-center">
                   {' '}
                   <input
                     type="date"
                     defaultValue={old_start_date}
-                    className="border p-2 rounded-lg"
+                    className="border p-2 rounded-lg w-1/3"
                     name="start_date"
                   />
                   <p>au</p>
                   <input
                     type="date"
                     defaultValue={old_end_date}
-                    className="border p-2 rounded-lg"
+                    className="border p-2 rounded-lg  w-1/3"
                     name="end_date"
                   />
                 </div>
