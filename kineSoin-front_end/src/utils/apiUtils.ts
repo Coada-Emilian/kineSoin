@@ -802,3 +802,69 @@ export const handlePatientInsuranceAdd = async (
     return false;
   }
 };
+
+export const handlePatientUpdate = async (formData: FormData, id: number) => {
+  try {
+    const response = await axios.patch(`/patient/${id}`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Patient profile updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update patient profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating patient profile:', error);
+    return false;
+  }
+};
+
+export const handlePatientInsuranceUpdate = async (
+  id: number,
+  formData: FormData
+) => {
+  try {
+    const response = await axios.patch(`/patient/${id}/insurance`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Insurance updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update insurance', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating insurance:', error);
+    return false;
+  }
+};
+
+export const handlePatientPhotoUpdate = async (
+  id: number,
+  formData: FormData
+) => {
+  try {
+    const response = await axios.post(`/patient/${id}/uploadPhoto`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Photo updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update photo', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating photo:', error);
+    return false;
+  }
+};

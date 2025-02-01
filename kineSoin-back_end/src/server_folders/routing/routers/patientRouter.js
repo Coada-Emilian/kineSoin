@@ -33,10 +33,13 @@ patientRouter.get(
 
 patientRouter.delete('/me', wrapper(patientController.deleteConnectedPatient));
 
-patientRouter.patch('/me', wrapper(patientController.updateConnectedPatient));
+patientRouter.patch(
+  '/:patient_id',
+  wrapper(patientController.updateConnectedPatient)
+);
 
 patientRouter.post(
-  '/me/uploadPhoto',
+  '/:patient_id/uploadPhoto',
   uploadPatientPhoto.single('photo'),
   patientController.uploadPatientPhoto
 );
@@ -50,11 +53,14 @@ patientRouter.get(
 patientRouter.get('/me/insurance', wrapper(insuranceController.getInsurance));
 
 patientRouter.patch(
-  '/me/insurance',
+  '/:patient_id/insurance',
   wrapper(insuranceController.updateInsurance)
 );
 
-patientRouter.post('/:patient_id/insurance', wrapper(insuranceController.addInsurance));
+patientRouter.post(
+  '/:patient_id/insurance',
+  wrapper(insuranceController.addInsurance)
+);
 
 // Proposed appointments routes
 patientRouter.get(

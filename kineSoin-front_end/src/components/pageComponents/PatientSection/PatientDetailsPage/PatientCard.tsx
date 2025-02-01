@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import { fetchPatientData } from '../../../../utils/apiUtils';
+import {
+  fetchPatientData,
+  handlePatientInsuranceUpdate,
+  handlePatientPhotoUpdate,
+  handlePatientUpdate,
+} from '../../../../utils/apiUtils';
 import { IPatient } from '../../../../@types/IPatient';
 import EditIcon from '../../standaloneComponents/EditIcon/EditIcon';
 import { Link } from 'react-router-dom';
@@ -8,6 +13,7 @@ import EditPatientModal from '../../standaloneComponents/Modals/EditPatientModal
 import { INewAddress } from '../../../../@types/INewAddress';
 import { IInsurance } from '../../../../@types/IInsurance';
 import AddInsuranceIcon from '/icons/add.png';
+import { IPatient_Insurance } from '../../../../@types/IPatient_Insurance';
 
 interface PatientCardProps {
   patientId?: number;
@@ -55,7 +61,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   const [newPhoneNumber, setNewPhoneNumber] = useState<string>('');
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
   const [newAddress, setNewAddress] = useState<INewAddress>({});
-  const [newInsurance, setNewInsurance] = useState<IInsurance>();
+  const [newInsurance, setNewInsurance] = useState<IPatient_Insurance>();
   const [newEmail, setNewEmail] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [newName, setNewName] = useState<string>('');
@@ -90,29 +96,120 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     }
   }, [patientData, addedPatientInsurance]);
 
-  useEffect(() => {
-    console.log('newPhoneNumber :', newPhoneNumber);
-    console.log('newPhoto :', newPhoto);
-    console.log('newAddress :', newAddress);
-    console.log('newInsurance :', newInsurance);
-    console.log('newEmail :', newEmail);
-    console.log('newPassword :', newPassword);
-    console.log('addedPatientInsurance :', addedPatientInsurance);
-    console.log('newName :', newName);
-    console.log('newSurname :', newSurname);
-    console.log('newBirthDate :', newBirthDate);
-  }, [
-    newPhoneNumber,
-    newPhoto,
-    newAddress,
-    newInsurance,
-    newEmail,
-    newPassword,
-    addedPatientInsurance,
-    newName,
-    newSurname,
-    newBirthDate,
-  ]);
+  // useEffect(() => {
+  //   console.log('newPhoneNumber :', newPhoneNumber);
+  //   console.log('newPhoto :', newPhoto);
+  //   console.log('newAddress :', newAddress);
+  //   console.log('newInsurance :', newInsurance);
+  //   console.log('newEmail :', newEmail);
+  //   console.log('newPassword :', newPassword);
+  //   console.log('addedPatientInsurance :', addedPatientInsurance);
+  //   console.log('newName :', newName);
+  //   console.log('newSurname :', newSurname);
+  //   console.log('newBirthDate :', newBirthDate);
+  // }, [
+  //   newPhoneNumber,
+  //   newPhoto,
+  //   newAddress,
+  //   newInsurance,
+  //   newEmail,
+  //   newPassword,
+  //   addedPatientInsurance,
+  //   newName,
+  //   newSurname,
+  //   newBirthDate,
+  // ]);
+
+  const handleConnectedPatientUpdate = async () => {
+    if (newInsurance) {
+      const newInsuranceFormData = new FormData();
+      newInsuranceFormData.append(
+        'insurance_id',
+        newInsurance.insurance_id.toString()
+      );
+      newInsuranceFormData.append('start_date', newInsurance.start_date);
+      newInsuranceFormData.append('end_date', newInsurance.end_date);
+      newInsuranceFormData.append(
+        'contract_number',
+        newInsurance.contract_number
+      );
+      newInsuranceFormData.append('adherent_code', newInsurance.adherent_code);
+      if (patientId) {
+        const response = await handlePatientInsuranceUpdate(
+          patientId,
+          newInsuranceFormData
+        );
+        if (response) {
+          console.log('Insurance updated successfully');
+        }
+      }
+    }
+
+    if (newPhoto) {
+      const newPhotoFormData = new FormData();
+      newPhotoFormData.append('photo', newPhoto);
+
+      if (patientId) {
+        const response = await handlePatientPhotoUpdate(
+          patientId,
+          newPhotoFormData
+        );
+        if (response) {
+          console.log('Photo updated successfully');
+        }
+      }
+    }
+
+    const newFormData = new FormData();
+
+    if (newPhoneNumber) {
+      newFormData.append('phone_number', newPhoneNumber);
+    }
+    if (newAddress) {
+      if (newAddress.street_number) {
+        newFormData.append('street_number', newAddress.street_number);
+      }
+      if (newAddress.street_name) {
+        newFormData.append('street_name', newAddress.street_name);
+      }
+      if (newAddress.postal_code) {
+        newFormData.append('postal_code', newAddress.postal_code);
+      }
+      if (newAddress.city) {
+        newFormData.append('city', newAddress.city);
+      }
+    }
+    if (newEmail) {
+      newFormData.append('email', newEmail);
+    }
+
+    if (newPassword) {
+      newFormData.append('new_password', newPassword);
+    }
+
+    if (newName) {
+      newFormData.append('name', newName);
+    }
+
+    if (newSurname) {
+      newFormData.append('surname', newSurname);
+    }
+
+    if (newBirthDate) {
+      newFormData.append('birth_date', newBirthDate);
+    }
+
+    if (patientId && [...newFormData.entries()].length > 0) {
+      const response = await handlePatientUpdate(newFormData, patientId);
+      if (response) {
+        console.log('Patient updated successfully');
+        window.location.reload();
+      }
+    } else {
+      console.log('Patient updated  only photo or insurance');
+      window.location.reload();
+    }
+  };
 
   return (
     <>
@@ -247,6 +344,17 @@ export default function PatientCard({ patientId }: PatientCardProps) {
                 <CustomButton
                   btnText="Enregistrer modifications"
                   mobileButton
+                  onClick={() => {
+                    handleConnectedPatientUpdate();
+                    setIsProfileEditing(false);
+                    setPreview(undefined);
+                    setNewName('');
+                    setNewSurname('');
+                    setNewAddress({});
+                    setNewPhoneNumber('');
+                    setNewInsuranceName('');
+                    setNewInsurance(undefined);
+                  }}
                 />
                 <CustomButton
                   btnText="Annuler"
@@ -259,6 +367,7 @@ export default function PatientCard({ patientId }: PatientCardProps) {
                     setNewAddress({});
                     setNewPhoneNumber('');
                     setNewInsuranceName('');
+                    setNewInsurance(undefined);
                   }}
                 />
               </>

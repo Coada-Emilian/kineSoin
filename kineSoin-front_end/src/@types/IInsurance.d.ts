@@ -1,3 +1,5 @@
+import { IPatient_Insurance } from './IPatient_Insurance';
+
 export interface IInsurance {
   id: number;
   admin_id: number;
@@ -9,10 +11,5 @@ export interface IInsurance {
   city: string;
   address?: string;
   phone_number: string;
-  Patient_Insurance?: {
-    adherent_code: string;
-    contract_number: string;
-    end_date: string;
-    start_date: string;
-  };
+  Patient_Insurance?: IPatient_Insurance;
 }

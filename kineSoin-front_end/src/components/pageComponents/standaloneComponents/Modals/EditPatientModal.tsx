@@ -10,6 +10,7 @@ import {
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import { IInsurance } from '../../../../@types/IInsurance';
 import StandardPasswordInput from '../StandardInputs/StandardPasswordInput';
+import { IPatient_Insurance } from '../../../../@types/IPatient_Insurance';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,7 +34,7 @@ interface EditPatientModalProps {
   setIsInsuranceEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isInsuranceEditModalOpen?: boolean;
   setNewInsurance?: React.Dispatch<
-    React.SetStateAction<IInsurance | undefined>
+    React.SetStateAction<IPatient_Insurance | undefined>
   >;
   old_insurance_name?: string;
   old_start_date?: string;
@@ -310,7 +311,11 @@ export default function EditPatientModal({
       if (insuranceName) {
         setNewInsuranceName && setNewInsuranceName(insuranceName);
       }
-      setNewInsurance && setNewInsurance(newInsuranceData as IInsurance);
+      setNewInsurance &&
+        setNewInsurance({
+          ...newInsuranceData,
+          insurance_id: parseInt(newInsuranceData.insurance_id as string),
+        } as IPatient_Insurance);
       setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
     }
   };

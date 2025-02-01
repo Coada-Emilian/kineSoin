@@ -90,9 +90,7 @@ const insuranceController = {
 
   // Update the insurance information for a patient
   updateInsurance: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 

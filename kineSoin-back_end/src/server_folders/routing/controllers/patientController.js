@@ -179,14 +179,13 @@ const patientController = {
     const address = `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`;
     const fullName = `${foundPatient.name} ${foundPatient.surname}`;
 
-    const { picture_url } = foundPatient;
-
     const sentPatientData = {
       fullName,
       surname: foundPatient.surname,
       name: foundPatient.name,
       birth_date: foundPatient.birth_date,
-      picture_url,
+      picture_url: foundPatient.picture_url,
+      picture_id: foundPatient.picture_id,
       street_number: foundPatient.street_number,
       street_name: foundPatient.street_name,
       postal_code: foundPatient.postal_code,
@@ -222,9 +221,7 @@ const patientController = {
 
   // Update the patient's profile
   updateConnectedPatient: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -240,14 +237,6 @@ const patientController = {
       phone_number: Joi.string().max(15).optional(),
       email: Joi.string().email({ minDomainSegments: 2 }).optional(),
       new_password: Joi.string().min(12).max(255).optional(),
-      repeated_password: Joi.string().valid(Joi.ref('new_password')).optional(),
-      old_password: Joi.string()
-        .when('new_password', {
-          is: Joi.exist(),
-          then: Joi.required(),
-          otherwise: Joi.optional(),
-        })
-        .optional(),
       picture_url: Joi.string().max(255).optional(),
       picture_id: Joi.string().max(255).optional(),
     }).min(1);
@@ -289,43 +278,22 @@ const patientController = {
     } else {
       checkPatientStatus(foundPatient);
 
+      const newProfile = {
+        name: name || foundPatient.name,
+        surname: surname || foundPatient.surname,
+        birth_date: birth_date || foundPatient.birth_date,
+        gender: gender || foundPatient.gender,
+        street_number: street_number || foundPatient.street_number,
+        street_name: street_name || foundPatient.street_name,
+        postal_code: postal_code || foundPatient.postal_code,
+        city: city || foundPatient.city,
+        phone_number: phone_number || foundPatient.phone_number,
+        email: email || foundPatient.email,
+        picture_url: picture_url || foundPatient.picture_url,
+        picture_id: picture_id || foundPatient.picture_id,
+      };
+
       if (new_password) {
-        if (!old_password) {
-          return res.status(400).json({
-            message: 'Old password is required to change the password.',
-          });
-        }
-
-        const isOldPasswordValid = Scrypt.compare(
-          old_password,
-          foundUser.password
-        );
-
-        if (!isOldPasswordValid) {
-          return res.status(400).json({ message: 'Incorrect old password' });
-        }
-
-        if (new_password !== repeated_password) {
-          return res
-            .status(400)
-            .json({ message: 'New passwords do not match' });
-        }
-
-        const newProfile = {
-          name: name || foundPatient.name,
-          surname: surname || foundPatient.surname,
-          birth_date: birth_date || foundPatient.birth_date,
-          gender: gender || foundPatient.gender,
-          street_number: street_number || foundPatient.street_number,
-          street_name: street_name || foundPatient.street_name,
-          postal_code: postal_code || foundPatient.postal_code,
-          city: city || foundPatient.city,
-          phone_number: phone_number || foundPatient.phone_number,
-          email: email || foundPatient.email,
-          picture_url: picture_url || foundPatient.picture_url,
-          picture_id: picture_id || foundPatient.picture_id,
-        };
-
         const hashedNewPassword = Scrypt.hash(new_password);
 
         newProfile.password = hashedNewPassword;
@@ -351,7 +319,7 @@ const patientController = {
 
   // Upload the patient's photo
   uploadPatientPhoto: async (req, res) => {
-    const patientId = parseInt(req.patient_id, 10);
+    const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -361,7 +329,8 @@ const patientController = {
       });
     }
 
-    const { filePath, filename } = req.file;
+    console.log(req.file);
+    const { path, filename } = req.file;
 
     const foundPatient = await Patient.findByPk(patientId);
 
@@ -377,21 +346,21 @@ const patientController = {
             err.message
           );
         }
+      }
 
-        foundPatient.picture_id = filename;
+      foundPatient.picture_id = filename;
 
-        foundPatient.picture_url = filePath;
+      foundPatient.picture_url = path;
 
-        const response = await foundPatient.save();
+      const response = await foundPatient.save();
 
-        if (!response) {
-          return res.status(400).json({ message: 'Error saving the picture' });
-        } else {
-          return res.status(200).json({
-            message: 'Picture uploaded successfully!',
-            picture_url: foundPatient.picture_url,
-          });
-        }
+      if (!response) {
+        return res.status(400).json({ message: 'Error saving the picture' });
+      } else {
+        return res.status(200).json({
+          message: 'Picture uploaded successfully!',
+          picture_url: foundPatient.picture_url,
+        });
       }
     }
   },
