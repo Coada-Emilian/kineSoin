@@ -1,4 +1,15 @@
--- Purpose: Create the tables of the database.
+/*
+    @description This script creates the tables for the KineSoin application.
+    It defines the database schema, sets constraints, and establishes relationships.
+    Key features:
+    - Uses UTF8 encoding.
+    - Drops existing tables to prevent conflicts.
+    - Defines tables for administrators, therapists, patients, prescriptions, etc.
+    - Implements foreign key constraints for data integrity.
+    - Includes timestamps for tracking changes.
+
+    Run this script in a PostgreSQL database to initialize the required structure.
+*/
 
 -- Set the encoding to UTF8
 SET client_encoding = 'UTF8';

@@ -1,4 +1,21 @@
--- Purpose: Seed the database with initial data for testing purposes
+/**
+ * @description Populates multiple tables in the database with initial data for insurance organisms, body regions, afflictions, prescriptions, appointments, patient messages, therapist messages, and patient insurances.
+ *
+ * This module:
+ * - Sets the encoding to UTF8 for database operations.
+ * - Inserts data into the "insurance_organisms" table, including insurance company details such as name, contact information, and administrative ID.
+ * - Populates the "body_regions" table with predefined regions of the body relevant to physical therapy.
+ * - Fills the "afflictions" table with various medical conditions linked to specific body regions, including their description, insurance codes, and whether they have been operated upon.
+ * - Inserts data into the "prescriptions" table, including details such as medic ID, patient ID, affliction ID, appointment quantity, completion status, at-home care, date, picture URL, and creation timestamp.
+ * - Inserts data into the "appointments" table, including details such as prescription ID, therapist ID, patient ID, appointment date, time, acceptance status, and creation timestamp.
+ * - Inserts data into the "patient_messages" table, including details such as receiver ID, sender ID, message content, message date, message time, and creation timestamp.
+ * - Inserts data into the "therapist_messages" table, including details such as sender ID, receiver ID, message content, message date, message time, and creation timestamp.
+ * - Inserts data into the "patient_insurances" table, including details such as patient ID, insurance ID, adherent code, contract number, start date, end date, creation timestamp, and update timestamp.
+ * - Ensures each data insertion is timestamped with the current date and time.
+ *
+ * Ensure that all required tables exist and are properly structured before running this script to populate the database.
+ */
+
 
 -- Set the encoding to UTF8
 SET client_encoding = 'UTF8';
