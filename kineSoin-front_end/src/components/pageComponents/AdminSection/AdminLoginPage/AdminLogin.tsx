@@ -19,7 +19,7 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
 
   const navigate = useNavigate();
 
-  const checkCredentials = async (email: string, password: string) => {
+  const checkAdminCredentials = async (email: string, password: string) => {
     try {
       setIsError(false);
       setIsLoading(true);
@@ -70,7 +70,7 @@ export default function AdminLogin({ setAdminProfileToken }: AdminLoginProps) {
             const formData = new FormData(form);
             const email = formData.get('email') as string;
             const password = formData.get('password') as string;
-            await checkCredentials(email, password);
+            await checkAdminCredentials(email, password);
           }}
           className="space-y-4"
         >

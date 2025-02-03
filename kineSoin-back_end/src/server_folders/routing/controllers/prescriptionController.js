@@ -8,7 +8,7 @@ import { Patient, Prescription } from '../../models/associations.js';
 const prescriptionController = {
   // Get all prescriptions
   getAllPrescriptions: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -98,7 +98,7 @@ const prescriptionController = {
 
   // Add a new prescription
   addNewPrescription: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 

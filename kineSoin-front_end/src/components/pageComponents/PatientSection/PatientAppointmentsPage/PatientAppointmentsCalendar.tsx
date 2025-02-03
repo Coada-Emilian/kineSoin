@@ -34,13 +34,11 @@ export default function PatientAppointmentsCalendar({
 
   useEffect(() => {
     const fetchPatientPrescriptionsAndSet = async () => {
-      if (patientId !== undefined) {
-        const response = await fetchPatientPrescriptions(patientId);
-        if (response) {
-          setPatientPrescriptions(response);
-        } else {
-          setPatientPrescriptions([]);
-        }
+      const response = await fetchPatientPrescriptions();
+      if (response) {
+        setPatientPrescriptions(response);
+      } else {
+        setPatientPrescriptions([]);
       }
     };
     fetchPatientPrescriptionsAndSet();

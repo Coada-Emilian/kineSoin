@@ -217,7 +217,7 @@ const appointmentController = {
 
   // Get all appointments for a patient
   getAllAppointments: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -493,7 +493,7 @@ const appointmentController = {
   },
 
   getAllAppointmentsForPrescription: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
     const prescriptionId = parseInt(req.params.prescription_id, 10);
 
     checkIsIdNumber(patientId);

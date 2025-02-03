@@ -2,31 +2,72 @@ import axios from '../axios.ts';
 import { setPatientTokenAndDataInLocalStorage } from '../localStorage/patientLocalStorage.ts';
 import { setTherapistTokenAndDataInLocalStorage } from '../localStorage/therapistLocalStorage.ts';
 
-// Admin therapist API calls
-
-// Admin deleting a therapist
-export const handleTherapistDelete = async (id: number) => {
-  if (id) {
-    try {
-      const response = await axios.delete(`/admin/therapists/${id}`);
-      if (response.status === 200) {
-        console.log('Therapist profile deleted successfully');
-        return true;
-      } else {
-        console.error('Failed to delete therapist profile', response.data);
-        return false;
-      }
-    } catch (error) {
-      console.error('Error deleting therapist profile:', error);
+// Function to handle patient registration
+export const handlePatientRegistration = async (formData: FormData) => {
+  try {
+    const response = await axios.post('/public/registerPatient', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 201) {
+      console.log('Patient registered successfully');
+      return true;
+    } else {
+      console.error('Failed to register patient', response.data);
       return false;
     }
-  } else {
-    console.error('Therapist ID is missing or invalid');
+  } catch (error) {
+    console.error('Error registering patient:', error);
     return false;
   }
 };
 
-// Admin fetching therapists
+// Function to handle patient connection
+export const handlePatientLogin = async (email: string, password: string) => {
+  try {
+    const response = await axios.post('/public/loginPatient', {
+      email,
+      password,
+    });
+    if (response.status === 200) {
+      setPatientTokenAndDataInLocalStorage(
+        response.data.token,
+        response.data.fullName,
+        response.data.picture_url,
+        response.data.id
+      );
+      return response.data.token;
+    } else {
+      console.error('Failed to connect patient', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error connecting patient:', error);
+    return false;
+  }
+};
+
+// Function to handle admin login
+export const handleAdminLogin = async (email: string, password: string) => {
+  try {
+    const response = await axios.post('/admin/login', {
+      email,
+      password,
+    });
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to connect admin', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error connecting admin:', error);
+    return false;
+  }
+};
+
+// Function to fetch therapists as admin
 export const fetchTherapists = async () => {
   try {
     const response = await axios.get('/admin/therapists');
@@ -42,7 +83,7 @@ export const fetchTherapists = async () => {
   }
 };
 
-// Admin fetching a therapist
+// Function to fetch a therapist as admin
 export const fetchTherapist = async (id: number) => {
   try {
     const response = await axios.get(`/admin/therapists/${id}`);
@@ -58,24 +99,29 @@ export const fetchTherapist = async (id: number) => {
   }
 };
 
-// Admin updating therapist status
-export const handleTherapistStatusChange = async (id: number) => {
+// Function to handle therapist creation as admin
+export const handleTherapistCreation = async (formData: FormData) => {
   try {
-    const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
-    if (response.status === 200) {
-      console.log('Therapist status updated successfully');
+    const response = await axios.post('/admin/therapists', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 201) {
+      console.log('Therapist created successfully');
       return true;
     } else {
-      console.error('Failed to update therapist status', response.data);
+      console.error('Failed to create therapist', response.data);
       return false;
     }
   } catch (error) {
-    console.error('Error updating therapist status:', error);
+    console.error('Error creating therapist:', error);
     return false;
   }
 };
 
-export const handleTherapistUpdate = async (formData: FormData, id: number) => {
+// Function to handle therapist update as admin
+export const handleTherapistUpdate = async (id: number, formData: FormData) => {
   try {
     const response = await axios.put(`/admin/therapists/${id}`, formData, {
       headers: {
@@ -95,9 +141,41 @@ export const handleTherapistUpdate = async (formData: FormData, id: number) => {
   }
 };
 
-// Admin patient API calls
+// Function to handle therapist status change as admin
+export const handleTherapistStatusChange = async (id: number) => {
+  try {
+    const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
+    if (response.status === 200) {
+      console.log('Therapist status updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update therapist status', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating therapist status:', error);
+    return false;
+  }
+};
 
-// Admin fetching patients
+// Function to handle therapist deletion as admin
+export const handleTherapistDelete = async (id: number) => {
+  try {
+    const response = await axios.delete(`/admin/therapists/${id}`);
+    if (response.status === 200) {
+      console.log('Therapist profile deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete therapist profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error deleting therapist profile:', error);
+    return false;
+  }
+};
+
+// Function to fetch patients as admin
 export const fetchPatients = async () => {
   try {
     const response = await axios.get('/admin/allPatients');
@@ -113,6 +191,23 @@ export const fetchPatients = async () => {
   }
 };
 
+// Function to fetch a patient as admin
+export const fetchPatient = async (id: number) => {
+  try {
+    const response = await axios.get(`/admin/patients/${id}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching patient:', error);
+    return null;
+  }
+};
+
+// Function to handle patient status change as admin
 export const handlePatientStatusChange = async (id: number, status: string) => {
   if (id && status) {
     try {
@@ -134,45 +229,24 @@ export const handlePatientStatusChange = async (id: number, status: string) => {
   }
 };
 
-// Admin fetching a patient
-export const fetchPatient = async (id: number) => {
-  try {
-    const response = await axios.get(`/admin/patients/${id}`);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch patient', response.data);
-      return null;
-    }
-  } catch (error) {
-    console.error('Error fetching patient:', error);
-    return null;
-  }
-};
-
-// Admin deleting a patient
+// Function to handle patient deletion as admin
 export const handlePatientDelete = async (id: number) => {
-  if (id) {
-    try {
-      const response = await axios.delete(`/admin/patients/${id}`);
-      if (response.status === 200) {
-        console.log('Patient profile deleted successfully');
-        return true;
-      } else {
-        console.error('Failed to delete patient profile', response.data);
-        return false;
-      }
-    } catch (error) {
-      console.error('Error deleting patient profile:', error);
+  try {
+    const response = await axios.delete(`/admin/patients/${id}`);
+    if (response.status === 200) {
+      console.log('Patient profile deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete patient profile', response.data);
       return false;
     }
-  } else {
-    console.error('Patient ID is missing or invalid');
+  } catch (error) {
+    console.error('Error deleting patient profile:', error);
     return false;
   }
 };
 
-// Admin affliction API calls
+// Function to fetch afflictions as admin
 export const fetchAfflictions = async () => {
   try {
     const response = await axios.get('/admin/afflictions');
@@ -188,6 +262,7 @@ export const fetchAfflictions = async () => {
   }
 };
 
+// Function to fetch an affliction as admin
 export const fetchAffliction = async (id: number) => {
   try {
     const response = await axios.get(`/admin/afflictions/${id}`);
@@ -203,24 +278,7 @@ export const fetchAffliction = async (id: number) => {
   }
 };
 
-// Admin deleting an affliction
-export const handleAfflictionDelete = async (id: number) => {
-  try {
-    const response = await axios.delete(`/admin/afflictions/${id}`);
-    if (response.status === 200) {
-      console.log('Affliction deleted successfully');
-      return true;
-    } else {
-      console.error('Failed to delete affliction', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error deleting affliction:', error);
-    return false;
-  }
-};
-
-// Admin creating an affliction
+// Function to handle affliction creation as admin
 export const handleAfflictionCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/afflictions', formData, {
@@ -241,9 +299,27 @@ export const handleAfflictionCreation = async (formData: FormData) => {
   }
 };
 
-export const handleAfflictionUpdates = async (
-  formData: FormData,
-  id: number
+// Function to handle affliction deletion as admin
+export const handleAfflictionDelete = async (id: number) => {
+  try {
+    const response = await axios.delete(`/admin/afflictions/${id}`);
+    if (response.status === 200) {
+      console.log('Affliction deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete affliction', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error deleting affliction:', error);
+    return false;
+  }
+};
+
+// Function to handle affliction update as admin
+export const handleAfflictionUpdate = async (
+  id: number,
+  formData: FormData
 ) => {
   try {
     const response = await axios.put(`/admin/afflictions/${id}`, formData, {
@@ -264,63 +340,7 @@ export const handleAfflictionUpdates = async (
   }
 };
 
-// Admin body region API calls
-
-// Admin fetching body regions
-export const fetchBodyRegions = async () => {
-  try {
-    const response = await axios.get('/admin/bodyRegions');
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch body regions', response.data);
-      return null;
-    }
-  } catch (error) {
-    console.error('Error fetching body regions:', error);
-    return null;
-  }
-};
-
-// Admin creating a body region
-export const handleRegionCreation = async (formData: FormData) => {
-  try {
-    const response = await axios.post('/admin/bodyRegions', formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status === 201) {
-      console.log('Region created successfully');
-      return true;
-    } else {
-      console.error('Failed to create region', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error creating region:', error);
-    return false;
-  }
-};
-
-// Admin deleting a body region
-export const handleRegionDelete = async (id: number) => {
-  try {
-    const response = await axios.delete(`/admin/bodyRegions/${id}`);
-    if (response.status === 200) {
-      console.log('Region deleted successfully');
-      return true;
-    } else {
-      console.error('Failed to delete region', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error deleting region:', error);
-    return false;
-  }
-};
-
-// Admin medic API calls
+// Function to fetch medics as admin
 export const fetchMedics = async () => {
   try {
     const response = await axios.get('/admin/medics');
@@ -336,44 +356,23 @@ export const fetchMedics = async () => {
   }
 };
 
-export const handleMedicUpdates = async (formData: FormData, id: number) => {
+// Function to fetch a medic as admin
+export const fetchMedic = async (id: number) => {
   try {
-    const response = await axios.put(`/admin/medics/${id}`, formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await axios.get(`/admin/medics/${id}`);
     if (response.status === 200) {
-      console.log('Medic profile updated successfully');
-      return true;
+      return response.data;
     } else {
-      console.error('Failed to update medic profile', response.data);
-      return false;
+      console.error('Failed to fetch medic', response.data);
+      return null;
     }
   } catch (error) {
-    console.error('Error updating medic profile:', error);
-    return false;
+    console.error('Error fetching medic:', error);
+    return null;
   }
 };
 
-// Admin deleting a medic
-export const handleMedicDelete = async (id: number) => {
-  try {
-    const response = await axios.delete(`/admin/medics/${id}`);
-    if (response.status === 200) {
-      console.log('Medic profile deleted successfully');
-      return true;
-    } else {
-      console.error('Failed to delete medic profile', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error deleting medic profile:', error);
-    return false;
-  }
-};
-
-// Admin creating a medic
+// Function to handle medic creation as admin
 export const handleMedicCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/medics', formData, {
@@ -394,22 +393,99 @@ export const handleMedicCreation = async (formData: FormData) => {
   }
 };
 
-export const fetchMedic = async (id: number) => {
+// Function to handle medic update as admin
+export const handleMedicUpdate = async (formData: FormData, id: number) => {
   try {
-    const response = await axios.get(`/admin/medics/${id}`);
+    const response = await axios.put(`/admin/medics/${id}`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Medic profile updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update medic profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating medic profile:', error);
+    return false;
+  }
+};
+
+// Function to handle medic deletion as admin
+export const handleMedicDelete = async (id: number) => {
+  try {
+    const response = await axios.delete(`/admin/medics/${id}`);
+    if (response.status === 200) {
+      console.log('Medic profile deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete medic profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error deleting medic profile:', error);
+    return false;
+  }
+};
+
+// Function to fetch body regions as admin
+export const fetchBodyRegions = async () => {
+  try {
+    const response = await axios.get('/admin/bodyRegions');
     if (response.status === 200) {
       return response.data;
     } else {
-      console.error('Failed to fetch medic', response.data);
+      console.error('Failed to fetch body regions', response.data);
       return null;
     }
   } catch (error) {
-    console.error('Error fetching medic:', error);
+    console.error('Error fetching body regions:', error);
     return null;
   }
 };
 
-// Admin insurance organism API calls
+// Function to handle body region creation as admin
+export const handleBodyRegionCreation = async (formData: FormData) => {
+  try {
+    const response = await axios.post('/admin/bodyRegions', formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 201) {
+      console.log('Region created successfully');
+      return true;
+    } else {
+      console.error('Failed to create region', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error creating region:', error);
+    return false;
+  }
+};
+
+// Function to handle body region deletion as admin
+export const handleRegionDelete = async (id: number) => {
+  try {
+    const response = await axios.delete(`/admin/bodyRegions/${id}`);
+    if (response.status === 200) {
+      console.log('Region deleted successfully');
+      return true;
+    } else {
+      console.error('Failed to delete region', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error deleting region:', error);
+    return false;
+  }
+};
+
+// Function to fetch insurance organisms as admin
 export const fetchInsuranceOrganisms = async () => {
   try {
     const response = await axios.get('/admin/insuranceOrganisms');
@@ -425,24 +501,23 @@ export const fetchInsuranceOrganisms = async () => {
   }
 };
 
-// Admin deleting an insurance organism
-export const handleInsuranceOrganismDelete = async (id: number) => {
+// Function to fetch an insurance organism as admin
+export const fetchInsuranceOrganism = async (id: number) => {
   try {
-    const response = await axios.delete(`/admin/insuranceOrganisms/${id}`);
+    const response = await axios.get(`/admin/insuranceOrganisms/${id}`);
     if (response.status === 200) {
-      console.log('Insurance organism deleted successfully');
-      return true;
+      return response.data;
     } else {
-      console.error('Failed to delete insurance organism', response.data);
-      return false;
+      console.error('Failed to fetch insurance organism', response.data);
+      return null;
     }
   } catch (error) {
-    console.error('Error deleting insurance organism:', error);
-    return false;
+    console.error('Error fetching insurance organism:', error);
+    return null;
   }
 };
 
-// Admin creating an insurance organism
+// Function to handle insurance organism creation as admin
 export const handleInsuranceOrganismCreation = async (formData: FormData) => {
   try {
     const response = await axios.post('/admin/insuranceOrganisms', formData, {
@@ -463,21 +538,24 @@ export const handleInsuranceOrganismCreation = async (formData: FormData) => {
   }
 };
 
-export const fetchInsuranceOrganism = async (id: number) => {
+// Function to handle insurance organism deletion as admin
+export const handleInsuranceOrganismDelete = async (id: number) => {
   try {
-    const response = await axios.get(`/admin/insuranceOrganisms/${id}`);
+    const response = await axios.delete(`/admin/insuranceOrganisms/${id}`);
     if (response.status === 200) {
-      return response.data;
+      console.log('Insurance organism deleted successfully');
+      return true;
     } else {
-      console.error('Failed to fetch insurance organism', response.data);
-      return null;
+      console.error('Failed to delete insurance organism', response.data);
+      return false;
     }
   } catch (error) {
-    console.error('Error fetching insurance organism:', error);
-    return null;
+    console.error('Error deleting insurance organism:', error);
+    return false;
   }
 };
 
+// Function to handle insurance organism update as admin
 export const handleInsuranceOrganismUpdate = async (
   formData: FormData,
   id: number
@@ -505,29 +583,267 @@ export const handleInsuranceOrganismUpdate = async (
   }
 };
 
-export const handlePatientConnection = async (
-  email: string,
-  password: string
-) => {
+// Function to fetch patient appointments as patient
+export const fetchPatientAppointments = async () => {
   try {
-    const response = await axios.post('/public/loginPatient', {
-      email,
-      password,
-    });
+    const response = await axios.get(`/patient/me/appointments`);
     if (response.status === 200) {
-      setPatientTokenAndDataInLocalStorage(
-        response.data.token,
-        response.data.fullName,
-        response.data.picture_url,
-        response.data.id
-      );
-      return response.data.token;
+      return response.data;
     } else {
-      console.error('Failed to connect patient', response.data);
+      console.error('Failed to fetch patient appointments', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching patient appointments:', error);
+    return [];
+  }
+};
+
+// Function to handle new prescription creation as patient
+export const handleNewPrescriptionCreation = async (formData: FormData) => {
+  try {
+    const response = await axios.post(`/patient/me/prescriptions`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    if (response.status === 201) {
+      console.log('Prescription created successfully');
+      return true;
+    } else {
+      console.error('Failed to create prescription', response.data);
       return false;
     }
   } catch (error) {
-    console.error('Error connecting patient:', error);
+    console.error('Error creating prescription:', error);
+    return false;
+  }
+};
+
+// Function to fetch patient prescriptions as patient
+export const fetchPatientPrescriptions = async () => {
+  try {
+    const response = await axios.get(`/patient/me/prescriptions`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient prescriptions', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching patient prescriptions:', error);
+    return [];
+  }
+};
+
+// Functon to fetch patient appointments by prescription as patient
+export const fetchPatientAppointmentsByPrescription = async (
+  prescription_id: number
+) => {
+  try {
+    const response = await axios.get(
+      `/patient/me/prescriptions/${prescription_id}/appointments`
+    );
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error(
+        'Failed to fetch appointments by prescription',
+        response.data
+      );
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching appointments by prescription:', error);
+    return [];
+  }
+};
+
+// Function to fetch patient messages as patient
+export const fetchPatientMessages = async () => {
+  try {
+    const response = await axios.get(`/patient/me/messages`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient messages', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching patient messages:', error);
+    return [];
+  }
+};
+
+// Function to handle patient message creation
+export const handlePatientMessageCreation = async (formData: FormData) => {
+  try {
+    const response = await axios.post(`/patient/me/messages`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 201) {
+      console.log('Message created successfully');
+      return true;
+    } else {
+      console.error('Failed to create message', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error creating message:', error);
+    return false;
+  }
+};
+
+// Function to fetch patient therapist as patient
+export const fetchPatientTherapist = async () => {
+  try {
+    const response = await axios.get(`/patient/me/therapist`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient data', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching patient data:', error);
+    return null;
+  }
+};
+
+// Function to fetch patient data as patient
+export const fetchPatientData = async () => {
+  try {
+    const response = await axios.get(`/patient/me`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient data', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching patient data:', error);
+    return null;
+  }
+};
+
+// Function to fetch patient insurances as patient
+export const fetchInsurancesAsPatient = async () => {
+  try {
+    const response = await axios.get(`/patient/me/insurances`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch insurances', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching insurances:', error);
+    return [];
+  }
+};
+
+// Function to check patient credentials
+export const checkPatientCredentials = async (password: string) => {
+  try {
+    const response = await axios.post(`/patient/me/checkCredentials`, {
+      password,
+    });
+    if (response.status === 200) {
+      return true;
+    } else {
+      console.error('Failed to check patient credentials', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error checking patient credentials:', error);
+    return false;
+  }
+};
+
+// Function to handle patient insurance creation as patient
+export const handlePatientInsuranceAdd = async (formData: FormData) => {
+  try {
+    const response = await axios.post(`/patient/me/insurance`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Insurance added successfully');
+      return true;
+    } else {
+      console.error('Failed to add insurance', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error adding insurance:', error);
+    return false;
+  }
+};
+
+// Function to handle patient update as patient
+export const handlePatientUpdate = async (formData: FormData) => {
+  try {
+    const response = await axios.patch(`/patient/me`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Patient profile updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update patient profile', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating patient profile:', error);
+    return false;
+  }
+};
+
+// Function to handle patient insurance update as patient
+export const handlePatientInsuranceUpdate = async (formData: FormData) => {
+  try {
+    const response = await axios.patch(`/patient/me/insurance`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Insurance updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update insurance', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating insurance:', error);
+    return false;
+  }
+};
+
+// Function to handle patient photo update as patient
+export const handlePatientPhotoUpdate = async (formData: FormData) => {
+  try {
+    const response = await axios.post(`/patient/me/uploadPhoto`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 200) {
+      console.log('Photo updated successfully');
+      return response.data.picture_url;
+    } else {
+      console.error('Failed to update photo', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating photo:', error);
     return false;
   }
 };
@@ -555,316 +871,6 @@ export const handleTherapistConnection = async (
     }
   } catch (error) {
     console.error('Error connecting therapist:', error);
-    return false;
-  }
-};
-
-// Patient API calls
-export const fetchPatientAppointments = async (id: number) => {
-  try {
-    const response = await axios.get(`/patient/${id}/appointments`);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch patient appointments', response.data);
-      return [];
-    }
-  } catch (error) {
-    console.error('Error fetching patient appointments:', error);
-    return [];
-  }
-};
-
-export const handleAdminLogin = async (email: string, password: string) => {
-  try {
-    const response = await axios.post('/admin/login', {
-      email,
-      password,
-    });
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to connect admin', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error connecting admin:', error);
-    return false;
-  }
-};
-
-export const handleTherapistCreation = async (formData: FormData) => {
-  try {
-    const response = await axios.post('/admin/therapists', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    if (response.status === 201) {
-      console.log('Therapist created successfully');
-      return true;
-    } else {
-      console.error('Failed to create therapist', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error creating therapist:', error);
-    return false;
-  }
-};
-
-export const handleNewPrescriptionCreation = async (
-  id: number,
-  formData: FormData
-) => {
-  try {
-    const response = await axios.post(
-      `/patient/${id}/prescriptions`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-
-    if (response.status === 201) {
-      console.log('Prescription created successfully');
-      return true;
-    } else {
-      console.error('Failed to create prescription', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error creating prescription:', error);
-    return false;
-  }
-};
-
-export const fetchPatientPrescriptions = async (id: number) => {
-  try {
-    const response = await axios.get(`/patient/${id}/prescriptions`);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch patient prescriptions', response.data);
-      return [];
-    }
-  } catch (error) {
-    console.error('Error fetching patient prescriptions:', error);
-    return [];
-  }
-};
-
-export const fetchPatientAppointmentsByPrescription = async (
-  prescription_id: number,
-  patient_id: number
-) => {
-  try {
-    const response = await axios.get(
-      `/patient/${patient_id}/prescriptions/${prescription_id}/appointments`
-    );
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error(
-        'Failed to fetch appointments by prescription',
-        response.data
-      );
-      return [];
-    }
-  } catch (error) {
-    console.error('Error fetching appointments by prescription:', error);
-    return [];
-  }
-};
-
-export const fetchPatientMessages = async (id: number) => {
-  try {
-    const response = await axios.get(`/patient/${id}/messages`);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch patient messages', response.data);
-      return [];
-    }
-  } catch (error) {
-    console.error('Error fetching patient messages:', error);
-    return [];
-  }
-};
-
-export const handlePatientMessageCreation = async (
-  id: number,
-  formData: FormData
-) => {
-  try {
-    const response = await axios.post(`/patient/${id}/messages`, formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.status === 201) {
-      console.log('Message created successfully');
-      return true;
-    } else {
-      console.error('Failed to create message', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error creating message:', error);
-    return false;
-  }
-};
-
-export const fetchPatientTherapist = async (id: number) => {
-  try {
-    const response = await axios.get(`/patient/${id}/therapist`);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch patient data', response.data);
-      return null;
-    }
-  } catch (error) {
-    console.error('Error fetching patient data:', error);
-    return null;
-  }
-};
-
-export const fetchPatientData = async (id: number) => {
-  try {
-    const response = await axios.get(`/patient/${id}`);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch patient data', response.data);
-      return null;
-    }
-  } catch (error) {
-    console.error('Error fetching patient data:', error);
-    return null;
-  }
-};
-
-export const fetchInsurancesAsPatient = async (id: number) => {
-  try {
-    const response = await axios.get(`/patient/${id}/insurances`);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to fetch insurances', response.data);
-      return [];
-    }
-  } catch (error) {
-    console.error('Error fetching insurances:', error);
-    return [];
-  }
-};
-
-export const checkPatientCredentials = async (id: number, password: string) => {
-  try {
-    const response = await axios.post(`/patient/${id}/checkCredentials`, {
-      password,
-    });
-    if (response.status === 200) {
-      return true;
-    } else {
-      console.error('Failed to check patient credentials', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error checking patient credentials:', error);
-    return false;
-  }
-};
-
-export const handlePatientInsuranceAdd = async (
-  id: number,
-  formData: FormData
-) => {
-  try {
-    const response = await axios.post(`/patient/${id}/insurance`, formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status === 200) {
-      console.log('Insurance added successfully');
-      return true;
-    } else {
-      console.error('Failed to add insurance', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error adding insurance:', error);
-    return false;
-  }
-};
-
-export const handlePatientUpdate = async (formData: FormData, id: number) => {
-  try {
-    const response = await axios.patch(`/patient/${id}`, formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status === 200) {
-      console.log('Patient profile updated successfully');
-      return true;
-    } else {
-      console.error('Failed to update patient profile', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error updating patient profile:', error);
-    return false;
-  }
-};
-
-export const handlePatientInsuranceUpdate = async (
-  id: number,
-  formData: FormData
-) => {
-  try {
-    const response = await axios.patch(`/patient/${id}/insurance`, formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status === 200) {
-      console.log('Insurance updated successfully');
-      return true;
-    } else {
-      console.error('Failed to update insurance', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error updating insurance:', error);
-    return false;
-  }
-};
-
-export const handlePatientPhotoUpdate = async (
-  id: number,
-  formData: FormData
-) => {
-  try {
-    const response = await axios.post(`/patient/${id}/uploadPhoto`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    if (response.status === 200) {
-      console.log('Photo updated successfully');
-      return response.data.picture_url;
-    } else {
-      console.error('Failed to update photo', response.data);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error updating photo:', error);
     return false;
   }
 };

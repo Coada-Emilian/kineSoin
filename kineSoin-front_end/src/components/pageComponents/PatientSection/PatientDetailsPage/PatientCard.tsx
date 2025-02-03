@@ -28,13 +28,11 @@ export default function PatientCard({ patientId }: PatientCardProps) {
   // Fetch patient data on component mount via patientId
   useEffect(() => {
     const fetchData = async () => {
-      if (patientId !== undefined) {
-        const response = await fetchPatientData(patientId);
-        if (response) {
-          setPatientData(response);
-        } else {
-          console.error('Error fetching patient data');
-        }
+      const response = await fetchPatientData();
+      if (response) {
+        setPatientData(response);
+      } else {
+        console.error('Error fetching patient data');
       }
     };
     fetchData();
@@ -135,14 +133,10 @@ export default function PatientCard({ patientId }: PatientCardProps) {
         newInsurance.contract_number
       );
       newInsuranceFormData.append('adherent_code', newInsurance.adherent_code);
-      if (patientId) {
-        const response = await handlePatientInsuranceUpdate(
-          patientId,
-          newInsuranceFormData
-        );
-        if (response) {
-          console.log('Insurance updated successfully');
-        }
+
+      const response = await handlePatientInsuranceUpdate(newInsuranceFormData);
+      if (response) {
+        console.log('Insurance updated successfully');
       }
     }
 
@@ -150,15 +144,10 @@ export default function PatientCard({ patientId }: PatientCardProps) {
       const newPhotoFormData = new FormData();
       newPhotoFormData.append('photo', newPhoto);
 
-      if (patientId) {
-        const response = await handlePatientPhotoUpdate(
-          patientId,
-          newPhotoFormData
-        );
-        if (response) {
-          updatePatientDataInLocalStorage(response, '');
-          console.log('Photo updated successfully');
-        }
+      const response = await handlePatientPhotoUpdate(newPhotoFormData);
+      if (response) {
+        updatePatientDataInLocalStorage(response, '');
+        console.log('Photo updated successfully');
       }
     }
 
@@ -201,8 +190,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
       newFormData.append('birth_date', newBirthDate);
     }
 
-    if (patientId && [...newFormData.entries()].length > 0) {
-      const response = await handlePatientUpdate(newFormData, patientId);
+    if ([...newFormData.entries()].length > 0) {
+      const response = await handlePatientUpdate(newFormData);
       if (response) {
         if (newName && newSurname) {
           updatePatientDataInLocalStorage('', `${newName} ${newSurname}`);

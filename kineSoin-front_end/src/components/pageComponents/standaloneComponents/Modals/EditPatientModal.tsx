@@ -123,10 +123,8 @@ export default function EditPatientModal({
 
   useEffect(() => {
     const fetchInsurances = async () => {
-      if (patientId) {
-        const insurancesData = await fetchInsurancesAsPatient(patientId);
-        setInsurances(insurancesData);
-      }
+      const insurancesData = await fetchInsurancesAsPatient();
+      setInsurances(insurancesData);
     };
     fetchInsurances();
   }, []);
@@ -345,38 +343,36 @@ export default function EditPatientModal({
     if (oldPassword.length === 0) {
       setErrorMessage('Veuillez entrer votre ancien mot de passe');
     } else {
-      if (patientId) {
-        const response = await checkPatientCredentials(patientId, oldPassword);
-        if (!response) {
-          setErrorMessage("L'ancien mot de passe est incorrect");
+      const response = await checkPatientCredentials(oldPassword);
+      if (!response) {
+        setErrorMessage("L'ancien mot de passe est incorrect");
+      } else {
+        setErrorMessage('');
+        const newPassword = formData.get('new_password') as string;
+        const repeatPassword = formData.get('repeat_password') as string;
+        if (newPassword.length === 0) {
+          setErrorMessage('Veuillez entrer votre nouveau mot de passe');
+        } else if (newPassword.length < 12) {
+          setErrorMessage(
+            'Le mot de passe doit contenir au moins 12 caractères'
+          );
+        } else if (newPassword !== repeatPassword) {
+          setErrorMessage('Les mots de passe ne correspondent pas');
+        } else if (newPassword === oldPassword) {
+          setErrorMessage(
+            "Le nouveau mot de passe doit être différent de l'ancien"
+          );
+        } else if (
+          newPassword.match(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/
+          ) === null
+        ) {
+          setErrorMessage(
+            'Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial'
+          );
         } else {
-          setErrorMessage('');
-          const newPassword = formData.get('new_password') as string;
-          const repeatPassword = formData.get('repeat_password') as string;
-          if (newPassword.length === 0) {
-            setErrorMessage('Veuillez entrer votre nouveau mot de passe');
-          } else if (newPassword.length < 12) {
-            setErrorMessage(
-              'Le mot de passe doit contenir au moins 12 caractères'
-            );
-          } else if (newPassword !== repeatPassword) {
-            setErrorMessage('Les mots de passe ne correspondent pas');
-          } else if (newPassword === oldPassword) {
-            setErrorMessage(
-              "Le nouveau mot de passe doit être différent de l'ancien"
-            );
-          } else if (
-            newPassword.match(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/
-            ) === null
-          ) {
-            setErrorMessage(
-              'Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial'
-            );
-          } else {
-            setNewPassword && setNewPassword(newPassword);
-            setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
-          }
+          setNewPassword && setNewPassword(newPassword);
+          setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
         }
       }
     }
@@ -430,16 +426,12 @@ export default function EditPatientModal({
       setErrorMessage('Le code adhérent doit contenir moins de 12 caractères');
     }
 
-    if (patientId) {
-      const response = await handlePatientInsuranceAdd(patientId, formData);
-      if (response) {
-        setIsInsuranceAdded && setIsInsuranceAdded(true);
-        setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
-      } else {
-        setErrorMessage('Une erreur est survenue');
-      }
+    const response = await handlePatientInsuranceAdd(formData);
+    if (response) {
+      setIsInsuranceAdded && setIsInsuranceAdded(true);
+      setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
     } else {
-      setErrorMessage('Patient ID is required');
+      setErrorMessage('Une erreur est survenue');
     }
   };
 

@@ -6,9 +6,9 @@ import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx
 import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import {
-  handleAfflictionUpdates,
+  handleAfflictionUpdate,
   handleInsuranceOrganismUpdate,
-  handleMedicUpdates,
+  handleMedicUpdate,
   handlePatientStatusChange,
   handleTherapistUpdate,
 } from '../../../../utils/apiUtils.ts';
@@ -115,7 +115,7 @@ export default function AdminProfileDetails({
     // Append the description to the form data
     if (therapist && therapist.id) {
       try {
-        const response = await handleTherapistUpdate(formData, therapist.id);
+        const response = await handleTherapistUpdate(therapist.id, formData);
         if (response) {
           setIsProfileEditing(false);
           window.location.reload();
@@ -131,9 +131,7 @@ export default function AdminProfileDetails({
   };
 
   // Function to handle affliction updates
-  const handleAfflictionUpdate = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const updateAffliction = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -147,7 +145,7 @@ export default function AdminProfileDetails({
 
     if (affliction && affliction.id) {
       try {
-        const response = await handleAfflictionUpdates(formData, affliction.id);
+        const response = await handleAfflictionUpdate(affliction.id, formData);
         if (response) {
           setIsProfileEditing(false);
           window.location.reload();
@@ -163,13 +161,13 @@ export default function AdminProfileDetails({
   };
 
   // Function to handle medic updates
-  const handleMedicUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+  const updateMedic = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     if (medic && medic.id) {
       try {
-        const response = await handleMedicUpdates(formData, medic.id);
+        const response = await handleMedicUpdate(formData, medic.id);
         if (response) {
           setIsProfileEditing(false);
           window.location.reload();
@@ -217,9 +215,9 @@ export default function AdminProfileDetails({
           therapist
             ? handleTherapistSubmit
             : affliction
-              ? handleAfflictionUpdate
+              ? updateAffliction
               : medic
-                ? handleMedicUpdate
+                ? updateMedic
                 : insurance
                   ? handleInsuranceUpdate
                   : undefined

@@ -30,7 +30,6 @@ interface StandardChoiceDropdownProps {
   isPatientInsuranceDropdownInput?: boolean;
   oldPatientInsuranceName?: string;
   insuranceList?: IInsurance[];
-
 }
 
 export default function StandardChoiceDropdown({
@@ -53,16 +52,10 @@ export default function StandardChoiceDropdown({
   isPatientInsuranceDropdownInput,
   oldPatientInsuranceName,
   insuranceList,
-
 }: StandardChoiceDropdownProps) {
-  const fetchAppointmentsByPrescription = async (
-    prescriptionId: number,
-    patientId: number
-  ) => {
-    const response = await fetchPatientAppointmentsByPrescription(
-      prescriptionId,
-      patientId
-    );
+  const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
+    const response =
+      await fetchPatientAppointmentsByPrescription(prescriptionId);
     if (response) {
       setFutureAppointments &&
         setFutureAppointments(response.futureAppointments);
@@ -93,7 +86,6 @@ export default function StandardChoiceDropdown({
       setOtherInsurances(otherInsurances);
     }
   };
-
 
   useEffect(() => {
     if (insuranceList && oldPatientInsuranceName) {
@@ -161,10 +153,7 @@ export default function StandardChoiceDropdown({
           if (isPrescriptionDropdownInput) {
             const selectedPrescriptionId = Number(e.target.value);
             if (selectedPrescriptionId && patientId) {
-              fetchAppointmentsByPrescription(
-                selectedPrescriptionId,
-                patientId
-              );
+              fetchAppointmentsByPrescription(selectedPrescriptionId);
             }
           }
         }}

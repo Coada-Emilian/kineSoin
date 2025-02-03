@@ -73,7 +73,7 @@ export default function PatientNewPrescriptionForm({
     formData.append('scan', prescriptionScan as File);
 
     if (patientId !== undefined) {
-      const response = await handleNewPrescriptionCreation(patientId, formData);
+      const response = await handleNewPrescriptionCreation(formData);
       if (response) {
         navigate('/patient/dashboard');
       }

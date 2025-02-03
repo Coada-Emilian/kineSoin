@@ -38,7 +38,7 @@ therapistRouter.post(
 // therapistRouter.get(
 //   '/me/pendingPatients',
 //   wrapper(patientController.getPendingPatients)
-// );
+// );.
 
 therapistRouter.get(
   '/me/allMyPatients',

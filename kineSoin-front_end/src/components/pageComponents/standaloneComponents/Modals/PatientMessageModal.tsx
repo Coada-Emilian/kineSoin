@@ -20,14 +20,13 @@ export default function PatientMessageModal({
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    if (patientId !== undefined) {
-      const response = await handlePatientMessageCreation(patientId, formData);
-      if (response) {
-        navigate('/patient/messages');
-        setIsMessageModalOpen(false);
-      } else {
-        console.log("Erreur lors de l'envoi du message");
-      }
+
+    const response = await handlePatientMessageCreation(formData);
+    if (response) {
+      navigate('/patient/messages');
+      setIsMessageModalOpen(false);
+    } else {
+      console.log("Erreur lors de l'envoi du message");
     }
   };
 

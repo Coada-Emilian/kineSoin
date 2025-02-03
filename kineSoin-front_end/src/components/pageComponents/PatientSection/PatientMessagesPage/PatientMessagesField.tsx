@@ -19,11 +19,9 @@ export default function PatientMessagesField({
 
   useEffect(() => {
     const fetchMessages = async () => {
-      if (patientId !== undefined) {
-        const response = await fetchPatientMessages(patientId);
-        setReceivedPatientMessages(response.receivedMessages);
-        setSentPatientMessages(response.sentMessages);
-      }
+      const response = await fetchPatientMessages();
+      setReceivedPatientMessages(response.receivedMessages);
+      setSentPatientMessages(response.sentMessages);
     };
     fetchMessages();
   }, [patientId]);

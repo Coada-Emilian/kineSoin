@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import StandardPasswordInput from '../StandardInputs/StandardPasswordInput';
 import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 import {
-  handlePatientConnection,
+  handlePatientLogin,
+  handlePatientRegistration,
   handleTherapistConnection,
 } from '../../../../utils/apiUtils';
 import StandardTextInput from '../StandardInputs/StandardTextInput';
@@ -13,7 +14,6 @@ import StandardDateInput from '../StandardInputs/StandardDateInput';
 import StandardDropdownInput from '../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
 import StandardFileInput from '../StandardInputs/StandardFileInput';
-import axios from '../../../../axios.ts';
 import { useNavigate } from 'react-router-dom';
 
 interface FormSectionProps {
@@ -94,7 +94,7 @@ export default function FormSection({
     }
 
     // Call the handlePatientConnection function from the apiUtils file
-    const response = await handlePatientConnection(
+    const response = await handlePatientLogin(
       patientLoginEmail,
       patientLoginPassword
     );
@@ -308,14 +308,12 @@ export default function FormSection({
     const registerPatient = async () => {
       if (isThirdFormValidated) {
         try {
-          const response = await axios.post(
-            '/public/registerPatient',
-            sentPatientData,
-            {
-              headers: { 'Content-Type': 'multipart/form-data' },
-            }
-          );
-          if (response.status === 201) {
+          const formData = new FormData();
+          Object.entries(sentPatientData).forEach(([key, value]) => {
+            formData.append(key, value as string | Blob);
+          });
+          const response = await handlePatientRegistration(formData);
+          if (response) {
             console.log('Patient registered');
             setIsGlobalFormSubmitted(true);
           }

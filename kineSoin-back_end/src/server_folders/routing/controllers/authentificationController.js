@@ -289,7 +289,9 @@ const authentificationController = {
   },
 
   checkPatientPassword: async (req, res) => {
-    const { patient_id } = req.params;
+    const { patient_id } = parseInt(req.patient_id, 10);
+
+    checkIsIdNumber(patient_id);
 
     const foundPatient = await Patient.findByPk(patient_id);
 

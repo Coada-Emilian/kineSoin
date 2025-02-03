@@ -7,7 +7,7 @@ import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 
 const insuranceController = {
   getInsurancesAsPatient: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -90,7 +90,7 @@ const insuranceController = {
 
   // Update the insurance information for a patient
   updateInsurance: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -147,7 +147,7 @@ const insuranceController = {
 
   // Add insurance information for a patient
   addInsurance: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 

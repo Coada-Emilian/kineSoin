@@ -109,8 +109,8 @@ const patientController = {
   },
 
   // Get the patient's profile data
-  getConnectedPatient: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+  getConnectedPatientData: async (req, res) => {
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -221,7 +221,7 @@ const patientController = {
 
   // Update the patient's profile
   updateConnectedPatient: async (req, res) => {
-    const patientId = parseInt(req.params.patient_id, 10);
+    const patientId = parseInt(req.patient_id, 10);
 
     checkIsIdNumber(patientId);
 
@@ -328,7 +328,7 @@ const patientController = {
         message: 'No file detected. Please upload a file to continue.',
       });
     }
-    
+
     const { path, filename } = req.file;
 
     const foundPatient = await Patient.findByPk(patientId);
@@ -551,7 +551,7 @@ const patientController = {
   },
 
   // Update the patient's status
-  updatePatientStatus: async (req, res) => {
+  togglePatientStatus: async (req, res) => {
     const patientId = parseInt(req.params.patient_id, 10);
 
     checkIsIdNumber(patientId);

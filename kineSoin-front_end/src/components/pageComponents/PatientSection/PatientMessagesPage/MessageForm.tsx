@@ -12,13 +12,11 @@ export default function MessageForm({ patientId }: MessageFormProps) {
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    if (patientId !== undefined) {
-      const response = await handlePatientMessageCreation(patientId, formData);
-      if (response) {
-        window.location.reload();
-      } else {
-        console.log("Erreur lors de l'envoi du message");
-      }
+    const response = await handlePatientMessageCreation(formData);
+    if (response) {
+      window.location.reload();
+    } else {
+      console.log("Erreur lors de l'envoi du message");
     }
   };
   return (

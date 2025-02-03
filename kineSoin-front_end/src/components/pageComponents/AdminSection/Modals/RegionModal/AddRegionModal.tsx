@@ -2,7 +2,7 @@
 
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
-import { handleRegionCreation } from '../../../../../utils/apiUtils';
+import { handleBodyRegionCreation } from '../../../../../utils/apiUtils';
 import NameInput from '../Components/NameInput';
 
 interface AddRegionModalProps {
@@ -18,7 +18,7 @@ export default function AddRegionModal({
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
-    const response = await handleRegionCreation(formData);
+    const response = await handleBodyRegionCreation(formData);
     if (response) {
       setIsAddRegionModalOpen(false);
       window.location.reload();
