@@ -1,4 +1,59 @@
-// Purpose: Define the authentification controller, which contains the methods for registering and logging in patients and therapists.
+/**
+ * @description Defines the authentication controller, which contains the methods for registering and logging in patients, therapists, and admins.
+ *
+ * This module:
+ * - Imports necessary dependencies including environment variables, Joi for input validation, jsonwebtoken for generating tokens, and utility functions.
+ * - Imports the Patient, Therapist, and Admin models.
+ * - Imports the checkPatientStatus utility function.
+ *
+ * The authentication controller contains the following methods:
+ *
+ * - registerPatient:
+ *   - Validates the input data for registering a new patient using Joi.
+ *   - Checks if the request body is provided, and returns an error if not.
+ *   - Computes the age of the patient from the birth date and ensures the patient is at least 12 years old.
+ *   - Checks if the email is already registered, and returns an error if it is.
+ *   - Compares the password and repeated password, and returns an error if they don't match.
+ *   - Handles uploading the patient's photo if provided.
+ *   - Hashes the patient's password using Scrypt.
+ *   - Creates a new patient record in the database.
+ *   - Returns a success response with the patient's details if registration is successful, otherwise returns an error.
+ *
+ * - loginPatient:
+ *   - Validates the input data for logging in a patient using Joi.
+ *   - Checks if the request body is provided, and returns an error if not.
+ *   - Finds the patient by email in the database.
+ *   - Checks the patient's status using checkPatientStatus.
+ *   - Compares the provided password with the hashed password in the database.
+ *   - Generates a JSON Web Token (JWT) for the patient if login is successful.
+ *   - Returns a success response with the patient's details and token if login is successful, otherwise returns an error.
+ *
+ * - loginTherapist:
+ *   - Validates the input data for logging in a therapist using Joi.
+ *   - Checks if the request body is provided, and returns an error if not.
+ *   - Finds the therapist by email in the database.
+ *   - Checks if the therapist's account is inactive, and returns an error if it is.
+ *   - Compares the provided password with the hashed password in the database.
+ *   - Generates a JSON Web Token (JWT) for the therapist if login is successful.
+ *   - Returns a success response with the therapist's details and token if login is successful, otherwise returns an error.
+ *
+ * - loginAdmin:
+ *   - Validates the input data for logging in an admin using Joi.
+ *   - Finds the admin by email in the database.
+ *   - Compares the provided password with the hashed password in the database.
+ *   - Generates a JSON Web Token (JWT) for the admin if login is successful.
+ *   - Stores the admin's ID in the session.
+ *   - Returns a success response with the admin's details and token if login is successful, otherwise returns an error.
+ *
+ * - checkPatientPassword:
+ *   - Parses the patient ID from the request.
+ *   - Checks if the patient ID is a valid number.
+ *   - Finds the patient by ID in the database.
+ *   - Compares the provided password with the hashed password in the database.
+ *   - Returns a success response if the password is correct, otherwise returns an error.
+ *
+ * Ensure that the necessary dependencies and modules are installed and properly configured before using this controller.
+ */
 
 import 'dotenv/config';
 import Joi from 'joi';
@@ -9,7 +64,7 @@ import { Patient, Therapist, Admin } from '../../models/index.js';
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 
 const authentificationController = {
-  // Register a new patient
+  // Function to register a new patient
   registerPatient: async (req, res) => {
     const registerSchema = Joi.object({
       therapist_id: Joi.number().optional(),
@@ -123,7 +178,7 @@ const authentificationController = {
     }
   },
 
-  // Login therapist
+  // Function to login patient
   loginPatient: async (req, res) => {
     const loginSchema = Joi.object({
       email: Joi.string()
@@ -175,7 +230,7 @@ const authentificationController = {
     }
   },
 
-  // Login therapist
+  // Function to login therapist
   loginTherapist: async (req, res) => {
     const loginSchema = Joi.object({
       email: Joi.string()
@@ -237,7 +292,7 @@ const authentificationController = {
     }
   },
 
-  // Login admin
+  // Function to login admin
   loginAdmin: async (req, res) => {
     const loginSchema = Joi.object({
       email: Joi.string()
@@ -288,32 +343,42 @@ const authentificationController = {
     }
   },
 
+  // Function to check patient password
   checkPatientPassword: async (req, res) => {
     const { patient_id } = parseInt(req.patient_id, 10);
 
-    checkIsIdNumber(patient_id);
+    checkIsValidNumber(patient_id);
 
-    const foundPatient = await Patient.findByPk(patient_id);
-
-    if (!foundPatient) {
-      return res.status(404).json({
-        message:
-          'Patient not found. Please check the patient ID and try again.',
-      });
-    }
-
-    const { password } = req.body;
-
-    const isPasswordValid = Scrypt.compare(password, foundPatient.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({
-        message: 'Invalid password. Please try again.',
-      });
+    if (!patient_id) {
+      return res.status(400).json({ message: 'Patient not found' });
     } else {
-      return res.status(200).json({
-        message: 'Password is correct.',
-      });
+      try {
+        const foundPatient = await Patient.findByPk(patient_id);
+
+        if (!foundPatient) {
+          return res.status(404).json({
+            message:
+              'Patient not found. Please check the patient ID and try again.',
+          });
+        }
+
+        const { password } = req.body;
+
+        const isPasswordValid = Scrypt.compare(password, foundPatient.password);
+
+        if (!isPasswordValid) {
+          return res.status(401).json({
+            message: 'Invalid password. Please try again.',
+          });
+        } else {
+          return res.status(200).json({
+            message: 'Password is correct.',
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal server error' });
+      }
     }
   },
 };

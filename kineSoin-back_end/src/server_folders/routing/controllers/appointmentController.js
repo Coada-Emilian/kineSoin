@@ -1,7 +1,7 @@
 // Purpose: Define the appointment controller, which contains the methods for getting, accepting, and canceling appointments for patients.
 
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
-import { checkIsIdNumber } from '../../utils/checkIsIdNumber.js';
+import { checkIsValidNumber } from '../../utils/checkIsValidNumber.js';
 import {
   Patient,
   Appointment,
@@ -9,12 +9,185 @@ import {
 } from '../../models/associations.js';
 
 const appointmentController = {
+  // Function to get all appointments for a patient
+  getAllAppointments: async (req, res) => {
+    const patientId = parseInt(req.patient_id, 10);
+
+    checkIsValidNumber(patientId);
+
+    if (!patientId) {
+      return res.status(400).json({ message: 'Patient not found' });
+    } else {
+      try {
+        const foundAppointments = await Appointment.findAll({
+          where: { patient_id: patientId, is_canceled: false },
+          attributes: ['id', 'is_accepted', 'date', 'time'],
+          include: [
+            {
+              association: 'therapist',
+              attributes: ['name', 'surname', 'specialty'],
+            },
+            {
+              association: 'prescription',
+              attributes: [
+                'appointment_quantity',
+                'at_home_care',
+                'date',
+                'picture_url',
+              ],
+              include: [
+                {
+                  association: 'affliction',
+                  attributes: [
+                    'id',
+                    'name',
+                    'description',
+                    'is_operated',
+                    'insurance_code',
+                  ],
+                },
+                {
+                  association: 'medic',
+                  attributes: ['id', 'name', 'surname', 'licence_code'],
+                },
+              ],
+            },
+          ],
+        });
+
+        if (!foundAppointments.length) {
+          return res.status(200).json({
+            pastAppointments: [],
+            futureAppointments: [],
+          });
+        }
+
+        const currentDate = new Date();
+
+        const futureAppointments = foundAppointments
+          .filter((appointment) => {
+            const appointmentDateTime = new Date(
+              `${appointment.date}T${appointment.time}`
+            );
+            return appointmentDateTime > currentDate;
+          })
+          .sort((a, b) => {
+            const dateA = new Date(`${a.date}T${a.time}`);
+            const dateB = new Date(`${b.date}T${b.time}`);
+            return dateA - dateB; // Ascending order
+          });
+
+        const pastAppointments = foundAppointments
+          .filter((appointment) => {
+            const appointmentDateTime = new Date(
+              `${appointment.date}T${appointment.time}`
+            );
+            return appointmentDateTime < currentDate;
+          })
+          .sort((a, b) => {
+            const dateA = new Date(`${a.date}T${a.time}`);
+            const dateB = new Date(`${b.date}T${b.time}`);
+            return dateB - dateA; // Descending order
+          });
+
+        res.status(200).json({ futureAppointments, pastAppointments });
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
+
+  // Function to get all appointments for a prescription
+  getAllAppointmentsForPrescription: async (req, res) => {
+    const patientId = parseInt(req.patient_id, 10);
+    checkIsValidNumber(patientId);
+    if (!patientId) {
+      return res.status(400).json({ message: 'Patient not found' });
+    } else {
+      try {
+        const prescriptionId = parseInt(req.params.prescription_id, 10);
+
+        checkIsValidNumber(prescriptionId);
+
+        const currentDate = new Date();
+
+        const foundAppointments = await Appointment.findAll({
+          where: {
+            patient_id: patientId,
+            prescription_id: prescriptionId,
+            is_canceled: false,
+          },
+          attributes: ['id', 'is_accepted', 'date', 'time'],
+          include: [
+            {
+              association: 'therapist',
+              attributes: ['name', 'surname', 'specialty'],
+            },
+            {
+              association: 'prescription',
+              attributes: [
+                'appointment_quantity',
+                'at_home_care',
+                'date',
+                'picture_url',
+              ],
+              include: [
+                {
+                  association: 'affliction',
+                  attributes: [
+                    'id',
+                    'name',
+                    'description',
+                    'is_operated',
+                    'insurance_code',
+                  ],
+                },
+                {
+                  association: 'medic',
+                  attributes: ['id', 'name', 'surname', 'licence_code'],
+                },
+              ],
+            },
+          ],
+          order: [
+            ['date', 'ASC'],
+            ['time', 'ASC'],
+          ],
+        });
+
+        if (!foundAppointments.length) {
+          return res.status(200).json({ message: 'No appointments found' });
+        } else {
+          const futureAppointments = foundAppointments.filter((appointment) => {
+            const appointmentDateTime = new Date(
+              `${appointment.date}T${appointment.time}`
+            );
+            return appointmentDateTime > currentDate;
+          });
+
+          const pastAppointments = foundAppointments.filter((appointment) => {
+            const appointmentDateTime = new Date(
+              `${appointment.date}T${appointment.time}`
+            );
+            return appointmentDateTime < currentDate;
+          });
+
+          res.status(200).json({ futureAppointments, pastAppointments });
+        }
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
+
   // Get all proposed appointments for a patient
   getAllProposedAppointments: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
     const patientId = 1;
 
-    checkIsIdNumber(patientId);
+    checkIsValidNumber(patientId);
 
     const foundPatient = await Patient.findByPk(patientId, {
       attributes: ['id', 'name', 'surname', 'status'],
@@ -92,11 +265,11 @@ const appointmentController = {
 
     const patientId = 1;
 
-    checkIsIdNumber(patientId);
+    checkIsValidNumber(patientId);
 
     const appointmentId = parseInt(req.params.id, 10);
 
-    checkIsIdNumber(appointmentId);
+    checkIsValidNumber(appointmentId);
 
     const foundProposedAppointments = await Appointment.findAll({
       where: { patient_id: patientId, is_canceled: false, is_accepted: false },
@@ -151,11 +324,11 @@ const appointmentController = {
 
     const patientId = 1;
 
-    checkIsIdNumber(patientId);
+    checkIsValidNumber(patientId);
 
     const appointmentId = parseInt(req.params.id, 10);
 
-    checkIsIdNumber(appointmentId);
+    checkIsValidNumber(appointmentId);
 
     const foundProposedAppointments = await Appointment.findAll({
       where: { patient_id: patientId, is_canceled: false, is_accepted: false },
@@ -197,7 +370,7 @@ const appointmentController = {
 
       const prescriptionId = foundAppointment.prescription.id;
 
-      checkIsIdNumber(prescriptionId);
+      checkIsValidNumber(prescriptionId);
 
       const foundPrescription = await Prescription.findByPk(prescriptionId);
 
@@ -214,98 +387,18 @@ const appointmentController = {
       }
     }
   },
-
-  // Get all appointments for a patient
-  getAllAppointments: async (req, res) => {
-    const patientId = parseInt(req.patient_id, 10);
-
-    checkIsIdNumber(patientId);
-
-    const foundAppointments = await Appointment.findAll({
-      where: { patient_id: patientId, is_canceled: false },
-      attributes: ['id', 'is_accepted', 'date', 'time'],
-      include: [
-        {
-          association: 'therapist',
-          attributes: ['name', 'surname', 'specialty'],
-        },
-        {
-          association: 'prescription',
-          attributes: [
-            'appointment_quantity',
-            'at_home_care',
-            'date',
-            'picture_url',
-          ],
-          include: [
-            {
-              association: 'affliction',
-              attributes: [
-                'id',
-                'name',
-                'description',
-                'is_operated',
-                'insurance_code',
-              ],
-            },
-            {
-              association: 'medic',
-              attributes: ['id', 'name', 'surname', 'licence_code'],
-            },
-          ],
-        },
-      ],
-    });
-
-    if (!foundAppointments.length) {
-      return res.status(200).json({
-        pastAppointments: [],
-        futureAppointments: [],
-      });
-    }
-
-    const currentDate = new Date();
-
-    const futureAppointments = foundAppointments
-      .filter((appointment) => {
-        const appointmentDateTime = new Date(
-          `${appointment.date}T${appointment.time}`
-        );
-        return appointmentDateTime > currentDate;
-      })
-      .sort((a, b) => {
-        const dateA = new Date(`${a.date}T${a.time}`);
-        const dateB = new Date(`${b.date}T${b.time}`);
-        return dateA - dateB; // Ascending order
-      });
-
-    const pastAppointments = foundAppointments
-      .filter((appointment) => {
-        const appointmentDateTime = new Date(
-          `${appointment.date}T${appointment.time}`
-        );
-        return appointmentDateTime < currentDate;
-      })
-      .sort((a, b) => {
-        const dateA = new Date(`${a.date}T${a.time}`);
-        const dateB = new Date(`${b.date}T${b.time}`);
-        return dateB - dateA; // Descending order
-      });
-
-    res.status(200).json({ futureAppointments, pastAppointments });
-  },
-
+  
   // Get one appointment for a patient
   getOneAppointment: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
 
     const patientId = 1;
 
-    checkIsIdNumber(patientId);
+    checkIsValidNumber(patientId);
 
     const appointmentId = parseInt(req.params.id, 10);
 
-    checkIsIdNumber(appointmentId);
+    checkIsValidNumber(appointmentId);
 
     const foundAppointment = await Appointment.findOne({
       where: { patient_id: patientId, id: appointmentId, is_canceled: false },
@@ -352,11 +445,11 @@ const appointmentController = {
 
     const patientId = 1;
 
-    checkIsIdNumber(patientId);
+    checkIsValidNumber(patientId);
 
     const appointmentId = parseInt(req.params.id, 10);
 
-    checkIsIdNumber(appointmentId);
+    checkIsValidNumber(appointmentId);
 
     const foundAppointment = await Appointment.findOne({
       where: { patient_id: patientId, id: appointmentId, is_canceled: false },
@@ -394,7 +487,7 @@ const appointmentController = {
 
     const therapistId = 1;
 
-    checkIsIdNumber(therapistId);
+    checkIsValidNumber(therapistId);
 
     const newAppointmentSchema = Joi.object({
       date: Joi.date().required(),
@@ -405,9 +498,9 @@ const appointmentController = {
 
     const { date, time, patientId, prescriptionId } = req.body;
 
-    checkIsIdNumber(prescriptionId);
+    checkIsValidNumber(prescriptionId);
 
-    checkIsIdNumber(patientId);
+    checkIsValidNumber(patientId);
 
     const allAppointments = await Appointment.findAll();
 
@@ -449,7 +542,7 @@ const appointmentController = {
 
     const therapist_id = 1;
 
-    checkIsIdNumber(therapist_id);
+    checkIsValidNumber(therapist_id);
 
     const { day, month, year } = req.body;
 
@@ -490,80 +583,6 @@ const appointmentController = {
     }
 
     res.status(200).json({ foundAppointments });
-  },
-
-  getAllAppointmentsForPrescription: async (req, res) => {
-    const patientId = parseInt(req.patient_id, 10);
-    const prescriptionId = parseInt(req.params.prescription_id, 10);
-
-    checkIsIdNumber(patientId);
-    checkIsIdNumber(prescriptionId);
-
-    const currentDate = new Date();
-
-    const foundAppointments = await Appointment.findAll({
-      where: {
-        patient_id: patientId,
-        prescription_id: prescriptionId,
-        is_canceled: false,
-      },
-      attributes: ['id', 'is_accepted', 'date', 'time'],
-      include: [
-        {
-          association: 'therapist',
-          attributes: ['name', 'surname', 'specialty'],
-        },
-        {
-          association: 'prescription',
-          attributes: [
-            'appointment_quantity',
-            'at_home_care',
-            'date',
-            'picture_url',
-          ],
-          include: [
-            {
-              association: 'affliction',
-              attributes: [
-                'id',
-                'name',
-                'description',
-                'is_operated',
-                'insurance_code',
-              ],
-            },
-            {
-              association: 'medic',
-              attributes: ['id', 'name', 'surname', 'licence_code'],
-            },
-          ],
-        },
-      ],
-      order: [
-        ['date', 'ASC'],
-        ['time', 'ASC'],
-      ],
-    });
-
-    if (!foundAppointments.length) {
-      return res.status(200).json({ message: 'No appointments found' });
-    } else {
-      const futureAppointments = foundAppointments.filter((appointment) => {
-        const appointmentDateTime = new Date(
-          `${appointment.date}T${appointment.time}`
-        );
-        return appointmentDateTime > currentDate;
-      });
-
-      const pastAppointments = foundAppointments.filter((appointment) => {
-        const appointmentDateTime = new Date(
-          `${appointment.date}T${appointment.time}`
-        );
-        return appointmentDateTime < currentDate;
-      });
-
-      res.status(200).json({ futureAppointments, pastAppointments });
-    }
   },
 };
 
