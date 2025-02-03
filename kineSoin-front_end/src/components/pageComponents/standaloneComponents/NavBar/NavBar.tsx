@@ -8,7 +8,6 @@ import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/admin
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
 import LogoutIcon from '/icons/logout.png';
-import Button from '../../../standaloneComponents/Button/CustomButton';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useState } from 'react';
 import { removePatientTokenFromLocalStorage } from '../../../../localStorage/patientLocalStorage';

@@ -4,35 +4,41 @@ export const setAdminTokenAndDataInLocalStorage = (
   name: string,
   id: string
 ) => {
-  localStorage.setItem('token', token);
-  localStorage.setItem('name', name);
-  localStorage.setItem('id', id);
+  try {
+    localStorage.setItem('token', token);
+    localStorage.setItem('name', name);
+    localStorage.setItem('id', id);
+  } catch (error) {
+    console.error('Error setting items in localStorage:', error);
+  }
 };
 
 // Function that recuperates the token from localStorage
 export const getAdminTokenAndDataFromLocalStorage = () => {
-  const token = localStorage.getItem('token');
-  const name = localStorage.getItem('name');
-  const id = localStorage.getItem('id');
+  try {
+    const token = localStorage.getItem('token');
+    const name = localStorage.getItem('name');
+    const id = localStorage.getItem('id');
 
-  // If no token present send null
-  if (!token) {
-    return null;
-  }
+    // If no token present send null
+    if (!token) {
+      return null;
+    }
 
-  // Else send data
-  return { token, name, id };
-};
-
-export const updateTherapistDataInLocalStorage = (newName: string) => {
-  if (newName) {
-    localStorage.setItem('name', newName);
+    // Else send data
+    return { token, name, id };
+  } catch (error) {
+    console.error('Error getting items from localStorage:', error);
   }
 };
 
 // Function to delete token when disconnecting
 export const removeAdminTokenFromLocalStorage = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('name');
-  localStorage.removeItem('id');
+  try {
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('id');
+  } catch (error) {
+    console.error('Error removing items from localStorage:', error);
+  }
 };

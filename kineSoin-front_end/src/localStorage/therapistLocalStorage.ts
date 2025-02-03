@@ -5,44 +5,67 @@ export const setTherapistTokenAndDataInLocalStorage = (
   picture_url: string,
   id: string
 ) => {
-  localStorage.setItem('token', token);
-  localStorage.setItem('fullName', fullName);
-  localStorage.setItem('picture_url', picture_url);
-  localStorage.setItem('id', id);
+  try {
+    localStorage.setItem('token', token);
+    localStorage.setItem('fullName', fullName);
+    localStorage.setItem('picture_url', picture_url);
+    localStorage.setItem('id', id);
+  } catch (error) {
+    console.error('Error setting items in localStorage:', error);
+  }
 };
 
 // Function that recuperates the token from localStorage
 export const getTherapistTokenAndDataFromLocalStorage = () => {
-  const token = localStorage.getItem('token');
-  const fullName = localStorage.getItem('fullName');
-  const picture_url = localStorage.getItem('picture_url');
-  const id = localStorage.getItem('id');
+  try {
+    const token = localStorage.getItem('token');
+    const fullName = localStorage.getItem('fullName');
+    const picture_url = localStorage.getItem('picture_url');
+    const id = localStorage.getItem('id');
 
-  // If no token present send null
-  if (!token) {
-    return null;
+    // If no token present send null
+    if (!token) {
+      return null;
+    }
+
+    // Else send data
+    return { token, fullName, picture_url, id };
+  } catch (error) {
+    console.error('Error getting items from localStorage:', error);
   }
-
-  // Else send data
-  return { token, fullName, picture_url, id };
 };
 
+// Function that updates patient data in localStorage
 export const updateTherapistDataInLocalStorage = (
   newPictureUrl: string,
   newName: string
 ) => {
-  if (newName) {
-    localStorage.setItem('name', newName);
-  }
-  if (newPictureUrl) {
-    localStorage.setItem('picture_url', newPictureUrl);
+  try {
+    if (newName) {
+      localStorage.setItem('name', newName);
+    }
+    if (newPictureUrl) {
+      localStorage.setItem('picture_url', newPictureUrl);
+    }
+  } catch (error) {
+    console.error('Error updating items in localStorage:', error);
   }
 };
 
 // Function to delete token when disconnecting
 export const removeTherapistTokenFromLocalStorage = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('fullName');
-  localStorage.removeItem('picture_url');
-  localStorage.removeItem('id');
+  try {
+    localStorage.removeItem('token');
+    localStorage.removeItem('fullName');
+    localStorage.removeItem('picture_url');
+    localStorage.removeItem('id');
+  } catch (error) {
+    console.error('Error removing items from localStorage:', error);
+  }
 };
+
+// export const updateTherapistNameInLocalStorage = (newName: string) => {
+//   if (newName) {
+//     localStorage.setItem('name', newName);
+//   }
+// };

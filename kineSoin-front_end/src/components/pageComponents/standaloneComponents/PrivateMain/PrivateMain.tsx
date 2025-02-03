@@ -52,10 +52,8 @@ export default function PrivateMain({
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      if (patientId !== undefined) {
-        const response = await fetchPatientAppointments(patientId);
-        setUpcomingAppointments(response.futureAppointments);
-      }
+      const response = await fetchPatientAppointments();
+      setUpcomingAppointments(response.futureAppointments);
     };
     fetchAppointments();
   }, [patientId]);
