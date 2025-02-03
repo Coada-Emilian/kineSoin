@@ -18,7 +18,6 @@ import AdminMedicsPage from './components/pageComponents/AdminSection/AdminMedic
 import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicPage/AdminMedicPage';
 import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
-import Homepage from './components/pageComponents/PublicSection/Homepage';
 import LoginPage from './components/pageComponents/PublicSection/LoginPage';
 import MobileNav from './components/pageComponents/standaloneComponents/MobileNav/MobileNav';
 import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboardPage/PatientDashboardPage';
@@ -27,20 +26,18 @@ import PatientAppointmentsPage from './components/pageComponents/PatientSection/
 import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPage/PatientMessagesPage';
 import PatientTherapistPage from './components/pageComponents/PatientSection/PatientTherapistPage/PatientTherapistPage';
 import PatientDetailsPage from './components/pageComponents/PatientSection/PatientDetailsPage/PatientDetailsPage';
+import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 
 function App() {
   // Use state to keep track of the window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
   // Make sure the windowWidth state always has the current window width
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
   };
-
   // useEffect to listen for window resize events
   useEffect(() => {
     window.addEventListener('resize', handleResize);
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -59,14 +56,12 @@ function App() {
       return response ? response.token : null;
     }
   );
-
   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
     () => {
       const response = getAdminTokenAndDataFromLocalStorage();
       return response ? response.token : null;
     }
   );
-
   const [therapistProfileToken, setTherapistProfileToken] = useState<
     string | null
   >(() => {
@@ -90,7 +85,6 @@ function App() {
       }
     };
     checkAdminAuthentication();
-
     // Listen for changes in the local storage
     const handleAdminStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
@@ -127,7 +121,6 @@ function App() {
       }
     };
     checkPatientAuthentication();
-
     // Listen for changes in the local storage
     const handlePatientStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
@@ -164,7 +157,6 @@ function App() {
       }
     };
     checkTherapistAuthentication();
-
     // Listen for changes in the local storage
     const handleTherapistStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
@@ -188,39 +180,46 @@ function App() {
   return (
     <Routes>
       {/* Public routes */}
-      <Route path="/" element={<Homepage windowWidth={windowWidth} />}></Route>
 
       <Route
-        path="/loginPatient"
-        element={
-          <LoginPage
-            isPatientLoginPage
-            windowWidth={windowWidth}
-            setPatientProfileToken={setPatientProfileToken}
-          />
-        }
-      ></Route>
+        path="/public"
+        element={<PublicLayout windowWidth={windowWidth} />}
+      >
+        <Route path="home" element={<HomepageMain />}></Route>
 
-      <Route
-        path="/loginTherapist"
-        element={
-          <LoginPage
-            isTherapistLoginPage
-            windowWidth={windowWidth}
-            setTherapistProfileToken={setTherapistProfileToken}
-          />
-        }
-      ></Route>
+        <Route
+          path="loginPatient"
+          element={
+            <LoginPage
+              isPatientLoginPage
+              windowWidth={windowWidth}
+              setPatientProfileToken={setPatientProfileToken}
+            />
+          }
+        ></Route>
+
+        <Route
+          path="loginTherapist"
+          element={
+            <LoginPage
+              isTherapistLoginPage
+              windowWidth={windowWidth}
+              setTherapistProfileToken={setTherapistProfileToken}
+            />
+          }
+        ></Route>
+        <Route
+          path="registerPatient"
+          element={
+            <LoginPage isPatientRegisterPage windowWidth={windowWidth} />
+          }
+        ></Route>
+      </Route>
 
       <Route
         path="/loginAdmin"
         element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
       />
-
-      <Route
-        path="/registerPatient"
-        element={<LoginPage isPatientRegisterPage windowWidth={windowWidth} />}
-      ></Route>
 
       {/* Admin routes */}
       {isAdminAuthenticated ? (
@@ -368,7 +367,6 @@ function AdminLayout({
 }
 
 function PatientLayout({
-  isPatientAuthenticated,
   setIsPatientAuthenticated,
   windowWidth,
 }: {
@@ -380,12 +378,23 @@ function PatientLayout({
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
         windowWidth={windowWidth}
-        isPatientAuthenticated={isPatientAuthenticated}
         setIsPatientAuthenticated={setIsPatientAuthenticated}
         isPatientNavBar
       />
       <Outlet />
       <Footer isPatientFooter />
+
+      {windowWidth < 768 && <MobileNav isPatientMobileNav />}
+    </div>
+  );
+}
+
+function PublicLayout({ windowWidth }: { windowWidth: number }) {
+  return (
+    <div className="flex flex-col justify-between min-h-screen">
+      <NavBar isPublicNavBar windowWidth={windowWidth} />
+      <Outlet />
+      <Footer isPublicFooter />
 
       {windowWidth < 768 && <MobileNav isPatientMobileNav />}
     </div>

@@ -27,7 +27,7 @@ import NotificationIcon from '/icons/notification.png';
 import LogoutIcon from '/icons/logout.png';
 
 interface ButtonProps {
-  btnText: string | JSX.Element;
+  btnText?: string | JSX.Element;
   normalButton?: boolean;
   cancelButton?: boolean;
   validateButton?: boolean;
@@ -42,6 +42,7 @@ interface ButtonProps {
   navBarButton?: boolean;
   patientNotificationButton?: boolean;
   patientLogoutButton?: boolean;
+  adminLogoutButton?: boolean;
   onClick?: () => void;
   btnType?: 'button' | 'submit' | 'reset';
   patientNotificationQuantity?: number;
@@ -68,6 +69,7 @@ export default function CustomButton({
   btnType,
   patientNotificationButton,
   patientLogoutButton,
+  adminLogoutButton,
   onClick,
   patientNotificationQuantity,
   setPatientNotificationQuantity,
@@ -75,6 +77,7 @@ export default function CustomButton({
   mobileDeleteButton,
   mobileCancelButton,
 }: ButtonProps) {
+  // Function to determine the button background color based on props
   const getBtnBackground = () => {
     if (normalButton || navBarButton || mobileButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal';
@@ -101,6 +104,7 @@ export default function CustomButton({
     }
   };
 
+  // Function to determine the button size and padding based on props
   const getSizeAndPadding = () => {
     if (
       normalButton ||
@@ -132,8 +136,10 @@ export default function CustomButton({
     }
   };
 
+  // Determine the button classes based on props
   const btnClasses = `rounded-lg text-primaryBlue hover:text-white font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton) && 'flex items-center gap-2 relative'}`;
 
+  // Icons for patient notification and logout buttons
   const patientNotificationIcon = (
     <>
       <img src={NotificationIcon} alt="Notification" className="max-w-8" />
@@ -149,15 +155,15 @@ export default function CustomButton({
     </>
   );
 
-  const patientLogoutIcon = (
-    <img src={LogoutIcon} alt="Logout" className="max-w-8" />
-  );
+  // Icon for patient logout button
+  const logoutIcon = <img src={LogoutIcon} alt="Logout" className="max-w-8" />;
 
   return (
     <button type={btnType} onClick={onClick} className={btnClasses}>
       <>
         {patientNotificationButton && patientNotificationIcon}
-        {patientLogoutButton && patientLogoutIcon}
+        {patientLogoutButton && logoutIcon}
+        {adminLogoutButton && logoutIcon}
         <span
           className={
             patientLogoutButton || patientNotificationButton

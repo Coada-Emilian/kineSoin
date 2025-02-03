@@ -18,7 +18,6 @@ interface NavBarProps {
   isAdminAuthenticated?: boolean;
   isPublicNavBar?: boolean;
   isPatientNavBar?: boolean;
-  isPatientAuthenticated?: boolean;
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,7 +32,6 @@ export default function NavBar({
   isAdminAuthenticated,
   isPublicNavBar,
   isPatientNavBar,
-  isPatientAuthenticated,
   setIsAdminAuthenticated,
   setIsRegisterPageRendered,
   setIsFirstFormValidated,
@@ -50,6 +48,7 @@ export default function NavBar({
     window.location.href = '/loginAdmin';
   };
 
+  // Function to handle the patient logout
   const handlePatientLogout = () => {
     removePatientTokenFromLocalStorage();
     if (setIsPatientAuthenticated) {
@@ -68,7 +67,7 @@ export default function NavBar({
         className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}
       >
         <Link
-          to="/"
+          to="/public/home"
           onClick={() => {
             if (setIsRegisterPageRendered) {
               setIsRegisterPageRendered(false);
@@ -91,29 +90,14 @@ export default function NavBar({
           />
         </Link>
 
-        <div className={`${isPublicNavBar && 'hidden md:block'}`}>
-          {isAdminNavBar &&
-            isAdminAuthenticated &&
-            (windowWidth < 768 ? (
-              <Link to="#" onClick={handleAdminLogout}>
-                <img
-                  src={LogoutIcon}
-                  alt="Se déconnecter"
-                  className="w-6 mr-3"
-                />
-              </Link>
-            ) : (
-              <CustomButton
-                btnText={<>Se déconnecter</>}
-                navBarButton
-                onClick={handleAdminLogout}
-              />
-            ))}
-
+        <div
+          className={`${isPublicNavBar && 'hidden md:block'} flex items-center`}
+        >
+          {/* Public navbar portion */}
           {isPublicNavBar && (
             <div className="flex gap-2">
               <Link
-                to="/loginTherapist"
+                to="/public/loginTherapist"
                 className="hidden md:block"
                 onClick={() => {
                   if (setIsRegisterPageRendered) {
@@ -137,7 +121,7 @@ export default function NavBar({
               </Link>
 
               <Link
-                to="/loginPatient"
+                to="/public/loginPatient"
                 className="hidden md:block"
                 onClick={() => {
                   if (setIsRegisterPageRendered) {
@@ -159,6 +143,22 @@ export default function NavBar({
             </div>
           )}
 
+          {/* Admin navbar portion */}
+          {isAdminNavBar &&
+            isAdminAuthenticated &&
+            (windowWidth < 768 ? (
+              <>
+                <CustomButton adminLogoutButton onClick={handleAdminLogout} />
+              </>
+            ) : (
+              <CustomButton
+                btnText={<>Se déconnecter</>}
+                navBarButton
+                onClick={handleAdminLogout}
+              />
+            ))}
+
+          {/* Patient navbar portion */}
           {isPatientNavBar && (
             <div className="flex gap-2">
               <Link to="#">

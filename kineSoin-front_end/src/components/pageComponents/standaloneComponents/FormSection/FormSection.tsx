@@ -57,16 +57,18 @@ export default function FormSection({
     useState<string>('');
   const [therapistLoginEmail, setTherapistLoginEmail] = useState<string>('');
 
-  // Patient and therapist error messages
+  // Patient and therapist error messages states
   const [patientErrorMessage, setPatientErrorMessage] = useState<string>('');
   const [therapistErrorMessage, setTherapistErrorMessage] =
     useState<string>('');
 
+  // Sent patient data state
   const [sentPatientData, setSentPatientData] = useState({});
+
+  // Patient registration forms validation states
   const [registeredPatientGender, setRegisteredPatientGender] = useState('');
   const [registeredPatientBirthDate, setRegisteredPatientBirthDate] =
     useState<string>();
-
   const [patientRegisterEmail, setPatientRegisterEmail] = useState<string>('');
   const [patientRegisterPassword, setPatientRegisterPassword] =
     useState<string>('');
@@ -348,7 +350,7 @@ export default function FormSection({
     >
       {' '}
       <div
-        className={`${!isHomePageFormSection ? (isGlobalFormSubmitted ? 'max-w-2xl opacity-90' : 'opacity-90 max-w-80') : 'opacity-75 md:w-96 md:absolute md:top-32 md:left-16 lg:left-20 md:text-xl lg:w-96 xl:top-32 xl:w-1/3 xl:text-2xl 2xl:top-52'} font-normal text-sm h-fit my-auto lg:text-base xl:text-xs w-10/12 md:w-2/3 text-primaryBlue bg-white p-6 rounded-3xl italic`}
+        className={`${!isHomePageFormSection ? (isGlobalFormSubmitted ? 'max-w-2xl opacity-90' : 'opacity-90 max-w-80') : 'opacity-75 md:w-2/3 md:absolute md:top-32 md:left-16 md:text-xl lg:text-2xl lg:left-20 lg:w-2/4 xl:top-32 xl:text-xl xl:font-light 2xl:top-52 2xl:text-2xl'} font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-white p-6 rounded-3xl italic`}
       >
         {isHomePageFormSection ? (
           <>
@@ -368,7 +370,10 @@ export default function FormSection({
             </p>
 
             <p className="indent-4">
-              <Link to="/registerPatient" className="font-bold text-primaryRed">
+              <Link
+                to="/public/registerPatient"
+                className="font-bold text-primaryRed"
+              >
                 Inscrivez-vous ici !
               </Link>{' '}
             </p>

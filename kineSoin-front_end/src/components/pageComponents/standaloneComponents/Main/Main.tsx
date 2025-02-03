@@ -39,47 +39,53 @@ export default function Main({
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
       <div className="flex flex-col w-full h-full">
-        <>
-          <FormSection
-            isHomePageFormSection={isHomePageMain ?? false}
-            isPatientLoginPageFormSection={isPatientLoginPageMain ?? false}
-            isTherapistLoginPageFormSection={isTherapistLoginPageMain ?? false}
-            setPatientProfileToken={setPatientProfileToken}
-            setTherapistProfileToken={setTherapistProfileToken}
-            isRegisterPageRendered={isRegisterPageRendered ?? false}
-            isFirstFormValidated={isFirstFormValidated ?? false}
-            isSecondFormValidated={isSecondFormValidated ?? false}
-            isThirdFormValidated={isThirdFormValidated ?? false}
-            setIsRegisterPageRendered={setIsRegisterPageRendered ?? (() => {})}
-            setIsFirstFormValidated={setIsFirstFormValidated ?? (() => {})}
-            setIsSecondFormValidated={setIsSecondFormValidated ?? (() => {})}
-            setIsThirdFormValidated={setIsThirdFormValidated ?? (() => {})}
-          />
+        {isHomePageMain && (
+          <>
+            <FormSection
+              isHomePageFormSection
+              isPatientLoginPageFormSection={isPatientLoginPageMain ?? false}
+              isTherapistLoginPageFormSection={
+                isTherapistLoginPageMain ?? false
+              }
+              setPatientProfileToken={setPatientProfileToken}
+              setTherapistProfileToken={setTherapistProfileToken}
+              isRegisterPageRendered={isRegisterPageRendered ?? false}
+              isFirstFormValidated={isFirstFormValidated ?? false}
+              isSecondFormValidated={isSecondFormValidated ?? false}
+              isThirdFormValidated={isThirdFormValidated ?? false}
+              setIsRegisterPageRendered={
+                setIsRegisterPageRendered ?? (() => {})
+              }
+              setIsFirstFormValidated={setIsFirstFormValidated ?? (() => {})}
+              setIsSecondFormValidated={setIsSecondFormValidated ?? (() => {})}
+              setIsThirdFormValidated={setIsThirdFormValidated ?? (() => {})}
+            />
 
-          <HeadBand />
+            <HeadBand />
 
-          <DescriptionSection
-            isHomePageDescriptionSection={isHomePageMain ?? false}
-            isPatientLoginPageDescriptionSection={
-              isPatientLoginPageMain ?? false
-            }
-            isTherapistLoginPageDescriptionSection={
-              isTherapistLoginPageMain ?? false
-            }
-            isPatientRegisterFirstFormPageDescriptionSection={
-              isRegisterPageRendered ?? false
-            }
-            isPatientRegisterSecondFormPageDescriptionSection={
-              isFirstFormValidated ?? false
-            }
-            isPatientRegisterThirdFormPageDescriptionSection={
-              isSecondFormValidated ?? false
-            }
-            isPatientConfirmationPageDescriptionSection={
-              isThirdFormValidated ?? false
-            }
-          />
-        </>
+            <DescriptionSection
+              isHomePageDescriptionSection={isHomePageMain ?? false}
+              isPatientLoginPageDescriptionSection={
+                isPatientLoginPageMain ?? false
+              }
+              isTherapistLoginPageDescriptionSection={
+                isTherapistLoginPageMain ?? false
+              }
+              isPatientRegisterFirstFormPageDescriptionSection={
+                isRegisterPageRendered ?? false
+              }
+              isPatientRegisterSecondFormPageDescriptionSection={
+                isFirstFormValidated ?? false
+              }
+              isPatientRegisterThirdFormPageDescriptionSection={
+                isSecondFormValidated ?? false
+              }
+              isPatientConfirmationPageDescriptionSection={
+                isThirdFormValidated ?? false
+              }
+            />
+          </>
+        )}
       </div>
     </main>
   );
