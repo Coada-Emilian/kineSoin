@@ -380,7 +380,6 @@ export default function FormSection({
           </>
         ) : (
           <form
-            action="#"
             encType={isSecondFormValidated ? 'multipart/form-data' : undefined}
             onSubmit={
               isPatientLoginPageFormSection
