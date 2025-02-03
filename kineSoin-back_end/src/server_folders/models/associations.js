@@ -1,4 +1,44 @@
-// Purpose: Sequelize associations between the standalone models of the application.
+/**
+ * @description Sequelize associations between the standalone models of the application.
+ *
+ * This file establishes the relationships and associations between various models in the application, including:
+ *
+ * - **Administrator Associations**:
+ *   - Admin has many Insurances.
+ *   - Admin has many Therapists.
+ *   - Admin has many Medics.
+ *   - Admin has many Body_regions.
+ *   - Admin has many Afflictions.
+ *
+ * - **Therapist Associations**:
+ *   - Therapist has many Patients.
+ *   - Therapist has many Appointments.
+ *   - Therapist has many Patient_messages received.
+ *   - Therapist has many Therapist_messages sent.
+ *
+ * - **Patient Associations**:
+ *   - Patient has many Prescriptions.
+ *   - Patient has many Appointments.
+ *   - Patient has many Patient_messages sent.
+ *   - Patient has many Therapist_messages received.
+ *   - Patient belongs to many Insurances through Patient_Insurance.
+ *
+ * - **Medic Associations**:
+ *   - Medic has many Prescriptions.
+ *
+ * - **Affliction Associations**:
+ *   - Affliction has many Prescriptions.
+ *
+ * - **Body_region Associations**:
+ *   - Body_region has many Afflictions.
+ *
+ * - **Prescription Associations**:
+ *   - Prescription has many Appointments.
+ *
+ * These associations define the relationships and dependencies between different entities in the database, enabling efficient data retrieval and manipulation.
+ *
+ * Ensure that all referenced models and associations are properly defined and configured before using this setup.
+ */
 
 import { Admin } from './standalone_models/Admin.js';
 import { Affliction } from './standalone_models/Affliction.js';

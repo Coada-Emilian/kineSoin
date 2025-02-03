@@ -1,4 +1,26 @@
-// Purpose: Sequelize model of the standalone table 'patients' that stores the data of the patients of the application.
+/**
+ * @description Sequelize model for the standalone table 'prescriptions' that stores the data of the prescriptions given to patients by medics.
+ *
+ * This model:
+ * - Represents the 'prescriptions' table in the database.
+ * - Defines the table structure with the following fields:
+ *   - id: An auto-incrementing integer that serves as the primary key.
+ *   - medic_id: An integer that references the 'medics' table.
+ *   - patient_id: An integer that references the 'patients' table.
+ *   - affliction_id: An integer that references the 'afflictions' table.
+ *   - appointment_quantity: An integer that represents the number of appointments prescribed.
+ *   - is_completed: A boolean value that indicates whether the prescription has been completed, defaulting to false.
+ *   - at_home_care: A boolean value that indicates whether the prescription involves at-home care, defaulting to false.
+ *   - date: A date-only field that represents the date of the prescription.
+ *   - picture_url: A string of up to 255 characters that stores the URL of the prescription's picture.
+ *   - picture_id: A string of up to 255 characters that stores the ID of the prescription's picture in the storage service.
+ *   - created_at: A date that represents when the record was created, defaulting to the current date and time.
+ *   - updated_at: A date that represents when the record was last updated.
+ * - Ensures that all fields are properly defined and constrained.
+ * - Uses Sequelize to establish the model and link it to the 'prescriptions' table in the database.
+ *
+ * Ensure that the sequelize module is installed and properly configured before using this model.
+ */
 
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
