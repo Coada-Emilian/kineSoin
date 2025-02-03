@@ -1,3 +1,28 @@
+/**
+ * @description Sets up and configures the express application server.
+ *
+ * This module:
+ * - Imports necessary dependencies including environment variables, express, path, cors, and session management.
+ * - Imports middleware functions and route handlers.
+ *
+ * - Configures the express application:
+ *   - Parses URL-encoded and JSON request bodies.
+ *   - Configures CORS options based on allowed domains from environment variables.
+ *   - Sets up session management with secret, resave, saveUninitialized, and cookie options.
+ *   - Adds middleware for sanitizing request bodies.
+ *
+ * - Defines and mounts routers for different API endpoints:
+ *   - /api/public: Public routes.
+ *   - /api/patient: Patient-specific routes.
+ *   - /api/therapist: Therapist-specific routes.
+ *   - /api/admin: Admin-specific routes.
+ *
+ * - Disables the 'x-powered-by' header for security reasons.
+ * - Serves static assets from the 'src/assets' directory.
+ *
+ * - Starts the server and listens on the specified port from environment variables.
+ */
+
 import 'dotenv/config';
 import express from 'express';
 import path from 'path';
