@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import session from 'express-session';
 
-import { bodySanitizer } from './src/server_folders/middlewares/bodySanitizer.js';
+import { sanitizeRequestBody } from './src/server_folders/middlewares/sanitizeRequestBody.js';
 import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
 import { patientRouter } from './src/server_folders/routing/routers/patientRouter.js';
 import { therapistRouter } from './src/server_folders/routing/routers/therapistRouter.js';
@@ -37,7 +37,7 @@ app.use(
 
 app.use(cors(corsOptions));
 
-app.use(bodySanitizer);
+app.use(sanitizeRequestBody);
 
 app.use('/api/public', publicRouter);
 app.use('/api/patient', patientRouter);

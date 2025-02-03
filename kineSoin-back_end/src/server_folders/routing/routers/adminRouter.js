@@ -1,7 +1,7 @@
 // Purpose: Router for the admin routes of the application.
 
 import { Router } from 'express';
-import { authenticateAdmin } from '../../middlewares/authenticateAdmin.js';
+import { authenticateAdmin } from '../../middlewares/userAuthentication.js';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import multer from 'multer';
