@@ -19,25 +19,25 @@ import { useNavigate } from 'react-router-dom';
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
   isPatientLoginPageFormSection?: boolean;
-  isTherapistLoginPageFormSection?: boolean;
-  isRegisterPageRendered: boolean;
-  isFirstFormValidated: boolean;
-  isSecondFormValidated: boolean;
-  isThirdFormValidated: boolean;
   setPatientProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+  isTherapistLoginPageFormSection?: boolean;
   setTherapistProfileToken?: React.Dispatch<
     React.SetStateAction<string | null>
   >;
+  isFirstFormValidated: boolean;
+  isSecondFormValidated: boolean;
+  isThirdFormValidated: boolean;
   setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
   setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsRegisterPageRendered: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isPatientRegisterPageFormSection?: boolean;
 }
 export default function FormSection({
   isHomePageFormSection,
   isPatientLoginPageFormSection,
   isTherapistLoginPageFormSection,
-  isRegisterPageRendered,
+  isPatientRegisterPageFormSection,
   isFirstFormValidated,
   isSecondFormValidated,
   isThirdFormValidated,
@@ -46,7 +46,6 @@ export default function FormSection({
   setIsFirstFormValidated,
   setIsSecondFormValidated,
   setIsThirdFormValidated,
-  setIsRegisterPageRendered,
 }: FormSectionProps) {
   // Patient login data states
   const [patientLoginPassword, setPatientLoginPassword] = useState<string>('');
@@ -206,7 +205,6 @@ export default function FormSection({
     // Set the sent patient data with the form data
     setSentPatientData(sentData);
     // Set the first form as validated and the second form as not validated
-    setIsRegisterPageRendered(false);
     setIsFirstFormValidated(true);
   };
 
@@ -337,7 +335,7 @@ export default function FormSection({
             ? 'bg-patientConnectionPage md:p-48 xl:p-56 2xl:p-72'
             : isTherapistLoginPageFormSection
               ? 'bg-therapistConnectionPage md:p-48 xl:p-56 2xl:p-72'
-              : isRegisterPageRendered
+              : isPatientRegisterPageFormSection
                 ? 'bg-patientFirstRegisterPage md:p-48 xl:p-56 2xl:p-72'
                 : isFirstFormValidated
                   ? 'bg-patientSecondRegisterPage md:p-48 xl:p-56 2xl:p-72'
@@ -386,7 +384,7 @@ export default function FormSection({
                 ? checkPatientCredentials
                 : isTherapistLoginPageFormSection
                   ? checkTherapistCredentials
-                  : isRegisterPageRendered
+                  : isPatientRegisterPageFormSection
                     ? handleFirstPatientRegisterForm
                     : isFirstFormValidated
                       ? handleSecondPatientRegisterForm
@@ -400,7 +398,7 @@ export default function FormSection({
                 isTherapistLoginPageFormSection) &&
                 `Connexion ${isPatientLoginPageFormSection ? 'Patient' : 'Thérapeute'}`}
 
-              {(isRegisterPageRendered ||
+              {(isPatientRegisterPageFormSection ||
                 isFirstFormValidated ||
                 isSecondFormValidated) &&
                 !(
@@ -452,7 +450,7 @@ export default function FormSection({
               </>
             )}
 
-            {isRegisterPageRendered && (
+            {isPatientRegisterPageFormSection && (
               <>
                 <StandardTextInput isNameInput />
 
@@ -550,9 +548,8 @@ export default function FormSection({
                   <p>
                     Pas encore membre?{' '}
                     <Link
-                      to="/registerPatient"
+                      to="/public/registerPatient"
                       className="text-primaryRed"
-                      onClick={() => setIsRegisterPageRendered(true)}
                     >
                       Inscrivez-vous ici
                     </Link>
@@ -564,14 +561,14 @@ export default function FormSection({
             {!isThirdFormValidated && (
               <div className="flex items-center">
                 <CustomButton
-                  btnText={`${isRegisterPageRendered || isFirstFormValidated ? 'Valider' : isSecondFormValidated ? 'Inscription' : 'Connexion'}`}
+                  btnText={`${isPatientRegisterPageFormSection || isFirstFormValidated ? 'Valider' : isSecondFormValidated ? 'Inscription' : 'Connexion'}`}
                   btnType="submit"
                   normalButton
                 />
               </div>
             )}
 
-            {(isRegisterPageRendered ||
+            {(isPatientRegisterPageFormSection ||
               isFirstFormValidated ||
               isSecondFormValidated) && (
               <>
@@ -582,8 +579,7 @@ export default function FormSection({
                       to="/loginPatient"
                       className="text-primaryRed"
                       onClick={() => {
-                        setIsRegisterPageRendered(false),
-                          setIsFirstFormValidated(false),
+                        setIsFirstFormValidated(false),
                           setIsSecondFormValidated(false);
                       }}
                     >
@@ -593,7 +589,7 @@ export default function FormSection({
                 </div>
 
                 <div className="text-sm mb-4 text-center mt-4">
-                  {isRegisterPageRendered
+                  {isPatientRegisterPageFormSection
                     ? 'Etape 1/3: Informations personnelles'
                     : isFirstFormValidated
                       ? 'Etape 2/3: Informations de contact'

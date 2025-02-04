@@ -18,7 +18,7 @@ import AdminMedicsPage from './components/pageComponents/AdminSection/AdminMedic
 import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicPage/AdminMedicPage';
 import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
-import LoginPage from './components/pageComponents/PublicSection/LoginPage';
+import LoginPage from './components/pageComponents/PublicSection/LoginPageMain';
 import MobileNav from './components/pageComponents/standaloneComponents/MobileNav/MobileNav';
 import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboardPage/PatientDashboardPage';
 import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
@@ -27,6 +27,8 @@ import PatientMessagesPage from './components/pageComponents/PatientSection/Pati
 import PatientTherapistPage from './components/pageComponents/PatientSection/PatientTherapistPage/PatientTherapistPage';
 import PatientDetailsPage from './components/pageComponents/PatientSection/PatientDetailsPage/PatientDetailsPage';
 import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
+import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
+import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -227,18 +229,9 @@ function App() {
         <Route
           path="loginPatient"
           element={
-            <LoginPage
-              isPatientLoginPage
-              windowWidth={windowWidth}
+            <LoginPageMain
+              isPatientLoginMain
               setPatientProfileToken={setPatientProfileToken}
-              setIsRegisterPageRendered={setIsRegisterPageRendered}
-              setIsFirstFormValidated={setIsFirstFormValidated}
-              setIsSecondFormValidated={setIsSecondFormValidated}
-              setIsThirdFormValidated={setIsThirdFormValidated}
-              isFirstFormValidated={isFirstFormValidated}
-              isSecondFormValidated={isSecondFormValidated}
-              isThirdFormValidated={isThirdFormValidated}
-              isRegisterPageRendered={isRegisterPageRendered}
             />
           }
         ></Route>
@@ -246,17 +239,24 @@ function App() {
         <Route
           path="loginTherapist"
           element={
-            <LoginPage
-              isTherapistLoginPage
-              windowWidth={windowWidth}
+            <LoginPageMain
+              isTherapistLoginMain
               setTherapistProfileToken={setTherapistProfileToken}
             />
           }
         ></Route>
+
         <Route
           path="registerPatient"
           element={
-            <LoginPage isPatientRegisterPage windowWidth={windowWidth} />
+            <RegisterPageMain
+              isFirstFormValidated={isFirstFormValidated}
+              isSecondFormValidated={isSecondFormValidated}
+              isThirdFormValidated={isThirdFormValidated}
+              setIsFirstFormValidated={setIsFirstFormValidated}
+              setIsSecondFormValidated={setIsSecondFormValidated}
+              setIsThirdFormValidated={setIsThirdFormValidated}
+            />
           }
         ></Route>
       </Route>

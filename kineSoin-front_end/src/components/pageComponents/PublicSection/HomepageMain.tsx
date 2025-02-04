@@ -1,5 +1,6 @@
-import Main from '../standaloneComponents/Main/Main';
+import PublicMain from '../standaloneComponents/PublicSection/PublicMain/PublicMain';
+
 
 export default function HomepageMain() {
-  return <Main isHomePageMain />;
+  return <PublicMain isHomePageMain />;
 }

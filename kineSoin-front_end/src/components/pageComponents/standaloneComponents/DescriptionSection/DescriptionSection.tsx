@@ -72,6 +72,7 @@ export default function DescriptionSection({
         'Communiquez avec vos thérapeutes à tout moment, posez vos questions et recevez des réponses claires et rapides.',
     },
   ];
+
   return (
     <div className="bg-container py-12 flex flex-col px-2 rounded-tr-[75px]">
       {isHomePageDescriptionSection ? (
