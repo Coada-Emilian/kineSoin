@@ -15,12 +15,6 @@ export default function LoginPageMain({
   setPatientProfileToken,
   setTherapistProfileToken,
 }: LoginPageProps) {
-  // useEffect(() => {
-  //   if (setIsRegisterPageRendered) {
-  //     setIsRegisterPageRendered(isPatientRegisterPage ? true : false);
-  //   }
-  // }, [isPatientRegisterPage]);
-
   return (
     <>
       <PublicMain

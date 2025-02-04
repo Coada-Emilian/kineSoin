@@ -7,6 +7,8 @@ interface RegisterPageProps {
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  isGlobalFormSubmitted?: boolean;
+  setIsGlobalFormSubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function RegisterPageMain({
@@ -16,6 +18,8 @@ export default function RegisterPageMain({
   setIsFirstFormValidated,
   setIsSecondFormValidated,
   setIsThirdFormValidated,
+  isGlobalFormSubmitted,
+  setIsGlobalFormSubmitted,
 }: RegisterPageProps) {
   return (
     <>
@@ -27,6 +31,8 @@ export default function RegisterPageMain({
         setIsFirstFormValidated={setIsFirstFormValidated}
         setIsSecondFormValidated={setIsSecondFormValidated}
         setIsThirdFormValidated={setIsThirdFormValidated}
+        isGlobalFormSubmitted={isGlobalFormSubmitted}
+        setIsGlobalFormSubmitted={setIsGlobalFormSubmitted}
       />
     </>
   );

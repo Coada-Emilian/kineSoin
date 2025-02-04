@@ -24,20 +24,25 @@ interface FormSectionProps {
   setTherapistProfileToken?: React.Dispatch<
     React.SetStateAction<string | null>
   >;
+  isPatientRegisterPageRendered?: boolean;
+  setIsPatientRegisterPageRendered?: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
   isFirstFormValidated: boolean;
   isSecondFormValidated: boolean;
   isThirdFormValidated: boolean;
   setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
   setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-
-  isPatientRegisterPageFormSection?: boolean;
+  setIsGlobalFormSubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
+  isGlobalFormSubmitted?: boolean;
 }
 export default function FormSection({
   isHomePageFormSection,
   isPatientLoginPageFormSection,
   isTherapistLoginPageFormSection,
-  isPatientRegisterPageFormSection,
+  isPatientRegisterPageRendered,
+  setIsPatientRegisterPageRendered,
   isFirstFormValidated,
   isSecondFormValidated,
   isThirdFormValidated,
@@ -46,6 +51,8 @@ export default function FormSection({
   setIsFirstFormValidated,
   setIsSecondFormValidated,
   setIsThirdFormValidated,
+  setIsGlobalFormSubmitted,
+  isGlobalFormSubmitted,
 }: FormSectionProps) {
   // Patient login data states
   const [patientLoginPassword, setPatientLoginPassword] = useState<string>('');
@@ -76,9 +83,6 @@ export default function FormSection({
 
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
-  const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
-    useState<boolean>(false);
-
   const navigate = useNavigate();
 
   // Patient login function
@@ -104,7 +108,6 @@ export default function FormSection({
     if (response) {
       if (setPatientProfileToken) {
         setPatientProfileToken(response);
-
         navigate('/patient/dashboard');
       } else {
         setPatientErrorMessage('Email et/ou Mot de passe invalide');
@@ -136,7 +139,7 @@ export default function FormSection({
     if (response) {
       if (setTherapistProfileToken) {
         setTherapistProfileToken(response);
-        console.log("great, you're connected");
+        navigate('/therapist/dashboard');
       } else {
         setTherapistErrorMessage('Email et/ou Mot de passe invalide');
       }
@@ -206,6 +209,9 @@ export default function FormSection({
     setSentPatientData(sentData);
     // Set the first form as validated and the second form as not validated
     setIsFirstFormValidated(true);
+    if (setIsPatientRegisterPageRendered) {
+      setIsPatientRegisterPageRendered(false);
+    }
   };
 
   // Patient registration function for the second form
@@ -314,8 +320,9 @@ export default function FormSection({
           });
           const response = await handlePatientRegistration(formData);
           if (response) {
-            console.log('Patient registered');
-            setIsGlobalFormSubmitted(true);
+            if (setIsGlobalFormSubmitted) {
+              setIsGlobalFormSubmitted(true);
+            }
           }
         } catch (error) {
           console.error(error);
@@ -335,7 +342,7 @@ export default function FormSection({
             ? 'bg-patientConnectionPage md:p-48 xl:p-56 2xl:p-72'
             : isTherapistLoginPageFormSection
               ? 'bg-therapistConnectionPage md:p-48 xl:p-56 2xl:p-72'
-              : isPatientRegisterPageFormSection
+              : isPatientRegisterPageRendered
                 ? 'bg-patientFirstRegisterPage md:p-48 xl:p-56 2xl:p-72'
                 : isFirstFormValidated
                   ? 'bg-patientSecondRegisterPage md:p-48 xl:p-56 2xl:p-72'
@@ -384,7 +391,7 @@ export default function FormSection({
                 ? checkPatientCredentials
                 : isTherapistLoginPageFormSection
                   ? checkTherapistCredentials
-                  : isPatientRegisterPageFormSection
+                  : isPatientRegisterPageRendered
                     ? handleFirstPatientRegisterForm
                     : isFirstFormValidated
                       ? handleSecondPatientRegisterForm
@@ -398,7 +405,7 @@ export default function FormSection({
                 isTherapistLoginPageFormSection) &&
                 `Connexion ${isPatientLoginPageFormSection ? 'Patient' : 'Thérapeute'}`}
 
-              {(isPatientRegisterPageFormSection ||
+              {(isPatientRegisterPageRendered ||
                 isFirstFormValidated ||
                 isSecondFormValidated) &&
                 !(
@@ -450,7 +457,7 @@ export default function FormSection({
               </>
             )}
 
-            {isPatientRegisterPageFormSection && (
+            {isPatientRegisterPageRendered && (
               <>
                 <StandardTextInput isNameInput />
 
@@ -561,14 +568,14 @@ export default function FormSection({
             {!isThirdFormValidated && (
               <div className="flex items-center">
                 <CustomButton
-                  btnText={`${isPatientRegisterPageFormSection || isFirstFormValidated ? 'Valider' : isSecondFormValidated ? 'Inscription' : 'Connexion'}`}
+                  btnText={`${isPatientRegisterPageRendered || isFirstFormValidated ? 'Valider' : isSecondFormValidated ? 'Inscription' : 'Connexion'}`}
                   btnType="submit"
                   normalButton
                 />
               </div>
             )}
 
-            {(isPatientRegisterPageFormSection ||
+            {(isPatientRegisterPageRendered ||
               isFirstFormValidated ||
               isSecondFormValidated) && (
               <>
@@ -589,7 +596,7 @@ export default function FormSection({
                 </div>
 
                 <div className="text-sm mb-4 text-center mt-4">
-                  {isPatientRegisterPageFormSection
+                  {isPatientRegisterPageRendered
                     ? 'Etape 1/3: Informations personnelles'
                     : isFirstFormValidated
                       ? 'Etape 2/3: Informations de contact'

@@ -99,6 +99,8 @@ function App() {
     useState<boolean>(false);
   const [isThirdFormValidated, setIsThirdFormValidated] =
     useState<boolean>(false);
+  const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
+    useState<boolean>(false);
 
   // useEffect to check if the admin is authenticated
   useEffect(() => {
@@ -256,6 +258,8 @@ function App() {
               setIsFirstFormValidated={setIsFirstFormValidated}
               setIsSecondFormValidated={setIsSecondFormValidated}
               setIsThirdFormValidated={setIsThirdFormValidated}
+              setIsGlobalFormSubmitted={setIsGlobalFormSubmitted}
+              isGlobalFormSubmitted={isGlobalFormSubmitted}
             />
           }
         ></Route>
