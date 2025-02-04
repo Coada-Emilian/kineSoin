@@ -56,21 +56,21 @@ export default function MobileNav({
   const publicLinks = [
     {
       name: 'Connexion kiné',
-      path: '/loginTherapist',
+      path: '/public/loginTherapist',
       icon: therapistIcon,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(false),
     },
     {
       name: 'Inscription patient',
-      path: '/registerPatient',
+      path: '/public/registerPatient',
       icon: mainLogo,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(true),
     },
     {
       name: 'Connexion patient',
-      path: '/loginPatient',
+      path: '/public/loginPatient',
       icon: patientIcon,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(false),
@@ -132,9 +132,9 @@ export default function MobileNav({
               to={link.path}
               key={index}
               className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border  rounded-lg p-2 ${
+                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border shadow-2xl rounded-2xl p-2 ${
                   isActive
-                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
+                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal scale-110 text-lg'
                     : 'text-primaryBlue'
                 }`
               }

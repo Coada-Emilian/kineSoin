@@ -350,26 +350,26 @@ export default function FormSection({
     >
       {' '}
       <div
-        className={`${!isHomePageFormSection ? (isGlobalFormSubmitted ? 'max-w-2xl opacity-90' : 'opacity-90 max-w-80') : 'opacity-75 md:w-2/3 md:absolute md:top-32 md:left-16 md:text-xl lg:text-2xl lg:left-20 lg:w-2/4 xl:top-32 xl:text-xl xl:font-light 2xl:top-52 2xl:text-2xl'} font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-white p-6 rounded-3xl italic`}
+        className={`${!isHomePageFormSection ? (isGlobalFormSubmitted ? 'max-w-2xl opacity-90' : 'opacity-90 max-w-80') : 'opacity-75 md:w-2/3 md:absolute md:top-32 md:left-16 md:text-base lg:text-lg lg:left-20 lg:w-2/4 xl:top-32 xl:text-xl 2xl:top-52 2xl:text-2xl'} font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-gradient-to-r from-white to-gray-300 p-6 rounded-3xl italic`}
       >
         {isHomePageFormSection ? (
-          <>
-            <p className="mb-2 indent-4">
+          <div className="indent-4">
+            <p className="mb-2">
               Bienvenue sur <span className="font-bold">kineSoin</span> !
             </p>
 
-            <p className="mb-2 indent-4">
+            <p className="mb-2">
               Votre espace dédié à la kinésithérapie et à votre bien-être.
               Prenez soin de votre santé en toute simplicité en prenant
               rendez-vous avec nos professionnels qualifiés.
             </p>
 
-            <p className="mb-2 indent-4">
+            <p className="mb-2">
               Inscrivez-vous dès maintenant pour accéder à tous nos services
               personnalisés et planifier vos séances en ligne.
             </p>
 
-            <p className="indent-4">
+            <p>
               <Link
                 to="/public/registerPatient"
                 className="font-bold text-primaryRed"
@@ -377,7 +377,7 @@ export default function FormSection({
                 Inscrivez-vous ici !
               </Link>{' '}
             </p>
-          </>
+          </div>
         ) : (
           <form
             encType={isSecondFormValidated ? 'multipart/form-data' : undefined}

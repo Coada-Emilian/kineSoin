@@ -13,6 +13,14 @@ interface LoginPageProps {
   setTherapistProfileToken?: React.Dispatch<
     React.SetStateAction<string | null>
   >;
+  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  isFirstFormValidated?: boolean;
+  isSecondFormValidated?: boolean;
+  isThirdFormValidated?: boolean;
+  isRegisterPageRendered?: boolean;
 }
 
 export default function LoginPage({
@@ -22,34 +30,23 @@ export default function LoginPage({
   isPatientRegisterPage,
   setPatientProfileToken,
   setTherapistProfileToken,
+  setIsRegisterPageRendered,
+  setIsFirstFormValidated,
+  setIsSecondFormValidated,
+  setIsThirdFormValidated,
+  isFirstFormValidated,
+  isSecondFormValidated,
+  isThirdFormValidated,
+  isRegisterPageRendered,
 }: LoginPageProps) {
-  const [isRegisterPageRendered, setIsRegisterPageRendered] = useState<boolean>(
-    isPatientRegisterPage ? true : false
-  );
-  const [isFirstFormValidated, setIsFirstFormValidated] =
-    useState<boolean>(false);
-  const [isSecondFormValidated, setIsSecondFormValidated] =
-    useState<boolean>(false);
-  const [isThirdFormValidated, setIsThirdFormValidated] =
-    useState<boolean>(false);
-
   useEffect(() => {
-    isPatientRegisterPage
-      ? setIsRegisterPageRendered(true)
-      : setIsRegisterPageRendered(false);
+    if (setIsRegisterPageRendered) {
+      setIsRegisterPageRendered(isPatientRegisterPage ? true : false);
+    }
   }, [isPatientRegisterPage]);
 
   return (
     <>
-      <NavBar
-        windowWidth={windowWidth}
-        isPublicNavBar
-        setIsRegisterPageRendered={setIsRegisterPageRendered}
-        setIsFirstFormValidated={setIsFirstFormValidated}
-        setIsSecondFormValidated={setIsSecondFormValidated}
-        setIsThirdFormValidated={setIsThirdFormValidated}
-      />
-
       <Main
         isPatientLoginPageMain={isPatientLoginPage ?? false}
         isTherapistLoginPageMain={isTherapistLoginPage ?? false}
@@ -65,15 +62,6 @@ export default function LoginPage({
         isThirdFormValidated={isThirdFormValidated}
         setIsThirdFormValidated={setIsThirdFormValidated}
       />
-
-      <Footer isPublicFooter />
-
-      {windowWidth < 768 && (
-        <MobileNav
-          isPublicMobileNav
-          setIsRegisterPageRendered={setIsRegisterPageRendered}
-        />
-      )}
     </>
   );
 }

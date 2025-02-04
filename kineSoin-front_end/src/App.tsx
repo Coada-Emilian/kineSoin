@@ -28,6 +28,26 @@ import PatientTherapistPage from './components/pageComponents/PatientSection/Pat
 import PatientDetailsPage from './components/pageComponents/PatientSection/PatientDetailsPage/PatientDetailsPage';
 import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 
+interface PublicLayoutProps {
+  windowWidth: number;
+  setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRegisterPageRendered: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface AdminLayoutProps {
+  isAdminAuthenticated: boolean;
+  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  windowWidth: number;
+}
+
+interface PatientLayoutProps {
+  isPatientAuthenticated: boolean;
+  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  windowWidth: number;
+}
+
 function App() {
   // Use state to keep track of the window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -68,6 +88,15 @@ function App() {
     const response = getTherapistTokenAndDataFromLocalStorage();
     return response ? response.token : null;
   });
+
+  const [isRegisterPageRendered, setIsRegisterPageRendered] =
+    useState<boolean>(false);
+  const [isFirstFormValidated, setIsFirstFormValidated] =
+    useState<boolean>(false);
+  const [isSecondFormValidated, setIsSecondFormValidated] =
+    useState<boolean>(false);
+  const [isThirdFormValidated, setIsThirdFormValidated] =
+    useState<boolean>(false);
 
   // useEffect to check if the admin is authenticated
   useEffect(() => {
@@ -183,7 +212,15 @@ function App() {
 
       <Route
         path="/public"
-        element={<PublicLayout windowWidth={windowWidth} />}
+        element={
+          <PublicLayout
+            windowWidth={windowWidth}
+            setIsFirstFormValidated={setIsFirstFormValidated}
+            setIsSecondFormValidated={setIsSecondFormValidated}
+            setIsThirdFormValidated={setIsThirdFormValidated}
+            setIsRegisterPageRendered={setIsRegisterPageRendered}
+          />
+        }
       >
         <Route path="home" element={<HomepageMain />}></Route>
 
@@ -194,6 +231,14 @@ function App() {
               isPatientLoginPage
               windowWidth={windowWidth}
               setPatientProfileToken={setPatientProfileToken}
+              setIsRegisterPageRendered={setIsRegisterPageRendered}
+              setIsFirstFormValidated={setIsFirstFormValidated}
+              setIsSecondFormValidated={setIsSecondFormValidated}
+              setIsThirdFormValidated={setIsThirdFormValidated}
+              isFirstFormValidated={isFirstFormValidated}
+              isSecondFormValidated={isSecondFormValidated}
+              isThirdFormValidated={isThirdFormValidated}
+              isRegisterPageRendered={isRegisterPageRendered}
             />
           }
         ></Route>
@@ -343,15 +388,36 @@ function App() {
   );
 }
 
+function PublicLayout({
+  windowWidth,
+  setIsFirstFormValidated,
+  setIsSecondFormValidated,
+  setIsThirdFormValidated,
+  setIsRegisterPageRendered,
+}: PublicLayoutProps) {
+  return (
+    <div className="flex flex-col justify-between min-h-screen">
+      <NavBar
+        isPublicNavBar
+        windowWidth={windowWidth}
+        setIsFirstFormValidated={setIsFirstFormValidated}
+        setIsSecondFormValidated={setIsSecondFormValidated}
+        setIsThirdFormValidated={setIsThirdFormValidated}
+        setIsRegisterPageRendered={setIsRegisterPageRendered}
+      />
+      <Outlet />
+      <Footer isPublicFooter />
+
+      {windowWidth < 768 && <MobileNav isPublicMobileNav />}
+    </div>
+  );
+}
+
 function AdminLayout({
   isAdminAuthenticated,
   setIsAdminAuthenticated,
   windowWidth,
-}: {
-  isAdminAuthenticated: boolean;
-  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth: number;
-}) {
+}: AdminLayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
@@ -368,33 +434,19 @@ function AdminLayout({
 
 function PatientLayout({
   setIsPatientAuthenticated,
+  isPatientAuthenticated,
   windowWidth,
-}: {
-  isPatientAuthenticated: boolean;
-  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth: number;
-}) {
+}: PatientLayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
         windowWidth={windowWidth}
         setIsPatientAuthenticated={setIsPatientAuthenticated}
+        isPatientAuthenticated={isPatientAuthenticated}
         isPatientNavBar
       />
       <Outlet />
       <Footer isPatientFooter />
-
-      {windowWidth < 768 && <MobileNav isPatientMobileNav />}
-    </div>
-  );
-}
-
-function PublicLayout({ windowWidth }: { windowWidth: number }) {
-  return (
-    <div className="flex flex-col justify-between min-h-screen">
-      <NavBar isPublicNavBar windowWidth={windowWidth} />
-      <Outlet />
-      <Footer isPublicFooter />
 
       {windowWidth < 768 && <MobileNav isPatientMobileNav />}
     </div>

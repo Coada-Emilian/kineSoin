@@ -1,6 +1,6 @@
 import DescriptionSection from '../DescriptionSection/DescriptionSection';
 import FormSection from '../FormSection/FormSection';
-import HeadBand from '../HeadBand/HeadBand';
+import HeadBand from '../PrivateMain/PublicHeadBand/PublicHeadBand';
 
 interface MainProps {
   isHomePageMain?: boolean;

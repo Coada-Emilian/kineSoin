@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
-import LogoutIcon from '/icons/logout.png';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useState } from 'react';
 import { removePatientTokenFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
@@ -18,6 +17,7 @@ interface NavBarProps {
   isAdminAuthenticated?: boolean;
   isPublicNavBar?: boolean;
   isPatientNavBar?: boolean;
+  isPatientAuthenticated?: boolean;
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,6 +32,7 @@ export default function NavBar({
   isAdminAuthenticated,
   isPublicNavBar,
   isPatientNavBar,
+  isPatientAuthenticated,
   setIsAdminAuthenticated,
   setIsRegisterPageRendered,
   setIsFirstFormValidated,
@@ -62,7 +63,9 @@ export default function NavBar({
     useState(0);
 
   return (
-    <header className="bg-white bg-opacity-70 sticky top-0 w-full py-1 z-10">
+    <header
+      className={`bg-gradient-to-r from-white to-gray-300 bg-opacity-70 sticky top-0 w-full py-1 z-10`}
+    >
       <nav
         className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}
       >
@@ -159,7 +162,7 @@ export default function NavBar({
             ))}
 
           {/* Patient navbar portion */}
-          {isPatientNavBar && (
+          {isPatientNavBar && isPatientAuthenticated && (
             <div className="flex gap-2">
               <Link to="#">
                 <CustomButton

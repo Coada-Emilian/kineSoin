@@ -7,7 +7,7 @@ interface HomePageArticleProps {
 export default function HomePageArticle({ article }: HomePageArticleProps) {
   return (
     <div>
-      <article className="flex flex-col gap-4 mb-6 w-28 md:w-32 xl:w-56 2xl:w-72">
+      <article className="flex flex-col gap-4 mb-6 w-24 md:w-32 xl:w-56 2xl:w-72">
         <img
           src={article.imgSrc}
           alt="graph"
