@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import DescriptionSection from '../../DescriptionSection/DescriptionSection';
-import FormSection from '../../FormSection/FormSection';
-import HeadBand from '../../PrivateMain/PublicHeadBand/PublicHeadBand';
+import PublicMainDescriptionSection from '../PublicMainDescriptionSection/PublicMainDescriptionSection';
+import PublicMainFormSection from '../PublicMainFormSection/PublicMainFormSection';
+import PublicHeadBand from '../../PrivateMain/PublicHeadBand/PublicHeadBand';
 
 interface PublicMainProps {
   isHomePageMain?: boolean;
@@ -38,9 +38,11 @@ export default function PublicMain({
   isGlobalFormSubmitted,
   setIsGlobalFormSubmitted,
 }: PublicMainProps) {
+  // Register page render state
   const [isPatientRegisterPageRendered, setIsPatientRegisterPageRendered] =
     useState(false);
 
+  // UseEffect to set the register page render state
   useEffect(() => {
     if (isPatientRegisterPageMain) {
       setIsPatientRegisterPageRendered(true);
@@ -52,7 +54,7 @@ export default function PublicMain({
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
       <div className="flex flex-col w-full h-full">
-        <FormSection
+        <PublicMainFormSection
           isHomePageFormSection={isHomePageMain ?? false}
           isPatientLoginPageFormSection={isPatientLoginPageMain ?? false}
           isTherapistLoginPageFormSection={isTherapistLoginPageMain ?? false}
@@ -102,9 +104,9 @@ export default function PublicMain({
           }
         />
 
-        <HeadBand />
+        <PublicHeadBand />
 
-        <DescriptionSection
+        <PublicMainDescriptionSection
           isHomePageDescriptionSection={isHomePageMain ?? false}
           isPatientLoginPageDescriptionSection={isPatientLoginPageMain ?? false}
           isTherapistLoginPageDescriptionSection={

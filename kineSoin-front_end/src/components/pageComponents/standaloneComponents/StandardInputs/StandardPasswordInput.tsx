@@ -47,31 +47,30 @@ export default function StandardPasswordInput({
     <div className="mb-4">
       <label
         htmlFor={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
-        className={`${isPatientRegisterPasswordInput || (isNewPasswordInput && 'flex mb-1 items-center')} text-primaryBlue text-sm font-medium`}
+        className={`${isPatientRegisterPasswordInput || isNewPasswordInput ? 'flex mb-1 items-center' : ''} text-primaryBlue text-sm font-medium`}
       >
         {isOldPasswordInput
           ? 'Ancien mot de passe'
           : isNewPasswordInput
             ? 'Nouveau mot de passe'
             : isRepeatPasswordInput
-              ? 'Répétez le mot de passe'
+              ? 'Confirmer le mot de passe'
               : !isPatientRegisterConfirmPasswordInput
                 ? 'Mot de passe'
                 : 'Confirmation mot de passe'}
-        {isPatientRegisterPasswordInput ||
-          (isNewPasswordInput && (
-            <p
-              className="text-sm text-center ml-4"
-              title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre
-                & 1 caractère spécial"
-            >
-              <img src={questionIcon} alt="aide" className="w-6 cursor-help" />
-              <span className="sr-only">
-                12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre &
-                1 caractère spécial
-              </span>
-            </p>
-          ))}
+
+        {(isPatientRegisterPasswordInput || isNewPasswordInput) && (
+          <p
+            className="text-sm text-center ml-4"
+            title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial"
+          >
+            <img src={questionIcon} alt="aide" className="w-6 cursor-help" />
+            <span className="sr-only">
+              12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1
+              caractère spécial
+            </span>
+          </p>
+        )}
       </label>
 
       <div className="flex rounded-md shadow-sm border">
@@ -89,7 +88,7 @@ export default function StandardPasswordInput({
                     : 'password'
           }
           id={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
+          className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
           placeholder={
             isOldPasswordInput
               ? 'Entrez votre ancien mot de passe'
@@ -121,11 +120,15 @@ export default function StandardPasswordInput({
                     setPatientRegisterConfirmPassword(e.target.value)
           }
         />
-        <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className="bg-white rounded-tr-md rounded-br-md"
+        >
           <img
             src={showPassword ? closedEyeIcon : openedEyeIcon}
             alt={showPassword ? 'Hide password' : 'Show password'}
-            className="h-6 my-auto px-2 w-auto opacity-90"
+            className="h-6 my-auto px-2 w-auto opacity-90 bg-white"
           />
         </button>
       </div>

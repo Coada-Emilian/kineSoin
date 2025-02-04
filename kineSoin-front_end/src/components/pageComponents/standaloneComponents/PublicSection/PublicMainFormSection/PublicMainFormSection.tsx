@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { useEffect, useState } from 'react';
-import StandardPasswordInput from '../StandardInputs/StandardPasswordInput';
-import StandardEmailInput from '../StandardInputs/StandardEmailInput';
+import StandardPasswordInput from '../../StandardInputs/StandardPasswordInput';
+import StandardEmailInput from '../../StandardInputs/StandardEmailInput';
 import {
   handlePatientLogin,
   handlePatientRegistration,
   handleTherapistConnection,
-} from '../../../../utils/apiUtils';
-import StandardTextInput from '../StandardInputs/StandardTextInput';
-import StandardDateInput from '../StandardInputs/StandardDateInput';
-import StandardDropdownInput from '../StandardInputs/StandardDropdownInput';
-import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
-import StandardFileInput from '../StandardInputs/StandardFileInput';
+} from '../../../../../utils/apiUtils';
+import StandardTextInput from '../../StandardInputs/StandardTextInput';
+import StandardDateInput from '../../StandardInputs/StandardDateInput';
+import StandardDropdownInput from '../../StandardInputs/StandardDropdownInput';
+import StandardTelephoneInput from '../../StandardInputs/StandardTelephoneInput';
+import StandardFileInput from '../../StandardInputs/StandardFileInput';
 import { useNavigate } from 'react-router-dom';
 
-interface FormSectionProps {
+interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;
   isPatientLoginPageFormSection?: boolean;
   setPatientProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
@@ -37,7 +37,7 @@ interface FormSectionProps {
   setIsGlobalFormSubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
   isGlobalFormSubmitted?: boolean;
 }
-export default function FormSection({
+export default function PublicMainFormSection({
   isHomePageFormSection,
   isPatientLoginPageFormSection,
   isTherapistLoginPageFormSection,
@@ -53,7 +53,7 @@ export default function FormSection({
   setIsThirdFormValidated,
   setIsGlobalFormSubmitted,
   isGlobalFormSubmitted,
-}: FormSectionProps) {
+}: PublicMainFormSectionProps) {
   // Patient login data states
   const [patientLoginPassword, setPatientLoginPassword] = useState<string>('');
   const [patientLoginEmail, setPatientLoginEmail] = useState<string>('');
@@ -80,7 +80,6 @@ export default function FormSection({
     useState<string>('');
   const [patientRegisterConfirmPassword, setPatientRegisterConfirmPassword] =
     useState<string>('');
-
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
   const navigate = useNavigate();
@@ -160,6 +159,7 @@ export default function FormSection({
     const formData = new FormData(form);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
+    const nameRegex = /^[A-Za-zÀ-ÿ\s'-]+$/;
 
     // Check if the name, birth name and surname fields are empty
     if (
@@ -181,6 +181,23 @@ export default function FormSection({
     } // Check if the patient gender is empty
     else if (registeredPatientGender === '') {
       setPatientErrorMessage('Veuillez sélectionner votre genre');
+    } else if (
+      registeredPatientBirthDate &&
+      registeredPatientBirthDate < '1900-01-01'
+    ) {
+      setPatientErrorMessage(
+        'Veuillez entrer une date de naissance valide (après 1900)'
+      );
+      return;
+    } else if (
+      !nameRegex.test(formData.get('name') as string) ||
+      !nameRegex.test(formData.get('birth_name') as string) ||
+      !nameRegex.test(formData.get('surname') as string)
+    ) {
+      setPatientErrorMessage(
+        'Le nom, le prénom et le nom de naissance ne doivent contenir que des lettres.'
+      );
+      return;
     }
     // Check if the patient is under 12 years old
     else {
@@ -234,24 +251,43 @@ export default function FormSection({
       !formData.get('phone_number')
     ) {
       setPatientErrorMessage('Veuillez remplir tous les champs');
+    } else if (!/^\d{5}$/.test(formData.get('postal_code') as string)) {
+      setPatientErrorMessage('Veuillez entrer un code postal valide');
+      return;
+    } else if (!/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('city') as string)) {
+      setPatientErrorMessage('Veuillez entrer un nom de ville valide');
+      return;
+    } else if (!/^\d+$/.test(formData.get('street_number') as string)) {
+      setPatientErrorMessage('Veuillez entrer un numéro de rue valide');
+      return;
+    } else if (
+      !/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('street_name') as string)
+    ) {
+      setPatientErrorMessage('Veuillez entrer un nom de rue valide');
+      return;
+    } else if (!/^\+?\d{1,15}$/.test(formData.get('phone_number') as string)) {
+      setPatientErrorMessage(
+        "Veuillez entrer un numéro de téléphone valide (+ et jusqu'à 15 chiffres)"
+      );
+      return;
+    } else {
+      // Create an object with the form data
+      const sentData = {
+        street_number: formData.get('street_number'),
+        street_name: formData.get('street_name'),
+        postal_code: formData.get('postal_code'),
+        city: formData.get('city'),
+        phone_number: formData.get('phone_number'),
+      };
+
+      // Set the patient error message to an empty string
+      setPatientErrorMessage('');
+      // Set the sent patient data with the form data
+      setSentPatientData({ ...sentPatientData, ...sentData });
+      // Set the second form as validated and the third form as not validated
+      setIsFirstFormValidated(false);
+      setIsSecondFormValidated(true);
     }
-
-    // Create an object with the form data
-    const sentData = {
-      street_number: formData.get('street_number'),
-      street_name: formData.get('street_name'),
-      postal_code: formData.get('postal_code'),
-      city: formData.get('city'),
-      phone_number: formData.get('phone_number'),
-    };
-
-    // Set the patient error message to an empty string
-    setPatientErrorMessage('');
-    // Set the sent patient data with the form data
-    setSentPatientData({ ...sentPatientData, ...sentData });
-    // Set the second form as validated and the third form as not validated
-    setIsFirstFormValidated(false);
-    setIsSecondFormValidated(true);
   };
 
   // Patient registration function for the third form
@@ -583,7 +619,7 @@ export default function FormSection({
                   <p>
                     Déjà membre?{' '}
                     <Link
-                      to="/loginPatient"
+                      to="/public/loginPatient"
                       className="text-primaryRed"
                       onClick={() => {
                         setIsFirstFormValidated(false),

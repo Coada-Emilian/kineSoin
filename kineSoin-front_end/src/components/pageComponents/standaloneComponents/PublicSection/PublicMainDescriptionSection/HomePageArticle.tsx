@@ -1,4 +1,4 @@
-import type { HomePageArticle } from '../../../../@types/HomePageArticle';
+import type { HomePageArticle } from '../../../../../@types/HomePageArticle';
 
 interface HomePageArticleProps {
   article: HomePageArticle;
