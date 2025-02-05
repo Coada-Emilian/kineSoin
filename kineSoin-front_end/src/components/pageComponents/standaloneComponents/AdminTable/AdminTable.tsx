@@ -289,7 +289,7 @@ export default function AdminTable({
           />
         </div>
 
-        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6">
+        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
           <TableHead
             windowWidth={windowWidth}
             allTherapists={allTherapists}

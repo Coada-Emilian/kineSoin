@@ -28,6 +28,10 @@ import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMa
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
 import AdminTherapistsPageMain from './components/pageComponents/AdminSection/AdminTherapistsPageMain';
+import AdminTherapistPageMain from './components/pageComponents/AdminSection/AdminTherapistPageMain';
+import AdminPatientsPageMain from './components/pageComponents/AdminSection/AdminPatientsPageMain';
+import AdminPatientPageMain from './components/pageComponents/AdminSection/AdminPatientPageMain';
+import AdminAfflictionsPageMain from './components/pageComponents/AdminSection/AdminAfflictionsPageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -288,19 +292,19 @@ function App() {
           />
           <Route
             path="therapists/:id"
-            element={<AdminTherapistPage windowWidth={windowWidth} />}
+            element={<AdminTherapistPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="patients"
-            element={<AdminPatientsPage windowWidth={windowWidth} />}
+            element={<AdminPatientsPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="patients/:id"
-            element={<AdminPatientPage windowWidth={windowWidth} />}
+            element={<AdminPatientPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="afflictions"
-            element={<AdminAfflictionsPage windowWidth={windowWidth} />}
+            element={<AdminAfflictionsPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="afflictions/:id"

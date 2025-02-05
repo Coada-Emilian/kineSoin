@@ -33,31 +33,31 @@ export default function TableTitle({
         (therapistStatus === 'all'
           ? 'Tous les kinésithérapeutes'
           : therapistStatus === 'active'
-            ? 'Kinésithérapeutes actifs'
+            ? 'Tous les kinésithérapeutes actifs'
             : therapistStatus === 'inactive'
-              ? 'Kinésithérapeutes inactifs'
+              ? 'Tous les kinésithérapeutes inactifs'
               : '')}
 
       {allPatients &&
         (patientStatus === 'all'
           ? 'Tous les patients'
           : patientStatus === 'active'
-            ? 'Patients actifs'
+            ? 'Tous les patients actifs'
             : patientStatus === 'inactive'
-              ? 'Patients inactifs'
+              ? 'Tous les patients inactifs'
               : patientStatus === 'banned'
-                ? 'Patients bannis'
+                ? 'Tous les patients bannis'
                 : patientStatus === 'pending'
-                  ? 'Patients en attente'
+                  ? 'Tous les patients en attente'
                   : '')}
 
       {allAfflictions &&
         (afflictionStatus === 'all'
           ? 'Toutes les afflictions'
           : afflictionStatus === 'operated'
-            ? 'Afflictions opérées'
+            ? 'Toutes les afflictions opérées'
             : afflictionStatus === 'non-operated'
-              ? 'Afflictions non opérées'
+              ? 'Toutes les afflictions non opérées'
               : '')}
 
       {allMedics && 'Tous les médecins'}

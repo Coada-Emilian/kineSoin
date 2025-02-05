@@ -1,4 +1,4 @@
-import AdminMain2 from '../standaloneComponents/AdminSection/AdminMain2.tsx';
+import AdminMain from '../standaloneComponents/AdminSection/AdminMain.tsx';
 
 interface AdminTherapistsPageMainProps {
   windowWidth: number;
@@ -7,5 +7,5 @@ interface AdminTherapistsPageMainProps {
 export default function AdminTherapistsPageMain({
   windowWidth,
 }: AdminTherapistsPageMainProps) {
-  return <AdminMain2 isAdminTherapistsMain windowWidth={windowWidth} />;
+  return <AdminMain isAdminTherapistsMain windowWidth={windowWidth} />;
 }
