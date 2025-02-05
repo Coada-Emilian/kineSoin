@@ -15,6 +15,8 @@ import StandardDropdownInput from '../../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../../StandardInputs/StandardTelephoneInput';
 import StandardFileInput from '../../StandardInputs/StandardFileInput';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { ICountry } from '../../../../../@types/ICountry';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;
@@ -83,6 +85,37 @@ export default function PublicMainFormSection({
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
   const navigate = useNavigate();
+
+  const [countriesData, setCountriesData] = useState<ICountry[]>([]);
+  const [chosenPrefix, setChosenPrefix] = useState<string>('');
+
+  useEffect(() => {
+    const fetchCountriesData = async () => {
+      try {
+        const response = await axios.get('https://restcountries.com/v3.1/all');
+        if (response) {
+          const data: ICountry[] = response.data
+            .map((country: any): ICountry => {
+              const root = country.idd?.root || ''; // Main dialing code prefix
+              const suffixes = country.idd?.suffixes || []; // Possible additional digits
+              const prefix = suffixes.length ? `${root}${suffixes[0]}` : root; // Combine root with first suffix if available
+
+              return {
+                prefix: prefix, // Properly formatted prefix
+                name: country.name.common,
+              };
+            })
+            .sort((a: ICountry, b: ICountry) => a.name.localeCompare(b.name)); // Sort alphabetically
+
+          setCountriesData(data);
+        }
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+      }
+    };
+
+    fetchCountriesData();
+  }, []);
 
   // Patient login function
   const checkPatientCredentials = async (
@@ -248,7 +281,8 @@ export default function PublicMainFormSection({
       !formData.get('city') ||
       !formData.get('street_number') ||
       !formData.get('street_name') ||
-      !formData.get('phone_number')
+      !formData.get('phone_number') ||
+      !formData.get('prefix')
     ) {
       setPatientErrorMessage('Veuillez remplir tous les champs');
     } else if (!/^\d{5}$/.test(formData.get('postal_code') as string)) {
@@ -272,13 +306,15 @@ export default function PublicMainFormSection({
       return;
     } else {
       // Create an object with the form data
+      const phoneNumber = `${formData.get('prefix')}${formData.get('phone_number')}`;
       const sentData = {
         street_number: formData.get('street_number'),
         street_name: formData.get('street_name'),
         postal_code: formData.get('postal_code'),
         city: formData.get('city'),
-        phone_number: formData.get('phone_number'),
+        phone_number: phoneNumber,
       };
+      console.log(sentData);
 
       // Set the patient error message to an empty string
       setPatientErrorMessage('');
@@ -479,7 +515,6 @@ export default function PublicMainFormSection({
 
             {isTherapistLoginPageFormSection && (
               <>
-                {' '}
                 <StandardEmailInput
                   isTherapistLoginPageEmailInput
                   therapistLoginEmail={therapistLoginEmail}
@@ -528,7 +563,15 @@ export default function PublicMainFormSection({
                   <StandardTextInput isCityInput />
                 </div>
 
-                <StandardTelephoneInput isPatientTelephoneInput />
+                <div className="flex gap-2 items-center justify-between">
+                  {' '}
+                  <StandardDropdownInput
+                    isCountryDropdownInput
+                    countries={countriesData}
+                    setChosenPrefix={setChosenPrefix}
+                  />
+                  <StandardTelephoneInput isPatientTelephoneInput />
+                </div>
               </>
             )}
 

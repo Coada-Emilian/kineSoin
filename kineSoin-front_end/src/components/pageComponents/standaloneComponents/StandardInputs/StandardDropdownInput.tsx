@@ -5,6 +5,7 @@ import { IPrescription } from '../../../../@types/IPrescription';
 import { fetchPatientAppointmentsByPrescription } from '../../../../utils/apiUtils';
 import { IAppointment } from '../../../../@types/IAppointment';
 import { IInsurance } from '../../../../@types/IInsurance';
+import { ICountry } from '../../../../@types/ICountry';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -30,6 +31,9 @@ interface StandardChoiceDropdownProps {
   isPatientInsuranceDropdownInput?: boolean;
   oldPatientInsuranceName?: string;
   insuranceList?: IInsurance[];
+  isCountryDropdownInput?: boolean;
+  countries?: ICountry[];
+  setChosenPrefix?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function StandardChoiceDropdown({
@@ -52,6 +56,9 @@ export default function StandardChoiceDropdown({
   isPatientInsuranceDropdownInput,
   oldPatientInsuranceName,
   insuranceList,
+  isCountryDropdownInput,
+  countries,
+  setChosenPrefix,
 }: StandardChoiceDropdownProps) {
   const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
     const response =
@@ -94,7 +101,7 @@ export default function StandardChoiceDropdown({
   }, [insuranceList, oldPatientInsuranceName]);
 
   return (
-    <div className="mb-4">
+    <div className={`${isCountryDropdownInput ? 'w-1/3' : ''} mb-4`}>
       <label
         htmlFor={
           isGenderDropdownInput
@@ -105,15 +112,18 @@ export default function StandardChoiceDropdown({
                 ? 'patient-register-at_home_care_dropdown'
                 : isAfflictionDropdownInput
                   ? 'new-prescription-affliction_dropdown'
-                  : ''
+                  : isCountryDropdownInput
+                    ? 'country_prefix_dropdown'
+                    : ''
         }
-        className="text-primaryBlue text-sm font-medium block mb-2"
+        className={`${isCountryDropdownInput ? 'text-xs' : ''} text-primaryBlue text-sm font-medium block mb-2`}
       >
         {isGenderDropdownInput && 'Genre'}{' '}
         {isMedicDropdownInput && 'Médecin prescripteur :'}
         {isAtHomeCareDropdownInput && 'A domicile ?'}
         {isAfflictionDropdownInput && 'Affection concernée :'}
         {isPatientInsuranceDropdownInput && 'Nom mutuelle :'}
+        {isCountryDropdownInput && 'Préfixe'}
       </label>
 
       <select
@@ -126,7 +136,9 @@ export default function StandardChoiceDropdown({
                 ? 'patient-register-at_home_care_dropdown'
                 : isAfflictionDropdownInput
                   ? 'new-prescription-affliction_dropdown'
-                  : ''
+                  : isCountryDropdownInput
+                    ? 'country_prefix_dropdown'
+                    : ''
         }
         value={
           isGenderDropdownInput && registeredPatientGender
@@ -158,7 +170,13 @@ export default function StandardChoiceDropdown({
           }
         }}
         className="block w-full p-2 border border-gray-300 rounded-md"
-        name={isPatientInsuranceDropdownInput ? 'insurance_id' : undefined}
+        name={
+          isPatientInsuranceDropdownInput
+            ? 'insurance_id'
+            : isCountryDropdownInput
+              ? 'prefix'
+              : ''
+        }
       >
         {isGenderDropdownInput && (
           <>
@@ -237,6 +255,18 @@ export default function StandardChoiceDropdown({
                     {insurance.name}
                   </option>
                 ))}
+          </>
+        )}
+
+        {isCountryDropdownInput && (
+          <>
+            <option value="">Choisissez un préfixe</option>
+            {countries &&
+              countries.map((country) => (
+                <option key={country.name} value={country.prefix}>
+                  {country.name} {country.prefix}
+                </option>
+              ))}
           </>
         )}
       </select>

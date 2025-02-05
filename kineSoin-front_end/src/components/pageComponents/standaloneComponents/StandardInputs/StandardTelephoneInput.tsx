@@ -11,7 +11,7 @@ export default function StandardTelephoneInput({
         htmlFor={
           isPatientTelephoneInput ? 'patient-register-telephone_input' : ''
         }
-        className="text-sm text-primaryBlue font-medium"
+        className="text-xs text-primaryBlue font-medium"
       >
         Numero Téléphone
       </label>
