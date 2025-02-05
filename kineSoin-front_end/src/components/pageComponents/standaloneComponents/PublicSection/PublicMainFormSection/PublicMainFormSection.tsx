@@ -17,6 +17,7 @@ import StandardFileInput from '../../StandardInputs/StandardFileInput';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ICountry } from '../../../../../@types/ICountry';
+import DNALoader from '../../../../../utils/DNALoader.tsx';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;
@@ -86,6 +87,9 @@ export default function PublicMainFormSection({
 
   const navigate = useNavigate();
 
+  // Loading state
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [countriesData, setCountriesData] = useState<ICountry[]>([]);
 
   useEffect(() => {
@@ -117,79 +121,87 @@ export default function PublicMainFormSection({
   }, []);
 
   // Patient login function
-  const checkPatientCredentials = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-    setPatientErrorMessage('');
+  const checkPatientCredentials = async () => {
+    try {
+      setIsLoading(true);
+      setPatientErrorMessage('');
 
-    // Check if the email and password fields are empty
-    if (!patientLoginEmail || !patientLoginPassword) {
-      setPatientErrorMessage('Veuillez remplir tous les champs');
-      return;
-    } else if (
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-        patientLoginEmail
-      )
-    ) {
-      setPatientErrorMessage('Veuillez entrer une adresse email valide');
-      return;
-    }
+      // Check if the email and password fields are empty
+      if (!patientLoginEmail || !patientLoginPassword) {
+        setPatientErrorMessage('Veuillez remplir tous les champs');
+        return;
+      } else if (
+        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+          patientLoginEmail
+        )
+      ) {
+        setPatientErrorMessage('Veuillez entrer une adresse email valide');
+        return;
+      }
 
-    // Call the handlePatientConnection function from the apiUtils file
-    const response = await handlePatientLogin(
-      patientLoginEmail,
-      patientLoginPassword
-    );
+      // Call the handlePatientConnection function from the apiUtils file
+      const response = await handlePatientLogin(
+        patientLoginEmail,
+        patientLoginPassword
+      );
 
-    // If the response is true, set the patient profile token
-    if (response) {
-      if (setPatientProfileToken) {
-        setPatientProfileToken(response);
-        navigate('/patient/dashboard');
+      // If the response is true, set the patient profile token
+      if (response) {
+        if (setPatientProfileToken) {
+          setPatientProfileToken(response);
+          setIsLoading(false);
+          navigate('/patient/dashboard');
+        } else {
+          setPatientErrorMessage('Email et/ou Mot de passe invalide');
+        }
       } else {
         setPatientErrorMessage('Email et/ou Mot de passe invalide');
       }
-    } else {
-      setPatientErrorMessage('Email et/ou Mot de passe invalide');
+    } catch (error) {
+      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      console.error(error);
     }
   };
 
   // Therapist login function
-  const checkTherapistCredentials = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-    setTherapistErrorMessage('');
-    // Check if the email and password fields are empty
-    if (!therapistLoginEmail || !therapistLoginPassword) {
-      setTherapistErrorMessage('Veuillez remplir tous les champs');
-      return;
-    } else if (
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-        therapistLoginEmail
-      )
-    ) {
-      setPatientErrorMessage('Veuillez entrer une adresse email valide');
-      return;
-    }
+  const checkTherapistCredentials = async () => {
+    try {
+      setIsLoading(true);
+      setTherapistErrorMessage('');
+      // Check if the email and password fields are empty
+      if (!therapistLoginEmail || !therapistLoginPassword) {
+        setTherapistErrorMessage('Veuillez remplir tous les champs');
+        return;
+      } else if (
+        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+          therapistLoginEmail
+        )
+      ) {
+        setPatientErrorMessage('Veuillez entrer une adresse email valide');
+        return;
+      }
 
-    // Call the handleTherapistConnection function from the apiUtils file
-    const response = await handleTherapistConnection(
-      therapistLoginEmail,
-      therapistLoginPassword
-    );
+      // Call the handleTherapistConnection function from the apiUtils file
+      const response = await handleTherapistConnection(
+        therapistLoginEmail,
+        therapistLoginPassword
+      );
 
-    // If the response is true, set the therapist profile token
-    if (response) {
-      if (setTherapistProfileToken) {
-        setTherapistProfileToken(response);
-        navigate('/therapist/dashboard');
+      // If the response is true, set the therapist profile token
+      if (response) {
+        if (setTherapistProfileToken) {
+          setTherapistProfileToken(response);
+          setIsLoading(false);
+          navigate('/therapist/dashboard');
+        } else {
+          setTherapistErrorMessage('Email et/ou Mot de passe invalide');
+        }
       } else {
         setTherapistErrorMessage('Email et/ou Mot de passe invalide');
       }
-    } else {
-      setTherapistErrorMessage('Email et/ou Mot de passe invalide');
+    } catch (error) {
+      setTherapistErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      console.error(error);
     }
   };
 
@@ -197,83 +209,90 @@ export default function PublicMainFormSection({
   const handleFirstPatientRegisterForm = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
-    e.preventDefault();
-    setPatientErrorMessage('');
+    try {
+      setIsLoading(true);
+      e.preventDefault();
+      setPatientErrorMessage('');
 
-    // Retrieve the form data, the current date and year
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const nameRegex = /^[A-Za-zÀ-ÿ\s'-]+$/;
+      // Retrieve the form data, the current date and year
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const nameRegex = /^[A-Za-zÀ-ÿ\s'-]+$/;
 
-    // Check if the name, birth name and surname fields are empty
-    if (
-      !formData.get('name') ||
-      !formData.get('birth_name') ||
-      !formData.get('surname') ||
-      !formData.get('birth-date')
-    ) {
-      setPatientErrorMessage('Veuillez remplir tous les champs');
-      return;
-    }
-    // Check if the birth date is empty or invalid
-    else if (
-      registeredPatientBirthDate &&
-      registeredPatientBirthDate > currentDate.toISOString().split('T')[0]
-    ) {
-      setPatientErrorMessage('Veuillez entrer une date valide');
-      return;
-    } // Check if the patient gender is empty
-    else if (registeredPatientGender === '') {
-      setPatientErrorMessage('Veuillez sélectionner votre genre');
-    } else if (
-      registeredPatientBirthDate &&
-      registeredPatientBirthDate < '1900-01-01'
-    ) {
-      setPatientErrorMessage(
-        'Veuillez entrer une date de naissance valide (après 1900)'
-      );
-      return;
-    } else if (
-      !nameRegex.test(formData.get('name') as string) ||
-      !nameRegex.test(formData.get('birth_name') as string) ||
-      !nameRegex.test(formData.get('surname') as string)
-    ) {
-      setPatientErrorMessage(
-        'Le nom, le prénom et le nom de naissance ne doivent contenir que des lettres.'
-      );
-      return;
-    }
-    // Check if the patient is under 12 years old
-    else {
-      const age =
-        currentYear - Number(registeredPatientBirthDate?.split('-')[0]);
-      if (age < 12) {
+      // Check if the name, birth name and surname fields are empty
+      if (
+        !formData.get('name') ||
+        !formData.get('birth_name') ||
+        !formData.get('surname') ||
+        !formData.get('birth-date')
+      ) {
+        setPatientErrorMessage('Veuillez remplir tous les champs');
+        return;
+      }
+      // Check if the birth date is empty or invalid
+      else if (
+        registeredPatientBirthDate &&
+        registeredPatientBirthDate > currentDate.toISOString().split('T')[0]
+      ) {
+        setPatientErrorMessage('Veuillez entrer une date valide');
+        return;
+      } // Check if the patient gender is empty
+      else if (registeredPatientGender === '') {
+        setPatientErrorMessage('Veuillez sélectionner votre genre');
+      } else if (
+        registeredPatientBirthDate &&
+        registeredPatientBirthDate < '1900-01-01'
+      ) {
         setPatientErrorMessage(
-          'Vous devez avoir au moins 12 ans pour vous inscrire'
+          'Veuillez entrer une date de naissance valide (après 1900)'
+        );
+        return;
+      } else if (
+        !nameRegex.test(formData.get('name') as string) ||
+        !nameRegex.test(formData.get('birth_name') as string) ||
+        !nameRegex.test(formData.get('surname') as string)
+      ) {
+        setPatientErrorMessage(
+          'Le nom, le prénom et le nom de naissance ne doivent contenir que des lettres.'
         );
         return;
       }
-    }
+      // Check if the patient is under 12 years old
+      else {
+        const age =
+          currentYear - Number(registeredPatientBirthDate?.split('-')[0]);
+        if (age < 12) {
+          setPatientErrorMessage(
+            'Vous devez avoir au moins 12 ans pour vous inscrire'
+          );
+          return;
+        }
+      }
 
-    // Create an object with the form data
-    const sentData = {
-      name: formData.get('name'),
-      birth_name: formData.get('birth_name'),
-      surname: formData.get('surname'),
-      birth_date: registeredPatientBirthDate,
-      gender: registeredPatientGender,
-    };
+      // Create an object with the form data
+      const sentData = {
+        name: formData.get('name'),
+        birth_name: formData.get('birth_name'),
+        surname: formData.get('surname'),
+        birth_date: registeredPatientBirthDate,
+        gender: registeredPatientGender,
+      };
 
-    // Set the patient error message to an empty string
-    setPatientErrorMessage('');
-    // Set the sent patient data with the form data
-    setSentPatientData(sentData);
-    // Set the first form as validated and the second form as not validated
-    setIsFirstFormValidated(true);
-    if (setIsPatientRegisterPageRendered) {
-      setIsPatientRegisterPageRendered(false);
+      // Set the patient error message to an empty string
+      setPatientErrorMessage('');
+      // Set the sent patient data with the form data
+      setSentPatientData(sentData);
+      // Set the first form as validated and the second form as not validated
+      setIsFirstFormValidated(true);
+      if (setIsPatientRegisterPageRendered) {
+        setIsPatientRegisterPageRendered(false);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      console.error(error);
     }
   };
 
@@ -281,61 +300,70 @@ export default function PublicMainFormSection({
   const handleSecondPatientRegisterForm = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
-    e.preventDefault();
-    setPatientErrorMessage('');
-
-    // Retrieve the form data
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    // Check if the postal code, city, street number, street name and phone number fields are empty
-    if (
-      !formData.get('postal_code') ||
-      !formData.get('city') ||
-      !formData.get('street_number') ||
-      !formData.get('street_name') ||
-      !formData.get('phone_number') ||
-      !formData.get('prefix')
-    ) {
-      setPatientErrorMessage('Veuillez remplir tous les champs');
-    } else if (!/^\d{5}$/.test(formData.get('postal_code') as string)) {
-      setPatientErrorMessage('Veuillez entrer un code postal valide');
-      return;
-    } else if (!/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('city') as string)) {
-      setPatientErrorMessage('Veuillez entrer un nom de ville valide');
-      return;
-    } else if (!/^\d+$/.test(formData.get('street_number') as string)) {
-      setPatientErrorMessage('Veuillez entrer un numéro de rue valide');
-      return;
-    } else if (
-      !/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('street_name') as string)
-    ) {
-      setPatientErrorMessage('Veuillez entrer un nom de rue valide');
-      return;
-    } else if (!/^\+?\d{1,15}$/.test(formData.get('phone_number') as string)) {
-      setPatientErrorMessage(
-        "Veuillez entrer un numéro de téléphone valide (+ et jusqu'à 15 chiffres)"
-      );
-      return;
-    } else {
-      // Create an object with the form data
-      const phoneNumber = `${formData.get('prefix')}${formData.get('phone_number')}`;
-      const sentData = {
-        street_number: formData.get('street_number'),
-        street_name: formData.get('street_name'),
-        postal_code: formData.get('postal_code'),
-        city: formData.get('city'),
-        phone_number: phoneNumber,
-      };
-      console.log(sentData);
-
-      // Set the patient error message to an empty string
+    try {
+      setIsLoading(true);
+      e.preventDefault();
       setPatientErrorMessage('');
-      // Set the sent patient data with the form data
-      setSentPatientData({ ...sentPatientData, ...sentData });
-      // Set the second form as validated and the third form as not validated
-      setIsFirstFormValidated(false);
-      setIsSecondFormValidated(true);
+
+      // Retrieve the form data
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+
+      // Check if the postal code, city, street number, street name and phone number fields are empty
+      if (
+        !formData.get('postal_code') ||
+        !formData.get('city') ||
+        !formData.get('street_number') ||
+        !formData.get('street_name') ||
+        !formData.get('phone_number') ||
+        !formData.get('prefix')
+      ) {
+        setPatientErrorMessage('Veuillez remplir tous les champs');
+      } else if (!/^\d{5}$/.test(formData.get('postal_code') as string)) {
+        setPatientErrorMessage('Veuillez entrer un code postal valide');
+        return;
+      } else if (!/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('city') as string)) {
+        setPatientErrorMessage('Veuillez entrer un nom de ville valide');
+        return;
+      } else if (!/^\d+$/.test(formData.get('street_number') as string)) {
+        setPatientErrorMessage('Veuillez entrer un numéro de rue valide');
+        return;
+      } else if (
+        !/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('street_name') as string)
+      ) {
+        setPatientErrorMessage('Veuillez entrer un nom de rue valide');
+        return;
+      } else if (
+        !/^\+?\d{1,15}$/.test(formData.get('phone_number') as string)
+      ) {
+        setPatientErrorMessage(
+          "Veuillez entrer un numéro de téléphone valide (+ et jusqu'à 15 chiffres)"
+        );
+        return;
+      } else {
+        // Create an object with the form data
+        const phoneNumber = `${formData.get('prefix')}${formData.get('phone_number')}`;
+        const sentData = {
+          street_number: formData.get('street_number'),
+          street_name: formData.get('street_name'),
+          postal_code: formData.get('postal_code'),
+          city: formData.get('city'),
+          phone_number: phoneNumber,
+        };
+        console.log(sentData);
+
+        // Set the patient error message to an empty string
+        setPatientErrorMessage('');
+        // Set the sent patient data with the form data
+        setSentPatientData({ ...sentPatientData, ...sentData });
+        // Set the second form as validated and the third form as not validated
+        setIsFirstFormValidated(false);
+        setIsSecondFormValidated(true);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 
@@ -343,54 +371,63 @@ export default function PublicMainFormSection({
   const handleThirdPatientRegisterForm = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
-    e.preventDefault();
-    setPatientErrorMessage('');
+    try {
+      setIsLoading(true);
+      e.preventDefault();
+      setPatientErrorMessage('');
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+      const form = e.currentTarget;
+      const formData = new FormData(form);
 
-    if (
-      !patientImage ||
-      !formData.get('email') ||
-      !formData.get('password') ||
-      !formData.get('confirm-password')
-    ) {
-      setPatientErrorMessage('Veuillez remplir tous les champs');
-      return;
-    } else if (formData.get('password') !== formData.get('confirm-password')) {
-      setPatientErrorMessage('Les mots de passe ne correspondent pas');
-      return;
-    } else if ((formData.get('password') as string).length < 12) {
-      setPatientErrorMessage(
-        'Le mot de passe doit contenir au moins 12 caractères'
-      );
-      return;
-    } else if (
-      !/\d/.test(formData.get('password') as string) ||
-      !/[a-z]/.test(formData.get('password') as string) ||
-      !/[A-Z]/.test(formData.get('password') as string)
-    ) {
-      setPatientErrorMessage(
-        'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre'
-      );
-      return;
-    } else if (
-      !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(
-        formData.get('email') as string
-      )
-    ) {
-      setPatientErrorMessage('Veuillez entrer une adresse email valide');
-      return;
-    } else {
-      const sentData = {
-        email: formData.get('email'),
-        password: formData.get('password'),
-        repeated_password: formData.get('confirm-password'),
-        photo: patientImage,
-      };
-      setSentPatientData({ ...sentPatientData, ...sentData });
-      setIsSecondFormValidated(false);
-      setIsThirdFormValidated(true);
+      if (
+        !patientImage ||
+        !formData.get('email') ||
+        !formData.get('password') ||
+        !formData.get('confirm-password')
+      ) {
+        setPatientErrorMessage('Veuillez remplir tous les champs');
+        return;
+      } else if (
+        formData.get('password') !== formData.get('confirm-password')
+      ) {
+        setPatientErrorMessage('Les mots de passe ne correspondent pas');
+        return;
+      } else if ((formData.get('password') as string).length < 12) {
+        setPatientErrorMessage(
+          'Le mot de passe doit contenir au moins 12 caractères'
+        );
+        return;
+      } else if (
+        !/\d/.test(formData.get('password') as string) ||
+        !/[a-z]/.test(formData.get('password') as string) ||
+        !/[A-Z]/.test(formData.get('password') as string)
+      ) {
+        setPatientErrorMessage(
+          'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre'
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(
+          formData.get('email') as string
+        )
+      ) {
+        setPatientErrorMessage('Veuillez entrer une adresse email valide');
+        return;
+      } else {
+        const sentData = {
+          email: formData.get('email'),
+          password: formData.get('password'),
+          repeated_password: formData.get('confirm-password'),
+          photo: patientImage,
+        };
+        setSentPatientData({ ...sentPatientData, ...sentData });
+        setIsSecondFormValidated(false);
+        setIsThirdFormValidated(true);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 
@@ -416,6 +453,10 @@ export default function PublicMainFormSection({
     };
     registerPatient();
   }, [sentPatientData]);
+
+  if (isLoading) {
+    return DNALoader();
+  }
 
   return (
     // Render the form section with the corresponding background image and form content
@@ -633,7 +674,7 @@ export default function PublicMainFormSection({
                 </p>
 
                 <p className="indent-4">
-                  <Link to="/" className="font-bold text-primaryRed">
+                  <Link to="/public/home" className="font-bold text-primaryRed">
                     Retour à l'accueil
                   </Link>{' '}
                 </p>

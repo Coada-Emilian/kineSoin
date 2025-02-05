@@ -12,9 +12,13 @@ import { Link } from 'react-router-dom';
 
 interface ErrorPageProps {
   isAdminAuthenticated?: boolean;
+  isPublicErrorPage?: boolean;
 }
 
-export default function ErrorPage({ isAdminAuthenticated }: ErrorPageProps) {
+export default function ErrorPage({
+  isAdminAuthenticated,
+  isPublicErrorPage,
+}: ErrorPageProps) {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
       <h1 className="text-6xl font-bold text-red-600 mb-4">404</h1>
@@ -23,7 +27,13 @@ export default function ErrorPage({ isAdminAuthenticated }: ErrorPageProps) {
         Oups ! La page que vous recherchez n'existe pas ou a été déplacée.
       </p>
       <Link
-        to={isAdminAuthenticated ? '/admin/therapists' : '/loginAdmin'}
+        to={
+          isAdminAuthenticated
+            ? '/admin/therapists'
+            : isPublicErrorPage
+              ? '/public/home'
+              : '/loginAdmin'
+        }
         className="bg-primaryBlue hover:bg-secondaryBlue text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-300"
       >
         {isAdminAuthenticated

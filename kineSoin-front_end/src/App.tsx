@@ -4,9 +4,7 @@ import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalS
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLoginPage';
 import NavBar from './components/pageComponents/standaloneComponents/NavBar/NavBar';
-import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistsPage/AdminTherapistsPage';
 import Footer from './components/pageComponents/standaloneComponents/Footer/Footer';
 import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistPage/AdminTherapistPage';
 import ErrorPage from './components/pageComponents/AdminSection/ErrorPage/ErrorPage';
@@ -18,7 +16,6 @@ import AdminMedicsPage from './components/pageComponents/AdminSection/AdminMedic
 import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicPage/AdminMedicPage';
 import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
 import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
-import LoginPage from './components/pageComponents/PublicSection/LoginPageMain';
 import MobileNav from './components/pageComponents/standaloneComponents/MobileNav/MobileNav';
 import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboardPage/PatientDashboardPage';
 import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
@@ -29,7 +26,8 @@ import PatientDetailsPage from './components/pageComponents/PatientSection/Patie
 import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
-import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage/AdminLoginPage';
+import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
+import AdminTherapistsPageMain from './components/pageComponents/AdminSection/AdminTherapistsPageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -264,6 +262,7 @@ function App() {
             />
           }
         ></Route>
+        <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
 
       <Route
@@ -285,7 +284,7 @@ function App() {
         >
           <Route
             path="therapists"
-            element={<AdminTherapistsPage windowWidth={windowWidth} />}
+            element={<AdminTherapistsPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="therapists/:id"
@@ -433,6 +432,8 @@ function AdminLayout({
       />
       <Outlet />
       <Footer isAdminFooter />
+
+      {windowWidth < 768 && <MobileNav isAdminMobileNav />}
     </div>
   );
 }

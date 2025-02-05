@@ -2,15 +2,15 @@
 
 import { NavLink } from 'react-router-dom';
 
-interface AdminSideNavProps {
+interface SideNavProps {
   isAdminSideNav?: boolean;
   isPatientSideNav?: boolean;
 }
 
-export default function AdminSideNav({
+export default function SideNav({
   isAdminSideNav,
   isPatientSideNav,
-}: AdminSideNavProps) {
+}: SideNavProps) {
   const adminLinks = [
     { name: 'Tous les kinésithérapeutes', path: '/admin/therapists' },
     { name: 'Tous les patients', path: '/admin/patients' },

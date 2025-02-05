@@ -1,15 +1,15 @@
 // Purpose: The purpose of this component is to render the login page for the admin.
 
-import CustomButton from '../../../standaloneComponents/Button/CustomButton.tsx';
-import { setAdminTokenAndDataInLocalStorage } from '../../../../localStorage/adminLocalStorage.ts';
+import CustomButton from '../../standaloneComponents/Button/CustomButton.tsx';
+import { setAdminTokenAndDataInLocalStorage } from '../../../localStorage/adminLocalStorage.ts';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { handleAdminLogin } from '../../../../utils/apiUtils.ts';
-import DNALoader from '../../../../utils/DNALoader.tsx';
+import { Link, useNavigate } from 'react-router-dom';
+import { handleAdminLogin } from '../../../utils/apiUtils.ts';
+import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
-import StandardEmailInput from '../../standaloneComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardPasswordInput from '../../standaloneComponents/StandardInputs/StandardPasswordInput.tsx';
+import StandardEmailInput from '../standaloneComponents/StandardInputs/StandardEmailInput.tsx';
+import StandardPasswordInput from '../standaloneComponents/StandardInputs/StandardPasswordInput.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -27,7 +27,7 @@ export default function AdminLoginPage({
   const navigate = useNavigate();
 
   // Function to check admin credentials
-  const checkAdminCredentials = async (e: React.FormEvent<HTMLFormElement>) => {
+  const checkAdminCredentials = async () => {
     try {
       setIsLoading(true);
 
@@ -77,11 +77,13 @@ export default function AdminLoginPage({
         <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue">
           Connexion administrateur
         </h1>
-        <img
-          src={logo}
-          alt="kinesoin"
-          className="w-14 md:w-16 xl:w-20 2xl:w-24 mx-auto mb-6"
-        />
+        <Link to="/public/home">
+          <img
+            src={logo}
+            alt="kinesoin"
+            className="w-14 md:w-16 xl:w-20 2xl:w-24 mx-auto mb-6"
+          />
+        </Link>
 
         {errorMessage ? (
           <p className="text-center text-red-600 font-semibold">
@@ -91,7 +93,7 @@ export default function AdminLoginPage({
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            await checkAdminCredentials(e);
+            await checkAdminCredentials();
           }}
           className="space-y-4"
         >

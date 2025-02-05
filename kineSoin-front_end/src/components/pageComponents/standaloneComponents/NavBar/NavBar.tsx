@@ -143,6 +143,10 @@ export default function NavBar({
               >
                 <CustomButton btnText={<>Connexion patient</>} navBarButton />
               </Link>
+
+              <Link to="/loginAdmin">
+                <CustomButton btnText="Connexion Admin" navBarButton />
+              </Link>
             </div>
           )}
 
