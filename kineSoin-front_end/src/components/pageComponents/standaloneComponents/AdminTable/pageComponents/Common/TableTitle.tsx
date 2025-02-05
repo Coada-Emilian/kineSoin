@@ -57,7 +57,7 @@ export default function TableTitle({
           : afflictionStatus === 'operated'
             ? 'Toutes les afflictions opérées'
             : afflictionStatus === 'non-operated'
-              ? 'Toutes les afflictions non opérées'
+              ? 'Toutes les afflictions non-opérées'
               : '')}
 
       {allMedics && 'Tous les médecins'}

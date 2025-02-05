@@ -3,7 +3,12 @@ import SideNav from '../../../standaloneComponents/SideNav/SideNav';
 import AdminTable from '../AdminTable/AdminTable';
 import { ITherapist } from '../../../../@types/ITherapist';
 import {
+  fetchAffliction,
   fetchAfflictions,
+  fetchInsuranceOrganism,
+  fetchInsuranceOrganisms,
+  fetchMedic,
+  fetchMedics,
   fetchPatient,
   fetchPatients,
   fetchTherapist,
@@ -14,6 +19,8 @@ import { useParams } from 'react-router-dom';
 import AdminProfileDetails from '../AdminProfileDetails/AdminProfileDetails';
 import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
+import { IMedic } from '../../../../@types/IMedic';
+import { IInsurance } from '../../../../@types/IInsurance';
 
 interface AdminMain2Props {
   windowWidth: number;
@@ -22,6 +29,11 @@ interface AdminMain2Props {
   isAdminPatientsMain?: boolean;
   isAdminPatientMain?: boolean;
   isAdminAfflictionsMain?: boolean;
+  isAdminAfflictionMain?: boolean;
+  isAdminMedicsMain?: boolean;
+  isAdminMedicMain?: boolean;
+  isAdminInsurancesMain?: boolean;
+  isAdminInsuranceMain?: boolean;
 }
 
 export default function AdminMain2({
@@ -31,6 +43,11 @@ export default function AdminMain2({
   isAdminPatientsMain,
   isAdminPatientMain,
   isAdminAfflictionsMain,
+  isAdminAfflictionMain,
+  isAdminMedicsMain,
+  isAdminMedicMain,
+  isAdminInsurancesMain,
+  isAdminInsuranceMain,
 }: AdminMain2Props) {
   // State to store all therapists fetched
   const [allTherapists, setAllTherapists] = useState<ITherapist[]>([]);
@@ -41,6 +58,14 @@ export default function AdminMain2({
   const [patientId, setPatientId] = useState<number | null>(null);
   const [patient, setPatient] = useState<IPatient | null>(null);
   const [allAfflictions, setAllAfflictions] = useState<IAffliction[]>([]);
+  const [afflictionId, setAfflictionId] = useState<number | null>(null);
+  const [affliction, setAffliction] = useState<IAffliction | null>(null);
+  const [allMedics, setAllMedics] = useState<IMedic[]>([]);
+  const [medicId, setMedicId] = useState<number | null>(null);
+  const [medic, setMedic] = useState<IMedic | null>(null);
+  const [allInsurances, setAllInsurances] = useState<IInsurance[]>([]);
+  const [insuranceId, setInsuranceId] = useState<number | null>(null);
+  const [insurance, setInsurance] = useState<IInsurance | null>(null);
 
   const { id } = useParams();
 
@@ -48,29 +73,46 @@ export default function AdminMain2({
     {
       isAdminTherapistMain && setTherapistId(id ? parseInt(id, 10) : null);
       isAdminPatientMain && setPatientId(id ? parseInt(id, 10) : null);
+      isAdminAfflictionMain && setAfflictionId(id ? parseInt(id, 10) : null);
+      isAdminMedicMain && setMedicId(id ? parseInt(id, 10) : null);
+      isAdminInsuranceMain && setInsuranceId(id ? parseInt(id, 10) : null);
     }
   }, []);
 
   useEffect(() => {
-    if (isAdminTherapistMain && therapistId) {
-      fetchTherapist(therapistId)
-        .then((therapist) => {
-          setTherapist(therapist);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-    if (isAdminPatientMain && patientId) {
-      fetchPatient(patientId)
-        .then((patient) => {
-          setPatient(patient);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [patientId, therapistId]);
+    const fetchData = async () => {
+      setIsLoading(true); // Start loading
+
+      const fetchPromises = [];
+
+      if (isAdminTherapistMain && therapistId) {
+        fetchPromises.push(fetchTherapist(therapistId).then(setTherapist));
+      }
+
+      if (isAdminPatientMain && patientId) {
+        fetchPromises.push(fetchPatient(patientId).then(setPatient));
+      }
+
+      if (isAdminAfflictionMain && afflictionId) {
+        fetchPromises.push(fetchAffliction(afflictionId).then(setAffliction));
+      }
+
+      if (isAdminMedicMain && medicId) {
+        fetchPromises.push(fetchMedic(medicId).then(setMedic));
+      }
+
+      if (isAdminInsuranceMain && insuranceId) {
+        fetchPromises.push(
+          fetchInsuranceOrganism(insuranceId).then(setInsurance)
+        );
+      }
+
+      await Promise.all(fetchPromises); // Wait for all fetch calls to complete
+      setIsLoading(false); // Set loading state to false once all data is loaded
+    };
+
+    fetchData();
+  }, [patientId, therapistId, afflictionId, medicId, insuranceId]);
 
   useEffect(() => {
     if (isAdminTherapistsMain) {
@@ -102,6 +144,26 @@ export default function AdminMain2({
           setIsLoading(false);
         });
     }
+
+    if (isAdminMedicsMain) {
+      fetchMedics()
+        .then((allMedics) => {
+          setAllMedics(allMedics);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+
+    if (isAdminInsurancesMain) {
+      fetchInsuranceOrganisms()
+        .then((allInsurances) => {
+          setAllInsurances(allInsurances);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   }, []);
 
   if (isLoading) {
@@ -110,61 +172,54 @@ export default function AdminMain2({
 
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-300 pb-2">
-      {windowWidth < 768 ? (
-        <div className="flex flex-col justify-between h-full p-4">
+      <div
+        className={`${windowWidth < 768 ? 'flex flex-col justify-between h-full p-4' : 'flex'}`}
+      >
+        {windowWidth > 768 && (
+          <div className="w-1/4 h-screen ">
+            <SideNav isAdminSideNav />
+          </div>
+        )}
+        <div
+          className={windowWidth > 768 ? 'w-3/4 border-l-2 border-solid' : ''}
+        >
           {(isAdminTherapistsMain ||
             isAdminPatientsMain ||
-            isAdminAfflictionsMain) && (
+            isAdminAfflictionsMain ||
+            isAdminMedicsMain ||
+            isAdminInsurancesMain) && (
             <AdminTable
               allTherapists={isAdminTherapistsMain ? allTherapists : undefined}
               allPatients={isAdminPatientsMain ? allPatients : undefined}
               allAfflictions={
                 isAdminAfflictionsMain ? allAfflictions : undefined
               }
+              allMedics={isAdminMedicsMain ? allMedics : undefined}
+              allInsurances={isAdminInsurancesMain ? allInsurances : undefined}
               windowWidth={windowWidth}
             />
           )}
-          {(isAdminTherapistMain || isAdminPatientMain) && (
+          {(isAdminTherapistMain ||
+            isAdminPatientMain ||
+            isAdminAfflictionMain ||
+            isAdminMedicMain ||
+            isAdminInsuranceMain) && (
             <AdminProfileDetails
               therapist={
                 isAdminTherapistMain && therapist ? therapist : undefined
               }
               patient={isAdminPatientMain && patient ? patient : undefined}
+              affliction={
+                isAdminAfflictionMain && affliction ? affliction : undefined
+              }
+              medic={isAdminMedicMain && medic ? medic : undefined}
+              insurance={
+                isAdminInsuranceMain && insurance ? insurance : undefined
+              }
             />
           )}
         </div>
-      ) : (
-        <div className="flex">
-          <div className="w-1/4 h-screen ">
-            <SideNav isAdminSideNav />
-          </div>
-
-          <div className="w-3/4 border-l-2 border-solid">
-            {(isAdminTherapistsMain ||
-              isAdminPatientsMain ||
-              isAdminAfflictionsMain) && (
-              <AdminTable
-                allTherapists={
-                  isAdminTherapistsMain ? allTherapists : undefined
-                }
-                allPatients={isAdminPatientsMain ? allPatients : undefined}
-                allAfflictions={
-                  isAdminAfflictionsMain ? allAfflictions : undefined
-                }
-                windowWidth={windowWidth}
-              />
-            )}
-            {(isAdminTherapistMain || isAdminPatientMain) && (
-              <AdminProfileDetails
-                therapist={
-                  isAdminTherapistMain && therapist ? therapist : undefined
-                }
-                patient={isAdminPatientMain && patient ? patient : undefined}
-              />
-            )}
-          </div>
-        </div>
-      )}
+      </div>
     </main>
   );
 }

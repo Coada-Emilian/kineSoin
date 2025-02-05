@@ -32,6 +32,10 @@ import AdminTherapistPageMain from './components/pageComponents/AdminSection/Adm
 import AdminPatientsPageMain from './components/pageComponents/AdminSection/AdminPatientsPageMain';
 import AdminPatientPageMain from './components/pageComponents/AdminSection/AdminPatientPageMain';
 import AdminAfflictionsPageMain from './components/pageComponents/AdminSection/AdminAfflictionsPageMain';
+import AdminAfflictionPageMain from './components/pageComponents/AdminSection/AdminAfflictionPageMain';
+import AdminMedicsPageMain from './components/pageComponents/AdminSection/AdminMedicsPageMain';
+import AdminMedicPageMain from './components/pageComponents/AdminSection/AdminMedicPageMain';
+import AdminInsurancesPageMain from './components/pageComponents/AdminSection/AdminInsurancesMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -308,19 +312,19 @@ function App() {
           />
           <Route
             path="afflictions/:id"
-            element={<AdminAfflictionPage windowWidth={windowWidth} />}
+            element={<AdminAfflictionPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="medics"
-            element={<AdminMedicsPage windowWidth={windowWidth} />}
+            element={<AdminMedicsPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="medics/:id"
-            element={<AdminMedicPage windowWidth={windowWidth} />}
+            element={<AdminMedicPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="insurances"
-            element={<AdminInsurancesPage windowWidth={windowWidth} />}
+            element={<AdminInsurancesPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="insurances/:id"
