@@ -16,6 +16,9 @@ interface StandardTextInputProps {
   patientRegisterTelephone?: string;
   isAppointmentNumberInput?: boolean;
   isPatientMessageInput?: boolean;
+  isAdminTherapistAddNameInput?: boolean;
+  isAdminTherapistAddSurnameInput?: boolean;
+  isAdminTherapistAddLicenceCodeInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -28,6 +31,9 @@ export default function StandardTextInput({
   isCityInput,
   isAppointmentNumberInput,
   isPatientMessageInput,
+  isAdminTherapistAddNameInput,
+  isAdminTherapistAddSurnameInput,
+  isAdminTherapistAddLicenceCodeInput,
 }: StandardTextInputProps) {
   return (
     <div
@@ -53,7 +59,13 @@ export default function StandardTextInput({
                           ? 'appointment-number_input'
                           : isPatientMessageInput
                             ? 'patient-message-input'
-                            : ''
+                            : isAdminTherapistAddNameInput
+                              ? 'therapist-name_input'
+                              : isAdminTherapistAddSurnameInput
+                                ? 'therapist-surname_input'
+                                : isAdminTherapistAddLicenceCodeInput
+                                  ? 'therapist-licence-code_input'
+                                  : ''
         }`}
         className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
@@ -73,7 +85,13 @@ export default function StandardTextInput({
                       ? 'Ville'
                       : isAppointmentNumberInput
                         ? 'Quantité seances prescrites :'
-                        : ''}
+                        : isAdminTherapistAddNameInput
+                          ? 'Nom'
+                          : isAdminTherapistAddSurnameInput
+                            ? 'Prénom'
+                            : isAdminTherapistAddLicenceCodeInput
+                              ? 'Code ADELI'
+                              : ''}
       </label>
 
       <input
@@ -97,7 +115,13 @@ export default function StandardTextInput({
                           ? 'appointment_quantity'
                           : isPatientMessageInput
                             ? 'content'
-                            : ''
+                            : isAdminTherapistAddNameInput
+                              ? 'name'
+                              : isAdminTherapistAddSurnameInput
+                                ? 'surname'
+                                : isAdminTherapistAddLicenceCodeInput
+                                  ? 'licence_code'
+                                  : ''
         }`}
         id={`${
           isNameInput
@@ -116,7 +140,13 @@ export default function StandardTextInput({
                         ? 'patient-register-city_input'
                         : isAppointmentNumberInput
                           ? 'appointment-number_input'
-                          : ''
+                          : isAdminTherapistAddNameInput
+                            ? 'therapist-name_input'
+                            : isAdminTherapistAddSurnameInput
+                              ? 'therapist-surname_input'
+                              : isAdminTherapistAddLicenceCodeInput
+                                ? 'therapist-licence-code_input'
+                                : ''
         }`}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder={`${
@@ -138,7 +168,13 @@ export default function StandardTextInput({
                           ? 'Seances prescrites'
                           : isPatientMessageInput
                             ? 'Tapez votre message...'
-                            : ''
+                            : isAdminTherapistAddNameInput
+                              ? 'Entrez le nom du kiné'
+                              : isAdminTherapistAddSurnameInput
+                                ? 'Entrez le prénom du kiné'
+                                : isAdminTherapistAddLicenceCodeInput
+                                  ? 'Entrez le code ADELI du kiné'
+                                  : ''
         }`}
         required={!isStreetNumberInput}
       />

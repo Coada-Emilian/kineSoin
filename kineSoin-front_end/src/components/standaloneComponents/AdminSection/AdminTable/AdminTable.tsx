@@ -24,6 +24,7 @@ import TableBody from './pageComponents/Common/TableBody';
 import AddMedicModal from '../../AdminSection/Modals/AddMedicModals/AddMedicModal';
 import AddInsuranceModal from '../../AdminSection/Modals/AddInsuranceModals/AddInsuranceModal';
 import StatusButtons from './StatusButtons';
+import AdminModal from './AdminModal';
 
 interface AdminTableProps {
   allPatients?: IPatient[];
@@ -263,22 +264,17 @@ export default function AdminTable({
             </>
           )}
 
-          {allMedics && (
-            <div className="flex ">
+          {(allMedics || allInsurances) && (
+            <div className="flex">
               <CustomButton
-                btnText="Ajouter un médecin"
+                btnText={
+                  allMedics ? 'Ajouter un médecin' : 'Ajouter une assurance'
+                }
                 addButton
-                onClick={() => setIsAddMedicModalOpen(true)}
-              />
-            </div>
-          )}
-
-          {allInsurances && (
-            <div className="flex ">
-              <CustomButton
-                btnText="Ajouter une assurance"
-                addButton
-                onClick={() => setIsAddInsuranceModalOpen(true)}
+                onClick={() => {
+                  if (allMedics) setIsAddMedicModalOpen(true);
+                  if (allInsurances) setIsAddInsuranceModalOpen(true);
+                }}
               />
             </div>
           )}
@@ -335,8 +331,11 @@ export default function AdminTable({
         />
       )}
 
-      {isAddTherapistModalP1Open && (
-        <AddTherapistModalP1
+      {(isAddTherapistModalP1Open ||
+        isAddTherapistModalP2Open ||
+        isAddTherapistModalP3Open) && (
+        <AdminModal
+          isFirstAddTherapistModal
           setAddForm={setAddForm}
           setIsAddTherapistModalP1Open={setIsAddTherapistModalP1Open}
           setIsAddTherapistModalP2Open={setIsAddTherapistModalP2Open}

@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import PatientRegisterImageModal from '../PrivateSection/PatientSection/Modals/PatientRegisterImageModal';
 import addIcon from '/icons/plus.png';
 import checkIcon from '/icons/check.png';
-import NewPrescriptionModal from '../../pageComponents/PatientSection/PatientPrescriptionPage/NewPrescriptionModal';
+import ImageModal from '../Modals/ImageModal';
 
 interface StandardFileInputProps {
   isPatientRegisterImageInput?: boolean;
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
   isNewPrescriptionFileInput?: boolean;
   setPrescriptionScan?: React.Dispatch<React.SetStateAction<File | null>>;
-  windowWidth?: number;
-  scanPreview?: string | null;
   setScanPreview?: React.Dispatch<React.SetStateAction<string | null>>;
+  isAdminTherapistImageAddInput?: boolean;
+  setPreviewUrl?: React.Dispatch<React.SetStateAction<string | null>>;
+  setTherapistImageFile?: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
 export default function StandardFileInput({
@@ -19,14 +19,17 @@ export default function StandardFileInput({
   setPatientImage,
   isNewPrescriptionFileInput,
   setPrescriptionScan,
-  windowWidth,
-  scanPreview,
   setScanPreview,
+  isAdminTherapistImageAddInput,
+  setPreviewUrl,
+  setTherapistImageFile,
 }: StandardFileInputProps) {
   // Modal states
   const [isPatientRegisterImageModalOpen, setIsPatientRegisterImageModalOpen] =
     useState<boolean>(false);
   const [isNewPrescriptionModalOpen, setIsNewPrescriptionModalOpen] =
+    useState<boolean>(false);
+  const [isAdminTherapistImageModalOpen, setIsAdminTherapistImageModalOpen] =
     useState<boolean>(false);
 
   // File name state
@@ -37,28 +40,38 @@ export default function StandardFileInput({
   const [isPatientImageUploaded, setIsPatientImageUploaded] =
     useState<boolean>(false);
 
+  const [isScanUploaded, setIsScanUploaded] = useState<boolean>(false);
+
+  const [isAdminTherapistImageUploaded, setIsAdminTherapistImageUploaded] =
+    useState<boolean>(false);
+
   return (
     <div className="mb-4">
       <div className="flex gap-2 items-center mb-2">
         <label className="text-primaryBlue text-sm font-medium">
           {isPatientRegisterImageInput && 'Chargez votre photo'}
           {isNewPrescriptionFileInput && "Ajouter un scan de l'ordonnance :"}
+          {isAdminTherapistImageAddInput && 'Ajouter une photo'}
         </label>
 
-        {(isPatientRegisterImageInput && isPatientImageUploaded) ||
-          (isNewPrescriptionFileInput && isPatientImageUploaded && (
-            <img src={checkIcon} alt="" className="w-6" />
-          ))}
+        {((isPatientRegisterImageInput && isPatientImageUploaded) ||
+          (isNewPrescriptionFileInput && isScanUploaded) ||
+          (isAdminTherapistImageAddInput && isAdminTherapistImageUploaded)) && (
+          <img src={checkIcon} alt="check" className="w-6" />
+        )}
       </div>
 
       <div className="flex rounded-md shadow-sm border">
-        {isPatientRegisterImageInput && (
+        {(isPatientRegisterImageInput ||
+          isAdminTherapistImageAddInput ||
+          isNewPrescriptionFileInput) && (
           <>
             <input
               type="text"
               className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic"
-              value={isPatientRegisterImageInput ? fileName : ''}
+              value={fileName}
               onChange={() => {}}
+              readOnly
             />
 
             <button
@@ -66,49 +79,32 @@ export default function StandardFileInput({
               onClick={() => {
                 isPatientRegisterImageInput &&
                   setIsPatientRegisterImageModalOpen(true);
+                isNewPrescriptionFileInput &&
+                  setIsNewPrescriptionModalOpen(true);
+                isAdminTherapistImageAddInput &&
+                  setIsAdminTherapistImageModalOpen(true);
               }}
               className="bg-white rounded-tr-md rounded-br-md"
             >
               <img
                 src={addIcon}
-                alt={isPatientRegisterImageInput ? 'Ajouter une photo' : ''}
+                alt={
+                  isPatientRegisterImageInput || isAdminTherapistImageAddInput
+                    ? 'Ajouter une photo'
+                    : isNewPrescriptionFileInput
+                      ? "Ajouter un scan de l'ordonnance"
+                      : ''
+                }
                 className="h-6 my-auto px-2 w-auto opacity-90 bg-white"
               />
             </button>
           </>
         )}
-
-        {isNewPrescriptionFileInput && (
-          <>
-            <button
-              type="button"
-              onClick={() => {
-                isPatientRegisterImageInput &&
-                  setIsPatientRegisterImageModalOpen(true);
-
-                isNewPrescriptionFileInput &&
-                  setIsNewPrescriptionModalOpen(true);
-              }}
-            >
-              <img
-                src={addIcon}
-                alt={isPatientRegisterImageInput ? 'Ajouter une photo' : ''}
-                className="h-6 my-auto px-2 w-auto opacity-90"
-              />
-            </button>
-
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic"
-              value={isNewPrescriptionFileInput ? fileName : ''}
-              onChange={() => {}}
-            />
-          </>
-        )}
       </div>
 
       {isPatientRegisterImageModalOpen && (
-        <PatientRegisterImageModal
+        <ImageModal
+          isPatientRegisterImageModal
           isPatientRegisterImageModalOpen={isPatientRegisterImageModalOpen}
           setIsPatientRegisterImageModalOpen={
             setIsPatientRegisterImageModalOpen
@@ -121,16 +117,28 @@ export default function StandardFileInput({
       )}
 
       {isNewPrescriptionModalOpen && (
-        <NewPrescriptionModal
+        <ImageModal
+          isNewPrescriptionScanModal
           setFileName={setFileName}
           setPrescriptionScan={setPrescriptionScan}
           isNewPrescriptionModalOpen={isNewPrescriptionModalOpen}
           setIsNewPrescriptionModalOpen={setIsNewPrescriptionModalOpen}
-          windowWidth={windowWidth}
-          setIsScanUploaded={setIsPatientImageUploaded}
+          setIsScanUploaded={setIsScanUploaded}
           fileName={fileName}
-          scanPreview={scanPreview}
           setScanPreview={setScanPreview}
+        />
+      )}
+
+      {isAdminTherapistImageModalOpen && (
+        <ImageModal
+          isAdminTherapistImageModal
+          fileName={fileName}
+          setFileName={setFileName}
+          isAdminTherapistImageModalOpen={isAdminTherapistImageModalOpen}
+          setIsAdminTherapistImageModalOpen={setIsAdminTherapistImageModalOpen}
+          setIsAdminTherapistImageUploaded={setIsAdminTherapistImageUploaded}
+          setPreviewUrl={setPreviewUrl}
+          setTherapistImageFile={setTherapistImageFile}
         />
       )}
     </div>
