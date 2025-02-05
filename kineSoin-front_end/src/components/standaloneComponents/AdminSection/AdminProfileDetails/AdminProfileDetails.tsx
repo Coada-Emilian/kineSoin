@@ -285,7 +285,7 @@ export default function AdminProfileDetails({
             )}
           </div>
 
-          <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 rounded-md">
+          <div className="flex-1 flex flex-col items-center justify-center p-4 rounded-md">
             <ImageSection
               therapist={therapist}
               patient={patient}

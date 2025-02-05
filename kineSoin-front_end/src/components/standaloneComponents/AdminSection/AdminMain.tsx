@@ -36,7 +36,7 @@ interface AdminMain2Props {
   isAdminInsuranceMain?: boolean;
 }
 
-export default function AdminMain2({
+export default function AdminMain({
   windowWidth,
   isAdminTherapistsMain,
   isAdminTherapistMain,
