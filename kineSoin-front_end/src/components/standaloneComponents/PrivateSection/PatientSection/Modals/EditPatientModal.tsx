@@ -1,16 +1,16 @@
 import ReactModal from 'react-modal';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../Button/CustomButton';
 import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
 import {
   checkPatientCredentials,
   fetchInsurancesAsPatient,
   handlePatientInsuranceAdd,
-} from '../../../../utils/apiUtils';
-import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
-import { IInsurance } from '../../../../@types/IInsurance';
-import StandardPasswordInput from '../StandardInputs/StandardPasswordInput';
-import { IPatient_Insurance } from '../../../../@types/IPatient_Insurance';
+} from '../../../../../utils/apiUtils';
+import StandardChoiceDropdown from '../../../StandardInputs/StandardDropdownInput';
+import StandardPasswordInput from '../../../StandardInputs/StandardPasswordInput';
+import { IInsurance } from '../../../../../@types/IInsurance';
+import { IPatient_Insurance } from '../../../../../@types/IPatient_Insurance';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;

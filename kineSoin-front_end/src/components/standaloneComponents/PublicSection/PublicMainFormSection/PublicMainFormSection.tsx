@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../Button/CustomButton.tsx';
 import { useEffect, useState } from 'react';
 import StandardPasswordInput from '../../StandardInputs/StandardPasswordInput';
 import StandardEmailInput from '../../StandardInputs/StandardEmailInput';
@@ -8,7 +8,7 @@ import {
   handlePatientLogin,
   handlePatientRegistration,
   handleTherapistConnection,
-} from '../../../../../utils/apiUtils';
+} from '../../../../utils/apiUtils';
 import StandardTextInput from '../../StandardInputs/StandardTextInput';
 import StandardDateInput from '../../StandardInputs/StandardDateInput';
 import StandardDropdownInput from '../../StandardInputs/StandardDropdownInput';
@@ -16,8 +16,8 @@ import StandardTelephoneInput from '../../StandardInputs/StandardTelephoneInput'
 import StandardFileInput from '../../StandardInputs/StandardFileInput';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ICountry } from '../../../../../@types/ICountry';
-import DNALoader from '../../../../../utils/DNALoader.tsx';
+import { ICountry } from '../../../../@types/ICountry';
+import DNALoader from '../../../../utils/DNALoader.tsx';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;

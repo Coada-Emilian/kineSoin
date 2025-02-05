@@ -1,7 +1,7 @@
 import ReactModal from 'react-modal';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import { handlePatientMessageCreation } from '../../../../utils/apiUtils';
+import CustomButton from '../../../Button/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import { handlePatientMessageCreation } from '../../../../../utils/apiUtils';
 
 interface PatientMessageModalProps {
   isMessageModalOpen: boolean;

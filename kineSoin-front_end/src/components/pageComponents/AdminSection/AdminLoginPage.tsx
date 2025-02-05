@@ -8,8 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { handleAdminLogin } from '../../../utils/apiUtils.ts';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
-import StandardEmailInput from '../standaloneComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardPasswordInput from '../standaloneComponents/StandardInputs/StandardPasswordInput.tsx';
+import StandardEmailInput from '../../standaloneComponents/StandardInputs/StandardEmailInput.tsx';
+import StandardPasswordInput from '../../standaloneComponents/StandardInputs/StandardPasswordInput.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;

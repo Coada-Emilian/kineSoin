@@ -1,6 +1,6 @@
 import { handlePatientMessageCreation } from '../../../../utils/apiUtils';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import StandardTextInput from '../../standaloneComponents/StandardInputs/StandardTextInput';
+import StandardTextInput from '../../../standaloneComponents/StandardInputs/StandardTextInput';
 
 interface MessageFormProps {
   patientId?: number;

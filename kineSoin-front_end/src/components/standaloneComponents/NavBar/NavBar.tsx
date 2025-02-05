@@ -4,12 +4,12 @@
 // The navigation bar is used to navigate between the different pages of the website. The navigation bar is also used to log in and log out of the website.
 
 import { Link } from 'react-router-dom';
-import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
+import { removeAdminTokenFromLocalStorage } from '../../../localStorage/adminLocalStorage';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../Button/CustomButton';
 import { useState } from 'react';
-import { removePatientTokenFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
+import { removePatientTokenFromLocalStorage } from '../../../localStorage/patientLocalStorage';
 
 interface NavBarProps {
   windowWidth: number;

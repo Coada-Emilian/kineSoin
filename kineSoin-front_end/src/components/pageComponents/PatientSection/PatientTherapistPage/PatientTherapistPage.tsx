@@ -1,4 +1,4 @@
-import PrivateMain from '../../standaloneComponents/PrivateMain/PrivateMain';
+import PrivateMain from '../../../standaloneComponents/PrivateSection/PrivateMain/PrivateMain';
 
 interface PatientTherapistPageProps {
   windowWidth?: number;
@@ -7,5 +7,11 @@ interface PatientTherapistPageProps {
 export default function PatientTherapistPage({
   windowWidth,
 }: PatientTherapistPageProps) {
-  return <PrivateMain isPatientMain windowWidth={windowWidth} isPatientTherapistPage/>;
+  return (
+    <PrivateMain
+      isPatientMain
+      windowWidth={windowWidth}
+      isPatientTherapistPage
+    />
+  );
 }

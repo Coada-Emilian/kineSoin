@@ -7,9 +7,9 @@ import {
   handlePatientUpdate,
 } from '../../../../utils/apiUtils';
 import { IPatient } from '../../../../@types/IPatient';
-import EditIcon from '../../standaloneComponents/EditIcon/EditIcon';
+import EditIcon from '../../../standaloneComponents/EditIcon/EditIcon';
 import { Link } from 'react-router-dom';
-import EditPatientModal from '../../standaloneComponents/Modals/EditPatientModal';
+import EditPatientModal from '../../../standaloneComponents/PrivateSection/PatientSection/Modals/EditPatientModal';
 import { INewAddress } from '../../../../@types/INewAddress';
 import { IInsurance } from '../../../../@types/IInsurance';
 import AddInsuranceIcon from '/icons/add.png';

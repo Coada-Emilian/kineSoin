@@ -1,4 +1,4 @@
-import AdminMain from '../standaloneComponents/AdminSection/AdminMain.tsx';
+import AdminMain from '../../standaloneComponents/AdminSection/AdminMain.tsx';
 
 interface AdminPatientsPageMainProps {
   windowWidth: number;

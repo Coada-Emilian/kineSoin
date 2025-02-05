@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import PatientRegisterImageModal from '../Modals/PatientRegisterImageModal';
+import PatientRegisterImageModal from '../PrivateSection/PatientSection/Modals/PatientRegisterImageModal';
 import addIcon from '/icons/plus.png';
 import checkIcon from '/icons/check.png';
-import NewPrescriptionModal from '../../PatientSection/PatientPrescriptionPage/NewPrescriptionModal';
+import NewPrescriptionModal from '../../pageComponents/PatientSection/PatientPrescriptionPage/NewPrescriptionModal';
 
 interface StandardFileInputProps {
   isPatientRegisterImageInput?: boolean;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../Button/CustomButton';
 
 interface PatientRegisterImageModalProps {
   isPatientRegisterImageModalOpen: boolean;

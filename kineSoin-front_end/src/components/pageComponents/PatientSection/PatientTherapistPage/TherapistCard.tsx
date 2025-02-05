@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { fetchPatientTherapist } from '../../../../utils/apiUtils';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import { IPatient } from '../../../../@types/IPatient';
 import { ITherapist } from '../../../../@types/ITherapist';
-import ModifyButtons from '../../standaloneComponents/AdminProfileDetails/pageComponents/generalComponents/common/ModifyButtons';
-import { duplexPair } from 'stream';
-import PatientMessageModal from '../../standaloneComponents/Modals/PatientMessageModal';
+import PatientMessageModal from '../../../standaloneComponents/PrivateSection/PatientSection/Modals/PatientMessageModal';
 
 interface TherapistCardProps {
   patientId?: number;
@@ -20,7 +17,7 @@ export default function TherapistCard({ patientId }: TherapistCardProps) {
   useEffect(() => {
     const fetchData = async () => {
       if (patientId !== undefined) {
-        const response = await fetchPatientTherapist(patientId);
+        const response = await fetchPatientTherapist();
         setPatientData(response);
         if (response.therapist === null) {
           setIsFirstPatient(true);

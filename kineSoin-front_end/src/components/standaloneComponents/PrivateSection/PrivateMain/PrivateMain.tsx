@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import PatientAppointmentCard from '../../PatientSection/PatientAppointmentCard/PatientAppointmentCard';
+import PatientAppointmentCard from '../../../pageComponents/PatientSection/PatientAppointmentCard/PatientAppointmentCard';
 import UserHeadband from '../UserHeadband/UserHeadband';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import { fetchPatientAppointments } from '../../../../utils/apiUtils';
@@ -8,12 +8,12 @@ import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import SideNav from '../../../standaloneComponents/SideNav/SideNav';
 
-import PatientNewPrescriptionForm from '../../PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
-import PatientAppointmentsCalendar from '../../PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
-import PatientMessagesField from '../../PatientSection/PatientMessagesPage/PatientMessagesField';
-import MessageForm from '../../PatientSection/PatientMessagesPage/MessageForm';
-import TherapistCard from '../../PatientSection/PatientTherapistPage/TherapistCard';
-import PatientCard from '../../PatientSection/PatientDetailsPage/PatientCard';
+import PatientNewPrescriptionForm from '../../../pageComponents/PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
+import PatientAppointmentsCalendar from '../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
+import PatientMessagesField from '../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
+import MessageForm from '../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
+import TherapistCard from '../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
+import PatientCard from '../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;

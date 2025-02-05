@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { IAffliction } from '../../../../@types/IAffliction';
-import { IMedic } from '../../../../@types/IMedic';
-import { IPrescription } from '../../../../@types/IPrescription';
-import { fetchPatientAppointmentsByPrescription } from '../../../../utils/apiUtils';
-import { IAppointment } from '../../../../@types/IAppointment';
-import { IInsurance } from '../../../../@types/IInsurance';
-import { ICountry } from '../../../../@types/ICountry';
+import { IAffliction } from '../../../@types/IAffliction';
+import { IPrescription } from '../../../@types/IPrescription';
+import { IAppointment } from '../../../@types/IAppointment';
+import { IInsurance } from '../../../@types/IInsurance';
+import { ICountry } from '../../../@types/ICountry';
+import { fetchPatientAppointmentsByPrescription } from '../../../utils/apiUtils';
+import { IMedic } from '../../../@types/IMedic';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;

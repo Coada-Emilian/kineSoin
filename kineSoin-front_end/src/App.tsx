@@ -4,19 +4,10 @@ import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalS
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import NavBar from './components/pageComponents/standaloneComponents/NavBar/NavBar';
-import Footer from './components/pageComponents/standaloneComponents/Footer/Footer';
-import AdminTherapistPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistPage/AdminTherapistPage';
-import ErrorPage from './components/pageComponents/AdminSection/ErrorPage/ErrorPage';
-import AdminPatientsPage from './components/pageComponents/AdminSection/AdminPatients/AdminPatientsPage/AdminPatientsPage';
-import AdminPatientPage from './components/pageComponents/AdminSection/AdminPatients/AdminPatientPage/AdminPatientPage';
-import AdminAfflictionsPage from './components/pageComponents/AdminSection/AdminAfflictions/AdminAfflictionsPage/AdminAfflictionsPage';
-import AdminAfflictionPage from './components/pageComponents/AdminSection/AdminAfflictions/AdminAfflictionPage/AdminAfflictionPage';
-import AdminMedicsPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicsPage/AdminMedicsPage';
-import AdminMedicPage from './components/pageComponents/AdminSection/AdminMedics/AdminMedicPage/AdminMedicPage';
-import AdminInsurancesPage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancesPage/AdminInsurancesPage';
-import AdminInsurancePage from './components/pageComponents/AdminSection/AdminInsurances/AdminInsurancePage/AdminInsurancePage';
-import MobileNav from './components/pageComponents/standaloneComponents/MobileNav/MobileNav';
+import NavBar from './components/standaloneComponents/NavBar/NavBar';
+import Footer from './components/standaloneComponents/Footer/Footer';
+import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
+import MobileNav from './components/standaloneComponents/MobileNav/MobileNav';
 import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboardPage/PatientDashboardPage';
 import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
 import PatientAppointmentsPage from './components/pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsPage';
@@ -36,6 +27,7 @@ import AdminAfflictionPageMain from './components/pageComponents/AdminSection/Ad
 import AdminMedicsPageMain from './components/pageComponents/AdminSection/AdminMedicsPageMain';
 import AdminMedicPageMain from './components/pageComponents/AdminSection/AdminMedicPageMain';
 import AdminInsurancesPageMain from './components/pageComponents/AdminSection/AdminInsurancesMain';
+import AdminInsurancePageMain from './components/pageComponents/AdminSection/AdminInsurancePageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -328,7 +320,7 @@ function App() {
           />
           <Route
             path="insurances/:id"
-            element={<AdminInsurancePage windowWidth={windowWidth} />}
+            element={<AdminInsurancePageMain windowWidth={windowWidth} />}
           />
           <Route path="*" element={<ErrorPage />} />
         </Route>

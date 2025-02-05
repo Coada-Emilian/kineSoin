@@ -1,4 +1,4 @@
-import PrivateMain from '../../standaloneComponents/PrivateMain/PrivateMain';
+import PrivateMain from '../../../standaloneComponents/PrivateSection/PrivateMain/PrivateMain';
 
 interface PatientPrescriptionPageProps {
   windowWidth?: number;

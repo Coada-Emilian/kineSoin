@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import SideNav from '../../../standaloneComponents/SideNav/SideNav';
-import AdminTable from '../AdminTable/AdminTable';
-import { ITherapist } from '../../../../@types/ITherapist';
+import SideNav from '../SideNav/SideNav';
+import AdminTable from './AdminTable/AdminTable';
+import { ITherapist } from '../../../@types/ITherapist';
 import {
   fetchAffliction,
   fetchAfflictions,
@@ -13,14 +13,14 @@ import {
   fetchPatients,
   fetchTherapist,
   fetchTherapists,
-} from '../../../../utils/apiUtils';
-import DNALoader from '../../../../utils/DNALoader';
+} from '../../../utils/apiUtils';
+import DNALoader from '../../../utils/DNALoader';
 import { useParams } from 'react-router-dom';
-import AdminProfileDetails from '../AdminProfileDetails/AdminProfileDetails';
-import { IPatient } from '../../../../@types/IPatient';
-import { IAffliction } from '../../../../@types/IAffliction';
-import { IMedic } from '../../../../@types/IMedic';
-import { IInsurance } from '../../../../@types/IInsurance';
+import AdminProfileDetails from './AdminProfileDetails/AdminProfileDetails';
+import { IPatient } from '../../../@types/IPatient';
+import { IAffliction } from '../../../@types/IAffliction';
+import { IMedic } from '../../../@types/IMedic';
+import { IInsurance } from '../../../@types/IInsurance';
 
 interface AdminMain2Props {
   windowWidth: number;
@@ -81,7 +81,7 @@ export default function AdminMain2({
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true); // Start loading
+      setIsLoading(true);
 
       const fetchPromises = [];
 
@@ -107,63 +107,44 @@ export default function AdminMain2({
         );
       }
 
-      await Promise.all(fetchPromises); // Wait for all fetch calls to complete
-      setIsLoading(false); // Set loading state to false once all data is loaded
+      await Promise.all(fetchPromises);
+      setIsLoading(false);
     };
 
     fetchData();
   }, [patientId, therapistId, afflictionId, medicId, insuranceId]);
 
   useEffect(() => {
-    if (isAdminTherapistsMain) {
-      fetchTherapists()
-        .then((allTherapists) => {
-          setAllTherapists(allTherapists);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+    const fetchData = async () => {
+      setIsLoading(true);
 
-    if (isAdminPatientsMain) {
-      fetchPatients()
-        .then((allPatients) => {
-          setAllPatients(allPatients);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+      const fetchPromises = [];
 
-    if (isAdminAfflictionsMain) {
-      fetchAfflictions()
-        .then((allAfflictions) => {
-          setAllAfflictions(allAfflictions);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+      if (isAdminTherapistsMain) {
+        fetchPromises.push(fetchTherapists().then(setAllTherapists));
+      }
 
-    if (isAdminMedicsMain) {
-      fetchMedics()
-        .then((allMedics) => {
-          setAllMedics(allMedics);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+      if (isAdminPatientsMain) {
+        fetchPromises.push(fetchPatients().then(setAllPatients));
+      }
 
-    if (isAdminInsurancesMain) {
-      fetchInsuranceOrganisms()
-        .then((allInsurances) => {
-          setAllInsurances(allInsurances);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+      if (isAdminAfflictionsMain) {
+        fetchPromises.push(fetchAfflictions().then(setAllAfflictions));
+      }
+
+      if (isAdminMedicsMain) {
+        fetchPromises.push(fetchMedics().then(setAllMedics));
+      }
+
+      if (isAdminInsurancesMain) {
+        fetchPromises.push(fetchInsuranceOrganisms().then(setAllInsurances));
+      }
+
+      await Promise.all(fetchPromises);
+      setIsLoading(false);
+    };
+
+    fetchData();
   }, []);
 
   if (isLoading) {
