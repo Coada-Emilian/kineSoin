@@ -19,6 +19,11 @@ interface StandardTextInputProps {
   isAdminTherapistAddNameInput?: boolean;
   isAdminTherapistAddSurnameInput?: boolean;
   isAdminTherapistAddLicenceCodeInput?: boolean;
+  isAdminTherapistAddDiplomaInput?: boolean;
+  isAdminTherapistAddExperienceInput?: boolean;
+  isAdminTherapistAddSpecialtyInput?: boolean;
+  isAdminTherapistAddDescriptionInput?: boolean;
+  isTextAreaInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -34,6 +39,11 @@ export default function StandardTextInput({
   isAdminTherapistAddNameInput,
   isAdminTherapistAddSurnameInput,
   isAdminTherapistAddLicenceCodeInput,
+  isAdminTherapistAddDiplomaInput,
+  isAdminTherapistAddExperienceInput,
+  isAdminTherapistAddSpecialtyInput,
+  isAdminTherapistAddDescriptionInput,
+  isTextAreaInput,
 }: StandardTextInputProps) {
   return (
     <div
@@ -65,7 +75,15 @@ export default function StandardTextInput({
                                 ? 'therapist-surname_input'
                                 : isAdminTherapistAddLicenceCodeInput
                                   ? 'therapist-licence-code_input'
-                                  : ''
+                                  : isAdminTherapistAddDiplomaInput
+                                    ? 'therapist-diploma_input'
+                                    : isAdminTherapistAddExperienceInput
+                                      ? 'therapist-experience_input'
+                                      : isAdminTherapistAddSpecialtyInput
+                                        ? 'therapist-specialty_input'
+                                        : isAdminTherapistAddDescriptionInput
+                                          ? 'therapist-description_input'
+                                          : ''
         }`}
         className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
@@ -91,93 +109,136 @@ export default function StandardTextInput({
                             ? 'Prénom'
                             : isAdminTherapistAddLicenceCodeInput
                               ? 'Code ADELI'
-                              : ''}
+                              : isAdminTherapistAddDiplomaInput
+                                ? 'Diplôme'
+                                : isAdminTherapistAddExperienceInput
+                                  ? 'Expérience'
+                                  : isAdminTherapistAddSpecialtyInput
+                                    ? 'Spécialité'
+                                    : isAdminTherapistAddDescriptionInput
+                                      ? 'Description'
+                                      : ''}
       </label>
-
-      <input
-        type="text"
-        name={`${
-          isNameInput
-            ? 'name'
-            : isSurnameInput
-              ? 'surname'
-              : isBirthNameInput
-                ? 'birth_name'
-                : isStreetNumberInput
-                  ? 'street_number'
-                  : isStreetNameInput
-                    ? 'street_name'
-                    : isPostalCodeInput
-                      ? 'postal_code'
-                      : isCityInput
-                        ? 'city'
-                        : isAppointmentNumberInput
-                          ? 'appointment_quantity'
-                          : isPatientMessageInput
-                            ? 'content'
+      {!isTextAreaInput ? (
+        <input
+          type="text"
+          name={`${
+            isNameInput
+              ? 'name'
+              : isSurnameInput
+                ? 'surname'
+                : isBirthNameInput
+                  ? 'birth_name'
+                  : isStreetNumberInput
+                    ? 'street_number'
+                    : isStreetNameInput
+                      ? 'street_name'
+                      : isPostalCodeInput
+                        ? 'postal_code'
+                        : isCityInput
+                          ? 'city'
+                          : isAppointmentNumberInput
+                            ? 'appointment_quantity'
+                            : isPatientMessageInput
+                              ? 'content'
+                              : isAdminTherapistAddNameInput
+                                ? 'name'
+                                : isAdminTherapistAddSurnameInput
+                                  ? 'surname'
+                                  : isAdminTherapistAddLicenceCodeInput
+                                    ? 'licence_code'
+                                    : isAdminTherapistAddDiplomaInput
+                                      ? 'diploma'
+                                      : isAdminTherapistAddExperienceInput
+                                        ? 'experience'
+                                        : isAdminTherapistAddSpecialtyInput
+                                          ? 'specialty'
+                                          : isAdminTherapistAddDescriptionInput
+                                            ? 'description'
+                                            : ''
+          }`}
+          id={`${
+            isNameInput
+              ? 'patient-register-name_input'
+              : isSurnameInput
+                ? 'patient-register-surname_input'
+                : isBirthNameInput
+                  ? 'patient-register-birth_name_input'
+                  : isStreetNumberInput
+                    ? 'patient-register-street_number_input'
+                    : isStreetNameInput
+                      ? 'patient-register-street_name_input'
+                      : isPostalCodeInput
+                        ? 'patient-register-postal_code_input'
+                        : isCityInput
+                          ? 'patient-register-city_input'
+                          : isAppointmentNumberInput
+                            ? 'appointment-number_input'
                             : isAdminTherapistAddNameInput
-                              ? 'name'
+                              ? 'therapist-name_input'
                               : isAdminTherapistAddSurnameInput
-                                ? 'surname'
+                                ? 'therapist-surname_input'
                                 : isAdminTherapistAddLicenceCodeInput
-                                  ? 'licence_code'
-                                  : ''
-        }`}
-        id={`${
-          isNameInput
-            ? 'patient-register-name_input'
-            : isSurnameInput
-              ? 'patient-register-surname_input'
-              : isBirthNameInput
-                ? 'patient-register-birth_name_input'
-                : isStreetNumberInput
-                  ? 'patient-register-street_number_input'
-                  : isStreetNameInput
-                    ? 'patient-register-street_name_input'
-                    : isPostalCodeInput
-                      ? 'patient-register-postal_code_input'
-                      : isCityInput
-                        ? 'patient-register-city_input'
-                        : isAppointmentNumberInput
-                          ? 'appointment-number_input'
-                          : isAdminTherapistAddNameInput
-                            ? 'therapist-name_input'
-                            : isAdminTherapistAddSurnameInput
-                              ? 'therapist-surname_input'
-                              : isAdminTherapistAddLicenceCodeInput
-                                ? 'therapist-licence-code_input'
-                                : ''
-        }`}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
-        placeholder={`${
-          isNameInput
-            ? 'Entrez votre nom'
-            : isSurnameInput
-              ? 'Entrez votre prénom'
-              : isBirthNameInput
-                ? 'Entrez votre nom de naissance'
-                : isStreetNumberInput
-                  ? 'N° de rue'
-                  : isStreetNameInput
-                    ? 'Nom de rue'
-                    : isPostalCodeInput
-                      ? 'Code postal'
-                      : isCityInput
-                        ? 'Ville'
-                        : isAppointmentNumberInput
-                          ? 'Seances prescrites'
-                          : isPatientMessageInput
-                            ? 'Tapez votre message...'
-                            : isAdminTherapistAddNameInput
-                              ? 'Entrez le nom du kiné'
-                              : isAdminTherapistAddSurnameInput
-                                ? 'Entrez le prénom du kiné'
-                                : isAdminTherapistAddLicenceCodeInput
-                                  ? 'Entrez le code ADELI du kiné'
-                                  : ''
-        }`}
-        required={!isStreetNumberInput}
-      />
+                                  ? 'therapist-licence-code_input'
+                                  : isAdminTherapistAddDiplomaInput
+                                    ? 'therapist-diploma_input'
+                                    : isAdminTherapistAddExperienceInput
+                                      ? 'therapist-experience_input'
+                                      : isAdminTherapistAddSpecialtyInput
+                                        ? 'therapist-specialty_input'
+                                        : isAdminTherapistAddDescriptionInput
+                                          ? 'therapist-description_input'
+                                          : ''
+          }`}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
+          placeholder={`${
+            isNameInput
+              ? 'Entrez votre nom'
+              : isSurnameInput
+                ? 'Entrez votre prénom'
+                : isBirthNameInput
+                  ? 'Entrez votre nom de naissance'
+                  : isStreetNumberInput
+                    ? 'N° de rue'
+                    : isStreetNameInput
+                      ? 'Nom de rue'
+                      : isPostalCodeInput
+                        ? 'Code postal'
+                        : isCityInput
+                          ? 'Ville'
+                          : isAppointmentNumberInput
+                            ? 'Seances prescrites'
+                            : isPatientMessageInput
+                              ? 'Tapez votre message...'
+                              : isAdminTherapistAddNameInput
+                                ? 'Entrez le nom du kiné'
+                                : isAdminTherapistAddSurnameInput
+                                  ? 'Entrez le prénom du kiné'
+                                  : isAdminTherapistAddLicenceCodeInput
+                                    ? 'Entrez le code ADELI du kiné'
+                                    : isAdminTherapistAddDiplomaInput
+                                      ? 'Entrez le diplôme du kiné'
+                                      : isAdminTherapistAddExperienceInput
+                                        ? "Entrez l'expérience du kiné"
+                                        : isAdminTherapistAddSpecialtyInput
+                                          ? 'Entrez la spécialité du kiné'
+                                          : isAdminTherapistAddDescriptionInput
+                                            ? 'Entrez la description du kiné'
+                                            : ''
+          }`}
+          required={!isStreetNumberInput}
+        />
+      ) : (
+        <textarea
+          name="description"
+          id="therapist-description_input"
+          placeholder="Description du kinésithérapeute"
+          className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
+          required
+          rows={5}
+          cols={32}
+        ></textarea>
+      )}
     </div>
   );
 }

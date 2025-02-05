@@ -344,7 +344,8 @@ export default function AdminTable({
       )}
 
       {isAddTherapistModalP2Open && (
-        <AddTherapistModalP2
+        <AdminModal
+          isSecondAddTherapistModal
           setAddForm={setAddForm}
           setIsAddTherapistModalP2Open={setIsAddTherapistModalP2Open}
           setIsAddTherapistModalP3Open={setIsAddTherapistModalP3Open}

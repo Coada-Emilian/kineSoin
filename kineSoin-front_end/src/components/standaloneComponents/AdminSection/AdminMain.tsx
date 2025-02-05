@@ -180,6 +180,7 @@ export default function AdminMain({
               windowWidth={windowWidth}
             />
           )}
+
           {(isAdminTherapistMain ||
             isAdminPatientMain ||
             isAdminAfflictionMain ||

@@ -3,10 +3,6 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../Button/CustomButton';
-import NameInput from '../Modals/Components/NameInput';
-import SurnameInput from '../Modals/Components/SurnameInput';
-import LicenceCodeInput from '../Modals/Components/LicenceCodeInput';
-import ImageInput from '../Modals/Components/ImageInput';
 import StandardTextInput from '../../StandardInputs/StandardTextInput';
 import StandardFileInput from '../../StandardInputs/StandardFileInput';
 
@@ -27,10 +23,13 @@ interface AdminModalProps {
       photo: File | unknown;
     }>
   >;
-  isAddTherapistModalP1Open: boolean;
-  setIsAddTherapistModalP1Open: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsAddTherapistModalP2Open: React.Dispatch<React.SetStateAction<boolean>>;
+  isAddTherapistModalP1Open?: boolean;
+  setIsAddTherapistModalP1Open?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAddTherapistModalP2Open?: React.Dispatch<React.SetStateAction<boolean>>;
   isFirstAddTherapistModal?: boolean;
+  isSecondAddTherapistModal?: boolean;
+  isAddTherapistModalP2Open?: boolean;
+  setIsAddTherapistModalP3Open?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AdminModal({
@@ -39,11 +38,12 @@ export default function AdminModal({
   setIsAddTherapistModalP1Open,
   setIsAddTherapistModalP2Open,
   isFirstAddTherapistModal,
+  isSecondAddTherapistModal,
+  isAddTherapistModalP2Open,
+  setIsAddTherapistModalP3Open,
 }: AdminModalProps) {
   // State to store the preview URL of the uploaded photo
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  const [codeErrorMessage, setCodeErrorMessage] = useState<string>('');
 
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -60,11 +60,6 @@ export default function AdminModal({
     const therapistLicenceCode = formData.get('licence_code') as string;
     const file = therapistImageFile;
 
-    console.log('therapistName', therapistName);
-    console.log('therapistSurname', therapistSurname);
-    console.log('therapistLicenceCode', therapistLicenceCode);
-    console.log('file', file);
-
     if (!therapistName || !therapistSurname || !therapistLicenceCode) {
       setErrorMessage('Veuillez remplir tous les champs.');
       return;
@@ -72,7 +67,7 @@ export default function AdminModal({
       setErrorMessage('Veuillez ajouter une photo.');
       return;
     } else if (!/^[0-9]{9}$/.test(therapistLicenceCode)) {
-      setCodeErrorMessage('Le code ADELI doit être composé de 9 chiffres.');
+      setErrorMessage('Le code ADELI doit être composé de 9 chiffres.');
       return;
     }
 
@@ -91,16 +86,52 @@ export default function AdminModal({
       photo: file,
     });
 
-    setIsAddTherapistModalP1Open(false);
-    setIsAddTherapistModalP2Open(true);
+    setIsAddTherapistModalP1Open && setIsAddTherapistModalP1Open(false);
+    setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(true);
+  };
+
+  const addSecondFormDetails = () => {
+    // if (
+    //   !therapistDiploma ||
+    //   !therapistExperience ||
+    //   !therapistSpecialty ||
+    //   !therapistDescription
+    // ) {
+    //   setErrorMessage('Veuillez remplir tous les champs');
+    //   return;
+    // }
+    // const diploma = therapistDiploma;
+    // const experience = therapistExperience;
+    // const specialty = therapistSpecialty;
+    // const description = therapistDescription;
+    // setAddForm((prev) => ({
+    //   ...prev,
+    //   description,
+    //   diploma,
+    //   experience,
+    //   specialty,
+    // }));
+    // setIsAddTherapistModalP2Open(false);
+    // setIsAddTherapistModalP3Open(true);
   };
 
   return (
     <ReactModal
-      isOpen={isFirstAddTherapistModal ? isAddTherapistModalP1Open : false}
-      onRequestClose={() =>
-        isFirstAddTherapistModal && setIsAddTherapistModalP1Open(false)
+      isOpen={
+        isFirstAddTherapistModal
+          ? !!isAddTherapistModalP1Open
+          : false || isSecondAddTherapistModal
+            ? !!isAddTherapistModalP2Open
+            : false
       }
+      onRequestClose={() => {
+        if (isFirstAddTherapistModal && setIsAddTherapistModalP1Open) {
+          setIsAddTherapistModalP1Open(false);
+        }
+        if (isSecondAddTherapistModal && setIsAddTherapistModalP2Open) {
+          setIsAddTherapistModalP2Open(false);
+        }
+      }}
       style={{
         content: {
           width: '80vw',
@@ -126,37 +157,63 @@ export default function AdminModal({
           <p className="text-red-500 text-xs text-center">{errorMessage}</p>
         )}
 
-        <form className="space-y-4" onSubmit={addFirstFormDetails}>
-          <StandardTextInput isAdminTherapistAddNameInput />
+        <form
+          className="space-y-4"
+          onSubmit={
+            isFirstAddTherapistModal
+              ? addFirstFormDetails
+              : isSecondAddTherapistModal
+                ? addSecondFormDetails
+                : undefined
+          }
+        >
+          {isFirstAddTherapistModal && (
+            <>
+              <StandardTextInput isAdminTherapistAddNameInput />
 
-          <StandardTextInput isAdminTherapistAddSurnameInput />
+              <StandardTextInput isAdminTherapistAddSurnameInput />
 
-          <StandardTextInput isAdminTherapistAddLicenceCodeInput />
+              <StandardTextInput isAdminTherapistAddLicenceCodeInput />
 
-          <StandardFileInput
-            isAdminTherapistImageAddInput
-            setPreviewUrl={setPreviewUrl}
-            setTherapistImageFile={setTherapistImageFile}
-          />
+              <StandardFileInput
+                isAdminTherapistImageAddInput
+                setPreviewUrl={setPreviewUrl}
+                setTherapistImageFile={setTherapistImageFile}
+              />
 
-          {codeErrorMessage && (
-            <p className="text-red-500 text-xs">{codeErrorMessage}</p>
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Therapist"
+                  className="w-32 h-32 rounded-full object-cover mx-auto"
+                />
+              ) : (
+                <p className="text-xs md:text-sm text-center">
+                  Aucune image disponible
+                </p>
+              )}
+            </>
           )}
 
-          {previewUrl ? (
-            <img
-              src={previewUrl}
-              alt="Therapist"
-              className="w-32 h-32 rounded-full object-cover mx-auto"
-            />
-          ) : (
-            <p className="text-xs md:text-sm text-center">
-              Aucune image disponible
-            </p>
+          {isSecondAddTherapistModal && (
+            <>
+              <StandardTextInput isAdminTherapistAddDiplomaInput />
+
+              <StandardTextInput isAdminTherapistAddExperienceInput />
+
+              <StandardTextInput isAdminTherapistAddSpecialtyInput />
+
+              <StandardTextInput
+                isAdminTherapistAddDescriptionInput
+                isTextAreaInput
+              />
+            </>
           )}
 
           <p className="text-red-500 text-center text-xs md:text-sm">
-            Etape 1 / 3 : Informations personnelles
+            {isFirstAddTherapistModal
+              ? 'Etape 1 / 3 : Informations personnelles'
+              : 'Etape 2 / 3 : Études'}
           </p>
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
@@ -166,9 +223,14 @@ export default function AdminModal({
               btnText="Annuler"
               btnType="button"
               cancelButton
-              onClick={() =>
-                isFirstAddTherapistModal && setIsAddTherapistModalP1Open(false)
-              }
+              onClick={() => {
+                if (isFirstAddTherapistModal && setIsAddTherapistModalP1Open) {
+                  setIsAddTherapistModalP1Open(false);
+                }
+                if (isSecondAddTherapistModal && setIsAddTherapistModalP2Open) {
+                  setIsAddTherapistModalP2Open(false);
+                }
+              }}
             />
           </div>
         </form>

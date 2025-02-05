@@ -176,7 +176,7 @@ export default function ImageModal({
             <img
               src={preview}
               alt="Aperçu du fichier"
-              className={`${isPatientRegisterImageModal || isAdminTherapistImageModal ? 'h-48 rounded-full' : ''} w-48 object-contain rounded-3xl border`}
+              className={`${isPatientRegisterImageModal || isAdminTherapistImageModal ? 'h-36 md:h-48 rounded-full' : ''} w-36 md:w-48 object-contain rounded-3xl border`}
             />
           </div>
         )}
