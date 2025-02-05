@@ -87,7 +87,6 @@ export default function PublicMainFormSection({
   const navigate = useNavigate();
 
   const [countriesData, setCountriesData] = useState<ICountry[]>([]);
-  const [chosenPrefix, setChosenPrefix] = useState<string>('');
 
   useEffect(() => {
     const fetchCountriesData = async () => {
@@ -128,6 +127,13 @@ export default function PublicMainFormSection({
     if (!patientLoginEmail || !patientLoginPassword) {
       setPatientErrorMessage('Veuillez remplir tous les champs');
       return;
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+        patientLoginEmail
+      )
+    ) {
+      setPatientErrorMessage('Veuillez entrer une adresse email valide');
+      return;
     }
 
     // Call the handlePatientConnection function from the apiUtils file
@@ -158,6 +164,13 @@ export default function PublicMainFormSection({
     // Check if the email and password fields are empty
     if (!therapistLoginEmail || !therapistLoginPassword) {
       setTherapistErrorMessage('Veuillez remplir tous les champs');
+      return;
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+        therapistLoginEmail
+      )
+    ) {
+      setPatientErrorMessage('Veuillez entrer une adresse email valide');
       return;
     }
 
@@ -568,7 +581,6 @@ export default function PublicMainFormSection({
                   <StandardDropdownInput
                     isCountryDropdownInput
                     countries={countriesData}
-                    setChosenPrefix={setChosenPrefix}
                   />
                   <StandardTelephoneInput isPatientTelephoneInput />
                 </div>

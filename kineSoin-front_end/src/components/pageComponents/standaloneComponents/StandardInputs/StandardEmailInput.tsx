@@ -8,6 +8,9 @@ interface StandardEmailInputProps {
   isPatientRegisterEmailInput?: boolean;
   patientRegisterEmail?: string;
   setPatientRegisterEmail?: React.Dispatch<React.SetStateAction<string>>;
+  isAdminEmailInput?: boolean;
+  setAdminEmail?: React.Dispatch<React.SetStateAction<string>>;
+  adminEmail?: string;
 }
 
 export default function StandardEmailInput({
@@ -20,11 +23,14 @@ export default function StandardEmailInput({
   isPatientRegisterEmailInput,
   patientRegisterEmail,
   setPatientRegisterEmail,
+  isAdminEmailInput,
+  setAdminEmail,
+  adminEmail,
 }: StandardEmailInputProps) {
   return (
-    <div className="mb-4">
+    <div className="mb-4 italic">
       <label
-        htmlFor={`${isPatientLoginPageEmailInput ? 'patient-connexion-email_input' : isTherapistLoginPageEmailInput ? 'therapist-connexion-email_input' : isPatientRegisterEmailInput ? 'patient-register-email_input' : ''}`}
+        htmlFor={`${isPatientLoginPageEmailInput ? 'patient-connexion-email_input' : isTherapistLoginPageEmailInput ? 'therapist-connexion-email_input' : isPatientRegisterEmailInput ? 'patient-register-email_input' : isAdminEmailInput ? 'admin-email_input' : ''}`}
         className="text-primaryBlue text-sm font-medium"
       >
         E-mail
@@ -33,11 +39,11 @@ export default function StandardEmailInput({
       <input
         type="email"
         name="email"
-        id={`${isPatientLoginPageEmailInput ? 'patient-connexion-email_input' : isTherapistLoginPageEmailInput ? 'therapist-connexion-email_input' : isPatientRegisterEmailInput ? 'patient-register-email_input' : ''}`}
+        id={`${isPatientLoginPageEmailInput ? 'patient-connexion-email_input' : isTherapistLoginPageEmailInput ? 'therapist-connexion-email_input' : isPatientRegisterEmailInput ? 'patient-register-email_input' : isAdminEmailInput ? 'admin-email_input' : ''}`}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
         placeholder="Entrez votre e-mail"
         required
-        value={`${isPatientLoginPageEmailInput ? patientLoginEmail : isTherapistLoginPageEmailInput ? therapistLoginEmail : isPatientRegisterEmailInput ? patientRegisterEmail : ''}`}
+        value={`${isPatientLoginPageEmailInput ? patientLoginEmail : isTherapistLoginPageEmailInput ? therapistLoginEmail : isPatientRegisterEmailInput ? patientRegisterEmail : isAdminEmailInput ? adminEmail : ''}`}
         onChange={(e) => {
           {
             isPatientLoginPageEmailInput && setPatientLoginEmail
@@ -46,7 +52,9 @@ export default function StandardEmailInput({
                 ? setTherapistLoginEmail(e.target.value)
                 : isPatientRegisterEmailInput && setPatientRegisterEmail
                   ? setPatientRegisterEmail(e.target.value)
-                  : '';
+                  : isAdminEmailInput && setAdminEmail
+                    ? setAdminEmail(e.target.value)
+                    : null;
           }
         }}
       />

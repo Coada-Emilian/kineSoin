@@ -10,7 +10,7 @@ interface PatientRegisterImageModalProps {
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
   fileName: string;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
-  setIsImageUploaded: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPatientImageUploaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function PatientRegisterImageModal({
   isPatientRegisterImageModalOpen,
@@ -18,11 +18,10 @@ export default function PatientRegisterImageModal({
   setPatientImage,
   fileName,
   setFileName,
-  setIsImageUploaded,
+  setIsPatientImageUploaded,
 }: PatientRegisterImageModalProps) {
- 
   const windowWidth = window.innerWidth;
-   const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -104,7 +103,7 @@ export default function PatientRegisterImageModal({
             normalButton
             onClick={() => {
               setIsPatientRegisterImageModalOpen(false),
-                setIsImageUploaded(true);
+                setIsPatientImageUploaded(true);
             }}
           />
         </div>

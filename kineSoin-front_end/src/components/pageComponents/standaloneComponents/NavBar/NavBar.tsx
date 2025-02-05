@@ -55,7 +55,7 @@ export default function NavBar({
     if (setIsPatientAuthenticated) {
       setIsPatientAuthenticated(false);
     }
-    window.location.href = '/loginPatient';
+    window.location.href = '/public/loginPatient';
   };
 
   // State to manage the patient notification quantity

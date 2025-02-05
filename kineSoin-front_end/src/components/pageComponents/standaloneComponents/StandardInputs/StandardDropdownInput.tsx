@@ -33,7 +33,6 @@ interface StandardChoiceDropdownProps {
   insuranceList?: IInsurance[];
   isCountryDropdownInput?: boolean;
   countries?: ICountry[];
-  setChosenPrefix?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function StandardChoiceDropdown({
@@ -58,8 +57,8 @@ export default function StandardChoiceDropdown({
   insuranceList,
   isCountryDropdownInput,
   countries,
-  setChosenPrefix,
 }: StandardChoiceDropdownProps) {
+  // Function to fetch appointments by prescription
   const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
     const response =
       await fetchPatientAppointmentsByPrescription(prescriptionId);
@@ -70,12 +69,14 @@ export default function StandardChoiceDropdown({
     }
   };
 
+  // Patient insurance dropdown state
   const [otherInsurances, setOtherInsurances] = useState<IInsurance[]>([]);
 
   const [actualInsurance, setActualInsurance] = useState<IInsurance | null>(
     null
   );
 
+  // Function to identify the old insurance
   const identifyOldInsurance = (
     insuranceList: IInsurance[],
     oldInsuranceName: string
@@ -94,6 +95,9 @@ export default function StandardChoiceDropdown({
     }
   };
 
+  const [isPrefixChosen, setIsPrefixChosen] = useState(false);
+
+  // UseEffect to identify the old insurance
   useEffect(() => {
     if (insuranceList && oldPatientInsuranceName) {
       identifyOldInsurance(insuranceList, oldPatientInsuranceName);
@@ -119,10 +123,10 @@ export default function StandardChoiceDropdown({
         className={`${isCountryDropdownInput ? 'text-xs' : ''} text-primaryBlue text-sm font-medium block mb-2`}
       >
         {isGenderDropdownInput && 'Genre'}{' '}
-        {isMedicDropdownInput && 'Médecin prescripteur :'}
+        {isMedicDropdownInput && 'Médecin prescripteur'}
         {isAtHomeCareDropdownInput && 'A domicile ?'}
-        {isAfflictionDropdownInput && 'Affection concernée :'}
-        {isPatientInsuranceDropdownInput && 'Nom mutuelle :'}
+        {isAfflictionDropdownInput && 'Affection concernée'}
+        {isPatientInsuranceDropdownInput && 'Nom mutuelle'}
         {isCountryDropdownInput && 'Préfixe'}
       </label>
 
@@ -168,8 +172,11 @@ export default function StandardChoiceDropdown({
               fetchAppointmentsByPrescription(selectedPrescriptionId);
             }
           }
+          if (setIsPrefixChosen) {
+            setIsPrefixChosen(true);
+          }
         }}
-        className="block w-full p-2 border border-gray-300 rounded-md"
+        className="block w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent"
         name={
           isPatientInsuranceDropdownInput
             ? 'insurance_id'
@@ -180,7 +187,6 @@ export default function StandardChoiceDropdown({
       >
         {isGenderDropdownInput && (
           <>
-            {' '}
             <option value="">Sélectionnez votre genre</option>
             <option value="male">Homme</option>
             <option value="female">Femme</option>
@@ -220,7 +226,7 @@ export default function StandardChoiceDropdown({
                 </option>
               ))}
             <option value="other">Autre</option>
-            {/* ToDO - add a new medic modal */}
+            {/* ToDO - add a new affliction modal */}
           </>
         )}
 
@@ -264,7 +270,9 @@ export default function StandardChoiceDropdown({
             {countries &&
               countries.map((country) => (
                 <option key={country.name} value={country.prefix}>
-                  {country.name} {country.prefix}
+                  {isPrefixChosen
+                    ? country.prefix
+                    : `${country.name}, ${country.prefix}`}
                 </option>
               ))}
           </>

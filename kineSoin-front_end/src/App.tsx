@@ -4,7 +4,7 @@ import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalS
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLogin';
+import AdminLogin from './components/pageComponents/AdminSection/AdminLoginPage/AdminLoginPage';
 import NavBar from './components/pageComponents/standaloneComponents/NavBar/NavBar';
 import AdminTherapistsPage from './components/pageComponents/AdminSection/AdminTherapists/AdminTherapistsPage/AdminTherapistsPage';
 import Footer from './components/pageComponents/standaloneComponents/Footer/Footer';
@@ -29,6 +29,7 @@ import PatientDetailsPage from './components/pageComponents/PatientSection/Patie
 import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
+import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage/AdminLoginPage';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -267,7 +268,7 @@ function App() {
 
       <Route
         path="/loginAdmin"
-        element={<AdminLogin setAdminProfileToken={setAdminProfileToken} />}
+        element={<AdminLoginPage setAdminProfileToken={setAdminProfileToken} />}
       />
 
       {/* Admin routes */}

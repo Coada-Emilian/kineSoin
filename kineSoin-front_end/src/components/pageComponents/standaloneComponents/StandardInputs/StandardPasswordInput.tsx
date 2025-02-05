@@ -21,6 +21,9 @@ interface StandardPasswordInputProps {
   isOldPasswordInput?: boolean;
   isNewPasswordInput?: boolean;
   isRepeatPasswordInput?: boolean;
+  isAdminPasswordInput?: boolean;
+  setAdminPassword?: React.Dispatch<React.SetStateAction<string>>;
+  adminPassword?: string;
 }
 
 export default function StandardPasswordInput({
@@ -39,14 +42,29 @@ export default function StandardPasswordInput({
   isOldPasswordInput,
   isNewPasswordInput,
   isRepeatPasswordInput,
+  isAdminPasswordInput,
+  setAdminPassword,
+  adminPassword,
 }: StandardPasswordInputProps) {
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 italic">
       <label
-        htmlFor={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
+        htmlFor={`${
+          isPatientLoginPagePasswordInput
+            ? 'patient-connexion-password_input'
+            : isTherapistLoginPagePasswordInput
+              ? 'therapist-connexion-password_input'
+              : isPatientRegisterPasswordInput
+                ? 'patient-register-password_input'
+                : isPatientRegisterConfirmPasswordInput
+                  ? 'patient-register-confirm-password_input'
+                  : isAdminPasswordInput
+                    ? 'admin-password_input'
+                    : ''
+        }`}
         className={`${isPatientRegisterPasswordInput || isNewPasswordInput ? 'flex mb-1 items-center' : ''} text-primaryBlue text-sm font-medium`}
       >
         {isOldPasswordInput
@@ -87,7 +105,19 @@ export default function StandardPasswordInput({
                     ? 'repeat_password'
                     : 'password'
           }
-          id={`${isPatientLoginPagePasswordInput ? 'patient-connexion-password_input' : isTherapistLoginPagePasswordInput ? 'therapist-connexion-password_input' : isPatientRegisterPasswordInput ? 'patient-register-password_input' : isPatientRegisterConfirmPasswordInput ? 'patient-register-confirm-password_input' : ''}`}
+          id={`${
+            isPatientLoginPagePasswordInput
+              ? 'patient-connexion-password_input'
+              : isTherapistLoginPagePasswordInput
+                ? 'therapist-connexion-password_input'
+                : isPatientRegisterPasswordInput
+                  ? 'patient-register-password_input'
+                  : isPatientRegisterConfirmPasswordInput
+                    ? 'patient-register-confirm-password_input'
+                    : isAdminPasswordInput
+                      ? 'admin-password_input'
+                      : ''
+          }`}
           className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
           placeholder={
             isOldPasswordInput
@@ -107,7 +137,9 @@ export default function StandardPasswordInput({
                 ? therapistLoginPassword
                 : isPatientRegisterPasswordInput
                   ? patientRegisterPassword
-                  : patientRegisterConfirmPassword
+                  : adminPassword
+                    ? adminPassword
+                    : patientRegisterConfirmPassword
           }
           onChange={(e) =>
             isPatientLoginPagePasswordInput && setPatientLoginPassword
@@ -116,10 +148,13 @@ export default function StandardPasswordInput({
                 ? setTherapistLoginPassword(e.target.value)
                 : isPatientRegisterPasswordInput && setPatientRegisterPassword
                   ? setPatientRegisterPassword(e.target.value)
-                  : setPatientRegisterConfirmPassword &&
-                    setPatientRegisterConfirmPassword(e.target.value)
+                  : isAdminPasswordInput && setAdminPassword
+                    ? setAdminPassword(e.target.value)
+                    : setPatientRegisterConfirmPassword &&
+                      setPatientRegisterConfirmPassword(e.target.value)
           }
         />
+
         <button
           type="button"
           onClick={() => setShowPassword((prev) => !prev)}
