@@ -13,12 +13,12 @@ export default function ProfileImage({
   patient,
 }: ProfileImageProps) {
   return (
-    <div className="w-fit mx-auto mb-6 flex justify-center items-center">
+    <div className="w-48 h-48 md:w-72 md:h-72 object-cover mx-auto mb-6 flex justify-center items-center">
       {therapist && (
         <img
           src={therapist.picture_url}
           alt={therapist.fullName}
-          className="rounded-xl shadow-xl w-48 md:w-72"
+          className="rounded-xl shadow-xl w-full h-full object-cover"
         />
       )}
 
@@ -26,7 +26,7 @@ export default function ProfileImage({
         <img
           src={patient.picture_url}
           alt={patient.fullName}
-          className="rounded-xl shadow-xl w-48 md:w-72"
+          className="rounded-xl shadow-xl w-full h-full object-cover"
         />
       )}
     </div>

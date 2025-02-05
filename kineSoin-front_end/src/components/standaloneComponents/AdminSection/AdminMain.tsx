@@ -152,7 +152,7 @@ export default function AdminMain({
   }
 
   return (
-    <main className="w-full h-fit bg-gradient-to-r from-white to-gray-300 pb-2">
+    <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2">
       <div
         className={`${windowWidth < 768 ? 'flex flex-col justify-between h-full p-4' : 'flex'}`}
       >

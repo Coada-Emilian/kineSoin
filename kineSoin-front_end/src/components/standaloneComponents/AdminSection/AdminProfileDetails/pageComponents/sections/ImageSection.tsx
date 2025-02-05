@@ -19,7 +19,7 @@ export default function ImageSection({
   setIsEditPhotoModalOpen,
 }: ImageSectionProps) {
   return (
-    <>
+    <div className="mb-4">
       {isProfileEditing ? (
         therapist && (
           <EditTherapistImage
@@ -30,6 +30,6 @@ export default function ImageSection({
       ) : (
         <ProfileImage therapist={therapist} patient={patient} />
       )}
-    </>
+    </div>
   );
 }

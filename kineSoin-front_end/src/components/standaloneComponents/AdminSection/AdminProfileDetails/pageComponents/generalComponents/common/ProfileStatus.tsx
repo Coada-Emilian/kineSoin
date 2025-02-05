@@ -21,6 +21,7 @@ export default function ProfileStatus({
         ${therapist?.status === 'inactive' ? 'bg-gray-200' : ''}
         ${therapist?.status === 'pending' ? 'bg-yellow-300' : ''}
         ${therapist?.status === 'banned' ? 'bg-red-300' : ''}
+        
         ${patient?.status === 'active' ? 'bg-green-300' : ''}
         ${patient?.status === 'inactive' ? 'bg-gray-200' : ''}
         ${patient?.status === 'pending' ? 'bg-yellow-300' : ''}

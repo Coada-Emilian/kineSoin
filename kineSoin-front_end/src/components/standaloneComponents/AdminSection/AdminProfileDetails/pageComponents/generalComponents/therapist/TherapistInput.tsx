@@ -32,7 +32,19 @@ export default function TherapistInput({
       }
     >
       <label
-        htmlFor={`${isDiplomaInput ? 'therapist-diploma_input' : isExperienceInput ? 'therapist-experience_input' : isSpecialtyInput ? 'therapist-specialty_input' : isDescriptionInput ? 'therapist-description_input' : isLicenceCodeInput ? 'therapist-licence_code_input' : ''}`}
+        htmlFor={`${
+          isDiplomaInput
+            ? 'therapist-diploma_input'
+            : isExperienceInput
+              ? 'therapist-experience_input'
+              : isSpecialtyInput
+                ? 'therapist-specialty_input'
+                : isDescriptionInput
+                  ? 'therapist-description_input'
+                  : isLicenceCodeInput
+                    ? 'therapist-licence_code_input'
+                    : ''
+        }`}
         className="font-semibold"
       >
         {isDiplomaInput
@@ -65,8 +77,30 @@ export default function TherapistInput({
       ) : (
         <input
           type="text"
-          name={`${isDiplomaInput ? 'diploma' : isExperienceInput ? 'experience' : isSpecialtyInput ? 'specialty' : isLicenceCodeInput ? 'licence_code' : ''}`}
-          id={`${isDiplomaInput ? 'therapist-diploma_input' : isExperienceInput ? 'therapist-experience_input' : isSpecialtyInput ? 'therapist-specialty_input' : isDescriptionInput ? 'therapist-description_input' : isLicenceCodeInput ? 'therapist-licence_code_input' : ''}`}
+          name={`${
+            isDiplomaInput
+              ? 'diploma'
+              : isExperienceInput
+                ? 'experience'
+                : isSpecialtyInput
+                  ? 'specialty'
+                  : isLicenceCodeInput
+                    ? 'licence_code'
+                    : ''
+          }`}
+          id={`${
+            isDiplomaInput
+              ? 'therapist-diploma_input'
+              : isExperienceInput
+                ? 'therapist-experience_input'
+                : isSpecialtyInput
+                  ? 'therapist-specialty_input'
+                  : isDescriptionInput
+                    ? 'therapist-description_input'
+                    : isLicenceCodeInput
+                      ? 'therapist-licence_code_input'
+                      : ''
+          }`}
           className="border-2 border-gray-300 rounded-md px-2 italic"
           placeholder={
             isDiplomaInput

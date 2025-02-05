@@ -23,6 +23,7 @@ import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
 import AddMedicModal from '../../AdminSection/Modals/AddMedicModals/AddMedicModal';
 import AddInsuranceModal from '../../AdminSection/Modals/AddInsuranceModals/AddInsuranceModal';
+import StatusButtons from './StatusButtons';
 
 interface AdminTableProps {
   allPatients?: IPatient[];
@@ -226,7 +227,10 @@ export default function AdminTable({
         >
           {allTherapists && (
             <>
-              <TherapistStatusButtons setTherapistStatus={setTherapistStatus} />
+              <StatusButtons
+                isTherapistStatusButtons
+                setTherapistStatus={setTherapistStatus}
+              />
 
               <div>
                 <CustomButton
@@ -239,12 +243,16 @@ export default function AdminTable({
           )}
 
           {allPatients && (
-            <PatientStatusButtons setPatientStatus={setPatientStatus} />
+            <StatusButtons
+              isPatientStatusButtons
+              setPatientStatus={setPatientStatus}
+            />
           )}
 
           {allAfflictions && (
             <>
-              <AfflictionStatusButtons
+              <StatusButtons
+                isAfflictionStatusButtons
                 setAfflictionStatus={setAfflictionStatus}
               />
 

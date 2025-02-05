@@ -64,7 +64,7 @@ export default function NavBar({
 
   return (
     <header
-      className={`bg-gradient-to-r from-white to-gray-300 bg-opacity-70 sticky top-0 w-full py-1 z-10`}
+      className={`bg-gradient-to-r from-white to-gray-200 bg-opacity-70 sticky top-0 w-full py-1 z-10`}
     >
       <nav
         className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}

@@ -45,12 +45,14 @@ export default function GeneralSection({
 
       {isProfileEditing ? (
         <div className="flex flex-col gap-2 mb-2 ">
-          <EditProfileName
-            therapist={therapist}
-            affliction={affliction}
-            medic={medic}
-            insurance={insurance}
-          />
+          {(therapist || affliction || medic || insurance) && (
+            <EditProfileName
+              therapist={therapist}
+              affliction={affliction}
+              medic={medic}
+              insurance={insurance}
+            />
+          )}
 
           {(therapist || medic) && (
             <EditProfileSurname therapist={therapist} medic={medic} />
@@ -58,13 +60,15 @@ export default function GeneralSection({
         </div>
       ) : (
         <>
-          <ProfileName
-            therapist={therapist}
-            patient={patient}
-            affliction={affliction}
-            medic={medic}
-            insurance={insurance}
-          />
+          {(therapist || affliction || medic || insurance) && (
+            <ProfileName
+              therapist={therapist}
+              patient={patient}
+              affliction={affliction}
+              medic={medic}
+              insurance={insurance}
+            />
+          )}
 
           {patient && <ProfileEmail patient={patient} />}
         </>

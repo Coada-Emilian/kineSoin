@@ -285,13 +285,14 @@ export default function AdminProfileDetails({
             )}
           </div>
 
-          <div className="flex-1 flex flex-col items-center justify-center p-4 rounded-md">
+          <div className="flex-1 flex flex-col items-center justify-center px-4 rounded-md">
             <ImageSection
               therapist={therapist}
               patient={patient}
               isProfileEditing={isProfileEditing}
               setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
             />
+
             <ButtonsSection
               isProfileEditing={isProfileEditing}
               buttonMessage={buttonMessage}

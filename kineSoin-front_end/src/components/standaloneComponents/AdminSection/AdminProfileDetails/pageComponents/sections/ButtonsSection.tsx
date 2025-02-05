@@ -41,7 +41,7 @@ export default function ButtonsSection({
   setIsDeleteModalOpen,
 }: ButtonsSectionProps) {
   return (
-    <div className="buttons flex gap-2 items-center justify-between mb-8">
+    <div className="buttons flex gap-2 items-center justify-between mb-4">
       {isProfileEditing ? (
         <>
           {therapist && (
@@ -80,7 +80,17 @@ export default function ButtonsSection({
         <>
           {!patient && (
             <CustomButton
-              btnText={`Modifier ${affliction ? 'affliction' : therapist ? 'kinésithérapeute' : medic ? 'médecin' : insurance ? '' : ''}`}
+              btnText={`Modifier ${
+                affliction
+                  ? 'affliction'
+                  : therapist
+                    ? 'kinésithérapeute'
+                    : medic
+                      ? 'médecin'
+                      : insurance
+                        ? ''
+                        : ''
+              }`}
               btnType="button"
               modifyButton
               onClick={() => setIsProfileEditing(true)}
@@ -115,6 +125,7 @@ export default function ButtonsSection({
             deleteButton
             onClick={() => setIsDeleteModalOpen(true)}
           />
+
           <CustomButton
             btnText="Retour"
             btnType="button"

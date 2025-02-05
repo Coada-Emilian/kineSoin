@@ -15,7 +15,9 @@ export default function EditProfileSurname({
   return (
     <div className="flex gap-2 items-center">
       <label
-        htmlFor={`${therapist ? 'therapist_surname' : medic ? 'medic_surname' : ''}`}
+        htmlFor={`${
+          therapist ? 'therapist_surname' : medic ? 'medic_surname' : ''
+        }`}
         className="font-semibold"
       >
         Prénom :
