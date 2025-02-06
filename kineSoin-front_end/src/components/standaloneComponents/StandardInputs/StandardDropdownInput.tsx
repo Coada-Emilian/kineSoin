@@ -4,8 +4,13 @@ import { IPrescription } from '../../../@types/IPrescription';
 import { IAppointment } from '../../../@types/IAppointment';
 import { IInsurance } from '../../../@types/IInsurance';
 import { ICountry } from '../../../@types/ICountry';
-import { fetchPatientAppointmentsByPrescription } from '../../../utils/apiUtils';
+import {
+  fetchBodyRegions,
+  fetchPatientAppointmentsByPrescription,
+} from '../../../utils/apiUtils';
 import { IMedic } from '../../../@types/IMedic';
+import { IBodyRegion } from '../../../@types/IBodyRegion';
+import DNALoader from '../../../utils/DNALoader';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -34,6 +39,7 @@ interface StandardChoiceDropdownProps {
   isCountryDropdownInput?: boolean;
   countries?: ICountry[];
   isAdminTherapistAddStatusInput?: boolean;
+  isAdminAfflictionAddRegionInput?: boolean;
 }
 
 export default function StandardChoiceDropdown({
@@ -59,6 +65,7 @@ export default function StandardChoiceDropdown({
   isCountryDropdownInput,
   countries,
   isAdminTherapistAddStatusInput,
+  isAdminAfflictionAddRegionInput,
 }: StandardChoiceDropdownProps) {
   // Function to fetch appointments by prescription
   const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
@@ -106,6 +113,23 @@ export default function StandardChoiceDropdown({
     }
   }, [insuranceList, oldPatientInsuranceName]);
 
+  const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchBodyRegions()
+      .then((bodyRegions) => {
+        setBodyRegions(bodyRegions);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return DNALoader();
+  }
+
   return (
     <div className={`${isCountryDropdownInput ? 'w-1/3' : ''} mb-4 italic`}>
       <label
@@ -122,7 +146,9 @@ export default function StandardChoiceDropdown({
                     ? 'country_prefix_dropdown'
                     : isAdminTherapistAddStatusInput
                       ? 'therapist-status_dropdown'
-                      : ''
+                      : isAdminAfflictionAddRegionInput
+                        ? 'body-region_dropdown'
+                        : ''
         }
         className={`${isCountryDropdownInput ? 'text-xs' : ''} text-primaryBlue text-sm font-medium block mb-2`}
       >
@@ -133,6 +159,7 @@ export default function StandardChoiceDropdown({
         {isPatientInsuranceDropdownInput && 'Nom mutuelle'}
         {isCountryDropdownInput && 'Préfixe'}
         {isAdminTherapistAddStatusInput && 'Statut'}
+        {isAdminAfflictionAddRegionInput && 'Région concernée'}
       </label>
 
       <select
@@ -149,7 +176,9 @@ export default function StandardChoiceDropdown({
                     ? 'country_prefix_dropdown'
                     : isAdminTherapistAddStatusInput
                       ? 'therapist-status_dropdown'
-                      : ''
+                      : isAdminAfflictionAddRegionInput
+                        ? 'body-region_dropdown'
+                        : ''
         }
         value={
           isGenderDropdownInput && registeredPatientGender
@@ -191,7 +220,9 @@ export default function StandardChoiceDropdown({
               ? 'prefix'
               : isAdminTherapistAddStatusInput
                 ? 'status'
-                : ''
+                : isAdminAfflictionAddRegionInput
+                  ? 'body_region_id'
+                  : ''
         }
       >
         {isGenderDropdownInput && (
@@ -292,6 +323,17 @@ export default function StandardChoiceDropdown({
             <option value="">Choisissez un statut</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
+          </>
+        )}
+
+        {isAdminAfflictionAddRegionInput && (
+          <>
+            <option value="">Choisissez une région</option>
+            {bodyRegions.map((region) => (
+              <option key={region.id} value={region.id}>
+                {region.name}
+              </option>
+            ))}
           </>
         )}
       </select>

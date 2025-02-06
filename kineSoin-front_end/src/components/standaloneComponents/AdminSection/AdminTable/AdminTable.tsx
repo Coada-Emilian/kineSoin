@@ -362,7 +362,8 @@ export default function AdminTable({
       )}
 
       {isAddAfflictionModalOpen && (
-        <AddAfflictionModal
+        <AdminModal
+          isAdminAfflictionAddModal
           isAddAfflictionModalOpen={isAddAfflictionModalOpen}
           setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
         />

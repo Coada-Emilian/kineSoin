@@ -24,6 +24,7 @@ interface StandardTextInputProps {
   isAdminTherapistAddSpecialtyInput?: boolean;
   isAdminTherapistAddDescriptionInput?: boolean;
   isTextAreaInput?: boolean;
+  isAdminAfflictionAddNameInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -44,10 +45,11 @@ export default function StandardTextInput({
   isAdminTherapistAddSpecialtyInput,
   isAdminTherapistAddDescriptionInput,
   isTextAreaInput,
+  isAdminAfflictionAddNameInput,
 }: StandardTextInputProps) {
   return (
     <div
-      className={`${isStreetNumberInput || isPostalCodeInput ? 'w-4/12' : 'w-full'} flex flex-col gap-2 mb-4`}
+      className={`${isStreetNumberInput || isPostalCodeInput ? 'w-4/12' : 'w-full'} flex flex-col gap-2 mb-4 italic`}
     >
       <label
         htmlFor={`${
@@ -83,7 +85,9 @@ export default function StandardTextInput({
                                         ? 'therapist-specialty_input'
                                         : isAdminTherapistAddDescriptionInput
                                           ? 'therapist-description_input'
-                                          : ''
+                                          : isAdminAfflictionAddNameInput
+                                            ? 'affliction-name_input'
+                                            : ''
         }`}
         className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
@@ -117,7 +121,9 @@ export default function StandardTextInput({
                                     ? 'Spécialité'
                                     : isAdminTherapistAddDescriptionInput
                                       ? 'Description'
-                                      : ''}
+                                      : isAdminAfflictionAddNameInput
+                                        ? "Nom de l'affliction"
+                                        : ''}
       </label>
       {!isTextAreaInput ? (
         <input
@@ -155,7 +161,9 @@ export default function StandardTextInput({
                                           ? 'specialty'
                                           : isAdminTherapistAddDescriptionInput
                                             ? 'description'
-                                            : ''
+                                            : isAdminAfflictionAddNameInput
+                                              ? 'name'
+                                              : ''
           }`}
           id={`${
             isNameInput
@@ -188,7 +196,9 @@ export default function StandardTextInput({
                                         ? 'therapist-specialty_input'
                                         : isAdminTherapistAddDescriptionInput
                                           ? 'therapist-description_input'
-                                          : ''
+                                          : isAdminAfflictionAddNameInput
+                                            ? 'affliction-name_input'
+                                            : ''
           }`}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
           placeholder={`${
@@ -224,7 +234,9 @@ export default function StandardTextInput({
                                           ? 'Entrez la spécialité du kiné'
                                           : isAdminTherapistAddDescriptionInput
                                             ? 'Entrez la description du kiné'
-                                            : ''
+                                            : isAdminAfflictionAddNameInput
+                                              ? "Entrez le nom de l'affliction"
+                                              : ''
           }`}
           required={!isStreetNumberInput}
         />

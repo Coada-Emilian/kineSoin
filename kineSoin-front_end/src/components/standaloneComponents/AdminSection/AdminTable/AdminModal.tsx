@@ -11,7 +11,7 @@ import StandardChoiceDropdown from '../../StandardInputs/StandardDropdownInput';
 import { handleTherapistCreation } from '../../../../utils/apiUtils';
 
 interface AdminModalProps {
-  setAddForm: React.Dispatch<
+  setAddForm?: React.Dispatch<
     React.SetStateAction<{
       name: string;
       surname: string;
@@ -50,6 +50,9 @@ interface AdminModalProps {
     status: string;
     photo: File | unknown;
   };
+  isAdminAfflictionAddModal?: boolean;
+  isAddAfflictionModalOpen?: boolean;
+  setIsAddAfflictionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AdminModal({
@@ -64,6 +67,9 @@ export default function AdminModal({
   isThirdAddTherapistModal,
   isAddTherapistModalP3Open,
   addForm,
+  isAdminAfflictionAddModal,
+  isAddAfflictionModalOpen,
+  setIsAddAfflictionModalOpen,
 }: AdminModalProps) {
   // State to store the preview URL of the uploaded photo
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -111,20 +117,21 @@ export default function AdminModal({
       return;
     }
 
-    setAddForm({
-      name: therapistName,
-      surname: therapistSurname,
-      email: '',
-      password: '',
-      repeated_password: '',
-      description: '',
-      diploma: '',
-      experience: '',
-      specialty: '',
-      licence_code: therapistLicenceCode,
-      status: '',
-      photo: file,
-    });
+    setAddForm &&
+      setAddForm({
+        name: therapistName,
+        surname: therapistSurname,
+        email: '',
+        password: '',
+        repeated_password: '',
+        description: '',
+        diploma: '',
+        experience: '',
+        specialty: '',
+        licence_code: therapistLicenceCode,
+        status: '',
+        photo: file,
+      });
 
     setIsAddTherapistModalP1Open && setIsAddTherapistModalP1Open(false);
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(true);
@@ -160,13 +167,14 @@ export default function AdminModal({
       return;
     }
 
-    setAddForm((prev) => ({
-      ...prev,
-      description: therapistDescription,
-      diploma: therapistDiploma,
-      experience: therapistExperience,
-      specialty: therapistSpecialty,
-    }));
+    setAddForm &&
+      setAddForm((prev) => ({
+        ...prev,
+        description: therapistDescription,
+        diploma: therapistDiploma,
+        experience: therapistExperience,
+        specialty: therapistSpecialty,
+      }));
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
     setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
   };
@@ -219,13 +227,14 @@ export default function AdminModal({
       return;
     }
 
-    setAddForm((prev) => ({
-      ...prev,
-      email: therapistEmail,
-      password: therapistPassword,
-      repeated_password: therapistRepeatedPassword,
-      status: therapistStatus,
-    }));
+    setAddForm &&
+      setAddForm((prev) => ({
+        ...prev,
+        email: therapistEmail,
+        password: therapistPassword,
+        repeated_password: therapistRepeatedPassword,
+        status: therapistStatus,
+      }));
 
     setIsAdminTherapistFormValid(true);
   };
@@ -273,7 +282,9 @@ export default function AdminModal({
             ? !!isAddTherapistModalP2Open
             : false || isThirdAddTherapistModal
               ? !!isAddTherapistModalP3Open
-              : false
+              : isAdminAfflictionAddModal
+                ? !!isAddAfflictionModalOpen
+                : false
       }
       onRequestClose={() => {
         if (isFirstAddTherapistModal && setIsAddTherapistModalP1Open) {
@@ -284,6 +295,9 @@ export default function AdminModal({
         }
         if (isThirdAddTherapistModal && setIsAddTherapistModalP3Open) {
           setIsAddTherapistModalP3Open(false);
+        }
+        if (isAdminAfflictionAddModal && setIsAddAfflictionModalOpen) {
+          setIsAddAfflictionModalOpen(false);
         }
       }}
       style={{
@@ -304,7 +318,11 @@ export default function AdminModal({
     >
       <div className="space-y-4">
         <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
-          Ajouter un kinésithérapeute
+          {(isFirstAddTherapistModal ||
+            isSecondAddTherapistModal ||
+            isThirdAddTherapistModal) &&
+            'Ajouter un thérapeute'}
+          {isAdminAfflictionAddModal && 'Ajouter une affliction'}
         </h2>
 
         {errorMessage && (
@@ -323,71 +341,90 @@ export default function AdminModal({
                   : () => {}
           }
         >
-          {isFirstAddTherapistModal && (
+          {(isFirstAddTherapistModal ||
+            isSecondAddTherapistModal ||
+            isThirdAddTherapistModal) && (
             <>
-              <StandardTextInput isAdminTherapistAddNameInput />
+              {isFirstAddTherapistModal && (
+                <>
+                  <StandardTextInput isAdminTherapistAddNameInput />
 
-              <StandardTextInput isAdminTherapistAddSurnameInput />
+                  <StandardTextInput isAdminTherapistAddSurnameInput />
 
-              <StandardTextInput isAdminTherapistAddLicenceCodeInput />
+                  <StandardTextInput isAdminTherapistAddLicenceCodeInput />
 
-              <StandardFileInput
-                isAdminTherapistImageAddInput
-                setPreviewUrl={setPreviewUrl}
-                setTherapistImageFile={setTherapistImageFile}
-              />
+                  <StandardFileInput
+                    isAdminTherapistImageAddInput
+                    setPreviewUrl={setPreviewUrl}
+                    setTherapistImageFile={setTherapistImageFile}
+                  />
 
-              {previewUrl ? (
-                <img
-                  src={previewUrl}
-                  alt="Therapist"
-                  className="w-32 h-32 rounded-full object-cover mx-auto"
-                />
-              ) : (
-                <p className="text-xs md:text-sm text-center">
-                  Aucune image disponible
-                </p>
+                  {previewUrl ? (
+                    <img
+                      src={previewUrl}
+                      alt="Therapist"
+                      className="w-32 h-32 rounded-full object-cover mx-auto"
+                    />
+                  ) : (
+                    <p className="text-xs md:text-sm text-center">
+                      Aucune image disponible
+                    </p>
+                  )}
+                </>
               )}
+
+              {isSecondAddTherapistModal && (
+                <>
+                  <StandardTextInput isAdminTherapistAddDiplomaInput />
+
+                  <StandardTextInput isAdminTherapistAddExperienceInput />
+
+                  <StandardTextInput isAdminTherapistAddSpecialtyInput />
+
+                  <StandardTextInput
+                    isAdminTherapistAddDescriptionInput
+                    isTextAreaInput
+                  />
+                </>
+              )}
+
+              {isThirdAddTherapistModal && (
+                <>
+                  <StandardEmailInput isAdminTherapistAddEmailInput />
+
+                  <StandardPasswordInput isAdminTherapistAddPasswordInput />
+
+                  <StandardPasswordInput
+                    isAdminTherapistAddRepeatedPasswordInput
+                  />
+                  <StandardChoiceDropdown isAdminTherapistAddStatusInput />
+                </>
+              )}
+
+              <p className="text-red-500 text-center text-xs md:text-sm">
+                {isFirstAddTherapistModal
+                  ? 'Etape 1 / 3 : Informations personnelles'
+                  : isSecondAddTherapistModal
+                    ? 'Etape 2 / 3 : Études'
+                    : 'Etape 3 / 3 : Finition'}
+              </p>
             </>
           )}
 
-          {isSecondAddTherapistModal && (
+          {isAdminAfflictionAddModal && (
             <>
-              <StandardTextInput isAdminTherapistAddDiplomaInput />
+              <StandardTextInput isAdminAfflictionAddNameInput />
 
-              <StandardTextInput isAdminTherapistAddExperienceInput />
-
-              <StandardTextInput isAdminTherapistAddSpecialtyInput />
-
-              <StandardTextInput
-                isAdminTherapistAddDescriptionInput
-                isTextAreaInput
-              />
+              <StandardChoiceDropdown isAdminAfflictionAddRegionInput />
             </>
           )}
-
-          {isThirdAddTherapistModal && (
-            <>
-              <StandardEmailInput isAdminTherapistAddEmailInput />
-
-              <StandardPasswordInput isAdminTherapistAddPasswordInput />
-
-              <StandardPasswordInput isAdminTherapistAddRepeatedPasswordInput />
-
-              <StandardChoiceDropdown isAdminTherapistAddStatusInput />
-            </>
-          )}
-
-          <p className="text-red-500 text-center text-xs md:text-sm">
-            {isFirstAddTherapistModal
-              ? 'Etape 1 / 3 : Informations personnelles'
-              : isSecondAddTherapistModal
-                ? 'Etape 2 / 3 : Études'
-                : 'Etape 3 / 3 : Finition'}
-          </p>
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Continuer" btnType="submit" normalButton />
+            <CustomButton
+              btnText={`${isFirstAddTherapistModal || isSecondAddTherapistModal ? 'Suivant' : 'Valider'}`}
+              btnType="submit"
+              normalButton
+            />
 
             <CustomButton
               btnText="Annuler"
@@ -402,6 +439,9 @@ export default function AdminModal({
                 }
                 if (isThirdAddTherapistModal && setIsAddTherapistModalP3Open) {
                   setIsAddTherapistModalP3Open(false);
+                }
+                if (isAdminAfflictionAddModal && setIsAddAfflictionModalOpen) {
+                  setIsAddAfflictionModalOpen(false);
                 }
               }}
             />
