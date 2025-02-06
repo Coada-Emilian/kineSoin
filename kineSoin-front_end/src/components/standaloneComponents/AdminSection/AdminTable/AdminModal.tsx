@@ -8,7 +8,10 @@ import StandardFileInput from '../../StandardInputs/StandardFileInput';
 import StandardEmailInput from '../../StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../StandardInputs/StandardPasswordInput';
 import StandardChoiceDropdown from '../../StandardInputs/StandardDropdownInput';
-import { handleTherapistCreation } from '../../../../utils/apiUtils';
+import {
+  handleAfflictionCreation,
+  handleTherapistCreation,
+} from '../../../../utils/apiUtils';
 
 interface AdminModalProps {
   setAddForm?: React.Dispatch<
@@ -239,6 +242,67 @@ export default function AdminModal({
     setIsAdminTherapistFormValid(true);
   };
 
+  const handleAfflictionSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const afflictionName = formData.get('name') as string;
+      const afflictionDescription = formData.get('description') as string;
+      const afflictionInsuranceCode = formData.get('insurance_code') as string;
+      const afflictionBodyRegionId = formData.get('body_region_id') as string;
+      const afflictionOperatedStatus = formData.get('is_operated') as string;
+
+      if (
+        !afflictionName ||
+        !afflictionDescription ||
+        !afflictionInsuranceCode ||
+        !afflictionBodyRegionId ||
+        !afflictionOperatedStatus
+      ) {
+        setErrorMessage('Veuillez remplir tous les champs.');
+        return;
+      } else if (afflictionName.length > 50) {
+        setErrorMessage('Le nom ne doit pas dépasser 50 caractères.');
+        return;
+      } else if (afflictionDescription.length > 500) {
+        setErrorMessage('La description ne doit pas dépasser 500 caractères.');
+        return;
+      } else if (afflictionInsuranceCode.length > 10) {
+        setErrorMessage(
+          "Le code d'assurance ne doit pas dépasser 10 caractères."
+        );
+        return;
+      } else if (!/^\d+$/.test(afflictionBodyRegionId)) {
+        setErrorMessage(
+          "L'ID de la région corporelle doit être un nombre valide."
+        );
+        return;
+      } else if (!/^[0-9A-Za-z]{1,10}$/.test(afflictionInsuranceCode)) {
+        setErrorMessage(
+          "Le code d'assurance doit être un code valide (chiffres et/ou lettres)."
+        );
+        return;
+      } else if (!['true', 'false'].includes(afflictionOperatedStatus)) {
+        setErrorMessage("Le statut opéré doit être 'true' ou 'false'.");
+        return;
+      }
+
+      const response = await handleAfflictionCreation(formData);
+      if (response) {
+        setIsAddAfflictionModalOpen && setIsAddAfflictionModalOpen(false);
+        window.location.reload();
+      } else {
+        setErrorMessage(
+          "Une erreur est survenue lors de la création de l'affliction."
+        );
+      }
+    } catch (error) {
+      console.error('Error updating affliction:', error);
+    }
+  };
+  
   useEffect(() => {
     const createTherapist = async () => {
       const newFormData = new FormData();
@@ -338,7 +402,9 @@ export default function AdminModal({
                 ? addSecondFormDetails
                 : isThirdAddTherapistModal
                   ? addThirdFormDetails
-                  : () => {}
+                  : isAddAfflictionModalOpen
+                    ? handleAfflictionSubmit
+                    : () => {}
           }
         >
           {(isFirstAddTherapistModal ||
@@ -416,6 +482,19 @@ export default function AdminModal({
               <StandardTextInput isAdminAfflictionAddNameInput />
 
               <StandardChoiceDropdown isAdminAfflictionAddRegionInput />
+
+              <div className="flex gap-1">
+                <StandardTextInput isAdminAfflictionAddLicenceCodeInput />
+
+                <StandardChoiceDropdown
+                  isAdminAfflictionAddOperatedStatusInput
+                />
+              </div>
+
+              <StandardTextInput
+                isAdminAfflictionAddDescriptionInput
+                isTextAreaInput
+              />
             </>
           )}
 

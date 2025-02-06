@@ -40,6 +40,7 @@ interface StandardChoiceDropdownProps {
   countries?: ICountry[];
   isAdminTherapistAddStatusInput?: boolean;
   isAdminAfflictionAddRegionInput?: boolean;
+  isAdminAfflictionAddOperatedStatusInput?: boolean;
 }
 
 export default function StandardChoiceDropdown({
@@ -66,7 +67,9 @@ export default function StandardChoiceDropdown({
   countries,
   isAdminTherapistAddStatusInput,
   isAdminAfflictionAddRegionInput,
+  isAdminAfflictionAddOperatedStatusInput,
 }: StandardChoiceDropdownProps) {
+  const windowWidth = window.innerWidth;
   // Function to fetch appointments by prescription
   const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
     const response =
@@ -114,24 +117,21 @@ export default function StandardChoiceDropdown({
   }, [insuranceList, oldPatientInsuranceName]);
 
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchBodyRegions()
-      .then((bodyRegions) => {
-        setBodyRegions(bodyRegions);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return DNALoader();
+  {
+    if (isAdminAfflictionAddRegionInput) {
+      useEffect(() => {
+        fetchBodyRegions().then((bodyRegions) => {
+          setBodyRegions(bodyRegions);
+        });
+      }, []);
+    }
   }
 
   return (
-    <div className={`${isCountryDropdownInput ? 'w-1/3' : ''} mb-4 italic`}>
+    <div
+      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : ''} mb-4 italic`}
+    >
       <label
         htmlFor={
           isGenderDropdownInput
@@ -148,7 +148,9 @@ export default function StandardChoiceDropdown({
                       ? 'therapist-status_dropdown'
                       : isAdminAfflictionAddRegionInput
                         ? 'body-region_dropdown'
-                        : ''
+                        : isAdminAfflictionAddOperatedStatusInput
+                          ? 'affliction-operated_status_dropdown'
+                          : ''
         }
         className={`${isCountryDropdownInput ? 'text-xs' : ''} text-primaryBlue text-sm font-medium block mb-2`}
       >
@@ -160,6 +162,12 @@ export default function StandardChoiceDropdown({
         {isCountryDropdownInput && 'Préfixe'}
         {isAdminTherapistAddStatusInput && 'Statut'}
         {isAdminAfflictionAddRegionInput && 'Région concernée'}
+        {isAdminAfflictionAddOperatedStatusInput &&
+          windowWidth > 768 &&
+          'Est opéré ?'}
+        {isAdminAfflictionAddOperatedStatusInput &&
+          windowWidth <= 768 &&
+          'Opéré ?'}
       </label>
 
       <select
@@ -178,7 +186,9 @@ export default function StandardChoiceDropdown({
                       ? 'therapist-status_dropdown'
                       : isAdminAfflictionAddRegionInput
                         ? 'body-region_dropdown'
-                        : ''
+                        : isAdminAfflictionAddOperatedStatusInput
+                          ? 'affliction-operated_status_dropdown'
+                          : ''
         }
         value={
           isGenderDropdownInput && registeredPatientGender
@@ -222,7 +232,9 @@ export default function StandardChoiceDropdown({
                 ? 'status'
                 : isAdminAfflictionAddRegionInput
                   ? 'body_region_id'
-                  : ''
+                  : isAdminAfflictionAddOperatedStatusInput
+                    ? 'is_operated'
+                    : ''
         }
       >
         {isGenderDropdownInput && (
@@ -334,6 +346,13 @@ export default function StandardChoiceDropdown({
                 {region.name}
               </option>
             ))}
+          </>
+        )}
+
+        {isAdminAfflictionAddOperatedStatusInput && (
+          <>
+            <option value="true">Oui</option>
+            <option value="false">Non</option>
           </>
         )}
       </select>
