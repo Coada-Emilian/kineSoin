@@ -5,46 +5,28 @@ import questionIcon from '/icons/question-circle.svg';
 
 interface StandardPasswordInputProps {
   isPatientLoginPagePasswordInput?: boolean;
-  patientLoginPassword?: string;
   isTherapistLoginPagePasswordInput?: boolean;
-  therapistLoginPassword?: string;
-  setPatientLoginPassword?: React.Dispatch<React.SetStateAction<string>>;
-  setTherapistLoginPassword?: React.Dispatch<React.SetStateAction<string>>;
   isPatientRegisterPasswordInput?: boolean;
   isPatientRegisterConfirmPasswordInput?: boolean;
-  patientRegisterPassword?: string;
-  patientRegisterConfirmPassword?: string;
-  setPatientRegisterPassword?: React.Dispatch<React.SetStateAction<string>>;
-  setPatientRegisterConfirmPassword?: React.Dispatch<
-    React.SetStateAction<string>
-  >;
   isOldPasswordInput?: boolean;
   isNewPasswordInput?: boolean;
   isRepeatPasswordInput?: boolean;
   isAdminPasswordInput?: boolean;
-  setAdminPassword?: React.Dispatch<React.SetStateAction<string>>;
-  adminPassword?: string;
+  isAdminTherapistAddPasswordInput?: boolean;
+  isAdminTherapistAddRepeatedPasswordInput?: boolean;
 }
 
 export default function StandardPasswordInput({
   isPatientLoginPagePasswordInput,
-  patientLoginPassword,
   isTherapistLoginPagePasswordInput,
-  therapistLoginPassword,
-  setPatientLoginPassword,
-  setTherapistLoginPassword,
   isPatientRegisterPasswordInput,
   isPatientRegisterConfirmPasswordInput,
-  patientRegisterPassword,
-  patientRegisterConfirmPassword,
-  setPatientRegisterPassword,
-  setPatientRegisterConfirmPassword,
   isOldPasswordInput,
   isNewPasswordInput,
   isRepeatPasswordInput,
   isAdminPasswordInput,
-  setAdminPassword,
-  adminPassword,
+  isAdminTherapistAddPasswordInput,
+  isAdminTherapistAddRepeatedPasswordInput,
 }: StandardPasswordInputProps) {
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -63,9 +45,13 @@ export default function StandardPasswordInput({
                   ? 'patient-register-confirm-password_input'
                   : isAdminPasswordInput
                     ? 'admin-password_input'
-                    : ''
+                    : isAdminTherapistAddPasswordInput
+                      ? 'admin-therapist-password_input'
+                      : isAdminTherapistAddRepeatedPasswordInput
+                        ? 'admin-therapist-repeated-password_input'
+                        : ''
         }`}
-        className={`${isPatientRegisterPasswordInput || isNewPasswordInput ? 'flex mb-1 items-center' : ''} text-primaryBlue text-sm font-medium`}
+        className={`${isPatientRegisterPasswordInput || isNewPasswordInput || isAdminTherapistAddPasswordInput ? 'flex mb-1 items-center' : ''} text-primaryBlue text-sm font-medium`}
       >
         {isOldPasswordInput
           ? 'Ancien mot de passe'
@@ -73,11 +59,17 @@ export default function StandardPasswordInput({
             ? 'Nouveau mot de passe'
             : isRepeatPasswordInput
               ? 'Confirmer le mot de passe'
-              : !isPatientRegisterConfirmPasswordInput
+              : isAdminTherapistAddPasswordInput
                 ? 'Mot de passe'
-                : 'Confirmation mot de passe'}
+                : isAdminTherapistAddRepeatedPasswordInput
+                  ? 'Confirmer le mot de passe'
+                  : !isPatientRegisterConfirmPasswordInput
+                    ? 'Mot de passe'
+                    : 'Confirmation mot de passe'}
 
-        {(isPatientRegisterPasswordInput || isNewPasswordInput) && (
+        {(isPatientRegisterPasswordInput ||
+          isNewPasswordInput ||
+          isAdminTherapistAddPasswordInput) && (
           <p
             className="text-sm text-center ml-4"
             title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial"
@@ -103,7 +95,11 @@ export default function StandardPasswordInput({
                   ? 'new_password'
                   : isRepeatPasswordInput
                     ? 'repeat_password'
-                    : 'password'
+                    : isAdminTherapistAddPasswordInput
+                      ? 'password'
+                      : isAdminTherapistAddRepeatedPasswordInput
+                        ? 'repeated_password'
+                        : 'password'
           }
           id={`${
             isPatientLoginPagePasswordInput
@@ -116,7 +112,11 @@ export default function StandardPasswordInput({
                     ? 'patient-register-confirm-password_input'
                     : isAdminPasswordInput
                       ? 'admin-password_input'
-                      : ''
+                      : isAdminTherapistAddPasswordInput
+                        ? 'admin-therapist-password_input'
+                        : isAdminTherapistAddRepeatedPasswordInput
+                          ? 'admin-therapist-repeated-password_input'
+                          : ''
           }`}
           className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
           placeholder={
@@ -126,32 +126,13 @@ export default function StandardPasswordInput({
                 ? 'Entrez votre nouveau mot de passe'
                 : isRepeatPasswordInput
                   ? 'Répétez le mot de passe'
-                  : !isPatientRegisterConfirmPasswordInput
-                    ? 'Entrez votre mot de passe'
-                    : 'Confirmez le mot de passe'
-          }
-          value={
-            isPatientLoginPagePasswordInput
-              ? patientLoginPassword
-              : isTherapistLoginPagePasswordInput
-                ? therapistLoginPassword
-                : isPatientRegisterPasswordInput
-                  ? patientRegisterPassword
-                  : adminPassword
-                    ? adminPassword
-                    : patientRegisterConfirmPassword
-          }
-          onChange={(e) =>
-            isPatientLoginPagePasswordInput && setPatientLoginPassword
-              ? setPatientLoginPassword(e.target.value)
-              : isTherapistLoginPagePasswordInput && setTherapistLoginPassword
-                ? setTherapistLoginPassword(e.target.value)
-                : isPatientRegisterPasswordInput && setPatientRegisterPassword
-                  ? setPatientRegisterPassword(e.target.value)
-                  : isAdminPasswordInput && setAdminPassword
-                    ? setAdminPassword(e.target.value)
-                    : setPatientRegisterConfirmPassword &&
-                      setPatientRegisterConfirmPassword(e.target.value)
+                  : isAdminTherapistAddPasswordInput
+                    ? 'Entrez le mot de passe'
+                    : isAdminTherapistAddRepeatedPasswordInput
+                      ? 'Confirmez le mot de passe'
+                      : !isPatientRegisterConfirmPasswordInput
+                        ? 'Entrez votre mot de passe'
+                        : 'Confirmez le mot de passe'
           }
         />
 

@@ -57,15 +57,6 @@ export default function PublicMainFormSection({
   setIsGlobalFormSubmitted,
   isGlobalFormSubmitted,
 }: PublicMainFormSectionProps) {
-  // Patient login data states
-  const [patientLoginPassword, setPatientLoginPassword] = useState<string>('');
-  const [patientLoginEmail, setPatientLoginEmail] = useState<string>('');
-
-  // Therapist login data states
-  const [therapistLoginPassword, setTherapistLoginPassword] =
-    useState<string>('');
-  const [therapistLoginEmail, setTherapistLoginEmail] = useState<string>('');
-
   // Patient and therapist error messages states
   const [patientErrorMessage, setPatientErrorMessage] = useState<string>('');
   const [therapistErrorMessage, setTherapistErrorMessage] =
@@ -78,11 +69,6 @@ export default function PublicMainFormSection({
   const [registeredPatientGender, setRegisteredPatientGender] = useState('');
   const [registeredPatientBirthDate, setRegisteredPatientBirthDate] =
     useState<string>();
-  const [patientRegisterEmail, setPatientRegisterEmail] = useState<string>('');
-  const [patientRegisterPassword, setPatientRegisterPassword] =
-    useState<string>('');
-  const [patientRegisterConfirmPassword, setPatientRegisterConfirmPassword] =
-    useState<string>('');
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
   const navigate = useNavigate();
@@ -121,10 +107,16 @@ export default function PublicMainFormSection({
   }, []);
 
   // Patient login function
-  const checkPatientCredentials = async () => {
+  const checkPatientCredentials = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
       setPatientErrorMessage('');
+      const formData = new FormData(e.currentTarget);
+      const patientLoginEmail = formData.get('email') as string;
+      const patientLoginPassword = formData.get('password') as string;
 
       // Check if the email and password fields are empty
       if (!patientLoginEmail || !patientLoginPassword) {
@@ -132,7 +124,7 @@ export default function PublicMainFormSection({
         return;
       } else if (
         !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-          patientLoginEmail
+          patientLoginEmail as string
         )
       ) {
         setPatientErrorMessage('Veuillez entrer une adresse email valide');
@@ -164,10 +156,17 @@ export default function PublicMainFormSection({
   };
 
   // Therapist login function
-  const checkTherapistCredentials = async () => {
+  const checkTherapistCredentials = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
       setTherapistErrorMessage('');
+      const formData = new FormData(e.currentTarget);
+      const therapistLoginEmail = formData.get('email') as string;
+      const therapistLoginPassword = formData.get('password') as string;
+
       // Check if the email and password fields are empty
       if (!therapistLoginEmail || !therapistLoginPassword) {
         setTherapistErrorMessage('Veuillez remplir tous les champs');
@@ -553,32 +552,16 @@ export default function PublicMainFormSection({
 
             {isPatientLoginPageFormSection && (
               <>
-                <StandardEmailInput
-                  isPatientLoginPageEmailInput
-                  patientLoginEmail={patientLoginEmail}
-                  setPatientLoginEmail={setPatientLoginEmail}
-                />
+                <StandardEmailInput isPatientLoginPageEmailInput />
 
-                <StandardPasswordInput
-                  isPatientLoginPagePasswordInput
-                  patientLoginPassword={patientLoginPassword}
-                  setPatientLoginPassword={setPatientLoginPassword}
-                />
+                <StandardPasswordInput isPatientLoginPagePasswordInput />
               </>
             )}
 
             {isTherapistLoginPageFormSection && (
               <>
-                <StandardEmailInput
-                  isTherapistLoginPageEmailInput
-                  therapistLoginEmail={therapistLoginEmail}
-                  setTherapistLoginEmail={setTherapistLoginEmail}
-                />
-                <StandardPasswordInput
-                  isTherapistLoginPagePasswordInput
-                  therapistLoginPassword={therapistLoginPassword}
-                  setTherapistLoginPassword={setTherapistLoginPassword}
-                />
+                <StandardEmailInput isTherapistLoginPageEmailInput />
+                <StandardPasswordInput isTherapistLoginPagePasswordInput />
               </>
             )}
 
@@ -635,27 +618,11 @@ export default function PublicMainFormSection({
                   setPatientImage={setPatientImage}
                 />
 
-                <StandardEmailInput
-                  isPatientRegisterEmailInput
-                  patientRegisterEmail={patientRegisterEmail}
-                  setPatientRegisterEmail={setPatientRegisterEmail}
-                />
+                <StandardEmailInput isPatientRegisterEmailInput />
 
-                <StandardPasswordInput
-                  isPatientRegisterPasswordInput
-                  patientRegisterPassword={patientRegisterPassword}
-                  setPatientRegisterPassword={setPatientRegisterPassword}
-                />
+                <StandardPasswordInput isPatientRegisterPasswordInput />
 
-                <StandardPasswordInput
-                  isPatientRegisterConfirmPasswordInput
-                  patientRegisterConfirmPassword={
-                    patientRegisterConfirmPassword
-                  }
-                  setPatientRegisterConfirmPassword={
-                    setPatientRegisterConfirmPassword
-                  }
-                />
+                <StandardPasswordInput isPatientRegisterConfirmPasswordInput />
               </>
             )}
 

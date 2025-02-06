@@ -33,6 +33,7 @@ interface StandardChoiceDropdownProps {
   insuranceList?: IInsurance[];
   isCountryDropdownInput?: boolean;
   countries?: ICountry[];
+  isAdminTherapistAddStatusInput?: boolean;
 }
 
 export default function StandardChoiceDropdown({
@@ -57,6 +58,7 @@ export default function StandardChoiceDropdown({
   insuranceList,
   isCountryDropdownInput,
   countries,
+  isAdminTherapistAddStatusInput,
 }: StandardChoiceDropdownProps) {
   // Function to fetch appointments by prescription
   const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
@@ -105,7 +107,7 @@ export default function StandardChoiceDropdown({
   }, [insuranceList, oldPatientInsuranceName]);
 
   return (
-    <div className={`${isCountryDropdownInput ? 'w-1/3' : ''} mb-4`}>
+    <div className={`${isCountryDropdownInput ? 'w-1/3' : ''} mb-4 italic`}>
       <label
         htmlFor={
           isGenderDropdownInput
@@ -118,7 +120,9 @@ export default function StandardChoiceDropdown({
                   ? 'new-prescription-affliction_dropdown'
                   : isCountryDropdownInput
                     ? 'country_prefix_dropdown'
-                    : ''
+                    : isAdminTherapistAddStatusInput
+                      ? 'therapist-status_dropdown'
+                      : ''
         }
         className={`${isCountryDropdownInput ? 'text-xs' : ''} text-primaryBlue text-sm font-medium block mb-2`}
       >
@@ -128,6 +132,7 @@ export default function StandardChoiceDropdown({
         {isAfflictionDropdownInput && 'Affection concernée'}
         {isPatientInsuranceDropdownInput && 'Nom mutuelle'}
         {isCountryDropdownInput && 'Préfixe'}
+        {isAdminTherapistAddStatusInput && 'Statut'}
       </label>
 
       <select
@@ -142,7 +147,9 @@ export default function StandardChoiceDropdown({
                   ? 'new-prescription-affliction_dropdown'
                   : isCountryDropdownInput
                     ? 'country_prefix_dropdown'
-                    : ''
+                    : isAdminTherapistAddStatusInput
+                      ? 'therapist-status_dropdown'
+                      : ''
         }
         value={
           isGenderDropdownInput && registeredPatientGender
@@ -182,7 +189,9 @@ export default function StandardChoiceDropdown({
             ? 'insurance_id'
             : isCountryDropdownInput
               ? 'prefix'
-              : ''
+              : isAdminTherapistAddStatusInput
+                ? 'status'
+                : ''
         }
       >
         {isGenderDropdownInput && (
@@ -275,6 +284,14 @@ export default function StandardChoiceDropdown({
                     : `${country.name}, ${country.prefix}`}
                 </option>
               ))}
+          </>
+        )}
+
+        {isAdminTherapistAddStatusInput && (
+          <>
+            <option value="">Choisissez un statut</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
           </>
         )}
       </select>

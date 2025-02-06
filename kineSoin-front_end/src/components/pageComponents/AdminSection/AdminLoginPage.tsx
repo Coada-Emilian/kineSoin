@@ -27,12 +27,19 @@ export default function AdminLoginPage({
   const navigate = useNavigate();
 
   // Function to check admin credentials
-  const checkAdminCredentials = async () => {
+  const checkAdminCredentials = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
 
+      const formData = new FormData(e.currentTarget);
+      const adminEmail = formData.get('email') as string;
+      const adminPassword = formData.get('password') as string;
       // Check for empty email or password
       if (!adminEmail || !adminPassword) {
+        setErrorMessage('Email et/ou Mot de passe invalide');
+        return;
+      } else if (!adminEmail.includes('@')) {
         setErrorMessage('Email et/ou Mot de passe invalide');
         return;
       }
@@ -64,9 +71,6 @@ export default function AdminLoginPage({
     }
   };
 
-  const [adminEmail, setAdminEmail] = useState<string>('');
-  const [adminPassword, setAdminPassword] = useState<string>('');
-
   if (isLoading) {
     return DNALoader();
   }
@@ -92,22 +96,13 @@ export default function AdminLoginPage({
         ) : null}
         <form
           onSubmit={async (e) => {
-            e.preventDefault();
-            await checkAdminCredentials();
+            await checkAdminCredentials(e);
           }}
           className="space-y-4"
         >
-          <StandardEmailInput
-            isAdminEmailInput
-            setAdminEmail={setAdminEmail}
-            adminEmail={adminEmail}
-          />
+          <StandardEmailInput isAdminEmailInput />
 
-          <StandardPasswordInput
-            isAdminPasswordInput
-            adminPassword={adminPassword}
-            setAdminPassword={setAdminPassword}
-          />
+          <StandardPasswordInput isAdminPasswordInput />
 
           <div className="flex justify-center">
             <CustomButton

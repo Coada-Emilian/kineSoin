@@ -331,9 +331,7 @@ export default function AdminTable({
         />
       )}
 
-      {(isAddTherapistModalP1Open ||
-        isAddTherapistModalP2Open ||
-        isAddTherapistModalP3Open) && (
+      {isAddTherapistModalP1Open && (
         <AdminModal
           isFirstAddTherapistModal
           setAddForm={setAddForm}
@@ -354,8 +352,10 @@ export default function AdminTable({
       )}
 
       {isAddTherapistModalP3Open && (
-        <AddTherapistModalP3
+        <AdminModal
+          isThirdAddTherapistModal
           addForm={addForm}
+          setAddForm={setAddForm}
           setIsAddTherapistModalP3Open={setIsAddTherapistModalP3Open}
           isAddTherapistModalP3Open={isAddTherapistModalP3Open}
         />

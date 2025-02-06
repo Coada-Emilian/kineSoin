@@ -1,10 +1,14 @@
 // Purpose: Provide the first step of the modal to add a therapist.
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../Button/CustomButton';
 import StandardTextInput from '../../StandardInputs/StandardTextInput';
 import StandardFileInput from '../../StandardInputs/StandardFileInput';
+import StandardEmailInput from '../../StandardInputs/StandardEmailInput';
+import StandardPasswordInput from '../../StandardInputs/StandardPasswordInput';
+import StandardChoiceDropdown from '../../StandardInputs/StandardDropdownInput';
+import { handleTherapistCreation } from '../../../../utils/apiUtils';
 
 interface AdminModalProps {
   setAddForm: React.Dispatch<
@@ -30,6 +34,22 @@ interface AdminModalProps {
   isSecondAddTherapistModal?: boolean;
   isAddTherapistModalP2Open?: boolean;
   setIsAddTherapistModalP3Open?: React.Dispatch<React.SetStateAction<boolean>>;
+  isThirdAddTherapistModal?: boolean;
+  isAddTherapistModalP3Open?: boolean;
+  addForm?: {
+    name: string;
+    surname: string;
+    email: string;
+    password: string;
+    repeated_password: string;
+    description: string;
+    diploma: string;
+    experience: string;
+    specialty: string;
+    licence_code: string;
+    status: string;
+    photo: File | unknown;
+  };
 }
 
 export default function AdminModal({
@@ -41,6 +61,9 @@ export default function AdminModal({
   isSecondAddTherapistModal,
   isAddTherapistModalP2Open,
   setIsAddTherapistModalP3Open,
+  isThirdAddTherapistModal,
+  isAddTherapistModalP3Open,
+  addForm,
 }: AdminModalProps) {
   // State to store the preview URL of the uploaded photo
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -60,14 +83,31 @@ export default function AdminModal({
     const therapistLicenceCode = formData.get('licence_code') as string;
     const file = therapistImageFile;
 
+    // Field Validation
     if (!therapistName || !therapistSurname || !therapistLicenceCode) {
       setErrorMessage('Veuillez remplir tous les champs.');
       return;
-    } else if (!file) {
+    }
+    if (!file) {
       setErrorMessage('Veuillez ajouter une photo.');
       return;
-    } else if (!/^[0-9]{9}$/.test(therapistLicenceCode)) {
+    }
+    if (!/^[0-9]{9}$/.test(therapistLicenceCode)) {
       setErrorMessage('Le code ADELI doit être composé de 9 chiffres.');
+      return;
+    }
+    if (!/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$/.test(therapistName)) {
+      setErrorMessage(
+        'Le nom ne doit contenir que des lettres et des espaces.'
+      );
+      return;
+    }
+    if (
+      !/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$/.test(therapistSurname)
+    ) {
+      setErrorMessage(
+        'Le prénom ne doit contenir que des lettres et des espaces.'
+      );
       return;
     }
 
@@ -90,30 +130,139 @@ export default function AdminModal({
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(true);
   };
 
-  const addSecondFormDetails = () => {
-    // if (
-    //   !therapistDiploma ||
-    //   !therapistExperience ||
-    //   !therapistSpecialty ||
-    //   !therapistDescription
-    // ) {
-    //   setErrorMessage('Veuillez remplir tous les champs');
-    //   return;
-    // }
-    // const diploma = therapistDiploma;
-    // const experience = therapistExperience;
-    // const specialty = therapistSpecialty;
-    // const description = therapistDescription;
-    // setAddForm((prev) => ({
-    //   ...prev,
-    //   description,
-    //   diploma,
-    //   experience,
-    //   specialty,
-    // }));
-    // setIsAddTherapistModalP2Open(false);
-    // setIsAddTherapistModalP3Open(true);
+  const addSecondFormDetails = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const therapistDiploma = formData.get('diploma') as string;
+    const therapistExperience = formData.get('experience') as string;
+    const therapistSpecialty = formData.get('specialty') as string;
+    const therapistDescription = formData.get('description') as string;
+
+    if (
+      !therapistDiploma ||
+      !therapistExperience ||
+      !therapistSpecialty ||
+      !therapistDescription
+    ) {
+      setErrorMessage('Veuillez remplir tous les champs.');
+      return;
+    } else if (therapistDiploma.length > 100) {
+      setErrorMessage('Le diplôme ne doit pas dépasser 100 caractères.');
+      return;
+    } else if (therapistExperience.length > 100) {
+      setErrorMessage("L'expérience ne doit pas dépasser 100 caractères.");
+      return;
+    } else if (therapistSpecialty.length > 100) {
+      setErrorMessage('La spécialité ne doit pas dépasser 100 caractères.');
+      return;
+    } else if (therapistDescription.length > 500) {
+      setErrorMessage('La description ne doit pas dépasser 500 caractères.');
+      return;
+    }
+
+    setAddForm((prev) => ({
+      ...prev,
+      description: therapistDescription,
+      diploma: therapistDiploma,
+      experience: therapistExperience,
+      specialty: therapistSpecialty,
+    }));
+    setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
+    setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
   };
+
+  const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
+    useState(false);
+
+  const addThirdFormDetails = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const therapistEmail = formData.get('email') as string;
+    const therapistPassword = formData.get('password') as string;
+    const therapistRepeatedPassword = formData.get(
+      'repeated_password'
+    ) as string;
+    const therapistStatus = formData.get('status') as string;
+
+    if (
+      !therapistEmail ||
+      !therapistPassword ||
+      !therapistRepeatedPassword ||
+      !therapistStatus
+    ) {
+      setErrorMessage('Veuillez remplir tous les champs.');
+      return;
+    } else if (therapistPassword.length < 12) {
+      setErrorMessage('Le mot de passe doit contenir au moins 12 caractères.');
+      return;
+    } else if (!/(?=.*[a-z])/.test(therapistPassword)) {
+      setErrorMessage('Le mot de passe doit contenir au moins une minuscule.');
+      return;
+    } else if (!/(?=.*[A-Z])/.test(therapistPassword)) {
+      setErrorMessage('Le mot de passe doit contenir au moins une majuscule.');
+      return;
+    } else if (!/(?=.*\d)/.test(therapistPassword)) {
+      setErrorMessage('Le mot de passe doit contenir au moins un chiffre.');
+      return;
+    } else if (!/(?=.*\W)/.test(therapistPassword)) {
+      setErrorMessage(
+        'Le mot de passe doit contenir au moins un caractère spécial.'
+      );
+      return;
+    } else if (therapistPassword !== therapistRepeatedPassword) {
+      setErrorMessage('Les mots de passe ne correspondent pas.');
+      return;
+    } else if (
+      !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(therapistEmail)
+    ) {
+      setErrorMessage("L'email n'est pas valide.");
+      return;
+    }
+
+    setAddForm((prev) => ({
+      ...prev,
+      email: therapistEmail,
+      password: therapistPassword,
+      repeated_password: therapistRepeatedPassword,
+      status: therapistStatus,
+    }));
+
+    setIsAdminTherapistFormValid(true);
+  };
+
+  useEffect(() => {
+    const createTherapist = async () => {
+      const newFormData = new FormData();
+      newFormData.append('name', addForm?.name as string);
+      newFormData.append('surname', addForm?.surname as string);
+      newFormData.append('email', addForm?.email as string);
+      newFormData.append('password', addForm?.password as string);
+      newFormData.append(
+        'repeated_password',
+        addForm?.repeated_password as string
+      );
+      newFormData.append('description', addForm?.description as string);
+      newFormData.append('diploma', addForm?.diploma as string);
+      newFormData.append('experience', addForm?.experience as string);
+      newFormData.append('specialty', addForm?.specialty as string);
+      newFormData.append('licence_code', addForm?.licence_code as string);
+      newFormData.append('status', addForm?.status as string);
+      newFormData.append('photo', addForm?.photo as Blob);
+
+      const response = await handleTherapistCreation(newFormData);
+      if (response) {
+        setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(false);
+        window.location.reload();
+      } else {
+        setErrorMessage(
+          'Une erreur est survenue lors de la création du compte.'
+        );
+      }
+    };
+    if (isAdminTherapistFormValid) {
+      createTherapist();
+    }
+  }, [isAdminTherapistFormValid]);
 
   return (
     <ReactModal
@@ -122,7 +271,9 @@ export default function AdminModal({
           ? !!isAddTherapistModalP1Open
           : false || isSecondAddTherapistModal
             ? !!isAddTherapistModalP2Open
-            : false
+            : false || isThirdAddTherapistModal
+              ? !!isAddTherapistModalP3Open
+              : false
       }
       onRequestClose={() => {
         if (isFirstAddTherapistModal && setIsAddTherapistModalP1Open) {
@@ -130,6 +281,9 @@ export default function AdminModal({
         }
         if (isSecondAddTherapistModal && setIsAddTherapistModalP2Open) {
           setIsAddTherapistModalP2Open(false);
+        }
+        if (isThirdAddTherapistModal && setIsAddTherapistModalP3Open) {
+          setIsAddTherapistModalP3Open(false);
         }
       }}
       style={{
@@ -164,7 +318,9 @@ export default function AdminModal({
               ? addFirstFormDetails
               : isSecondAddTherapistModal
                 ? addSecondFormDetails
-                : undefined
+                : isThirdAddTherapistModal
+                  ? addThirdFormDetails
+                  : () => {}
           }
         >
           {isFirstAddTherapistModal && (
@@ -210,10 +366,24 @@ export default function AdminModal({
             </>
           )}
 
+          {isThirdAddTherapistModal && (
+            <>
+              <StandardEmailInput isAdminTherapistAddEmailInput />
+
+              <StandardPasswordInput isAdminTherapistAddPasswordInput />
+
+              <StandardPasswordInput isAdminTherapistAddRepeatedPasswordInput />
+
+              <StandardChoiceDropdown isAdminTherapistAddStatusInput />
+            </>
+          )}
+
           <p className="text-red-500 text-center text-xs md:text-sm">
             {isFirstAddTherapistModal
               ? 'Etape 1 / 3 : Informations personnelles'
-              : 'Etape 2 / 3 : Études'}
+              : isSecondAddTherapistModal
+                ? 'Etape 2 / 3 : Études'
+                : 'Etape 3 / 3 : Finition'}
           </p>
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
@@ -229,6 +399,9 @@ export default function AdminModal({
                 }
                 if (isSecondAddTherapistModal && setIsAddTherapistModalP2Open) {
                   setIsAddTherapistModalP2Open(false);
+                }
+                if (isThirdAddTherapistModal && setIsAddTherapistModalP3Open) {
+                  setIsAddTherapistModalP3Open(false);
                 }
               }}
             />
