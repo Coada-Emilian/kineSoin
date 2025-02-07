@@ -4,6 +4,7 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import { handleBodyRegionCreation } from '../../../../../utils/apiUtils';
 import NameInput from '../Components/NameInput';
+import StandardTextInput from '../../../StandardInputs/StandardTextInput';
 
 interface AddRegionModalProps {
   isAddRegionModalOpen: boolean;
@@ -26,6 +27,7 @@ export default function AddRegionModal({
       console.error('Failed to create region');
     }
   };
+  
   return (
     <ReactModal
       isOpen={isAddRegionModalOpen}
@@ -52,11 +54,11 @@ export default function AddRegionModal({
         </h2>
 
         <form className="space-y-4" onSubmit={createRegion}>
-          <NameInput region />
+          <StandardTextInput isAdminRegionAddNameInput />
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
-            
+
             <CustomButton
               btnText="Annuler"
               btnType="button"

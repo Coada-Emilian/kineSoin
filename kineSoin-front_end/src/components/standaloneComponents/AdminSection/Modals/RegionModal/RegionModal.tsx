@@ -11,11 +11,12 @@ import { IBodyRegion } from '../../../../../@types/IBodyRegion';
 import { Link } from 'react-router-dom';
 import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
 import AddRegionModal from './AddRegionModal';
+import AdminTable from '../../AdminTable/AdminTable';
 
 interface RegionModalProps {
   isRegionModalOpen: boolean;
   setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth: number;
+  windowWidth?: number;
 }
 
 export default function RegionModal({
@@ -65,7 +66,7 @@ export default function RegionModal({
       <div className="space-y-4">
         <h2 className="text-sm md:text-base font-bold mb-2 md:mb-4">Regions</h2>
 
-        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6">
+        {/* <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6">
           <thead className="bg-gray-100 text-xs md:text-sm">
             <tr className="h-fit">
               <>
@@ -85,7 +86,7 @@ export default function RegionModal({
           </thead>
 
           <tbody
-            className={windowWidth < 450 ? 'text-xs' : 'text-xs md:text-sm'}
+            className={(windowWidth ?? 0) < 450 ? 'text-xs' : 'text-xs md:text-sm'}
           >
             {bodyRegions.map((region: IBodyRegion) => (
               <tr
@@ -113,24 +114,9 @@ export default function RegionModal({
               </tr>
             ))}
           </tbody>
-        </table>
-
-        <div className="flex justify-center">
-          <CustomButton
-            btnText="Ajouter une region"
-            btnType="button"
-            addButton
-            onClick={() => setIsAddRegionModalOpen(true)}
-          />
-        </div>
-        
+        </table> */}
+        <AdminTable allBodyRegions={bodyRegions} />
       </div>
-      {isAddRegionModalOpen && (
-        <AddRegionModal
-          isAddRegionModalOpen={isAddRegionModalOpen}
-          setIsAddRegionModalOpen={setIsAddRegionModalOpen}
-        />
-      )}
     </ReactModal>
   );
 }

@@ -550,14 +550,6 @@ export default function AdminModal({
             </>
           )}
 
-          {isAdminRegionModal && <AdminTable allBodyRegions={bodyRegions} />}
-
-          {isAdminAddRegionModal && (
-            <>
-              <StandardTextInput isAdminRegionAddNameInput />
-            </>
-          )}
-
           {!isAdminRegionModal && (
             <div className="flex gap-2 mt-6 w-fit mx-auto">
               <CustomButton

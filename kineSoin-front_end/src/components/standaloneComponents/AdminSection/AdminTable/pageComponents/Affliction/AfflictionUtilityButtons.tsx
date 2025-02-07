@@ -25,7 +25,9 @@ export default function AfflictionUtilityButtons({
       <CustomButton
         btnText="Voir regions"
         addButton
-        onClick={() => setIsRegionModalOpen(true)}
+        onClick={() => {
+          setIsRegionModalOpen(true);
+        }}
       />
 
       <CustomButton
