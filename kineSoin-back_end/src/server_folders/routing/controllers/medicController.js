@@ -136,27 +136,9 @@ const medicController = {
           return res.status(400).json({ message: error.details[0].message });
         }
 
-        const {
-          name,
-          surname,
-          street_number,
-          street_name,
-          postal_code,
-          city,
-          phone_number,
-          licence_code,
-        } = req.body;
-
         const newMedic = {
           admin_id,
-          name,
-          surname,
-          street_number,
-          street_name,
-          postal_code,
-          city,
-          phone_number,
-          licence_code,
+          ...req.body,
         };
 
         const createdMedic = await Medic.create(newMedic);
@@ -164,14 +146,16 @@ const medicController = {
         if (!createdMedic) {
           return res
             .status(500)
-            .json({ message: 'Error while creating medic.' });
+            .json({ message: 'Error while creating medic because fuck you.' });
         } else {
           return res
             .status(201)
             .json({ message: 'Medic created.', createdMedic });
         }
       } catch (error) {
-        return res.status(500).json({ message: 'Error creating medic.' });
+        return res
+          .status(500)
+          .json({ message: 'Error creating medic because reasons.' });
       }
     }
   },

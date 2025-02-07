@@ -410,7 +410,8 @@ export default function AdminTable({
       )}
 
       {isAddInsuranceModalOpen && (
-        <AddInsuranceModal
+        <AdminModal
+          isAdminAddInsuranceModal
           isAddInsuranceModalOpen={isAddInsuranceModalOpen}
           setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
         />

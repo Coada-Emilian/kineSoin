@@ -35,6 +35,12 @@ interface StandardTextInputProps {
   isAdminMedicAddStreetNameInput?: boolean;
   isAdminMedicAddPostalCodeInput?: boolean;
   isAdminMedicAddCityInput?: boolean;
+  isAdminInsuranceAddNameInput?: boolean;
+  isAdminInsuranceAddLicenceCodeInput?: boolean;
+  isAdminInsuranceAddStreetNumberInput?: boolean;
+  isAdminInsuranceAddStreetNameInput?: boolean;
+  isAdminInsuranceAddPostalCodeInput?: boolean;
+  isAdminInsuranceAddCityInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -66,10 +72,25 @@ export default function StandardTextInput({
   isAdminMedicAddStreetNameInput,
   isAdminMedicAddPostalCodeInput,
   isAdminMedicAddCityInput,
+  isAdminInsuranceAddCityInput,
+  isAdminInsuranceAddLicenceCodeInput,
+  isAdminInsuranceAddNameInput,
+  isAdminInsuranceAddPostalCodeInput,
+  isAdminInsuranceAddStreetNameInput,
+  isAdminInsuranceAddStreetNumberInput,
 }: StandardTextInputProps) {
   return (
     <div
-      className={`${isStreetNumberInput || isPostalCodeInput || isAdminMedicAddStreetNumberInput || isAdminMedicAddPostalCodeInput ? 'w-4/12' : 'w-full'} flex flex-col gap-2 mb-4 italic`}
+      className={`${
+        isStreetNumberInput ||
+        isPostalCodeInput ||
+        isAdminMedicAddStreetNumberInput ||
+        isAdminMedicAddPostalCodeInput ||
+        isAdminInsuranceAddStreetNumberInput ||
+        isAdminInsuranceAddPostalCodeInput
+          ? 'w-4/12'
+          : 'w-full'
+      } flex flex-col gap-2 mb-4 italic`}
     >
       <label
         htmlFor={`${
@@ -127,14 +148,42 @@ export default function StandardTextInput({
                                                               ? 'medic-postal_code_input'
                                                               : isAdminMedicAddCityInput
                                                                 ? 'medic-city_input'
-                                                                : ''
+                                                                : isAdminInsuranceAddNameInput
+                                                                  ? 'insurance-name_input'
+                                                                  : isAdminInsuranceAddLicenceCodeInput
+                                                                    ? 'insurance-licence-code_input'
+                                                                    : isAdminInsuranceAddStreetNumberInput
+                                                                      ? 'insurance-street_number_input'
+                                                                      : isAdminInsuranceAddStreetNameInput
+                                                                        ? 'insurance-street_name_input'
+                                                                        : isAdminInsuranceAddPostalCodeInput
+                                                                          ? 'insurance-postal_code_input'
+                                                                          : isAdminInsuranceAddCityInput
+                                                                            ? 'insurance-city_input'
+                                                                            : ''
         }`}
-        className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
+        className={`${
+          isStreetNameInput ||
+          isCityInput ||
+          isStreetNumberInput ||
+          isPostalCodeInput ||
+          isAdminMedicAddCityInput ||
+          isAdminMedicAddStreetNameInput ||
+          isAdminMedicAddStreetNumberInput ||
+          isAdminMedicAddPostalCodeInput ||
+          isAdminInsuranceAddCityInput ||
+          isAdminInsuranceAddStreetNameInput ||
+          isAdminInsuranceAddStreetNumberInput ||
+          isAdminInsuranceAddPostalCodeInput
+            ? 'text-xs'
+            : 'text-sm'
+        } text-primaryBlue font-medium`}
       >
         {isNameInput ||
         isAdminRegionAddNameInput ||
         isAdminTherapistAddNameInput ||
-        isAdminMedicAddNameInput
+        isAdminMedicAddNameInput ||
+        isAdminInsuranceAddNameInput
           ? 'Nom'
           : isSurnameInput ||
               isAdminTherapistAddSurnameInput ||
@@ -142,13 +191,21 @@ export default function StandardTextInput({
             ? 'Prénom'
             : isBirthNameInput
               ? 'Nom de naissance'
-              : isStreetNumberInput || isAdminMedicAddStreetNumberInput
+              : isStreetNumberInput ||
+                  isAdminMedicAddStreetNumberInput ||
+                  isAdminInsuranceAddStreetNumberInput
                 ? 'N° de rue'
-                : isStreetNameInput || isAdminMedicAddStreetNameInput
+                : isStreetNameInput ||
+                    isAdminMedicAddStreetNameInput ||
+                    isAdminInsuranceAddStreetNameInput
                   ? 'Nom de rue'
-                  : isPostalCodeInput || isAdminMedicAddPostalCodeInput
+                  : isPostalCodeInput ||
+                      isAdminMedicAddPostalCodeInput ||
+                      isAdminInsuranceAddPostalCodeInput
                     ? 'Code postal'
-                    : isCityInput || isAdminMedicAddCityInput
+                    : isCityInput ||
+                        isAdminMedicAddCityInput ||
+                        isAdminInsuranceAddCityInput
                       ? 'Ville'
                       : isAppointmentNumberInput
                         ? 'Quantité seances prescrites :'
@@ -169,7 +226,9 @@ export default function StandardTextInput({
                                       ? 'Cotation'
                                       : isAdminAfflictionAddDescriptionInput
                                         ? 'Description'
-                                        : ''}
+                                        : isAdminInsuranceAddLicenceCodeInput
+                                          ? 'Code AMC'
+                                          : ''}
       </label>
       {!isTextAreaInput ? (
         <input
@@ -179,7 +238,8 @@ export default function StandardTextInput({
             isAdminTherapistAddNameInput ||
             isAdminAfflictionAddNameInput ||
             isAdminRegionAddNameInput ||
-            isAdminMedicAddNameInput
+            isAdminMedicAddNameInput ||
+            isAdminInsuranceAddNameInput
               ? 'name'
               : isSurnameInput ||
                   isAdminTherapistAddSurnameInput ||
@@ -187,13 +247,21 @@ export default function StandardTextInput({
                 ? 'surname'
                 : isBirthNameInput
                   ? 'birth_name'
-                  : isStreetNumberInput || isAdminMedicAddStreetNumberInput
+                  : isStreetNumberInput ||
+                      isAdminMedicAddStreetNumberInput ||
+                      isAdminInsuranceAddStreetNumberInput
                     ? 'street_number'
-                    : isStreetNameInput || isAdminMedicAddStreetNameInput
+                    : isStreetNameInput ||
+                        isAdminMedicAddStreetNameInput ||
+                        isAdminInsuranceAddStreetNameInput
                       ? 'street_name'
-                      : isPostalCodeInput || isAdminMedicAddPostalCodeInput
+                      : isPostalCodeInput ||
+                          isAdminMedicAddPostalCodeInput ||
+                          isAdminInsuranceAddPostalCodeInput
                         ? 'postal_code'
-                        : isCityInput || isAdminMedicAddCityInput
+                        : isCityInput ||
+                            isAdminMedicAddCityInput ||
+                            isAdminInsuranceAddCityInput
                           ? 'city'
                           : isAppointmentNumberInput
                             ? 'appointment_quantity'
@@ -212,7 +280,9 @@ export default function StandardTextInput({
                                         ? 'description'
                                         : isAdminAfflictionAddLicenceCodeInput
                                           ? 'insurance_code'
-                                          : ''
+                                          : isAdminInsuranceAddLicenceCodeInput
+                                            ? 'amc_code'
+                                            : ''
           }`}
           id={`${
             isNameInput
@@ -265,7 +335,19 @@ export default function StandardTextInput({
                                                             ? 'medic-postal_code_input'
                                                             : isAdminMedicAddCityInput
                                                               ? 'medic-city_input'
-                                                              : ''
+                                                              : isAdminInsuranceAddNameInput
+                                                                ? 'insurance-name_input'
+                                                                : isAdminInsuranceAddLicenceCodeInput
+                                                                  ? 'insurance-licence-code_input'
+                                                                  : isAdminInsuranceAddStreetNumberInput
+                                                                    ? 'insurance-street_number_input'
+                                                                    : isAdminInsuranceAddStreetNameInput
+                                                                      ? 'insurance-street_name_input'
+                                                                      : isAdminInsuranceAddPostalCodeInput
+                                                                        ? 'insurance-postal_code_input'
+                                                                        : isAdminInsuranceAddCityInput
+                                                                          ? 'insurance-city_input'
+                                                                          : ''
           }`}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
           placeholder={`${
@@ -275,11 +357,15 @@ export default function StandardTextInput({
                 ? 'Entrez votre prénom'
                 : isBirthNameInput
                   ? 'Entrez votre nom de naissance'
-                  : isStreetNumberInput || isAdminMedicAddStreetNumberInput
+                  : isStreetNumberInput ||
+                      isAdminMedicAddStreetNumberInput ||
+                      isAdminInsuranceAddStreetNumberInput
                     ? 'N° de rue'
                     : isStreetNameInput
                       ? 'Nom de rue'
-                      : isPostalCodeInput || isAdminMedicAddPostalCodeInput
+                      : isPostalCodeInput ||
+                          isAdminMedicAddPostalCodeInput ||
+                          isAdminInsuranceAddPostalCodeInput
                         ? 'Code postal'
                         : isCityInput
                           ? 'Ville'
@@ -317,7 +403,15 @@ export default function StandardTextInput({
                                                           ? 'Entrez le nom de rue du médecin'
                                                           : isAdminMedicAddCityInput
                                                             ? 'Entrez la ville du médecin'
-                                                            : ''
+                                                            : isAdminInsuranceAddNameInput
+                                                              ? "Entrez le nom de l'assurance"
+                                                              : isAdminInsuranceAddLicenceCodeInput
+                                                                ? "Entrez le code AMC de l'assurance"
+                                                                : isAdminInsuranceAddStreetNameInput
+                                                                  ? "Entrez le nom de rue de l'assurance"
+                                                                  : isAdminInsuranceAddCityInput
+                                                                    ? "Entrez la ville de l'assurance"
+                                                                    : ''
           }`}
           required={!isStreetNumberInput}
         />

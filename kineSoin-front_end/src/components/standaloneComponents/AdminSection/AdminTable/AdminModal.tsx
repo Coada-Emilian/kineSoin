@@ -10,6 +10,8 @@ import StandardPasswordInput from '../../StandardInputs/StandardPasswordInput';
 import StandardChoiceDropdown from '../../StandardInputs/StandardDropdownInput';
 import {
   handleAfflictionCreation,
+  handleInsuranceOrganismCreation,
+  handleMedicCreation,
   handleTherapistCreation,
 } from '../../../../utils/apiUtils';
 import StandardTelephoneInput from '../../StandardInputs/StandardTelephoneInput';
@@ -62,6 +64,9 @@ interface AdminModalProps {
   isAdminAddMedicModal?: boolean;
   isAddMedicModalOpen?: boolean;
   setIsAddMedicModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdminAddInsuranceModal?: boolean;
+  isAddInsuranceModalOpen?: boolean;
+  setIsAddInsuranceModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AdminModal({
@@ -82,6 +87,9 @@ export default function AdminModal({
   isAdminAddMedicModal,
   isAddMedicModalOpen,
   setIsAddMedicModalOpen,
+  isAdminAddInsuranceModal,
+  isAddInsuranceModalOpen,
+  setIsAddInsuranceModalOpen,
 }: AdminModalProps) {
   // State to store the preview URL of the uploaded photo
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -312,6 +320,174 @@ export default function AdminModal({
     }
   };
 
+  const handleMedicSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const medicName = formData.get('name') as string;
+      const medicSurname = formData.get('surname') as string;
+      const medicLicenceCode = formData.get('licence_code') as string;
+      const medicStreetNumber = formData.get('street_number') as string;
+      const medicStreetName = formData.get('street_name') as string;
+      const medicPostalCode = formData.get('postal_code') as string;
+      const medicCity = formData.get('city') as string;
+      const medicPrefix = formData.get('prefix') as string;
+      const medicTelephone = formData.get('phone') as string;
+      const medicFullTelephone = `${medicPrefix}${medicTelephone}`;
+
+      const newFormData = new FormData();
+
+      if (
+        !medicName ||
+        !medicSurname ||
+        !medicLicenceCode ||
+        !medicStreetNumber ||
+        !medicStreetName ||
+        !medicPostalCode ||
+        !medicCity ||
+        !medicPrefix ||
+        !medicTelephone
+      ) {
+        setErrorMessage('Veuillez remplir tous les champs.');
+        return;
+      } else if (medicName.length > 50) {
+        setErrorMessage('Le nom ne doit pas dépasser 50 caractères.');
+        return;
+      } else if (medicSurname.length > 50) {
+        setErrorMessage('Le prénom ne doit pas dépasser 50 caractères.');
+        return;
+      } else if (medicLicenceCode.length > 9) {
+        setErrorMessage('Le code ADELI ne doit pas dépasser 9 caractères.');
+        return;
+      } else if (medicStreetNumber.length > 10) {
+        setErrorMessage('Le numéro de rue ne doit pas dépasser 10 caractères.');
+        return;
+      } else if (medicStreetName.length > 50) {
+        setErrorMessage('Le nom de rue ne doit pas dépasser 50 caractères.');
+        return;
+      } else if (medicPostalCode.length > 10) {
+        setErrorMessage('Le code postal ne doit pas dépasser 10 caractères.');
+        return;
+      } else if (medicCity.length > 100) {
+        setErrorMessage('La ville ne doit pas dépasser 100 caractères.');
+        return;
+      } else {
+        newFormData.append('name', medicName);
+        newFormData.append('surname', medicSurname);
+        newFormData.append('licence_code', medicLicenceCode);
+        newFormData.append('street_number', medicStreetNumber);
+        newFormData.append('street_name', medicStreetName);
+        newFormData.append('postal_code', medicPostalCode);
+        newFormData.append('city', medicCity);
+        newFormData.append('phone_number', medicFullTelephone);
+
+        for (const pair of newFormData.entries()) {
+          console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        const response = await handleMedicCreation(newFormData);
+        if (response) {
+          setIsAddMedicModalOpen && setIsAddMedicModalOpen(false);
+          window.location.reload();
+        } else {
+          setErrorMessage(
+            'Une erreur est survenue lors de la création du compte.'
+          );
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleInsuranceSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      for (const pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+      const insuranceName = formData.get('name') as string;
+      const insuranceLicenceCode = formData.get('amc_code') as string;
+      const insuranceStreetNumber = formData.get('street_number') as string;
+      const insuranceStreetName = formData.get('street_name') as string;
+      const insurancePostalCode = formData.get('postal_code') as string;
+      const insuranceCity = formData.get('city') as string;
+      const insurancePrefix = formData.get('prefix') as string;
+      const insuranceTelephone = formData.get('phone') as string;
+      const insuranceFullTelephone = `${insurancePrefix}${insuranceTelephone}`;
+
+      console.log('insuranceFullTelephone', insuranceFullTelephone);
+      console.log('insurancePrefix', insurancePrefix);
+      console.log('insuranceTelephone', insuranceTelephone);
+      console.log('insuranceName', insuranceName);
+      console.log('insuranceLicenceCode', insuranceLicenceCode);
+      console.log('insuranceStreetNumber', insuranceStreetNumber);
+      console.log('insuranceStreetName', insuranceStreetName);
+      console.log('insurancePostalCode', insurancePostalCode);
+      console.log('insuranceCity', insuranceCity);
+      const newFormData = new FormData();
+
+      if (
+        !insuranceName ||
+        !insuranceLicenceCode ||
+        !insuranceStreetNumber ||
+        !insuranceStreetName ||
+        !insurancePostalCode ||
+        !insuranceCity ||
+        !insurancePrefix ||
+        !insuranceTelephone
+      ) {
+        setErrorMessage('Veuillez remplir tous les champs.');
+        return;
+      } else if (insuranceName.length > 50) {
+        setErrorMessage('Le nom ne doit pas dépasser 50 caractères.');
+        return;
+      } else if (insuranceLicenceCode.length > 10) {
+        setErrorMessage(
+          "Le code d'assurance ne doit pas dépasser 10 caractères."
+        );
+        return;
+      } else if (insuranceStreetNumber.length > 10) {
+        setErrorMessage('Le numéro de rue ne doit pas dépasser 10 caractères.');
+        return;
+      } else if (insuranceStreetName.length > 50) {
+        setErrorMessage('Le nom de rue ne doit pas dépasser 50 caractères.');
+        return;
+      } else if (insurancePostalCode.length > 10) {
+        setErrorMessage('Le code postal ne doit pas dépasser 10 caractères.');
+        return;
+      } else if (insuranceCity.length > 100) {
+        setErrorMessage('La ville ne doit pas dépasser 100 caractères.');
+        return;
+      } else {
+        newFormData.append('name', insuranceName);
+        newFormData.append('amc_code', insuranceLicenceCode);
+        newFormData.append('street_number', insuranceStreetNumber);
+        newFormData.append('street_name', insuranceStreetName);
+        newFormData.append('postal_code', insurancePostalCode);
+        newFormData.append('city', insuranceCity);
+        newFormData.append('phone_number', insuranceFullTelephone);
+
+        for (const pair of newFormData.entries()) {
+          console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        const response = await handleInsuranceOrganismCreation(newFormData);
+        if (response) {
+          setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
+          window.location.reload();
+        } else {
+          setErrorMessage(
+            'Une erreur est survenue lors de la création du compte.'
+          );
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const createTherapist = async () => {
       const newFormData = new FormData();
@@ -389,7 +565,9 @@ export default function AdminModal({
                 ? !!isAddAfflictionModalOpen
                 : isAdminAddMedicModal
                   ? !!isAddMedicModalOpen
-                  : false
+                  : isAdminAddInsuranceModal
+                    ? !!isAddInsuranceModalOpen
+                    : false
       }
       onRequestClose={() => {
         if (isFirstAddTherapistModal && setIsAddTherapistModalP1Open) {
@@ -406,6 +584,9 @@ export default function AdminModal({
         }
         if (isAdminAddMedicModal && setIsAddMedicModalOpen) {
           setIsAddMedicModalOpen(false);
+        }
+        if (isAdminAddInsuranceModal && setIsAddInsuranceModalOpen) {
+          setIsAddInsuranceModalOpen(false);
         }
       }}
       style={{
@@ -431,8 +612,8 @@ export default function AdminModal({
             isThirdAddTherapistModal) &&
             'Ajouter un thérapeute'}
           {isAdminAfflictionAddModal && 'Ajouter une affliction'}
-
           {isAdminAddMedicModal && 'Ajouter un médecin'}
+          {isAdminAddInsuranceModal && "Ajouter un organisme d'assurance"}
         </h2>
 
         {errorMessage && (
@@ -450,7 +631,11 @@ export default function AdminModal({
                   ? addThirdFormDetails
                   : isAddAfflictionModalOpen
                     ? handleAfflictionSubmit
-                    : () => {}
+                    : isAddMedicModalOpen
+                      ? handleMedicSubmit
+                      : isAddInsuranceModalOpen
+                        ? handleInsuranceSubmit
+                        : () => {}
           }
         >
           {(isFirstAddTherapistModal ||
@@ -575,6 +760,34 @@ export default function AdminModal({
             </>
           )}
 
+          {isAdminAddInsuranceModal && (
+            <>
+              <StandardTextInput isAdminInsuranceAddNameInput />
+
+              <StandardTextInput isAdminInsuranceAddLicenceCodeInput />
+
+              <div className="flex gap-2 items-center justify-between">
+                <StandardTextInput isAdminInsuranceAddStreetNumberInput />
+
+                <StandardTextInput isAdminInsuranceAddStreetNameInput />
+              </div>
+
+              <div className="flex gap-2 items-center justify-between">
+                <StandardTextInput isAdminInsuranceAddPostalCodeInput />
+
+                <StandardTextInput isAdminInsuranceAddCityInput />
+              </div>
+
+              <div className="flex gap-2 items-center justify-between">
+                <StandardChoiceDropdown
+                  isCountryDropdownInput
+                  countries={countriesData}
+                />
+                <StandardTelephoneInput isAdminInsuranceAddTelephoneInput />
+              </div>
+            </>
+          )}
+
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton
               btnText={`${isFirstAddTherapistModal || isSecondAddTherapistModal ? 'Suivant' : 'Valider'}`}
@@ -602,6 +815,10 @@ export default function AdminModal({
 
                 if (isAdminAddMedicModal && setIsAddMedicModalOpen) {
                   setIsAddMedicModalOpen(false);
+                }
+
+                if (isAdminAddInsuranceModal && setIsAddInsuranceModalOpen) {
+                  setIsAddInsuranceModalOpen(false);
                 }
               }}
             />
