@@ -105,7 +105,7 @@ export default function MobileNav({
   return (
     <>
       {isAdminMobileNav && (
-        <div className="flex gap-2 justify-around w-full mt-2">
+        <div className="flex gap-2 justify-around w-full my-2 px-4">
           {adminLinks.map((link, index) => (
             <NavLink
               to={link.path}

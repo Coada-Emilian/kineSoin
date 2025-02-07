@@ -7,17 +7,9 @@ import { IAffliction } from '../../../../@types/IAffliction';
 import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
 import { IMedic } from '../../../../@types/IMedic';
 import { IInsurance } from '../../../../@types/IInsurance';
-import AddAfflictionModal from '../../AdminSection/Modals/AddAfflictionModals/AddAfflictionModal';
-import RegionModal from '../../AdminSection/Modals/RegionModal/RegionModal';
-import TherapistStatusButtons from './pageComponents/Therapist/TherapistStatusButtons';
-import PatientStatusButtons from './pageComponents/Patient/PatientStatusButtons';
-import AfflictionStatusButtons from './pageComponents/Affliction/AfflictionStatusButtons';
 import AfflictionUtilityButtons from './pageComponents/Affliction/AfflictionUtilityButtons';
 import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import AddTherapistModalP1 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP1';
-import AddTherapistModalP2 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP2';
-import AddTherapistModalP3 from '../../AdminSection/Modals/AddTherapistModals/AddTherapistModalP3';
 import TableTitle from './pageComponents/Common/TableTitle';
 import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
@@ -25,14 +17,16 @@ import AddMedicModal from '../../AdminSection/Modals/AddMedicModals/AddMedicModa
 import AddInsuranceModal from '../../AdminSection/Modals/AddInsuranceModals/AddInsuranceModal';
 import StatusButtons from './StatusButtons';
 import AdminModal from './AdminModal';
+import { IBodyRegion } from '../../../../@types/IBodyRegion';
 
 interface AdminTableProps {
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
   allMedics?: IMedic[];
   allInsurances?: IInsurance[];
-  windowWidth: number;
+  windowWidth?: number;
   allTherapists?: ITherapist[];
+  allBodyRegions?: IBodyRegion[];
 }
 
 export default function AdminTable({
@@ -42,6 +36,7 @@ export default function AdminTable({
   allInsurances,
   windowWidth,
   allTherapists,
+  allBodyRegions,
 }: AdminTableProps) {
   // States for selected therapist, patient, affliction, medic, insurance
   const [selectedTherapist, setSelectedTherapist] = useState<ITherapist | null>(
@@ -54,6 +49,8 @@ export default function AdminTable({
   const [selectedInsurance, setSelectedInsurance] = useState<IInsurance | null>(
     null
   );
+  const [selectedBodyRegion, setSelectedBodyRegion] =
+    useState<IBodyRegion | null>(null);
 
   // States for modal opening
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -68,6 +65,7 @@ export default function AdminTable({
     useState(false);
   const [isAddMedicModalOpen, setIsAddMedicModalOpen] = useState(false);
   const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
+  const [isAddRegionModalOpen, setIsAddRegionModalOpen] = useState(false);
 
   // States for status changes
   const [therapistStatus, setTherapistStatus] = useState('all');
@@ -190,7 +188,8 @@ export default function AdminTable({
     patient?: IPatient,
     affliction?: IAffliction,
     medic?: IMedic,
-    insurance?: IInsurance
+    insurance?: IInsurance,
+    body_region?: IBodyRegion
   ) => {
     if (therapist) {
       setSelectedTherapist(therapist);
@@ -206,6 +205,9 @@ export default function AdminTable({
     }
     if (insurance) {
       setSelectedInsurance(insurance);
+    }
+    if (body_region) {
+      setSelectedBodyRegion(body_region);
     }
     setIsDeleteModalOpen(true);
   };
@@ -224,7 +226,7 @@ export default function AdminTable({
     <>
       <div>
         <div
-          className={`buttons mb-6 flex flex-row  ${allMedics || allInsurances ? 'justify-end' : 'justify-between'} md:ml-10 md:mr-10`}
+          className={`buttons mb-6 flex flex-row  ${allMedics || allInsurances || allBodyRegions ? 'justify-end' : 'justify-between'} md:ml-10 md:mr-10`}
         >
           {allTherapists && (
             <>
@@ -278,6 +280,17 @@ export default function AdminTable({
               />
             </div>
           )}
+
+          {allBodyRegions && (
+            <CustomButton
+              btnText="Ajouter une region"
+              addButton
+              onClick={() => {
+                setIsRegionModalOpen(false);
+                setIsAddRegionModalOpen(true);
+              }}
+            />
+          )}
         </div>
 
         <div>
@@ -295,16 +308,17 @@ export default function AdminTable({
 
         <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
           <TableHead
-            windowWidth={windowWidth}
+            windowWidth={windowWidth ?? 0}
             allTherapists={allTherapists}
             allPatients={allPatients}
             allAfflictions={allAfflictions}
             allMedics={allMedics}
             allInsurances={allInsurances}
+            allBodyRegions={allBodyRegions}
           />
 
           <TableBody
-            windowWidth={windowWidth}
+            windowWidth={windowWidth ?? 0}
             allTherapists={allTherapists}
             allPatients={allPatients}
             allMedics={allMedics}
@@ -315,6 +329,7 @@ export default function AdminTable({
             renderedTherapists={renderedTherapists}
             handleStatusChange={handleStatusChange}
             openDeleteModal={openDeleteModal}
+            allBodyRegions={allBodyRegions}
           />
         </table>
       </div>
@@ -328,6 +343,7 @@ export default function AdminTable({
           affliction={selectedAffliction}
           medic={selectedMedic}
           insurance={selectedInsurance}
+          region={selectedBodyRegion}
         />
       )}
 
@@ -370,10 +386,18 @@ export default function AdminTable({
       )}
 
       {isRegionModalOpen && (
-        <RegionModal
-          windowWidth={windowWidth}
+        <AdminModal
+          isAdminRegionModal
           isRegionModalOpen={isRegionModalOpen}
           setIsRegionModalOpen={setIsRegionModalOpen}
+        />
+      )}
+
+      {isAddRegionModalOpen && (
+        <AdminModal
+          isAdminAddRegionModal
+          isAddRegionModalOpen={isAddRegionModalOpen}
+          setIsAddRegionModalOpen={setIsAddRegionModalOpen}
         />
       )}
 

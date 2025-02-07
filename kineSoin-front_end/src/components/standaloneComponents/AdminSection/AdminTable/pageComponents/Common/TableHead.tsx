@@ -1,6 +1,7 @@
 // Purpose: The purpose of this component is to render the table title of the admin table.
 
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
 import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
@@ -13,6 +14,7 @@ interface TableHeadProps {
   allAfflictions?: IAffliction[];
   allMedics?: IMedic[];
   allInsurances?: IInsurance[];
+  allBodyRegions?: IBodyRegion[];
 }
 
 export default function TableHead({
@@ -22,6 +24,7 @@ export default function TableHead({
   allAfflictions,
   allMedics,
   allInsurances,
+  allBodyRegions,
 }: TableHeadProps) {
   return (
     <thead
@@ -41,14 +44,21 @@ export default function TableHead({
             {allAfflictions && 'Nom affliction'}
             {allMedics && 'Nom médecin'}
             {allInsurances && 'Nom organisme'}
+            {allBodyRegions && 'Nom région'}
           </th>
 
-          <th className="border border-gray-300 px-4 py-2 text-center">
-            {allTherapists ? 'Statut' : allPatients && 'Statut'}
-            {allAfflictions && 'Region concernée'}
-            {allMedics && 'Code ADELI'}
-            {allInsurances && 'Code AMC'}
-          </th>
+          {(allTherapists ||
+            allPatients ||
+            allAfflictions ||
+            allMedics ||
+            allInsurances) && (
+            <th className="border border-gray-300 px-4 py-2 text-center">
+              {allTherapists ? 'Statut' : allPatients && 'Statut'}
+              {allAfflictions && 'Region concernée'}
+              {allMedics && 'Code ADELI'}
+              {allInsurances && 'Code AMC'}
+            </th>
+          )}
 
           {allAfflictions && windowWidth > 768 && (
             <th className="border border-gray-300 px-4 py-2 text-center">

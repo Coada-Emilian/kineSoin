@@ -7,6 +7,7 @@ import {
   handleInsuranceOrganismDelete,
   handleMedicDelete,
   handlePatientDelete,
+  handleRegionDelete,
   handleTherapistDelete,
 } from '../../../../utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,7 @@ import { IInsurance } from '../../../../@types/IInsurance';
 import CustomButton from '../../../standaloneComponents/Button/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
 import { useState } from 'react';
+import { IBodyRegion } from '../../../../@types/IBodyRegion';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
@@ -26,6 +28,8 @@ interface ConfirmDeleteModalProps {
   affliction?: IAffliction | null;
   medic?: IMedic | null;
   insurance?: IInsurance | null;
+  region?: IBodyRegion | null;
+
 }
 
 export default function ConfirmDeleteModal({
@@ -36,6 +40,7 @@ export default function ConfirmDeleteModal({
   affliction,
   medic,
   insurance,
+  region,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -95,6 +100,13 @@ export default function ConfirmDeleteModal({
           </p>
         )}
 
+        {region && (
+          <p>
+            Êtes-vous sûr de vouloir supprimer la région{' '}
+            <span className="font-semibold">{region.name}</span> ?
+          </p>
+        )}
+
         <span className="text-red-500 font-medium">
           Cette action est irréversible.
         </span>
@@ -117,7 +129,9 @@ export default function ConfirmDeleteModal({
                         ? handleMedicDelete(medic.id)
                         : insurance
                           ? handleInsuranceOrganismDelete(insurance.id)
-                          : '';
+                          : region
+                            ? handleRegionDelete(region.id)
+                            : '';
               }
               setIsLoading(false);
               navigate(

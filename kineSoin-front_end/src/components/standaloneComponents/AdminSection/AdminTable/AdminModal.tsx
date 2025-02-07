@@ -9,9 +9,13 @@ import StandardEmailInput from '../../StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../StandardInputs/StandardPasswordInput';
 import StandardChoiceDropdown from '../../StandardInputs/StandardDropdownInput';
 import {
+  fetchBodyRegions,
   handleAfflictionCreation,
   handleTherapistCreation,
 } from '../../../../utils/apiUtils';
+import { IBodyRegion } from '../../../../@types/IBodyRegion';
+import AdminTable from './AdminTable';
+import DNALoader from '../../../../utils/DNALoader';
 
 interface AdminModalProps {
   setAddForm?: React.Dispatch<
@@ -56,6 +60,12 @@ interface AdminModalProps {
   isAdminAfflictionAddModal?: boolean;
   isAddAfflictionModalOpen?: boolean;
   setIsAddAfflictionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdminRegionModal?: boolean;
+  isRegionModalOpen?: boolean;
+  setIsRegionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdminAddRegionModal?: boolean;
+  isAddRegionModalOpen?: boolean;
+  setIsAddRegionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AdminModal({
@@ -73,6 +83,12 @@ export default function AdminModal({
   isAdminAfflictionAddModal,
   isAddAfflictionModalOpen,
   setIsAddAfflictionModalOpen,
+  isAdminRegionModal,
+  isRegionModalOpen,
+  setIsRegionModalOpen,
+  isAdminAddRegionModal,
+  isAddRegionModalOpen,
+  setIsAddRegionModalOpen,
 }: AdminModalProps) {
   // State to store the preview URL of the uploaded photo
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -82,6 +98,11 @@ export default function AdminModal({
   const [therapistImageFile, setTherapistImageFile] = useState<File | null>(
     null
   );
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
+    useState(false);
 
   // Function to add form details and move to the next step
   const addFirstFormDetails = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -181,9 +202,6 @@ export default function AdminModal({
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
     setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
   };
-
-  const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
-    useState(false);
 
   const addThirdFormDetails = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -302,7 +320,9 @@ export default function AdminModal({
       console.error('Error updating affliction:', error);
     }
   };
-  
+
+  const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+
   useEffect(() => {
     const createTherapist = async () => {
       const newFormData = new FormData();
@@ -337,6 +357,26 @@ export default function AdminModal({
     }
   }, [isAdminTherapistFormValid]);
 
+  useEffect(() => {
+    if (isAdminRegionModal) {
+      (async () => {
+        setIsLoading(true);
+        try {
+          const bodyRegions = await fetchBodyRegions();
+          setBodyRegions(bodyRegions);
+        } catch (error) {
+          console.error('Error fetching body regions:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    }
+  }, [isAdminRegionModal]);
+
+  if (isLoading) {
+    return DNALoader();
+  }
+
   return (
     <ReactModal
       isOpen={
@@ -348,7 +388,11 @@ export default function AdminModal({
               ? !!isAddTherapistModalP3Open
               : isAdminAfflictionAddModal
                 ? !!isAddAfflictionModalOpen
-                : false
+                : isAdminRegionModal
+                  ? !!isRegionModalOpen
+                  : isAdminAddRegionModal
+                    ? !!isAddRegionModalOpen
+                    : false
       }
       onRequestClose={() => {
         if (isFirstAddTherapistModal && setIsAddTherapistModalP1Open) {
@@ -362,6 +406,12 @@ export default function AdminModal({
         }
         if (isAdminAfflictionAddModal && setIsAddAfflictionModalOpen) {
           setIsAddAfflictionModalOpen(false);
+        }
+        if (isAdminRegionModal && setIsRegionModalOpen) {
+          setIsRegionModalOpen(false);
+        }
+        if (isAdminAddRegionModal && setIsAddRegionModalOpen) {
+          setIsAddRegionModalOpen(false);
         }
       }}
       style={{
@@ -387,6 +437,8 @@ export default function AdminModal({
             isThirdAddTherapistModal) &&
             'Ajouter un thérapeute'}
           {isAdminAfflictionAddModal && 'Ajouter une affliction'}
+          {isAdminRegionModal && 'Toutes les régions'}
+          {isAdminAddRegionModal && 'Ajouter une région'}
         </h2>
 
         {errorMessage && (
@@ -498,33 +550,61 @@ export default function AdminModal({
             </>
           )}
 
-          <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton
-              btnText={`${isFirstAddTherapistModal || isSecondAddTherapistModal ? 'Suivant' : 'Valider'}`}
-              btnType="submit"
-              normalButton
-            />
+          {isAdminRegionModal && <AdminTable allBodyRegions={bodyRegions} />}
 
-            <CustomButton
-              btnText="Annuler"
-              btnType="button"
-              cancelButton
-              onClick={() => {
-                if (isFirstAddTherapistModal && setIsAddTherapistModalP1Open) {
-                  setIsAddTherapistModalP1Open(false);
-                }
-                if (isSecondAddTherapistModal && setIsAddTherapistModalP2Open) {
-                  setIsAddTherapistModalP2Open(false);
-                }
-                if (isThirdAddTherapistModal && setIsAddTherapistModalP3Open) {
-                  setIsAddTherapistModalP3Open(false);
-                }
-                if (isAdminAfflictionAddModal && setIsAddAfflictionModalOpen) {
-                  setIsAddAfflictionModalOpen(false);
-                }
-              }}
-            />
-          </div>
+          {isAdminAddRegionModal && (
+            <>
+              <StandardTextInput isAdminRegionAddNameInput />
+            </>
+          )}
+
+          {!isAdminRegionModal && (
+            <div className="flex gap-2 mt-6 w-fit mx-auto">
+              <CustomButton
+                btnText={`${isFirstAddTherapistModal || isSecondAddTherapistModal ? 'Suivant' : 'Valider'}`}
+                btnType="submit"
+                normalButton
+              />
+
+              <CustomButton
+                btnText="Annuler"
+                btnType="button"
+                cancelButton
+                onClick={() => {
+                  if (
+                    isFirstAddTherapistModal &&
+                    setIsAddTherapistModalP1Open
+                  ) {
+                    setIsAddTherapistModalP1Open(false);
+                  }
+                  if (
+                    isSecondAddTherapistModal &&
+                    setIsAddTherapistModalP2Open
+                  ) {
+                    setIsAddTherapistModalP2Open(false);
+                  }
+                  if (
+                    isThirdAddTherapistModal &&
+                    setIsAddTherapistModalP3Open
+                  ) {
+                    setIsAddTherapistModalP3Open(false);
+                  }
+                  if (
+                    isAdminAfflictionAddModal &&
+                    setIsAddAfflictionModalOpen
+                  ) {
+                    setIsAddAfflictionModalOpen(false);
+                  }
+                  if (isAdminRegionModal && setIsRegionModalOpen) {
+                    setIsRegionModalOpen(false);
+                  }
+                  if (isAdminAddRegionModal && setIsAddRegionModalOpen) {
+                    setIsAddRegionModalOpen(false);
+                  }
+                }}
+              />
+            </div>
+          )}
         </form>
       </div>
     </ReactModal>

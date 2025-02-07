@@ -27,6 +27,7 @@ interface StandardTextInputProps {
   isAdminAfflictionAddNameInput?: boolean;
   isAdminAfflictionAddLicenceCodeInput?: boolean;
   isAdminAfflictionAddDescriptionInput?: boolean;
+  isAdminRegionAddNameInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -50,6 +51,7 @@ export default function StandardTextInput({
   isAdminAfflictionAddNameInput,
   isAdminAfflictionAddLicenceCodeInput,
   isAdminAfflictionAddDescriptionInput,
+  isAdminRegionAddNameInput,
 }: StandardTextInputProps) {
   return (
     <div
@@ -95,7 +97,9 @@ export default function StandardTextInput({
                                               ? 'affliction-insurance-code_input'
                                               : isAdminAfflictionAddDescriptionInput
                                                 ? 'affliction-description_input'
-                                                : ''
+                                                : isAdminRegionAddNameInput
+                                                  ? 'region-name_input'
+                                                  : ''
         }`}
         className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
@@ -135,7 +139,9 @@ export default function StandardTextInput({
                                           ? 'Cotation'
                                           : isAdminAfflictionAddDescriptionInput
                                             ? 'Description'
-                                            : ''}
+                                            : isAdminRegionAddNameInput
+                                              ? 'Nom'
+                                              : ''}
       </label>
       {!isTextAreaInput ? (
         <input
@@ -177,7 +183,9 @@ export default function StandardTextInput({
                                               ? 'name'
                                               : isAdminAfflictionAddLicenceCodeInput
                                                 ? 'insurance_code'
-                                                : ''
+                                                : isAdminRegionAddNameInput
+                                                  ? 'name'
+                                                  : ''
           }`}
           id={`${
             isNameInput
@@ -214,7 +222,9 @@ export default function StandardTextInput({
                                             ? 'affliction-name_input'
                                             : isAdminAfflictionAddLicenceCodeInput
                                               ? 'affliction-insurance-code_input'
-                                              : ''
+                                              : isAdminRegionAddNameInput
+                                                ? 'region-name_input'
+                                                : ''
           }`}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
           placeholder={`${
@@ -254,7 +264,9 @@ export default function StandardTextInput({
                                               ? "Entrez le nom de l'affliction"
                                               : isAdminAfflictionAddLicenceCodeInput
                                                 ? "Entrez la cotation de l'affliction"
-                                                : ''
+                                                : isAdminRegionAddNameInput
+                                                  ? 'Entrez le nom de la région'
+                                                  : ''
           }`}
           required={!isStreetNumberInput}
         />

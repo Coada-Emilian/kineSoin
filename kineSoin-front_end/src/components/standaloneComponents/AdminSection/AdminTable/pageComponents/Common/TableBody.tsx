@@ -1,10 +1,12 @@
 // Purpose: Display the body of the table based on the data being displayed.
 
 import { IAffliction } from '../../../../../../@types/IAffliction';
+import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
 import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
+import RegionTableBody from '../../../Modals/RegionModal/RegionTableBody';
 import AfflictionTableBody from '../Affliction/AfflictionTableBody';
 import InsuranceTableBody from '../Insurance/InsuranceTableBody';
 import MedicTableBody from '../Medic/MedicTableBody';
@@ -27,8 +29,10 @@ interface TableBodyProps {
     patient?: IPatient,
     affliction?: IAffliction,
     medic?: IMedic,
-    insurance?: IInsurance
+    insurance?: IInsurance,
+    body_region?: IBodyRegion
   ) => void;
+  allBodyRegions?: IBodyRegion[];
 }
 
 export default function TableBody({
@@ -43,6 +47,7 @@ export default function TableBody({
   renderedAfflictions,
   handleStatusChange,
   openDeleteModal,
+  allBodyRegions,
 }: TableBodyProps) {
   return (
     <tbody className={windowWidth < 450 ? 'text-xxs' : 'text-xs md:text-sm'}>
@@ -83,6 +88,13 @@ export default function TableBody({
         <InsuranceTableBody
           windowWidth={windowWidth}
           allInsurances={allInsurances}
+          openDeleteModal={openDeleteModal}
+        />
+      )}
+
+      {allBodyRegions && (
+        <RegionTableBody
+          allBodyRegions={allBodyRegions}
           openDeleteModal={openDeleteModal}
         />
       )}
