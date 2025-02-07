@@ -28,6 +28,13 @@ interface StandardTextInputProps {
   isAdminAfflictionAddLicenceCodeInput?: boolean;
   isAdminAfflictionAddDescriptionInput?: boolean;
   isAdminRegionAddNameInput?: boolean;
+  isAdminMedicAddNameInput?: boolean;
+  isAdminMedicAddSurnameInput?: boolean;
+  isAdminMedicAddLicenceCodeInput?: boolean;
+  isAdminMedicAddStreetNumberInput?: boolean;
+  isAdminMedicAddStreetNameInput?: boolean;
+  isAdminMedicAddPostalCodeInput?: boolean;
+  isAdminMedicAddCityInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -52,10 +59,17 @@ export default function StandardTextInput({
   isAdminAfflictionAddLicenceCodeInput,
   isAdminAfflictionAddDescriptionInput,
   isAdminRegionAddNameInput,
+  isAdminMedicAddNameInput,
+  isAdminMedicAddSurnameInput,
+  isAdminMedicAddLicenceCodeInput,
+  isAdminMedicAddStreetNumberInput,
+  isAdminMedicAddStreetNameInput,
+  isAdminMedicAddPostalCodeInput,
+  isAdminMedicAddCityInput,
 }: StandardTextInputProps) {
   return (
     <div
-      className={`${isStreetNumberInput || isPostalCodeInput ? 'w-4/12' : 'w-full'} flex flex-col gap-2 mb-4 italic`}
+      className={`${isStreetNumberInput || isPostalCodeInput || isAdminMedicAddStreetNumberInput || isAdminMedicAddPostalCodeInput ? 'w-4/12' : 'w-full'} flex flex-col gap-2 mb-4 italic`}
     >
       <label
         htmlFor={`${
@@ -99,93 +113,106 @@ export default function StandardTextInput({
                                                 ? 'affliction-description_input'
                                                 : isAdminRegionAddNameInput
                                                   ? 'region-name_input'
-                                                  : ''
+                                                  : isAdminMedicAddNameInput
+                                                    ? 'medic-name_input'
+                                                    : isAdminMedicAddSurnameInput
+                                                      ? 'medic-surname_input'
+                                                      : isAdminMedicAddLicenceCodeInput
+                                                        ? 'medic-licence-code_input'
+                                                        : isAdminMedicAddStreetNumberInput
+                                                          ? 'medic-street_number_input'
+                                                          : isAdminMedicAddStreetNameInput
+                                                            ? 'medic-street_name_input'
+                                                            : isAdminMedicAddPostalCodeInput
+                                                              ? 'medic-postal_code_input'
+                                                              : isAdminMedicAddCityInput
+                                                                ? 'medic-city_input'
+                                                                : ''
         }`}
         className={`${isStreetNameInput || isCityInput || isStreetNumberInput || isPostalCodeInput ? 'text-xs' : 'text-sm'} text-primaryBlue font-medium`}
       >
-        {isNameInput
+        {isNameInput ||
+        isAdminRegionAddNameInput ||
+        isAdminTherapistAddNameInput ||
+        isAdminMedicAddNameInput
           ? 'Nom'
-          : isSurnameInput
+          : isSurnameInput ||
+              isAdminTherapistAddSurnameInput ||
+              isAdminMedicAddSurnameInput
             ? 'Prénom'
             : isBirthNameInput
               ? 'Nom de naissance'
-              : isStreetNumberInput
+              : isStreetNumberInput || isAdminMedicAddStreetNumberInput
                 ? 'N° de rue'
-                : isStreetNameInput
+                : isStreetNameInput || isAdminMedicAddStreetNameInput
                   ? 'Nom de rue'
-                  : isPostalCodeInput
+                  : isPostalCodeInput || isAdminMedicAddPostalCodeInput
                     ? 'Code postal'
-                    : isCityInput
+                    : isCityInput || isAdminMedicAddCityInput
                       ? 'Ville'
                       : isAppointmentNumberInput
                         ? 'Quantité seances prescrites :'
-                        : isAdminTherapistAddNameInput
-                          ? 'Nom'
-                          : isAdminTherapistAddSurnameInput
-                            ? 'Prénom'
-                            : isAdminTherapistAddLicenceCodeInput
-                              ? 'Code ADELI'
-                              : isAdminTherapistAddDiplomaInput
-                                ? 'Diplôme'
-                                : isAdminTherapistAddExperienceInput
-                                  ? 'Expérience'
-                                  : isAdminTherapistAddSpecialtyInput
-                                    ? 'Spécialité'
-                                    : isAdminTherapistAddDescriptionInput
-                                      ? 'Description'
-                                      : isAdminAfflictionAddNameInput
-                                        ? "Nom de l'affliction"
-                                        : isAdminAfflictionAddLicenceCodeInput
-                                          ? 'Cotation'
-                                          : isAdminAfflictionAddDescriptionInput
-                                            ? 'Description'
-                                            : isAdminRegionAddNameInput
-                                              ? 'Nom'
-                                              : ''}
+                        : isAdminTherapistAddLicenceCodeInput ||
+                            isAdminMedicAddLicenceCodeInput
+                          ? 'Code ADELI'
+                          : isAdminTherapistAddDiplomaInput
+                            ? 'Diplôme'
+                            : isAdminTherapistAddExperienceInput
+                              ? 'Expérience'
+                              : isAdminTherapistAddSpecialtyInput
+                                ? 'Spécialité'
+                                : isAdminTherapistAddDescriptionInput
+                                  ? 'Description'
+                                  : isAdminAfflictionAddNameInput
+                                    ? "Nom de l'affliction"
+                                    : isAdminAfflictionAddLicenceCodeInput
+                                      ? 'Cotation'
+                                      : isAdminAfflictionAddDescriptionInput
+                                        ? 'Description'
+                                        : ''}
       </label>
       {!isTextAreaInput ? (
         <input
           type="text"
           name={`${
-            isNameInput
+            isNameInput ||
+            isAdminTherapistAddNameInput ||
+            isAdminAfflictionAddNameInput ||
+            isAdminRegionAddNameInput ||
+            isAdminMedicAddNameInput
               ? 'name'
-              : isSurnameInput
+              : isSurnameInput ||
+                  isAdminTherapistAddSurnameInput ||
+                  isAdminMedicAddSurnameInput
                 ? 'surname'
                 : isBirthNameInput
                   ? 'birth_name'
-                  : isStreetNumberInput
+                  : isStreetNumberInput || isAdminMedicAddStreetNumberInput
                     ? 'street_number'
-                    : isStreetNameInput
+                    : isStreetNameInput || isAdminMedicAddStreetNameInput
                       ? 'street_name'
-                      : isPostalCodeInput
+                      : isPostalCodeInput || isAdminMedicAddPostalCodeInput
                         ? 'postal_code'
-                        : isCityInput
+                        : isCityInput || isAdminMedicAddCityInput
                           ? 'city'
                           : isAppointmentNumberInput
                             ? 'appointment_quantity'
                             : isPatientMessageInput
                               ? 'content'
-                              : isAdminTherapistAddNameInput
-                                ? 'name'
-                                : isAdminTherapistAddSurnameInput
-                                  ? 'surname'
-                                  : isAdminTherapistAddLicenceCodeInput
-                                    ? 'licence_code'
-                                    : isAdminTherapistAddDiplomaInput
-                                      ? 'diploma'
-                                      : isAdminTherapistAddExperienceInput
-                                        ? 'experience'
-                                        : isAdminTherapistAddSpecialtyInput
-                                          ? 'specialty'
-                                          : isAdminTherapistAddDescriptionInput
-                                            ? 'description'
-                                            : isAdminAfflictionAddNameInput
-                                              ? 'name'
-                                              : isAdminAfflictionAddLicenceCodeInput
-                                                ? 'insurance_code'
-                                                : isAdminRegionAddNameInput
-                                                  ? 'name'
-                                                  : ''
+                              : isAdminTherapistAddLicenceCodeInput ||
+                                  isAdminMedicAddLicenceCodeInput
+                                ? 'licence_code'
+                                : isAdminTherapistAddDiplomaInput
+                                  ? 'diploma'
+                                  : isAdminTherapistAddExperienceInput
+                                    ? 'experience'
+                                    : isAdminTherapistAddSpecialtyInput
+                                      ? 'specialty'
+                                      : isAdminTherapistAddDescriptionInput
+                                        ? 'description'
+                                        : isAdminAfflictionAddLicenceCodeInput
+                                          ? 'insurance_code'
+                                          : ''
           }`}
           id={`${
             isNameInput
@@ -224,7 +251,21 @@ export default function StandardTextInput({
                                               ? 'affliction-insurance-code_input'
                                               : isAdminRegionAddNameInput
                                                 ? 'region-name_input'
-                                                : ''
+                                                : isAdminMedicAddNameInput
+                                                  ? 'medic-name_input'
+                                                  : isAdminMedicAddSurnameInput
+                                                    ? 'medic-surname_input'
+                                                    : isAdminMedicAddLicenceCodeInput
+                                                      ? 'medic-licence-code_input'
+                                                      : isAdminMedicAddStreetNumberInput
+                                                        ? 'medic-street_number_input'
+                                                        : isAdminMedicAddStreetNameInput
+                                                          ? 'medic-street_name_input'
+                                                          : isAdminMedicAddPostalCodeInput
+                                                            ? 'medic-postal_code_input'
+                                                            : isAdminMedicAddCityInput
+                                                              ? 'medic-city_input'
+                                                              : ''
           }`}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
           placeholder={`${
@@ -234,11 +275,11 @@ export default function StandardTextInput({
                 ? 'Entrez votre prénom'
                 : isBirthNameInput
                   ? 'Entrez votre nom de naissance'
-                  : isStreetNumberInput
+                  : isStreetNumberInput || isAdminMedicAddStreetNumberInput
                     ? 'N° de rue'
                     : isStreetNameInput
                       ? 'Nom de rue'
-                      : isPostalCodeInput
+                      : isPostalCodeInput || isAdminMedicAddPostalCodeInput
                         ? 'Code postal'
                         : isCityInput
                           ? 'Ville'
@@ -266,7 +307,17 @@ export default function StandardTextInput({
                                                 ? "Entrez la cotation de l'affliction"
                                                 : isAdminRegionAddNameInput
                                                   ? 'Entrez le nom de la région'
-                                                  : ''
+                                                  : isAdminMedicAddNameInput
+                                                    ? 'Entrez le nom du médecin'
+                                                    : isAdminMedicAddSurnameInput
+                                                      ? 'Entrez le prénom du médecin'
+                                                      : isAdminMedicAddLicenceCodeInput
+                                                        ? 'Entrez le code ADELI du médecin'
+                                                        : isAdminMedicAddStreetNameInput
+                                                          ? 'Entrez le nom de rue du médecin'
+                                                          : isAdminMedicAddCityInput
+                                                            ? 'Entrez la ville du médecin'
+                                                            : ''
           }`}
           required={!isStreetNumberInput}
         />

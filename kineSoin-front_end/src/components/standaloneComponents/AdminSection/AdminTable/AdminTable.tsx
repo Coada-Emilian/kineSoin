@@ -18,8 +18,8 @@ import AddInsuranceModal from '../../AdminSection/Modals/AddInsuranceModals/AddI
 import StatusButtons from './StatusButtons';
 import AdminModal from './AdminModal';
 import { IBodyRegion } from '../../../../@types/IBodyRegion';
-import RegionModal from '../Modals/RegionModal/RegionModal';
-import AddRegionModal from '../Modals/RegionModal/AddRegionModal';
+import RegionModal from './RegionModal';
+import AddRegionModal from './AddRegionModal';
 
 interface AdminTableProps {
   allPatients?: IPatient[];
@@ -402,7 +402,8 @@ export default function AdminTable({
       )}
 
       {isAddMedicModalOpen && (
-        <AddMedicModal
+        <AdminModal
+          isAdminAddMedicModal
           isAddMedicModalOpen={isAddMedicModalOpen}
           setIsAddMedicModalOpen={setIsAddMedicModalOpen}
         />

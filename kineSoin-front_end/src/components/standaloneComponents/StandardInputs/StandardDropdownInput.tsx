@@ -10,7 +10,6 @@ import {
 } from '../../../utils/apiUtils';
 import { IMedic } from '../../../@types/IMedic';
 import { IBodyRegion } from '../../../@types/IBodyRegion';
-import DNALoader from '../../../utils/DNALoader';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;

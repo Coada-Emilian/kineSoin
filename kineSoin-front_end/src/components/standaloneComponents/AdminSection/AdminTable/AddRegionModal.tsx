@@ -1,10 +1,9 @@
 // Purpose: The purpose of this component is to render the add region modal.
 
 import ReactModal from 'react-modal';
-import CustomButton from '../../../../standaloneComponents/Button/CustomButton';
-import { handleBodyRegionCreation } from '../../../../../utils/apiUtils';
-import NameInput from '../Components/NameInput';
-import StandardTextInput from '../../../StandardInputs/StandardTextInput';
+import CustomButton from '../../Button/CustomButton';
+import { handleBodyRegionCreation } from '../../../../utils/apiUtils';
+import StandardTextInput from '../../StandardInputs/StandardTextInput';
 
 interface AddRegionModalProps {
   isAddRegionModalOpen: boolean;
@@ -27,7 +26,7 @@ export default function AddRegionModal({
       console.error('Failed to create region');
     }
   };
-  
+
   return (
     <ReactModal
       isOpen={isAddRegionModalOpen}

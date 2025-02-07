@@ -29,7 +29,6 @@ interface ConfirmDeleteModalProps {
   medic?: IMedic | null;
   insurance?: IInsurance | null;
   region?: IBodyRegion | null;
-
 }
 
 export default function ConfirmDeleteModal({
@@ -69,7 +68,7 @@ export default function ConfirmDeleteModal({
         },
       }}
     >
-      <div className="flex flex-col text-center gap-3 w-fit">
+      <div className="flex flex-col text-center items-center gap-3 w-fit">
         {(patient || therapist || medic) && (
           <p>
             Êtes-vous sûr de vouloir supprimer le profile de{' '}
