@@ -14,7 +14,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
-import CustomButton from '../../../../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
 
 interface EditTherapistButtonsProps {
   buttonMessage: string;

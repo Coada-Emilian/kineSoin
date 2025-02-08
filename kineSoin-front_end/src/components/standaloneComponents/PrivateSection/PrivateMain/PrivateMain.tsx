@@ -4,9 +4,9 @@ import UserHeadband from '../UserHeadband/UserHeadband';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import { fetchPatientAppointments } from '../../../../utils/apiUtils';
 import { IAppointment } from '../../../../@types/IAppointment';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import { useNavigate } from 'react-router-dom';
-import SideNav from '../../../standaloneComponents/SideNav/SideNav';
+import SideNav from '../../generalComponents/SideNav/SideNav';
 
 import PatientNewPrescriptionForm from '../../../pageComponents/PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
 import PatientAppointmentsCalendar from '../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';

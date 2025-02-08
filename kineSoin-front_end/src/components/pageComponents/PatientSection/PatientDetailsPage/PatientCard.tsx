@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../standaloneComponents/generalComponents/CustomButton/CustomButton';
 import {
   fetchPatientData,
   handlePatientInsuranceUpdate,
@@ -7,7 +7,7 @@ import {
   handlePatientUpdate,
 } from '../../../../utils/apiUtils';
 import { IPatient } from '../../../../@types/IPatient';
-import EditIcon from '../../../standaloneComponents/EditIcon/EditIcon';
+import EditIcon from '../../../standaloneComponents/generalComponents/EditIcon/EditIcon';
 import { Link } from 'react-router-dom';
 import EditPatientModal from '../../../standaloneComponents/PrivateSection/PatientSection/Modals/EditPatientModal';
 import { INewAddress } from '../../../../@types/INewAddress';

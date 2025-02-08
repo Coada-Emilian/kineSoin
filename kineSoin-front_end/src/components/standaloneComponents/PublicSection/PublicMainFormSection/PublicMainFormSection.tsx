@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../../Button/CustomButton.tsx';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
-import StandardPasswordInput from '../../StandardInputs/StandardPasswordInput';
-import StandardEmailInput from '../../StandardInputs/StandardEmailInput';
+import StandardPasswordInput from '../../generalComponents/StandardInputs/StandardPasswordInput.tsx';
+import StandardEmailInput from '../../generalComponents/StandardInputs/StandardEmailInput.tsx';
 import {
   handlePatientLogin,
   handlePatientRegistration,
   handleTherapistConnection,
 } from '../../../../utils/apiUtils';
-import StandardTextInput from '../../StandardInputs/StandardTextInput';
-import StandardDateInput from '../../StandardInputs/StandardDateInput';
-import StandardDropdownInput from '../../StandardInputs/StandardDropdownInput';
-import StandardTelephoneInput from '../../StandardInputs/StandardTelephoneInput';
-import StandardFileInput from '../../StandardInputs/StandardFileInput';
+import StandardTextInput from '../../generalComponents/StandardInputs/StandardTextInput.tsx';
+import StandardDateInput from '../../generalComponents/StandardInputs/StandardDateInput.tsx';
+import StandardDropdownInput from '../../generalComponents/StandardInputs/StandardDropdownInput.tsx';
+import StandardTelephoneInput from '../../generalComponents/StandardInputs/StandardTelephoneInput.tsx';
+import StandardFileInput from '../../generalComponents/StandardInputs/StandardFileInput.tsx';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ICountry } from '../../../../@types/ICountry';

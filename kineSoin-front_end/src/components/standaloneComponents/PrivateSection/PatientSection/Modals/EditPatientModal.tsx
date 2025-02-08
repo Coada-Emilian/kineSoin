@@ -1,5 +1,5 @@
 import ReactModal from 'react-modal';
-import CustomButton from '../../../Button/CustomButton';
+import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
 import {
@@ -7,8 +7,8 @@ import {
   fetchInsurancesAsPatient,
   handlePatientInsuranceAdd,
 } from '../../../../../utils/apiUtils';
-import StandardChoiceDropdown from '../../../StandardInputs/StandardDropdownInput';
-import StandardPasswordInput from '../../../StandardInputs/StandardPasswordInput';
+import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
 import { IInsurance } from '../../../../../@types/IInsurance';
 import { IPatient_Insurance } from '../../../../../@types/IPatient_Insurance';
 

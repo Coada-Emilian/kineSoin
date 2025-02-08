@@ -8,18 +8,16 @@ import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
 import { IMedic } from '../../../../@types/IMedic';
 import { IInsurance } from '../../../../@types/IInsurance';
 import AfflictionUtilityButtons from './pageComponents/Affliction/AfflictionUtilityButtons';
-import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import TableTitle from './pageComponents/Common/TableTitle';
 import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
-import AddMedicModal from '../../AdminSection/Modals/AddMedicModals/AddMedicModal';
-import AddInsuranceModal from '../../AdminSection/Modals/AddInsuranceModals/AddInsuranceModal';
-import StatusButtons from './StatusButtons';
-import AdminModal from './AdminModal';
+import StatusButtons from './pageComponents/Common/StatusButtons';
+import AdminModal from './pageComponents/Modals/AdminModal';
 import { IBodyRegion } from '../../../../@types/IBodyRegion';
-import RegionModal from './RegionModal';
-import AddRegionModal from './AddRegionModal';
+import RegionModal from './pageComponents/Modals/RegionModal';
+import AddRegionModal from './pageComponents/Modals/AddRegionModal';
 
 interface AdminTableProps {
   allPatients?: IPatient[];

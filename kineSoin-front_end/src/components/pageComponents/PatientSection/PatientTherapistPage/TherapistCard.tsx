@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchPatientTherapist } from '../../../../utils/apiUtils';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../standaloneComponents/generalComponents/CustomButton/CustomButton';
 import { ITherapist } from '../../../../@types/ITherapist';
 import PatientMessageModal from '../../../standaloneComponents/PrivateSection/PatientSection/Modals/PatientMessageModal';
 

@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ITherapist } from '../../../../@types/ITherapist';
-import ConfirmDeleteModal from '../../AdminSection/Modals/ConfirmDeleteModal.tsx';
-import EditPhotoModal from '../../AdminSection/Modals/EditPhotoModal.tsx';
+import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal.tsx';
+import EditPhotoModal from '../Modals/EditPhotoModal.tsx';
 import { IPatient } from '../../../../@types/IPatient';
 import {
   handleAfflictionUpdate,
@@ -183,7 +183,7 @@ export default function AdminProfileDetails({
   };
 
   // Function to handle insurance updates
-  const handleInsuranceUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+  const updateInsurance = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -219,7 +219,7 @@ export default function AdminProfileDetails({
               : medic
                 ? updateMedic
                 : insurance
-                  ? handleInsuranceUpdate
+                  ? updateInsurance
                   : undefined
         }
       >

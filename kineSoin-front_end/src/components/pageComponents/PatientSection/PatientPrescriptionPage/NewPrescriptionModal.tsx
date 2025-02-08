@@ -1,5 +1,5 @@
 import ReactModal from 'react-modal';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../standaloneComponents/generalComponents/CustomButton/CustomButton';
 import { useState } from 'react';
 
 interface NewPrescriptionModalProps {

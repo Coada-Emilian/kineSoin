@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import SideNav from '../SideNav/SideNav';
+import SideNav from '../generalComponents/SideNav/SideNav';
 import AdminTable from './AdminTable/AdminTable';
 import { ITherapist } from '../../../@types/ITherapist';
 import {
@@ -21,6 +21,7 @@ import { IPatient } from '../../../@types/IPatient';
 import { IAffliction } from '../../../@types/IAffliction';
 import { IMedic } from '../../../@types/IMedic';
 import { IInsurance } from '../../../@types/IInsurance';
+import { getAdminTokenAndDataFromLocalStorage } from '../../../localStorage/adminLocalStorage';
 
 interface AdminMain2Props {
   windowWidth: number;

@@ -1,6 +1,6 @@
 // Purpose: The purpose of this component is to render the login page for the admin.
 
-import CustomButton from '../../standaloneComponents/Button/CustomButton.tsx';
+import CustomButton from '../../standaloneComponents/generalComponents/CustomButton/CustomButton.tsx';
 import { setAdminTokenAndDataInLocalStorage } from '../../../localStorage/adminLocalStorage.ts';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
@@ -8,8 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { handleAdminLogin } from '../../../utils/apiUtils.ts';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
-import StandardEmailInput from '../../standaloneComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardPasswordInput from '../../standaloneComponents/StandardInputs/StandardPasswordInput.tsx';
+import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput.tsx';
+import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardPasswordInput.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;

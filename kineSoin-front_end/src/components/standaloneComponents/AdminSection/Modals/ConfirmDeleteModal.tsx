@@ -15,7 +15,7 @@ import { IPatient } from '../../../../@types/IPatient';
 import { IAffliction } from '../../../../@types/IAffliction';
 import { IMedic } from '../../../../@types/IMedic';
 import { IInsurance } from '../../../../@types/IInsurance';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
 import { useState } from 'react';
 import { IBodyRegion } from '../../../../@types/IBodyRegion';

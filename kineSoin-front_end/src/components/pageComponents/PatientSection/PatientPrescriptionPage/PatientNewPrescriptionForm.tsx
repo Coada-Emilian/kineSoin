@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { IAffliction } from '../../../../@types/IAffliction';
 import { IMedic } from '../../../../@types/IMedic';
-import CustomButton from '../../../standaloneComponents/Button/CustomButton';
-import StandardDateInput from '../../../standaloneComponents/StandardInputs/StandardDateInput';
-import StandardChoiceDropdown from '../../../standaloneComponents/StandardInputs/StandardDropdownInput';
-import StandardFileInput from '../../../standaloneComponents/StandardInputs/StandardFileInput';
-import StandardTextInput from '../../../standaloneComponents/StandardInputs/StandardTextInput';
+import CustomButton from '../../../standaloneComponents/generalComponents/CustomButton/CustomButton';
+import StandardDateInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDateInput';
+import StandardChoiceDropdown from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDropdownInput';
+import StandardFileInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardFileInput';
+import StandardTextInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardTextInput';
 import {
   fetchAfflictions,
   fetchMedics,

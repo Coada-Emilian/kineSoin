@@ -12,7 +12,7 @@
 
 import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
-import CustomButton from '../../../../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
 
 interface ModifyButtonsProps {
   therapist?: ITherapist | null;

@@ -9,7 +9,7 @@
  * @returns {JSX.Element} The rendered AfflictionUtilityButtons component, consisting of buttons to view regions and add a new affliction.
  */
 
-import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 
 interface AfflictionUtilityButtonsProps {
   setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;

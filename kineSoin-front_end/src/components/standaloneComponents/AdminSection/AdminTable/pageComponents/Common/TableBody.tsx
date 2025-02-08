@@ -6,7 +6,7 @@ import { IInsurance } from '../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../@types/ITherapist';
-import RegionTableBody from '../../../Modals/RegionModal/RegionTableBody';
+import RegionTableBody from '../Region/RegionTableBody';
 import AfflictionTableBody from '../Affliction/AfflictionTableBody';
 import InsuranceTableBody from '../Insurance/InsuranceTableBody';
 import MedicTableBody from '../Medic/MedicTableBody';

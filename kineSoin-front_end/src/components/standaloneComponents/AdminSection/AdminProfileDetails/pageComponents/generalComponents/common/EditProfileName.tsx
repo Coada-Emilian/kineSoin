@@ -4,6 +4,7 @@ import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
+import StandardTextInput from '../../../../../generalComponents/StandardInputs/StandardTextInput';
 
 interface EditProfileNameProps {
   therapist?: ITherapist | null;

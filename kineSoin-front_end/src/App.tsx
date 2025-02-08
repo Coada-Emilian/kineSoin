@@ -4,10 +4,10 @@ import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalS
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import NavBar from './components/standaloneComponents/NavBar/NavBar';
-import Footer from './components/standaloneComponents/Footer/Footer';
+import NavBar from './components/standaloneComponents/generalComponents/NavBar/NavBar';
+import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
-import MobileNav from './components/standaloneComponents/MobileNav/MobileNav';
+import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
 import PatientDashboard from './components/pageComponents/PatientSection/PatientDashboardPage/PatientDashboardPage';
 import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
 import PatientAppointmentsPage from './components/pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsPage';
@@ -18,16 +18,16 @@ import HomepageMain from './components/pageComponents/PublicSection/HomepageMain
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
-import AdminTherapistsPageMain from './components/pageComponents/AdminSection/AdminTherapistsPageMain';
-import AdminTherapistPageMain from './components/pageComponents/AdminSection/AdminTherapistPageMain';
-import AdminPatientsPageMain from './components/pageComponents/AdminSection/AdminPatientsPageMain';
-import AdminPatientPageMain from './components/pageComponents/AdminSection/AdminPatientPageMain';
-import AdminAfflictionsPageMain from './components/pageComponents/AdminSection/AdminAfflictionsPageMain';
-import AdminAfflictionPageMain from './components/pageComponents/AdminSection/AdminAfflictionPageMain';
-import AdminMedicsPageMain from './components/pageComponents/AdminSection/AdminMedicsPageMain';
-import AdminMedicPageMain from './components/pageComponents/AdminSection/AdminMedicPageMain';
-import AdminInsurancesPageMain from './components/pageComponents/AdminSection/AdminInsurancesMain';
-import AdminInsurancePageMain from './components/pageComponents/AdminSection/AdminInsurancePageMain';
+import AdminTherapistsPageMain from './components/pageComponents/AdminSection/Mains/AdminTherapistsPageMain';
+import AdminTherapistPageMain from './components/pageComponents/AdminSection/Mains/AdminTherapistPageMain';
+import AdminPatientsPageMain from './components/pageComponents/AdminSection/Mains/AdminPatientsPageMain';
+import AdminPatientPageMain from './components/pageComponents/AdminSection/Mains/AdminPatientPageMain';
+import AdminAfflictionsPageMain from './components/pageComponents/AdminSection/Mains/AdminAfflictionsPageMain';
+import AdminAfflictionPageMain from './components/pageComponents/AdminSection/Mains/AdminAfflictionPageMain';
+import AdminMedicsPageMain from './components/pageComponents/AdminSection/Mains/AdminMedicsPageMain';
+import AdminMedicPageMain from './components/pageComponents/AdminSection/Mains/AdminMedicPageMain';
+import AdminInsurancesPageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancesMain';
+import AdminInsurancePageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancePageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -109,7 +109,7 @@ function App() {
       const token = response?.token;
       if (token && token === adminProfileToken) {
         setIsAdminAuthenticated(true);
-        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
+        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       } else {
         setIsAdminAuthenticated(false);
         setAdminProfileToken(null);
@@ -128,7 +128,7 @@ function App() {
     window.addEventListener('storage', handleAdminStorageChange);
 
     // Check every 5 seconds if the admin is authenticated
-    const intervalId = setInterval(checkAdminAuthentication, 5000);
+    const intervalId = setInterval(checkAdminAuthentication, 2000);
 
     // Cleanup
     return () => {

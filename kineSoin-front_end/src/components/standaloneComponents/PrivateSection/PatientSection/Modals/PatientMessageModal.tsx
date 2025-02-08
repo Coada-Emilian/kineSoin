@@ -1,5 +1,5 @@
 import ReactModal from 'react-modal';
-import CustomButton from '../../../Button/CustomButton';
+import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { handlePatientMessageCreation } from '../../../../../utils/apiUtils';
 

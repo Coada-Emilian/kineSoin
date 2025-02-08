@@ -2,7 +2,7 @@
 
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import CustomButton from '../../../../../standaloneComponents/Button/CustomButton';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import { IPatient } from '../../../../../../@types/IPatient';
 import { IAffliction } from '../../../../../../@types/IAffliction';
 import { ITherapist } from '../../../../../../@types/ITherapist';
