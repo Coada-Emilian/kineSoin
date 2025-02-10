@@ -20,6 +20,14 @@ interface GeneralOutputProps {
   isTherapistExperienceOutput?: boolean;
   isTherapistSpecialtyOutput?: boolean;
   isTherapistDescriptionOutput?: boolean;
+  isPatientAgeGenderOutput?: boolean;
+  isPatientAddressOutput?: boolean;
+  isPatientPhoneNumberOutput?: boolean;
+  isPatientTherapistOutput?: boolean;
+  isAfflictionRegionOutput?: boolean;
+  isAfflictionInsuranceCodeOutput?: boolean;
+  isAfflictionOperatedOutput?: boolean;
+  isAfflictionDescriptionOutput?: boolean;
 }
 
 export default function GeneralOutput({
@@ -38,6 +46,14 @@ export default function GeneralOutput({
   isTherapistExperienceOutput,
   isTherapistSpecialtyOutput,
   isTherapistDescriptionOutput,
+  isPatientAgeGenderOutput,
+  isPatientAddressOutput,
+  isPatientPhoneNumberOutput,
+  isPatientTherapistOutput,
+  isAfflictionRegionOutput,
+  isAfflictionInsuranceCodeOutput,
+  isAfflictionOperatedOutput,
+  isAfflictionDescriptionOutput,
 }: GeneralOutputProps) {
   return (
     <div className="text-primaryBlue font-bold">
@@ -58,11 +74,27 @@ export default function GeneralOutput({
         </h1>
       )}
 
-      <h4 className="mb-2">
-        {isProfileStatusOutput && <span>Statut: </span>}
-        {isProfileStatusOutput && (
-          <span
-            className={`italic p-2 rounded-md 
+      {(isProfileStatusOutput ||
+        isProfileIdOutput ||
+        isProfileNameOutput ||
+        isProfileEmailOutput ||
+        isProfileLicenceCodeOutput ||
+        isTherapistDiplomaOutput ||
+        isTherapistExperienceOutput ||
+        isTherapistSpecialtyOutput ||
+        isTherapistDescriptionOutput ||
+        isPatientAddressOutput ||
+        isPatientPhoneNumberOutput ||
+        isPatientTherapistOutput ||
+        isAfflictionRegionOutput ||
+        isAfflictionInsuranceCodeOutput ||
+        isAfflictionOperatedOutput ||
+        isAfflictionDescriptionOutput) && (
+        <h4 className="mb-2">
+          {isProfileStatusOutput && <span>Statut: </span>}
+          {isProfileStatusOutput && (
+            <span
+              className={`italic p-2 rounded-md 
         ${therapist?.status === 'active' ? 'bg-green-300' : ''}
         ${therapist?.status === 'inactive' ? 'bg-gray-200' : ''}
         ${therapist?.status === 'pending' ? 'bg-yellow-300' : ''}
@@ -72,80 +104,97 @@ export default function GeneralOutput({
         ${patient?.status === 'pending' ? 'bg-yellow-300' : ''}
         ${patient?.status === 'banned' ? 'bg-red-300' : ''}
         ${!therapist && !patient ? 'bg-gray-200' : ''}`}
-          >
-            {(therapist?.status || patient?.status)?.toUpperCase() || 'N/A'}
+            >
+              {(therapist?.status || patient?.status)?.toUpperCase() || 'N/A'}
+            </span>
+          )}
+          <span>
+            {isProfileIdOutput && '#ID:'}
+            {isProfileNameOutput && 'Nom: '}
+            {isProfileEmailOutput && 'E-mail: '}
+            {isProfileLicenceCodeOutput && 'Code ADELI: '}
+            {isTherapistDiplomaOutput && 'Diplôme: '}
+            {isTherapistExperienceOutput && 'Expérience: '}
+            {isTherapistSpecialtyOutput && 'Spécialité: '}
+            {isTherapistDescriptionOutput ||
+              (isAfflictionDescriptionOutput && 'Description: ')}
+            {isPatientAddressOutput && 'Adresse: '}
+            {isPatientPhoneNumberOutput && 'Numéro de téléphone: '}
+            {isPatientTherapistOutput && 'Thérapeute: '}
+            {isAfflictionRegionOutput && 'Région concernée: '}
+            {isAfflictionInsuranceCodeOutput && 'Cotation: '}
+            {isAfflictionOperatedOutput && 'Est opérée: '}
           </span>
-        )}
-        {isProfileIdOutput && <span>#ID: </span>}
-        {isProfileIdOutput && (
+
           <span className="italic font-normal">
-            {therapist
-              ? therapist.id
-              : patient
-                ? patient.id
-                : affliction
-                  ? affliction.id
-                  : medic
-                    ? medic.id
-                    : insurance
-                      ? insurance.id
-                      : ''}
-          </span>
-        )}
-        {isProfileNameOutput && <span>Nom: </span>}
-        {isProfileNameOutput && (
-          <span className="italic font-normal">
-            {therapist
-              ? therapist.fullName
-              : patient
-                ? patient.fullName
-                : medic
-                  ? medic.fullName
+            {isProfileIdOutput &&
+              (therapist
+                ? therapist.id
+                : patient
+                  ? patient.id
                   : affliction
-                    ? affliction.name
-                    : insurance
-                      ? insurance.name
-                      : ''}
+                    ? affliction.id
+                    : medic
+                      ? medic.id
+                      : insurance
+                        ? insurance.id
+                        : '')}
+            {isProfileNameOutput &&
+              (therapist
+                ? therapist.fullName
+                : patient
+                  ? patient.fullName
+                  : medic
+                    ? medic.fullName
+                    : affliction
+                      ? affliction.name
+                      : insurance
+                        ? insurance.name
+                        : '')}
+            {isProfileEmailOutput &&
+              (therapist ? therapist.email : patient ? patient.email : '')}
+            {isProfileLicenceCodeOutput &&
+              (therapist ? therapist.licence_code : '')}
+            {isTherapistDiplomaOutput && (therapist ? therapist.diploma : '')}
+            {isTherapistExperienceOutput &&
+              (therapist ? therapist.experience : '')}
+            {isTherapistSpecialtyOutput &&
+              (therapist ? therapist.specialty : '')}
+            {isTherapistDescriptionOutput &&
+              (therapist ? therapist.description : '')}
+            {isPatientAddressOutput && (patient ? patient.address : '')}
+            {isPatientPhoneNumberOutput &&
+              (patient ? patient.phone_number : '')}
+            {isPatientTherapistOutput && (patient ? patient.therapist : '')}
+            {isAfflictionRegionOutput &&
+              (affliction ? affliction.body_region?.name : '')}
+            {isAfflictionInsuranceCodeOutput &&
+              (affliction ? affliction.insurance_code : '')}
+            {isAfflictionOperatedOutput &&
+              (affliction ? (affliction.is_operated ? 'Oui' : 'Non') : '')}
+            {isAfflictionDescriptionOutput &&
+              (affliction ? affliction.description : '')}
           </span>
-        )}
-        {isProfileEmailOutput && <span>E-mail: </span>}
-        {isProfileEmailOutput && (
-          <span className="italic font-normal">
-            {therapist ? therapist.email : ''}
-            {patient ? patient.email : ''}
-          </span>
-        )}
-        {isProfileLicenceCodeOutput && <span>Code ADELI: </span>}
-        {isProfileLicenceCodeOutput && (
-          <span className="italic font-normal">
-            {therapist ? therapist.licence_code : ''}
-          </span>
-        )}
-        {isTherapistDiplomaOutput && <span>Diplôme: </span>}
-        {isTherapistDiplomaOutput && (
-          <span className="italic font-normal">
-            {therapist ? therapist.diploma : ''}
-          </span>
-        )}
-        {isTherapistExperienceOutput && <span>Expérience: </span>}
-        {isTherapistExperienceOutput && (
-          <span className="italic font-normal">
-            {therapist ? therapist.experience : ''}
-          </span>
-        )}
-        {isTherapistSpecialtyOutput && <span>Spécialité: </span>}
-        {isTherapistSpecialtyOutput && (
-          <span className="italic font-normal">
-            {therapist ? therapist.specialty : ''}
-          </span>
-        )}
-        {isTherapistDescriptionOutput && <span>Description: </span>}
-        {isTherapistDescriptionOutput && (
-          <span className="italic font-normal">
-            {therapist ? therapist.description : ''}
-          </span>
-        )}
-      </h4>
+        </h4>
+      )}
+
+      {isPatientAgeGenderOutput && (
+        <div className="flex gap-6 items-center mb-2">
+          <div className="md:text-2xl flex gap-1 items-center">
+            <h4 className="font-bold ">Age :</h4>
+
+            <span className="italic font-normal">{patient?.age ?? 'N/A'}</span>
+          </div>
+
+          <div className="flex gap-1 items-center">
+            <h4 className="font-bold">Genre :</h4>
+
+            <span className="italic font-normal">
+              {patient?.gender ?? 'N/A'}
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -11,7 +11,7 @@ import GeneralOutput from '../generalComponents/common/GeneralOutput';
 interface CommonSectionProps {
   patient?: IPatient | null;
   therapist?: ITherapist | null;
-  affliction?: IAffliction | null;
+  affliction?: IAffliction;
   medic?: IMedic | null;
   insurance?: IInsurance | null;
   isProfileEditing: boolean;
@@ -66,7 +66,7 @@ export default function CommonSection({
         </div>
       ) : (
         <>
-          {(therapist || affliction || medic || insurance) && (
+          {(therapist || affliction || medic || insurance || patient) && (
             <GeneralOutput
               isProfileNameOutput
               therapist={therapist}

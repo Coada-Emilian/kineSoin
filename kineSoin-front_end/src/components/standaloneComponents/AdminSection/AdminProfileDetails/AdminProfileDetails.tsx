@@ -13,9 +13,6 @@ import {
   handleTherapistUpdate,
 } from '../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../@types/IAffliction';
-import TherapistSection from './pageComponents/sections/TherapistSection.tsx';
-import PatientSection from './pageComponents/sections/PatientSection.tsx';
-import AfflictionSection from './pageComponents/sections/AfflictionSection.tsx';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import { IMedic } from '../../../../@types/IMedic';
@@ -53,16 +50,9 @@ export default function AdminProfileDetails({
 
   const [buttonMessage, setButtonMessage] = useState('Changer le statut');
   const [backgroundColor, setBackgroundColor] = useState('bg-white');
-  const [description, setDescription] = useState(therapist?.description || '');
   const [therapistStatus, setTherapistStatus] = useState(
     therapist?.status || 'inactive'
   );
-  const [afflictionDescription, setAfflictionDescription] = useState('');
-  const [chosenBodyRegionId, setChosenBodyRegionId] = useState<
-    number | undefined
-  >(undefined);
-  const [afflictionOperatedStatus, setAfflictionOperatedStatus] =
-    useState<boolean>(false);
 
   // Function to handle patient status changes
   const handlePatientStatusChanges = async (id: number, status: string) => {
@@ -137,13 +127,6 @@ export default function AdminProfileDetails({
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-
-    if (chosenBodyRegionId !== undefined) {
-      formData.append('body_region_id', String(chosenBodyRegionId));
-    }
-    if (afflictionOperatedStatus !== undefined) {
-      formData.append('is_operated', String(afflictionOperatedStatus));
-    }
 
     if (affliction && affliction.id) {
       try {
@@ -255,17 +238,19 @@ export default function AdminProfileDetails({
               />
             )}
 
-            {patient && <PatientSection patient={patient} />}
+            {patient && (
+              <ProfileSection patient={patient} isPatientProfileSection />
+            )}
 
             {affliction && (
-              <AfflictionSection
-                affliction={affliction}
-                afflictionDescription={afflictionDescription}
-                setAfflictionDescription={setAfflictionDescription}
-                isProfileEditing={isProfileEditing}
-                setChosenBodyRegionId={setChosenBodyRegionId}
-                setAfflictionOperatedStatus={setAfflictionOperatedStatus}
-              />
+              <>
+                {' '}
+                <ProfileSection
+                  isAfflictionProfileSection
+                  affliction={affliction}
+                  isProfileEditing={isProfileEditing}
+                />
+              </>
             )}
 
             {medic && (

@@ -40,6 +40,9 @@ interface StandardChoiceDropdownProps {
   isAdminTherapistAddStatusInput?: boolean;
   isAdminAfflictionAddRegionInput?: boolean;
   isAdminAfflictionAddOperatedStatusInput?: boolean;
+  isAdminAfflictionEditRegionInput?: boolean;
+  affliction?: IAffliction;
+  isAdminAfflictionEditOperatedStatusInput?: boolean;
 }
 
 export default function StandardChoiceDropdown({
@@ -67,6 +70,9 @@ export default function StandardChoiceDropdown({
   isAdminTherapistAddStatusInput,
   isAdminAfflictionAddRegionInput,
   isAdminAfflictionAddOperatedStatusInput,
+  isAdminAfflictionEditRegionInput,
+  affliction,
+  isAdminAfflictionEditOperatedStatusInput,
 }: StandardChoiceDropdownProps) {
   const windowWidth = window.innerWidth;
   // Function to fetch appointments by prescription
@@ -118,7 +124,7 @@ export default function StandardChoiceDropdown({
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
   {
-    if (isAdminAfflictionAddRegionInput) {
+    if (isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput) {
       useEffect(() => {
         fetchBodyRegions().then((bodyRegions) => {
           setBodyRegions(bodyRegions);
@@ -127,9 +133,10 @@ export default function StandardChoiceDropdown({
     }
   }
 
+
   return (
     <div
-      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : ''} mb-4 italic`}
+      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'flex flex-row items-center gap-2 mb-2 w-full' : ''} mb-4 italic`}
     >
       <label
         htmlFor={
@@ -145,13 +152,15 @@ export default function StandardChoiceDropdown({
                     ? 'country_prefix_dropdown'
                     : isAdminTherapistAddStatusInput
                       ? 'therapist-status_dropdown'
-                      : isAdminAfflictionAddRegionInput
+                      : isAdminAfflictionAddRegionInput ||
+                          isAdminAfflictionEditRegionInput
                         ? 'body-region_dropdown'
-                        : isAdminAfflictionAddOperatedStatusInput
+                        : isAdminAfflictionAddOperatedStatusInput ||
+                            isAdminAfflictionEditOperatedStatusInput
                           ? 'affliction-operated_status_dropdown'
                           : ''
         }
-        className={`${isCountryDropdownInput ? 'text-xs' : ''} text-primaryBlue text-sm font-medium block mb-2`}
+        className={`${isCountryDropdownInput ? 'text-xs' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3' : ''} text-primaryBlue text-sm font-medium block mb-2`}
       >
         {isGenderDropdownInput && 'Genre'}{' '}
         {isMedicDropdownInput && 'Médecin prescripteur'}
@@ -160,10 +169,13 @@ export default function StandardChoiceDropdown({
         {isPatientInsuranceDropdownInput && 'Nom mutuelle'}
         {isCountryDropdownInput && 'Préfixe'}
         {isAdminTherapistAddStatusInput && 'Statut'}
-        {isAdminAfflictionAddRegionInput && 'Région concernée'}
-        {isAdminAfflictionAddOperatedStatusInput &&
-          windowWidth > 768 &&
-          'Est opéré ?'}
+        {(isAdminAfflictionAddRegionInput ||
+          isAdminAfflictionEditRegionInput) &&
+          'Région concernée'}
+        {isAdminAfflictionAddOperatedStatusInput ||
+          (isAdminAfflictionEditOperatedStatusInput &&
+            windowWidth > 768 &&
+            'Est opéré ?')}
         {isAdminAfflictionAddOperatedStatusInput &&
           windowWidth <= 768 &&
           'Opéré ?'}
@@ -183,9 +195,11 @@ export default function StandardChoiceDropdown({
                     ? 'country_prefix_dropdown'
                     : isAdminTherapistAddStatusInput
                       ? 'therapist-status_dropdown'
-                      : isAdminAfflictionAddRegionInput
+                      : isAdminAfflictionAddRegionInput ||
+                          isAdminAfflictionEditRegionInput
                         ? 'body-region_dropdown'
-                        : isAdminAfflictionAddOperatedStatusInput
+                        : isAdminAfflictionAddOperatedStatusInput ||
+                            isAdminAfflictionEditOperatedStatusInput
                           ? 'affliction-operated_status_dropdown'
                           : ''
         }
@@ -229,9 +243,11 @@ export default function StandardChoiceDropdown({
               ? 'prefix'
               : isAdminTherapistAddStatusInput
                 ? 'status'
-                : isAdminAfflictionAddRegionInput
+                : isAdminAfflictionAddRegionInput ||
+                    isAdminAfflictionEditRegionInput
                   ? 'body_region_id'
-                  : isAdminAfflictionAddOperatedStatusInput
+                  : isAdminAfflictionAddOperatedStatusInput ||
+                      isAdminAfflictionEditOperatedStatusInput
                     ? 'is_operated'
                     : ''
         }
@@ -352,6 +368,35 @@ export default function StandardChoiceDropdown({
           <>
             <option value="true">Oui</option>
             <option value="false">Non</option>
+          </>
+        )}
+
+        {isAdminAfflictionEditRegionInput && (
+          <>
+            <option value={affliction?.body_region?.id}>
+              {affliction?.body_region?.name}
+            </option>
+            {bodyRegions.map((region) => (
+              <option key={region.id} value={region.id}>
+                {region.name}
+              </option>
+            ))}
+          </>
+        )}
+
+        {isAdminAfflictionEditOperatedStatusInput && (
+          <>
+            {affliction?.is_operated ? (
+              <>
+                <option value="true">Oui</option>
+                <option value="false">Non</option>
+              </>
+            ) : (
+              <>
+                <option value="false">Non</option>
+                <option value="true">Oui</option>
+              </>
+            )}
           </>
         )}
       </select>

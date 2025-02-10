@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IAffliction } from '../../../../@types/IAffliction';
 import { IInsurance } from '../../../../@types/IInsurance';
 import { IMedic } from '../../../../@types/IMedic';
@@ -62,6 +62,8 @@ interface StandardTextInputProps {
   isAdminTherapistEditExperienceInput?: boolean;
   isAdminTherapistEditSpecialtyInput?: boolean;
   isAdminTherapistEditDescriptionInput?: boolean;
+  isAdminAfflictionEditInsuranceCodeInput?: boolean;
+  isAdminAfflictionEditDescriptionInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -114,6 +116,8 @@ export default function StandardTextInput({
   isAdminTherapistEditExperienceInput,
   isAdminTherapistEditSpecialtyInput,
   isAdminTherapistEditDescriptionInput,
+  isAdminAfflictionEditInsuranceCodeInput,
+  isAdminAfflictionEditDescriptionInput,
 }: StandardTextInputProps) {
   const [therapistName, setTherapistName] = useState<string>(
     therapist?.name || ''
@@ -136,6 +140,15 @@ export default function StandardTextInput({
   const [therapistDescription, setTherapistDescription] = useState<string>(
     therapist?.description || ''
   );
+  const [afflictionName, setAfflictionName] = useState<string>(
+    affliction?.name || ''
+  );
+  const [afflictionInsuranceCode, setAfflictionInsuranceCode] =
+    useState<string>(affliction?.insurance_code || '');
+
+  const [afflictionDescription, setAfflictionDescription] = useState<string>(
+    affliction?.description || ''
+  );
 
   return (
     <div
@@ -156,7 +169,8 @@ export default function StandardTextInput({
               isAdminTherapistEditLicenceCodeInput ||
               isAdminTherapistEditDiplomaInput ||
               isAdminTherapistEditExperienceInput ||
-              isAdminTherapistEditSpecialtyInput
+              isAdminTherapistEditSpecialtyInput ||
+              isAdminAfflictionEditInsuranceCodeInput
             ? 'flex flex-row items-center gap-2 mb-2 w-full'
             : 'w-full flex flex-col mb-4 '
       } gap-2 italic`}
@@ -205,9 +219,11 @@ export default function StandardTextInput({
                                           : isAdminAfflictionAddNameInput ||
                                               isAdminAfflictionEditNameInput
                                             ? 'affliction-name_input'
-                                            : isAdminAfflictionAddLicenceCodeInput
+                                            : isAdminAfflictionAddLicenceCodeInput ||
+                                                isAdminAfflictionEditInsuranceCodeInput
                                               ? 'affliction-insurance-code_input'
-                                              : isAdminAfflictionAddDescriptionInput
+                                              : isAdminAfflictionAddDescriptionInput ||
+                                                  isAdminAfflictionEditDescriptionInput
                                                 ? 'affliction-description_input'
                                                 : isAdminRegionAddNameInput
                                                   ? 'region-name_input'
@@ -266,7 +282,9 @@ export default function StandardTextInput({
                 isAdminTherapistEditDiplomaInput ||
                 isAdminTherapistEditExperienceInput ||
                 isAdminTherapistEditSpecialtyInput ||
-                isAdminTherapistEditDescriptionInput
+                isAdminTherapistEditDescriptionInput ||
+                isAdminAfflictionEditDescriptionInput ||
+                isAdminAfflictionEditInsuranceCodeInput
               ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl '
               : 'text-sm'
         } text-primaryBlue font-medium`}
@@ -325,10 +343,12 @@ export default function StandardTextInput({
                                   ? 'Description'
                                   : isAdminAfflictionAddNameInput
                                     ? "Nom de l'affliction"
-                                    : isAdminAfflictionAddLicenceCodeInput
+                                    : isAdminAfflictionAddLicenceCodeInput ||
+                                        isAdminAfflictionEditInsuranceCodeInput
                                       ? 'Cotation'
                                       : isAdminAfflictionAddDescriptionInput ||
-                                          isAdminTherapistEditDescriptionInput
+                                          isAdminTherapistEditDescriptionInput ||
+                                          isAdminAfflictionEditDescriptionInput
                                         ? 'Description'
                                         : isAdminInsuranceAddLicenceCodeInput
                                           ? 'Code AMC'
@@ -393,7 +413,8 @@ export default function StandardTextInput({
                                       : // : isAdminTherapistAddDescriptionInput ||
                                         //     isAdminTherapistEditDescriptionInput
                                         //   ? 'description'
-                                        isAdminAfflictionAddLicenceCodeInput
+                                        isAdminAfflictionAddLicenceCodeInput ||
+                                          isAdminAfflictionEditInsuranceCodeInput
                                         ? 'insurance_code'
                                         : isAdminInsuranceAddLicenceCodeInput
                                           ? 'amc_code'
@@ -440,7 +461,8 @@ export default function StandardTextInput({
                                           isAdminAfflictionAddNameInput ||
                                             isAdminAfflictionEditNameInput
                                           ? 'affliction-name_input'
-                                          : isAdminAfflictionAddLicenceCodeInput
+                                          : isAdminAfflictionAddLicenceCodeInput ||
+                                              isAdminAfflictionEditInsuranceCodeInput
                                             ? 'affliction-insurance-code_input'
                                             : isAdminRegionAddNameInput
                                               ? 'region-name_input'
@@ -540,20 +562,17 @@ export default function StandardTextInput({
                                                                     : isAdminMedicEditSurnameInput &&
                                                                         medic
                                                                       ? medic.surname
-                                                                      : isAdminAfflictionEditNameInput &&
-                                                                          affliction
-                                                                        ? affliction.name
-                                                                        : isAdminMedicEditNameInput &&
-                                                                            medic
-                                                                          ? medic.name
-                                                                          : isAdminInsuranceEditNameInput &&
-                                                                              insurance
-                                                                            ? insurance.name
-                                                                            : ''
+                                                                      : isAdminMedicEditNameInput &&
+                                                                          medic
+                                                                        ? medic.name
+                                                                        : isAdminInsuranceEditNameInput &&
+                                                                            insurance
+                                                                          ? insurance.name
+                                                                          : ''
           }`}
           required={!isStreetNumberInput}
           value={
-            isAdminTherapistEditNameInput
+            isAdminTherapistEditNameInput && therapist
               ? therapistName
               : isAdminTherapistEditSurnameInput
                 ? therapistSurname
@@ -565,7 +584,11 @@ export default function StandardTextInput({
                       ? therapistExperience
                       : isAdminTherapistEditSpecialtyInput
                         ? therapistSpecialty
-                        : ''
+                        : isAdminAfflictionEditNameInput && affliction
+                          ? afflictionName
+                          : isAdminAfflictionEditInsuranceCodeInput
+                            ? afflictionInsuranceCode
+                            : ''
           }
           onChange={(e) => {
             if (therapist) {
@@ -581,6 +604,14 @@ export default function StandardTextInput({
                 setTherapistExperience(e.target.value);
               } else if (isAdminTherapistEditSpecialtyInput) {
                 setTherapistSpecialty(e.target.value);
+              }
+            } else if (affliction) {
+              if (isAdminAfflictionEditNameInput) {
+                setAfflictionName(e.target.value);
+              } else if (isAdminAfflictionEditInsuranceCodeInput) {
+                setAfflictionInsuranceCode(e.target.value);
+              } else if (isAdminAfflictionEditDescriptionInput) {
+                setAfflictionDescription(e.target.value);
               }
             }
           }}
@@ -605,11 +636,25 @@ export default function StandardTextInput({
                 ? "Description de l'affliction"
                 : isAdminTherapistEditDescriptionInput && therapist
                   ? therapist.description
-                  : ''
+                  : isAdminAfflictionEditDescriptionInput && affliction
+                    ? affliction.description
+                    : ''
           }`}
-          value={therapistDescription}
-          onChange={(e) => setTherapistDescription(e.target.value)}
-          className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs"
+          value={
+            isAdminTherapistEditDescriptionInput
+              ? therapistDescription
+              : isAdminAfflictionEditDescriptionInput
+                ? afflictionDescription
+                : ''
+          }
+          onChange={(e) =>
+            isAdminTherapistEditDescriptionInput
+              ? setTherapistDescription(e.target.value)
+              : isAdminAfflictionEditDescriptionInput
+                ? setAfflictionDescription(e.target.value)
+                : ''
+          }
+          className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base xl:text-lg font-normal "
           required
           rows={5}
           cols={32}

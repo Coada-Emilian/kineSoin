@@ -2,12 +2,13 @@ import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
+import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardTextInput from '../../../../../generalComponents/StandardInputs/StandardTextInput';
 import AdminTextInput from './AdminTextInput';
 
 interface CommonInputProps {
   therapist?: ITherapist | null;
-  affliction?: IAffliction | null;
+  affliction?: IAffliction;
   medic?: IMedic | null;
   insurance?: IInsurance | null;
   isProfileNameInput?: boolean;
@@ -17,6 +18,10 @@ interface CommonInputProps {
   isTherapistExperienceInput?: boolean;
   isTherapistSpecialtyInput?: boolean;
   isTherapistDescriptionInput?: boolean;
+  isAfflictionRegionInput?: boolean;
+  isAfflictionInsuranceCodeInput?: boolean;
+  isAfflictionOperatedInput?: boolean;
+  isAfflictionDescriptionInput?: boolean;
 }
 
 export default function CommonInput({
@@ -31,6 +36,10 @@ export default function CommonInput({
   isTherapistExperienceInput,
   isTherapistSpecialtyInput,
   isTherapistDescriptionInput,
+  isAfflictionRegionInput,
+  isAfflictionInsuranceCodeInput,
+  isAfflictionOperatedInput,
+  isAfflictionDescriptionInput,
 }: CommonInputProps) {
   return (
     <div className="flex gap-2 items-center ">
@@ -91,6 +100,35 @@ export default function CommonInput({
           isAdminTherapistEditDescriptionInput
           isTextAreaInput
           therapist={therapist}
+        />
+      )}
+
+      {isAfflictionRegionInput && (
+        <StandardChoiceDropdown
+          isAdminAfflictionEditRegionInput
+          affliction={affliction}
+        />
+      )}
+
+      {isAfflictionInsuranceCodeInput && (
+        <StandardTextInput
+          isAdminAfflictionEditInsuranceCodeInput
+          affliction={affliction}
+        />
+      )}
+
+      {isAfflictionOperatedInput && (
+        <StandardChoiceDropdown
+          isAdminAfflictionEditOperatedStatusInput
+          affliction={affliction}
+        />
+      )}
+
+      {isAfflictionDescriptionInput && (
+        <StandardTextInput
+          isAdminAfflictionEditDescriptionInput
+          affliction={affliction}
+          isTextAreaInput
         />
       )}
     </div>
