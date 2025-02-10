@@ -74,11 +74,13 @@ const medicController = {
             'street_name',
             'postal_code',
             'city',
+            'prefix',
             'phone_number',
             'licence_code',
           ],
         });
 
+        const fullPhoneNumber = foundMedic.prefix + foundMedic.phone_number;
         if (!foundMedic) {
           return res.status(404).json({ message: 'No medic found.' });
         } else {
@@ -92,7 +94,8 @@ const medicController = {
             city: foundMedic.city,
             fullName: `${foundMedic.name} ${foundMedic.surname}`,
             address: `${foundMedic.street_number} ${foundMedic.street_name}, ${foundMedic.postal_code} ${foundMedic.city}`,
-            phone_number: foundMedic.phone_number,
+
+            full_phone_number: fullPhoneNumber,
             licence_code: foundMedic.licence_code,
           };
 
@@ -121,6 +124,8 @@ const medicController = {
           city: Joi.string().required(),
           phone_number: Joi.string().required(),
           licence_code: Joi.string().required(),
+          prefix: Joi.string().required(),
+          full_phone_number: Joi.string().required(),
         });
 
         if (!req.body) {

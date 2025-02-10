@@ -139,6 +139,9 @@ const therapistController = {
             'picture_url',
             'status',
             'licence_code',
+            'prefix',
+            'full_phone_number',
+            'phone_number',
           ],
         });
 
@@ -146,6 +149,7 @@ const therapistController = {
           return res.status(400).json({ message: 'Therapist not found' });
         }
 
+        const fullPhoneNumber = `${foundTherapist.prefix}${foundTherapist.phone_number}`;
         const sentTherapist = {
           id: foundTherapist.id,
           name: foundTherapist.name,
@@ -160,6 +164,9 @@ const therapistController = {
           phone_number: foundTherapist.phone_number,
           status: foundTherapist.status,
           licence_code: foundTherapist.licence_code,
+          prefix: foundTherapist.prefix,
+          full_phone_number: fullPhoneNumber,
+          phone_number: foundTherapist.phone_number,
         };
 
         return res.status(200).json(sentTherapist);
@@ -192,6 +199,7 @@ const therapistController = {
           phone_number: Joi.string().max(15).allow('').optional(),
           description: Joi.string().allow('').optional(),
           licence_code: Joi.string().max(9).allow('').optional(),
+          prefix: Joi.string().max(10).allow('').optional(),
         }).min(1);
 
         if (!req.body) {
@@ -220,6 +228,7 @@ const therapistController = {
             phone_number,
             description,
             licence_code,
+            prefix,
           } = req.body;
 
           const newProfile = {
@@ -232,6 +241,7 @@ const therapistController = {
             phone_number: phone_number || foundTherapist.phone_number,
             description: description || foundTherapist.description,
             licence_code: licence_code || foundTherapist.licence_code,
+            prefix: prefix || foundTherapist.prefix,
           };
 
           if (req.file) {
@@ -317,7 +327,9 @@ const therapistController = {
           diploma: Joi.string().max(50).required(),
           experience: Joi.string().max(50).required(),
           specialty: Joi.string().max(50).required(),
+          prefix: Joi.string().max(10).required(),
           phone_number: Joi.string().max(15).required(),
+          full_phone_number: Joi.string().max(15).optional(),
           licence_code: Joi.string().max(25).required(),
           status: Joi.string().valid('active', 'inactive').optional(),
         });
@@ -344,6 +356,7 @@ const therapistController = {
           diploma,
           experience,
           specialty,
+          prefix,
           phone_number,
           licence_code,
           status,
@@ -368,6 +381,8 @@ const therapistController = {
             const picture_url = req.file.path;
             const picture_id = req.file.filename;
 
+            const fullPhoneNumber = `${prefix}${phone_number}`;
+
             const newTherapist = {
               admin_id: adminId,
               name,
@@ -380,7 +395,9 @@ const therapistController = {
               diploma,
               experience,
               specialty,
+              prefix,
               phone_number,
+              full_phone_number: fullPhoneNumber,
               licence_code,
               status: status || 'active',
             };

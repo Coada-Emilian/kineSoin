@@ -705,7 +705,7 @@ export default function StandardTextInput({
               ? therapistDescription
               : isAdminAfflictionEditDescriptionInput
                 ? afflictionDescription
-                : ''
+                : undefined
           }
           onChange={(e) =>
             isAdminTherapistEditDescriptionInput

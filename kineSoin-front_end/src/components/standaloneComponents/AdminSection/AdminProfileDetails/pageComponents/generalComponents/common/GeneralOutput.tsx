@@ -29,6 +29,9 @@ interface GeneralOutputProps {
   isAfflictionInsuranceCodeOutput?: boolean;
   isAfflictionOperatedOutput?: boolean;
   isAfflictionDescriptionOutput?: boolean;
+  isMedicAddressOutput?: boolean;
+  isMedicPhoneNumberOutput?: boolean;
+  isMedicLicenceCodeOutput?: boolean;
 }
 
 export default function GeneralOutput({
@@ -56,6 +59,9 @@ export default function GeneralOutput({
   isAfflictionInsuranceCodeOutput,
   isAfflictionOperatedOutput,
   isAfflictionDescriptionOutput,
+  isMedicAddressOutput,
+  isMedicPhoneNumberOutput,
+  isMedicLicenceCodeOutput,
 }: GeneralOutputProps) {
   return (
     <div className="text-primaryBlue font-bold">
@@ -92,7 +98,10 @@ export default function GeneralOutput({
         isAfflictionRegionOutput ||
         isAfflictionInsuranceCodeOutput ||
         isAfflictionOperatedOutput ||
-        isAfflictionDescriptionOutput) && (
+        isAfflictionDescriptionOutput ||
+        isMedicAddressOutput ||
+        isMedicPhoneNumberOutput ||
+        isMedicLicenceCodeOutput) && (
         <h4 className="mb-2">
           {isProfileStatusOutput && <span>Statut: </span>}
           {isProfileStatusOutput && (
@@ -115,15 +124,18 @@ export default function GeneralOutput({
             {isProfileIdOutput && '#ID:'}
             {isProfileNameOutput && 'Nom: '}
             {isProfileEmailOutput && 'E-mail: '}
-            {isProfileLicenceCodeOutput && 'Code ADELI: '}
+            {(isProfileLicenceCodeOutput || isMedicLicenceCodeOutput) &&
+              'Code ADELI: '}
             {isTherapistDiplomaOutput && 'Diplôme: '}
             {isTherapistExperienceOutput && 'Expérience: '}
             {isTherapistSpecialtyOutput && 'Spécialité: '}
 
             {(isTherapistDescriptionOutput || isAfflictionDescriptionOutput) &&
               'Description: '}
-            {isPatientAddressOutput && 'Adresse: '}
-            {(isPatientPhoneNumberOutput || isTherapistPhoneNumberOutput) &&
+            {(isPatientAddressOutput || isMedicAddressOutput) && 'Adresse: '}
+            {(isPatientPhoneNumberOutput ||
+              isTherapistPhoneNumberOutput ||
+              isMedicPhoneNumberOutput) &&
               'Numéro de téléphone: '}
             {isPatientTherapistOutput && 'Thérapeute: '}
             {isAfflictionRegionOutput && 'Région concernée: '}
@@ -166,12 +178,12 @@ export default function GeneralOutput({
             {isTherapistSpecialtyOutput &&
               (therapist ? therapist.specialty : '')}
             {isTherapistPhoneNumberOutput &&
-              (therapist ? therapist.phone_number : '')}
+              (therapist ? therapist.full_phone_number : '')}
             {isTherapistDescriptionOutput &&
               (therapist ? therapist.description : '')}
             {isPatientAddressOutput && (patient ? patient.address : '')}
             {isPatientPhoneNumberOutput &&
-              (patient ? patient.phone_number : '')}
+              (patient ? patient.full_phone_number : '')}
             {isPatientTherapistOutput && (patient ? patient.therapist : '')}
             {isAfflictionRegionOutput &&
               (affliction ? affliction.body_region?.name : '')}
@@ -181,6 +193,9 @@ export default function GeneralOutput({
               (affliction ? (affliction.is_operated ? 'Oui' : 'Non') : '')}
             {isAfflictionDescriptionOutput &&
               (affliction ? affliction.description : '')}
+            {isMedicAddressOutput && (medic ? medic.address : '')}
+            {isMedicPhoneNumberOutput && (medic ? medic.full_phone_number : '')}
+            {isMedicLicenceCodeOutput && (medic ? medic.licence_code : '')}
           </span>
         </h4>
       )}

@@ -97,6 +97,9 @@ export default function AdminTable({
     licence_code: '',
     status: '',
     photo: '' as File | unknown,
+    prefix: '',
+    phone_number: '',
+    full_phone_number: '',
   });
 
   // useEffects to set rendered therapists, patients, afflictions

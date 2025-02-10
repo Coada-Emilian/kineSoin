@@ -170,13 +170,14 @@ const patientController = {
             };
           }) || []; // Default to an empty array if no prescriptions
 
+        const fullPhoneNumber = foundPatient.prefix + foundPatient.phone_number;
         const sentPatient = {
           id: foundPatient.id,
           fullName: `${foundPatient.name} ${foundPatient.surname}`,
           age: computeAge(foundPatient.birth_date),
           gender: foundPatient.gender,
           address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
-          phone_number: foundPatient.phone_number,
+          full_phone_number: fullPhoneNumber,
           therapist: foundPatient.therapist
             ? `${foundPatient.therapist.name} ${foundPatient.therapist.surname}`
             : null,
@@ -184,7 +185,7 @@ const patientController = {
           picture_url: foundPatient.picture_url,
           prescriptions: newPrescriptions,
           medic: foundPatient.prescriptions?.[0]?.medic || null,
-          email: foundPatient.email, // Handle cases with no prescriptions
+          email: foundPatient.email,
         };
 
         return res.status(200).json(sentPatient);

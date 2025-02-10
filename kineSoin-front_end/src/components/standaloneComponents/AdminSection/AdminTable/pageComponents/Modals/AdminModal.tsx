@@ -15,8 +15,6 @@ import {
   handleTherapistCreation,
 } from '../../../../../../utils/apiUtils';
 import StandardTelephoneInput from '../../../../generalComponents/StandardInputs/StandardTelephoneInput';
-import axios from 'axios';
-import { ICountry } from '../../../../../../@types/ICountry';
 
 interface AdminModalProps {
   setAddForm?: React.Dispatch<
@@ -33,6 +31,9 @@ interface AdminModalProps {
       licence_code: string;
       status: string;
       photo: File | unknown;
+      prefix: string;
+      phone_number: string;
+      full_phone_number: string;
     }>
   >;
   isAddTherapistModalP1Open?: boolean;
@@ -57,6 +58,9 @@ interface AdminModalProps {
     licence_code: string;
     status: string;
     photo: File | unknown;
+    prefix: string;
+    phone_number: string;
+    full_phone_number: string;
   };
   isAdminAfflictionAddModal?: boolean;
   isAddAfflictionModalOpen?: boolean;
@@ -154,6 +158,9 @@ export default function AdminModal({
         licence_code: therapistLicenceCode,
         status: '',
         photo: file,
+        prefix: '',
+        phone_number: '',
+        full_phone_number: '',
       });
 
     setIsAddTherapistModalP1Open && setIsAddTherapistModalP1Open(false);
@@ -166,13 +173,24 @@ export default function AdminModal({
     const therapistDiploma = formData.get('diploma') as string;
     const therapistExperience = formData.get('experience') as string;
     const therapistSpecialty = formData.get('specialty') as string;
+    const therapistPrefix = formData.get('prefix') as string;
+    const therapistTelephone = formData.get('phone_number') as string;
     const therapistDescription = formData.get('description') as string;
+
+    console.log('therapistDiploma', therapistDiploma);
+    console.log('therapistExperience', therapistExperience);
+    console.log('therapistSpecialty', therapistSpecialty);
+    console.log('therapistPrefix', therapistPrefix);
+    console.log('therapistTelephone', therapistTelephone);
+    console.log('therapistDescription', therapistDescription);
 
     if (
       !therapistDiploma ||
       !therapistExperience ||
       !therapistSpecialty ||
-      !therapistDescription
+      !therapistDescription ||
+      !therapistPrefix ||
+      !therapistTelephone
     ) {
       setErrorMessage('Veuillez remplir tous les champs.');
       return;
@@ -188,7 +206,22 @@ export default function AdminModal({
     } else if (therapistDescription.length > 500) {
       setErrorMessage('La description ne doit pas dépasser 500 caractères.');
       return;
+    } else if (therapistPrefix.length > 10) {
+      setErrorMessage('Le préfixe ne doit pas dépasser 10 caractères.');
+      return;
+    } else if (therapistTelephone.length > 15) {
+      setErrorMessage(
+        'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
+      );
+      return;
+    } else if (!/^\d+$/.test(therapistTelephone)) {
+      setErrorMessage(
+        'Le numéro de téléphone ne doit contenir que des chiffres.'
+      );
+      return;
     }
+
+    const fullPhoneNUmber = `${therapistPrefix}${therapistTelephone}`;
 
     setAddForm &&
       setAddForm((prev) => ({
@@ -197,6 +230,9 @@ export default function AdminModal({
         diploma: therapistDiploma,
         experience: therapistExperience,
         specialty: therapistSpecialty,
+        prefix: therapistPrefix,
+        phone_number: therapistTelephone,
+        full_phone_number: fullPhoneNUmber,
       }));
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
     setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
@@ -332,7 +368,7 @@ export default function AdminModal({
       const medicPostalCode = formData.get('postal_code') as string;
       const medicCity = formData.get('city') as string;
       const medicPrefix = formData.get('prefix') as string;
-      const medicTelephone = formData.get('phone') as string;
+      const medicTelephone = formData.get('phone_number') as string;
       const medicFullTelephone = `${medicPrefix}${medicTelephone}`;
 
       const newFormData = new FormData();
@@ -379,7 +415,9 @@ export default function AdminModal({
         newFormData.append('street_name', medicStreetName);
         newFormData.append('postal_code', medicPostalCode);
         newFormData.append('city', medicCity);
-        newFormData.append('phone_number', medicFullTelephone);
+        newFormData.append('prefix', medicPrefix);
+        newFormData.append('phone_number', medicTelephone);
+        newFormData.append('full_phone_number', medicFullTelephone);
 
         for (const pair of newFormData.entries()) {
           console.log(pair[0] + ', ' + pair[1]);
@@ -506,6 +544,12 @@ export default function AdminModal({
       newFormData.append('licence_code', addForm?.licence_code as string);
       newFormData.append('status', addForm?.status as string);
       newFormData.append('photo', addForm?.photo as Blob);
+      newFormData.append(
+        'full_phone_number',
+        addForm?.full_phone_number as string
+      );
+      newFormData.append('phone_number', addForm?.phone_number as string);
+      newFormData.append('prefix', addForm?.prefix as string);
 
       const response = await handleTherapistCreation(newFormData);
       if (response) {
@@ -521,36 +565,6 @@ export default function AdminModal({
       createTherapist();
     }
   }, [isAdminTherapistFormValid]);
-
-  const [countriesData, setCountriesData] = useState<ICountry[]>([]);
-
-  useEffect(() => {
-    const fetchCountriesData = async () => {
-      try {
-        const response = await axios.get('https://restcountries.com/v3.1/all');
-        if (response) {
-          const data: ICountry[] = response.data
-            .map((country: any): ICountry => {
-              const root = country.idd?.root || ''; // Main dialing code prefix
-              const suffixes = country.idd?.suffixes || []; // Possible additional digits
-              const prefix = suffixes.length ? `${root}${suffixes[0]}` : root; // Combine root with first suffix if available
-
-              return {
-                prefix: prefix, // Properly formatted prefix
-                name: country.name.common,
-              };
-            })
-            .sort((a: ICountry, b: ICountry) => a.name.localeCompare(b.name)); // Sort alphabetically
-
-          setCountriesData(data);
-        }
-      } catch (error) {
-        console.error('Error fetching countries:', error);
-      }
-    };
-
-    fetchCountriesData();
-  }, []);
 
   return (
     <ReactModal
@@ -678,6 +692,11 @@ export default function AdminModal({
 
                   <StandardTextInput isAdminTherapistAddSpecialtyInput />
 
+                  <div className="flex gap-2 items-center justify-between">
+                    <StandardChoiceDropdown isCountryDropdownInput />
+                    <StandardTelephoneInput isAdminTherapistAddTelephoneInput />
+                  </div>
+
                   <StandardTextInput
                     isAdminTherapistAddDescriptionInput
                     isTextAreaInput
@@ -776,9 +795,7 @@ export default function AdminModal({
               </div>
 
               <div className="flex gap-2 items-center justify-between">
-                <StandardChoiceDropdown
-                  isCountryDropdownInput
-                />
+                <StandardChoiceDropdown isCountryDropdownInput />
                 <StandardTelephoneInput isAdminInsuranceAddTelephoneInput />
               </div>
             </>
