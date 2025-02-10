@@ -452,10 +452,7 @@ export default function StandardTextInput({
                                     : isAdminTherapistAddSpecialtyInput ||
                                         isAdminTherapistEditSpecialtyInput
                                       ? 'specialty'
-                                      : // : isAdminTherapistAddDescriptionInput ||
-                                        //     isAdminTherapistEditDescriptionInput
-                                        //   ? 'description'
-                                        isAdminAfflictionAddLicenceCodeInput ||
+                                      : isAdminAfflictionAddLicenceCodeInput ||
                                           isAdminAfflictionEditInsuranceCodeInput
                                         ? 'insurance_code'
                                         : isAdminInsuranceAddLicenceCodeInput
@@ -497,10 +494,7 @@ export default function StandardTextInput({
                                       : isAdminTherapistAddSpecialtyInput ||
                                           isAdminTherapistEditSpecialtyInput
                                         ? 'therapist-specialty_input'
-                                        : // : isAdminTherapistAddDescriptionInput ||
-                                          //     isAdminTherapistEditDescriptionInput
-                                          //   ? 'therapist-description_input'
-                                          isAdminAfflictionAddNameInput ||
+                                        : isAdminAfflictionAddNameInput ||
                                             isAdminAfflictionEditNameInput
                                           ? 'affliction-name_input'
                                           : isAdminAfflictionAddLicenceCodeInput ||
@@ -640,7 +634,7 @@ export default function StandardTextInput({
                                       ? medicStreetNumber
                                       : isAdminMedicEditPostalCodeInput
                                         ? medicPostalCode
-                                        : ''
+                                        : undefined
           }
           onChange={(e) => {
             if (therapist) {

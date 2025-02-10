@@ -68,8 +68,16 @@ Therapist.init(
     specialty: {
       type: DataTypes.STRING(255),
     },
+    prefix: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
     phone_number: {
       type: DataTypes.STRING(15),
+      allowNull: false,
+    },
+    full_phone_number: {
+      type: DataTypes.STRING(25),
       allowNull: false,
     },
     email: {

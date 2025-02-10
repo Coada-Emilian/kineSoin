@@ -54,7 +54,11 @@ export default function StandardTelephoneInput({
         }
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder="Numéro de téléphone"
-        value={isAdminTherapistEditTelephoneInput ? therapist_phone_number : ''}
+        value={
+          isAdminTherapistEditTelephoneInput
+            ? therapist_phone_number
+            : undefined
+        }
         required
       />
     </div>

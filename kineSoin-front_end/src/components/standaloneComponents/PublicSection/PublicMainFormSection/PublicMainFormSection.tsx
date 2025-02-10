@@ -341,15 +341,16 @@ export default function PublicMainFormSection({
         return;
       } else {
         // Create an object with the form data
-        const phoneNumber = `${formData.get('prefix')}${formData.get('phone_number')}`;
+        const fullPhoneNumber = `${formData.get('prefix')}${formData.get('phone_number')}`;
         const sentData = {
           street_number: formData.get('street_number'),
           street_name: formData.get('street_name'),
           postal_code: formData.get('postal_code'),
           city: formData.get('city'),
-          phone_number: phoneNumber,
+          prefix: formData.get('prefix'),
+          phone_number: formData.get('phone_number'),
+          full_phone_number: fullPhoneNumber,
         };
-        console.log(sentData);
 
         // Set the patient error message to an empty string
         setPatientErrorMessage('');
@@ -456,7 +457,9 @@ export default function PublicMainFormSection({
   if (isLoading) {
     return DNALoader();
   }
-
+  useEffect(() => {
+    console.log('sentPatientData', sentPatientData);
+  }, [sentPatientData]);
   return (
     // Render the form section with the corresponding background image and form content
     <section
@@ -602,10 +605,7 @@ export default function PublicMainFormSection({
 
                 <div className="flex gap-2 items-center justify-between">
                   {' '}
-                  <StandardDropdownInput
-                    isCountryDropdownInput
-                    countries={countriesData}
-                  />
+                  <StandardDropdownInput isCountryDropdownInput />
                   <StandardTelephoneInput isPatientTelephoneInput />
                 </div>
               </>

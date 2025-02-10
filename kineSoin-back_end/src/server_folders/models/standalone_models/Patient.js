@@ -82,9 +82,17 @@ Patient.init(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    phone_number: {
-      type: DataTypes.STRING(25),
+    prefix: {
+      type: DataTypes.STRING(10),
       allowNull: false,
+    },
+    phone_number: {
+      type: DataTypes.STRING(15),
+      allowNull: false,
+    },
+    full_phone_number: {
+      type: DataTypes.STRING(25),
+      allowNull: true,
     },
     email: {
       type: DataTypes.STRING(255),

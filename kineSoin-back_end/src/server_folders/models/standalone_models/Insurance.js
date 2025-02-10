@@ -64,9 +64,17 @@ Insurance.init(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
+    prefix: {
+      type: DataTypes.STRING(10),
+      allowNUll: false,
+    },
     phone_number: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(15),
       allowNull: false,
+    },
+    full_phone_number: {
+      type: DataTypes.STRING(25),
+      allowNull: true,
     },
     created_at: {
       type: DataTypes.DATE,
