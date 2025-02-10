@@ -68,6 +68,7 @@ interface StandardTextInputProps {
   isAdminMedicEditStreetNameInput?: boolean;
   isAdminMedicEditPostalCodeInput?: boolean;
   isAdminMedicEditCityInput?: boolean;
+  isAdminMedicEditLicenceCodeInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -126,6 +127,7 @@ export default function StandardTextInput({
   isAdminMedicEditStreetNameInput,
   isAdminMedicEditPostalCodeInput,
   isAdminMedicEditCityInput,
+  isAdminMedicEditLicenceCodeInput,
 }: StandardTextInputProps) {
   const [therapistName, setTherapistName] = useState<string>(
     therapist?.name || ''
@@ -171,6 +173,9 @@ export default function StandardTextInput({
   const [medicSurname, setMedicSurname] = useState<string>(
     medic?.surname || ''
   );
+  const [medicLicenceCode, setMedicLicenceCode] = useState<string>(
+    medic?.licence_code || ''
+  );
 
   return (
     <div
@@ -196,7 +201,8 @@ export default function StandardTextInput({
               isAdminMedicEditCityInput ||
               isAdminMedicEditStreetNameInput ||
               isAdminMedicEditStreetNumberInput ||
-              isAdminMedicEditPostalCodeInput
+              isAdminMedicEditPostalCodeInput ||
+              isAdminMedicEditLicenceCodeInput
             ? 'flex flex-row items-center gap-2 mb-2 w-full'
             : 'w-full flex flex-col mb-4 '
       } gap-2 italic`}
@@ -259,7 +265,8 @@ export default function StandardTextInput({
                                                     : isAdminMedicAddSurnameInput ||
                                                         isAdminMedicEditSurnameInput
                                                       ? 'medic-surname_input'
-                                                      : isAdminMedicAddLicenceCodeInput
+                                                      : isAdminMedicAddLicenceCodeInput ||
+                                                          isAdminMedicEditLicenceCodeInput
                                                         ? 'medic-licence-code_input'
                                                         : isAdminMedicAddStreetNumberInput ||
                                                             isAdminMedicEditStreetNumberInput
@@ -318,8 +325,9 @@ export default function StandardTextInput({
                 isAdminMedicEditCityInput ||
                 isAdminMedicEditStreetNameInput ||
                 isAdminMedicEditStreetNumberInput ||
-                isAdminMedicEditPostalCodeInput
-              ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl '
+                isAdminMedicEditPostalCodeInput ||
+                isAdminMedicEditLicenceCodeInput
+              ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/6'
               : 'text-sm'
         } text-primaryBlue font-medium`}
       >
@@ -365,7 +373,8 @@ export default function StandardTextInput({
                         ? 'Quantité seances prescrites :'
                         : isAdminTherapistAddLicenceCodeInput ||
                             isAdminMedicAddLicenceCodeInput ||
-                            isAdminTherapistEditLicenceCodeInput
+                            isAdminTherapistEditLicenceCodeInput ||
+                            isAdminMedicEditLicenceCodeInput
                           ? 'Code ADELI'
                           : isAdminTherapistAddDiplomaInput ||
                               isAdminTherapistEditDiplomaInput
@@ -441,7 +450,8 @@ export default function StandardTextInput({
                               ? 'content'
                               : isAdminTherapistAddLicenceCodeInput ||
                                   isAdminMedicAddLicenceCodeInput ||
-                                  isAdminTherapistEditLicenceCodeInput
+                                  isAdminTherapistEditLicenceCodeInput ||
+                                  isAdminMedicEditLicenceCodeInput
                                 ? 'licence_code'
                                 : isAdminTherapistAddDiplomaInput ||
                                     isAdminTherapistEditDiplomaInput
@@ -508,7 +518,8 @@ export default function StandardTextInput({
                                                 : isAdminMedicAddSurnameInput ||
                                                     isAdminMedicEditSurnameInput
                                                   ? 'medic-surname_input'
-                                                  : isAdminMedicAddLicenceCodeInput
+                                                  : isAdminMedicAddLicenceCodeInput ||
+                                                      isAdminMedicEditLicenceCodeInput
                                                     ? 'medic-licence-code_input'
                                                     : isAdminMedicAddStreetNumberInput ||
                                                         isAdminMedicEditStreetNumberInput
@@ -634,7 +645,9 @@ export default function StandardTextInput({
                                       ? medicStreetNumber
                                       : isAdminMedicEditPostalCodeInput
                                         ? medicPostalCode
-                                        : undefined
+                                        : isAdminMedicEditLicenceCodeInput
+                                          ? medicLicenceCode
+                                          : undefined
           }
           onChange={(e) => {
             if (therapist) {
@@ -672,6 +685,8 @@ export default function StandardTextInput({
                 setMedicStreetNumber(e.target.value);
               } else if (isAdminMedicEditPostalCodeInput) {
                 setMedicPostalCode(e.target.value);
+              } else if (isAdminMedicEditLicenceCodeInput) {
+                setMedicLicenceCode(e.target.value);
               }
             }
           }}

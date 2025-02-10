@@ -45,6 +45,8 @@ interface StandardChoiceDropdownProps {
   isAdminAfflictionEditOperatedStatusInput?: boolean;
   isAdminTherapistEditPrefixDropdown?: boolean;
   therapist_prefix?: string;
+  medic_prefix?: string;
+  isAdminMedicEditPrefixDropdown?: boolean;
 }
 
 export default function StandardChoiceDropdown({
@@ -76,6 +78,8 @@ export default function StandardChoiceDropdown({
   isAdminAfflictionEditOperatedStatusInput,
   isAdminTherapistEditPrefixDropdown,
   therapist_prefix,
+  medic_prefix,
+  isAdminMedicEditPrefixDropdown,
 }: StandardChoiceDropdownProps) {
   const windowWidth = window.innerWidth;
   // Function to fetch appointments by prescription
@@ -170,6 +174,10 @@ export default function StandardChoiceDropdown({
     }
   }, [isCountryDropdownInput]);
 
+  useEffect(() => {
+    console.log(medic_prefix);
+  }, [medic_prefix]);
+
   return (
     <div
       className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'flex flex-row items-center gap-2 mb-2 w-full' : ''} mb-4 italic`}
@@ -194,16 +202,20 @@ export default function StandardChoiceDropdown({
                         : isAdminAfflictionAddOperatedStatusInput ||
                             isAdminAfflictionEditOperatedStatusInput
                           ? 'affliction-operated_status_dropdown'
-                          : isAdminTherapistEditPrefixDropdown
+                          : isAdminTherapistEditPrefixDropdown ||
+                              isAdminMedicEditPrefixDropdown
                             ? 'country_prefix_dropdown'
                             : ''
         }
         className={`${
-          isCountryDropdownInput && !isAdminTherapistEditPrefixDropdown
+          isCountryDropdownInput &&
+          !isAdminTherapistEditPrefixDropdown &&
+          !isAdminMedicEditPrefixDropdown
             ? 'text-xs'
             : isAdminAfflictionEditRegionInput ||
                 isAdminAfflictionEditOperatedStatusInput ||
-                isAdminTherapistEditPrefixDropdown
+                isAdminTherapistEditPrefixDropdown ||
+                isAdminMedicEditPrefixDropdown
               ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3'
               : ''
         } text-primaryBlue text-sm font-medium block mb-2`}
@@ -213,7 +225,9 @@ export default function StandardChoiceDropdown({
         {isAtHomeCareDropdownInput && 'A domicile ?'}
         {isAfflictionDropdownInput && 'Affection concernée'}
         {isPatientInsuranceDropdownInput && 'Nom mutuelle'}
-        {(isCountryDropdownInput || isAdminTherapistEditPrefixDropdown) &&
+        {(isCountryDropdownInput ||
+          isAdminTherapistEditPrefixDropdown ||
+          isAdminMedicEditPrefixDropdown) &&
           'Préfixe'}
         {isAdminTherapistAddStatusInput && 'Statut'}
         {(isAdminAfflictionAddRegionInput ||
@@ -248,7 +262,8 @@ export default function StandardChoiceDropdown({
                         : isAdminAfflictionAddOperatedStatusInput ||
                             isAdminAfflictionEditOperatedStatusInput
                           ? 'affliction-operated_status_dropdown'
-                          : isAdminTherapistEditPrefixDropdown
+                          : isAdminTherapistEditPrefixDropdown ||
+                              isAdminMedicEditPrefixDropdown
                             ? 'country_prefix_dropdown'
                             : ''
         }
@@ -383,7 +398,11 @@ export default function StandardChoiceDropdown({
         {isCountryDropdownInput && (
           <>
             <option value={therapist_prefix}>
-              {therapist_prefix ? therapist_prefix : 'Choisissez un préfixe'}
+              {therapist_prefix
+                ? therapist_prefix
+                : medic_prefix
+                  ? medic_prefix
+                  : 'Choisissez un préfixe'}
             </option>
             {countries &&
               countries.map((country) => (

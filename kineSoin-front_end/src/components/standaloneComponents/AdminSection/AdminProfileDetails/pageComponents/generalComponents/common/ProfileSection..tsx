@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../../@types/IPatient';
@@ -39,17 +40,7 @@ export default function ProfileSection({
             <CommonInput therapist={therapist} isTherapistDiplomaInput />
             <CommonInput therapist={therapist} isTherapistExperienceInput />
             <CommonInput therapist={therapist} isTherapistSpecialtyInput />
-            <div className="flex flex-row gap-2">
-              <StandardChoiceDropdown
-                isCountryDropdownInput
-                isAdminTherapistEditPrefixDropdown
-                therapist_prefix={therapist?.prefix}
-              />
-              <StandardTelephoneInput
-                isAdminTherapistEditTelephoneInput
-                therapist_phone_number={therapist?.phone_number}
-              />
-            </div>
+            <CommonInput therapist={therapist} isTherapistPhoneNumberInput />
             <CommonInput therapist={therapist} isTherapistDescriptionInput />
           </>
         ) : (

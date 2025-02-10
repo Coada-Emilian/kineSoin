@@ -94,7 +94,8 @@ const medicController = {
             city: foundMedic.city,
             fullName: `${foundMedic.name} ${foundMedic.surname}`,
             address: `${foundMedic.street_number} ${foundMedic.street_name}, ${foundMedic.postal_code} ${foundMedic.city}`,
-
+            phone_number: foundMedic.phone_number,
+            prefix: foundMedic.prefix,
             full_phone_number: fullPhoneNumber,
             licence_code: foundMedic.licence_code,
           };

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
@@ -25,6 +26,7 @@ interface CommonInputProps {
   isMedicAddressInput?: boolean;
   isMedicPhoneNumberInput?: boolean;
   isMedicLicenceCodeInput?: boolean;
+  isTherapistPhoneNumberInput?: boolean;
 }
 
 export default function CommonInput({
@@ -46,6 +48,7 @@ export default function CommonInput({
   isMedicAddressInput,
   isMedicPhoneNumberInput,
   isMedicLicenceCodeInput,
+  isTherapistPhoneNumberInput,
 }: CommonInputProps) {
   return (
     <div className="flex gap-2 items-center ">
@@ -101,6 +104,20 @@ export default function CommonInput({
         />
       )}
 
+      {isTherapistPhoneNumberInput && (
+        <div className="flex flex-row gap-2">
+          <StandardChoiceDropdown
+            isCountryDropdownInput
+            isAdminTherapistEditPrefixDropdown
+            therapist_prefix={therapist?.prefix}
+          />
+          <StandardTelephoneInput
+            isAdminTherapistEditTelephoneInput
+            therapist_phone_number={therapist?.phone_number}
+          />
+        </div>
+      )}
+
       {isTherapistDescriptionInput && (
         <StandardTextInput
           isAdminTherapistEditDescriptionInput
@@ -149,12 +166,20 @@ export default function CommonInput({
 
       {isMedicPhoneNumberInput && (
         <div className="flex gap-2 w-full">
-          <StandardChoiceDropdown isCountryDropdownInput />
+          <StandardChoiceDropdown
+            isAdminMedicEditPrefixDropdown
+            isCountryDropdownInput
+            medic_prefix={medic?.prefix}
+          />
           <StandardTelephoneInput
             isAdminMedicEditTelephoneInput
             medic_phone_number={medic?.phone_number}
           />
         </div>
+      )}
+
+      {isMedicLicenceCodeInput && (
+        <StandardTextInput isAdminMedicEditLicenceCodeInput medic={medic} />
       )}
     </div>
   );
