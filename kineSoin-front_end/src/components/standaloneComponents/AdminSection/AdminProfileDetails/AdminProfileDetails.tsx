@@ -13,7 +13,6 @@ import {
   handleTherapistUpdate,
 } from '../../../../utils/apiUtils.ts';
 import { IAffliction } from '../../../../@types/IAffliction';
-import GeneralSection from './pageComponents/sections/GeneralSection.tsx';
 import TherapistSection from './pageComponents/sections/TherapistSection.tsx';
 import PatientSection from './pageComponents/sections/PatientSection.tsx';
 import AfflictionSection from './pageComponents/sections/AfflictionSection.tsx';
@@ -23,6 +22,9 @@ import { IMedic } from '../../../../@types/IMedic';
 import MedicSection from './pageComponents/sections/MedicSection.tsx';
 import { IInsurance } from '../../../../@types/IInsurance';
 import InsuranceSection from './pageComponents/sections/InsuranceSection.tsx';
+import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
+import CommonSection from './pageComponents/sections/CommonSection.tsx';
+import ProfileSection from './pageComponents/generalComponents/common/ProfileSection..tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
@@ -227,22 +229,16 @@ export default function AdminProfileDetails({
           className={`flex flex-col ${affliction || medic || insurance ? '' : 'md:flex-row'} md:space-x-6 md:m-20`}
         >
           <div className="flex-1 p-4 rounded-md">
-            <h1 className="font-bold mb-4 text-xl md:text-4xl md:mb-6">
-              Inspection{' '}
-              {therapist
-                ? 'kinésithérapeute'
-                : patient
-                  ? 'patient'
-                  : medic
-                    ? 'medic'
-                    : affliction
-                      ? 'affliction'
-                      : insurance
-                        ? "organisme d'assurance"
-                        : ''}
-            </h1>
+            <GeneralOutput
+              isPageTitleOutput
+              patient={patient}
+              therapist={therapist}
+              affliction={affliction}
+              medic={medic}
+              insurance={insurance}
+            />
 
-            <GeneralSection
+            <CommonSection
               patient={patient}
               therapist={therapist}
               affliction={affliction}
@@ -252,11 +248,10 @@ export default function AdminProfileDetails({
             />
 
             {therapist && (
-              <TherapistSection
+              <ProfileSection
+                isTherapistProfileSection
                 isProfileEditing={isProfileEditing}
                 therapist={therapist}
-                description={description}
-                setDescription={setDescription}
               />
             )}
 
