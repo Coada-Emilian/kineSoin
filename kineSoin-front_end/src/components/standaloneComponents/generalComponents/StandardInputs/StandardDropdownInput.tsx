@@ -44,6 +44,7 @@ interface StandardChoiceDropdownProps {
   affliction?: IAffliction;
   isAdminAfflictionEditOperatedStatusInput?: boolean;
   isAdminTherapistEditPrefixDropdown?: boolean;
+  therapist_prefix?: string;
 }
 
 export default function StandardChoiceDropdown({
@@ -74,6 +75,7 @@ export default function StandardChoiceDropdown({
   affliction,
   isAdminAfflictionEditOperatedStatusInput,
   isAdminTherapistEditPrefixDropdown,
+  therapist_prefix,
 }: StandardChoiceDropdownProps) {
   const windowWidth = window.innerWidth;
   // Function to fetch appointments by prescription
@@ -380,7 +382,9 @@ export default function StandardChoiceDropdown({
 
         {isCountryDropdownInput && (
           <>
-            <option value="">Choisissez un préfixe</option>
+            <option value={therapist_prefix}>
+              {therapist_prefix ? therapist_prefix : 'Choisissez un préfixe'}
+            </option>
             {countries &&
               countries.map((country) => (
                 <option key={country.name} value={country.prefix}>

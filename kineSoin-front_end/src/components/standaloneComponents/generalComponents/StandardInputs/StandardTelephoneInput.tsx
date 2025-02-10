@@ -5,6 +5,8 @@ interface StandardTelephoneInputProps {
   isAdminTherapistEditTelephoneInput?: boolean;
   therapist_phone_number?: string;
   isAdminTherapistAddTelephoneInput?: boolean;
+  isAdminMedicEditTelephoneInput?: boolean;
+  medic_phone_number?: string;
 }
 
 export default function StandardTelephoneInput({
@@ -14,6 +16,8 @@ export default function StandardTelephoneInput({
   isAdminTherapistEditTelephoneInput,
   therapist_phone_number,
   isAdminTherapistAddTelephoneInput,
+  isAdminMedicEditTelephoneInput,
+  medic_phone_number,
 }: StandardTelephoneInputProps) {
   return (
     <div className={`flex flex-col gap-2 mb-4 italic w-2/3`}>
@@ -29,24 +33,18 @@ export default function StandardTelephoneInput({
                   ? 'admin-therapist-edit-telephone_input'
                   : isAdminTherapistAddTelephoneInput
                     ? 'admin-therapist-add-telephone_input'
-                    : ''
+                    : isAdminMedicEditTelephoneInput
+                      ? 'admin-medic-edit-telephone_input'
+                      : ''
         }
-        className={`${isAdminTherapistEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : 'text-xs text-primaryBlue font-medium'}`}
+        className={`${isAdminTherapistEditTelephoneInput || isAdminMedicEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : 'text-xs text-primaryBlue font-medium'}`}
       >
         Numero Téléphone
       </label>
 
       <input
         type="tel"
-        name={
-          isPatientTelephoneInput ||
-          isAdminTherapistEditTelephoneInput ||
-          isAdminTherapistAddTelephoneInput ||
-          isAdminMedicAddTelephoneInput ||
-          isAdminInsuranceAddTelephoneInput
-            ? 'phone_number'
-            : ''
-        }
+        name="phone_number"
         id={
           isPatientTelephoneInput
             ? 'patient-register-telephone_input'
@@ -58,14 +56,18 @@ export default function StandardTelephoneInput({
                   ? 'admin-therapist-edit-telephone_input'
                   : isAdminTherapistAddTelephoneInput
                     ? 'admin-therapist-add-telephone_input'
-                    : ''
+                    : isAdminMedicEditTelephoneInput
+                      ? 'admin-medic-edit-telephone_input'
+                      : ''
         }
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder="Numéro de téléphone"
         value={
           isAdminTherapistEditTelephoneInput
             ? therapist_phone_number
-            : undefined
+            : isAdminMedicEditTelephoneInput
+              ? medic_phone_number
+              : undefined
         }
         required
       />

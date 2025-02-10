@@ -3,6 +3,7 @@ import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
 import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardTelephoneInput from '../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../../generalComponents/StandardInputs/StandardTextInput';
 
 interface CommonInputProps {
@@ -143,6 +144,16 @@ export default function CommonInput({
           <StandardTextInput isAdminMedicEditStreetNameInput medic={medic} />
           <StandardTextInput isAdminMedicEditPostalCodeInput medic={medic} />
           <StandardTextInput isAdminMedicEditCityInput medic={medic} />
+        </div>
+      )}
+
+      {isMedicPhoneNumberInput && (
+        <div className="flex gap-2 w-full">
+          <StandardChoiceDropdown isCountryDropdownInput />
+          <StandardTelephoneInput
+            isAdminMedicEditTelephoneInput
+            medic_phone_number={medic?.phone_number}
+          />
         </div>
       )}
     </div>

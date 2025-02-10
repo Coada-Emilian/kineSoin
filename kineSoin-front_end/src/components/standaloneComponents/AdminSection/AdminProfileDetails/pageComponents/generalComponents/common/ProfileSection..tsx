@@ -30,9 +30,6 @@ export default function ProfileSection({
   isMedicProfileSection,
   medic,
 }: ProfileSectionProps) {
-  const therapist_prefix = therapist?.phone_number?.split(' ')[0];
-  const therapist_number = therapist?.phone_number?.split(' ')[1];
-  console.log(therapist_prefix, therapist_number);
   return (
     <section className="mb-2 md:text-2xl">
       {isTherapistProfileSection &&
@@ -46,6 +43,7 @@ export default function ProfileSection({
               <StandardChoiceDropdown
                 isCountryDropdownInput
                 isAdminTherapistEditPrefixDropdown
+                therapist_prefix={therapist?.prefix}
               />
               <StandardTelephoneInput
                 isAdminTherapistEditTelephoneInput
