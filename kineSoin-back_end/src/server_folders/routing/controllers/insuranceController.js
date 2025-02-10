@@ -243,6 +243,8 @@ const insuranceController = {
           postal_code,
           city,
           phone_number,
+          prefix,
+          full_phone_number,
         } = req.body;
 
         const sentInsurance = {
@@ -254,6 +256,8 @@ const insuranceController = {
           postal_code,
           city,
           phone_number,
+          prefix,
+          full_phone_number,
         };
 
         const createInsuranceSchema = Joi.object({
@@ -265,6 +269,8 @@ const insuranceController = {
           postal_code: Joi.string().optional(),
           city: Joi.string().optional(),
           phone_number: Joi.string().optional(),
+          prefix: Joi.string().optional(),
+          full_phone_number: Joi.string().optional(),
         }).min(1);
 
         const { error } = createInsuranceSchema.validate(sentInsurance);

@@ -407,6 +407,19 @@ export default function AdminModal({
       } else if (medicCity.length > 100) {
         setErrorMessage('La ville ne doit pas dépasser 100 caractères.');
         return;
+      } else if (medicPrefix.length > 10) {
+        setErrorMessage('Le préfixe ne doit pas dépasser 10 caractères.');
+        return;
+      } else if (medicTelephone.length > 15) {
+        setErrorMessage(
+          'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
+        );
+        return;
+      } else if (!/^\d+$/.test(medicTelephone)) {
+        setErrorMessage(
+          'Le numéro de téléphone ne doit contenir que des chiffres.'
+        );
+        return;
       } else {
         newFormData.append('name', medicName);
         newFormData.append('surname', medicSurname);
@@ -452,18 +465,9 @@ export default function AdminModal({
       const insurancePostalCode = formData.get('postal_code') as string;
       const insuranceCity = formData.get('city') as string;
       const insurancePrefix = formData.get('prefix') as string;
-      const insuranceTelephone = formData.get('phone') as string;
+      const insuranceTelephone = formData.get('phone_number') as string;
       const insuranceFullTelephone = `${insurancePrefix}${insuranceTelephone}`;
 
-      console.log('insuranceFullTelephone', insuranceFullTelephone);
-      console.log('insurancePrefix', insurancePrefix);
-      console.log('insuranceTelephone', insuranceTelephone);
-      console.log('insuranceName', insuranceName);
-      console.log('insuranceLicenceCode', insuranceLicenceCode);
-      console.log('insuranceStreetNumber', insuranceStreetNumber);
-      console.log('insuranceStreetName', insuranceStreetName);
-      console.log('insurancePostalCode', insurancePostalCode);
-      console.log('insuranceCity', insuranceCity);
       const newFormData = new FormData();
 
       if (
@@ -498,6 +502,19 @@ export default function AdminModal({
       } else if (insuranceCity.length > 100) {
         setErrorMessage('La ville ne doit pas dépasser 100 caractères.');
         return;
+      } else if (insurancePrefix.length > 10) {
+        setErrorMessage('Le préfixe ne doit pas dépasser 10 caractères.');
+        return;
+      } else if (insuranceTelephone.length > 15) {
+        setErrorMessage(
+          'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
+        );
+        return;
+      } else if (!/^\d+$/.test(insuranceTelephone)) {
+        setErrorMessage(
+          'Le numéro de téléphone ne doit contenir que des chiffres.'
+        );
+        return;
       } else {
         newFormData.append('name', insuranceName);
         newFormData.append('amc_code', insuranceLicenceCode);
@@ -505,11 +522,9 @@ export default function AdminModal({
         newFormData.append('street_name', insuranceStreetName);
         newFormData.append('postal_code', insurancePostalCode);
         newFormData.append('city', insuranceCity);
-        newFormData.append('phone_number', insuranceFullTelephone);
-
-        for (const pair of newFormData.entries()) {
-          console.log(pair[0] + ', ' + pair[1]);
-        }
+        newFormData.append('prefix', insurancePrefix);
+        newFormData.append('phone_number', insuranceTelephone);
+        newFormData.append('full_phone_number', insuranceFullTelephone);
 
         const response = await handleInsuranceOrganismCreation(newFormData);
         if (response) {

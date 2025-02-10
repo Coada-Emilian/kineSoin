@@ -42,11 +42,10 @@ export default function StandardTelephoneInput({
           isPatientTelephoneInput ||
           isAdminTherapistEditTelephoneInput ||
           isAdminTherapistAddTelephoneInput ||
-          isAdminMedicAddTelephoneInput
+          isAdminMedicAddTelephoneInput ||
+          isAdminInsuranceAddTelephoneInput
             ? 'phone_number'
-            : isAdminInsuranceAddTelephoneInput
-              ? 'phone'
-              : ''
+            : ''
         }
         id={
           isPatientTelephoneInput
