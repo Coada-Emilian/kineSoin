@@ -2,12 +2,16 @@ interface StandardTelephoneInputProps {
   isPatientTelephoneInput?: boolean;
   isAdminMedicAddTelephoneInput?: boolean;
   isAdminInsuranceAddTelephoneInput?: boolean;
+  isAdminTherapistEditTelephoneInput?: boolean;
+  therapist_phone_number?: string;
 }
 
 export default function StandardTelephoneInput({
   isPatientTelephoneInput,
   isAdminMedicAddTelephoneInput,
   isAdminInsuranceAddTelephoneInput,
+  isAdminTherapistEditTelephoneInput,
+  therapist_phone_number,
 }: StandardTelephoneInputProps) {
   return (
     <div className={`flex flex-col gap-2 mb-4 italic w-2/3`}>
@@ -19,9 +23,11 @@ export default function StandardTelephoneInput({
               ? 'admin-medic-add-telephone_input'
               : isAdminInsuranceAddTelephoneInput
                 ? 'admin-insurance-add-telephone_input'
-                : ''
+                : isAdminTherapistEditTelephoneInput
+                  ? 'admin-therapist-edit-telephone_input'
+                  : ''
         }
-        className="text-xs text-primaryBlue font-medium"
+        className={`${isAdminTherapistEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : 'text-xs text-primaryBlue font-medium'}`}
       >
         Numero Téléphone
       </label>
@@ -29,7 +35,7 @@ export default function StandardTelephoneInput({
       <input
         type="tel"
         name={
-          isPatientTelephoneInput
+          isPatientTelephoneInput || isAdminTherapistEditTelephoneInput
             ? 'phone_number'
             : isAdminMedicAddTelephoneInput || isAdminInsuranceAddTelephoneInput
               ? 'phone'
@@ -42,10 +48,13 @@ export default function StandardTelephoneInput({
               ? 'admin-medic-add-telephone_input'
               : isAdminInsuranceAddTelephoneInput
                 ? 'admin-insurance-add-telephone_input'
-                : ''
+                : isAdminTherapistEditTelephoneInput
+                  ? 'admin-therapist-edit-telephone_input'
+                  : ''
         }
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder="Numéro de téléphone"
+        value={isAdminTherapistEditTelephoneInput ? therapist_phone_number : ''}
         required
       />
     </div>

@@ -243,18 +243,19 @@ export default function AdminProfileDetails({
             )}
 
             {affliction && (
-              <>
-                {' '}
-                <ProfileSection
-                  isAfflictionProfileSection
-                  affliction={affliction}
-                  isProfileEditing={isProfileEditing}
-                />
-              </>
+              <ProfileSection
+                isAfflictionProfileSection
+                affliction={affliction}
+                isProfileEditing={isProfileEditing}
+              />
             )}
 
             {medic && (
-              <MedicSection medic={medic} isProfileEditing={isProfileEditing} />
+              <ProfileSection
+                isMedicProfileSection
+                medic={medic}
+                isProfileEditing={isProfileEditing}
+              />
             )}
 
             {insurance && (

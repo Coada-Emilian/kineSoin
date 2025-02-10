@@ -47,6 +47,8 @@ export interface IInsurance {
   postal_code: string;
   city: string;
   address?: string;
+  prefix: string;
   phone_number: string;
+  full_phone_number: string;
   Patient_Insurance?: IPatient_Insurance;
 }

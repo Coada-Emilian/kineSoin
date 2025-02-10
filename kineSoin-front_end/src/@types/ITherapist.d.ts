@@ -50,6 +50,9 @@ export interface ITherapist {
   diploma: string;
   experience: string;
   specialty: string;
+  prefix: string;
+  phone_number: string;
+  full_phone_number: string;
   email: string;
   password: string;
   picture_url: string;

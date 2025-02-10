@@ -1,6 +1,9 @@
 import { IAffliction } from '../../../../../../../@types/IAffliction';
+import { IMedic } from '../../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
+import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardTelephoneInput from '../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import CommonInput from './CommonInput';
 import GeneralOutput from './GeneralOutput';
 
@@ -12,6 +15,8 @@ interface ProfileSectionProps {
   patient?: IPatient;
   isAfflictionProfileSection?: boolean;
   affliction?: IAffliction;
+  isMedicProfileSection?: boolean;
+  medic?: IMedic;
 }
 
 export default function ProfileSection({
@@ -22,7 +27,12 @@ export default function ProfileSection({
   patient,
   isAfflictionProfileSection,
   affliction,
+  isMedicProfileSection,
+  medic,
 }: ProfileSectionProps) {
+  const therapist_prefix = therapist?.phone_number?.split(' ')[0];
+  const therapist_number = therapist?.phone_number?.split(' ')[1];
+  console.log(therapist_prefix, therapist_number);
   return (
     <section className="mb-2 md:text-2xl">
       {isTherapistProfileSection &&
@@ -32,6 +42,16 @@ export default function ProfileSection({
             <CommonInput therapist={therapist} isTherapistDiplomaInput />
             <CommonInput therapist={therapist} isTherapistExperienceInput />
             <CommonInput therapist={therapist} isTherapistSpecialtyInput />
+            <div className="flex flex-row gap-2">
+              <StandardChoiceDropdown
+                isCountryDropdownInput
+                isAdminTherapistEditPrefixDropdown
+              />
+              <StandardTelephoneInput
+                isAdminTherapistEditTelephoneInput
+                therapist_phone_number={therapist?.phone_number}
+              />
+            </div>
             <CommonInput therapist={therapist} isTherapistDescriptionInput />
           </>
         ) : (
@@ -40,6 +60,7 @@ export default function ProfileSection({
             <GeneralOutput therapist={therapist} isTherapistDiplomaOutput />
             <GeneralOutput therapist={therapist} isTherapistExperienceOutput />
             <GeneralOutput therapist={therapist} isTherapistSpecialtyOutput />
+            <GeneralOutput therapist={therapist} isTherapistPhoneNumberOutput />
             <GeneralOutput therapist={therapist} isTherapistDescriptionOutput />
           </>
         ))}
@@ -76,6 +97,21 @@ export default function ProfileSection({
               affliction={affliction}
               isAfflictionDescriptionOutput
             />
+          </>
+        ))}
+
+      {isMedicProfileSection &&
+        (isProfileEditing ? (
+          <>
+            <CommonInput medic={medic} isMedicAddressInput />
+            <CommonInput medic={medic} isMedicPhoneNumberInput />
+            <CommonInput medic={medic} isMedicLicenceCodeInput />
+          </>
+        ) : (
+          <>
+            <GeneralOutput medic={medic} isMedicAddressOutput />
+            <GeneralOutput medic={medic} isMedicPhoneNumberOutput />
+            <GeneralOutput medic={medic} isMedicLicenceCodeOutput />
           </>
         ))}
     </section>

@@ -10,6 +10,7 @@ import {
 } from '../../../../utils/apiUtils';
 import { IMedic } from '../../../../@types/IMedic';
 import { IBodyRegion } from '../../../../@types/IBodyRegion';
+import axios from 'axios';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -36,13 +37,13 @@ interface StandardChoiceDropdownProps {
   oldPatientInsuranceName?: string;
   insuranceList?: IInsurance[];
   isCountryDropdownInput?: boolean;
-  countries?: ICountry[];
   isAdminTherapistAddStatusInput?: boolean;
   isAdminAfflictionAddRegionInput?: boolean;
   isAdminAfflictionAddOperatedStatusInput?: boolean;
   isAdminAfflictionEditRegionInput?: boolean;
   affliction?: IAffliction;
   isAdminAfflictionEditOperatedStatusInput?: boolean;
+  isAdminTherapistEditPrefixDropdown?: boolean;
 }
 
 export default function StandardChoiceDropdown({
@@ -66,13 +67,13 @@ export default function StandardChoiceDropdown({
   oldPatientInsuranceName,
   insuranceList,
   isCountryDropdownInput,
-  countries,
   isAdminTherapistAddStatusInput,
   isAdminAfflictionAddRegionInput,
   isAdminAfflictionAddOperatedStatusInput,
   isAdminAfflictionEditRegionInput,
   affliction,
   isAdminAfflictionEditOperatedStatusInput,
+  isAdminTherapistEditPrefixDropdown,
 }: StandardChoiceDropdownProps) {
   const windowWidth = window.innerWidth;
   // Function to fetch appointments by prescription
@@ -133,6 +134,39 @@ export default function StandardChoiceDropdown({
     }
   }
 
+  const [countries, setCountries] = useState<ICountry[]>([]);
+
+  useEffect(() => {
+    if (isCountryDropdownInput) {
+      const fetchCountriesData = async () => {
+        try {
+          const response = await axios.get(
+            'https://restcountries.com/v3.1/all'
+          );
+          if (response) {
+            const data: ICountry[] = response.data
+              .map((country: any): ICountry => {
+                const root = country.idd?.root || '';
+                const suffixes = country.idd?.suffixes || [];
+                const prefix = suffixes.length ? `${root}${suffixes[0]}` : root;
+
+                return {
+                  prefix: prefix,
+                  name: country.name.common,
+                };
+              })
+              .sort((a: ICountry, b: ICountry) => a.name.localeCompare(b.name));
+
+            setCountries(data);
+          }
+        } catch (error) {
+          console.error('Error fetching countries:', error);
+        }
+      };
+
+      fetchCountriesData();
+    }
+  }, [isCountryDropdownInput]);
 
   return (
     <div
@@ -158,24 +192,35 @@ export default function StandardChoiceDropdown({
                         : isAdminAfflictionAddOperatedStatusInput ||
                             isAdminAfflictionEditOperatedStatusInput
                           ? 'affliction-operated_status_dropdown'
-                          : ''
+                          : isAdminTherapistEditPrefixDropdown
+                            ? 'country_prefix_dropdown'
+                            : ''
         }
-        className={`${isCountryDropdownInput ? 'text-xs' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3' : ''} text-primaryBlue text-sm font-medium block mb-2`}
+        className={`${
+          isCountryDropdownInput && !isAdminTherapistEditPrefixDropdown
+            ? 'text-xs'
+            : isAdminAfflictionEditRegionInput ||
+                isAdminAfflictionEditOperatedStatusInput ||
+                isAdminTherapistEditPrefixDropdown
+              ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3'
+              : ''
+        } text-primaryBlue text-sm font-medium block mb-2`}
       >
         {isGenderDropdownInput && 'Genre'}{' '}
         {isMedicDropdownInput && 'Médecin prescripteur'}
         {isAtHomeCareDropdownInput && 'A domicile ?'}
         {isAfflictionDropdownInput && 'Affection concernée'}
         {isPatientInsuranceDropdownInput && 'Nom mutuelle'}
-        {isCountryDropdownInput && 'Préfixe'}
+        {(isCountryDropdownInput || isAdminTherapistEditPrefixDropdown) &&
+          'Préfixe'}
         {isAdminTherapistAddStatusInput && 'Statut'}
         {(isAdminAfflictionAddRegionInput ||
           isAdminAfflictionEditRegionInput) &&
           'Région concernée'}
-        {isAdminAfflictionAddOperatedStatusInput ||
-          (isAdminAfflictionEditOperatedStatusInput &&
-            windowWidth > 768 &&
-            'Est opéré ?')}
+        {(isAdminAfflictionAddOperatedStatusInput ||
+          isAdminAfflictionEditOperatedStatusInput) &&
+          windowWidth > 768 &&
+          'Est opéré ?'}
         {isAdminAfflictionAddOperatedStatusInput &&
           windowWidth <= 768 &&
           'Opéré ?'}
@@ -201,7 +246,9 @@ export default function StandardChoiceDropdown({
                         : isAdminAfflictionAddOperatedStatusInput ||
                             isAdminAfflictionEditOperatedStatusInput
                           ? 'affliction-operated_status_dropdown'
-                          : ''
+                          : isAdminTherapistEditPrefixDropdown
+                            ? 'country_prefix_dropdown'
+                            : ''
         }
         value={
           isGenderDropdownInput && registeredPatientGender

@@ -19,6 +19,7 @@ interface GeneralOutputProps {
   isTherapistDiplomaOutput?: boolean;
   isTherapistExperienceOutput?: boolean;
   isTherapistSpecialtyOutput?: boolean;
+  isTherapistPhoneNumberOutput?: boolean;
   isTherapistDescriptionOutput?: boolean;
   isPatientAgeGenderOutput?: boolean;
   isPatientAddressOutput?: boolean;
@@ -45,6 +46,7 @@ export default function GeneralOutput({
   isTherapistDiplomaOutput,
   isTherapistExperienceOutput,
   isTherapistSpecialtyOutput,
+  isTherapistPhoneNumberOutput,
   isTherapistDescriptionOutput,
   isPatientAgeGenderOutput,
   isPatientAddressOutput,
@@ -82,6 +84,7 @@ export default function GeneralOutput({
         isTherapistDiplomaOutput ||
         isTherapistExperienceOutput ||
         isTherapistSpecialtyOutput ||
+        isTherapistPhoneNumberOutput ||
         isTherapistDescriptionOutput ||
         isPatientAddressOutput ||
         isPatientPhoneNumberOutput ||
@@ -116,10 +119,12 @@ export default function GeneralOutput({
             {isTherapistDiplomaOutput && 'Diplôme: '}
             {isTherapistExperienceOutput && 'Expérience: '}
             {isTherapistSpecialtyOutput && 'Spécialité: '}
-            {isTherapistDescriptionOutput ||
-              (isAfflictionDescriptionOutput && 'Description: ')}
+
+            {(isTherapistDescriptionOutput || isAfflictionDescriptionOutput) &&
+              'Description: '}
             {isPatientAddressOutput && 'Adresse: '}
-            {isPatientPhoneNumberOutput && 'Numéro de téléphone: '}
+            {(isPatientPhoneNumberOutput || isTherapistPhoneNumberOutput) &&
+              'Numéro de téléphone: '}
             {isPatientTherapistOutput && 'Thérapeute: '}
             {isAfflictionRegionOutput && 'Région concernée: '}
             {isAfflictionInsuranceCodeOutput && 'Cotation: '}
@@ -160,6 +165,8 @@ export default function GeneralOutput({
               (therapist ? therapist.experience : '')}
             {isTherapistSpecialtyOutput &&
               (therapist ? therapist.specialty : '')}
+            {isTherapistPhoneNumberOutput &&
+              (therapist ? therapist.phone_number : '')}
             {isTherapistDescriptionOutput &&
               (therapist ? therapist.description : '')}
             {isPatientAddressOutput && (patient ? patient.address : '')}

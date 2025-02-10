@@ -4,7 +4,6 @@ import { IMedic } from '../../../../../../../@types/IMedic';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
 import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardTextInput from '../../../../../generalComponents/StandardInputs/StandardTextInput';
-import AdminTextInput from './AdminTextInput';
 
 interface CommonInputProps {
   therapist?: ITherapist | null;
@@ -22,6 +21,9 @@ interface CommonInputProps {
   isAfflictionInsuranceCodeInput?: boolean;
   isAfflictionOperatedInput?: boolean;
   isAfflictionDescriptionInput?: boolean;
+  isMedicAddressInput?: boolean;
+  isMedicPhoneNumberInput?: boolean;
+  isMedicLicenceCodeInput?: boolean;
 }
 
 export default function CommonInput({
@@ -40,6 +42,9 @@ export default function CommonInput({
   isAfflictionInsuranceCodeInput,
   isAfflictionOperatedInput,
   isAfflictionDescriptionInput,
+  isMedicAddressInput,
+  isMedicPhoneNumberInput,
+  isMedicLicenceCodeInput,
 }: CommonInputProps) {
   return (
     <div className="flex gap-2 items-center ">
@@ -130,6 +135,15 @@ export default function CommonInput({
           affliction={affliction}
           isTextAreaInput
         />
+      )}
+
+      {isMedicAddressInput && (
+        <div className="flex flex-col gap-2 w-full">
+          <StandardTextInput isAdminMedicEditStreetNumberInput medic={medic} />
+          <StandardTextInput isAdminMedicEditStreetNameInput medic={medic} />
+          <StandardTextInput isAdminMedicEditPostalCodeInput medic={medic} />
+          <StandardTextInput isAdminMedicEditCityInput medic={medic} />
+        </div>
       )}
     </div>
   );

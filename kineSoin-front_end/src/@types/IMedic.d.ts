@@ -44,6 +44,8 @@ export interface IMedic {
   postal_code: string;
   city: string;
   address?: string;
+  prefix: string;
   phone_number: string;
+  full_phone_number: string;
   licence_code: string;
 }

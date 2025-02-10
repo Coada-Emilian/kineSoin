@@ -40,6 +40,8 @@ for (const therapist of therapists) {
     diploma,
     experience,
     specialty,
+    prefix,
+    phone_number,
     email,
     picture_url,
     licence_code,
@@ -48,7 +50,7 @@ for (const therapist of therapists) {
 
   const hashedPassword = Scrypt.hash(therapist.password);
 
-  const query = `INSERT INTO therapists (admin_id, name, surname, description, diploma, experience, specialty, email, password, picture_url, licence_code, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`;
+  const query = `INSERT INTO therapists (admin_id, name, surname, description, diploma, experience, specialty, prefix, phone_number, email, password, picture_url, licence_code, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`;
 
   await pgClient.query(query, [
     admin_id,
@@ -58,6 +60,8 @@ for (const therapist of therapists) {
     diploma,
     experience,
     specialty,
+    prefix,
+    phone_number,
     email,
     hashedPassword,
     picture_url,
@@ -78,11 +82,12 @@ for (const medic of medics) {
     street_name,
     postal_code,
     city,
+    prefix,
     phone_number,
     licence_code,
   } = medic;
 
-  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
   await pgClient.query(query, [
     admin_id,
     name,
@@ -91,6 +96,7 @@ for (const medic of medics) {
     street_name,
     postal_code,
     city,
+    prefix,
     phone_number,
     licence_code,
   ]);
@@ -111,6 +117,7 @@ for (const patient of patients) {
     street_name,
     postal_code,
     city,
+    prefix,
     phone_number,
     email,
     status,
@@ -119,7 +126,7 @@ for (const patient of patients) {
 
   const hashedPassword = Scrypt.hash(patient.password);
 
-  const query = `INSERT INTO patients (therapist_id, name, birth_name, surname, gender, birth_date, street_number, street_name, postal_code, city, phone_number, email, password, status, picture_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
+  const query = `INSERT INTO patients (therapist_id, name, birth_name, surname, gender, birth_date, street_number, street_name, postal_code, city, prefix, phone_number, email, password, status, picture_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`;
 
   await pgClient.query(query, [
     therapist_id,
@@ -132,6 +139,7 @@ for (const patient of patients) {
     street_name,
     postal_code,
     city,
+    prefix,
     phone_number,
     email,
     hashedPassword,

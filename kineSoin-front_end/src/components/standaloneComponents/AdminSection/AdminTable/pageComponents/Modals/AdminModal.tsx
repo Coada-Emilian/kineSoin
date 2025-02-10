@@ -751,10 +751,7 @@ export default function AdminModal({
 
               <div className="flex gap-2 items-center justify-between">
                 {' '}
-                <StandardChoiceDropdown
-                  isCountryDropdownInput
-                  countries={countriesData}
-                />
+                <StandardChoiceDropdown isCountryDropdownInput />
                 <StandardTelephoneInput isAdminMedicAddTelephoneInput />
               </div>
             </>
@@ -781,7 +778,6 @@ export default function AdminModal({
               <div className="flex gap-2 items-center justify-between">
                 <StandardChoiceDropdown
                   isCountryDropdownInput
-                  countries={countriesData}
                 />
                 <StandardTelephoneInput isAdminInsuranceAddTelephoneInput />
               </div>

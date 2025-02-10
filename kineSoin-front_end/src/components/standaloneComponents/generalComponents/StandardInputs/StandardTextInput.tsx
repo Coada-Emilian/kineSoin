@@ -64,6 +64,10 @@ interface StandardTextInputProps {
   isAdminTherapistEditDescriptionInput?: boolean;
   isAdminAfflictionEditInsuranceCodeInput?: boolean;
   isAdminAfflictionEditDescriptionInput?: boolean;
+  isAdminMedicEditStreetNumberInput?: boolean;
+  isAdminMedicEditStreetNameInput?: boolean;
+  isAdminMedicEditPostalCodeInput?: boolean;
+  isAdminMedicEditCityInput?: boolean;
 }
 
 export default function StandardTextInput({
@@ -118,6 +122,10 @@ export default function StandardTextInput({
   isAdminTherapistEditDescriptionInput,
   isAdminAfflictionEditInsuranceCodeInput,
   isAdminAfflictionEditDescriptionInput,
+  isAdminMedicEditStreetNumberInput,
+  isAdminMedicEditStreetNameInput,
+  isAdminMedicEditPostalCodeInput,
+  isAdminMedicEditCityInput,
 }: StandardTextInputProps) {
   const [therapistName, setTherapistName] = useState<string>(
     therapist?.name || ''
@@ -149,6 +157,20 @@ export default function StandardTextInput({
   const [afflictionDescription, setAfflictionDescription] = useState<string>(
     affliction?.description || ''
   );
+  const [medicStreetName, setMedicStreetName] = useState<string>(
+    medic?.street_name || ''
+  );
+  const [medicStreetNumber, setMedicStreetNumber] = useState<string>(
+    medic?.street_number || ''
+  );
+  const [medicPostalCode, setMedicPostalCode] = useState<string>(
+    medic?.postal_code || ''
+  );
+  const [medicCity, setMedicCity] = useState<string>(medic?.city || '');
+  const [medicName, setMedicName] = useState<string>(medic?.name || '');
+  const [medicSurname, setMedicSurname] = useState<string>(
+    medic?.surname || ''
+  );
 
   return (
     <div
@@ -170,7 +192,11 @@ export default function StandardTextInput({
               isAdminTherapistEditDiplomaInput ||
               isAdminTherapistEditExperienceInput ||
               isAdminTherapistEditSpecialtyInput ||
-              isAdminAfflictionEditInsuranceCodeInput
+              isAdminAfflictionEditInsuranceCodeInput ||
+              isAdminMedicEditCityInput ||
+              isAdminMedicEditStreetNameInput ||
+              isAdminMedicEditStreetNumberInput ||
+              isAdminMedicEditPostalCodeInput
             ? 'flex flex-row items-center gap-2 mb-2 w-full'
             : 'w-full flex flex-col mb-4 '
       } gap-2 italic`}
@@ -235,13 +261,17 @@ export default function StandardTextInput({
                                                       ? 'medic-surname_input'
                                                       : isAdminMedicAddLicenceCodeInput
                                                         ? 'medic-licence-code_input'
-                                                        : isAdminMedicAddStreetNumberInput
+                                                        : isAdminMedicAddStreetNumberInput ||
+                                                            isAdminMedicEditStreetNumberInput
                                                           ? 'medic-street_number_input'
-                                                          : isAdminMedicAddStreetNameInput
+                                                          : isAdminMedicAddStreetNameInput ||
+                                                              isAdminMedicEditStreetNameInput
                                                             ? 'medic-street_name_input'
-                                                            : isAdminMedicAddPostalCodeInput
+                                                            : isAdminMedicAddPostalCodeInput ||
+                                                                isAdminMedicEditPostalCodeInput
                                                               ? 'medic-postal_code_input'
-                                                              : isAdminMedicAddCityInput
+                                                              : isAdminMedicAddCityInput ||
+                                                                  isAdminMedicEditCityInput
                                                                 ? 'medic-city_input'
                                                                 : isAdminInsuranceAddNameInput ||
                                                                     isAdminInsuranceEditNameInput
@@ -284,7 +314,11 @@ export default function StandardTextInput({
                 isAdminTherapistEditSpecialtyInput ||
                 isAdminTherapistEditDescriptionInput ||
                 isAdminAfflictionEditDescriptionInput ||
-                isAdminAfflictionEditInsuranceCodeInput
+                isAdminAfflictionEditInsuranceCodeInput ||
+                isAdminMedicEditCityInput ||
+                isAdminMedicEditStreetNameInput ||
+                isAdminMedicEditStreetNumberInput ||
+                isAdminMedicEditPostalCodeInput
               ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl '
               : 'text-sm'
         } text-primaryBlue font-medium`}
@@ -309,19 +343,23 @@ export default function StandardTextInput({
               ? 'Nom de naissance'
               : isStreetNumberInput ||
                   isAdminMedicAddStreetNumberInput ||
-                  isAdminInsuranceAddStreetNumberInput
+                  isAdminInsuranceAddStreetNumberInput ||
+                  isAdminMedicEditStreetNumberInput
                 ? 'N° de rue'
                 : isStreetNameInput ||
                     isAdminMedicAddStreetNameInput ||
-                    isAdminInsuranceAddStreetNameInput
+                    isAdminInsuranceAddStreetNameInput ||
+                    isAdminMedicEditStreetNameInput
                   ? 'Nom de rue'
                   : isPostalCodeInput ||
                       isAdminMedicAddPostalCodeInput ||
-                      isAdminInsuranceAddPostalCodeInput
+                      isAdminInsuranceAddPostalCodeInput ||
+                      isAdminMedicEditPostalCodeInput
                     ? 'Code postal'
                     : isCityInput ||
                         isAdminMedicAddCityInput ||
-                        isAdminInsuranceAddCityInput
+                        isAdminInsuranceAddCityInput ||
+                        isAdminMedicEditCityInput
                       ? 'Ville'
                       : isAppointmentNumberInput
                         ? 'Quantité seances prescrites :'
@@ -379,19 +417,23 @@ export default function StandardTextInput({
                   ? 'birth_name'
                   : isStreetNumberInput ||
                       isAdminMedicAddStreetNumberInput ||
-                      isAdminInsuranceAddStreetNumberInput
+                      isAdminInsuranceAddStreetNumberInput ||
+                      isAdminMedicEditStreetNumberInput
                     ? 'street_number'
                     : isStreetNameInput ||
                         isAdminMedicAddStreetNameInput ||
-                        isAdminInsuranceAddStreetNameInput
+                        isAdminInsuranceAddStreetNameInput ||
+                        isAdminMedicEditStreetNameInput
                       ? 'street_name'
                       : isPostalCodeInput ||
                           isAdminMedicAddPostalCodeInput ||
-                          isAdminInsuranceAddPostalCodeInput
+                          isAdminInsuranceAddPostalCodeInput ||
+                          isAdminMedicEditPostalCodeInput
                         ? 'postal_code'
                         : isCityInput ||
                             isAdminMedicAddCityInput ||
-                            isAdminInsuranceAddCityInput
+                            isAdminInsuranceAddCityInput ||
+                            isAdminMedicEditCityInput
                           ? 'city'
                           : isAppointmentNumberInput
                             ? 'appointment_quantity'
@@ -474,13 +516,17 @@ export default function StandardTextInput({
                                                   ? 'medic-surname_input'
                                                   : isAdminMedicAddLicenceCodeInput
                                                     ? 'medic-licence-code_input'
-                                                    : isAdminMedicAddStreetNumberInput
+                                                    : isAdminMedicAddStreetNumberInput ||
+                                                        isAdminMedicEditStreetNumberInput
                                                       ? 'medic-street_number_input'
-                                                      : isAdminMedicAddStreetNameInput
+                                                      : isAdminMedicAddStreetNameInput ||
+                                                          isAdminMedicEditStreetNameInput
                                                         ? 'medic-street_name_input'
-                                                        : isAdminMedicAddPostalCodeInput
+                                                        : isAdminMedicAddPostalCodeInput ||
+                                                            isAdminMedicEditPostalCodeInput
                                                           ? 'medic-postal_code_input'
-                                                          : isAdminMedicAddCityInput
+                                                          : isAdminMedicAddCityInput ||
+                                                              isAdminMedicEditCityInput
                                                             ? 'medic-city_input'
                                                             : isAdminInsuranceAddNameInput ||
                                                                 isAdminInsuranceEditNameInput
@@ -559,22 +605,16 @@ export default function StandardTextInput({
                                                                   ? "Entrez le nom de rue de l'assurance"
                                                                   : isAdminInsuranceAddCityInput
                                                                     ? "Entrez la ville de l'assurance"
-                                                                    : isAdminMedicEditSurnameInput &&
-                                                                        medic
-                                                                      ? medic.surname
-                                                                      : isAdminMedicEditNameInput &&
-                                                                          medic
-                                                                        ? medic.name
-                                                                        : isAdminInsuranceEditNameInput &&
-                                                                            insurance
-                                                                          ? insurance.name
-                                                                          : ''
+                                                                    : isAdminInsuranceEditNameInput &&
+                                                                        insurance
+                                                                      ? insurance.name
+                                                                      : ''
           }`}
           required={!isStreetNumberInput}
           value={
             isAdminTherapistEditNameInput && therapist
               ? therapistName
-              : isAdminTherapistEditSurnameInput
+              : isAdminTherapistEditSurnameInput && therapist
                 ? therapistSurname
                 : isAdminTherapistEditLicenceCodeInput
                   ? therapistLicenceCode
@@ -588,7 +628,19 @@ export default function StandardTextInput({
                           ? afflictionName
                           : isAdminAfflictionEditInsuranceCodeInput
                             ? afflictionInsuranceCode
-                            : ''
+                            : isAdminMedicEditNameInput && medic
+                              ? medicName
+                              : isAdminMedicEditSurnameInput && medic
+                                ? medicSurname
+                                : isAdminMedicEditCityInput
+                                  ? medicCity
+                                  : isAdminMedicEditStreetNameInput
+                                    ? medicStreetName
+                                    : isAdminMedicEditStreetNumberInput
+                                      ? medicStreetNumber
+                                      : isAdminMedicEditPostalCodeInput
+                                        ? medicPostalCode
+                                        : ''
           }
           onChange={(e) => {
             if (therapist) {
@@ -612,6 +664,20 @@ export default function StandardTextInput({
                 setAfflictionInsuranceCode(e.target.value);
               } else if (isAdminAfflictionEditDescriptionInput) {
                 setAfflictionDescription(e.target.value);
+              }
+            } else if (medic) {
+              if (isAdminMedicEditNameInput) {
+                setMedicName(e.target.value);
+              } else if (isAdminMedicEditSurnameInput) {
+                setMedicSurname(e.target.value);
+              } else if (isAdminMedicEditCityInput) {
+                setMedicCity(e.target.value);
+              } else if (isAdminMedicEditStreetNameInput) {
+                setMedicStreetName(e.target.value);
+              } else if (isAdminMedicEditStreetNumberInput) {
+                setMedicStreetNumber(e.target.value);
+              } else if (isAdminMedicEditPostalCodeInput) {
+                setMedicPostalCode(e.target.value);
               }
             }
           }}

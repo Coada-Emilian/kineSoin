@@ -135,6 +135,7 @@ const therapistController = {
             'diploma',
             'experience',
             'specialty',
+            'phone_number',
             'picture_url',
             'status',
             'licence_code',
@@ -156,6 +157,7 @@ const therapistController = {
           diploma: foundTherapist.diploma,
           experience: foundTherapist.experience,
           specialty: foundTherapist.specialty,
+          phone_number: foundTherapist.phone_number,
           status: foundTherapist.status,
           licence_code: foundTherapist.licence_code,
         };
@@ -187,6 +189,7 @@ const therapistController = {
           diploma: Joi.string().max(50).allow('').optional(),
           experience: Joi.string().max(50).allow('').optional(),
           specialty: Joi.string().max(50).allow('').optional(),
+          phone_number: Joi.string().max(15).allow('').optional(),
           description: Joi.string().allow('').optional(),
           licence_code: Joi.string().max(9).allow('').optional(),
         }).min(1);
@@ -214,6 +217,7 @@ const therapistController = {
             diploma,
             experience,
             specialty,
+            phone_number,
             description,
             licence_code,
           } = req.body;
@@ -225,6 +229,7 @@ const therapistController = {
             diploma: diploma || foundTherapist.diploma,
             experience: experience || foundTherapist.experience,
             specialty: specialty || foundTherapist.specialty,
+            phone_number: phone_number || foundTherapist.phone_number,
             description: description || foundTherapist.description,
             licence_code: licence_code || foundTherapist.licence_code,
           };
@@ -312,6 +317,7 @@ const therapistController = {
           diploma: Joi.string().max(50).required(),
           experience: Joi.string().max(50).required(),
           specialty: Joi.string().max(50).required(),
+          phone_number: Joi.string().max(15).required(),
           licence_code: Joi.string().max(25).required(),
           status: Joi.string().valid('active', 'inactive').optional(),
         });
@@ -338,6 +344,7 @@ const therapistController = {
           diploma,
           experience,
           specialty,
+          phone_number,
           licence_code,
           status,
         } = req.body;
@@ -373,6 +380,7 @@ const therapistController = {
               diploma,
               experience,
               specialty,
+              phone_number,
               licence_code,
               status: status || 'active',
             };
