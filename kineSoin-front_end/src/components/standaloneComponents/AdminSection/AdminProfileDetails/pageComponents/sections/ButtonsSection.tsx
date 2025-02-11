@@ -40,15 +40,16 @@ export default function ButtonsSection({
   handlePatientStatusChanges,
   setIsDeleteModalOpen,
 }: ButtonsSectionProps) {
+  const windowWidth = window.innerWidth;
   return (
-    <div className="buttons flex gap-2 items-center justify-between mb-4">
+    <div className="buttons flex gap-2 items-center justify-between mb-6 md:w-1/2">
       {isProfileEditing ? (
         <>
           {therapist && (
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <MenuButton
-                  className={`inline-flex w-full justify-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
+                  className={`inline-flex w-full justify-center items-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-xxs md:text-base md:py-3 font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
                 >
                   {buttonMessage}
                   <ChevronDownIcon
@@ -81,11 +82,11 @@ export default function ButtonsSection({
           {!patient && (
             <CustomButton
               btnText={`Modifier ${
-                affliction
+                affliction && windowWidth > 768
                   ? 'affliction'
-                  : therapist
-                    ? 'kinésithérapeute'
-                    : medic
+                  : therapist && windowWidth > 768
+                    ? 'kiné'
+                    : medic && windowWidth > 768
                       ? 'médecin'
                       : insurance
                         ? ''
@@ -101,7 +102,7 @@ export default function ButtonsSection({
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <MenuButton
-                  className={`inline-flex w-full justify-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
+                  className={`inline-flex w-full justify-center items-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-xxs md:text-base md:py-3 font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
                 >
                   {buttonMessage}
                   <ChevronDownIcon

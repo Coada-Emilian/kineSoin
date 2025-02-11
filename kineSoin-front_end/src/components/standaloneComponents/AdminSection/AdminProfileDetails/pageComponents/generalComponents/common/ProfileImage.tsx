@@ -13,7 +13,7 @@ export default function ProfileImage({
   patient,
 }: ProfileImageProps) {
   return (
-    <div className="w-48 h-48 md:w-72 md:h-72 object-cover mx-auto mb-6 flex justify-center items-center">
+    <div className="w-48 h-48 md:w-80 md:h-80 object-cover mx-auto mb-6 flex justify-center items-center">
       {therapist && (
         <img
           src={therapist.picture_url}

@@ -82,7 +82,7 @@ export default function CustomButton({
     if (normalButton || navBarButton || mobileButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal';
     } else if (cancelButton || mobileCancelButton) {
-      return 'bg-gray-200 hover:bg-gray-300';
+      return 'bg-gray-300 hover:bg-gray-300';
     } else if (modifyButton) {
       return 'bg-blue-300 hover:bg-blue-500';
     } else if (deleteButton || mobileDeleteButton) {
@@ -113,7 +113,7 @@ export default function CustomButton({
       modifyButton ||
       deleteButton
     ) {
-      return 'text-sm md:text-xl xl:text-base p-4 py-2 min-w-24 my-0 mx-auto';
+      return 'text-xs md:text-md xl:text-xl p-2 py-2 min-w-24 my-0 mx-auto shadow-2xl';
     } else if (
       activeButton ||
       inactiveButton ||
@@ -121,9 +121,9 @@ export default function CustomButton({
       pendingButton ||
       bannedButton
     ) {
-      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0';
+      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0 shadow-2xl';
     } else if (addButton) {
-      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0';
+      return 'text-xxs md:text-sm xl:text-base p-1 px-2 max-w-52 my-0 mx-0 shadow-2xl';
     } else if (
       navBarButton ||
       patientNotificationButton ||
@@ -132,7 +132,7 @@ export default function CustomButton({
       mobileDeleteButton ||
       mobileCancelButton
     ) {
-      return 'text-xxs md:text-xs lg:text-sm  px-2 py-2 max-w-36 lg:max-w-40 xl:max-w-44 my-0 mx-0';
+      return 'text-xxs md:text-xs lg:text-sm  px-2 py-2 max-w-36 lg:max-w-40 xl:max-w-44 my-0 mx-0 shadow-2xl';
     }
   };
 

@@ -16,7 +16,6 @@ import { IAffliction } from '../../../../@types/IAffliction';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import { IMedic } from '../../../../@types/IMedic';
-import MedicSection from './pageComponents/sections/MedicSection.tsx';
 import { IInsurance } from '../../../../@types/IInsurance';
 import InsuranceSection from './pageComponents/sections/InsuranceSection.tsx';
 import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
@@ -207,88 +206,93 @@ export default function AdminProfileDetails({
                   ? updateInsurance
                   : undefined
         }
+        className="flex justify-center"
       >
         <div
-          className={`flex flex-col ${affliction || medic || insurance ? '' : 'md:flex-row'} md:space-x-6 md:m-20`}
+          className={`flex flex-col md:space-x-6 md:m-20 border border-gray-400 rounded-xl shadow-2xl ${therapist ? 'md:w-5/6' : 'md:w-2/3'}  items-center `}
         >
-          <div className="flex-1 p-4 rounded-md">
-            <GeneralOutput
-              isPageTitleOutput
-              patient={patient}
-              therapist={therapist}
-              affliction={affliction}
-              medic={medic}
-              insurance={insurance}
-            />
-
-            <CommonSection
-              patient={patient}
-              therapist={therapist}
-              affliction={affliction}
-              medic={medic}
-              insurance={insurance}
-              isProfileEditing={isProfileEditing}
-            />
-
-            {therapist && (
-              <ProfileSection
-                isTherapistProfileSection
-                isProfileEditing={isProfileEditing}
+          <div
+            className={`flex flex-col p-8 ${therapist || patient ? 'md:flex-row items-center justify-around' : ''}`}
+          >
+            <div className="flex-1 p-4 rounded-md">
+              <GeneralOutput
+                isPageTitleOutput
+                patient={patient}
                 therapist={therapist}
-              />
-            )}
-
-            {patient && (
-              <ProfileSection patient={patient} isPatientProfileSection />
-            )}
-
-            {affliction && (
-              <ProfileSection
-                isAfflictionProfileSection
                 affliction={affliction}
-                isProfileEditing={isProfileEditing}
-              />
-            )}
-
-            {medic && (
-              <ProfileSection
-                isMedicProfileSection
                 medic={medic}
-                isProfileEditing={isProfileEditing}
+                insurance={insurance}
               />
-            )}
 
-            {insurance && (
-              <InsuranceSection
+              <CommonSection
+                patient={patient}
+                therapist={therapist}
+                affliction={affliction}
+                medic={medic}
                 insurance={insurance}
                 isProfileEditing={isProfileEditing}
               />
+
+              {therapist && (
+                <ProfileSection
+                  isTherapistProfileSection
+                  isProfileEditing={isProfileEditing}
+                  therapist={therapist}
+                />
+              )}
+
+              {patient && (
+                <ProfileSection patient={patient} isPatientProfileSection />
+              )}
+
+              {affliction && (
+                <ProfileSection
+                  isAfflictionProfileSection
+                  affliction={affliction}
+                  isProfileEditing={isProfileEditing}
+                />
+              )}
+
+              {medic && (
+                <ProfileSection
+                  isMedicProfileSection
+                  medic={medic}
+                  isProfileEditing={isProfileEditing}
+                />
+              )}
+
+              {insurance && (
+                <InsuranceSection
+                  insurance={insurance}
+                  isProfileEditing={isProfileEditing}
+                />
+              )}
+            </div>
+
+            {/* <div className="flex-1 flex flex-col items-center justify-center px-4 rounded-md"> */}
+            {(therapist || patient) && (
+              <ImageSection
+                therapist={therapist}
+                patient={patient}
+                isProfileEditing={isProfileEditing}
+                setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
+              />
             )}
           </div>
-
-          <div className="flex-1 flex flex-col items-center justify-center px-4 rounded-md">
-            <ImageSection
-              therapist={therapist}
-              patient={patient}
-              isProfileEditing={isProfileEditing}
-              setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
-            />
-
-            <ButtonsSection
-              isProfileEditing={isProfileEditing}
-              buttonMessage={buttonMessage}
-              backgroundColor={backgroundColor}
-              toggleStatus={toggleStatus}
-              setIsProfileEditing={setIsProfileEditing}
-              handlePatientStatusChanges={handlePatientStatusChanges}
-              setIsDeleteModalOpen={setIsDeleteModalOpen}
-              patient={patient}
-              therapist={therapist}
-              affliction={affliction}
-              medic={medic}
-              insurance={insurance}
-            />
-          </div>
+          <ButtonsSection
+            isProfileEditing={isProfileEditing}
+            buttonMessage={buttonMessage}
+            backgroundColor={backgroundColor}
+            toggleStatus={toggleStatus}
+            setIsProfileEditing={setIsProfileEditing}
+            handlePatientStatusChanges={handlePatientStatusChanges}
+            setIsDeleteModalOpen={setIsDeleteModalOpen}
+            patient={patient}
+            therapist={therapist}
+            affliction={affliction}
+            medic={medic}
+            insurance={insurance}
+          />
         </div>
       </form>
 

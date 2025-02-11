@@ -64,7 +64,7 @@ export default function GeneralOutput({
   isMedicLicenceCodeOutput,
 }: GeneralOutputProps) {
   return (
-    <div className="text-primaryBlue font-bold">
+    <div className="text-primaryBlue font-bold md:w-3/5">
       {isPageTitleOutput && (
         <h1 className="mb-4 text-xl md:text-4xl md:mb-6">
           Inspection{' '}

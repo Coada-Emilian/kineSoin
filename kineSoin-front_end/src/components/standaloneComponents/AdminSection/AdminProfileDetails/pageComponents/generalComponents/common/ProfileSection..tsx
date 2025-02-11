@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
 import { IAffliction } from '../../../../../../../@types/IAffliction';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
-import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/StandardDropdownInput';
-import StandardTelephoneInput from '../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
+
 import CommonInput from './CommonInput';
 import GeneralOutput from './GeneralOutput';
 
