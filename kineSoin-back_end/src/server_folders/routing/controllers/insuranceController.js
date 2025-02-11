@@ -318,9 +318,13 @@ const insuranceController = {
             'postal_code',
             'city',
             'phone_number',
+            'prefix',
+            'full_phone_number',
           ],
         });
 
+        const fullPhoneNumber =
+          foundInsurance.prefix + foundInsurance.phone_number;
         const sentInsurance = {
           id: foundInsurance.id,
           name: foundInsurance.name,
@@ -331,6 +335,8 @@ const insuranceController = {
           city: foundInsurance.city,
           address: `${foundInsurance.street_number} ${foundInsurance.street_name}, ${foundInsurance.postal_code} ${foundInsurance.city}`,
           phone_number: foundInsurance.phone_number,
+          prefix: foundInsurance.prefix,
+          full_phone_number: fullPhoneNumber,
         };
 
         if (!foundInsurance) {
@@ -370,10 +376,13 @@ const insuranceController = {
           street_name,
           postal_code,
           city,
+          prefix,
           phone_number,
         } = req.body;
 
         const foundInsurance = await Insurance.findByPk(insuranceId);
+
+        const fullPhoneNumber = prefix + phone_number;
 
         if (!foundInsurance) {
           return res.status(400).json({ message: 'Insurance not found' });
@@ -388,6 +397,9 @@ const insuranceController = {
           postal_code: postal_code || foundInsurance.postal_code,
           city: city || foundInsurance.city,
           phone_number: phone_number || foundInsurance.phone_number,
+          prefix: prefix || foundInsurance.prefix,
+          full_phone_number:
+            fullPhoneNumber || foundInsurance.full_phone_number,
         };
 
         const updateInsuranceSchema = Joi.object({
@@ -399,6 +411,8 @@ const insuranceController = {
           postal_code: Joi.string().optional(),
           city: Joi.string().optional(),
           phone_number: Joi.string().optional(),
+          prefix: Joi.string().optional(),
+          full_phone_number: Joi.string().optional(),
         }).min(1);
 
         const { error } = updateInsuranceSchema.validate(sentInsurance);

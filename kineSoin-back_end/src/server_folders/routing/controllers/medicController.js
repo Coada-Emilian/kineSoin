@@ -193,7 +193,10 @@ const medicController = {
           city,
           phone_number,
           licence_code,
+          prefix,
         } = req.body;
+
+        const fullPhoneNumber = prefix + phone_number;
 
         const newMedic = {
           admin_id: admin_id || foundMedic.admin_id,
@@ -210,6 +213,11 @@ const medicController = {
             phone_number === '' ? foundMedic.phone_number : phone_number,
           licence_code:
             licence_code === '' ? foundMedic.licence_code : licence_code,
+          prefix: prefix === '' ? foundMedic.prefix : prefix,
+          full_phone_number:
+            fullPhoneNumber === ''
+              ? foundMedic.full_phone_number
+              : fullPhoneNumber,
         };
 
         const medicUpdateSchema = Joi.object({
@@ -222,6 +230,8 @@ const medicController = {
           city: Joi.string().optional(),
           phone_number: Joi.string().optional(),
           licence_code: Joi.string().optional(),
+          prefix: Joi.string().optional(),
+          full_phone_number: Joi.string().optional(),
         }).min(1);
 
         if (!req.body) {

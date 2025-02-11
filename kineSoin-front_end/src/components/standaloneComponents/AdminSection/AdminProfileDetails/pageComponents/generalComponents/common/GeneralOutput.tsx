@@ -32,6 +32,9 @@ interface GeneralOutputProps {
   isMedicAddressOutput?: boolean;
   isMedicPhoneNumberOutput?: boolean;
   isMedicLicenceCodeOutput?: boolean;
+  isInsuranceAddressOutput?: boolean;
+  isInsurancePhoneNumberOutput?: boolean;
+  isInsuranceAMCCodeOutput?: boolean;
 }
 
 export default function GeneralOutput({
@@ -62,9 +65,12 @@ export default function GeneralOutput({
   isMedicAddressOutput,
   isMedicPhoneNumberOutput,
   isMedicLicenceCodeOutput,
+  isInsuranceAddressOutput,
+  isInsurancePhoneNumberOutput,
+  isInsuranceAMCCodeOutput,
 }: GeneralOutputProps) {
   return (
-    <div className="text-primaryBlue font-bold md:w-3/5">
+    <div className="text-primaryBlue font-bold md:w-full">
       {isPageTitleOutput && (
         <h1 className="mb-4 text-xl md:text-4xl md:mb-6">
           Inspection{' '}
@@ -101,7 +107,10 @@ export default function GeneralOutput({
         isAfflictionDescriptionOutput ||
         isMedicAddressOutput ||
         isMedicPhoneNumberOutput ||
-        isMedicLicenceCodeOutput) && (
+        isMedicLicenceCodeOutput ||
+        isInsuranceAddressOutput ||
+        isInsuranceAMCCodeOutput ||
+        isInsurancePhoneNumberOutput) && (
         <h4 className="mb-2">
           {isProfileStatusOutput && <span>Statut: </span>}
           {isProfileStatusOutput && (
@@ -120,6 +129,7 @@ export default function GeneralOutput({
               {(therapist?.status || patient?.status)?.toUpperCase() || 'N/A'}
             </span>
           )}
+
           <span>
             {isProfileIdOutput && '#ID:'}
             {isProfileNameOutput && 'Nom: '}
@@ -132,15 +142,20 @@ export default function GeneralOutput({
 
             {(isTherapistDescriptionOutput || isAfflictionDescriptionOutput) &&
               'Description: '}
-            {(isPatientAddressOutput || isMedicAddressOutput) && 'Adresse: '}
+            {(isPatientAddressOutput ||
+              isMedicAddressOutput ||
+              isInsuranceAddressOutput) &&
+              'Adresse: '}
             {(isPatientPhoneNumberOutput ||
               isTherapistPhoneNumberOutput ||
-              isMedicPhoneNumberOutput) &&
+              isMedicPhoneNumberOutput ||
+              isInsurancePhoneNumberOutput) &&
               'Numéro de téléphone: '}
             {isPatientTherapistOutput && 'Thérapeute: '}
             {isAfflictionRegionOutput && 'Région concernée: '}
             {isAfflictionInsuranceCodeOutput && 'Cotation: '}
             {isAfflictionOperatedOutput && 'Est opérée: '}
+            {isInsuranceAMCCodeOutput && 'Code AMC: '}
           </span>
 
           <span className="italic font-normal">
@@ -196,6 +211,10 @@ export default function GeneralOutput({
             {isMedicAddressOutput && (medic ? medic.address : '')}
             {isMedicPhoneNumberOutput && (medic ? medic.full_phone_number : '')}
             {isMedicLicenceCodeOutput && (medic ? medic.licence_code : '')}
+            {isInsuranceAddressOutput && (insurance ? insurance.address : '')}
+            {isInsurancePhoneNumberOutput &&
+              (insurance ? insurance.full_phone_number : '')}
+            {isInsuranceAMCCodeOutput && (insurance ? insurance.amc_code : '')}
           </span>
         </h4>
       )}

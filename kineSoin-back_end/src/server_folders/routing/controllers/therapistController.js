@@ -231,6 +231,7 @@ const therapistController = {
             prefix,
           } = req.body;
 
+          const fullPhoneNumber = `${prefix}${phone_number}`;
           const newProfile = {
             status: status || foundTherapist.status,
             name: name || foundTherapist.name,
@@ -242,6 +243,7 @@ const therapistController = {
             description: description || foundTherapist.description,
             licence_code: licence_code || foundTherapist.licence_code,
             prefix: prefix || foundTherapist.prefix,
+            full_phone_number: fullPhoneNumber,
           };
 
           if (req.file) {

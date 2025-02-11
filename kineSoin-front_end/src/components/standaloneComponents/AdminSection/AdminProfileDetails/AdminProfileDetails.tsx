@@ -17,7 +17,6 @@ import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import { IMedic } from '../../../../@types/IMedic';
 import { IInsurance } from '../../../../@types/IInsurance';
-import InsuranceSection from './pageComponents/sections/InsuranceSection.tsx';
 import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
 import CommonSection from './pageComponents/sections/CommonSection.tsx';
 import ProfileSection from './pageComponents/generalComponents/common/ProfileSection..tsx';
@@ -171,6 +170,9 @@ export default function AdminProfileDetails({
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
+    for (const keys of formData.keys()) {
+      console.log(keys, formData.get(keys));
+    }
     if (insurance && insurance.id) {
       try {
         const response = await handleInsuranceOrganismUpdate(
@@ -179,7 +181,7 @@ export default function AdminProfileDetails({
         );
         if (response) {
           setIsProfileEditing(false);
-          window.location.reload();
+          // window.location.reload();
         } else {
           console.error('Failed to update insurance', response);
         }
@@ -262,7 +264,8 @@ export default function AdminProfileDetails({
               )}
 
               {insurance && (
-                <InsuranceSection
+                <ProfileSection
+                  isInsuranceProfileSection
                   insurance={insurance}
                   isProfileEditing={isProfileEditing}
                 />

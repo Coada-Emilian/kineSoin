@@ -1,4 +1,5 @@
 import { IAffliction } from '../../../../../../../@types/IAffliction';
+import { IInsurance } from '../../../../../../../@types/IInsurance';
 import { IMedic } from '../../../../../../../@types/IMedic';
 import { IPatient } from '../../../../../../../@types/IPatient';
 import { ITherapist } from '../../../../../../../@types/ITherapist';
@@ -16,6 +17,8 @@ interface ProfileSectionProps {
   affliction?: IAffliction;
   isMedicProfileSection?: boolean;
   medic?: IMedic;
+  isInsuranceProfileSection?: boolean;
+  insurance?: IInsurance;
 }
 
 export default function ProfileSection({
@@ -28,6 +31,8 @@ export default function ProfileSection({
   affliction,
   isMedicProfileSection,
   medic,
+  isInsuranceProfileSection,
+  insurance,
 }: ProfileSectionProps) {
   return (
     <section className="mb-2 md:text-2xl">
@@ -101,6 +106,27 @@ export default function ProfileSection({
             <GeneralOutput medic={medic} isMedicLicenceCodeOutput />
           </>
         ))}
+
+      {isInsuranceProfileSection && (
+        <>
+          {isProfileEditing ? (
+            <>
+              <CommonInput insurance={insurance} isInsuranceAddressInput />
+              <CommonInput insurance={insurance} isInsurancePhoneNumberInput />
+              <CommonInput insurance={insurance} isInsuranceAMCCodeInput />
+            </>
+          ) : (
+            <>
+              <GeneralOutput insurance={insurance} isInsuranceAddressOutput />
+              <GeneralOutput
+                insurance={insurance}
+                isInsurancePhoneNumberOutput
+              />
+              <GeneralOutput insurance={insurance} isInsuranceAMCCodeOutput />
+            </>
+          )}
+        </>
+      )}
     </section>
   );
 }

@@ -7,6 +7,11 @@ interface StandardTelephoneInputProps {
   isAdminTherapistAddTelephoneInput?: boolean;
   isAdminMedicEditTelephoneInput?: boolean;
   medic_phone_number?: string;
+  isAdminInsuranceEditTelephoneInput?: boolean;
+  insurance_phone_number?: string;
+  setTherapistPhoneNumber?: React.Dispatch<React.SetStateAction<string>>;
+  setMedicPhoneNumber?: React.Dispatch<React.SetStateAction<string>>;
+  setInsurancePhoneNumber?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function StandardTelephoneInput({
@@ -18,6 +23,11 @@ export default function StandardTelephoneInput({
   isAdminTherapistAddTelephoneInput,
   isAdminMedicEditTelephoneInput,
   medic_phone_number,
+  isAdminInsuranceEditTelephoneInput,
+  insurance_phone_number,
+  setTherapistPhoneNumber,
+  setMedicPhoneNumber,
+  setInsurancePhoneNumber,
 }: StandardTelephoneInputProps) {
   return (
     <div className={`flex flex-col gap-2 mb-4 italic w-2/3`}>
@@ -35,9 +45,11 @@ export default function StandardTelephoneInput({
                     ? 'admin-therapist-add-telephone_input'
                     : isAdminMedicEditTelephoneInput
                       ? 'admin-medic-edit-telephone_input'
-                      : ''
+                      : isAdminInsuranceEditTelephoneInput
+                        ? 'admin-insurance-edit-telephone_input'
+                        : ''
         }
-        className={`${isAdminTherapistEditTelephoneInput || isAdminMedicEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : 'text-xs text-primaryBlue font-medium'}`}
+        className={`${isAdminTherapistEditTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : 'text-xs text-primaryBlue font-medium'}`}
       >
         Numero Téléphone
       </label>
@@ -58,7 +70,9 @@ export default function StandardTelephoneInput({
                     ? 'admin-therapist-add-telephone_input'
                     : isAdminMedicEditTelephoneInput
                       ? 'admin-medic-edit-telephone_input'
-                      : ''
+                      : isAdminInsuranceEditTelephoneInput
+                        ? 'admin-insurance-edit-telephone_input'
+                        : ''
         }
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder="Numéro de téléphone"
@@ -67,8 +81,21 @@ export default function StandardTelephoneInput({
             ? therapist_phone_number
             : isAdminMedicEditTelephoneInput
               ? medic_phone_number
-              : undefined
+              : isAdminInsuranceEditTelephoneInput
+                ? insurance_phone_number
+                : undefined
         }
+        onChange={(e) => {
+          if (setTherapistPhoneNumber) {
+            setTherapistPhoneNumber(e.target.value);
+          }
+          if (setMedicPhoneNumber) {
+            setMedicPhoneNumber(e.target.value);
+          }
+          if (setInsurancePhoneNumber) {
+            setInsurancePhoneNumber(e.target.value);
+          }
+        }}
         required
       />
     </div>
