@@ -15,21 +15,7 @@ import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
 import CommonSection from './pageComponents/sections/CommonSection.tsx';
 import ProfileSection from './pageComponents/generalComponents/common/ProfileSection..tsx';
-import {
-  IAffliction,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../@types/types';
-
-interface AdminProfileDetailsProps {
-  therapist?: ITherapist;
-  patient?: IPatient;
-  affliction?: IAffliction;
-  medic?: IMedic;
-  insurance?: IInsurance;
-}
+import { AdminProfileDetailsProps } from '../../../../@types/props';
 
 export default function AdminProfileDetails({
   therapist,
