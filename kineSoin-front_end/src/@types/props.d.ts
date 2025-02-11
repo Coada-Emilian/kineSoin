@@ -16,3 +16,13 @@ interface SideNavProps {
   isAdminSideNav?: boolean;
   isPatientSideNav?: boolean;
 }
+
+interface AdminTableProps {
+  allPatients?: IPatient[];
+  allAfflictions?: IAffliction[];
+  allMedics?: IMedic[];
+  allInsurances?: IInsurance[];
+  windowWidth?: number;
+  allTherapists?: ITherapist[];
+  allBodyRegions?: IBodyRegion[];
+}

@@ -20,16 +20,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/types';
-
-interface AdminTableProps {
-  allPatients?: IPatient[];
-  allAfflictions?: IAffliction[];
-  allMedics?: IMedic[];
-  allInsurances?: IInsurance[];
-  windowWidth?: number;
-  allTherapists?: ITherapist[];
-  allBodyRegions?: IBodyRegion[];
-}
+import { AdminTableProps } from '../../../../@types/props';
 
 export default function AdminTable({
   allPatients,
