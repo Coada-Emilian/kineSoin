@@ -1,8 +1,10 @@
-import { IAffliction } from '../../../../../../../@types/IAffliction';
-import { IInsurance } from '../../../../../../../@types/IInsurance';
-import { IMedic } from '../../../../../../../@types/IMedic';
-import { IPatient } from '../../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../../@types/ITherapist';
+import {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../../@types/types';
 
 interface GeneralOutputProps {
   isPageTitleOutput?: boolean;

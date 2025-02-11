@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { IAffliction } from '../../../../../../../@types/IAffliction';
-import { IInsurance } from '../../../../../../../@types/IInsurance';
-import { IMedic } from '../../../../../../../@types/IMedic';
-import { ITherapist } from '../../../../../../../@types/ITherapist';
 import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../../generalComponents/StandardInputs/StandardTextInput';
+import {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  ITherapist,
+} from '../../../../../../../@types/types';
 
 interface CommonInputProps {
   therapist?: ITherapist | null;
-  affliction?: IAffliction;
+  affliction?: IAffliction | null;
   medic?: IMedic | null;
   insurance?: IInsurance | null;
   isProfileNameInput?: boolean;

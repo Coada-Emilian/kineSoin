@@ -1,10 +1,12 @@
 // Purpose: Provide the GeneralSection component which displays the general details of a profile.
 
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IInsurance } from '../../../../../../@types/IInsurance';
-import { IMedic } from '../../../../../../@types/IMedic';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../@types/ITherapist';
+import {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 import CommonInput from '../generalComponents/common/CommonInput';
 import GeneralOutput from '../generalComponents/common/GeneralOutput';
 

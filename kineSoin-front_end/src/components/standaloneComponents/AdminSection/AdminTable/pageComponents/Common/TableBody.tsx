@@ -1,17 +1,19 @@
 // Purpose: Display the body of the table based on the data being displayed.
 
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
-import { IInsurance } from '../../../../../../@types/IInsurance';
-import { IMedic } from '../../../../../../@types/IMedic';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../@types/ITherapist';
 import RegionTableBody from '../Region/RegionTableBody';
 import AfflictionTableBody from '../Affliction/AfflictionTableBody';
 import InsuranceTableBody from '../Insurance/InsuranceTableBody';
 import MedicTableBody from '../Medic/MedicTableBody';
 import PatientTableBody from '../Patient/PatientTableBody';
 import TherapistTableBody from '../Therapist/TherapistTableBody';
+import {
+  IAffliction,
+  IBodyRegion,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 
 interface TableBodyProps {
   windowWidth: number;

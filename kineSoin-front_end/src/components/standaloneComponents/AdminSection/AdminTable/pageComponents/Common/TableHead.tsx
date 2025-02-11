@@ -1,11 +1,13 @@
 // Purpose: The purpose of this component is to render the table title of the admin table.
 
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
-import { IInsurance } from '../../../../../../@types/IInsurance';
-import { IMedic } from '../../../../../../@types/IMedic';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../@types/ITherapist';
+import {
+  IAffliction,
+  IBodyRegion,
+  IMedic,
+  IInsurance,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 
 interface TableHeadProps {
   windowWidth: number;

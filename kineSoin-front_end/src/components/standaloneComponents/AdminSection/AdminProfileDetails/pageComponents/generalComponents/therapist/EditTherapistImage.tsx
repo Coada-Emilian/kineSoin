@@ -1,8 +1,8 @@
 // Purpose: Provide the EditTherapistImage component which displays the therapist's profile image with an edit icon.
 
 import { Link } from 'react-router-dom';
-import { ITherapist } from '../../../../../../../@types/ITherapist';
 import editIcon from '/icons/edit.svg';
+import { ITherapist } from '../../../../../../../@types/types';
 
 interface EditTherapistImageProps {
   therapist: ITherapist;

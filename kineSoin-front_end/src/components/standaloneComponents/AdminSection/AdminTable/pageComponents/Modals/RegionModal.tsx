@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { fetchBodyRegions } from '../../../../../../utils/apiUtils';
-import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
 import AdminTable from '../../AdminTable';
+import { IBodyRegion } from '../../../../../../@types/types';
 
 interface RegionModalProps {
   isRegionModalOpen: boolean;

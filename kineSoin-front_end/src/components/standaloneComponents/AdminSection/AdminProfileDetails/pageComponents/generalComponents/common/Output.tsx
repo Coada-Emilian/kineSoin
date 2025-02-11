@@ -1,7 +1,6 @@
 // Purpose: Provide the Output component which displays the medic's or insurance's address, licence code, AMC code, or phone number.
 
-import { IInsurance } from '../../../../../../../@types/IInsurance';
-import { IMedic } from '../../../../../../../@types/IMedic';
+import { IInsurance, IMedic } from '../../../../../../../@types/types';
 
 interface OutputProps {
   medic?: IMedic;

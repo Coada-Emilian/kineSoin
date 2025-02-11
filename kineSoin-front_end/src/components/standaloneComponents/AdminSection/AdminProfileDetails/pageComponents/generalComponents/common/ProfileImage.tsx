@@ -1,7 +1,6 @@
 // Purpose: Provide the ProfileImage component which displays the therapist's or patient's profile image.
 
-import { IPatient } from '../../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../../@types/ITherapist';
+import { IPatient, ITherapist } from '../../../../../../../@types/types';
 
 interface ProfileImageProps {
   therapist?: ITherapist;

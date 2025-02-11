@@ -1,10 +1,8 @@
 // Purpose: Provide the AdminProfileDetails component which displays the profile details of a therapist, patient, affliction, medic, or insurance.
 
 import { useState } from 'react';
-import { ITherapist } from '../../../../@types/ITherapist';
 import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal.tsx';
 import EditPhotoModal from '../Modals/EditPhotoModal.tsx';
-import { IPatient } from '../../../../@types/IPatient';
 import {
   handleAfflictionUpdate,
   handleInsuranceOrganismUpdate,
@@ -12,14 +10,18 @@ import {
   handlePatientStatusChange,
   handleTherapistUpdate,
 } from '../../../../utils/apiUtils.ts';
-import { IAffliction } from '../../../../@types/IAffliction';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
-import { IMedic } from '../../../../@types/IMedic';
-import { IInsurance } from '../../../../@types/IInsurance';
 import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
 import CommonSection from './pageComponents/sections/CommonSection.tsx';
 import ProfileSection from './pageComponents/generalComponents/common/ProfileSection..tsx';
+import {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../@types/types';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;

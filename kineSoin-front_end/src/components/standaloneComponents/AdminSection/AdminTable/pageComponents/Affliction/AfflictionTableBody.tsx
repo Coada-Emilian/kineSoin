@@ -11,12 +11,14 @@
  */
 
 import { Link } from 'react-router-dom';
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../@types/ITherapist';
-import { IMedic } from '../../../../../../@types/IMedic';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
+import {
+  IAffliction,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 
 interface AfflictionTableBodyProps {
   windowWidth: number;

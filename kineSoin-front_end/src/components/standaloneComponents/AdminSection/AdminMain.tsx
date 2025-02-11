@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import SideNav from '../generalComponents/SideNav/SideNav';
 import AdminTable from './AdminTable/AdminTable';
-import { ITherapist } from '../../../@types/ITherapist';
+import AdminProfileDetails from './AdminProfileDetails/AdminProfileDetails';
+import DNALoader from '../../../utils/DNALoader';
 import {
   fetchAffliction,
   fetchAfflictions,
@@ -14,28 +16,14 @@ import {
   fetchTherapist,
   fetchTherapists,
 } from '../../../utils/apiUtils';
-import DNALoader from '../../../utils/DNALoader';
-import { useParams } from 'react-router-dom';
-import AdminProfileDetails from './AdminProfileDetails/AdminProfileDetails';
-import { IPatient } from '../../../@types/IPatient';
-import { IAffliction } from '../../../@types/IAffliction';
-import { IMedic } from '../../../@types/IMedic';
-import { IInsurance } from '../../../@types/IInsurance';
-import { getAdminTokenAndDataFromLocalStorage } from '../../../localStorage/adminLocalStorage';
-
-interface AdminMain2Props {
-  windowWidth: number;
-  isAdminTherapistsMain?: boolean;
-  isAdminTherapistMain?: boolean;
-  isAdminPatientsMain?: boolean;
-  isAdminPatientMain?: boolean;
-  isAdminAfflictionsMain?: boolean;
-  isAdminAfflictionMain?: boolean;
-  isAdminMedicsMain?: boolean;
-  isAdminMedicMain?: boolean;
-  isAdminInsurancesMain?: boolean;
-  isAdminInsuranceMain?: boolean;
-}
+import {
+  ITherapist,
+  IPatient,
+  IAffliction,
+  IMedic,
+  IInsurance,
+} from '../../../@types/types';
+import { AdminMainProps } from '../../../@types/props';
 
 export default function AdminMain({
   windowWidth,
@@ -49,15 +37,18 @@ export default function AdminMain({
   isAdminMedicMain,
   isAdminInsurancesMain,
   isAdminInsuranceMain,
-}: AdminMain2Props) {
-  // State to store all therapists fetched
+}: AdminMainProps) {
+  //  Get the id from the URL
+  const { id } = useParams();
+
+  // States
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [allTherapists, setAllTherapists] = useState<ITherapist[]>([]);
   const [therapist, setTherapist] = useState<ITherapist | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [allPatients, setAllPatients] = useState<IPatient[]>([]);
   const [therapistId, setTherapistId] = useState<number | null>(null);
-  const [patientId, setPatientId] = useState<number | null>(null);
+  const [allPatients, setAllPatients] = useState<IPatient[]>([]);
   const [patient, setPatient] = useState<IPatient | null>(null);
+  const [patientId, setPatientId] = useState<number | null>(null);
   const [allAfflictions, setAllAfflictions] = useState<IAffliction[]>([]);
   const [afflictionId, setAfflictionId] = useState<number | null>(null);
   const [affliction, setAffliction] = useState<IAffliction | null>(null);
@@ -68,22 +59,24 @@ export default function AdminMain({
   const [insuranceId, setInsuranceId] = useState<number | null>(null);
   const [insurance, setInsurance] = useState<IInsurance | null>(null);
 
-  const { id } = useParams();
+  // Set the id of the entity to be displayed
+  const entityId = id ? parseInt(id, 10) : null;
 
+  // Fetch the data of the entity to be displayed
   useEffect(() => {
     {
-      isAdminTherapistMain && setTherapistId(id ? parseInt(id, 10) : null);
-      isAdminPatientMain && setPatientId(id ? parseInt(id, 10) : null);
-      isAdminAfflictionMain && setAfflictionId(id ? parseInt(id, 10) : null);
-      isAdminMedicMain && setMedicId(id ? parseInt(id, 10) : null);
-      isAdminInsuranceMain && setInsuranceId(id ? parseInt(id, 10) : null);
+      isAdminTherapistMain && setTherapistId(id ? entityId : null);
+      isAdminPatientMain && setPatientId(id ? entityId : null);
+      isAdminAfflictionMain && setAfflictionId(id ? entityId : null);
+      isAdminMedicMain && setMedicId(id ? entityId : null);
+      isAdminInsuranceMain && setInsuranceId(id ? entityId : null);
     }
   }, []);
 
+  // Fetch the data of the entity to be displayed
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-
       const fetchPromises = [];
 
       if (isAdminTherapistMain && therapistId) {
@@ -115,6 +108,7 @@ export default function AdminMain({
     fetchData();
   }, [patientId, therapistId, afflictionId, medicId, insuranceId]);
 
+  // Fetch all the data to be displayed in the table
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);

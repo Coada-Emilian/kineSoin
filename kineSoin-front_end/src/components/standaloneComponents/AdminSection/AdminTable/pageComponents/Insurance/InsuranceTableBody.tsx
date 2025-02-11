@@ -11,13 +11,16 @@
  */
 
 import { Link } from 'react-router-dom';
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { ITherapist } from '../../../../../../@types/ITherapist';
-import { IMedic } from '../../../../../../@types/IMedic';
-import { IInsurance } from '../../../../../../@types/IInsurance';
+
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
+import {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 
 interface InsuranceTableBodyProps {
   windowWidth: number;

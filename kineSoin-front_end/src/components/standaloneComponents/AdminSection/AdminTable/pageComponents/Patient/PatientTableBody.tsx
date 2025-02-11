@@ -11,12 +11,14 @@
  */
 
 import { Link } from 'react-router-dom';
-import { ITherapist } from '../../../../../../@types/ITherapist';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IMedic } from '../../../../../../@types/IMedic';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
+import {
+  IAffliction,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 
 interface PatientTableBodyProps {
   renderedPatients: IPatient[];

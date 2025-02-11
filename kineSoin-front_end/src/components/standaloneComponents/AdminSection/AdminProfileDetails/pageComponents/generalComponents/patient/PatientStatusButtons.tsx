@@ -12,7 +12,7 @@
 
 import { MenuItem, MenuItems } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import { IPatient } from '../../../../../../../@types/IPatient';
+import { IPatient } from '../../../../../../../@types/types';
 
 interface PatientStatusButtons {
   toggleStatus: (status: string) => void;

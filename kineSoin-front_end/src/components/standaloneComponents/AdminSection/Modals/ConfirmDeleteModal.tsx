@@ -1,7 +1,6 @@
 // Purpose: Provide the ConfirmDeleteModal component which displays a modal to confirm the deletion of a profile.
 
 import ReactModal from 'react-modal';
-import { ITherapist } from '../../../../@types/ITherapist';
 import {
   handleAfflictionDelete,
   handleInsuranceOrganismDelete,
@@ -11,14 +10,17 @@ import {
   handleTherapistDelete,
 } from '../../../../utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
-import { IPatient } from '../../../../@types/IPatient';
-import { IAffliction } from '../../../../@types/IAffliction';
-import { IMedic } from '../../../../@types/IMedic';
-import { IInsurance } from '../../../../@types/IInsurance';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
 import { useState } from 'react';
-import { IBodyRegion } from '../../../../@types/IBodyRegion';
+import {
+  IAffliction,
+  IBodyRegion,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../@types/types';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;

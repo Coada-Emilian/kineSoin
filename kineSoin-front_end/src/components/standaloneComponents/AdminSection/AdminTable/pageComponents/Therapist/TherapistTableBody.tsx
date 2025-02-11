@@ -1,13 +1,15 @@
 // Purpose: Display the body of the table with therapist data.
 
 import { Link } from 'react-router-dom';
-import { ITherapist } from '../../../../../../@types/ITherapist';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IMedic } from '../../../../../../@types/IMedic';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
+import {
+  IAffliction,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];

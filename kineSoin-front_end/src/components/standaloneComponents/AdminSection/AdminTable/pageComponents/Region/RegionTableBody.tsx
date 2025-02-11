@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import deleteIcon from '/icons/delete.png';
-import { ITherapist } from '../../../../../../@types/ITherapist';
-import { IPatient } from '../../../../../../@types/IPatient';
-import { IAffliction } from '../../../../../../@types/IAffliction';
-import { IMedic } from '../../../../../../@types/IMedic';
-import { IInsurance } from '../../../../../../@types/IInsurance';
-import { IBodyRegion } from '../../../../../../@types/IBodyRegion';
+import {
+  IAffliction,
+  IBodyRegion,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/types';
 
 interface RegionTableBodyProps {
   openDeleteModal: (
