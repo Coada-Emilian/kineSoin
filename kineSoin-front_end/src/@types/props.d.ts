@@ -11,3 +11,8 @@ export interface AdminMainProps {
   isAdminInsurancesMain?: boolean;
   isAdminInsuranceMain?: boolean;
 }
+
+interface SideNavProps {
+  isAdminSideNav?: boolean;
+  isPatientSideNav?: boolean;
+}
