@@ -74,7 +74,7 @@ export default function CommonInput({
     therapist?.phone_number || ''
   );
   return (
-    <div className="flex gap-2 items-center ">
+    <div className="flex gap-2 items-center w-full ">
       {isProfileNameInput && (
         <StandardTextInput
           isAdminTherapistEditNameInput

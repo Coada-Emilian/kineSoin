@@ -170,9 +170,7 @@ export default function AdminProfileDetails({
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    for (const keys of formData.keys()) {
-      console.log(keys, formData.get(keys));
-    }
+
     if (insurance && insurance.id) {
       try {
         const response = await handleInsuranceOrganismUpdate(
@@ -181,7 +179,7 @@ export default function AdminProfileDetails({
         );
         if (response) {
           setIsProfileEditing(false);
-          // window.location.reload();
+          window.location.reload();
         } else {
           console.error('Failed to update insurance', response);
         }
@@ -214,7 +212,7 @@ export default function AdminProfileDetails({
           className={`flex flex-col md:space-x-6 md:m-20 border border-gray-400 rounded-xl shadow-2xl ${therapist ? 'md:w-5/6' : 'md:w-2/3'}  items-center `}
         >
           <div
-            className={`flex flex-col p-8 ${therapist || patient ? 'md:flex-row items-center justify-around' : ''}`}
+            className={`flex flex-col p-8 w-10/12 ${therapist || patient ? 'md:flex-row items-center justify-around' : ''}`}
           >
             <div className="flex-1 p-4 rounded-md">
               <GeneralOutput
@@ -272,7 +270,6 @@ export default function AdminProfileDetails({
               )}
             </div>
 
-            {/* <div className="flex-1 flex flex-col items-center justify-center px-4 rounded-md"> */}
             {(therapist || patient) && (
               <ImageSection
                 therapist={therapist}
