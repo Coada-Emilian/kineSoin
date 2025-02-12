@@ -71,22 +71,149 @@ export default function GeneralOutput({
   isInsurancePhoneNumberOutput,
   isInsuranceAMCCodeOutput,
 }: GeneralOutputProps) {
+  const profileType = therapist
+    ? 'therapist'
+    : patient
+      ? 'patient'
+      : medic
+        ? 'medic'
+        : affliction
+          ? 'affliction'
+          : insurance
+            ? 'insurance'
+            : '';
+
+  const getStatusClassName = (status: string | undefined) => {
+    switch (status) {
+      case 'active':
+        return 'bg-green-300';
+      case 'inactive':
+        return 'bg-gray-200';
+      case 'pending':
+        return 'bg-yellow-300';
+      case 'banned':
+        return 'bg-red-300';
+      default:
+        return 'bg-gray-200';
+    }
+  };
+
+  const fields = {
+    status: {
+      label: 'Statut:',
+      value: therapist?.status || patient?.status,
+      className: getStatusClassName(therapist?.status || patient?.status),
+    },
+    id: {
+      label: '#ID:',
+      value:
+        therapist?.id ||
+        patient?.id ||
+        affliction?.id ||
+        medic?.id ||
+        insurance?.id,
+      className: '',
+    },
+    name: {
+      label: 'Nom:',
+      value:
+        therapist?.fullName ||
+        patient?.fullName ||
+        medic?.fullName ||
+        affliction?.name ||
+        insurance?.name,
+      className: '',
+    },
+    email: {
+      label: 'E-mail:',
+      value: therapist?.email || patient?.email,
+      className: '',
+    },
+    licenceCode: {
+      label: 'Code ADELI:',
+      value: therapist?.licence_code || medic?.licence_code,
+      className: '',
+    },
+    diploma: { label: 'Diplôme:', value: therapist?.diploma, className: '' },
+    experience: {
+      label: 'Expérience:',
+      value: therapist?.experience,
+      className: '',
+    },
+    specialty: {
+      label: 'Spécialité:',
+      value: therapist?.specialty,
+      className: '',
+    },
+    phoneNumber: {
+      label: 'Numéro de téléphone:',
+      value:
+        therapist?.full_phone_number ||
+        patient?.full_phone_number ||
+        medic?.full_phone_number ||
+        insurance?.full_phone_number,
+      className: '',
+    },
+    description: {
+      label: 'Description:',
+      value: therapist?.description || affliction?.description,
+      className: '',
+    },
+    address: {
+      label: 'Adresse:',
+      value: patient?.address || medic?.address || insurance?.address,
+      className: '',
+    },
+    therapist: {
+      label: 'Thérapeute:',
+      value: patient?.therapist,
+      className: '',
+    },
+    region: {
+      label: 'Région concernée:',
+      value: affliction?.body_region?.name,
+      className: '',
+    },
+    insuranceCode: {
+      label: 'Cotation:',
+      value: affliction?.insurance_code,
+      className: '',
+    },
+    operated: {
+      label: 'Est opérée:',
+      value: affliction?.is_operated ? 'Oui' : 'Non',
+      className: '',
+    },
+    amcCode: { label: 'Code AMC:', value: insurance?.amc_code, className: '' },
+  };
+
+  const renderField = (fieldKey: keyof typeof fields, condition: boolean) => {
+    if (condition) {
+      const field = fields[fieldKey];
+      return (
+        <span key={fieldKey} className={field.className ?? ''}>
+          {field.label}{' '}
+          <span className="italic font-normal">{field.value || 'N/A'}</span>
+        </span>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="text-primaryBlue font-bold md:w-full">
       {isPageTitleOutput && (
         <h1 className="mb-4 text-xl md:text-4xl md:mb-6">
           Inspection{' '}
-          {therapist
+          {profileType === 'therapist'
             ? 'kinésithérapeute'
-            : patient
+            : profileType === 'patient'
               ? 'patient'
-              : medic
+              : profileType === 'medic'
                 ? 'medic'
-                : affliction
+                : profileType === 'affliction'
                   ? 'affliction'
-                  : insurance
-                    ? "organisme d'assurance"
-                    : ''}
+                  : "organisme d'assurance"}
         </h1>
       )}
 
@@ -114,126 +241,56 @@ export default function GeneralOutput({
         isInsuranceAMCCodeOutput ||
         isInsurancePhoneNumberOutput) && (
         <h4 className="mb-2">
-          {isProfileStatusOutput && <span>Statut: </span>}
-          {isProfileStatusOutput && (
-            <span
-              className={`italic p-2 rounded-md 
-        ${therapist?.status === 'active' ? 'bg-green-300' : ''}
-        ${therapist?.status === 'inactive' ? 'bg-gray-200' : ''}
-        ${therapist?.status === 'pending' ? 'bg-yellow-300' : ''}
-        ${therapist?.status === 'banned' ? 'bg-red-300' : ''}
-        ${patient?.status === 'active' ? 'bg-green-300' : ''}
-        ${patient?.status === 'inactive' ? 'bg-gray-200' : ''}
-        ${patient?.status === 'pending' ? 'bg-yellow-300' : ''}
-        ${patient?.status === 'banned' ? 'bg-red-300' : ''}
-        ${!therapist && !patient ? 'bg-gray-200' : ''}`}
-            >
-              {(therapist?.status || patient?.status)?.toUpperCase() || 'N/A'}
-            </span>
+          {renderField('status', !!isProfileStatusOutput)}
+          {renderField('id', !!isProfileIdOutput)}
+          {renderField('name', !!isProfileNameOutput)}
+          {renderField('email', !!isProfileEmailOutput)}
+          {renderField(
+            'licenceCode',
+            !!(isProfileLicenceCodeOutput || isMedicLicenceCodeOutput)
           )}
-
-          <span>
-            {isProfileIdOutput && '#ID:'}
-            {isProfileNameOutput && 'Nom: '}
-            {isProfileEmailOutput && 'E-mail: '}
-            {(isProfileLicenceCodeOutput || isMedicLicenceCodeOutput) &&
-              'Code ADELI: '}
-            {isTherapistDiplomaOutput && 'Diplôme: '}
-            {isTherapistExperienceOutput && 'Expérience: '}
-            {isTherapistSpecialtyOutput && 'Spécialité: '}
-
-            {(isTherapistDescriptionOutput || isAfflictionDescriptionOutput) &&
-              'Description: '}
-            {(isPatientAddressOutput ||
-              isMedicAddressOutput ||
-              isInsuranceAddressOutput) &&
-              'Adresse: '}
-            {(isPatientPhoneNumberOutput ||
+          {renderField('diploma', !!isTherapistDiplomaOutput)}
+          {renderField('experience', !!isTherapistExperienceOutput)}
+          {renderField('specialty', !!isTherapistSpecialtyOutput)}
+          {renderField(
+            'phoneNumber',
+            !!(
               isTherapistPhoneNumberOutput ||
+              isPatientPhoneNumberOutput ||
               isMedicPhoneNumberOutput ||
-              isInsurancePhoneNumberOutput) &&
-              'Numéro de téléphone: '}
-            {isPatientTherapistOutput && 'Thérapeute: '}
-            {isAfflictionRegionOutput && 'Région concernée: '}
-            {isAfflictionInsuranceCodeOutput && 'Cotation: '}
-            {isAfflictionOperatedOutput && 'Est opérée: '}
-            {isInsuranceAMCCodeOutput && 'Code AMC: '}
-          </span>
-
-          <span className="italic font-normal">
-            {isProfileIdOutput &&
-              (therapist
-                ? therapist.id
-                : patient
-                  ? patient.id
-                  : affliction
-                    ? affliction.id
-                    : medic
-                      ? medic.id
-                      : insurance
-                        ? insurance.id
-                        : '')}
-            {isProfileNameOutput &&
-              (therapist
-                ? therapist.fullName
-                : patient
-                  ? patient.fullName
-                  : medic
-                    ? medic.fullName
-                    : affliction
-                      ? affliction.name
-                      : insurance
-                        ? insurance.name
-                        : '')}
-            {isProfileEmailOutput &&
-              (therapist ? therapist.email : patient ? patient.email : '')}
-            {isProfileLicenceCodeOutput &&
-              (therapist ? therapist.licence_code : '')}
-            {isTherapistDiplomaOutput && (therapist ? therapist.diploma : '')}
-            {isTherapistExperienceOutput &&
-              (therapist ? therapist.experience : '')}
-            {isTherapistSpecialtyOutput &&
-              (therapist ? therapist.specialty : '')}
-            {isTherapistPhoneNumberOutput &&
-              (therapist ? therapist.full_phone_number : '')}
-            {isTherapistDescriptionOutput &&
-              (therapist ? therapist.description : '')}
-            {isPatientAddressOutput && (patient ? patient.address : '')}
-            {isPatientPhoneNumberOutput &&
-              (patient ? patient.full_phone_number : '')}
-            {isPatientTherapistOutput && (patient ? patient.therapist : '')}
-            {isAfflictionRegionOutput &&
-              (affliction ? affliction.body_region?.name : '')}
-            {isAfflictionInsuranceCodeOutput &&
-              (affliction ? affliction.insurance_code : '')}
-            {isAfflictionOperatedOutput &&
-              (affliction ? (affliction.is_operated ? 'Oui' : 'Non') : '')}
-            {isAfflictionDescriptionOutput &&
-              (affliction ? affliction.description : '')}
-            {isMedicAddressOutput && (medic ? medic.address : '')}
-            {isMedicPhoneNumberOutput && (medic ? medic.full_phone_number : '')}
-            {isMedicLicenceCodeOutput && (medic ? medic.licence_code : '')}
-            {isInsuranceAddressOutput && (insurance ? insurance.address : '')}
-            {isInsurancePhoneNumberOutput &&
-              (insurance ? insurance.full_phone_number : '')}
-            {isInsuranceAMCCodeOutput && (insurance ? insurance.amc_code : '')}
-          </span>
+              isInsurancePhoneNumberOutput
+            )
+          )}
+          {renderField(
+            'description',
+            !!(isTherapistDescriptionOutput || isAfflictionDescriptionOutput)
+          )}
+          {renderField(
+            'address',
+            !!(
+              isPatientAddressOutput ||
+              isMedicAddressOutput ||
+              isInsuranceAddressOutput
+            )
+          )}
+          {renderField('therapist', !!isPatientTherapistOutput)}
+          {renderField('region', !!isAfflictionRegionOutput)}
+          {renderField('insuranceCode', !!isAfflictionInsuranceCodeOutput)}
+          {renderField('operated', !!isAfflictionOperatedOutput)}
+          {renderField('amcCode', !!isInsuranceAMCCodeOutput)}
         </h4>
       )}
 
-      {isPatientAgeGenderOutput && (
+      {isPatientAgeGenderOutput && patient && (
         <div className="flex gap-6 items-center mb-2">
           <div className="md:text-2xl flex gap-1 items-center">
-            <h4 className="font-bold ">Age :</h4>
-
-            <span className="italic font-normal">{patient?.age ?? 'N/A'}</span>
+            <h4 className="font-bold">Age :</h4>
+            <span className="italic font-normal">{patient.age ?? 'N/A'}</span>
           </div>
-
           <div className="flex gap-1 items-center">
             <h4 className="font-bold">Genre :</h4>
-
             <span className="italic font-normal">
-              {patient?.gender ?? 'N/A'}
+              {patient.gender ?? 'N/A'}
             </span>
           </div>
         </div>
