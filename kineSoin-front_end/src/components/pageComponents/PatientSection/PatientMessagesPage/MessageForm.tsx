@@ -21,7 +21,7 @@ export default function MessageForm({ patientId }: MessageFormProps) {
   };
   return (
     <form method="POST" onSubmit={handlePatientMessageSubmit}>
-      <StandardTextInput isPatientMessageInput />
+      <StandardTextInput patientSection={{ isPatientMessageInput: true }} />
       <CustomButton btnText={'Envoyez'} btnType="submit" normalButton />
     </form>
   );

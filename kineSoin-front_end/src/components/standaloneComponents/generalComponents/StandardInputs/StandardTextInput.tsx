@@ -14,9 +14,11 @@ interface GeneralInputProps {
   isStreetNameInput?: boolean;
   isPostalCodeInput?: boolean;
   isCityInput?: boolean;
+}
+
+interface PatientSectionProps {
   isAppointmentNumberInput?: boolean;
   isPatientMessageInput?: boolean;
-  isTextAreaInput?: boolean;
 }
 
 interface AdminTherapistProps {
@@ -96,6 +98,7 @@ interface StandardTextInputProps {
   adminInsurance?: AdminInsuranceProps;
   dataInput?: DataInputProps;
   adminRegion?: AdminRegionProps;
+  patientSection?: PatientSectionProps;
 }
 
 export default function StandardTextInput({
@@ -106,6 +109,7 @@ export default function StandardTextInput({
   adminInsurance,
   dataInput,
   adminRegion,
+  patientSection,
 }: StandardTextInputProps) {
   const [therapistState, setTherapistState] = useState({
     name: dataInput?.therapist?.name || '',
@@ -144,25 +148,32 @@ export default function StandardTextInput({
 
   const handleTherapistChange = (
     field: keyof typeof therapistState,
-    value: string
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setTherapistState((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleAfflictionChange = (
     field: keyof typeof afflictionState,
-    value: string
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setAfflictionState((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleMedicChange = (field: keyof typeof medicState, value: string) => {
+  const handleMedicChange = (
+    field: keyof typeof medicState,
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setMedicState((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleInsuranceChange = (
     field: keyof typeof insuranceState,
-    value: string
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setInsuranceState((prev) => ({ ...prev, [field]: value }));
   };
@@ -274,7 +285,7 @@ export default function StandardTextInput({
       generalLabelClassName: true,
     },
     {
-      boolean: patientRegister?.isAppointmentNumberInput,
+      boolean: patientSection?.isAppointmentNumberInput,
       divClassName: 'w-full flex flex-col mb-4',
       inputId: 'appointment-number_input',
       labelClassName: 'text-sm',
@@ -289,7 +300,7 @@ export default function StandardTextInput({
       generalLabelClassName: true,
     },
     {
-      boolean: patientRegister?.isPatientMessageInput,
+      boolean: patientSection?.isPatientMessageInput,
       divClassName: 'w-full flex flex-col mb-4',
       inputId: 'patient-message-input',
       labelClassName: 'text-sm',
@@ -419,7 +430,7 @@ export default function StandardTextInput({
       required: true,
       inputValue: therapistState.surname,
       inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        handleTherapistChange('surname', e.target.value),
+        handleTherapistChange('surname', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -434,7 +445,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: therapistState.name,
-      inputOnChange: (e) => handleTherapistChange('name', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleTherapistChange('name', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -449,8 +461,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: therapistState.licenceCode,
-      inputOnChange: (e) =>
-        handleTherapistChange('licenceCode', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleTherapistChange('licenceCode', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -465,7 +477,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: therapistState.diploma,
-      inputOnChange: (e) => handleTherapistChange('diploma', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleTherapistChange('diploma', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -480,7 +493,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: therapistState.experience,
-      inputOnChange: (e) => handleTherapistChange('experience', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleTherapistChange('experience', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -495,7 +509,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: therapistState.specialty,
-      inputOnChange: (e) => handleTherapistChange('specialty', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleTherapistChange('specialty', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -510,8 +525,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: therapistState.description,
-      inputOnChange: (e) =>
-        handleTherapistChange('description', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleTherapistChange('description', e.target.value, e),
       textArea: true,
       generalDivClassName: false,
       generalLabelClassName: true,
@@ -571,7 +586,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: afflictionState.name,
-      inputOnChange: (e) => handleAfflictionChange('name', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleAfflictionChange('name', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -586,8 +602,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: afflictionState.insuranceCode,
-      inputOnChange: (e) =>
-        handleAfflictionChange('insuranceCode', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleAfflictionChange('insuranceCode', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -602,8 +618,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: afflictionState.description,
-      inputOnChange: (e) =>
-        handleAfflictionChange('description', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleAfflictionChange('description', e.target.value, e),
       textArea: true,
       generalDivClassName: false,
       generalLabelClassName: true,
@@ -723,7 +739,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: medicState.name,
-      inputOnChange: (e) => handleMedicChange('name', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleMedicChange('name', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -738,7 +755,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: medicState.surname,
-      inputOnChange: (e) => handleMedicChange('surname', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleMedicChange('surname', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -753,7 +771,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: medicState.licenceCode,
-      inputOnChange: (e) => handleMedicChange('licenceCode', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleMedicChange('licenceCode', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -768,7 +787,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: medicState.streetNumber,
-      inputOnChange: (e) => handleMedicChange('streetNumber', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleMedicChange('streetNumber', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -783,7 +803,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: medicState.streetName,
-      inputOnChange: (e) => handleMedicChange('streetName', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleMedicChange('streetName', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -798,7 +819,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: medicState.postalCode,
-      inputOnChange: (e) => handleMedicChange('postalCode', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleMedicChange('postalCode', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -813,7 +835,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: medicState.city,
-      inputOnChange: (e) => handleMedicChange('city', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleMedicChange('city', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -918,7 +941,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: insuranceState.name,
-      inputOnChange: (e) => handleInsuranceChange('name', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleInsuranceChange('name', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -933,7 +957,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: insuranceState.amcCode,
-      inputOnChange: (e) => handleInsuranceChange('amcCode', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleInsuranceChange('amcCode', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -948,8 +973,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: insuranceState.streetNumber,
-      inputOnChange: (e) =>
-        handleInsuranceChange('streetNumber', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleInsuranceChange('streetNumber', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -964,7 +989,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: insuranceState.streetName,
-      inputOnChange: (e) => handleInsuranceChange('streetName', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleInsuranceChange('streetName', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -979,7 +1005,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: insuranceState.postalCode,
-      inputOnChange: (e) => handleInsuranceChange('postalCode', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleInsuranceChange('postalCode', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -994,7 +1021,8 @@ export default function StandardTextInput({
       inputPlaceholder: '',
       required: true,
       inputValue: insuranceState.city,
-      inputOnChange: (e) => handleInsuranceChange('city', e.target.value),
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleInsuranceChange('city', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
@@ -1036,10 +1064,12 @@ export default function StandardTextInput({
                   id={field.inputId}
                   name={field.inputName}
                   placeholder={field.inputPlaceholder}
-                  className="text-xs md:text-md xl:text-xl 2xl:text-2xl w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
+                  className="text-xs md:text-sm xl:text-base 2xl:text-lg w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
                   required={field.required}
                   value={field.inputValue}
-                  onChange={field.inputOnChange}
+                  onChange={
+                    field.inputOnChange as React.ChangeEventHandler<HTMLInputElement>
+                  }
                 />
               ) : (
                 <textarea
@@ -1047,8 +1077,10 @@ export default function StandardTextInput({
                   id={`${field.inputId}-textarea`}
                   placeholder={field.inputPlaceholder}
                   value={field.inputValue}
-                  onChange={field.inputOnChange}
-                  className="mt-1 block text-xs md:text-md xl:text-xl 2xl:text-2xl w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base xl:text-lg font-normal "
+                  onChange={
+                    field.inputOnChange as unknown as React.ChangeEventHandler<HTMLTextAreaElement>
+                  }
+                  className="mt-1 block text-xs md:text-md xl:text-xl 2xl:text-2xl w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base font-normal "
                   cols={32}
                   rows={5}
                 ></textarea>

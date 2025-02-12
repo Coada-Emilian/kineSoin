@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { IAffliction } from '../../../../@types/IAffliction';
-import { IMedic } from '../../../../@types/IMedic';
 import CustomButton from '../../../standaloneComponents/generalComponents/CustomButton/CustomButton';
 import StandardDateInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDateInput';
 import StandardChoiceDropdown from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDropdownInput';
@@ -12,6 +10,7 @@ import {
   handleNewPrescriptionCreation,
 } from '../../../../utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
+import { IAffliction, IMedic } from '../../../../@types/types';
 
 interface PatientNewPrescriptionFormProps {
   windowWidth?: number;
@@ -97,7 +96,7 @@ export default function PatientNewPrescriptionForm({
         medics={medics}
       />
 
-      <StandardTextInput isAppointmentNumberInput />
+      <StandardTextInput patientSection={{ isAppointmentNumberInput: true }} />
 
       <StandardChoiceDropdown
         isAtHomeCareDropdownInput

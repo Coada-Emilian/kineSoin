@@ -53,7 +53,9 @@ export default function AddRegionModal({
         </h2>
 
         <form className="space-y-4" onSubmit={createRegion}>
-          <StandardTextInput isAdminRegionAddNameInput />
+          <StandardTextInput
+            adminRegion={{ isAdminRegionAddNameInput: true }}
+          />
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomButton btnText="Valider" btnType="submit" normalButton />

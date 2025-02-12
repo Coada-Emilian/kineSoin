@@ -16,8 +16,8 @@ import StandardTelephoneInput from '../../generalComponents/StandardInputs/Stand
 import StandardFileInput from '../../generalComponents/StandardInputs/StandardFileInput.tsx';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ICountry } from '../../../../@types/ICountry';
 import DNALoader from '../../../../utils/DNALoader.tsx';
+import { ICountry } from '../../../../@types/types';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;
@@ -570,11 +570,13 @@ export default function PublicMainFormSection({
 
             {isPatientRegisterPageRendered && (
               <>
-                <StandardTextInput isNameInput />
+                <StandardTextInput patientRegister={{ isNameInput: true }} />
 
-                <StandardTextInput isBirthNameInput />
+                <StandardTextInput
+                  patientRegister={{ isBirthNameInput: true }}
+                />
 
-                <StandardTextInput isSurnameInput />
+                <StandardTextInput patientRegister={{ isSurnameInput: true }} />
 
                 <StandardDateInput
                   isPatientRegisterBirthdateInput
@@ -592,15 +594,21 @@ export default function PublicMainFormSection({
             {isFirstFormValidated && (
               <>
                 <div className="flex gap-2 items-center justify-between">
-                  <StandardTextInput isStreetNumberInput />
+                  <StandardTextInput
+                    patientRegister={{ isStreetNumberInput: true }}
+                  />
 
-                  <StandardTextInput isStreetNameInput />
+                  <StandardTextInput
+                    patientRegister={{ isStreetNameInput: true }}
+                  />
                 </div>
 
                 <div className="flex gap-2 items-center justify-between">
-                  <StandardTextInput isPostalCodeInput />
+                  <StandardTextInput
+                    patientRegister={{ isPostalCodeInput: true }}
+                  />
 
-                  <StandardTextInput isCityInput />
+                  <StandardTextInput patientRegister={{ isCityInput: true }} />
                 </div>
 
                 <div className="flex gap-2 items-center justify-between">

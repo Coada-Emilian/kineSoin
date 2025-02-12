@@ -673,11 +673,19 @@ export default function AdminModal({
             <>
               {isFirstAddTherapistModal && (
                 <>
-                  <StandardTextInput isAdminTherapistAddNameInput />
+                  <StandardTextInput
+                    adminTherapist={{ isAdminTherapistAddNameInput: true }}
+                  />
 
-                  <StandardTextInput isAdminTherapistAddSurnameInput />
+                  <StandardTextInput
+                    adminTherapist={{ isAdminTherapistAddSurnameInput: true }}
+                  />
 
-                  <StandardTextInput isAdminTherapistAddLicenceCodeInput />
+                  <StandardTextInput
+                    adminTherapist={{
+                      isAdminTherapistAddLicenceCodeInput: true,
+                    }}
+                  />
 
                   <StandardFileInput
                     isAdminTherapistImageAddInput
@@ -701,11 +709,19 @@ export default function AdminModal({
 
               {isSecondAddTherapistModal && (
                 <>
-                  <StandardTextInput isAdminTherapistAddDiplomaInput />
+                  <StandardTextInput
+                    adminTherapist={{ isAdminTherapistAddDiplomaInput: true }}
+                  />
 
-                  <StandardTextInput isAdminTherapistAddExperienceInput />
+                  <StandardTextInput
+                    adminTherapist={{
+                      isAdminTherapistAddExperienceInput: true,
+                    }}
+                  />
 
-                  <StandardTextInput isAdminTherapistAddSpecialtyInput />
+                  <StandardTextInput
+                    adminTherapist={{ isAdminTherapistAddSpecialtyInput: true }}
+                  />
 
                   <div className="flex gap-2 items-center justify-between">
                     <StandardChoiceDropdown isCountryDropdownInput />
@@ -713,8 +729,9 @@ export default function AdminModal({
                   </div>
 
                   <StandardTextInput
-                    isAdminTherapistAddDescriptionInput
-                    isTextAreaInput
+                    adminTherapist={{
+                      isAdminTherapistAddDescriptionInput: true,
+                    }}
                   />
                 </>
               )}
@@ -744,12 +761,18 @@ export default function AdminModal({
 
           {isAdminAfflictionAddModal && (
             <>
-              <StandardTextInput isAdminAfflictionAddNameInput />
+              <StandardTextInput
+                adminAffliction={{ isAdminAfflictionAddNameInput: true }}
+              />
 
               <StandardChoiceDropdown isAdminAfflictionAddRegionInput />
 
               <div className="flex gap-1">
-                <StandardTextInput isAdminAfflictionAddLicenceCodeInput />
+                <StandardTextInput
+                  adminAffliction={{
+                    isAdminAfflictionAddLicenceCodeInput: true,
+                  }}
+                />
 
                 <StandardChoiceDropdown
                   isAdminAfflictionAddOperatedStatusInput
@@ -757,30 +780,43 @@ export default function AdminModal({
               </div>
 
               <StandardTextInput
-                isAdminAfflictionAddDescriptionInput
-                isTextAreaInput
+                adminAffliction={{ isAdminAfflictionAddDescriptionInput: true }}
               />
             </>
           )}
 
           {isAdminAddMedicModal && (
             <>
-              <StandardTextInput isAdminMedicAddNameInput />
+              <StandardTextInput
+                adminMedic={{ isAdminMedicAddNameInput: true }}
+              />
 
-              <StandardTextInput isAdminMedicAddSurnameInput />
+              <StandardTextInput
+                adminMedic={{ isAdminMedicAddSurnameInput: true }}
+              />
 
-              <StandardTextInput isAdminMedicAddLicenceCodeInput />
+              <StandardTextInput
+                adminMedic={{ isAdminMedicAddLicenceCodeInput: true }}
+              />
 
               <div className="flex gap-2 items-center justify-between">
-                <StandardTextInput isAdminMedicAddStreetNumberInput />
+                <StandardTextInput
+                  adminMedic={{ isAdminMedicAddStreetNumberInput: true }}
+                />
 
-                <StandardTextInput isAdminMedicAddStreetNameInput />
+                <StandardTextInput
+                  adminMedic={{ isAdminMedicAddStreetNameInput: true }}
+                />
               </div>
 
               <div className="flex gap-2 items-center justify-between">
-                <StandardTextInput isAdminMedicAddPostalCodeInput />
+                <StandardTextInput
+                  adminMedic={{ isAdminMedicAddPostalCodeInput: true }}
+                />
 
-                <StandardTextInput isAdminMedicAddCityInput />
+                <StandardTextInput
+                  adminMedic={{ isAdminMedicAddCityInput: true }}
+                />
               </div>
 
               <div className="flex gap-2 items-center justify-between">
@@ -793,20 +829,34 @@ export default function AdminModal({
 
           {isAdminAddInsuranceModal && (
             <>
-              <StandardTextInput isAdminInsuranceAddNameInput />
+              <StandardTextInput
+                adminInsurance={{ isAdminInsuranceAddNameInput: true }}
+              />
 
-              <StandardTextInput isAdminInsuranceAddLicenceCodeInput />
+              <StandardTextInput
+                adminInsurance={{ isAdminInsuranceAddLicenceCodeInput: true }}
+              />
 
               <div className="flex gap-2 items-center justify-between">
-                <StandardTextInput isAdminInsuranceAddStreetNumberInput />
+                <StandardTextInput
+                  adminInsurance={{
+                    isAdminInsuranceAddStreetNumberInput: true,
+                  }}
+                />
 
-                <StandardTextInput isAdminInsuranceAddStreetNameInput />
+                <StandardTextInput
+                  adminInsurance={{ isAdminInsuranceAddStreetNameInput: true }}
+                />
               </div>
 
               <div className="flex gap-2 items-center justify-between">
-                <StandardTextInput isAdminInsuranceAddPostalCodeInput />
+                <StandardTextInput
+                  adminInsurance={{ isAdminInsuranceAddPostalCodeInput: true }}
+                />
 
-                <StandardTextInput isAdminInsuranceAddCityInput />
+                <StandardTextInput
+                  adminInsurance={{ isAdminInsuranceAddCityInput: true }}
+                />
               </div>
 
               <div className="flex gap-2 items-center justify-between">
