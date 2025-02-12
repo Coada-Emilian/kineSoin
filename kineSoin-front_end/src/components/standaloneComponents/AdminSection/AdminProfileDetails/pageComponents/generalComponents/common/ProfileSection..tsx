@@ -5,7 +5,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../../@types/types';
-import CommonInput from './CommonInput';
+import GeneralInput from './GeneralInput';
 import GeneralOutput from './GeneralOutput';
 
 interface ProfileSectionProps {
@@ -40,12 +40,12 @@ export default function ProfileSection({
       {isTherapistProfileSection &&
         (isProfileEditing ? (
           <>
-            <CommonInput therapist={therapist} isTherapistLicenceCodeInput />
-            <CommonInput therapist={therapist} isTherapistDiplomaInput />
-            <CommonInput therapist={therapist} isTherapistExperienceInput />
-            <CommonInput therapist={therapist} isTherapistSpecialtyInput />
-            <CommonInput therapist={therapist} isTherapistPhoneNumberInput />
-            <CommonInput therapist={therapist} isTherapistDescriptionInput />
+            <GeneralInput therapist={therapist} isTherapistLicenceCodeInput />
+            <GeneralInput therapist={therapist} isTherapistDiplomaInput />
+            <GeneralInput therapist={therapist} isTherapistExperienceInput />
+            <GeneralInput therapist={therapist} isTherapistSpecialtyInput />
+            <GeneralInput therapist={therapist} isTherapistPhoneNumberInput />
+            <GeneralInput therapist={therapist} isTherapistDescriptionInput />
           </>
         ) : (
           <>
@@ -70,13 +70,16 @@ export default function ProfileSection({
       {isAfflictionProfileSection &&
         (isProfileEditing ? (
           <>
-            <CommonInput affliction={affliction} isAfflictionRegionInput />
-            <CommonInput
+            <GeneralInput affliction={affliction} isAfflictionRegionInput />
+            <GeneralInput
               affliction={affliction}
               isAfflictionInsuranceCodeInput
             />
-            <CommonInput affliction={affliction} isAfflictionOperatedInput />
-            <CommonInput affliction={affliction} isAfflictionDescriptionInput />
+            <GeneralInput affliction={affliction} isAfflictionOperatedInput />
+            <GeneralInput
+              affliction={affliction}
+              isAfflictionDescriptionInput
+            />
           </>
         ) : (
           <>
@@ -96,9 +99,9 @@ export default function ProfileSection({
       {isMedicProfileSection &&
         (isProfileEditing ? (
           <>
-            <CommonInput medic={medic} isMedicAddressInput />
-            <CommonInput medic={medic} isMedicPhoneNumberInput />
-            <CommonInput medic={medic} isMedicLicenceCodeInput />
+            <GeneralInput medic={medic} isMedicAddressInput />
+            <GeneralInput medic={medic} isMedicPhoneNumberInput />
+            <GeneralInput medic={medic} isMedicLicenceCodeInput />
           </>
         ) : (
           <>
@@ -112,9 +115,9 @@ export default function ProfileSection({
         <>
           {isProfileEditing ? (
             <>
-              <CommonInput insurance={insurance} isInsuranceAddressInput />
-              <CommonInput insurance={insurance} isInsurancePhoneNumberInput />
-              <CommonInput insurance={insurance} isInsuranceAMCCodeInput />
+              <GeneralInput insurance={insurance} isInsuranceAddressInput />
+              <GeneralInput insurance={insurance} isInsurancePhoneNumberInput />
+              <GeneralInput insurance={insurance} isInsuranceAMCCodeInput />
             </>
           ) : (
             <>

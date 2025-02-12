@@ -1,27 +1,25 @@
 import { useState } from 'react';
-import { IAffliction } from '../../../../@types/IAffliction';
-import { IInsurance } from '../../../../@types/IInsurance';
-import { IMedic } from '../../../../@types/IMedic';
-import { ITherapist } from '../../../../@types/ITherapist';
+import {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  ITherapist,
+} from '../../../../@types/types';
 
-interface StandardTextInputProps {
+interface GeneralInputProps {
   isNameInput?: boolean;
   isSurnameInput?: boolean;
   isBirthNameInput?: boolean;
-  patientRegisterName?: string;
-  patientRegisterSurname?: string;
-  patientRegisterBirthName?: string;
   isStreetNumberInput?: boolean;
   isStreetNameInput?: boolean;
   isPostalCodeInput?: boolean;
   isCityInput?: boolean;
-  patientRegisterStreetNumber?: string;
-  patientRegisterStreetName?: string;
-  patientRegisterPostalCode?: string;
-  patientRegisterCity?: string;
-  patientRegisterTelephone?: string;
   isAppointmentNumberInput?: boolean;
   isPatientMessageInput?: boolean;
+  isTextAreaInput?: boolean;
+}
+
+interface AdminTherapistProps {
   isAdminTherapistAddNameInput?: boolean;
   isAdminTherapistAddSurnameInput?: boolean;
   isAdminTherapistAddLicenceCodeInput?: boolean;
@@ -29,11 +27,25 @@ interface StandardTextInputProps {
   isAdminTherapistAddExperienceInput?: boolean;
   isAdminTherapistAddSpecialtyInput?: boolean;
   isAdminTherapistAddDescriptionInput?: boolean;
-  isTextAreaInput?: boolean;
+  isAdminTherapistEditSurnameInput?: boolean;
+  isAdminTherapistEditNameInput?: boolean;
+  isAdminTherapistEditLicenceCodeInput?: boolean;
+  isAdminTherapistEditDiplomaInput?: boolean;
+  isAdminTherapistEditExperienceInput?: boolean;
+  isAdminTherapistEditSpecialtyInput?: boolean;
+  isAdminTherapistEditDescriptionInput?: boolean;
+}
+
+interface AdminAfflictionProps {
   isAdminAfflictionAddNameInput?: boolean;
   isAdminAfflictionAddLicenceCodeInput?: boolean;
   isAdminAfflictionAddDescriptionInput?: boolean;
-  isAdminRegionAddNameInput?: boolean;
+  isAdminAfflictionEditNameInput?: boolean;
+  isAdminAfflictionEditInsuranceCodeInput?: boolean;
+  isAdminAfflictionEditDescriptionInput?: boolean;
+}
+
+interface AdminMedicProps {
   isAdminMedicAddNameInput?: boolean;
   isAdminMedicAddSurnameInput?: boolean;
   isAdminMedicAddLicenceCodeInput?: boolean;
@@ -41,34 +53,23 @@ interface StandardTextInputProps {
   isAdminMedicAddStreetNameInput?: boolean;
   isAdminMedicAddPostalCodeInput?: boolean;
   isAdminMedicAddCityInput?: boolean;
+  isAdminMedicEditSurnameInput?: boolean;
+  isAdminMedicEditNameInput?: boolean;
+  isAdminMedicEditStreetNumberInput?: boolean;
+  isAdminMedicEditStreetNameInput?: boolean;
+  isAdminMedicEditPostalCodeInput?: boolean;
+  isAdminMedicEditCityInput?: boolean;
+  isAdminMedicEditLicenceCodeInput?: boolean;
+}
+
+interface AdminInsuranceProps {
   isAdminInsuranceAddNameInput?: boolean;
   isAdminInsuranceAddLicenceCodeInput?: boolean;
   isAdminInsuranceAddStreetNumberInput?: boolean;
   isAdminInsuranceAddStreetNameInput?: boolean;
   isAdminInsuranceAddPostalCodeInput?: boolean;
   isAdminInsuranceAddCityInput?: boolean;
-  isAdminTherapistEditSurnameInput?: boolean;
-  isAdminMedicEditSurnameInput?: boolean;
-  therapist?: ITherapist | null;
-  medic?: IMedic | null;
-  affliction?: IAffliction | null;
-  insurance?: IInsurance | null;
-  isAdminTherapistEditNameInput?: boolean;
-  isAdminAfflictionEditNameInput?: boolean;
-  isAdminMedicEditNameInput?: boolean;
   isAdminInsuranceEditNameInput?: boolean;
-  isAdminTherapistEditLicenceCodeInput?: boolean;
-  isAdminTherapistEditDiplomaInput?: boolean;
-  isAdminTherapistEditExperienceInput?: boolean;
-  isAdminTherapistEditSpecialtyInput?: boolean;
-  isAdminTherapistEditDescriptionInput?: boolean;
-  isAdminAfflictionEditInsuranceCodeInput?: boolean;
-  isAdminAfflictionEditDescriptionInput?: boolean;
-  isAdminMedicEditStreetNumberInput?: boolean;
-  isAdminMedicEditStreetNameInput?: boolean;
-  isAdminMedicEditPostalCodeInput?: boolean;
-  isAdminMedicEditCityInput?: boolean;
-  isAdminMedicEditLicenceCodeInput?: boolean;
   isAdminInsuranceEditStreetNumberInput?: boolean;
   isAdminInsuranceEditStreetNameInput?: boolean;
   isAdminInsuranceEditPostalCodeInput?: boolean;
@@ -76,746 +77,985 @@ interface StandardTextInputProps {
   isAdminInsuranceEditAMCCodeInput?: boolean;
 }
 
+interface DataInputProps {
+  therapist?: ITherapist | null;
+  medic?: IMedic | null;
+  affliction?: IAffliction | null;
+  insurance?: IInsurance | null;
+}
+
+interface AdminRegionProps {
+  isAdminRegionAddNameInput?: boolean;
+}
+
+interface StandardTextInputProps {
+  patientRegister?: GeneralInputProps;
+  adminTherapist?: AdminTherapistProps;
+  adminAffliction?: AdminAfflictionProps;
+  adminMedic?: AdminMedicProps;
+  adminInsurance?: AdminInsuranceProps;
+  dataInput?: DataInputProps;
+  adminRegion?: AdminRegionProps;
+}
+
 export default function StandardTextInput({
-  isNameInput,
-  isSurnameInput,
-  isBirthNameInput,
-  isStreetNumberInput,
-  isStreetNameInput,
-  isPostalCodeInput,
-  isCityInput,
-  isAppointmentNumberInput,
-  isPatientMessageInput,
-  isAdminTherapistAddNameInput,
-  isAdminTherapistAddSurnameInput,
-  isAdminTherapistAddLicenceCodeInput,
-  isAdminTherapistAddDiplomaInput,
-  isAdminTherapistAddExperienceInput,
-  isAdminTherapistAddSpecialtyInput,
-  isAdminTherapistAddDescriptionInput,
-  isTextAreaInput,
-  isAdminAfflictionAddNameInput,
-  isAdminAfflictionAddLicenceCodeInput,
-  isAdminAfflictionAddDescriptionInput,
-  isAdminRegionAddNameInput,
-  isAdminMedicAddNameInput,
-  isAdminMedicAddSurnameInput,
-  isAdminMedicAddLicenceCodeInput,
-  isAdminMedicAddStreetNumberInput,
-  isAdminMedicAddStreetNameInput,
-  isAdminMedicAddPostalCodeInput,
-  isAdminMedicAddCityInput,
-  isAdminInsuranceAddCityInput,
-  isAdminInsuranceAddLicenceCodeInput,
-  isAdminInsuranceAddNameInput,
-  isAdminInsuranceAddPostalCodeInput,
-  isAdminInsuranceAddStreetNameInput,
-  isAdminInsuranceAddStreetNumberInput,
-  isAdminTherapistEditSurnameInput,
-  isAdminMedicEditSurnameInput,
-  therapist,
-  medic,
-  affliction,
-  insurance,
-  isAdminTherapistEditNameInput,
-  isAdminAfflictionEditNameInput,
-  isAdminMedicEditNameInput,
-  isAdminInsuranceEditNameInput,
-  isAdminTherapistEditLicenceCodeInput,
-  isAdminTherapistEditDiplomaInput,
-  isAdminTherapistEditExperienceInput,
-  isAdminTherapistEditSpecialtyInput,
-  isAdminTherapistEditDescriptionInput,
-  isAdminAfflictionEditInsuranceCodeInput,
-  isAdminAfflictionEditDescriptionInput,
-  isAdminMedicEditStreetNumberInput,
-  isAdminMedicEditStreetNameInput,
-  isAdminMedicEditPostalCodeInput,
-  isAdminMedicEditCityInput,
-  isAdminMedicEditLicenceCodeInput,
-  isAdminInsuranceEditCityInput,
-  isAdminInsuranceEditPostalCodeInput,
-  isAdminInsuranceEditStreetNameInput,
-  isAdminInsuranceEditStreetNumberInput,
-  isAdminInsuranceEditAMCCodeInput,
+  patientRegister,
+  adminTherapist,
+  adminAffliction,
+  adminMedic,
+  adminInsurance,
+  dataInput,
+  adminRegion,
 }: StandardTextInputProps) {
-  const [therapistName, setTherapistName] = useState<string>(
-    therapist?.name || ''
-  );
-  const [therapistSurname, setTherapistSurname] = useState<string>(
-    therapist?.surname || ''
-  );
-  const [therapistLicenceCode, setTherapistLicenceCode] = useState<string>(
-    therapist?.licence_code || ''
-  );
-  const [therapistDiploma, setTherapistDiploma] = useState<string>(
-    therapist?.diploma || ''
-  );
-  const [therapistExperience, setTherapistExperience] = useState<string>(
-    therapist?.experience || ''
-  );
-  const [therapistSpecialty, setTherapistSpecialty] = useState<string>(
-    therapist?.specialty || ''
-  );
-  const [therapistDescription, setTherapistDescription] = useState<string>(
-    therapist?.description || ''
-  );
-  const [afflictionName, setAfflictionName] = useState<string>(
-    affliction?.name || ''
-  );
-  const [afflictionInsuranceCode, setAfflictionInsuranceCode] =
-    useState<string>(affliction?.insurance_code || '');
+  const [therapistState, setTherapistState] = useState({
+    name: dataInput?.therapist?.name || '',
+    surname: dataInput?.therapist?.surname || '',
+    licenceCode: dataInput?.therapist?.licence_code || '',
+    diploma: dataInput?.therapist?.diploma || '',
+    experience: dataInput?.therapist?.experience || '',
+    specialty: dataInput?.therapist?.specialty || '',
+    description: dataInput?.therapist?.description || '',
+  });
 
-  const [afflictionDescription, setAfflictionDescription] = useState<string>(
-    affliction?.description || ''
-  );
-  const [medicStreetName, setMedicStreetName] = useState<string>(
-    medic?.street_name || ''
-  );
-  const [medicStreetNumber, setMedicStreetNumber] = useState<string>(
-    medic?.street_number || ''
-  );
-  const [medicPostalCode, setMedicPostalCode] = useState<string>(
-    medic?.postal_code || ''
-  );
-  const [medicCity, setMedicCity] = useState<string>(medic?.city || '');
-  const [medicName, setMedicName] = useState<string>(medic?.name || '');
-  const [medicSurname, setMedicSurname] = useState<string>(
-    medic?.surname || ''
-  );
-  const [medicLicenceCode, setMedicLicenceCode] = useState<string>(
-    medic?.licence_code || ''
-  );
-  const [insuranceName, setInsuranceName] = useState<string>(
-    insurance?.name || ''
-  );
-  const [insuranceStreetName, setInsuranceStreetName] = useState<string>(
-    insurance?.street_name || ''
-  );
-  const [insuranceStreetNumber, setInsuranceStreetNumber] = useState<string>(
-    insurance?.street_number || ''
-  );
-  const [insurancePostalCode, setInsurancePostalCode] = useState<string>(
-    insurance?.postal_code || ''
-  );
-  const [insuranceCity, setInsuranceCity] = useState<string>(
-    insurance?.city || ''
-  );
-  const [insuranceAmcCode, setInsuranceAmcCode] = useState<string>(
-    insurance?.amc_code || ''
-  );
+  const [afflictionState, setAfflictionState] = useState({
+    name: dataInput?.affliction?.name || '',
+    insuranceCode: dataInput?.affliction?.insurance_code || '',
+    description: dataInput?.affliction?.description || '',
+  });
 
+  const [medicState, setMedicState] = useState({
+    name: dataInput?.medic?.name || '',
+    surname: dataInput?.medic?.surname || '',
+    licenceCode: dataInput?.medic?.licence_code || '',
+    streetName: dataInput?.medic?.street_name || '',
+    streetNumber: dataInput?.medic?.street_number || '',
+    postalCode: dataInput?.medic?.postal_code || '',
+    city: dataInput?.medic?.city || '',
+  });
+
+  const [insuranceState, setInsuranceState] = useState({
+    name: dataInput?.insurance?.name || '',
+    streetName: dataInput?.insurance?.street_name || '',
+    streetNumber: dataInput?.insurance?.street_number || '',
+    postalCode: dataInput?.insurance?.postal_code || '',
+    city: dataInput?.insurance?.city || '',
+    amcCode: dataInput?.insurance?.amc_code || '',
+  });
+
+  const handleTherapistChange = (
+    field: keyof typeof therapistState,
+    value: string
+  ) => {
+    setTherapistState((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleAfflictionChange = (
+    field: keyof typeof afflictionState,
+    value: string
+  ) => {
+    setAfflictionState((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleMedicChange = (field: keyof typeof medicState, value: string) => {
+    setMedicState((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleInsuranceChange = (
+    field: keyof typeof insuranceState,
+    value: string
+  ) => {
+    setInsuranceState((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const standardTextFields = [
+    {
+      boolean: patientRegister?.isNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'patient-register-name_input',
+      labelClassName: 'text-sm',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: 'Entrez votre nom',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isSurnameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'patient-register-surname_input',
+      labelClassName: 'text-sm',
+      labelName: 'Prénom',
+      inputName: 'surname',
+      inputPlaceholder: 'Entrez votre prénom',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isBirthNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'patient-register-birthname_input',
+      labelClassName: 'text-sm',
+      labelName: 'Nom de naissance',
+      inputName: 'birth_name',
+      inputPlaceholder: 'Entrez votre nom de naissance',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isStreetNumberInput,
+      divClassName: 'w-4/12 flex flex-col mb-4',
+      inputId: 'patient-register-street_number_input',
+      labelClassName: 'text-xs',
+      labelName: 'N° de rue',
+      inputName: 'street_number',
+      inputPlaceholder: 'N° de rue',
+      required: false,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isStreetNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'patient-register-street_name_input',
+      labelClassName: 'text-xs',
+      labelName: 'Nom de rue',
+      inputName: 'street_name',
+      inputPlaceholder: 'Nom de rue',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isPostalCodeInput,
+      divClassName: 'w-1/2 flex flex-col mb-4',
+      inputId: 'patient-register-postal_code_input',
+      labelClassName: 'text-xs',
+      labelName: 'Code postal',
+      inputName: 'postal_code',
+      inputPlaceholder: 'Code postal',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isCityInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'patient-register-city_input',
+      labelClassName: 'text-xs',
+      labelName: 'Ville',
+      inputName: 'city',
+      inputPlaceholder: 'Ville',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isAppointmentNumberInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'appointment-number_input',
+      labelClassName: 'text-sm',
+      labelName: 'Quantité séances prescrites',
+      inputName: 'appointment_quantity',
+      inputPlaceholder: 'Séances prescrites',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientRegister?.isPatientMessageInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'patient-message-input',
+      labelClassName: 'text-sm',
+      labelName: 'Message',
+      inputName: 'content',
+      inputPlaceholder: 'Tapez votre message...',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: true,
+      generalDivClassName: false,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistAddNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-name_input',
+      labelClassName: 'text-sm',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: 'Entrez le nom du kiné',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistAddSurnameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-surname_input',
+      labelClassName: 'text-sm',
+      labelName: 'Prénom',
+      inputName: 'surname',
+      inputPlaceholder: 'Entrez le prénom du kiné',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistAddLicenceCodeInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-licence-code_input',
+      labelClassName: 'text-sm',
+      labelName: 'Code ADELI',
+      inputName: 'licence_code',
+      inputPlaceholder: 'Entrez le code ADELI du kiné',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistAddDiplomaInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-diploma_input',
+      labelClassName: 'text-sm',
+      labelName: 'Diplôme',
+      inputName: 'diploma',
+      inputPlaceholder: 'Entrez le diplôme du kiné',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistAddExperienceInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-experience_input',
+      labelClassName: 'text-sm',
+      labelName: 'Expérience',
+      inputName: 'experience',
+      inputPlaceholder: "Entrez l'expérience du kiné",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistAddSpecialtyInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-specialty_input',
+      labelClassName: 'text-sm',
+      labelName: 'Spécialité',
+      inputName: 'specialty',
+      inputPlaceholder: 'Entrez la spécialité du kiné',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistAddDescriptionInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-description_input',
+      labelClassName: 'text-sm',
+      labelName: 'Description du kiné',
+      inputName: 'description',
+      inputPlaceholder: 'Description du kinésithérapeute',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: true,
+      generalDivClassName: false,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistEditSurnameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'therapist-surname_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Prénom',
+      inputName: 'surname',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: therapistState.surname,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleTherapistChange('surname', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistEditNameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'therapist-name_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: therapistState.name,
+      inputOnChange: (e) => handleTherapistChange('name', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistEditLicenceCodeInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'therapist-licence_code_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Code ADELI',
+      inputName: 'licence_code',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: therapistState.licenceCode,
+      inputOnChange: (e) =>
+        handleTherapistChange('licenceCode', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistEditDiplomaInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'therapist-diploma_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Diplôme',
+      inputName: 'diploma',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: therapistState.diploma,
+      inputOnChange: (e) => handleTherapistChange('diploma', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistEditExperienceInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'therapist-experience_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Expérience',
+      inputName: 'experience',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: therapistState.experience,
+      inputOnChange: (e) => handleTherapistChange('experience', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistEditSpecialtyInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'therapist-specialty_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Spécialité',
+      inputName: 'specialty',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: therapistState.specialty,
+      inputOnChange: (e) => handleTherapistChange('specialty', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminTherapist?.isAdminTherapistEditDescriptionInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'therapist-description_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Description',
+      inputName: 'description',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: therapistState.description,
+      inputOnChange: (e) =>
+        handleTherapistChange('description', e.target.value),
+      textArea: true,
+      generalDivClassName: false,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminAffliction?.isAdminAfflictionAddNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'affliction-name_input',
+      labelClassName: 'text-sm',
+      labelName: "Nom de l'affliction",
+      inputName: 'name',
+      inputPlaceholder: "Entrez le nom de l'affliction",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminAffliction?.isAdminAfflictionAddLicenceCodeInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'affliction-insurance-code_input',
+      labelClassName: 'text-sm',
+      labelName: 'Cotation',
+      inputName: 'insurance_code',
+      inputPlaceholder: "Entrez la cotation de l'affliction",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminAffliction?.isAdminAfflictionAddDescriptionInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'affliction-description_input',
+      labelClassName: 'text-sm',
+      labelName: 'Description',
+      inputName: 'description',
+      inputPlaceholder: "Description de l'affliction",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: true,
+      generalDivClassName: false,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminAffliction?.isAdminAfflictionEditNameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'affliction-name_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: afflictionState.name,
+      inputOnChange: (e) => handleAfflictionChange('name', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminAffliction?.isAdminAfflictionEditInsuranceCodeInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'affliction-insurance-code_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Cotation',
+      inputName: 'insurance_code',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: afflictionState.insuranceCode,
+      inputOnChange: (e) =>
+        handleAfflictionChange('insuranceCode', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminAffliction?.isAdminAfflictionEditDescriptionInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'affliction-description_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit ',
+      labelName: 'Description',
+      inputName: 'description',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: afflictionState.description,
+      inputOnChange: (e) =>
+        handleAfflictionChange('description', e.target.value),
+      textArea: true,
+      generalDivClassName: false,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicAddNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'medic-name_input',
+      labelClassName: 'text-sm',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: 'Entrez le nom du médecin',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicAddSurnameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'medic-surname_input',
+      labelClassName: 'text-sm',
+      labelName: 'Prénom',
+      inputName: 'surname',
+      inputPlaceholder: 'Entrez le prénom du médecin',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicAddLicenceCodeInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'medic-licence-code_input',
+      labelClassName: 'text-sm',
+      labelName: 'Code ADELI',
+      inputName: 'licence_code',
+      inputPlaceholder: 'Entrez le code ADELI du médecin',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicAddStreetNumberInput,
+      divClassName: 'w-4/12 flex flex-col mb-4',
+      inputId: 'medic-street_number_input',
+      labelClassName: 'text-xs',
+      labelName: 'N° de rue',
+      inputName: 'street_number',
+      inputPlaceholder: 'N° de rue',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicAddStreetNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'medic-street_name_input',
+      labelClassName: 'text-xs',
+      labelName: 'Nom de rue',
+      inputName: 'street_name',
+      inputPlaceholder: 'Entrez le nom de rue du médecin',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicAddPostalCodeInput,
+      divClassName: 'w-1/3 flex flex-col mb-4',
+      inputId: 'medic-postal_code_input',
+      labelClassName: 'text-xs',
+      labelName: 'Code postal',
+      inputName: 'postal_code',
+      inputPlaceholder: 'Code postal',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicAddCityInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'medic-city_input',
+      labelClassName: 'text-xs',
+      labelName: 'Ville',
+      inputName: 'city',
+      inputPlaceholder: 'Entrez la ville du médecin',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicEditNameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'medic-name_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: medicState.name,
+      inputOnChange: (e) => handleMedicChange('name', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicEditSurnameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'medic-surname_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Prénom',
+      inputName: 'surname',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: medicState.surname,
+      inputOnChange: (e) => handleMedicChange('surname', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicEditLicenceCodeInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'medic-licence_code_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Code ADELI',
+      inputName: 'licence_code',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: medicState.licenceCode,
+      inputOnChange: (e) => handleMedicChange('licenceCode', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicEditStreetNumberInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'medic-street_number_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'N° de rue',
+      inputName: 'street_number',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: medicState.streetNumber,
+      inputOnChange: (e) => handleMedicChange('streetNumber', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicEditStreetNameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'medic-street_name_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Nom de rue',
+      inputName: 'street_name',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: medicState.streetName,
+      inputOnChange: (e) => handleMedicChange('streetName', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicEditPostalCodeInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'medic-postal_code_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Code postal',
+      inputName: 'postal_code',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: medicState.postalCode,
+      inputOnChange: (e) => handleMedicChange('postalCode', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminMedic?.isAdminMedicEditCityInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'medic-city_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Ville',
+      inputName: 'city',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: medicState.city,
+      inputOnChange: (e) => handleMedicChange('city', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceAddNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'insurance-name_input',
+      labelClassName: 'text-sm',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: "Entrez le nom de l'assurance",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceAddLicenceCodeInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'insurance-licence-code_input',
+      labelClassName: 'text-sm',
+      labelName: 'Code AMC',
+      inputName: 'amc_code',
+      inputPlaceholder: "Entrez le code AMC de l'assurance",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceAddStreetNumberInput,
+      divClassName: 'w-1/3 flex flex-col mb-4',
+      inputId: 'insurance-street_number_input',
+      labelClassName: 'text-xs',
+      labelName: 'N° de rue',
+      inputName: 'street_number',
+      inputPlaceholder: 'N° de rue',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceAddStreetNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'insurance-street_name_input',
+      labelClassName: 'text-xs',
+      labelName: 'Nom de rue',
+      inputName: 'street_name',
+      inputPlaceholder: "Entrez le nom de rue de l'assurance",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceAddPostalCodeInput,
+      divClassName: 'w-1/3 flex flex-col mb-4',
+      inputId: 'insurance-postal_code_input',
+      labelClassName: 'text-xs',
+      labelName: 'Code postal',
+      inputName: 'postal_code',
+      inputPlaceholder: 'Code postal',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceAddCityInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'insurance-city_input',
+      labelClassName: 'text-xs',
+      labelName: 'Ville',
+      inputName: 'city',
+      inputPlaceholder: "Entrez la ville de l'assurance",
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceEditNameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'insurance-name_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: insuranceState.name,
+      inputOnChange: (e) => handleInsuranceChange('name', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceEditAMCCodeInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'insurance-licence-code_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Code AMC',
+      inputName: 'amc_code',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: insuranceState.amcCode,
+      inputOnChange: (e) => handleInsuranceChange('amcCode', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceEditStreetNumberInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'insurance-street_number_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'N° de rue',
+      inputName: 'street_number',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: insuranceState.streetNumber,
+      inputOnChange: (e) =>
+        handleInsuranceChange('streetNumber', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceEditStreetNameInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'insurance-street_name_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Nom de rue',
+      inputName: 'street_name',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: insuranceState.streetName,
+      inputOnChange: (e) => handleInsuranceChange('streetName', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceEditPostalCodeInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'insurance-postal_code_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Code postal',
+      inputName: 'postal_code',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: insuranceState.postalCode,
+      inputOnChange: (e) => handleInsuranceChange('postalCode', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminInsurance?.isAdminInsuranceEditCityInput,
+      divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
+      inputId: 'insurance-city_input',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelName: 'Ville',
+      inputName: 'city',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: insuranceState.city,
+      inputOnChange: (e) => handleInsuranceChange('city', e.target.value),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: adminRegion?.isAdminRegionAddNameInput,
+      divClassName: 'w-full flex flex-col mb-4',
+      inputId: 'region-name_input',
+      labelClassName: 'text-sm',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: 'Entrez le nom de la région',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+  ];
   return (
-    <div
-      className={`${
-        isStreetNumberInput ||
-        isPostalCodeInput ||
-        isAdminMedicAddStreetNumberInput ||
-        isAdminMedicAddPostalCodeInput ||
-        isAdminInsuranceAddStreetNumberInput ||
-        isAdminInsuranceAddPostalCodeInput
-          ? 'w-4/12 flex flex-col mb-4'
-          : isAdminTherapistEditSurnameInput ||
-              isAdminMedicEditSurnameInput ||
-              isAdminTherapistEditNameInput ||
-              isAdminAfflictionEditNameInput ||
-              isAdminMedicEditNameInput ||
-              isAdminInsuranceEditNameInput ||
-              isAdminTherapistEditLicenceCodeInput ||
-              isAdminTherapistEditDiplomaInput ||
-              isAdminTherapistEditExperienceInput ||
-              isAdminTherapistEditSpecialtyInput ||
-              isAdminAfflictionEditInsuranceCodeInput ||
-              isAdminMedicEditCityInput ||
-              isAdminMedicEditStreetNameInput ||
-              isAdminMedicEditStreetNumberInput ||
-              isAdminMedicEditPostalCodeInput ||
-              isAdminMedicEditLicenceCodeInput ||
-              isAdminInsuranceEditCityInput ||
-              isAdminInsuranceEditPostalCodeInput ||
-              isAdminInsuranceEditStreetNameInput ||
-              isAdminInsuranceEditStreetNumberInput ||
-              isAdminInsuranceEditAMCCodeInput
-            ? 'flex flex-row items-center gap-2 mb-2 w-full'
-            : 'w-full flex flex-col mb-4 '
-      } gap-2 italic`}
-    >
-      <label
-        htmlFor={`${
-          isNameInput
-            ? 'patient-register-name_input'
-            : isSurnameInput
-              ? 'patient-register-surname_input'
-              : isBirthNameInput
-                ? 'patient-register-birth_name_input'
-                : isStreetNumberInput
-                  ? 'patient-register-street_number_input'
-                  : isStreetNameInput
-                    ? 'patient-register-street_name_input'
-                    : isPostalCodeInput
-                      ? 'patient-register-postal_code_input'
-                      : isCityInput
-                        ? 'patient-register-city_input'
-                        : isAppointmentNumberInput
-                          ? 'appointment-number_input'
-                          : isPatientMessageInput
-                            ? 'patient-message-input'
-                            : isAdminTherapistAddNameInput ||
-                                isAdminTherapistEditNameInput
-                              ? 'therapist-name_input'
-                              : isAdminTherapistAddSurnameInput ||
-                                  isAdminTherapistEditSurnameInput
-                                ? 'therapist-surname_input'
-                                : isAdminTherapistAddLicenceCodeInput ||
-                                    isAdminTherapistEditLicenceCodeInput
-                                  ? 'therapist-licence-code_input'
-                                  : isAdminTherapistAddDiplomaInput ||
-                                      isAdminTherapistEditDiplomaInput
-                                    ? 'therapist-diploma_input'
-                                    : isAdminTherapistAddExperienceInput ||
-                                        isAdminTherapistEditExperienceInput
-                                      ? 'therapist-experience_input'
-                                      : isAdminTherapistAddSpecialtyInput ||
-                                          isAdminTherapistEditSpecialtyInput
-                                        ? 'therapist-specialty_input'
-                                        : isAdminTherapistAddDescriptionInput ||
-                                            isAdminTherapistEditDescriptionInput
-                                          ? 'therapist-description_input'
-                                          : isAdminAfflictionAddNameInput ||
-                                              isAdminAfflictionEditNameInput
-                                            ? 'affliction-name_input'
-                                            : isAdminAfflictionAddLicenceCodeInput ||
-                                                isAdminAfflictionEditInsuranceCodeInput
-                                              ? 'affliction-insurance-code_input'
-                                              : isAdminAfflictionAddDescriptionInput ||
-                                                  isAdminAfflictionEditDescriptionInput
-                                                ? 'affliction-description_input'
-                                                : isAdminRegionAddNameInput
-                                                  ? 'region-name_input'
-                                                  : isAdminMedicAddNameInput ||
-                                                      isAdminMedicEditNameInput
-                                                    ? 'medic-name_input'
-                                                    : isAdminMedicAddSurnameInput ||
-                                                        isAdminMedicEditSurnameInput
-                                                      ? 'medic-surname_input'
-                                                      : isAdminMedicAddLicenceCodeInput ||
-                                                          isAdminMedicEditLicenceCodeInput
-                                                        ? 'medic-licence-code_input'
-                                                        : isAdminMedicAddStreetNumberInput ||
-                                                            isAdminMedicEditStreetNumberInput
-                                                          ? 'medic-street_number_input'
-                                                          : isAdminMedicAddStreetNameInput ||
-                                                              isAdminMedicEditStreetNameInput
-                                                            ? 'medic-street_name_input'
-                                                            : isAdminMedicAddPostalCodeInput ||
-                                                                isAdminMedicEditPostalCodeInput
-                                                              ? 'medic-postal_code_input'
-                                                              : isAdminMedicAddCityInput ||
-                                                                  isAdminMedicEditCityInput
-                                                                ? 'medic-city_input'
-                                                                : isAdminInsuranceAddNameInput ||
-                                                                    isAdminInsuranceEditNameInput
-                                                                  ? 'insurance-name_input'
-                                                                  : isAdminInsuranceAddLicenceCodeInput ||
-                                                                      isAdminInsuranceEditAMCCodeInput
-                                                                    ? 'insurance-licence-code_input'
-                                                                    : isAdminInsuranceAddStreetNumberInput ||
-                                                                        isAdminInsuranceEditStreetNumberInput
-                                                                      ? 'insurance-street_number_input'
-                                                                      : isAdminInsuranceAddStreetNameInput ||
-                                                                          isAdminInsuranceEditStreetNameInput
-                                                                        ? 'insurance-street_name_input'
-                                                                        : isAdminInsuranceAddPostalCodeInput ||
-                                                                            isAdminInsuranceEditPostalCodeInput
-                                                                          ? 'insurance-postal_code_input'
-                                                                          : isAdminInsuranceAddCityInput ||
-                                                                              isAdminInsuranceEditCityInput
-                                                                            ? 'insurance-city_input'
-                                                                            : ''
-        }`}
-        className={`${
-          isStreetNameInput ||
-          isCityInput ||
-          isStreetNumberInput ||
-          isPostalCodeInput ||
-          isAdminMedicAddCityInput ||
-          isAdminMedicAddStreetNameInput ||
-          isAdminMedicAddStreetNumberInput ||
-          isAdminMedicAddPostalCodeInput ||
-          isAdminInsuranceAddCityInput ||
-          isAdminInsuranceAddStreetNameInput ||
-          isAdminInsuranceAddStreetNumberInput ||
-          isAdminInsuranceAddPostalCodeInput
-            ? 'text-xs'
-            : isAdminTherapistEditSurnameInput ||
-                isAdminMedicEditSurnameInput ||
-                isAdminTherapistEditNameInput ||
-                isAdminAfflictionEditNameInput ||
-                isAdminMedicEditNameInput ||
-                isAdminInsuranceEditNameInput ||
-                isAdminTherapistEditLicenceCodeInput ||
-                isAdminTherapistEditDiplomaInput ||
-                isAdminTherapistEditExperienceInput ||
-                isAdminTherapistEditSpecialtyInput ||
-                isAdminTherapistEditDescriptionInput ||
-                isAdminAfflictionEditDescriptionInput ||
-                isAdminAfflictionEditInsuranceCodeInput ||
-                isAdminMedicEditCityInput ||
-                isAdminMedicEditStreetNameInput ||
-                isAdminMedicEditStreetNumberInput ||
-                isAdminMedicEditPostalCodeInput ||
-                isAdminMedicEditLicenceCodeInput ||
-                isAdminInsuranceEditCityInput ||
-                isAdminInsuranceEditPostalCodeInput ||
-                isAdminInsuranceEditStreetNameInput ||
-                isAdminInsuranceEditStreetNumberInput ||
-                isAdminInsuranceEditAMCCodeInput
-              ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/6'
-              : 'text-sm'
-        } text-primaryBlue font-medium`}
-      >
-        {isNameInput ||
-        isAdminRegionAddNameInput ||
-        isAdminTherapistAddNameInput ||
-        isAdminMedicAddNameInput ||
-        isAdminInsuranceAddNameInput ||
-        isAdminInsuranceEditNameInput ||
-        isAdminAfflictionEditNameInput ||
-        isAdminMedicEditNameInput ||
-        isAdminTherapistEditNameInput
-          ? 'Nom'
-          : isSurnameInput ||
-              isAdminTherapistAddSurnameInput ||
-              isAdminMedicAddSurnameInput ||
-              isAdminTherapistEditSurnameInput ||
-              isAdminMedicEditSurnameInput
-            ? 'Prénom'
-            : isBirthNameInput
-              ? 'Nom de naissance'
-              : isStreetNumberInput ||
-                  isAdminMedicAddStreetNumberInput ||
-                  isAdminInsuranceAddStreetNumberInput ||
-                  isAdminMedicEditStreetNumberInput ||
-                  isAdminInsuranceEditStreetNumberInput
-                ? 'N° de rue'
-                : isStreetNameInput ||
-                    isAdminMedicAddStreetNameInput ||
-                    isAdminInsuranceAddStreetNameInput ||
-                    isAdminMedicEditStreetNameInput ||
-                    isAdminInsuranceEditStreetNameInput
-                  ? 'Nom de rue'
-                  : isPostalCodeInput ||
-                      isAdminMedicAddPostalCodeInput ||
-                      isAdminInsuranceAddPostalCodeInput ||
-                      isAdminMedicEditPostalCodeInput ||
-                      isAdminInsuranceEditPostalCodeInput
-                    ? 'Code postal'
-                    : isCityInput ||
-                        isAdminMedicAddCityInput ||
-                        isAdminInsuranceAddCityInput ||
-                        isAdminMedicEditCityInput ||
-                        isAdminInsuranceEditCityInput
-                      ? 'Ville'
-                      : isAppointmentNumberInput
-                        ? 'Quantité seances prescrites :'
-                        : isAdminTherapistAddLicenceCodeInput ||
-                            isAdminMedicAddLicenceCodeInput ||
-                            isAdminTherapistEditLicenceCodeInput ||
-                            isAdminMedicEditLicenceCodeInput
-                          ? 'Code ADELI'
-                          : isAdminTherapistAddDiplomaInput ||
-                              isAdminTherapistEditDiplomaInput
-                            ? 'Diplôme'
-                            : isAdminTherapistAddExperienceInput ||
-                                isAdminTherapistEditExperienceInput
-                              ? 'Expérience'
-                              : isAdminTherapistAddSpecialtyInput ||
-                                  isAdminTherapistEditSpecialtyInput
-                                ? 'Spécialité'
-                                : isAdminTherapistAddDescriptionInput ||
-                                    isAdminTherapistEditDescriptionInput
-                                  ? 'Description'
-                                  : isAdminAfflictionAddNameInput
-                                    ? "Nom de l'affliction"
-                                    : isAdminAfflictionAddLicenceCodeInput ||
-                                        isAdminAfflictionEditInsuranceCodeInput
-                                      ? 'Cotation'
-                                      : isAdminAfflictionAddDescriptionInput ||
-                                          isAdminTherapistEditDescriptionInput ||
-                                          isAdminAfflictionEditDescriptionInput
-                                        ? 'Description'
-                                        : isAdminInsuranceAddLicenceCodeInput ||
-                                            isAdminInsuranceEditAMCCodeInput
-                                          ? 'Code AMC'
-                                          : ''}
-      </label>
-      {!isTextAreaInput ? (
-        <input
-          type="text"
-          name={`${
-            isNameInput ||
-            isAdminTherapistAddNameInput ||
-            isAdminAfflictionAddNameInput ||
-            isAdminRegionAddNameInput ||
-            isAdminMedicAddNameInput ||
-            isAdminInsuranceAddNameInput ||
-            isAdminInsuranceEditNameInput ||
-            isAdminAfflictionEditNameInput ||
-            isAdminMedicEditNameInput ||
-            isAdminTherapistEditNameInput
-              ? 'name'
-              : isSurnameInput ||
-                  isAdminTherapistAddSurnameInput ||
-                  isAdminMedicAddSurnameInput ||
-                  isAdminTherapistEditSurnameInput ||
-                  isAdminMedicEditSurnameInput
-                ? 'surname'
-                : isBirthNameInput
-                  ? 'birth_name'
-                  : isStreetNumberInput ||
-                      isAdminMedicAddStreetNumberInput ||
-                      isAdminInsuranceAddStreetNumberInput ||
-                      isAdminMedicEditStreetNumberInput ||
-                      isAdminInsuranceEditStreetNumberInput
-                    ? 'street_number'
-                    : isStreetNameInput ||
-                        isAdminMedicAddStreetNameInput ||
-                        isAdminInsuranceAddStreetNameInput ||
-                        isAdminMedicEditStreetNameInput ||
-                        isAdminInsuranceEditStreetNameInput
-                      ? 'street_name'
-                      : isPostalCodeInput ||
-                          isAdminMedicAddPostalCodeInput ||
-                          isAdminInsuranceAddPostalCodeInput ||
-                          isAdminMedicEditPostalCodeInput ||
-                          isAdminInsuranceEditPostalCodeInput
-                        ? 'postal_code'
-                        : isCityInput ||
-                            isAdminMedicAddCityInput ||
-                            isAdminInsuranceAddCityInput ||
-                            isAdminMedicEditCityInput ||
-                            isAdminInsuranceEditCityInput
-                          ? 'city'
-                          : isAppointmentNumberInput
-                            ? 'appointment_quantity'
-                            : isPatientMessageInput
-                              ? 'content'
-                              : isAdminTherapistAddLicenceCodeInput ||
-                                  isAdminMedicAddLicenceCodeInput ||
-                                  isAdminTherapistEditLicenceCodeInput ||
-                                  isAdminMedicEditLicenceCodeInput
-                                ? 'licence_code'
-                                : isAdminTherapistAddDiplomaInput ||
-                                    isAdminTherapistEditDiplomaInput
-                                  ? 'diploma'
-                                  : isAdminTherapistAddExperienceInput ||
-                                      isAdminTherapistEditExperienceInput
-                                    ? 'experience'
-                                    : isAdminTherapistAddSpecialtyInput ||
-                                        isAdminTherapistEditSpecialtyInput
-                                      ? 'specialty'
-                                      : isAdminAfflictionAddLicenceCodeInput ||
-                                          isAdminAfflictionEditInsuranceCodeInput
-                                        ? 'insurance_code'
-                                        : isAdminInsuranceAddLicenceCodeInput ||
-                                            isAdminInsuranceEditAMCCodeInput
-                                          ? 'amc_code'
-                                          : ''
-          }`}
-          id={`${
-            isNameInput
-              ? 'patient-register-name_input'
-              : isSurnameInput
-                ? 'patient-register-surname_input'
-                : isBirthNameInput
-                  ? 'patient-register-birth_name_input'
-                  : isStreetNumberInput
-                    ? 'patient-register-street_number_input'
-                    : isStreetNameInput
-                      ? 'patient-register-street_name_input'
-                      : isPostalCodeInput
-                        ? 'patient-register-postal_code_input'
-                        : isCityInput
-                          ? 'patient-register-city_input'
-                          : isAppointmentNumberInput
-                            ? 'appointment-number_input'
-                            : isAdminTherapistAddNameInput ||
-                                isAdminTherapistEditNameInput
-                              ? 'therapist-name_input'
-                              : isAdminTherapistAddSurnameInput ||
-                                  isAdminTherapistEditSurnameInput
-                                ? 'therapist-surname_input'
-                                : isAdminTherapistAddLicenceCodeInput ||
-                                    isAdminTherapistEditLicenceCodeInput
-                                  ? 'therapist-licence-code_input'
-                                  : isAdminTherapistAddDiplomaInput ||
-                                      isAdminTherapistEditDiplomaInput
-                                    ? 'therapist-diploma_input'
-                                    : isAdminTherapistAddExperienceInput ||
-                                        isAdminTherapistEditExperienceInput
-                                      ? 'therapist-experience_input'
-                                      : isAdminTherapistAddSpecialtyInput ||
-                                          isAdminTherapistEditSpecialtyInput
-                                        ? 'therapist-specialty_input'
-                                        : isAdminAfflictionAddNameInput ||
-                                            isAdminAfflictionEditNameInput
-                                          ? 'affliction-name_input'
-                                          : isAdminAfflictionAddLicenceCodeInput ||
-                                              isAdminAfflictionEditInsuranceCodeInput
-                                            ? 'affliction-insurance-code_input'
-                                            : isAdminRegionAddNameInput
-                                              ? 'region-name_input'
-                                              : isAdminMedicAddNameInput ||
-                                                  isAdminMedicEditNameInput
-                                                ? 'medic-name_input'
-                                                : isAdminMedicAddSurnameInput ||
-                                                    isAdminMedicEditSurnameInput
-                                                  ? 'medic-surname_input'
-                                                  : isAdminMedicAddLicenceCodeInput ||
-                                                      isAdminMedicEditLicenceCodeInput
-                                                    ? 'medic-licence-code_input'
-                                                    : isAdminMedicAddStreetNumberInput ||
-                                                        isAdminMedicEditStreetNumberInput
-                                                      ? 'medic-street_number_input'
-                                                      : isAdminMedicAddStreetNameInput ||
-                                                          isAdminMedicEditStreetNameInput
-                                                        ? 'medic-street_name_input'
-                                                        : isAdminMedicAddPostalCodeInput ||
-                                                            isAdminMedicEditPostalCodeInput
-                                                          ? 'medic-postal_code_input'
-                                                          : isAdminMedicAddCityInput ||
-                                                              isAdminMedicEditCityInput
-                                                            ? 'medic-city_input'
-                                                            : isAdminInsuranceAddNameInput ||
-                                                                isAdminInsuranceEditNameInput
-                                                              ? 'insurance-name_input'
-                                                              : isAdminInsuranceAddLicenceCodeInput ||
-                                                                  isAdminInsuranceEditAMCCodeInput
-                                                                ? 'insurance-licence-code_input'
-                                                                : isAdminInsuranceAddStreetNumberInput ||
-                                                                    isAdminInsuranceEditStreetNumberInput
-                                                                  ? 'insurance-street_number_input'
-                                                                  : isAdminInsuranceAddStreetNameInput ||
-                                                                      isAdminInsuranceEditStreetNameInput
-                                                                    ? 'insurance-street_name_input'
-                                                                    : isAdminInsuranceAddPostalCodeInput ||
-                                                                        isAdminInsuranceEditPostalCodeInput
-                                                                      ? 'insurance-postal_code_input'
-                                                                      : isAdminInsuranceAddCityInput ||
-                                                                          isAdminInsuranceEditCityInput
-                                                                        ? 'insurance-city_input'
-                                                                        : ''
-          }`}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
-          placeholder={`${
-            isNameInput
-              ? 'Entrez votre nom'
-              : isSurnameInput
-                ? 'Entrez votre prénom'
-                : isBirthNameInput
-                  ? 'Entrez votre nom de naissance'
-                  : isStreetNumberInput ||
-                      isAdminMedicAddStreetNumberInput ||
-                      isAdminInsuranceAddStreetNumberInput
-                    ? 'N° de rue'
-                    : isStreetNameInput
-                      ? 'Nom de rue'
-                      : isPostalCodeInput ||
-                          isAdminMedicAddPostalCodeInput ||
-                          isAdminInsuranceAddPostalCodeInput
-                        ? 'Code postal'
-                        : isCityInput
-                          ? 'Ville'
-                          : isAppointmentNumberInput
-                            ? 'Seances prescrites'
-                            : isPatientMessageInput
-                              ? 'Tapez votre message...'
-                              : isAdminTherapistAddNameInput
-                                ? 'Entrez le nom du kiné'
-                                : isAdminTherapistAddSurnameInput
-                                  ? 'Entrez le prénom du kiné'
-                                  : isAdminTherapistAddLicenceCodeInput
-                                    ? 'Entrez le code ADELI du kiné'
-                                    : isAdminTherapistAddDiplomaInput
-                                      ? 'Entrez le diplôme du kiné'
-                                      : isAdminTherapistAddExperienceInput
-                                        ? "Entrez l'expérience du kiné"
-                                        : isAdminTherapistAddSpecialtyInput
-                                          ? 'Entrez la spécialité du kiné'
-                                          : isAdminTherapistAddDescriptionInput
-                                            ? 'Entrez la description du kiné'
-                                            : isAdminAfflictionAddNameInput
-                                              ? "Entrez le nom de l'affliction"
-                                              : isAdminAfflictionAddLicenceCodeInput
-                                                ? "Entrez la cotation de l'affliction"
-                                                : isAdminRegionAddNameInput
-                                                  ? 'Entrez le nom de la région'
-                                                  : isAdminMedicAddNameInput
-                                                    ? 'Entrez le nom du médecin'
-                                                    : isAdminMedicAddSurnameInput
-                                                      ? 'Entrez le prénom du médecin'
-                                                      : isAdminMedicAddLicenceCodeInput
-                                                        ? 'Entrez le code ADELI du médecin'
-                                                        : isAdminMedicAddStreetNameInput
-                                                          ? 'Entrez le nom de rue du médecin'
-                                                          : isAdminMedicAddCityInput
-                                                            ? 'Entrez la ville du médecin'
-                                                            : isAdminInsuranceAddNameInput
-                                                              ? "Entrez le nom de l'assurance"
-                                                              : isAdminInsuranceAddLicenceCodeInput
-                                                                ? "Entrez le code AMC de l'assurance"
-                                                                : isAdminInsuranceAddStreetNameInput
-                                                                  ? "Entrez le nom de rue de l'assurance"
-                                                                  : isAdminInsuranceAddCityInput
-                                                                    ? "Entrez la ville de l'assurance"
-                                                                    : ''
-          }`}
-          required={!isStreetNumberInput}
-          value={
-            isAdminTherapistEditNameInput && therapist
-              ? therapistName
-              : isAdminTherapistEditSurnameInput && therapist
-                ? therapistSurname
-                : isAdminTherapistEditLicenceCodeInput
-                  ? therapistLicenceCode
-                  : isAdminTherapistEditDiplomaInput
-                    ? therapistDiploma
-                    : isAdminTherapistEditExperienceInput
-                      ? therapistExperience
-                      : isAdminTherapistEditSpecialtyInput
-                        ? therapistSpecialty
-                        : isAdminAfflictionEditNameInput && affliction
-                          ? afflictionName
-                          : isAdminAfflictionEditInsuranceCodeInput
-                            ? afflictionInsuranceCode
-                            : isAdminMedicEditNameInput && medic
-                              ? medicName
-                              : isAdminMedicEditSurnameInput && medic
-                                ? medicSurname
-                                : isAdminMedicEditCityInput
-                                  ? medicCity
-                                  : isAdminMedicEditStreetNameInput
-                                    ? medicStreetName
-                                    : isAdminMedicEditStreetNumberInput
-                                      ? medicStreetNumber
-                                      : isAdminMedicEditPostalCodeInput
-                                        ? medicPostalCode
-                                        : isAdminMedicEditLicenceCodeInput
-                                          ? medicLicenceCode
-                                          : isAdminInsuranceEditNameInput
-                                            ? insuranceName
-                                            : isAdminInsuranceEditAMCCodeInput
-                                              ? insuranceAmcCode
-                                              : isAdminInsuranceEditStreetNumberInput
-                                                ? insuranceStreetNumber
-                                                : isAdminInsuranceEditStreetNameInput
-                                                  ? insuranceStreetName
-                                                  : isAdminInsuranceEditPostalCodeInput
-                                                    ? insurancePostalCode
-                                                    : isAdminInsuranceEditCityInput
-                                                      ? insuranceCity
-                                                      : undefined
-          }
-          onChange={(e) => {
-            if (therapist) {
-              if (isAdminTherapistEditNameInput) {
-                setTherapistName(e.target.value);
-              } else if (isAdminTherapistEditSurnameInput) {
-                setTherapistSurname(e.target.value);
-              } else if (isAdminTherapistEditLicenceCodeInput) {
-                setTherapistLicenceCode(e.target.value);
-              } else if (isAdminTherapistEditDiplomaInput) {
-                setTherapistDiploma(e.target.value);
-              } else if (isAdminTherapistEditExperienceInput) {
-                setTherapistExperience(e.target.value);
-              } else if (isAdminTherapistEditSpecialtyInput) {
-                setTherapistSpecialty(e.target.value);
-              }
-            } else if (affliction) {
-              if (isAdminAfflictionEditNameInput) {
-                setAfflictionName(e.target.value);
-              } else if (isAdminAfflictionEditInsuranceCodeInput) {
-                setAfflictionInsuranceCode(e.target.value);
-              } else if (isAdminAfflictionEditDescriptionInput) {
-                setAfflictionDescription(e.target.value);
-              }
-            } else if (medic) {
-              if (isAdminMedicEditNameInput) {
-                setMedicName(e.target.value);
-              } else if (isAdminMedicEditSurnameInput) {
-                setMedicSurname(e.target.value);
-              } else if (isAdminMedicEditCityInput) {
-                setMedicCity(e.target.value);
-              } else if (isAdminMedicEditStreetNameInput) {
-                setMedicStreetName(e.target.value);
-              } else if (isAdminMedicEditStreetNumberInput) {
-                setMedicStreetNumber(e.target.value);
-              } else if (isAdminMedicEditPostalCodeInput) {
-                setMedicPostalCode(e.target.value);
-              } else if (isAdminMedicEditLicenceCodeInput) {
-                setMedicLicenceCode(e.target.value);
-              }
-            } else if (insurance) {
-              if (isAdminInsuranceEditNameInput) {
-                setInsuranceName(e.target.value);
-              } else if (isAdminInsuranceEditAMCCodeInput) {
-                setInsuranceAmcCode(e.target.value);
-              } else if (isAdminInsuranceEditStreetNumberInput) {
-                setInsuranceStreetNumber(e.target.value);
-              } else if (isAdminInsuranceEditStreetNameInput) {
-                setInsuranceStreetName(e.target.value);
-              } else if (isAdminInsuranceEditPostalCodeInput) {
-                setInsurancePostalCode(e.target.value);
-              } else if (isAdminInsuranceEditCityInput) {
-                setInsuranceCity(e.target.value);
-              }
-            }
-          }}
-        />
-      ) : (
-        <textarea
-          name="description"
-          id={`${
-            isAdminTherapistAddDescriptionInput ||
-            isAdminTherapistEditDescriptionInput
-              ? 'therapist-description_input'
-              : isAdminAfflictionAddDescriptionInput
-                ? 'affliction-description_input'
-                : isAdminAfflictionAddDescriptionInput
-                  ? 'affliction-description_input'
-                  : ''
-          }`}
-          placeholder={`${
-            isAdminTherapistAddDescriptionInput
-              ? 'Description du kinésithérapeute'
-              : isAdminAfflictionAddDescriptionInput
-                ? "Description de l'affliction"
-                : isAdminTherapistEditDescriptionInput && therapist
-                  ? therapist.description
-                  : isAdminAfflictionEditDescriptionInput && affliction
-                    ? affliction.description
-                    : ''
-          }`}
-          value={
-            isAdminTherapistEditDescriptionInput
-              ? therapistDescription
-              : isAdminAfflictionEditDescriptionInput
-                ? afflictionDescription
-                : undefined
-          }
-          onChange={(e) =>
-            isAdminTherapistEditDescriptionInput
-              ? setTherapistDescription(e.target.value)
-              : isAdminAfflictionEditDescriptionInput
-                ? setAfflictionDescription(e.target.value)
-                : ''
-          }
-          className="mt-1 block text-xs md:text-sm w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base xl:text-lg font-normal "
-          required
-          rows={5}
-          cols={32}
-        ></textarea>
+    <>
+      {standardTextFields.map(
+        (field) =>
+          field.boolean && (
+            <div
+              key={field.inputId}
+              className={`${field.generalDivClassName ? 'gap-2 italic' : ''} ${field.divClassName}`}
+            >
+              <label
+                htmlFor={field.inputId}
+                className={`${field.generalLabelClassName ? 'text-primaryBlue font-medium' : ''} ${field.labelClassName}`}
+              >
+                {field.labelName}
+              </label>
+              {!field.textArea ? (
+                <input
+                  type="text"
+                  id={field.inputId}
+                  name={field.inputName}
+                  placeholder={field.inputPlaceholder}
+                  className="text-xs md:text-md xl:text-xl 2xl:text-2xl w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
+                  required={field.required}
+                  value={field.inputValue}
+                  onChange={field.inputOnChange}
+                />
+              ) : (
+                <textarea
+                  name={field.inputName}
+                  id={`${field.inputId}-textarea`}
+                  placeholder={field.inputPlaceholder}
+                  value={field.inputValue}
+                  onChange={field.inputOnChange}
+                  className="mt-1 block text-xs md:text-md xl:text-xl 2xl:text-2xl w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base xl:text-lg font-normal "
+                  cols={32}
+                  rows={5}
+                ></textarea>
+              )}
+            </div>
+          )
       )}
-    </div>
+    </>
   );
 }

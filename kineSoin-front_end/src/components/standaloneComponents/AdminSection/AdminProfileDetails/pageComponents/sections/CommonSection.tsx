@@ -7,7 +7,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/types';
-import CommonInput from '../generalComponents/common/CommonInput';
+import GeneralInput from '../generalComponents/common/GeneralInput';
 import GeneralOutput from '../generalComponents/common/GeneralOutput';
 
 interface CommonSectionProps {
@@ -49,7 +49,7 @@ export default function CommonSection({
       {isProfileEditing ? (
         <div className="flex flex-col gap-2 mb-2 ">
           {(therapist || affliction || medic || insurance) && (
-            <CommonInput
+            <GeneralInput
               isProfileNameInput
               therapist={therapist}
               affliction={affliction}
@@ -59,7 +59,7 @@ export default function CommonSection({
           )}
 
           {(therapist || medic) && (
-            <CommonInput
+            <GeneralInput
               isProfileSurnameInput
               therapist={therapist}
               medic={medic}

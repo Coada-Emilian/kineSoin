@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   IAffliction,
   IInsurance,
@@ -85,24 +86,52 @@ export default function GeneralOutput({
 
   const getStatusClassName = (status: string | undefined) => {
     switch (status) {
-      case 'active':
-        return 'bg-green-300';
-      case 'inactive':
-        return 'bg-gray-200';
-      case 'pending':
-        return 'bg-yellow-300';
-      case 'banned':
-        return 'bg-red-300';
+      case 'ACTIF':
+        return 'bg-green-300 p-2 rounded-xl font-semibold';
+      case 'INACTIF':
+        return 'bg-gray-200 p-2 rounded-xl font-semibold';
+      case 'EN ATTENTE':
+        return 'bg-yellow-300 p-2 rounded-xl font-semibold';
+      case 'BANNI':
+        return 'bg-red-300 p-2 rounded-xl font-semibold';
       default:
-        return 'bg-gray-200';
+        return 'bg-gray-200 p-2 rounded-xl font-semibold';
     }
   };
+
+  const [therapistStatus, setTherapistStatus] = useState(
+    therapist?.status || 'inactive'
+  );
+  const [patientStatus, setPatientStatus] = useState(
+    patient?.status || 'inactive'
+  );
+
+  useEffect(() => {
+    if (therapist) {
+      if (therapist.status === 'active') {
+        setTherapistStatus('ACTIF');
+      } else if (therapist.status === 'inactive') {
+        setTherapistStatus('INACTIF');
+      }
+    }
+    if (patient) {
+      if (patient.status === 'active') {
+        setPatientStatus('ACTIF');
+      } else if (patient.status === 'inactive') {
+        setPatientStatus('INACTIF');
+      } else if (patient.status === 'pending') {
+        setPatientStatus('EN ATTENTE');
+      } else if (patient.status === 'banned') {
+        setPatientStatus('BANNI');
+      }
+    }
+  }, [therapistStatus, patientStatus]);
 
   const fields = {
     status: {
       label: 'Statut:',
-      value: therapist?.status || patient?.status,
-      className: getStatusClassName(therapist?.status || patient?.status),
+      value: (therapist && therapistStatus) || (patient && patientStatus),
+      className: '',
     },
     id: {
       label: '#ID:',
@@ -193,7 +222,11 @@ export default function GeneralOutput({
       return (
         <span key={fieldKey} className={field.className ?? ''}>
           {field.label}{' '}
-          <span className="italic font-normal">{field.value || 'N/A'}</span>
+          <span
+            className={`italic font-normal ${fieldKey === 'status' ? getStatusClassName(field.value as string | undefined) : ''}`}
+          >
+            {field.value || 'N/A'}
+          </span>
         </span>
       );
     }
