@@ -10,6 +10,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/types';
+import { useEffect } from 'react';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];
@@ -54,7 +55,7 @@ export default function TherapistTableBody({
             />
           </Link>
 
-          <p>{therapist.status.toUpperCase()}</p>
+          <p>{therapist.status === 'active' ? 'ACTIF' : 'INACTIF'}</p>
         </td>
 
         <td className="border border-gray-300 px-4 py-2 text-center">

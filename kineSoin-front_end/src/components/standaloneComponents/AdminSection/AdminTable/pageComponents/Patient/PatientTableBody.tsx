@@ -58,7 +58,15 @@ export default function PatientTableBody({
                   : 'bg-gray-200'
           } px-4 py-2 text-center flex gap-1 items-center justify-center`}
         >
-          <p>{patient.status.toUpperCase()}</p>
+          <p>
+            {patient.status === 'active'
+              ? 'ACTIF'
+              : patient.status === 'inactive'
+                ? 'INACTIF'
+                : patient.status === 'banned'
+                  ? 'BANNI'
+                  : 'EN ATTENTE'}
+          </p>
         </td>
 
         <td className="border border-gray-300 px-4 py-2 text-center">
