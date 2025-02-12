@@ -1,5 +1,3 @@
-// Purpose: The purpose of this component is to render the login page for the admin.
-
 import CustomButton from '../../standaloneComponents/generalComponents/CustomButton/CustomButton.tsx';
 import { setAdminTokenAndDataInLocalStorage } from '../../../localStorage/adminLocalStorage.ts';
 import { useState } from 'react';
@@ -15,58 +13,60 @@ interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
+const ERROR_MESSAGES = {
+  INVALID_CREDENTIALS: 'Email et/ou Mot de passe invalide',
+  GENERAL_ERROR: 'Une erreur est survenue. Veuillez réessayer.',
+};
+
 export default function AdminLoginPage({
   setAdminProfileToken,
 }: AdminLoginPageProps) {
-  // Error message state
   const [errorMessage, setErrorMessage] = useState<string>('');
-
-  // Loading state
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
-  // Function to check admin credentials
+  const validateForm = (email: string, password: string) => {
+    if (!email || !password || !email.includes('@')) {
+      setErrorMessage(ERROR_MESSAGES.INVALID_CREDENTIALS);
+      return false;
+    }
+    return true;
+  };
+
+  const handleError = (error: unknown) => {
+    if (error instanceof AxiosError && error.response?.status === 401) {
+      setErrorMessage(ERROR_MESSAGES.INVALID_CREDENTIALS);
+    } else {
+      setErrorMessage(ERROR_MESSAGES.GENERAL_ERROR);
+    }
+    console.error(error);
+  };
+
   const checkAdminCredentials = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      setIsLoading(true);
+    setIsLoading(true);
 
+    try {
       const formData = new FormData(e.currentTarget);
       const adminEmail = formData.get('email') as string;
       const adminPassword = formData.get('password') as string;
-      // Check for empty email or password
-      if (!adminEmail || !adminPassword) {
-        setErrorMessage('Email et/ou Mot de passe invalide');
-        return;
-      } else if (!adminEmail.includes('@')) {
-        setErrorMessage('Email et/ou Mot de passe invalide');
+
+      if (!validateForm(adminEmail, adminPassword)) {
+        setIsLoading(false);
         return;
       }
 
-      // Send credentials to login function
       const response = await handleAdminLogin(adminEmail, adminPassword);
-
-      // Store token and data in local storage
       setAdminTokenAndDataInLocalStorage(
         response.token,
         response.name,
         response.id
       );
       setAdminProfileToken(response.token);
-
-      // Navigate to therapists page
       navigate('/admin/therapists');
     } catch (error) {
-      // Handle error - 401 Unauthorized or other errors
-      if (error instanceof AxiosError && error.response?.status === 401) {
-        setErrorMessage('Email et/ou Mot de passe invalide');
-      } else {
-        setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
-      }
-      console.error(error);
+      handleError(error);
     } finally {
-      // Ensure loading state is reset
       setIsLoading(false);
     }
   };
@@ -89,21 +89,14 @@ export default function AdminLoginPage({
           />
         </Link>
 
-        {errorMessage ? (
+        {errorMessage && (
           <p className="text-center text-red-600 font-semibold">
             {errorMessage}
           </p>
-        ) : null}
-        <form
-          onSubmit={async (e) => {
-            await checkAdminCredentials(e);
-          }}
-          className="space-y-4"
-        >
+        )}
+        <form onSubmit={checkAdminCredentials} className="space-y-4">
           <StandardEmailInput isAdminEmailInput />
-
           <StandardPasswordInput isAdminPasswordInput />
-
           <div className="flex justify-center">
             <CustomButton
               btnText="Se connecter"

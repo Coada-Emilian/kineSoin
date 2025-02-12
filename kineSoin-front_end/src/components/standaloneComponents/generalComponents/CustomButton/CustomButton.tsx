@@ -25,7 +25,32 @@
 
 import NotificationIcon from '/icons/notification.png';
 import LogoutIcon from '/icons/logout.png';
-import { CustomButtonProps } from '../../../../@types/props';
+
+interface CustomButtonProps {
+  btnText?: string | JSX.Element;
+  normalButton?: boolean;
+  cancelButton?: boolean;
+  validateButton?: boolean;
+  modifyButton?: boolean;
+  deleteButton?: boolean;
+  activeButton?: boolean;
+  addButton?: boolean;
+  allButton?: boolean;
+  inactiveButton?: boolean;
+  pendingButton?: boolean;
+  bannedButton?: boolean;
+  navBarButton?: boolean;
+  patientNotificationButton?: boolean;
+  patientLogoutButton?: boolean;
+  adminLogoutButton?: boolean;
+  onClick?: () => void;
+  btnType?: 'button' | 'submit' | 'reset';
+  patientNotificationQuantity?: number;
+  setPatientNotificationQuantity?: React.Dispatch<React.SetStateAction<number>>;
+  mobileButton?: boolean;
+  mobileDeleteButton?: boolean;
+  mobileCancelButton?: boolean;
+}
 
 export default function CustomButton({
   btnText,

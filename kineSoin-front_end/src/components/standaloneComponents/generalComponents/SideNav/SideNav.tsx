@@ -1,7 +1,11 @@
 // Purpose: The purpose of this component is to render the admin side navigation.
 
 import { NavLink } from 'react-router-dom';
-import { SideNavProps } from '../../../../@types/props';
+
+interface SideNavProps {
+  isAdminSideNav?: boolean;
+  isPatientSideNav?: boolean;
+}
 
 const links = {
   admin: [

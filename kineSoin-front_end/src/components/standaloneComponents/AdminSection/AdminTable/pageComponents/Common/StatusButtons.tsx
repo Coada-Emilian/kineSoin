@@ -1,7 +1,15 @@
 // Purpose: The purpose of this component is to render the therapist status buttons.
 
-import { StatusButtonsProps } from '../../../../../../@types/props';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+
+interface StatusButtonsProps {
+  isTherapistStatusButtons?: boolean;
+  setTherapistStatus?: React.Dispatch<React.SetStateAction<string>>;
+  isPatientStatusButtons?: boolean;
+  setPatientStatus?: React.Dispatch<React.SetStateAction<string>>;
+  isAfflictionStatusButtons?: boolean;
+  setAfflictionStatus?: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export default function StatusButtons({
   isTherapistStatusButtons,
@@ -67,7 +75,7 @@ export default function StatusButtons({
             />
 
             <CustomButton
-              btnText="Banis"
+              btnText="Bloqués"
               bannedButton
               onClick={() => {
                 setPatientStatus('banned');
