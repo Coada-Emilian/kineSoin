@@ -96,6 +96,7 @@ export default function AdminLoginPage({
         )}
         <form onSubmit={checkAdminCredentials} className="space-y-4">
           <StandardEmailInput isAdminEmailInput />
+          
           <StandardPasswordInput isAdminPasswordInput />
           <div className="flex justify-center">
             <CustomButton
