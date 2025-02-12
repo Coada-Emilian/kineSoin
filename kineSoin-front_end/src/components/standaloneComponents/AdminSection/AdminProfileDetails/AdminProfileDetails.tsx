@@ -92,122 +92,56 @@ export default function AdminProfileDetails({
     }
   };
 
-  // Function to handle therapist profile updates
-  const handleTherapistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+    updateFunction: Function
+  ) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
+    {
+      therapist && formData.append('status', therapistStatus);
+    }
 
-    // Append the selected file to the form data
     if (selectedFile) {
       formData.append('file', selectedFile);
     }
-    formData.append('status' as string, therapistStatus);
 
-    // Append the description to the form data
-    if (therapist && therapist.id) {
-      try {
-        const response = await handleTherapistUpdate(therapist.id, formData);
-        if (response) {
-          setIsProfileEditing(false);
-          window.location.reload();
-        } else {
-          console.error('Failed to update therapist profile', response);
-        }
-      } catch (error) {
-        console.error('Error updating therapist profile:', error);
+    try {
+      const response = await updateFunction(formData);
+      if (response) {
+        setIsProfileEditing(false);
+        window.location.reload();
+      } else {
+        console.error('Failed to update profile');
       }
-    } else {
-      console.error('Therapist ID is missing or invalid');
+    } catch (error) {
+      console.error('Error updating profile:', error);
     }
   };
 
-  // Function to handle affliction updates
-  const updateAffliction = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-
-    if (affliction && affliction.id) {
-      try {
-        const response = await handleAfflictionUpdate(affliction.id, formData);
-        if (response) {
-          setIsProfileEditing(false);
-          window.location.reload();
-        } else {
-          console.error('Failed to update affliction', response);
-        }
-      } catch (error) {
-        console.error('Error updating affliction:', error);
-      }
-    } else {
-      console.error('Affliction ID is missing or invalid');
-    }
+  const getUpdateFunction = () => {
+    if (therapist)
+      return (formData: FormData) =>
+        handleTherapistUpdate(therapist.id, formData);
+    if (affliction)
+      return (formData: FormData) =>
+        handleAfflictionUpdate(affliction.id, formData);
+    if (medic)
+      return (formData: FormData) => handleMedicUpdate(formData, medic.id);
+    if (insurance)
+      return (formData: FormData) =>
+        handleInsuranceOrganismUpdate(formData, insurance.id);
+    return null;
   };
 
-  // Function to handle medic updates
-  const updateMedic = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    if (medic && medic.id) {
-      try {
-        const response = await handleMedicUpdate(formData, medic.id);
-        if (response) {
-          setIsProfileEditing(false);
-          window.location.reload();
-        } else {
-          console.error('Failed to update medic', response);
-        }
-      } catch (error) {
-        console.error('Error updating medic:', error);
-      }
-    } else {
-      console.error('Medic ID is missing or invalid');
-    }
-  };
-
-  // Function to handle insurance updates
-  const updateInsurance = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-
-    if (insurance && insurance.id) {
-      try {
-        const response = await handleInsuranceOrganismUpdate(
-          formData,
-          insurance.id
-        );
-        if (response) {
-          setIsProfileEditing(false);
-          window.location.reload();
-        } else {
-          console.error('Failed to update insurance', response);
-        }
-      } catch (error) {
-        console.error('Error updating insurance:', error);
-      }
-    } else {
-      console.error('Insurance ID is missing or invalid)');
-    }
-  };
+  const updateFunction = getUpdateFunction();
 
   return (
     <>
       <form
         action="*"
-        onSubmit={
-          therapist
-            ? handleTherapistSubmit
-            : affliction
-              ? updateAffliction
-              : medic
-                ? updateMedic
-                : insurance
-                  ? updateInsurance
-                  : undefined
-        }
+        onSubmit={(e) => updateFunction && handleFormSubmit(e, updateFunction)}
         className="flex justify-center"
       >
         <div
@@ -281,6 +215,7 @@ export default function AdminProfileDetails({
               />
             )}
           </div>
+
           <ButtonsSection
             isProfileEditing={isProfileEditing}
             buttonMessage={buttonMessage}

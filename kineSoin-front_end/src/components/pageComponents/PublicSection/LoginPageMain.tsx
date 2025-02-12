@@ -1,4 +1,5 @@
 import PublicMain from '../../standaloneComponents/PublicSection/PublicMain/PublicMain';
+import { ReactNode } from 'react';
 
 interface LoginPageProps {
   isPatientLoginMain?: boolean;
@@ -10,23 +11,21 @@ interface LoginPageProps {
 }
 
 export default function LoginPageMain({
-  isPatientLoginMain,
-  isTherapistLoginMain,
+  isPatientLoginMain = false,
+  isTherapistLoginMain = false,
   setPatientProfileToken,
   setTherapistProfileToken,
-}: LoginPageProps) {
+}: LoginPageProps): ReactNode {
   return (
-    <>
-      <PublicMain
-        isPatientLoginPageMain={isPatientLoginMain ?? false}
-        isTherapistLoginPageMain={isTherapistLoginMain ?? false}
-        setPatientProfileToken={
-          isPatientLoginMain ? setPatientProfileToken : undefined
-        }
-        setTherapistProfileToken={
-          isTherapistLoginMain ? setTherapistProfileToken : undefined
-        }
-      />
-    </>
+    <PublicMain
+      isPatientLoginPageMain={isPatientLoginMain}
+      isTherapistLoginPageMain={isTherapistLoginMain}
+      setPatientProfileToken={
+        isPatientLoginMain ? setPatientProfileToken : undefined
+      }
+      setTherapistProfileToken={
+        isTherapistLoginMain ? setTherapistProfileToken : undefined
+      }
+    />
   );
 }
