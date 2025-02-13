@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
-import { IAppointment } from '../../../../@types/IAppointment';
 import CalendarIcon from '/icons/calendar.png';
 import TimeIcon from '/icons/clock.png';
+import { IAppointment } from '../../../../@types/types';
 
-interface PatientAppointmentCardProps {
+interface AppointmentCardProps {
   appointment: IAppointment;
 }
 
-export default function PatientAppointmentCard({
-  appointment,
-}: PatientAppointmentCardProps) {
+export default function AppointmentCard({ appointment }: AppointmentCardProps) {
   const [appointmentDate, setAppointmentDate] = useState<string>('');
   const [appointmentTime, setAppointmentTime] = useState<string>('');
 
@@ -50,7 +48,7 @@ export default function PatientAppointmentCard({
   }, [appointment.date, appointment.time]);
 
   return (
-    <div className="w-3/4 md:w-3/12 border border-gray-700 rounded-xl text-xxs md:text-sm">
+    <>
       <div className="flex justify-between gap-5 bg-cardHeader rounded-t-xl p-2 ">
         <div className="flex gap-2 items-center">
           <img src={CalendarIcon} alt="Date" className="w-5" />
@@ -71,6 +69,6 @@ export default function PatientAppointmentCard({
         <p>{appointment.therapist?.specialty}</p>
         <p>{appointment.prescription?.at_home_care && 'A domicile'}</p>
       </div>
-    </div>
+    </>
   );
 }
