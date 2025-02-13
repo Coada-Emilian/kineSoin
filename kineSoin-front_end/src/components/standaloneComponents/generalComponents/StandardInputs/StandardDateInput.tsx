@@ -4,19 +4,17 @@ interface StandardDateInputProps {
     React.SetStateAction<string | undefined>
   >;
   isNewPrescriptionDateInput?: boolean;
-  setNewPrescriptionDate?: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
 }
 
 export default function StandardDateInput({
   isPatientRegisterBirthdateInput,
   setRegisteredPatientBirthDate,
   isNewPrescriptionDateInput,
-  setNewPrescriptionDate,
 }: StandardDateInputProps) {
   return (
-    <div className="mb-4">
+    <div
+      className={`mb-4 flex flex-col gap-2 ${isNewPrescriptionDateInput ? 'items-center md:items-start ' : ''}`}
+    >
       <label
         htmlFor={
           isPatientRegisterBirthdateInput
@@ -25,12 +23,12 @@ export default function StandardDateInput({
               ? 'new-prescription-date_input'
               : ''
         }
-        className="text-primaryBlue text-sm font-medium"
+        className="text-primaryBlue text-sm font-medium italic"
       >
         {isPatientRegisterBirthdateInput
           ? 'Date de naissance'
           : isNewPrescriptionDateInput
-            ? "Date de l'ordonnance :"
+            ? "Date de l'ordonnance"
             : ''}
       </label>
 
@@ -55,10 +53,6 @@ export default function StandardDateInput({
           isPatientRegisterBirthdateInput &&
             setRegisteredPatientBirthDate &&
             setRegisteredPatientBirthDate(e.target.value);
-
-          isNewPrescriptionDateInput &&
-            setNewPrescriptionDate &&
-            setNewPrescriptionDate(e.target.value);
         }}
       />
     </div>

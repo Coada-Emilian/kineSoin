@@ -8,7 +8,6 @@ import NavBar from './components/standaloneComponents/generalComponents/NavBar/N
 import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
-import PatientPrescriptionPage from './components/pageComponents/PatientSection/PatientPrescriptionPage/PatientPrescriptionPage';
 import PatientAppointmentsPage from './components/pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsPage';
 import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPage/PatientMessagesPage';
 import PatientTherapistPage from './components/pageComponents/PatientSection/PatientTherapistPage/PatientTherapistPage';
@@ -28,6 +27,7 @@ import AdminMedicPageMain from './components/pageComponents/AdminSection/Mains/A
 import AdminInsurancesPageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancesMain';
 import AdminInsurancePageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancePageMain';
 import PatientDashboardPageMain from './components/pageComponents/PatientSection/PatientDashboardPageMain';
+import PatientPrescriptionPageMain from './components/pageComponents/PatientSection/PatientPrescriptionPageMain/PatientPrescriptionPageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -355,7 +355,7 @@ function App() {
           />
           <Route
             path="new-prescription"
-            element={<PatientPrescriptionPage windowWidth={windowWidth} />}
+            element={<PatientPrescriptionPageMain windowWidth={windowWidth} />}
           ></Route>
           <Route
             path="appointments"

@@ -5,11 +5,11 @@ import StandardChoiceDropdown from '../../../standaloneComponents/generalCompone
 import StandardFileInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardFileInput';
 import StandardTextInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardTextInput';
 import {
-  fetchAfflictions,
-  fetchMedics,
+  fetchAfflictionNamesAsPatient,
+  fetchAllMedicNamesAsPatient,
   handleNewPrescriptionCreation,
 } from '../../../../utils/apiUtils';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { IAffliction, IMedic } from '../../../../@types/types';
 
 interface PatientNewPrescriptionFormProps {
@@ -20,33 +20,24 @@ interface PatientNewPrescriptionFormProps {
 }
 
 export default function PatientNewPrescriptionForm({
-  windowWidth,
   patientId,
-  scanPreview,
   setScanPreview,
 }: PatientNewPrescriptionFormProps) {
   const [medics, setMedics] = useState<IMedic[]>([]);
   const [afflictions, setAfflictions] = useState<IAffliction[]>([]);
-
-  const [newPrescriptionDate, setNewPrescriptionDate] = useState<string>();
-  const [newPrescriptionMedicId, setNewPrescriptionMedicId] =
-    useState<number>();
-  const [newPrescriptionAfflictionId, setNewPrescriptionAfflictionId] =
-    useState<number>();
-
-  const [atHomeCare, setAtHomeCare] = useState<boolean>(false);
   const [prescriptionScan, setPrescriptionScan] = useState<File | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDoctors = async () => {
-      const response = await fetchMedics();
+      const response = await fetchAllMedicNamesAsPatient();
       setMedics(response);
     };
 
     const fetchApiAfflictions = async () => {
-      const response = await fetchAfflictions();
+      const response = await fetchAfflictionNamesAsPatient();
       setAfflictions(response);
     };
     fetchApiAfflictions();
@@ -59,17 +50,39 @@ export default function PatientNewPrescriptionForm({
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    if (newPrescriptionMedicId) {
-      formData.append('medic_id', Number(newPrescriptionMedicId).toString());
-    }
-    if (newPrescriptionAfflictionId) {
-      formData.append(
-        'affliction_id',
-        Number(newPrescriptionAfflictionId).toString()
-      );
-    }
-    formData.append('at_home_care', atHomeCare.toString());
     formData.append('scan', prescriptionScan as File);
+    const medicId = formData.get('medic_id');
+    const afflictionId = formData.get('affliction_id');
+    const appointmentNumber = formData.get('appointment_quantity');
+    const atHomeCare = formData.get('at_home_care');
+    const prescriptionDate = formData.get('date');
+    const currentDate = new Date();
+
+    // Regex patterns
+    const numberPattern = /^\d+$/;
+    const booleanPattern = /^(true|false)$/;
+
+    if (!medicId || !afflictionId || !prescriptionDate || !atHomeCare) {
+      setErrorMessage('Veuillez remplir tous les champs');
+      return;
+    } else if (!numberPattern.test(medicId as string)) {
+      setErrorMessage('Le medicId doit être un numéro valide');
+      return;
+    } else if (!numberPattern.test(afflictionId as string)) {
+      setErrorMessage('Le afflictionId doit être un numéro valide');
+      return;
+    } else if (
+      appointmentNumber &&
+      !numberPattern.test(appointmentNumber as string)
+    ) {
+      setErrorMessage('Le appointmentNumber doit être un numéro valide');
+      return;
+    } else if (!booleanPattern.test(atHomeCare as string)) {
+      setErrorMessage('atHomeCare doit être un boolean (true ou false)');
+      return;
+    } else if (new Date(prescriptionDate as string) > currentDate) {
+      setErrorMessage("La date de l'ordonnance ne peut pas être dans le futur");
+    }
 
     if (patientId !== undefined) {
       const response = await handleNewPrescriptionCreation(formData);
@@ -81,39 +94,32 @@ export default function PatientNewPrescriptionForm({
 
   return (
     <form
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-4 border border-gray-300 p-4 rounded-xl w-3/6 shadow-xl md:w-2/6"
       encType="multipart/form-data"
       onSubmit={handleNewPrescriptionAdd}
     >
-      <StandardDateInput
-        isNewPrescriptionDateInput
-        setNewPrescriptionDate={setNewPrescriptionDate}
-      />
+      {errorMessage && (
+        <p className="text-red-500 text-center font-semibold italic">
+          {errorMessage}{' '}
+        </p>
+      )}
 
-      <StandardChoiceDropdown
-        isMedicDropdownInput
-        setNewPrescriptionMedicId={setNewPrescriptionMedicId}
-        medics={medics}
-      />
+      <StandardDateInput isNewPrescriptionDateInput />
+
+      <StandardChoiceDropdown isMedicDropdownInput medics={medics} />
 
       <StandardTextInput patientSection={{ isAppointmentNumberInput: true }} />
 
-      <StandardChoiceDropdown
-        isAtHomeCareDropdownInput
-        setAtHomeCare={setAtHomeCare}
-      />
+      <StandardChoiceDropdown isAtHomeCareDropdownInput />
 
       <StandardChoiceDropdown
         isAfflictionDropdownInput
         afflictions={afflictions}
-        setNewPrescriptionAfflictionId={setNewPrescriptionAfflictionId}
       />
 
       <StandardFileInput
         isNewPrescriptionFileInput
         setPrescriptionScan={setPrescriptionScan}
-        windowWidth={windowWidth}
-        scanPreview={scanPreview}
         setScanPreview={setScanPreview}
       />
 

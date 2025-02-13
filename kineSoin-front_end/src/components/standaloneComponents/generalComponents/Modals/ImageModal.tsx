@@ -67,9 +67,6 @@ export default function ImageModal({
       if (setPatientImage) {
         setPatientImage(file);
       }
-      if (setScanPreview) {
-        setScanPreview(previewUrl);
-      }
       if (setPrescriptionScan) {
         setPrescriptionScan(file);
       }
@@ -201,6 +198,8 @@ export default function ImageModal({
 
               setIsAdminTherapistImageUploaded &&
                 setIsAdminTherapistImageUploaded(true);
+
+              setScanPreview && setScanPreview(preview);
             }}
           />
         </div>

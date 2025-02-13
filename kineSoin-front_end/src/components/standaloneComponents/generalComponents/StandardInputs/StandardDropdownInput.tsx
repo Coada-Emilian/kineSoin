@@ -1,28 +1,26 @@
 import { useEffect, useState } from 'react';
-import { IAffliction } from '../../../../@types/IAffliction';
-import { IPrescription } from '../../../../@types/IPrescription';
-import { IAppointment } from '../../../../@types/IAppointment';
-import { IInsurance } from '../../../../@types/IInsurance';
-import { ICountry } from '../../../../@types/ICountry';
 import {
   fetchBodyRegions,
   fetchPatientAppointmentsByPrescription,
 } from '../../../../utils/apiUtils';
-import { IMedic } from '../../../../@types/IMedic';
-import { IBodyRegion } from '../../../../@types/IBodyRegion';
 import axios from 'axios';
+import {
+  IAffliction,
+  IAppointment,
+  IBodyRegion,
+  ICountry,
+  IInsurance,
+  IMedic,
+  IPrescription,
+} from '../../../../@types/types';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
   registeredPatientGender?: string;
   setRegisteredPatientGender?: React.Dispatch<React.SetStateAction<string>>;
   isMedicDropdownInput?: boolean;
-  setNewPrescriptionMedicId?: React.Dispatch<
-    React.SetStateAction<number | undefined>
-  >;
   medics?: IMedic[];
   isAtHomeCareDropdownInput?: boolean;
-  setAtHomeCare?: React.Dispatch<React.SetStateAction<boolean>>;
   isAfflictionDropdownInput?: boolean;
   setNewPrescriptionAfflictionId?: React.Dispatch<
     React.SetStateAction<number | undefined>
@@ -59,10 +57,8 @@ export default function StandardChoiceDropdown({
   registeredPatientGender,
   setRegisteredPatientGender,
   isMedicDropdownInput,
-  setNewPrescriptionMedicId,
   medics,
   isAtHomeCareDropdownInput,
-  setAtHomeCare,
   isAfflictionDropdownInput,
   setNewPrescriptionAfflictionId,
   afflictions,
@@ -186,7 +182,7 @@ export default function StandardChoiceDropdown({
 
   return (
     <div
-      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'flex flex-row items-center gap-2 mb-2 w-full' : ''} mb-4 italic`}
+      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'flex flex-row items-center gap-2 mb-2 w-full' : isMedicDropdownInput ? 'flex flex-col items-center md:items-start' : ''} mb-4 italic`}
     >
       <label
         htmlFor={
@@ -294,14 +290,6 @@ export default function StandardChoiceDropdown({
             setRegisteredPatientGender(e.target.value);
           }
 
-          if (isMedicDropdownInput && setNewPrescriptionMedicId) {
-            setNewPrescriptionMedicId(Number(e.target.value));
-          }
-
-          if (isAtHomeCareDropdownInput && setAtHomeCare) {
-            setAtHomeCare(e.target.value === 'true');
-          }
-
           if (isAfflictionDropdownInput && setNewPrescriptionAfflictionId) {
             setNewPrescriptionAfflictionId(Number(e.target.value));
           }
@@ -339,7 +327,13 @@ export default function StandardChoiceDropdown({
                   : isAdminAfflictionAddOperatedStatusInput ||
                       isAdminAfflictionEditOperatedStatusInput
                     ? 'is_operated'
-                    : ''
+                    : isAtHomeCareDropdownInput
+                      ? 'at_home_care'
+                      : isMedicDropdownInput
+                        ? 'medic_id'
+                        : isAfflictionDropdownInput
+                          ? 'affliction_id'
+                          : ''
         }
       >
         {isGenderDropdownInput && (

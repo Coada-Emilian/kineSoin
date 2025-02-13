@@ -1,12 +1,12 @@
 import PrivateMain from '../../../standaloneComponents/PrivateSection/PatientSection/Modals/PrivateMain';
 
-interface PatientPrescriptionPageProps {
+interface PatientPrescriptionPageMainProps {
   windowWidth?: number;
 }
 
-export default function PatientPrescriptionPage({
+export default function PatientPrescriptionPageMain({
   windowWidth,
-}: PatientPrescriptionPageProps) {
+}: PatientPrescriptionPageMainProps) {
   return (
     <PrivateMain
       isPatientMain

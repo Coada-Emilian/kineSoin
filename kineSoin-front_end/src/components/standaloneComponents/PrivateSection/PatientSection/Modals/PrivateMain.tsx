@@ -5,7 +5,7 @@ import { fetchPatientAppointments } from '../../../../../utils/apiUtils';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { Link, useNavigate } from 'react-router-dom';
 import SideNav from '../../../generalComponents/SideNav/SideNav';
-import PatientNewPrescriptionForm from '../../../../pageComponents/PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
+import PatientNewPrescriptionForm from '../../../../pageComponents/PatientSection/PatientPrescriptionPageMain/PatientNewPrescriptionForm';
 import PatientAppointmentsCalendar from '../../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
 import PatientMessagesField from '../../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
 import MessageForm from '../../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
@@ -67,7 +67,7 @@ export default function PrivateMain({
     <>
       {isPatientMain && (
         <main
-          className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''} h-max`}
+          className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''} `}
         >
           <UserHeadband isPatientHeadband />
 
@@ -103,7 +103,10 @@ export default function PrivateMain({
                           key={appointment.id}
                           className="w-3/4 md:w-3/12 border border-gray-700 rounded-xl text-xxs md:text-sm hover:ring-4 hover:ring-primaryTeal transform hover:scale-105 transition-transform duration-200"
                         >
-                          <AppointmentCard appointment={appointment} />
+                          <AppointmentCard
+                            appointment={appointment}
+                            isPatientAppointmentCard
+                          />
                         </Link>
                       ))}
                   </div>
@@ -120,7 +123,7 @@ export default function PrivateMain({
               )}
 
               {isPatientPrescriptionMain && (
-                <div className="flex justify-center md:justify-start items-center w-full">
+                <div className="flex justify-center md:justify-around items-center w-full">
                   <PatientNewPrescriptionForm
                     windowWidth={windowWidth}
                     patientId={patientId}
@@ -131,13 +134,13 @@ export default function PrivateMain({
                   <div className="hidden md:block md:h-full md:w-1/2">
                     {scanPreview && (
                       <div className="mt-4 flex flex-col items-center gap-2 h-max">
-                        <p className="text-gray-700 text-sm mb-4">
+                        <p className=" text-sm mb-4 text-primaryBlue font-semibold italic">
                           Aperçu du scan{' '}
                         </p>
                         <img
                           src={scanPreview}
                           alt="Aperçu du fichier"
-                          className="w-5/6 object-contain border"
+                          className="w-5/6 object-contain border rounded-2xl shadow-2xl"
                         />
                       </div>
                     )}
