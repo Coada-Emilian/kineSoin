@@ -5,9 +5,13 @@ import { IAppointment } from '../../../../@types/types';
 
 interface AppointmentCardProps {
   appointment: IAppointment;
+  isPatientAppointmentCard?: boolean;
 }
 
-export default function AppointmentCard({ appointment }: AppointmentCardProps) {
+export default function AppointmentCard({
+  appointment,
+  isPatientAppointmentCard,
+}: AppointmentCardProps) {
   const [appointmentDate, setAppointmentDate] = useState<string>('');
   const [appointmentTime, setAppointmentTime] = useState<string>('');
 
@@ -60,15 +64,17 @@ export default function AppointmentCard({ appointment }: AppointmentCardProps) {
           <p className="text-white">{appointmentTime}</p>
         </div>
       </div>
-      <div className="text-center">
-        <p>
-          {appointment.therapist?.name} {''}
-          {appointment.therapist?.surname}
-        </p>
-        <p>Masseur-kinésithérapeute</p>
-        <p>{appointment.therapist?.specialty}</p>
-        <p>{appointment.prescription?.at_home_care && 'A domicile'}</p>
-      </div>
+      {isPatientAppointmentCard && (
+        <div className="text-center">
+          <p>
+            {appointment.therapist?.name} {''}
+            {appointment.therapist?.surname}
+          </p>
+          <p>Masseur-kinésithérapeute</p>
+          <p>{appointment.therapist?.specialty}</p>
+          <p>{appointment.prescription?.at_home_care && 'A domicile'}</p>
+        </div>
+      )}
     </>
   );
 }

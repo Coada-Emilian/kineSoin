@@ -874,3 +874,33 @@ export const handleTherapistConnection = async (
     return false;
   }
 };
+
+export const fetchAllMedicNamesAsPatient = async () => {
+  try {
+    const response = await axios.get('/patient/me/medicNames');
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch medics', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching medics:', error);
+    return [];
+  }
+};
+
+export const fetchAfflictionNamesAsPatient = async () => {
+  try {
+    const response = await axios.get('/patient/me/afflictionNames');
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch afflictions', response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching afflictions:', error);
+    return [];
+  }
+};

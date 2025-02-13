@@ -98,6 +98,8 @@ import insuranceController from '../controllers/insuranceController.js';
 import multer from 'multer';
 import authentificationController from '../controllers/authentificationController.js';
 import { authenticatePatient } from '../../middlewares/userAuthentication.js';
+import medicController from '../controllers/medicController.js';
+import afflictionController from '../controllers/afflictionController.js';
 
 const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
@@ -202,6 +204,18 @@ patientRouter.post(
   authenticatePatient,
   uploadPatientPhoto.single('photo'),
   patientController.uploadPatientPhoto
+);
+
+patientRouter.get(
+  '/me/medicNames',
+  authenticatePatient,
+  wrapper(medicController.getMedicNamesAsPatient)
+);
+
+patientRouter.get(
+  '/me/afflictionNames',
+  authenticatePatient,
+  wrapper(afflictionController.getAfflictionNamesAsPatient)
 );
 
 // Unused routes

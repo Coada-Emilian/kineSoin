@@ -379,6 +379,30 @@ const afflictionController = {
       }
     }
   },
+
+  getAfflictionNamesAsPatient: async (req, res) => {
+    const patient_id = parseInt(req.patient_id, 10);
+    checkIsValidNumber(patient_id);
+    if (!patient_id) {
+      return res.status(400).json({ message: 'Patient ID is required.' });
+    } else {
+      try {
+        const foundAfflictions = await Affliction.findAll({
+          attributes: ['id', 'name'],
+          order: [['name', 'ASC']],
+        });
+
+        if (!foundAfflictions) {
+          return res.status(404).json({ message: 'No afflictions found.' });
+        } else {
+          return res.status(200).json(foundAfflictions);
+        }
+      } catch (error) {
+        console.error('Error fetching afflictions:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
 };
 
 export default afflictionController;
