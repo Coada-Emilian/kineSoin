@@ -15,9 +15,7 @@ import StandardDropdownInput from '../../generalComponents/StandardInputs/Standa
 import StandardTelephoneInput from '../../generalComponents/StandardInputs/StandardTelephoneInput.tsx';
 import StandardFileInput from '../../generalComponents/StandardInputs/StandardFileInput.tsx';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import DNALoader from '../../../../utils/DNALoader.tsx';
-import { ICountry } from '../../../../@types/types';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;
@@ -75,36 +73,6 @@ export default function PublicMainFormSection({
 
   // Loading state
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const [countriesData, setCountriesData] = useState<ICountry[]>([]);
-
-  useEffect(() => {
-    const fetchCountriesData = async () => {
-      try {
-        const response = await axios.get('https://restcountries.com/v3.1/all');
-        if (response) {
-          const data: ICountry[] = response.data
-            .map((country: any): ICountry => {
-              const root = country.idd?.root || ''; // Main dialing code prefix
-              const suffixes = country.idd?.suffixes || []; // Possible additional digits
-              const prefix = suffixes.length ? `${root}${suffixes[0]}` : root; // Combine root with first suffix if available
-
-              return {
-                prefix: prefix, // Properly formatted prefix
-                name: country.name.common,
-              };
-            })
-            .sort((a: ICountry, b: ICountry) => a.name.localeCompare(b.name)); // Sort alphabetically
-
-          setCountriesData(data);
-        }
-      } catch (error) {
-        console.error('Error fetching countries:', error);
-      }
-    };
-
-    fetchCountriesData();
-  }, []);
 
   // Patient login function
   const checkPatientCredentials = async (
@@ -457,9 +425,7 @@ export default function PublicMainFormSection({
   if (isLoading) {
     return DNALoader();
   }
-  useEffect(() => {
-    console.log('sentPatientData', sentPatientData);
-  }, [sentPatientData]);
+
   return (
     // Render the form section with the corresponding background image and form content
     <section

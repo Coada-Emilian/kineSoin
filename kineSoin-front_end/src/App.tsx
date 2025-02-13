@@ -164,7 +164,7 @@ function App() {
     window.addEventListener('storage', handlePatientStorageChange);
 
     // Check every 5 seconds if the patient is authenticated
-    const intervalId = setInterval(checkPatientAuthentication, 5000);
+    const intervalId = setInterval(checkPatientAuthentication, 2000);
 
     // Cleanup
     return () => {
