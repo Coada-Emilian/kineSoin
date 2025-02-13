@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import PatientAppointmentCard from '../../../pageComponents/PatientSection/PatientAppointmentCard/PatientAppointmentCard';
-import UserHeadband from '../UserHeadband/UserHeadband';
-import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
-import { fetchPatientAppointments } from '../../../../utils/apiUtils';
-import { IAppointment } from '../../../../@types/IAppointment';
-import CustomButton from '../../generalComponents/CustomButton/CustomButton';
-import { useNavigate } from 'react-router-dom';
-import SideNav from '../../generalComponents/SideNav/SideNav';
-
-import PatientNewPrescriptionForm from '../../../pageComponents/PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
-import PatientAppointmentsCalendar from '../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
-import PatientMessagesField from '../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
-import MessageForm from '../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
-import TherapistCard from '../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
-import PatientCard from '../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
+import UserHeadband from '../../UserHeadband/UserHeadband';
+import { getPatientTokenAndDataFromLocalStorage } from '../../../../../localStorage/patientLocalStorage';
+import { fetchPatientAppointments } from '../../../../../utils/apiUtils';
+import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
+import { Link, useNavigate } from 'react-router-dom';
+import SideNav from '../../../generalComponents/SideNav/SideNav';
+import PatientNewPrescriptionForm from '../../../../pageComponents/PatientSection/PatientPrescriptionPage/PatientNewPrescriptionForm';
+import PatientAppointmentsCalendar from '../../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
+import PatientMessagesField from '../../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
+import MessageForm from '../../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
+import TherapistCard from '../../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
+import PatientCard from '../../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
+import { IAppointment } from '../../../../../@types/types';
+import AppointmentCard from '../../../generalComponents/AppointmentCard/AppointmentCard';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -80,7 +79,7 @@ export default function PrivateMain({
             )}
 
             <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6">
-              <p className="text-xl font-semibold italic ">
+              <p className="text-xl font-semibold italic mb-2 ">
                 {isPatientDashboardMain && 'Rendez-vous à venir'}
                 {isPatientPrescriptionMain && 'Ajouter une nouvelle ordonnance'}
                 {isPatientAppointmentsMain && 'Mes rendez-vous'}
@@ -91,7 +90,7 @@ export default function PrivateMain({
 
               {isPatientDashboardMain && (
                 <>
-                  <div className="flex flex-col gap-4 md:flex-row md:flex-wrap justify-center md:justify-start items-center w-full mb-4">
+                  <div className="flex flex-col gap-4 md:flex-row md:gap-6 md:flex-wrap justify-center md:justify-start items-center w-full mb-4">
                     {upcomingAppointments.length === 0 && (
                       <p className="text-gray-700 text-sm">
                         Aucun rendez-vous à venir
@@ -99,10 +98,13 @@ export default function PrivateMain({
                     )}
                     {upcomingAppointments.length > 0 &&
                       upcomingAppointments.map((appointment) => (
-                        <PatientAppointmentCard
+                        <Link
+                          to={`/patient/appointments/${appointment.id}`}
                           key={appointment.id}
-                          appointment={appointment}
-                        />
+                          className="w-3/4 md:w-3/12 border border-gray-700 rounded-xl text-xxs md:text-sm hover:ring-4 hover:ring-primaryTeal transform hover:scale-105 transition-transform duration-200"
+                        >
+                          <AppointmentCard appointment={appointment} />
+                        </Link>
                       ))}
                   </div>
 

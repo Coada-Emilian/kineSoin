@@ -1,4 +1,4 @@
-import PrivateMain from "../../../standaloneComponents/PrivateSection/PrivateMain/PrivateMain";
+import PrivateMain from '../../standaloneComponents/PrivateSection/PatientSection/Modals/PrivateMain';
 
 interface PatientDashboardProps {
   windowWidth?: number;
