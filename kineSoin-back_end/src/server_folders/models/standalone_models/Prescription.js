@@ -57,6 +57,7 @@ Prescription.init(
     },
     appointment_quantity: {
       type: DataTypes.INTEGER,
+      allowNull: true,
     },
     is_completed: {
       type: DataTypes.BOOLEAN,
