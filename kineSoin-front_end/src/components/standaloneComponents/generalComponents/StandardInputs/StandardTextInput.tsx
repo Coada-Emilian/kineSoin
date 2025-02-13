@@ -291,7 +291,7 @@ export default function StandardTextInput({
       labelClassName: 'text-sm',
       labelName: 'Quantité séances prescrites',
       inputName: 'appointment_quantity',
-      inputPlaceholder: '0 si non renseigné',
+      inputPlaceholder: 'Laissez vide si non précisé',
       required: false,
       inputValue: undefined,
       inputOnChange: undefined,

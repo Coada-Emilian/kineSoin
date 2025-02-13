@@ -182,7 +182,7 @@ export default function StandardChoiceDropdown({
 
   return (
     <div
-      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'flex flex-row items-center gap-2 mb-2 w-full' : isMedicDropdownInput ? 'flex flex-col items-center md:items-start' : ''} mb-4 italic`}
+      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'flex flex-row items-center gap-2 mb-2 w-full' : isMedicDropdownInput || isAtHomeCareDropdownInput || isAfflictionDropdownInput ? 'flex flex-col items-center md:items-start' : ''} mb-4 italic`}
     >
       <label
         htmlFor={

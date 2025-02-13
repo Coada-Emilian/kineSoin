@@ -9,7 +9,7 @@ import {
   fetchAllMedicNamesAsPatient,
   handleNewPrescriptionCreation,
 } from '../../../../utils/apiUtils';
-import { Form, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { IAffliction, IMedic } from '../../../../@types/types';
 
 interface PatientNewPrescriptionFormProps {

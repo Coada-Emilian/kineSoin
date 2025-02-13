@@ -79,10 +79,16 @@ const prescriptionController = {
 
         checkPatientStatus(foundPatient);
 
+        const appointmentQuantity = parseInt(req.body.appointment_quantity, 10);
+
+        if (isNaN(appointmentQuantity)) {
+          req.body.appointment_quantity = null;
+        }
+
         const prescriptionSchema = Joi.object({
           medic_id: Joi.number().integer().required(),
           affliction_id: Joi.number().integer().required(),
-          appointment_quantity: Joi.number().integer().optional(),
+          appointment_quantity: Joi.number().integer().optional().allow(null),
           at_home_care: Joi.boolean().required(),
           date: Joi.date().required(),
         });
