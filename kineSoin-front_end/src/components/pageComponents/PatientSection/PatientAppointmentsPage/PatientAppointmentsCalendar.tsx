@@ -4,17 +4,20 @@ import 'dayjs/locale/fr'; // Import French locale for Day.js
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import StandardChoiceDropdown from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDropdownInput';
 import { useEffect, useState } from 'react';
-import { IPrescription } from '../../../../@types/IPrescription';
 import { fetchPatientPrescriptions } from '../../../../utils/apiUtils';
-import { IAppointment } from '../../../../@types/IAppointment';
+import { IAppointment, IPrescription } from '../../../../@types/types';
 
-interface PatientAppointmentsCalendarProps {
+interface AppointmentsCalendarProps {
   patientId?: number;
+  isPatientAppointmentsCalendar?: boolean;
+  isTherapistAppointmentsCalendar?: boolean;
 }
 
-export default function PatientAppointmentsCalendar({
+export default function AppointmentsCalendar({
   patientId,
-}: PatientAppointmentsCalendarProps) {
+  isPatientAppointmentsCalendar,
+  isTherapistAppointmentsCalendar,
+}: AppointmentsCalendarProps) {
   // Set the Day.js locale to French globally
   dayjs.locale('fr');
 
@@ -34,10 +37,15 @@ export default function PatientAppointmentsCalendar({
 
   useEffect(() => {
     const fetchPatientPrescriptionsAndSet = async () => {
-      const response = await fetchPatientPrescriptions();
-      if (response) {
-        setPatientPrescriptions(response);
-      } else {
+      try {
+        const response = await fetchPatientPrescriptions();
+        if (response) {
+          setPatientPrescriptions(response);
+        } else {
+          setPatientPrescriptions([]);
+        }
+      } catch (error) {
+        console.error('Error fetching prescriptions:', error);
         setPatientPrescriptions([]);
       }
     };
@@ -96,30 +104,34 @@ export default function PatientAppointmentsCalendar({
 
   return (
     <>
-      {calendarEvents.length === 0 && <p>Aucun rendez-vous à afficher</p>}
-      <StandardChoiceDropdown
-        isPrescriptionDropdownInput
-        patientPrescriptions={patientPrescriptions}
-        patientId={patientId}
-        setFutureAppointments={setFutureAppointments}
-        setPastAppointments={setPastAppointments}
-      />
+      {isPatientAppointmentsCalendar && (
+        <>
+          {calendarEvents.length === 0 && <p>Aucun rendez-vous à afficher</p>}
+          <StandardChoiceDropdown
+            isPrescriptionDropdownInput
+            patientPrescriptions={patientPrescriptions}
+            patientId={patientId}
+            setFutureAppointments={setFutureAppointments}
+            setPastAppointments={setPastAppointments}
+          />
 
-      <div className="w-10/12 h-96 md:w-full md:h-full">
-        <Calendar
-          localizer={localizer}
-          events={calendarEvents}
-          startAccessor="start"
-          endAccessor="end"
-          culture="fr" // Use French culture
-          formats={{
-            dayFormat: 'DD MMM', // Customize the day format
-            monthHeaderFormat: 'MMMM YYYY', // Customize the month header format
-          }}
-          eventPropGetter={eventStyleGetter}
-          onSelectEvent={handleEventClick}
-        />
-      </div>
+          <div className="w-10/12 h-96 md:w-full md:h-full">
+            <Calendar
+              localizer={localizer}
+              events={calendarEvents}
+              startAccessor="start"
+              endAccessor="end"
+              culture="fr" // Use French culture
+              formats={{
+                dayFormat: 'DD MMM', // Customize the day format
+                monthHeaderFormat: 'MMMM YYYY', // Customize the month header format
+              }}
+              eventPropGetter={eventStyleGetter}
+              onSelectEvent={handleEventClick}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 }
