@@ -7,13 +7,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import SideNav from '../../generalComponents/SideNav/SideNav';
 import PatientNewPrescriptionForm from './PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
 import AppointmentsCalendar from '../../generalComponents/AppointmentCalendar/AppointmentsCalendar';
-import PatientMessagesField from '../../generalComponents/MessagesField/MessagesField';
 import MessageForm from '../../generalComponents/MessageForm/MessageForm';
-import TherapistCard from '../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
 import PatientCard from '../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
 import { IAppointment } from '../../../../@types/types';
 import AppointmentCard from '../../generalComponents/AppointmentCard/AppointmentCard';
 import MessagesField from '../../generalComponents/MessagesField/MessagesField';
+import ProfileCard from '../../generalComponents/ProfileCard/ProfileCard';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -171,9 +170,7 @@ export default function PrivateMain({
                 </div>
               )}
 
-              {isPatientTherapistPage && (
-                <TherapistCard patientId={patientId} />
-              )}
+              {isPatientTherapistPage && <ProfileCard patientId={patientId} />}
 
               {isPatientDetailsMain && <PatientCard patientId={patientId} />}
             </div>

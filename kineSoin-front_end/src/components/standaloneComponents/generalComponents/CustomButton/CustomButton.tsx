@@ -1,6 +1,5 @@
 import NotificationIcon from '/icons/notification.png';
 import LogoutIcon from '/icons/logout.png';
-import { useEffect } from 'react';
 
 interface CustomButtonProps {
   btnText?: string | JSX.Element;
@@ -26,6 +25,7 @@ interface CustomButtonProps {
   mobileButton?: boolean;
   mobileDeleteButton?: boolean;
   mobileCancelButton?: boolean;
+  profileCardSendMessageButton?: boolean;
 }
 
 export default function CustomButton({
@@ -52,6 +52,7 @@ export default function CustomButton({
   mobileButton,
   mobileDeleteButton,
   mobileCancelButton,
+  profileCardSendMessageButton,
 }: CustomButtonProps) {
   const getBtnBackground = () => {
     if (normalButton || navBarButton || mobileButton || allButton) {
@@ -74,6 +75,8 @@ export default function CustomButton({
       return 'bg-red-300 hover:bg-red-500';
     } else if (patientNotificationButton || patientLogoutButton) {
       return 'md:bg-primaryTeal md:hover:bg-secondaryTeal';
+    } else if (profileCardSendMessageButton) {
+      return 'bg-gray-700 hover:bg-gray-500';
     }
   };
 
@@ -105,6 +108,8 @@ export default function CustomButton({
       mobileCancelButton
     ) {
       return 'text-xxs md:text-xs lg:text-sm px-2 py-2 max-w-36 lg:max-w-40 xl:max-w-44 my-0 mx-0 shadow-2xl';
+    } else if (profileCardSendMessageButton) {
+      return 'text-xs md:text-md xl:text-xl p-2 py-2 min-w-24 my-0 mx-auto shadow-2xl text-white';
     }
   };
 

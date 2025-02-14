@@ -55,6 +55,8 @@ const therapistController = {
             res.status(200).json({
               therapist: {
                 id: therapist.id,
+                surname: therapist.surname,
+                name: therapist.name,
                 fullName: `${therapist.name} ${therapist.surname}`,
                 picture_url: therapist.picture_url,
                 description: therapist.description,
