@@ -7,9 +7,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import NavBar from './components/standaloneComponents/generalComponents/NavBar/NavBar';
 import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
-import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
-import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPageMain';
-import PatientTherapistPage from './components/pageComponents/PatientSection/PatientTherapistPage/PatientTherapistPage';
+import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav'
 import PatientDetailsPage from './components/pageComponents/PatientSection/PatientDetailsPage/PatientDetailsPage';
 import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
@@ -28,6 +26,8 @@ import AdminInsurancePageMain from './components/pageComponents/AdminSection/Mai
 import PatientDashboardPageMain from './components/pageComponents/PatientSection/PatientDashboardPageMain';
 import PatientPrescriptionPageMain from './components/pageComponents/PatientSection/PatientPrescriptionPageMain';
 import PatientAppointmentsPageMain from './components/pageComponents/PatientSection/PatientAppointmentsPageMain';
+import PatientTherapistPageMain from './components/pageComponents/PatientSection/PatientTherapistPageMain';
+import PatientMessagesPageMain from './components/pageComponents/PatientSection/PatientMessagesPageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -367,11 +367,11 @@ function App() {
           />
           <Route
             path="messages"
-            element={<PatientMessagesPage windowWidth={windowWidth} />}
+            element={<PatientMessagesPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="my-therapist"
-            element={<PatientTherapistPage windowWidth={windowWidth} />}
+            element={<PatientTherapistPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="my-info"

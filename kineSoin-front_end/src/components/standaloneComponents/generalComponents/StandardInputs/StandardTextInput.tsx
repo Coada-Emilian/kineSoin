@@ -301,7 +301,7 @@ export default function StandardTextInput({
     },
     {
       boolean: patientSection?.isPatientMessageInput,
-      divClassName: 'w-full flex flex-col mb-4',
+      divClassName: 'w-10/12 mx-auto mb-5 ',
       inputId: 'patient-message-input',
       labelClassName: 'text-sm',
       labelName: '',
