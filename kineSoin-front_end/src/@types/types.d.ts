@@ -25,6 +25,7 @@ export interface IPrescription {
   patient_id: number;
   affliction_id: number;
   appointment_quantity: number;
+  is_new_prescription: boolean;
   is_completed: boolean;
   at_home_care: boolean;
   date: string;

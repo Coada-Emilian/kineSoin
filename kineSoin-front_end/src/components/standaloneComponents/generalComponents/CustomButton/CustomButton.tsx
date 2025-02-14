@@ -78,7 +78,7 @@ export default function CustomButton({
     } else if (patientNotificationButton || patientLogoutButton) {
       return 'md:bg-primaryTeal md:hover:bg-secondaryTeal';
     } else if (profileCardSendMessageButton || profileCardModifyProfileButton) {
-      return 'bg-gray-700 hover:bg-gray-500';
+      return 'bg-primaryBlue hover:bg-gray-500';
     }
   };
 

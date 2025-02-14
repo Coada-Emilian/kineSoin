@@ -50,6 +50,8 @@ interface StandardChoiceDropdownProps {
   setTherapistPrefix?: React.Dispatch<React.SetStateAction<string>>;
   setInsurancePrefix?: React.Dispatch<React.SetStateAction<string>>;
   setMedicPrefix?: React.Dispatch<React.SetStateAction<string>>;
+  isPatientProfilePrefixModification?: boolean;
+  patient_prefix?: string;
 }
 
 export default function StandardChoiceDropdown({
@@ -86,6 +88,8 @@ export default function StandardChoiceDropdown({
   setTherapistPrefix,
   setInsurancePrefix,
   setMedicPrefix,
+  isPatientProfilePrefixModification,
+  patient_prefix,
 }: StandardChoiceDropdownProps) {
   const windowWidth = window.innerWidth;
   // Function to fetch appointments by prescription
@@ -104,6 +108,10 @@ export default function StandardChoiceDropdown({
 
   const [actualInsurance, setActualInsurance] = useState<IInsurance | null>(
     null
+  );
+
+  const [patientPrefix, setPatientPrefix] = useState<string | null>(
+    patient_prefix || null
   );
 
   // Function to identify the old insurance
@@ -180,9 +188,27 @@ export default function StandardChoiceDropdown({
     }
   }, [isCountryDropdownInput]);
 
+  useEffect(() => {
+    console.log(patient_prefix);
+  }, [patient_prefix]);
+
   return (
     <div
-      className={`${isCountryDropdownInput || isAdminAfflictionAddOperatedStatusInput ? 'w-1/3' : isAdminAfflictionEditRegionInput || isAdminAfflictionEditOperatedStatusInput ? 'flex flex-row items-center gap-2 mb-2 w-full' : isMedicDropdownInput || isAtHomeCareDropdownInput || isAfflictionDropdownInput ? 'flex flex-col items-center md:items-start' : ''} mb-4 italic`}
+      className={`${
+        (isCountryDropdownInput && !isPatientProfilePrefixModification) ||
+        isAdminAfflictionAddOperatedStatusInput
+          ? 'w-1/3'
+          : isAdminAfflictionEditRegionInput ||
+              isAdminAfflictionEditOperatedStatusInput
+            ? 'flex flex-row items-center gap-2 mb-2 w-full'
+            : isMedicDropdownInput ||
+                isAtHomeCareDropdownInput ||
+                isAfflictionDropdownInput
+              ? 'flex flex-col items-center md:items-start'
+              : isPatientProfilePrefixModification
+                ? 'flex flex-row items-center gap-2 mb-2 w-full md:w-1/3 md:gap-4'
+                : ''
+      } mb-4 italic`}
     >
       <label
         htmlFor={
@@ -206,7 +232,8 @@ export default function StandardChoiceDropdown({
                           ? 'affliction-operated_status_dropdown'
                           : isAdminTherapistEditPrefixDropdown ||
                               isAdminMedicEditPrefixDropdown ||
-                              isAdminInsuranceEditPrefixDropdown
+                              isAdminInsuranceEditPrefixDropdown ||
+                              isPatientProfilePrefixModification
                             ? 'country_prefix_dropdown'
                             : ''
         }
@@ -214,7 +241,8 @@ export default function StandardChoiceDropdown({
           isCountryDropdownInput &&
           !isAdminTherapistEditPrefixDropdown &&
           !isAdminMedicEditPrefixDropdown &&
-          !isAdminInsuranceEditPrefixDropdown
+          !isAdminInsuranceEditPrefixDropdown &&
+          !isPatientProfilePrefixModification
             ? 'text-xs'
             : isAdminAfflictionEditRegionInput ||
                 isAdminAfflictionEditOperatedStatusInput ||
@@ -222,7 +250,9 @@ export default function StandardChoiceDropdown({
                 isAdminMedicEditPrefixDropdown ||
                 isAdminInsuranceEditPrefixDropdown
               ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3'
-              : ''
+              : isPatientProfilePrefixModification
+                ? 'text-xs md:text-base xl:text-xl w-1/4 text-start '
+                : ''
         } text-primaryBlue text-sm font-medium block mb-2`}
       >
         {isGenderDropdownInput && 'Genre'}{' '}
@@ -233,7 +263,8 @@ export default function StandardChoiceDropdown({
         {(isCountryDropdownInput ||
           isAdminTherapistEditPrefixDropdown ||
           isAdminMedicEditPrefixDropdown ||
-          isAdminInsuranceEditPrefixDropdown) &&
+          isAdminInsuranceEditPrefixDropdown ||
+          isPatientProfilePrefixModification) &&
           'Préfixe'}
         {isAdminTherapistAddStatusInput && 'Statut'}
         {(isAdminAfflictionAddRegionInput ||
@@ -270,7 +301,8 @@ export default function StandardChoiceDropdown({
                           ? 'affliction-operated_status_dropdown'
                           : isAdminTherapistEditPrefixDropdown ||
                               isAdminMedicEditPrefixDropdown ||
-                              isAdminInsuranceEditPrefixDropdown
+                              isAdminInsuranceEditPrefixDropdown ||
+                              isPatientProfilePrefixModification
                             ? 'country_prefix_dropdown'
                             : ''
         }
@@ -283,7 +315,9 @@ export default function StandardChoiceDropdown({
                 ? medic_prefix
                 : isAdminInsuranceEditPrefixDropdown && insurance_prefix
                   ? insurance_prefix
-                  : undefined
+                  : isPatientProfilePrefixModification && patient_prefix
+                    ? (patientPrefix ?? '')
+                    : undefined
         }
         onChange={(e) => {
           if (isGenderDropdownInput && setRegisteredPatientGender) {
@@ -312,8 +346,11 @@ export default function StandardChoiceDropdown({
           if (setMedicPrefix) {
             setMedicPrefix(e.target.value);
           }
+          if (setPatientPrefix) {
+            setPatientPrefix(e.target.value);
+          }
         }}
-        className="block w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent"
+        className={`${isPatientProfilePrefixModification ? 'w-full md:w-2/4' : 'w-full'} block p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent`}
         name={
           isPatientInsuranceDropdownInput
             ? 'insurance_id'
@@ -418,7 +455,12 @@ export default function StandardChoiceDropdown({
         {isCountryDropdownInput && (
           <>
             <option
-              value={therapist_prefix || medic_prefix || insurance_prefix}
+              value={
+                therapist_prefix ||
+                medic_prefix ||
+                insurance_prefix ||
+                patient_prefix
+              }
             >
               {therapist_prefix
                 ? therapist_prefix
@@ -426,7 +468,9 @@ export default function StandardChoiceDropdown({
                   ? medic_prefix
                   : insurance_prefix
                     ? insurance_prefix
-                    : 'Choisissez un préfixe'}
+                    : patient_prefix
+                      ? patient_prefix
+                      : 'Choisissez un préfixe'}
             </option>
             {countries &&
               countries.map((country) => (

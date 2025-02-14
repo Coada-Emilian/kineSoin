@@ -360,6 +360,7 @@ const patientController = {
           street_name: foundPatient.street_name,
           postal_code: foundPatient.postal_code,
           city: foundPatient.city,
+          prefix: foundPatient.prefix,
           phone_number: foundPatient.phone_number,
           full_phone_number: foundPatient.prefix + foundPatient.phone_number,
           address,
