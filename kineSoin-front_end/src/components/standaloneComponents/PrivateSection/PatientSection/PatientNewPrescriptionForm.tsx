@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import CustomButton from '../../../standaloneComponents/generalComponents/CustomButton/CustomButton';
-import StandardDateInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDateInput';
-import StandardChoiceDropdown from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDropdownInput';
-import StandardFileInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardFileInput';
-import StandardTextInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardTextInput';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton';
+import StandardDateInput from '../../generalComponents/StandardInputs/StandardDateInput';
+import StandardChoiceDropdown from '../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardFileInput from '../../generalComponents/StandardInputs/StandardFileInput';
+import StandardTextInput from '../../generalComponents/StandardInputs/StandardTextInput';
 import {
   fetchAfflictionNamesAsPatient,
   fetchAllMedicNamesAsPatient,
   handleNewPrescriptionCreation,
 } from '../../../../utils/apiUtils';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IAffliction, IMedic } from '../../../../@types/types';
 
 interface PatientNewPrescriptionFormProps {

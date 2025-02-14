@@ -1,4 +1,4 @@
-import PrivateMain from '../../../standaloneComponents/PrivateSection/PatientSection/Modals/PrivateMain';
+import PrivateMain from '../../../standaloneComponents/PrivateSection/PatientSection/PrivateMain';
 
 interface PatientMessagesPageProps {
   windowWidth?: number;
