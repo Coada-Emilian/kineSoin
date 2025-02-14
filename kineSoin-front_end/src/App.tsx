@@ -7,8 +7,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import NavBar from './components/standaloneComponents/generalComponents/NavBar/NavBar';
 import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
-import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav'
-import PatientDetailsPage from './components/pageComponents/PatientSection/PatientDetailsPage/PatientDetailsPage';
+import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
 import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
@@ -28,6 +27,7 @@ import PatientPrescriptionPageMain from './components/pageComponents/PatientSect
 import PatientAppointmentsPageMain from './components/pageComponents/PatientSection/PatientAppointmentsPageMain';
 import PatientTherapistPageMain from './components/pageComponents/PatientSection/PatientTherapistPageMain';
 import PatientMessagesPageMain from './components/pageComponents/PatientSection/PatientMessagesPageMain';
+import PatientDetailsPageMain from './components/pageComponents/PatientSection/PatientDetailsPageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -375,7 +375,7 @@ function App() {
           />
           <Route
             path="my-info"
-            element={<PatientDetailsPage windowWidth={windowWidth} />}
+            element={<PatientDetailsPageMain windowWidth={windowWidth} />}
           />
         </Route>
       ) : (

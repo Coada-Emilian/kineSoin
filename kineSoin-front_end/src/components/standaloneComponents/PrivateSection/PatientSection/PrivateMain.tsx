@@ -170,9 +170,19 @@ export default function PrivateMain({
                 </div>
               )}
 
-              {isPatientTherapistPage && <ProfileCard patientId={patientId} />}
+              {isPatientTherapistPage && (
+                <ProfileCard
+                  isPatientTherapistProfileCard
+                  patientId={patientId}
+                />
+              )}
 
-              {isPatientDetailsMain && <PatientCard patientId={patientId} />}
+              {isPatientDetailsMain && (
+                <ProfileCard
+                  isPatientDetailsProfileCard
+                  patientId={patientId}
+                />
+              )}
             </div>
           </div>
         </main>
