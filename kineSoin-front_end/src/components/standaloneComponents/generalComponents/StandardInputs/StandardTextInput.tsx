@@ -3,8 +3,10 @@ import {
   IAffliction,
   IInsurance,
   IMedic,
+  IPatient,
   ITherapist,
 } from '../../../../@types/types';
+import { boolean } from 'joi';
 
 interface GeneralInputProps {
   isNameInput?: boolean;
@@ -19,6 +21,8 @@ interface GeneralInputProps {
 interface PatientSectionProps {
   isAppointmentNumberInput?: boolean;
   isPatientMessageInput?: boolean;
+  isPatientProfileNameModification?: boolean;
+  isPatientProfileSurnameModification?: boolean;
 }
 
 interface AdminTherapistProps {
@@ -84,6 +88,7 @@ interface DataInputProps {
   medic?: IMedic | null;
   affliction?: IAffliction | null;
   insurance?: IInsurance | null;
+  patient?: IPatient | null;
 }
 
 interface AdminRegionProps {
@@ -146,6 +151,17 @@ export default function StandardTextInput({
     amcCode: dataInput?.insurance?.amc_code || '',
   });
 
+  const [patientState, setPatientState] = useState({
+    name: dataInput?.patient?.name || '',
+    surname: dataInput?.patient?.surname || '',
+    birthName: dataInput?.patient?.birth_name || '',
+    streetName: dataInput?.patient?.street_name || '',
+    streetNumber: dataInput?.patient?.street_number || '',
+    postalCode: dataInput?.patient?.postal_code || '',
+    city: dataInput?.patient?.city || '',
+    email: dataInput?.patient?.email || '',
+  });
+
   const handleTherapistChange = (
     field: keyof typeof therapistState,
     value: string,
@@ -176,6 +192,14 @@ export default function StandardTextInput({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setInsuranceState((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handlePatientChange = (
+    field: keyof typeof patientState,
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPatientState((prev) => ({ ...prev, [field]: value }));
   };
 
   const standardTextFields = [
@@ -1038,6 +1062,38 @@ export default function StandardTextInput({
       required: true,
       inputValue: undefined,
       inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientSection?.isPatientProfileNameModification,
+      divClassName: 'w-10/12 flex flex-row items-center mb-4',
+      inputId: 'patient-profile-name_input',
+      labelClassName: 'text-xl',
+      labelName: 'Nom',
+      inputName: 'name',
+      inputPlaceholder: 'Entrez votre nom',
+      required: true,
+      inputValue: patientState.name,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handlePatientChange('name', e.target.value, e),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientSection?.isPatientProfileSurnameModification,
+      divClassName: 'w-10/12 flex flex-row items-center mb-4',
+      inputId: 'patient-profile-surname_input',
+      labelClassName: 'text-xl',
+      labelName: 'Prénom',
+      inputName: 'surname',
+      inputPlaceholder: 'Entrez votre prénom',
+      required: true,
+      inputValue: patientState.surname,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handlePatientChange('surname', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
