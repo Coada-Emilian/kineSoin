@@ -12,6 +12,7 @@ import linkedInIcon from '/icons/linkedIn.png';
 import phoneIcon from '/icons/phone-call.png';
 import { Link, useNavigate } from 'react-router-dom';
 import StandardTextInput from '../StandardInputs/StandardTextInput';
+import StandardDateInput from '../StandardInputs/StandardDateInput';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -127,7 +128,7 @@ export default function ProfileCard({
                     : ''
               }
               alt={
-                isPatientDetailsProfileCard && patient
+                isPatientDetailsProfileCard && patient && !isProfileEditing
                   ? patient.fullName
                   : isPatientTherapistProfileCard && patientData?.therapist
                     ? patientData?.therapist?.fullName
@@ -139,13 +140,13 @@ export default function ProfileCard({
           <div className="bg-primaryTeal py-10 w-full"></div>
           <div className="w-full">
             <p className="text-xl md:text-2xl mt-8">
-              {isPatientDetailsProfileCard && patient
+              {isPatientDetailsProfileCard && patient && !isProfileEditing
                 ? patient.surname
                 : isPatientTherapistProfileCard && patientData?.therapist
                   ? patientData?.therapist?.surname
                   : ''}{' '}
               <span className="font-semibold">
-                {isPatientDetailsProfileCard && patient
+                {isPatientDetailsProfileCard && patient && !isProfileEditing
                   ? patient.name
                   : isPatientTherapistProfileCard && patientData?.therapist
                     ? patientData?.therapist?.name
@@ -154,7 +155,7 @@ export default function ProfileCard({
             </p>
             <p className="text-primaryTeal italic font-semibold mb-6">
               {`${
-                isPatientDetailsProfileCard && patient
+                isPatientDetailsProfileCard && patient && !isProfileEditing
                   ? `${patient.age} ans`
                   : isPatientTherapistProfileCard && patientData?.therapist
                     ? 'masseur kinésithérapeute'
@@ -164,7 +165,7 @@ export default function ProfileCard({
             <div className="flex justify-around text-xs md:text-base">
               <p className="font-semibold text-primaryTeal w-2/4 italic">
                 {`${
-                  isPatientDetailsProfileCard && patient
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Adresse'
                     : isPatientTherapistProfileCard && patientData?.therapist
                       ? 'Diplome'
@@ -172,9 +173,9 @@ export default function ProfileCard({
                 }`}
               </p>
               <p className="w-3/4">
-                :{' '}
+                {' '}
                 {`${
-                  isPatientDetailsProfileCard && patient
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? patient.address
                     : isPatientTherapistProfileCard && patientData?.therapist
                       ? patientData?.therapist?.diploma
@@ -185,7 +186,7 @@ export default function ProfileCard({
             <div className="flex justify-around text-xs md:text-base">
               <p className="font-semibold text-primaryTeal w-2/4 italic">
                 {`${
-                  isPatientDetailsProfileCard && patient
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Téléphone'
                     : isPatientTherapistProfileCard && patientData?.therapist
                       ? 'Spécialité'
@@ -193,9 +194,9 @@ export default function ProfileCard({
                 }`}
               </p>
               <p className="w-3/4">
-                :{' '}
+                {' '}
                 {`${
-                  isPatientDetailsProfileCard && patient
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? patient.full_phone_number
                     : isPatientTherapistProfileCard && patientData?.therapist
                       ? patientData?.therapist?.specialty
@@ -206,7 +207,7 @@ export default function ProfileCard({
             <div className="flex justify-around mb-6 text-xs md:text-base">
               <p className="font-semibold text-primaryTeal w-2/4 italic">
                 {`${
-                  isPatientDetailsProfileCard && patient
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Mutuelle'
                     : isPatientTherapistProfileCard && patientData?.therapist
                       ? 'Experience'
@@ -214,10 +215,15 @@ export default function ProfileCard({
                 }`}
               </p>
               <p className="w-3/4">
-                :{' '}
+                {' '}
                 {`${
-                  isPatientDetailsProfileCard && patient && isInsurancePresent
-                    ? patient.insurance && patient.insurance[0]?.name
+                  isPatientDetailsProfileCard &&
+                  patient &&
+                  isInsurancePresent &&
+                  !isProfileEditing
+                    ? patient.insurance &&
+                      !isProfileEditing &&
+                      patient.insurance[0]?.name
                     : isPatientTherapistProfileCard && patientData?.therapist
                       ? patientData?.therapist?.experience
                       : ''
@@ -228,6 +234,24 @@ export default function ProfileCard({
               <p className="px-4 italic mb-6">
                 "{patientData?.therapist?.description}"
               </p>
+            )}
+
+            {isProfileEditing && (
+              <div className="flex flex-col items-center justify-around mb-6 text-xs md:text-base">
+                <StandardTextInput
+                  patientSection={{
+                    isPatientProfileNameModification: true,
+                  }}
+                  dataInput={{ patient }}
+                />
+                <StandardTextInput
+                  patientSection={{
+                    isPatientProfileSurnameModification: true,
+                  }}
+                  dataInput={{ patient }}
+                />
+                <StandardDateInput isPatientProfileBirthDateModification />
+              </div>
             )}
 
             <div className="bg-gray-700 flex items-center justify-center gap-4 w-full">
@@ -260,6 +284,7 @@ export default function ProfileCard({
                 </p>
               </div>
             </div>
+
             <div className="bg-primaryTeal py-4 rounded-b-xl">
               {isPatientTherapistProfileCard && patientData?.therapist && (
                 <form action="POST" onSubmit={handlePatientMessageSubmit}>

@@ -4,12 +4,14 @@ interface StandardDateInputProps {
     React.SetStateAction<string | undefined>
   >;
   isNewPrescriptionDateInput?: boolean;
+  isPatientProfileBirthDateModification?: boolean;
 }
 
 export default function StandardDateInput({
   isPatientRegisterBirthdateInput,
   setRegisteredPatientBirthDate,
   isNewPrescriptionDateInput,
+  isPatientProfileBirthDateModification,
 }: StandardDateInputProps) {
   return (
     <div
