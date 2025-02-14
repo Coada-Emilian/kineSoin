@@ -23,6 +23,11 @@ interface PatientSectionProps {
   isPatientMessageInput?: boolean;
   isPatientProfileNameModification?: boolean;
   isPatientProfileSurnameModification?: boolean;
+  isPatientProfileStreetNumberModification?: boolean;
+  isPatientProfileStreetNameModification?: boolean;
+  isPatientProfilePostalCodeModification?: boolean;
+  isPatientProfileCityModification?: boolean;
+  isPatientProfileEmailModification?: boolean;
 }
 
 interface AdminTherapistProps {
@@ -1068,9 +1073,9 @@ export default function StandardTextInput({
     },
     {
       boolean: patientSection?.isPatientProfileNameModification,
-      divClassName: 'w-10/12 flex flex-row items-center mb-4',
+      divClassName: 'w-full flex flex-row items-center mb-4',
       inputId: 'patient-profile-name_input',
-      labelClassName: 'text-xl',
+      labelClassName: 'text-xs md:text-base xl:text-xl',
       labelName: 'Nom',
       inputName: 'name',
       inputPlaceholder: 'Entrez votre nom',
@@ -1084,9 +1089,9 @@ export default function StandardTextInput({
     },
     {
       boolean: patientSection?.isPatientProfileSurnameModification,
-      divClassName: 'w-10/12 flex flex-row items-center mb-4',
+      divClassName: 'w-full flex flex-row items-center mb-4',
       inputId: 'patient-profile-surname_input',
-      labelClassName: 'text-xl',
+      labelClassName: 'text-xs md:text-base xl:text-xl',
       labelName: 'Prénom',
       inputName: 'surname',
       inputPlaceholder: 'Entrez votre prénom',
@@ -1094,6 +1099,88 @@ export default function StandardTextInput({
       inputValue: patientState.surname,
       inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         handlePatientChange('surname', e.target.value, e),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientSection?.isPatientProfileStreetNumberModification,
+      divClassName: 'w-full md:w-1/3 flex flex-row items-center mb-4',
+      inputId: 'patient-profile-street_number_input',
+      labelClassName: 'text-xs md:text-base xl:text-xl w-4/6 text-start ',
+      labelName: 'No rue',
+      inputName: 'street_number',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: patientState.streetNumber,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handlePatientChange('streetNumber', e.target.value, e),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientSection?.isPatientProfileStreetNameModification,
+      divClassName: 'w-full flex flex-row items-center mb-4',
+      inputId: 'patient-profile-street_name_input',
+      labelClassName:
+        'text-xs md:text-base xl:text-xl w-4/6 md:w-1/3 text-start',
+      labelName: 'Nom de rue',
+      inputName: 'street_name',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: patientState.streetName,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handlePatientChange('streetName', e.target.value, e),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientSection?.isPatientProfilePostalCodeModification,
+      divClassName: 'w-full md:w-1/3 flex flex-row items-center mb-4',
+      inputId: 'patient-profile-postal_code_input',
+      labelClassName: 'text-xs md:text-base xl:text-xl w-4/6 text-start ',
+      labelName: 'Code postal',
+      inputName: 'postal_code',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: patientState.postalCode,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handlePatientChange('postalCode', e.target.value, e),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientSection?.isPatientProfileCityModification,
+      divClassName: 'w-full flex flex-row items-center mb-4',
+      inputId: 'patient-profile-city_input',
+      labelClassName:
+        'text-xs md:text-base xl:text-xl w-4/6 md:w-1/3 text-start',
+      labelName: 'Ville',
+      inputName: 'city',
+      inputPlaceholder: '',
+      required: true,
+      inputValue: patientState.city,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handlePatientChange('city', e.target.value, e),
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+    },
+    {
+      boolean: patientSection?.isPatientProfileEmailModification,
+      divClassName: 'w-full flex flex-row items-center mb-4',
+      inputId: 'patient-profile-surname_input',
+      labelClassName: 'text-xs md:text-base xl:text-xl w-1/12 text-start ',
+      labelName: 'E-mail',
+      inputName: 'email',
+      inputPlaceholder: 'Entrez votre prénom',
+      required: true,
+      inputValue: patientState.email,
+      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handlePatientChange('email', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,

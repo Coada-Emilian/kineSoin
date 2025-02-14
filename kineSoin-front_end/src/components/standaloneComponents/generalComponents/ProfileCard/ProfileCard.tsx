@@ -13,6 +13,8 @@ import phoneIcon from '/icons/phone-call.png';
 import { Link, useNavigate } from 'react-router-dom';
 import StandardTextInput from '../StandardInputs/StandardTextInput';
 import StandardDateInput from '../StandardInputs/StandardDateInput';
+import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
+import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -113,7 +115,7 @@ export default function ProfileCard({
         <div
           className={`${patient ? 'md:w-4/6' : 'md:w-2/4'} w-3/4 bg-white mx-auto rounded-xl shadow-lg relative flex flex-col justify-center items-center`}
         >
-          <div className="bg-gray-700 text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full">
+          <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full">
             <p className="text-base md:text-lg">
               Cabinet kinésithérapie Ruffec
             </p>
@@ -153,7 +155,7 @@ export default function ProfileCard({
                     : ''}
               </span>
             </p>
-            <p className="text-primaryTeal italic font-semibold mb-6">
+            <p className="text-primaryBlue italic font-semibold mb-6">
               {`${
                 isPatientDetailsProfileCard && patient && !isProfileEditing
                   ? `${patient.age} ans`
@@ -163,7 +165,7 @@ export default function ProfileCard({
               }`}
             </p>
             <div className="flex justify-around text-xs md:text-base">
-              <p className="font-semibold text-primaryTeal w-2/4 italic">
+              <p className="font-semibold text-primaryBlue w-2/4 italic">
                 {`${
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Adresse'
@@ -184,7 +186,7 @@ export default function ProfileCard({
               </p>
             </div>
             <div className="flex justify-around text-xs md:text-base">
-              <p className="font-semibold text-primaryTeal w-2/4 italic">
+              <p className="font-semibold text-primaryBlue w-2/4 italic">
                 {`${
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Téléphone'
@@ -205,7 +207,7 @@ export default function ProfileCard({
               </p>
             </div>
             <div className="flex justify-around mb-6 text-xs md:text-base">
-              <p className="font-semibold text-primaryTeal w-2/4 italic">
+              <p className="font-semibold text-primaryBlue w-2/4 italic">
                 {`${
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Mutuelle'
@@ -237,24 +239,75 @@ export default function ProfileCard({
             )}
 
             {isProfileEditing && (
-              <div className="flex flex-col items-center justify-around mb-6 text-xs md:text-base">
-                <StandardTextInput
-                  patientSection={{
-                    isPatientProfileNameModification: true,
-                  }}
-                  dataInput={{ patient }}
-                />
-                <StandardTextInput
-                  patientSection={{
-                    isPatientProfileSurnameModification: true,
-                  }}
-                  dataInput={{ patient }}
-                />
-                <StandardDateInput isPatientProfileBirthDateModification />
+              <div className="flex flex-col items-center  text-xs md:text-base">
+                <form action="POST" className="w-10/12">
+                  <StandardTextInput
+                    patientSection={{
+                      isPatientProfileNameModification: true,
+                    }}
+                    dataInput={{ patient }}
+                  />
+                  <StandardTextInput
+                    patientSection={{
+                      isPatientProfileSurnameModification: true,
+                    }}
+                    dataInput={{ patient }}
+                  />
+                  <StandardDateInput
+                    isPatientProfileBirthDateModification
+                    birth_date={patient?.birth_date}
+                  />
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <StandardTextInput
+                      patientSection={{
+                        isPatientProfileStreetNumberModification: true,
+                      }}
+                      dataInput={{ patient }}
+                    />
+                    <StandardTextInput
+                      patientSection={{
+                        isPatientProfileStreetNameModification: true,
+                      }}
+                      dataInput={{ patient }}
+                    />
+                  </div>
+
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <StandardTextInput
+                      patientSection={{
+                        isPatientProfilePostalCodeModification: true,
+                      }}
+                      dataInput={{ patient }}
+                    />
+                    <StandardTextInput
+                      patientSection={{
+                        isPatientProfileCityModification: true,
+                      }}
+                      dataInput={{ patient }}
+                    />
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <StandardChoiceDropdown
+                      isCountryDropdownInput
+                      isPatientProfilePrefixModification
+                      patient_prefix={patient?.prefix}
+                    />
+                    <StandardTelephoneInput
+                      isPatientProfileTelephoneModification
+                      patient_phone_number={patient?.phone_number}
+                    />
+                  </div>
+                  <StandardTextInput
+                    patientSection={{
+                      isPatientProfileEmailModification: true,
+                    }}
+                    dataInput={{ patient }}
+                  />
+                </form>
               </div>
             )}
 
-            <div className="bg-gray-700 flex items-center justify-center gap-4 w-full">
+            <div className="bg-primaryBlue flex items-center justify-center gap-4 w-full">
               {isPatientTherapistProfileCard && patientData?.therapist && (
                 <div className="flex gap-2 p-2">
                   <Link to="#">

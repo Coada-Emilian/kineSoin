@@ -129,6 +129,7 @@ const prescriptionController = {
           patient_id: patientId,
           affliction_id,
           appointment_quantity,
+          is_new_prescription: true,
           is_completed: false,
           at_home_care,
           date,

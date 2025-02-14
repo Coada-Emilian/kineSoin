@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface StandardTelephoneInputProps {
   isPatientTelephoneInput?: boolean;
   isAdminMedicAddTelephoneInput?: boolean;
@@ -12,6 +14,8 @@ interface StandardTelephoneInputProps {
   setTherapistPhoneNumber?: React.Dispatch<React.SetStateAction<string>>;
   setMedicPhoneNumber?: React.Dispatch<React.SetStateAction<string>>;
   setInsurancePhoneNumber?: React.Dispatch<React.SetStateAction<string>>;
+  isPatientProfileTelephoneModification?: boolean;
+  patient_phone_number?: string;
 }
 
 export default function StandardTelephoneInput({
@@ -28,9 +32,17 @@ export default function StandardTelephoneInput({
   setTherapistPhoneNumber,
   setMedicPhoneNumber,
   setInsurancePhoneNumber,
+  isPatientProfileTelephoneModification,
+  patient_phone_number,
 }: StandardTelephoneInputProps) {
+  const [patientPhoneNumber, setPatientPhoneNumber] = useState<
+    string | undefined
+  >(patient_phone_number);
+
   return (
-    <div className={`flex flex-col gap-2 mb-4 italic w-2/3`}>
+    <div
+      className={`flex gap-2 mb-4 italic w-full ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'}`}
+    >
       <label
         htmlFor={
           isPatientTelephoneInput
@@ -47,9 +59,11 @@ export default function StandardTelephoneInput({
                       ? 'admin-medic-edit-telephone_input'
                       : isAdminInsuranceEditTelephoneInput
                         ? 'admin-insurance-edit-telephone_input'
-                        : ''
+                        : isPatientProfileTelephoneModification
+                          ? 'patient-profile-telephone_input'
+                          : ''
         }
-        className={`${isAdminTherapistEditTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : 'text-xs text-primaryBlue font-medium'}`}
+        className={`${isAdminTherapistEditTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : isPatientProfileTelephoneModification ? 'text-xs md:text-base xl:text-xl w-1/4 text-start text-primaryBlue font-medium md:w-2/3' : 'text-xs text-primaryBlue font-medium'}`}
       >
         Numero Téléphone
       </label>
@@ -83,7 +97,9 @@ export default function StandardTelephoneInput({
               ? medic_phone_number
               : isAdminInsuranceEditTelephoneInput
                 ? insurance_phone_number
-                : undefined
+                : isPatientProfileTelephoneModification
+                  ? patientPhoneNumber
+                  : undefined
         }
         onChange={(e) => {
           if (setTherapistPhoneNumber) {
@@ -94,6 +110,9 @@ export default function StandardTelephoneInput({
           }
           if (setInsurancePhoneNumber) {
             setInsurancePhoneNumber(e.target.value);
+          }
+          if (isPatientProfileTelephoneModification) {
+            setPatientPhoneNumber(e.target.value);
           }
         }}
         required

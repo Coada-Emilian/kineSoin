@@ -5,6 +5,7 @@ interface StandardDateInputProps {
   >;
   isNewPrescriptionDateInput?: boolean;
   isPatientProfileBirthDateModification?: boolean;
+  birth_date?: string;
 }
 
 export default function StandardDateInput({
@@ -12,10 +13,11 @@ export default function StandardDateInput({
   setRegisteredPatientBirthDate,
   isNewPrescriptionDateInput,
   isPatientProfileBirthDateModification,
+  birth_date,
 }: StandardDateInputProps) {
   return (
     <div
-      className={`mb-4 flex flex-col gap-2 ${isNewPrescriptionDateInput ? 'items-center md:items-start ' : ''}`}
+      className={`mb-4 flex gap-2 ${isNewPrescriptionDateInput ? 'items-center md:items-start ' : isPatientProfileBirthDateModification ? 'flex-row items-center w-full' : 'flex-col'}`}
     >
       <label
         htmlFor={
@@ -23,15 +25,19 @@ export default function StandardDateInput({
             ? 'patient-register-birth_date_input'
             : isNewPrescriptionDateInput
               ? 'new-prescription-date_input'
-              : ''
+              : isPatientProfileBirthDateModification
+                ? 'patient-profile-birth_date_input'
+                : ''
         }
-        className="text-primaryBlue text-sm font-medium italic"
+        className={`${isPatientProfileBirthDateModification ? 'text-xxs md:text-base xl:text-xl w-full md:w-1/2 flex' : 'text-sm'} text-primaryBlue font-medium italic`}
       >
         {isPatientRegisterBirthdateInput
           ? 'Date de naissance'
           : isNewPrescriptionDateInput
             ? "Date de l'ordonnance"
-            : ''}
+            : isPatientProfileBirthDateModification
+              ? 'Date de naissance'
+              : ''}
       </label>
 
       <input
@@ -56,6 +62,7 @@ export default function StandardDateInput({
             setRegisteredPatientBirthDate &&
             setRegisteredPatientBirthDate(e.target.value);
         }}
+        value={birth_date ? birth_date : ''}
       />
     </div>
   );

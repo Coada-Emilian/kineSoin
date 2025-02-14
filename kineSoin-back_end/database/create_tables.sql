@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS "prescriptions" (
     "patient_id" INT REFERENCES "patients"("id") ON DELETE SET NULL,
     "affliction_id" INT REFERENCES "afflictions"("id") ON DELETE SET NULL,
     "appointment_quantity" INT,
+    "is_new_prescription" BOOLEAN NOT NULL DEFAULT true,
     "is_completed" BOOLEAN NOT NULL DEFAULT false,
     "at_home_care" BOOLEAN NOT NULL DEFAULT false,
     "date" DATE NOT NULL,
