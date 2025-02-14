@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import UserHeadband from '../../UserHeadband/UserHeadband';
-import { getPatientTokenAndDataFromLocalStorage } from '../../../../../localStorage/patientLocalStorage';
-import { fetchPatientAppointments } from '../../../../../utils/apiUtils';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
+import UserHeadband from '../UserHeadband/UserHeadband';
+import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
+import { fetchPatientAppointments } from '../../../../utils/apiUtils';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import { Link, useNavigate } from 'react-router-dom';
-import SideNav from '../../../generalComponents/SideNav/SideNav';
-import PatientNewPrescriptionForm from '../../../../pageComponents/PatientSection/PatientPrescriptionPageMain/PatientNewPrescriptionForm';
-import PatientAppointmentsCalendar from '../../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
-import PatientMessagesField from '../../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
-import MessageForm from '../../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
-import TherapistCard from '../../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
-import PatientCard from '../../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
-import { IAppointment } from '../../../../../@types/types';
-import AppointmentCard from '../../../generalComponents/AppointmentCard/AppointmentCard';
+import SideNav from '../../generalComponents/SideNav/SideNav';
+import PatientNewPrescriptionForm from './PatientNewPrescriptionForm';
+import PatientAppointmentsCalendar from '../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
+import PatientMessagesField from '../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
+import MessageForm from '../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
+import TherapistCard from '../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
+import PatientCard from '../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
+import { IAppointment } from '../../../../@types/types';
+import AppointmentCard from '../../generalComponents/AppointmentCard/AppointmentCard';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -55,6 +55,7 @@ export default function PrivateMain({
       setUpcomingAppointments(response.futureAppointments);
     };
     fetchAppointments();
+    console.log('upcomingAppointments', upcomingAppointments);
   }, [patientId]);
 
   const navigate = useNavigate();

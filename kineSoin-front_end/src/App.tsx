@@ -8,7 +8,6 @@ import NavBar from './components/standaloneComponents/generalComponents/NavBar/N
 import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
-import PatientAppointmentsPage from './components/pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsPage';
 import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPage/PatientMessagesPage';
 import PatientTherapistPage from './components/pageComponents/PatientSection/PatientTherapistPage/PatientTherapistPage';
 import PatientDetailsPage from './components/pageComponents/PatientSection/PatientDetailsPage/PatientDetailsPage';
@@ -27,7 +26,8 @@ import AdminMedicPageMain from './components/pageComponents/AdminSection/Mains/A
 import AdminInsurancesPageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancesMain';
 import AdminInsurancePageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancePageMain';
 import PatientDashboardPageMain from './components/pageComponents/PatientSection/PatientDashboardPageMain';
-import PatientPrescriptionPageMain from './components/pageComponents/PatientSection/PatientPrescriptionPageMain/PatientPrescriptionPageMain';
+import PatientPrescriptionPageMain from './components/pageComponents/PatientSection/PatientPrescriptionPageMain';
+import PatientAppointmentsPageMain from './components/pageComponents/PatientSection/PatientAppointmentsPageMain';
 
 interface PublicLayoutProps {
   windowWidth: number;
@@ -107,7 +107,7 @@ function App() {
     const checkAdminAuthentication = () => {
       const response = getAdminTokenAndDataFromLocalStorage();
       const token = response?.token;
-      if (token && token === adminProfileToken) {
+      if (token && token === response?.token) {
         setIsAdminAuthenticated(true);
         axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       } else {
@@ -128,7 +128,7 @@ function App() {
     window.addEventListener('storage', handleAdminStorageChange);
 
     // Check every 5 seconds if the admin is authenticated
-    const intervalId = setInterval(checkAdminAuthentication, 2000);
+    const intervalId = setInterval(checkAdminAuthentication, 30000);
 
     // Cleanup
     return () => {
@@ -143,17 +143,21 @@ function App() {
     const checkPatientAuthentication = () => {
       const response = getPatientTokenAndDataFromLocalStorage();
       const token = response?.token;
-      if (token && token === patientProfileToken) {
+
+      // Make sure to set token in axios only if it's available and valid
+      if (token && token === response?.token) {
         setIsPatientAuthenticated(true);
-        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
+        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       } else {
         setIsPatientAuthenticated(false);
         setPatientProfileToken(null);
         delete axios.defaults.headers.common.Authorization;
       }
     };
+
     checkPatientAuthentication();
-    // Listen for changes in the local storage
+
+    // Listen for changes in localStorage
     const handlePatientStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
         checkPatientAuthentication();
@@ -163,8 +167,8 @@ function App() {
     // Add event listener for storage change
     window.addEventListener('storage', handlePatientStorageChange);
 
-    // Check every 5 seconds if the patient is authenticated
-    const intervalId = setInterval(checkPatientAuthentication, 2000);
+    // Check every 30 seconds if the patient is authenticated
+    const intervalId = setInterval(checkPatientAuthentication, 30000);
 
     // Cleanup
     return () => {
@@ -179,7 +183,7 @@ function App() {
     const checkTherapistAuthentication = () => {
       const response = getTherapistTokenAndDataFromLocalStorage();
       const token = response?.token;
-      if (token && token === therapistProfileToken) {
+      if (token && token === response?.token) {
         setIsTherapistAuthenticated(true);
         axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
       } else {
@@ -200,7 +204,7 @@ function App() {
     window.addEventListener('storage', handleTherapistStorageChange);
 
     // Check every 5 seconds if the therapist is authenticated
-    const intervalId = setInterval(checkTherapistAuthentication, 5000);
+    const intervalId = setInterval(checkTherapistAuthentication, 30000);
 
     // Cleanup
     return () => {
@@ -359,7 +363,7 @@ function App() {
           ></Route>
           <Route
             path="appointments"
-            element={<PatientAppointmentsPage windowWidth={windowWidth} />}
+            element={<PatientAppointmentsPageMain windowWidth={windowWidth} />}
           />
           <Route
             path="messages"
