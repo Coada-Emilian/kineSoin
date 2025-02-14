@@ -5,8 +5,8 @@ import { fetchPatientAppointments } from '../../../../utils/apiUtils';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import { Link, useNavigate } from 'react-router-dom';
 import SideNav from '../../generalComponents/SideNav/SideNav';
-import PatientNewPrescriptionForm from './PatientNewPrescriptionForm';
-import PatientAppointmentsCalendar from '../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
+import PatientNewPrescriptionForm from './PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
+import AppointmentsCalendar from '../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
 import PatientMessagesField from '../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
 import MessageForm from '../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
 import TherapistCard from '../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
@@ -43,19 +43,26 @@ export default function PrivateMain({
   const [scanPreview, setScanPreview] = useState<string | null>(null);
 
   useEffect(() => {
-    const response = getPatientTokenAndDataFromLocalStorage();
-    if (response) {
-      setPatientId(response.id ? parseInt(response.id, 10) : undefined);
+    try {
+      const response = getPatientTokenAndDataFromLocalStorage();
+      if (response) {
+        setPatientId(response.id ? parseInt(response.id, 10) : undefined);
+      }
+    } catch (error) {
+      console.error('Error fetching patient data:', error);
     }
   }, [patientId]);
 
   useEffect(() => {
-    const fetchAppointments = async () => {
-      const response = await fetchPatientAppointments();
-      setUpcomingAppointments(response.futureAppointments);
-    };
-    fetchAppointments();
-    console.log('upcomingAppointments', upcomingAppointments);
+    try {
+      const fetchAppointments = async () => {
+        const response = await fetchPatientAppointments();
+        setUpcomingAppointments(response.futureAppointments);
+      };
+      fetchAppointments();
+    } catch (error) {
+      console.error('Error fetching patient data:', error);
+    }
   }, [patientId]);
 
   const navigate = useNavigate();
@@ -150,7 +157,10 @@ export default function PrivateMain({
               )}
 
               {isPatientAppointmentsMain && (
-                <PatientAppointmentsCalendar patientId={patientId} />
+                <AppointmentsCalendar
+                  isPatientAppointmentsCalendar
+                  patientId={patientId}
+                />
               )}
 
               {isPatientMessagesMain && (

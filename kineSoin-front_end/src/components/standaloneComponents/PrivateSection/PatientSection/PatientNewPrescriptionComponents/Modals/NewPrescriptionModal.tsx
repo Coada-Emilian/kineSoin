@@ -10,7 +10,6 @@ interface NewPrescriptionModalProps {
   windowWidth?: number;
   setIsScanUploaded: React.Dispatch<React.SetStateAction<boolean>>;
   fileName: string;
-  scanPreview?: string | null;
   setScanPreview?: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
@@ -22,7 +21,6 @@ export default function NewPrescriptionModal({
   windowWidth,
   setIsScanUploaded,
   fileName,
-  scanPreview,
   setScanPreview,
 }: NewPrescriptionModalProps) {
   const [preview, setPreview] = useState<string | null>(null);
