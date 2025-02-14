@@ -329,7 +329,8 @@ const patientController = {
                 'street_name',
                 'postal_code',
                 'city',
-                'phone_number',
+
+                'full_phone_number',
               ],
               through: {
                 attributes: [
@@ -360,6 +361,7 @@ const patientController = {
           postal_code: foundPatient.postal_code,
           city: foundPatient.city,
           phone_number: foundPatient.phone_number,
+          full_phone_number: foundPatient.prefix + foundPatient.phone_number,
           address,
           age: computeAge(foundPatient.birth_date),
           gender: foundPatient.gender,
