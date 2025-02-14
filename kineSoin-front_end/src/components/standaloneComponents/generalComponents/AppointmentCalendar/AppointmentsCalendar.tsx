@@ -2,7 +2,7 @@ import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr'; // Import French locale for Day.js
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import StandardChoiceDropdown from '../../../standaloneComponents/generalComponents/StandardInputs/StandardDropdownInput';
+import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import { useEffect, useState } from 'react';
 import { fetchPatientPrescriptions } from '../../../../utils/apiUtils';
 import { IAppointment, IPrescription } from '../../../../@types/types';
@@ -115,7 +115,7 @@ export default function AppointmentsCalendar({
             setPastAppointments={setPastAppointments}
           />
 
-          <div className="w-10/12 h-96 md:w-full md:h-full">
+          <div className="w-10/12 h-96 md:w-full md:h-full shadow-2xl rounded-xl mx-auto mt-4">
             <Calendar
               localizer={localizer}
               events={calendarEvents}

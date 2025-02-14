@@ -1,12 +1,14 @@
 import { handlePatientMessageCreation } from '../../../../utils/apiUtils';
-import CustomButton from '../../../standaloneComponents/generalComponents/CustomButton/CustomButton';
-import StandardTextInput from '../../../standaloneComponents/generalComponents/StandardInputs/StandardTextInput';
+import CustomButton from '../CustomButton/CustomButton';
+import StandardTextInput from '../StandardInputs/StandardTextInput';
 
 interface MessageFormProps {
-  patientId?: number;
+  isPatientMessageForm?: boolean;
 }
 
-export default function MessageForm({ patientId }: MessageFormProps) {
+export default function MessageForm({
+  isPatientMessageForm,
+}: MessageFormProps) {
   const handlePatientMessageSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -19,9 +21,14 @@ export default function MessageForm({ patientId }: MessageFormProps) {
       console.log("Erreur lors de l'envoi du message");
     }
   };
+
   return (
-    <form method="POST" onSubmit={handlePatientMessageSubmit}>
+    <form
+      method="POST"
+      onSubmit={isPatientMessageForm ? handlePatientMessageSubmit : undefined}
+    >
       <StandardTextInput patientSection={{ isPatientMessageInput: true }} />
+
       <CustomButton btnText={'Envoyez'} btnType="submit" normalButton />
     </form>
   );

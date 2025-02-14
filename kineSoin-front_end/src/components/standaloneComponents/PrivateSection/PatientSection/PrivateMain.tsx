@@ -6,13 +6,14 @@ import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import { Link, useNavigate } from 'react-router-dom';
 import SideNav from '../../generalComponents/SideNav/SideNav';
 import PatientNewPrescriptionForm from './PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
-import AppointmentsCalendar from '../../../pageComponents/PatientSection/PatientAppointmentsPage/PatientAppointmentsCalendar';
-import PatientMessagesField from '../../../pageComponents/PatientSection/PatientMessagesPage/PatientMessagesField';
-import MessageForm from '../../../pageComponents/PatientSection/PatientMessagesPage/MessageForm';
+import AppointmentsCalendar from '../../generalComponents/AppointmentCalendar/AppointmentsCalendar';
+import PatientMessagesField from '../../generalComponents/MessagesField/MessagesField';
+import MessageForm from '../../generalComponents/MessageForm/MessageForm';
 import TherapistCard from '../../../pageComponents/PatientSection/PatientTherapistPage/TherapistCard';
 import PatientCard from '../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
 import { IAppointment } from '../../../../@types/types';
 import AppointmentCard from '../../generalComponents/AppointmentCard/AppointmentCard';
+import MessagesField from '../../generalComponents/MessagesField/MessagesField';
 
 interface PrivateMainProps {
   isPatientDashboardMain?: boolean;
@@ -165,11 +166,8 @@ export default function PrivateMain({
 
               {isPatientMessagesMain && (
                 <div className="flex flex-col gap-4 justify-between w-full h-full">
-                  <PatientMessagesField
-                    windowWidth={windowWidth}
-                    patientId={patientId}
-                  />
-                  <MessageForm patientId={patientId} />
+                  <MessagesField isPatientMessagesField patientId={patientId} />
+                  <MessageForm isPatientMessageForm />
                 </div>
               )}
 

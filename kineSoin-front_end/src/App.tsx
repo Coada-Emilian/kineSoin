@@ -8,7 +8,7 @@ import NavBar from './components/standaloneComponents/generalComponents/NavBar/N
 import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
-import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPage/PatientMessagesPage';
+import PatientMessagesPage from './components/pageComponents/PatientSection/PatientMessagesPageMain';
 import PatientTherapistPage from './components/pageComponents/PatientSection/PatientTherapistPage/PatientTherapistPage';
 import PatientDetailsPage from './components/pageComponents/PatientSection/PatientDetailsPage/PatientDetailsPage';
 import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
