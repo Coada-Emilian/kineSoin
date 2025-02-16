@@ -391,10 +391,6 @@ export default function EditPatientModal({
     const start_date = formData.get('start_date') as string;
     if (start_date.length === 0) {
       setErrorMessage('Veuillez choisir une date de début');
-    } else if (new Date(start_date) > current_date) {
-      setErrorMessage(
-        'La date de début doit être ultérieure à la date actuelle'
-      );
     } else if (start_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
       setErrorMessage('Veuillez choisir une date de début valide');
     }

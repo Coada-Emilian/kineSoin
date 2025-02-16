@@ -75,18 +75,18 @@ export default function PrivateMain({
     <>
       {isPatientMain && (
         <main
-          className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''} `}
+          className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''}`}
         >
           <UserHeadband isPatientHeadband />
 
-          <div className="md:flex h-fit md:h-screen  gap-4 mb-2 ">
+          <div className="h-fit md:flex   gap-4 mb-2 ">
             {windowWidth && windowWidth > 768 && (
-              <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block">
+              <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
                 <SideNav isPatientSideNav />
               </div>
             )}
 
-            <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6">
+            <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
               <p className="text-xl font-semibold italic mb-2 ">
                 {isPatientDashboardMain && 'Rendez-vous à venir'}
                 {isPatientPrescriptionMain && 'Ajouter une nouvelle ordonnance'}

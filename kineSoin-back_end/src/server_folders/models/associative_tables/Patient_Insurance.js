@@ -48,12 +48,10 @@ Patient_Insurance.init(
     adherent_code: {
       type: DataTypes.STRING(12),
       allowNull: false,
-      unique: true,
     },
     contract_number: {
       type: DataTypes.STRING(15),
       allowNull: false,
-      unique: true,
     },
     start_date: {
       type: DataTypes.DATE,
