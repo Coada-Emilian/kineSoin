@@ -101,6 +101,14 @@ function App() {
   const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
     useState<boolean>(false);
 
+  useEffect(() => {
+    console.log('TODO: add auto_complete to all inputs');
+    console.log('TODO: make sure insurance validity is one year');
+    console.log(
+      'TODO: make sure add insurance is working, contract numbers still need to be unique apparently'
+    );
+  }, []);
+
   // useEffect to check if the admin is authenticated
   useEffect(() => {
     // Check if the admin is authenticated

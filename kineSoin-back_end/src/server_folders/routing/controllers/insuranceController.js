@@ -165,12 +165,10 @@ const insuranceController = {
             .json({ message: 'The insurance was added', addedInsurance });
         }
       } catch (error) {
-        return res
-          .status(500)
-          .json({
-            message:
-              'Error adding insurance. Contract number or adherent code already exists.',
-          });
+        return res.status(500).json({
+          message:
+            'Error adding insurance. Contract number or adherent code already exists.',
+        });
       }
     }
   },

@@ -563,12 +563,13 @@ const patientController = {
       street_name: Joi.string().max(50).optional(),
       postal_code: Joi.string().max(10).optional(),
       city: Joi.string().max(100).optional(),
+      prefix: Joi.string().max(10).optional(),
       phone_number: Joi.string().max(15).optional(),
       email: Joi.string().email({ minDomainSegments: 2 }).optional(),
       new_password: Joi.string().min(12).max(255).optional(),
       picture_url: Joi.string().max(255).optional(),
       picture_id: Joi.string().max(255).optional(),
-    }).min(1);
+    }).min(0);
 
     if (!req.body) {
       return res.status(400).json({
@@ -591,11 +592,10 @@ const patientController = {
       street_name,
       postal_code,
       city,
+      prefix,
       phone_number,
       email,
-      old_password,
       new_password,
-      repeated_password,
       picture_url,
       picture_id,
     } = req.body;
@@ -616,7 +616,9 @@ const patientController = {
         street_name: street_name || foundPatient.street_name,
         postal_code: postal_code || foundPatient.postal_code,
         city: city || foundPatient.city,
+        prefix: prefix || foundPatient.prefix,
         phone_number: phone_number || foundPatient.phone_number,
+        full_phone_number: prefix + phone_number,
         email: email || foundPatient.email,
         picture_url: picture_url || foundPatient.picture_url,
         picture_id: picture_id || foundPatient.picture_id,

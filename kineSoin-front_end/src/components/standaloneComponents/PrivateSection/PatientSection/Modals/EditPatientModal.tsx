@@ -48,7 +48,7 @@ interface EditPatientModalProps {
   setNewInsuranceName?: React.Dispatch<React.SetStateAction<string>>;
   setIsEditPasswordModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isEditPasswordModalOpen?: boolean;
-  setNewPassword?: React.Dispatch<React.SetStateAction<string>>;
+  setNewPassword?: React.Dispatch<React.SetStateAction<string | undefined>>;
   setIsAddInsuranceModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isAddInsuranceModalOpen?: boolean;
   setAddedPatientInsurance?: React.Dispatch<
@@ -65,6 +65,7 @@ interface EditPatientModalProps {
   setNewBirthDate?: React.Dispatch<React.SetStateAction<string>>;
   old_insurance?: IInsurance;
   setIsInsuranceEdited?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPasswordEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function EditPatientModal({
@@ -117,6 +118,7 @@ export default function EditPatientModal({
   setNewBirthDate,
   old_insurance,
   setIsInsuranceEdited,
+  setIsPasswordEdited,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -318,7 +320,8 @@ export default function EditPatientModal({
           ...newInsuranceData,
           insurance_id: parseInt(newInsuranceData.insurance_id as string),
         } as IPatient_Insurance);
-      setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
+      setIsEditInsuranceModalOpen && setIsEditInsuranceModalOpen(false);
+      setIsInsuranceEdited && setIsInsuranceEdited(true);
     }
   };
 
@@ -344,6 +347,7 @@ export default function EditPatientModal({
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const oldPassword = formData.get('old_password') as string;
+    console.log(oldPassword);
     if (oldPassword.length === 0) {
       setErrorMessage('Veuillez entrer votre ancien mot de passe');
     } else {
@@ -376,7 +380,8 @@ export default function EditPatientModal({
           );
         } else {
           setNewPassword && setNewPassword(newPassword);
-          setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
+          setIsEditPasswordModalOpen && setIsEditPasswordModalOpen(false);
+          setIsPasswordEdited && setIsPasswordEdited(true);
         }
       }
     }

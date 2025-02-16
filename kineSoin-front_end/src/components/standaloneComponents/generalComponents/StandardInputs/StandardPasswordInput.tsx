@@ -44,6 +44,9 @@ export default function StandardPasswordInput({
       return 'admin-therapist-password_input';
     if (isAdminTherapistAddRepeatedPasswordInput)
       return 'admin-therapist-repeated-password_input';
+    if (isOldPasswordInput) return 'old-password_input';
+    if (isNewPasswordInput) return 'new-password_input';
+    if (isRepeatPasswordInput) return 'repeat-password_input';
     return '';
   };
 
@@ -90,7 +93,13 @@ export default function StandardPasswordInput({
     <div className="mb-4 italic">
       <label
         htmlFor={inputId}
-        className={`${isPatientRegisterPasswordInput || isNewPasswordInput || isAdminTherapistAddPasswordInput ? 'flex mb-1 items-center' : ''} text-primaryBlue text-sm font-medium`}
+        className={`${
+          isPatientRegisterPasswordInput ||
+          isNewPasswordInput ||
+          isAdminTherapistAddPasswordInput
+            ? 'flex mb-1 items-center'
+            : ''
+        } text-primaryBlue text-sm font-medium`}
       >
         {labelText}
         {(isPatientRegisterPasswordInput ||
