@@ -58,11 +58,11 @@ export default function StandardDateInput({
         }
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
         onChange={(e) => {
-          isPatientRegisterBirthdateInput &&
-            setRegisteredPatientBirthDate &&
-            setRegisteredPatientBirthDate(e.target.value);
+          isPatientRegisterBirthdateInput && setRegisteredPatientBirthDate
+            ? setRegisteredPatientBirthDate(e.target.value)
+            : undefined;
         }}
-        value={birth_date ? birth_date : ''}
+        value={birth_date ? birth_date : undefined}
       />
     </div>
   );
