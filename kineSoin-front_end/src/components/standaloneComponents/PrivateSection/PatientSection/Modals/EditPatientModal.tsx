@@ -10,7 +10,6 @@ import {
 import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
 import { IInsurance, IPatient_Insurance } from '../../../../../@types/types';
-import StandardFileInput from '../../../generalComponents/StandardInputs/StandardFileInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -426,11 +425,11 @@ export default function EditPatientModal({
     } else if (adherent_code.length > 12) {
       setErrorMessage('Le code adhérent doit contenir moins de 12 caractères');
     }
-
     const response = await handlePatientInsuranceAdd(formData);
     if (response) {
       setIsInsuranceAdded && setIsInsuranceAdded(true);
       setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
+      window.location.reload();
     } else {
       setErrorMessage('Une erreur est survenue');
     }
@@ -482,10 +481,15 @@ export default function EditPatientModal({
 
   return (
     <ReactModal
-      isOpen={!!isPhotoEditModalOpen || !!isPasswordEditModalOpen}
+      isOpen={
+        !!isPhotoEditModalOpen ||
+        !!isPasswordEditModalOpen ||
+        !!isAddInsuranceModalOpen
+      }
       onRequestClose={() => {
         if (setIsPhotoEditModalOpen) setIsPhotoEditModalOpen(false);
         if (setIsPasswordEditModalOpen) setIsPasswordEditModalOpen(false);
+        if (setIsAddInsuranceModalOpen) setIsAddInsuranceModalOpen(false);
       }}
       style={{
         content: {
@@ -613,7 +617,7 @@ export default function EditPatientModal({
             )}
 
             {(isInsuranceEditModalOpen || isAddInsuranceModalOpen) && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 m-6">
                 <StandardChoiceDropdown
                   isPatientInsuranceDropdownInput
                   oldPatientInsuranceName={

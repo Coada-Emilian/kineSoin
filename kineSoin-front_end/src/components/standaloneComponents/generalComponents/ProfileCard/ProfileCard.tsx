@@ -45,7 +45,6 @@ export default function ProfileCard({
         if (patientId !== undefined) {
           const response = await fetchPatientTherapist();
           setPatientTherapistData(response);
-          console.log('response', response);
           if (response.therapist === null) {
             setIsFirstPatient(true);
           }
@@ -107,6 +106,8 @@ export default function ProfileCard({
   const [preview, setPreview] = useState<string | undefined>(undefined);
 
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
+
+  const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
 
   return (
     <>
@@ -229,10 +230,7 @@ export default function ProfileCard({
             <div className="flex justify-around mb-6 text-xs md:text-base">
               <p className="font-semibold text-primaryBlue w-2/4 italic">
                 {`${
-                  isPatientDetailsProfileCard &&
-                  patient &&
-                  !isProfileEditing &&
-                  isInsuranceAdded
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Mutuelle'
                     : isPatientTherapistProfileCard &&
                         patientTherapistData?.therapist
@@ -241,20 +239,26 @@ export default function ProfileCard({
                 }`}
               </p>
               <p className="w-3/4">
-                {' '}
-                {`${
-                  isPatientDetailsProfileCard &&
-                  patient &&
-                  isInsuranceAdded &&
-                  !isProfileEditing
-                    ? patient.insurance && !isProfileEditing
-                      ? patient.insurance[0]?.name
-                      : 'Pas de mutuelle'
-                    : isPatientTherapistProfileCard &&
-                        patientTherapistData?.therapist
-                      ? patientTherapistData?.therapist?.experience
-                      : ''
-                }`}
+                {isPatientDetailsProfileCard && patient && !isProfileEditing ? (
+                  isInsuranceAdded ? (
+                    patient.insurance && patient.insurance[0]?.name ? (
+                      patient.insurance[0]?.name
+                    ) : (
+                      'Pas de mutuelle'
+                    )
+                  ) : (
+                    <CustomButton
+                      btnText="+ Ajouter une mutuelle"
+                      profileCardAddInsuranceButton
+                      onClick={() => setIsAddInsuranceModalOpen(true)}
+                    />
+                  )
+                ) : isPatientTherapistProfileCard &&
+                  patientTherapistData?.therapist ? (
+                  patientTherapistData?.therapist?.experience
+                ) : (
+                  ''
+                )}
               </p>
             </div>
             {isPatientTherapistProfileCard &&
@@ -430,6 +434,13 @@ export default function ProfileCard({
           old_photo={patient?.picture_url || ''}
           setPreview={setPreview}
           preview={preview}
+        />
+      )}
+
+      {isAddInsuranceModalOpen && (
+        <EditPatientModal
+          setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
+          isAddInsuranceModalOpen={isAddInsuranceModalOpen}
         />
       )}
     </>

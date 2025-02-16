@@ -27,6 +27,7 @@ interface CustomButtonProps {
   mobileCancelButton?: boolean;
   profileCardSendMessageButton?: boolean;
   profileCardModifyProfileButton?: boolean;
+  profileCardAddInsuranceButton?: boolean;
 }
 
 export default function CustomButton({
@@ -55,6 +56,7 @@ export default function CustomButton({
   mobileCancelButton,
   profileCardSendMessageButton,
   profileCardModifyProfileButton,
+  profileCardAddInsuranceButton,
 }: CustomButtonProps) {
   const getBtnBackground = () => {
     if (normalButton || navBarButton || mobileButton || allButton) {
@@ -115,7 +117,7 @@ export default function CustomButton({
     }
   };
 
-  const btnClasses = `rounded-lg text-primaryBlue hover:text-white font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton) && 'flex items-center gap-2 relative'}`;
+  const btnClasses = `rounded-lg text-primaryBlue ${profileCardAddInsuranceButton ? 'hover:text-primaryTeal italic' : 'hover:text-white'} font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton) && 'flex items-center gap-2 relative'}`;
 
   const renderIcon = () => {
     if (patientNotificationButton) {

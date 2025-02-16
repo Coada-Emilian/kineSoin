@@ -112,9 +112,11 @@ export default function PublicMainFormSection({
           setIsLoading(false);
           navigate('/patient/dashboard');
         } else {
+          setIsLoading(false);
           setPatientErrorMessage('Email et/ou Mot de passe invalide');
         }
       } else {
+        setIsLoading(false);
         setPatientErrorMessage('Email et/ou Mot de passe invalide');
       }
     } catch (error) {
