@@ -59,6 +59,11 @@ Prescription.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    is_new_prescription: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
     is_completed: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

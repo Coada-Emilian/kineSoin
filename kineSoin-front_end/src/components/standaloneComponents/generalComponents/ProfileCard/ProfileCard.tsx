@@ -15,6 +15,8 @@ import StandardTextInput from '../StandardInputs/StandardTextInput';
 import StandardDateInput from '../StandardInputs/StandardDateInput';
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
+import StandardEmailInput from '../StandardInputs/StandardEmailInput';
+import EditIcon from '../EditIcon/EditIcon';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -170,7 +172,7 @@ export default function ProfileCard({
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Adresse'
                     : isPatientTherapistProfileCard && patientData?.therapist
-                      ? 'Diplome'
+                      ? 'Diplôme'
                       : ''
                 }`}
               </p>
@@ -297,11 +299,9 @@ export default function ProfileCard({
                       patient_phone_number={patient?.phone_number}
                     />
                   </div>
-                  <StandardTextInput
-                    patientSection={{
-                      isPatientProfileEmailModification: true,
-                    }}
-                    dataInput={{ patient }}
+                  <StandardEmailInput
+                    isPatientProfileEmailModification
+                    patient_email={patient?.email}
                   />
                 </form>
               </div>

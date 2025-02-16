@@ -27,7 +27,6 @@ interface PatientSectionProps {
   isPatientProfileStreetNameModification?: boolean;
   isPatientProfilePostalCodeModification?: boolean;
   isPatientProfileCityModification?: boolean;
-  isPatientProfileEmailModification?: boolean;
 }
 
 interface AdminTherapistProps {
@@ -1165,22 +1164,6 @@ export default function StandardTextInput({
       inputValue: patientState.city,
       inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         handlePatientChange('city', e.target.value, e),
-      textArea: false,
-      generalDivClassName: true,
-      generalLabelClassName: true,
-    },
-    {
-      boolean: patientSection?.isPatientProfileEmailModification,
-      divClassName: 'w-full flex flex-row items-center mb-4',
-      inputId: 'patient-profile-surname_input',
-      labelClassName: 'text-xs md:text-base xl:text-xl w-1/12 text-start ',
-      labelName: 'E-mail',
-      inputName: 'email',
-      inputPlaceholder: 'Entrez votre prénom',
-      required: true,
-      inputValue: patientState.email,
-      inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        handlePatientChange('email', e.target.value, e),
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,

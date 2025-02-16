@@ -96,6 +96,7 @@ export default function StandardChoiceDropdown({
   const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
     const response =
       await fetchPatientAppointmentsByPrescription(prescriptionId);
+    console.log(response);
     if (response) {
       setFutureAppointments &&
         setFutureAppointments(response.futureAppointments);
@@ -187,10 +188,6 @@ export default function StandardChoiceDropdown({
       fetchCountriesData();
     }
   }, [isCountryDropdownInput]);
-
-  useEffect(() => {
-    console.log(patient_prefix);
-  }, [patient_prefix]);
 
   return (
     <div
