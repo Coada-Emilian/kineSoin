@@ -17,6 +17,7 @@ import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
 import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 import EditIcon from '../EditIcon/EditIcon';
+import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -61,6 +62,10 @@ export default function ProfileCard({
         const response = await fetchPatientData();
         if (response) {
           setPatient(response);
+          if (response.insurance && response.insurance.length > 0) {
+            setIsInsuranceAdded(true);
+            setAddedPatientInsurance(response.insurance[0]);
+          }
         } else {
           console.error('Error fetching patient data');
         }
@@ -110,6 +115,10 @@ export default function ProfileCard({
   }, [patient, addedPatientInsurance]);
 
   const [isPhotoEditModalOpen, setIsPhotoEditModalOpen] = useState(false);
+
+  const [preview, setPreview] = useState<string | undefined>(undefined);
+
+  const [newPhoto, setNewPhoto] = useState<File | null>(null);
 
   return (
     <>
@@ -402,6 +411,17 @@ export default function ProfileCard({
             </div>
           </div>
         </div>
+      )}
+
+      {isPhotoEditModalOpen && (
+        <EditPatientModal
+          setIsPhotoEditModalOpen={setIsPhotoEditModalOpen}
+          isPhotoEditModalOpen={isPhotoEditModalOpen}
+          setNewPhoto={setNewPhoto}
+          old_photo={patient?.picture_url || ''}
+          setPreview={setPreview}
+          preview={preview}
+        />
       )}
     </>
   );
