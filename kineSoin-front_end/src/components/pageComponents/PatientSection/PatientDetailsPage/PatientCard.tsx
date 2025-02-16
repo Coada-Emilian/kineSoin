@@ -205,6 +205,8 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     }
   };
 
+
+
   return (
     <>
       <div className="flex flex-col md:flex-row gap-1 md:gap-6 items-center justify-center w-full my-auto">
