@@ -41,7 +41,7 @@ export default function StandardTelephoneInput({
 
   return (
     <div
-      className={`flex gap-2 mb-4 italic w-full ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'}`}
+      className={`flex gap-2 items-center mb-4 italic w-full ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'}`}
     >
       <label
         htmlFor={
@@ -63,9 +63,19 @@ export default function StandardTelephoneInput({
                           ? 'patient-profile-telephone_input'
                           : ''
         }
-        className={`${isAdminTherapistEditTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium' : isPatientProfileTelephoneModification ? 'text-xs md:text-base xl:text-xl w-1/4 text-start text-primaryBlue font-medium md:w-2/3' : 'text-xs text-primaryBlue font-medium'}`}
+        className={`${
+          isAdminTherapistEditTelephoneInput ||
+          isAdminMedicEditTelephoneInput ||
+          isAdminInsuranceEditTelephoneInput
+            ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium'
+            : isPatientProfileTelephoneModification
+              ? 'text-xs md:text-base xl:text-xl w-1/4 text-start text-primaryBlue font-medium md:w-2/3'
+              : 'text-xs text-primaryBlue font-medium'
+        }`}
       >
-        Numero Téléphone
+        {isPatientProfileTelephoneModification
+          ? 'N° de téléphone'
+          : '   Numero téléphone'}
       </label>
 
       <input

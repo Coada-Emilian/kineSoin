@@ -246,11 +246,11 @@ export default function StandardChoiceDropdown({
                 isAdminTherapistEditPrefixDropdown ||
                 isAdminMedicEditPrefixDropdown ||
                 isAdminInsuranceEditPrefixDropdown
-              ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3'
+              ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3 mb-2'
               : isPatientProfilePrefixModification
-                ? 'text-xs md:text-base xl:text-xl w-1/4 text-start '
+                ? 'text-xs md:text-base xl:text-xl w-1/4 text-start flex justify-center'
                 : ''
-        } text-primaryBlue text-sm font-medium block mb-2`}
+        } text-primaryBlue text-sm font-medium block`}
       >
         {isGenderDropdownInput && 'Genre'}{' '}
         {isMedicDropdownInput && 'Médecin prescripteur'}

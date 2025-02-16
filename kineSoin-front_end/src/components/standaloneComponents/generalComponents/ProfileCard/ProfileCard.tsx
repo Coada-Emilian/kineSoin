@@ -127,12 +127,14 @@ export default function ProfileCard({
             <div className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 ">
               <img
                 src={
-                  isPatientDetailsProfileCard && patient
+                  !preview && isPatientDetailsProfileCard && patient
                     ? patient.picture_url
-                    : isPatientTherapistProfileCard &&
-                        patientTherapistData?.therapist
-                      ? patientTherapistData?.therapist?.picture_url
-                      : ''
+                    : preview && isPatientDetailsProfileCard && patient
+                      ? preview
+                      : isPatientTherapistProfileCard &&
+                          patientTherapistData?.therapist
+                        ? patientTherapistData?.therapist?.picture_url
+                        : ''
                 }
                 alt={
                   isPatientDetailsProfileCard && patient && !isProfileEditing
@@ -331,6 +333,29 @@ export default function ProfileCard({
                     isPatientProfileEmailModification
                     patient_email={patient?.email}
                   />
+                  <div className="flex flex-col md:flex-row gap-2 justify-between w-full mb-4">
+                    {' '}
+                    <Link to="#">
+                      {' '}
+                      <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
+                        <EditIcon />
+                        <span className="text-primaryBlue italic font-medium text-xs md:text-base xl:text-xl text-start">
+                          {' '}
+                          Modifier l'assurance mutuelle
+                        </span>
+                      </p>
+                    </Link>
+                    <Link to="#">
+                      {' '}
+                      <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
+                        <EditIcon />
+                        <span className="text-primaryBlue italic font-medium text-xs md:text-base xl:text-xl text-start">
+                          {' '}
+                          Modifier votre mot de passe
+                        </span>
+                      </p>
+                    </Link>
+                  </div>
                 </form>
               </div>
             )}
@@ -401,6 +426,9 @@ export default function ProfileCard({
                         mobileCancelButton
                         onClick={() => {
                           setIsProfileEditing(false);
+                          if (preview) {
+                            setPreview(undefined);
+                          }
                         }}
                       />
                     </>
