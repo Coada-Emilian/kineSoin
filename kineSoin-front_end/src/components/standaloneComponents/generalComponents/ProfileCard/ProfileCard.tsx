@@ -30,7 +30,7 @@ export default function ProfileCard({
   isPatientDetailsProfileCard,
   isPatientTherapistProfileCard,
 }: ProfileCardProps) {
-  const [patientData, setPatientData] = useState<{
+  const [patientTherapistData, setPatientTherapistData] = useState<{
     therapist?: ITherapist;
   } | null>(null);
 
@@ -40,11 +40,12 @@ export default function ProfileCard({
   const [isFirstPatient, setIsFirstPatient] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTherapistData = async () => {
       try {
         if (patientId !== undefined) {
           const response = await fetchPatientTherapist();
-          setPatientData(response);
+          setPatientTherapistData(response);
+          console.log('response', response);
           if (response.therapist === null) {
             setIsFirstPatient(true);
           }
@@ -53,7 +54,7 @@ export default function ProfileCard({
         console.error('Error fetching patient data:', error);
       }
     };
-    fetchData();
+    fetchTherapistData();
   }, [patientId]);
 
   useEffect(() => {
@@ -98,21 +99,8 @@ export default function ProfileCard({
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
-  const [isInsurancePresent, setIsInsurancePresent] = useState<boolean>(false);
-
   const [addedPatientInsurance, setAddedPatientInsurance] =
     useState<IInsurance>();
-
-  useEffect(() => {
-    if (patientData) {
-      if (patient && patient.insurance && patient.insurance.length > 0) {
-        setIsInsurancePresent(true);
-      }
-    }
-    if (addedPatientInsurance) {
-      setIsInsurancePresent(true);
-    }
-  }, [patient, addedPatientInsurance]);
 
   const [isPhotoEditModalOpen, setIsPhotoEditModalOpen] = useState(false);
 
@@ -122,7 +110,7 @@ export default function ProfileCard({
 
   return (
     <>
-      {isFirstPatient ? (
+      {isFirstPatient && isPatientTherapistProfileCard ? (
         <p>Vous n'avez pas de thérapeute associé.</p>
       ) : (
         <div
@@ -140,15 +128,17 @@ export default function ProfileCard({
                 src={
                   isPatientDetailsProfileCard && patient
                     ? patient.picture_url
-                    : isPatientTherapistProfileCard && patientData?.therapist
-                      ? patientData?.therapist?.picture_url
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
+                      ? patientTherapistData?.therapist?.picture_url
                       : ''
                 }
                 alt={
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? patient.fullName
-                    : isPatientTherapistProfileCard && patientData?.therapist
-                      ? patientData?.therapist?.fullName
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
+                      ? patientTherapistData?.therapist?.fullName
                       : ''
                 }
                 className="w-32 h-32 rounded-full border-4 border-white object-cover "
@@ -167,14 +157,16 @@ export default function ProfileCard({
             <p className="text-xl md:text-2xl mt-8">
               {isPatientDetailsProfileCard && patient && !isProfileEditing
                 ? patient.surname
-                : isPatientTherapistProfileCard && patientData?.therapist
-                  ? patientData?.therapist?.surname
+                : isPatientTherapistProfileCard &&
+                    patientTherapistData?.therapist
+                  ? patientTherapistData?.therapist?.surname
                   : ''}{' '}
               <span className="font-semibold">
                 {isPatientDetailsProfileCard && patient && !isProfileEditing
                   ? patient.name
-                  : isPatientTherapistProfileCard && patientData?.therapist
-                    ? patientData?.therapist?.name
+                  : isPatientTherapistProfileCard &&
+                      patientTherapistData?.therapist
+                    ? patientTherapistData?.therapist?.name
                     : ''}
               </span>
             </p>
@@ -182,7 +174,8 @@ export default function ProfileCard({
               {`${
                 isPatientDetailsProfileCard && patient && !isProfileEditing
                   ? `${patient.age} ans`
-                  : isPatientTherapistProfileCard && patientData?.therapist
+                  : isPatientTherapistProfileCard &&
+                      patientTherapistData?.therapist
                     ? 'masseur kinésithérapeute'
                     : ''
               }`}
@@ -192,7 +185,8 @@ export default function ProfileCard({
                 {`${
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Adresse'
-                    : isPatientTherapistProfileCard && patientData?.therapist
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
                       ? 'Diplôme'
                       : ''
                 }`}
@@ -202,8 +196,9 @@ export default function ProfileCard({
                 {`${
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? patient.address
-                    : isPatientTherapistProfileCard && patientData?.therapist
-                      ? patientData?.therapist?.diploma
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
+                      ? patientTherapistData?.therapist?.diploma
                       : ''
                 }`}
               </p>
@@ -213,7 +208,8 @@ export default function ProfileCard({
                 {`${
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? 'Téléphone'
-                    : isPatientTherapistProfileCard && patientData?.therapist
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
                       ? 'Spécialité'
                       : ''
                 }`}
@@ -223,8 +219,9 @@ export default function ProfileCard({
                 {`${
                   isPatientDetailsProfileCard && patient && !isProfileEditing
                     ? patient.full_phone_number
-                    : isPatientTherapistProfileCard && patientData?.therapist
-                      ? patientData?.therapist?.specialty
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
+                      ? patientTherapistData?.therapist?.specialty
                       : ''
                 }`}
               </p>
@@ -232,9 +229,13 @@ export default function ProfileCard({
             <div className="flex justify-around mb-6 text-xs md:text-base">
               <p className="font-semibold text-primaryBlue w-2/4 italic">
                 {`${
-                  isPatientDetailsProfileCard && patient && !isProfileEditing
+                  isPatientDetailsProfileCard &&
+                  patient &&
+                  !isProfileEditing &&
+                  isInsuranceAdded
                     ? 'Mutuelle'
-                    : isPatientTherapistProfileCard && patientData?.therapist
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
                       ? 'Experience'
                       : ''
                 }`}
@@ -244,22 +245,24 @@ export default function ProfileCard({
                 {`${
                   isPatientDetailsProfileCard &&
                   patient &&
-                  isInsurancePresent &&
+                  isInsuranceAdded &&
                   !isProfileEditing
-                    ? patient.insurance &&
-                      !isProfileEditing &&
-                      patient.insurance[0]?.name
-                    : isPatientTherapistProfileCard && patientData?.therapist
-                      ? patientData?.therapist?.experience
+                    ? patient.insurance && !isProfileEditing
+                      ? patient.insurance[0]?.name
+                      : 'Pas de mutuelle'
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
+                      ? patientTherapistData?.therapist?.experience
                       : ''
                 }`}
               </p>
             </div>
-            {isPatientTherapistProfileCard && patientData?.therapist && (
-              <p className="px-4 italic mb-6">
-                "{patientData?.therapist?.description}"
-              </p>
-            )}
+            {isPatientTherapistProfileCard &&
+              patientTherapistData?.therapist && (
+                <p className="px-4 italic mb-6">
+                  "{patientTherapistData?.therapist?.description}"
+                </p>
+              )}
 
             {isProfileEditing && (
               <div className="flex flex-col items-center  text-xs md:text-base">
@@ -329,28 +332,33 @@ export default function ProfileCard({
             )}
 
             <div className="bg-primaryBlue flex items-center justify-center gap-4 w-full">
-              {isPatientTherapistProfileCard && patientData?.therapist && (
-                <div className="flex gap-2 p-2">
-                  <Link to="#">
-                    <img src={linkedInIcon} alt="LinkedIn" className="w-8" />
-                  </Link>
-                  <Link to="#">
-                    <img src={facebookIcon} alt="facebook" className="w-8" />
-                  </Link>
-                  <Link to="#">
-                    <img src={instagramIcon} alt="instagram" className="w-8" />
-                  </Link>
-                  <Link to="#">
-                    <img src={phoneIcon} alt="phone" className="w-8" />
-                  </Link>
-                </div>
-              )}
+              {isPatientTherapistProfileCard &&
+                patientTherapistData?.therapist && (
+                  <div className="flex gap-2 p-2">
+                    <Link to="#">
+                      <img src={linkedInIcon} alt="LinkedIn" className="w-8" />
+                    </Link>
+                    <Link to="#">
+                      <img src={facebookIcon} alt="facebook" className="w-8" />
+                    </Link>
+                    <Link to="#">
+                      <img
+                        src={instagramIcon}
+                        alt="instagram"
+                        className="w-8"
+                      />
+                    </Link>
+                    <Link to="#">
+                      <img src={phoneIcon} alt="phone" className="w-8" />
+                    </Link>
+                  </div>
+                )}
               <div>
                 <p className="text-white text-base py-4">
                   {isPatientTherapistProfileCard &&
-                    patientData?.therapist &&
-                    `   / ${patientData?.therapist?.surname.toLowerCase()}
-                  ${patientData?.therapist?.name.toLowerCase()}`}
+                    patientTherapistData?.therapist &&
+                    `   / ${patientTherapistData?.therapist?.surname.toLowerCase()}
+                  ${patientTherapistData?.therapist?.name.toLowerCase()}`}
 
                   {isPatientDetailsProfileCard &&
                     patient &&
@@ -360,17 +368,18 @@ export default function ProfileCard({
             </div>
 
             <div className="bg-primaryTeal py-4 rounded-b-xl">
-              {isPatientTherapistProfileCard && patientData?.therapist && (
-                <form action="POST" onSubmit={handlePatientMessageSubmit}>
-                  <StandardTextInput
-                    patientSection={{ isPatientMessageInput: true }}
-                  />
-                  <CustomButton
-                    btnText="Envoyer"
-                    profileCardSendMessageButton
-                  />
-                </form>
-              )}
+              {isPatientTherapistProfileCard &&
+                patientTherapistData?.therapist && (
+                  <form action="POST" onSubmit={handlePatientMessageSubmit}>
+                    <StandardTextInput
+                      patientSection={{ isPatientMessageInput: true }}
+                    />
+                    <CustomButton
+                      btnText="Envoyer"
+                      profileCardSendMessageButton
+                    />
+                  </form>
+                )}
 
               {isPatientDetailsProfileCard && patient && (
                 <div className="flex justify-center gap-4">
