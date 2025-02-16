@@ -136,14 +136,24 @@ const insuranceController = {
           return res.status(400).json({ message: error.message });
         }
 
-        const addedInsurance = await Patient_Insurance.create({
+        const {
+          insurance_id,
+          adherent_code,
+          contract_number,
+          start_date,
+          end_date,
+        } = req.body;
+
+        const sentInsurance = {
           patient_id: patientId,
-          insurance_id: req.body.insurance_id,
-          adherent_code: req.body.adherent_code,
-          contract_number: req.body.contract_number,
-          start_date: req.body.start_date,
-          end_date: req.body.end_date,
-        });
+          insurance_id,
+          adherent_code,
+          contract_number,
+          start_date,
+          end_date,
+        };
+
+        const addedInsurance = await Patient_Insurance.create(sentInsurance);
 
         if (!addedInsurance) {
           return res
@@ -155,7 +165,12 @@ const insuranceController = {
             .json({ message: 'The insurance was added', addedInsurance });
         }
       } catch (error) {
-        return res.status(500).json({ message: 'Error adding insurance.' });
+        return res
+          .status(500)
+          .json({
+            message:
+              'Error adding insurance. Contract number or adherent code already exists.',
+          });
       }
     }
   },
