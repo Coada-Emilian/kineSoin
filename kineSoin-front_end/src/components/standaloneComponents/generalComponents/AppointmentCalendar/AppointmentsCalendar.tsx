@@ -54,22 +54,34 @@ export default function AppointmentsCalendar({
 
   // Update calendar events based on future and past appointments
   useEffect(() => {
-    const events = [
-      ...futureAppointments.map((appointment) => ({
-        title: `Rendez-vous #${appointment.id}`,
-        start: dayjs(appointment.date).toDate(),
-        end: dayjs(appointment.date).toDate(),
-        status: 'future', // Mark as future event
-      })),
-      ...pastAppointments.map((appointment) => ({
-        title: `Rendez-vous #${appointment.id}`,
-        start: dayjs(appointment.date).toDate(),
-        end: dayjs(appointment.date).toDate(),
-        status: 'past', // Mark as past event
-      })),
-    ];
+    const events = [];
+
+    if (futureAppointments.length === 0 && pastAppointments.length === 0) {
+      events.push({
+        title: 'No Appointments Proposed',
+        start: new Date(),
+        end: new Date(),
+        status: 'none',
+      });
+    } else {
+      events.push(
+        ...futureAppointments.map((appointment) => ({
+          title: `Rendez-vous #${appointment.id}`,
+          start: dayjs(appointment.date).toDate(),
+          end: dayjs(appointment.date).toDate(),
+          status: 'future', // Mark as future event
+        })),
+        ...pastAppointments.map((appointment) => ({
+          title: `Rendez-vous #${appointment.id}`,
+          start: dayjs(appointment.date).toDate(),
+          end: dayjs(appointment.date).toDate(),
+          status: 'past', // Mark as past event
+        }))
+      );
+    }
+
     setCalendarEvents(events);
-  }, [futureAppointments, pastAppointments]);
+  }, [patientPrescriptions]);
 
   // Event style getter to apply different colors based on event status
   interface EventStyle {
