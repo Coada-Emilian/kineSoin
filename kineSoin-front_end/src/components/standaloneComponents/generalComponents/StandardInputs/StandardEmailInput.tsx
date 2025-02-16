@@ -44,7 +44,7 @@ export default function StandardEmailInput({
     <div
       className={`${
         isPatientProfileEmailModification
-          ? 'w-full flex flex-row items-center mb-4 '
+          ? 'w-full flex flex-row items-center gap-2 mb-4 '
           : 'mb-4 italic'
       }`}
     >
@@ -52,7 +52,7 @@ export default function StandardEmailInput({
         htmlFor={inputId}
         className={`${
           isPatientProfileEmailModification
-            ? 'text-xs md:text-base xl:text-xl italic'
+            ? 'text-xs md:text-base xl:text-xl italic w-1/4 flex justify-start'
             : ' text-sm '
         } text-primaryBlue font-medium `}
       >
@@ -63,7 +63,7 @@ export default function StandardEmailInput({
         name="email"
         id={inputId}
         className={`${
-          isPatientProfileEmailModification ? 'w-4/6' : 'w-full'
+          isPatientProfileEmailModification ? 'w-full' : 'w-full'
         } px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50`}
         placeholder={placeholder}
         required

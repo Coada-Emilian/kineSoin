@@ -109,38 +109,50 @@ export default function ProfileCard({
     }
   }, [patient, addedPatientInsurance]);
 
+  const [isPhotoEditModalOpen, setIsPhotoEditModalOpen] = useState(false);
+
   return (
     <>
       {isFirstPatient ? (
         <p>Vous n'avez pas de thérapeute associé.</p>
       ) : (
         <div
-          className={`${patient ? 'md:w-4/6' : 'md:w-2/4'} w-3/4 bg-white mx-auto rounded-xl shadow-lg relative flex flex-col justify-center items-center`}
+          className={`${isPatientDetailsProfileCard ? 'md:w-4/6' : 'md:w-5/12'} w-3/4 bg-white mx-auto rounded-xl shadow-lg relative flex flex-col justify-center items-center`}
         >
           <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full">
             <p className="text-base md:text-lg">
               Cabinet kinésithérapie Ruffec
             </p>
           </div>
-          <div className="relative w-full flex justify-center">
-            <img
-              src={
-                isPatientDetailsProfileCard && patient
-                  ? patient.picture_url
-                  : isPatientTherapistProfileCard && patientData?.therapist
-                    ? patientData?.therapist?.picture_url
-                    : ''
-              }
-              alt={
-                isPatientDetailsProfileCard && patient && !isProfileEditing
-                  ? patient.fullName
-                  : isPatientTherapistProfileCard && patientData?.therapist
-                    ? patientData?.therapist?.fullName
-                    : ''
-              }
-              className="w-32 h-32 rounded-full border-4 border-white object-cover absolute top-[-20px] left-1/2 transform -translate-x-1/2"
-            />
+
+          <div className="relative w-full">
+            <div className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 ">
+              <img
+                src={
+                  isPatientDetailsProfileCard && patient
+                    ? patient.picture_url
+                    : isPatientTherapistProfileCard && patientData?.therapist
+                      ? patientData?.therapist?.picture_url
+                      : ''
+                }
+                alt={
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
+                    ? patient.fullName
+                    : isPatientTherapistProfileCard && patientData?.therapist
+                      ? patientData?.therapist?.fullName
+                      : ''
+                }
+                className="w-32 h-32 rounded-full border-4 border-white object-cover "
+              />
+              {isPatientDetailsProfileCard && patient && isProfileEditing && (
+                <Link to="#" onClick={() => setIsPhotoEditModalOpen(true)}>
+                  {' '}
+                  <EditIcon isPatientProfilePhotoModification />
+                </Link>
+              )}
+            </div>
           </div>
+
           <div className="bg-primaryTeal py-10 w-full"></div>
           <div className="w-full">
             <p className="text-xl md:text-2xl mt-8">
@@ -353,17 +365,38 @@ export default function ProfileCard({
 
               {isPatientDetailsProfileCard && patient && (
                 <div className="flex justify-center gap-4">
-                  <CustomButton
-                    btnText="Éditer mon profil"
-                    profileCardModifyProfileButton
-                    onClick={() => {
-                      setIsProfileEditing(true);
-                    }}
-                  />
-                  <CustomButton
-                    btnText="Supprimer mon profil"
-                    mobileDeleteButton
-                  />
+                  {isProfileEditing ? (
+                    <>
+                      <CustomButton
+                        btnText="Enregistrer modifications"
+                        profileCardModifyProfileButton
+                        onClick={() => {
+                          setIsProfileEditing(false);
+                        }}
+                      />
+                      <CustomButton
+                        btnText="Annuler"
+                        mobileCancelButton
+                        onClick={() => {
+                          setIsProfileEditing(false);
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <CustomButton
+                        btnText="Éditer mon profil"
+                        profileCardModifyProfileButton
+                        onClick={() => {
+                          setIsProfileEditing(true);
+                        }}
+                      />
+                      <CustomButton
+                        btnText="Supprimer mon profil"
+                        mobileDeleteButton
+                      />
+                    </>
+                  )}
                 </div>
               )}
             </div>
