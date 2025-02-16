@@ -30,8 +30,8 @@ interface EditPatientModalProps {
   old_street_name?: string;
   old_postal_code?: string;
   old_city?: string;
-  setIsInsuranceEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  isInsuranceEditModalOpen?: boolean;
+  setIsEditInsuranceModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isEditInsuranceModalOpen?: boolean;
   setNewInsurance?: React.Dispatch<
     React.SetStateAction<IPatient_Insurance | undefined>
   >;
@@ -46,8 +46,8 @@ interface EditPatientModalProps {
   old_email?: string;
   setNewEmail?: React.Dispatch<React.SetStateAction<string>>;
   setNewInsuranceName?: React.Dispatch<React.SetStateAction<string>>;
-  setIsPasswordEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  isPasswordEditModalOpen?: boolean;
+  setIsEditPasswordModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isEditPasswordModalOpen?: boolean;
   setNewPassword?: React.Dispatch<React.SetStateAction<string>>;
   setIsAddInsuranceModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isAddInsuranceModalOpen?: boolean;
@@ -63,6 +63,8 @@ interface EditPatientModalProps {
   setNewName?: React.Dispatch<React.SetStateAction<string>>;
   setNewSurname?: React.Dispatch<React.SetStateAction<string>>;
   setNewBirthDate?: React.Dispatch<React.SetStateAction<string>>;
+  old_insurance?: IInsurance;
+  setIsInsuranceEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function EditPatientModal({
@@ -84,8 +86,8 @@ export default function EditPatientModal({
   old_street_name,
   old_postal_code,
   old_city,
-  setIsInsuranceEditModalOpen,
-  isInsuranceEditModalOpen,
+  setIsEditInsuranceModalOpen,
+  isEditInsuranceModalOpen,
   setNewInsurance,
   old_insurance_name,
   old_start_date,
@@ -98,8 +100,8 @@ export default function EditPatientModal({
   old_email,
   setNewEmail,
   setNewInsuranceName,
-  setIsPasswordEditModalOpen,
-  isPasswordEditModalOpen,
+  setIsEditPasswordModalOpen,
+  isEditPasswordModalOpen,
   setNewPassword,
   setIsAddInsuranceModalOpen,
   isAddInsuranceModalOpen,
@@ -113,6 +115,8 @@ export default function EditPatientModal({
   setNewName,
   setNewSurname,
   setNewBirthDate,
+  old_insurance,
+  setIsInsuranceEdited,
 }: EditPatientModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -479,13 +483,15 @@ export default function EditPatientModal({
     <ReactModal
       isOpen={
         !!isPhotoEditModalOpen ||
-        !!isPasswordEditModalOpen ||
-        !!isAddInsuranceModalOpen
+        !!isEditPasswordModalOpen ||
+        !!isAddInsuranceModalOpen ||
+        !!isEditInsuranceModalOpen
       }
       onRequestClose={() => {
         if (setIsPhotoEditModalOpen) setIsPhotoEditModalOpen(false);
-        if (setIsPasswordEditModalOpen) setIsPasswordEditModalOpen(false);
+        if (setIsEditPasswordModalOpen) setIsEditPasswordModalOpen(false);
         if (setIsAddInsuranceModalOpen) setIsAddInsuranceModalOpen(false);
+        if (setIsEditInsuranceModalOpen) setIsEditInsuranceModalOpen(false);
       }}
       style={{
         content: {
@@ -510,8 +516,9 @@ export default function EditPatientModal({
         <div className="bg-primaryTeal py-4 w-full">
           <h3 className="text-xl text-center font-semibold text-primaryBlue italic">
             {isPhotoEditModalOpen ? 'Modifier votre photo' : ''}
-            {isPasswordEditModalOpen ? 'Modifier votre mot de passe' : ''}
+            {isEditPasswordModalOpen ? 'Modifier votre mot de passe' : ''}
             {isAddInsuranceModalOpen ? 'Ajouter une mutuelle' : ''}
+            {isEditInsuranceModalOpen ? 'Modifier votre mutuelle' : ''}
           </h3>
         </div>
 
@@ -525,25 +532,20 @@ export default function EditPatientModal({
           onSubmit={
             isPhotoEditModalOpen
               ? handlePhotoEdit
-              : isInsuranceEditModalOpen
+              : isEditInsuranceModalOpen
                 ? handleInsuranceEdit
-                : isPasswordEditModalOpen
+                : isEditPasswordModalOpen
                   ? handlePasswordEdit
                   : isAddInsuranceModalOpen
                     ? handleInsuranceAdd
                     : () => {}
           }
-          className="flex flex-col mt-4 italic text-primaryBlue font-medium"
+          className="flex flex-col mt-2 italic text-primaryBlue font-medium"
         >
           <div
             className={`flex flex-col gap-4 mb-2 ${isPhotoEditModalOpen ? 'justify-center items-center' : ''}`}
           >
-            <label>
-              {isPhoneNumberEditModalOpen ? 'Ancien numéro de téléphone :' : ''}
-              {isPhotoEditModalOpen ? 'Ancienne photo ' : ''}
-              {isAddressEditModalOpen ? 'Ancienne adresse :' : ''}
-              {isEmailEditModalOpen ? 'Ancien email :' : ''}
-            </label>
+            <label>{isPhotoEditModalOpen ? 'Ancienne photo ' : ''}</label>
 
             {isPhotoEditModalOpen && (
               <img
@@ -553,12 +555,12 @@ export default function EditPatientModal({
               />
             )}
 
-            {isPasswordEditModalOpen && (
-              <>
+            {isEditPasswordModalOpen && (
+              <div className="flex flex-col gap-2 mx-6 my-2">
                 <StandardPasswordInput isOldPasswordInput />
                 <StandardPasswordInput isNewPasswordInput />
                 <StandardPasswordInput isRepeatPasswordInput />
-              </>
+              </div>
             )}
           </div>
 
@@ -612,8 +614,8 @@ export default function EditPatientModal({
               </div>
             )}
 
-            {(isInsuranceEditModalOpen || isAddInsuranceModalOpen) && (
-              <div className="flex flex-col gap-2 m-6">
+            {(isEditInsuranceModalOpen || isAddInsuranceModalOpen) && (
+              <div className="flex flex-col gap-2 mx-6 my-2">
                 <StandardChoiceDropdown
                   isPatientInsuranceDropdownInput
                   oldPatientInsuranceName={
@@ -678,9 +680,9 @@ export default function EditPatientModal({
               mobileCancelButton
               onClick={() => {
                 setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
-                setIsInsuranceEditModalOpen &&
-                  setIsInsuranceEditModalOpen(false);
-                setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
+                setIsEditInsuranceModalOpen &&
+                  setIsEditInsuranceModalOpen(false);
+                setIsEditPasswordModalOpen && setIsEditPasswordModalOpen(false);
                 setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
                 setPreview && setPreview(undefined);
               }}

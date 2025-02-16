@@ -18,6 +18,7 @@ import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
 import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 import EditIcon from '../EditIcon/EditIcon';
 import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
+import checkIcon from '/icons/check.png';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -108,6 +109,15 @@ export default function ProfileCard({
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
 
   const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
+
+  const [isEditInsuranceModalOpen, setIsEditInsuranceModalOpen] =
+    useState(false);
+
+  const [isEditPasswordModalOpen, setIsEditPasswordModalOpen] = useState(false);
+
+  const [isInsuranceEdited, setIsInsuranceEdited] = useState<boolean>(false);
+
+  const [isPasswordEdited, setIsPasswordEdited] = useState<boolean>(false);
 
   return (
     <>
@@ -334,27 +344,38 @@ export default function ProfileCard({
                     patient_email={patient?.email}
                   />
                   <div className="flex flex-col md:flex-row gap-2 justify-between w-full mb-4">
-                    {' '}
-                    <Link to="#">
-                      {' '}
-                      <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
-                        <EditIcon />
-                        <span className="text-primaryBlue italic font-medium text-xs md:text-base xl:text-xl text-start">
-                          {' '}
-                          Modifier l'assurance mutuelle
-                        </span>
-                      </p>
-                    </Link>
-                    <Link to="#">
-                      {' '}
-                      <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
-                        <EditIcon />
-                        <span className="text-primaryBlue italic font-medium text-xs md:text-base xl:text-xl text-start">
-                          {' '}
-                          Modifier votre mot de passe
-                        </span>
-                      </p>
-                    </Link>
+                    <div className="flex gap-2">
+                      {isInsuranceEdited && <img src={checkIcon} alt="check" />}{' '}
+                      <Link
+                        to="#"
+                        onClick={() => setIsEditInsuranceModalOpen(true)}
+                      >
+                        {' '}
+                        <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
+                          <EditIcon />
+                          <span className="text-primaryBlue italic font-medium text-xs md:text-base xl:text-xl text-start">
+                            {' '}
+                            Modifier l'assurance mutuelle
+                          </span>
+                        </p>
+                      </Link>
+                    </div>
+                    <div className="flex gap-2">
+                      {isPasswordEdited && <img src={checkIcon} alt="check" />}{' '}
+                      <Link
+                        to="#"
+                        onClick={() => setIsEditPasswordModalOpen(true)}
+                      >
+                        {' '}
+                        <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
+                          <EditIcon />
+                          <span className="text-primaryBlue italic font-medium text-xs md:text-base xl:text-xl text-start">
+                            {' '}
+                            Modifier votre mot de passe
+                          </span>
+                        </p>
+                      </Link>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -469,6 +490,34 @@ export default function ProfileCard({
         <EditPatientModal
           setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
           isAddInsuranceModalOpen={isAddInsuranceModalOpen}
+        />
+      )}
+
+      {isEditInsuranceModalOpen && (
+        <EditPatientModal
+          patientId={patientId}
+          setIsEditInsuranceModalOpen={setIsEditInsuranceModalOpen}
+          isEditInsuranceModalOpen={isEditInsuranceModalOpen}
+          old_insurance_name={patient?.insurance?.[0]?.name}
+          old_start_date={
+            patient?.insurance?.[0]?.Patient_Insurance?.start_date
+          }
+          old_end_date={patient?.insurance?.[0]?.Patient_Insurance?.end_date}
+          old_contract_number={
+            patient?.insurance?.[0]?.Patient_Insurance?.contract_number
+          }
+          old_adherent_code={
+            patient?.insurance?.[0]?.Patient_Insurance?.adherent_code
+          }
+          setIsInsuranceEdited={setIsInsuranceEdited}
+        />
+      )}
+
+      {isEditPasswordModalOpen && (
+        <EditPatientModal
+          setIEditPasswordModalOpen={setIsEditPasswordModalOpen}
+          isEditPasswordModalOpen={isEditPasswordModalOpen}
+          patientId={patientId}
         />
       )}
     </>
