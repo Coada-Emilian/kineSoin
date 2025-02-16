@@ -2,9 +2,17 @@ import { useEffect, useState } from 'react';
 import {
   fetchPatientData,
   fetchPatientTherapist,
+  handlePatientInsuranceUpdate,
   handlePatientMessageCreation,
+  handlePatientPhotoUpdate,
+  handlePatientUpdate,
 } from '../../../../utils/apiUtils';
-import { IInsurance, IPatient, ITherapist } from '../../../../@types/types';
+import {
+  IInsurance,
+  IPatient,
+  IPatient_Insurance,
+  ITherapist,
+} from '../../../../@types/types';
 import CustomButton from '../CustomButton/CustomButton';
 import facebookIcon from '/icons/facebook.png';
 import instagramIcon from '/icons/insta.png';
@@ -19,6 +27,7 @@ import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 import EditIcon from '../EditIcon/EditIcon';
 import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
 import checkIcon from '/icons/check.png';
+import { updatePatientDataInLocalStorage } from '../../../../localStorage/patientLocalStorage';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -31,13 +40,12 @@ export default function ProfileCard({
   isPatientDetailsProfileCard,
   isPatientTherapistProfileCard,
 }: ProfileCardProps) {
+  const navigate = useNavigate();
   const [patientTherapistData, setPatientTherapistData] = useState<{
     therapist?: ITherapist;
   } | null>(null);
-
   const [patient, setPatient] = useState<IPatient | null>(null);
   const [isInsuranceAdded, setIsInsuranceAdded] = useState<boolean>(false);
-
   const [isFirstPatient, setIsFirstPatient] = useState<boolean>(false);
 
   useEffect(() => {
@@ -76,8 +84,6 @@ export default function ProfileCard({
     };
     fetchPatientDetails();
   }, [patientId, isInsuranceAdded]);
-
-  const navigate = useNavigate();
 
   const handlePatientMessageSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -118,6 +124,95 @@ export default function ProfileCard({
   const [isInsuranceEdited, setIsInsuranceEdited] = useState<boolean>(false);
 
   const [isPasswordEdited, setIsPasswordEdited] = useState<boolean>(false);
+
+  const [newInsurance, setNewInsurance] = useState<
+    IPatient_Insurance | undefined
+  >(undefined);
+
+  const [newPassword, setNewPassword] = useState<string | undefined>(undefined);
+
+  const handlePatientProfileModification = async (
+    e?: React.FormEvent<HTMLFormElement> | null
+  ) => {
+    e?.preventDefault();
+
+    try {
+      const updatePromises: Promise<void>[] = [];
+
+      // Process insurance update if newInsurance is provided
+      if (newInsurance) {
+        const newInsuranceFormData = new FormData();
+        newInsuranceFormData.append(
+          'insurance_id',
+          newInsurance.insurance_id.toString()
+        );
+        newInsuranceFormData.append('start_date', newInsurance.start_date);
+        newInsuranceFormData.append('end_date', newInsurance.end_date);
+        newInsuranceFormData.append(
+          'contract_number',
+          newInsurance.contract_number
+        );
+        newInsuranceFormData.append(
+          'adherent_code',
+          newInsurance.adherent_code
+        );
+
+        updatePromises.push(
+          handlePatientInsuranceUpdate(newInsuranceFormData).then(
+            (response) => {
+              if (response) {
+                console.log('Insurance updated successfully');
+              }
+            }
+          )
+        );
+      }
+
+      // Process photo update if newPhoto is provided
+      if (newPhoto) {
+        const newPhotoFormData = new FormData();
+        newPhotoFormData.append('photo', newPhoto);
+
+        updatePromises.push(
+          handlePatientPhotoUpdate(newPhotoFormData).then((response) => {
+            if (response) {
+              updatePatientDataInLocalStorage(response, '');
+              console.log('Photo updated successfully');
+            }
+          })
+        );
+      }
+
+      // Process form data if provided
+      if (e?.currentTarget instanceof HTMLFormElement) {
+        const formData = new FormData(e.currentTarget);
+        if (newPassword) {
+          formData.append('new_password', newPassword);
+        }
+
+        if ([...formData.entries()].length > 0) {
+          updatePromises.push(
+            handlePatientUpdate(formData).then((response) => {
+              if (response) {
+                updatePatientDataInLocalStorage(
+                  '',
+                  `${formData.get('name')} ${formData.get('surname')}`
+                );
+                console.log('Patient updated successfully');
+              }
+            })
+          );
+        }
+      }
+
+      await Promise.all(updatePromises);
+      console.log('All updates processed successfully');
+      setIsProfileEditing(false);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error modifying patient profile:', error);
+    }
+  };
 
   return (
     <>
@@ -166,123 +261,207 @@ export default function ProfileCard({
           </div>
 
           <div className="bg-primaryTeal py-10 w-full"></div>
-          <div className="w-full">
-            <p className="text-xl md:text-2xl mt-8">
-              {isPatientDetailsProfileCard && patient && !isProfileEditing
-                ? patient.surname
-                : isPatientTherapistProfileCard &&
-                    patientTherapistData?.therapist
-                  ? patientTherapistData?.therapist?.surname
-                  : ''}{' '}
-              <span className="font-semibold">
+          {!isProfileEditing ? (
+            <div className="w-full">
+              <p className="text-xl md:text-2xl mt-8">
                 {isPatientDetailsProfileCard && patient && !isProfileEditing
-                  ? patient.name
+                  ? patient.surname
                   : isPatientTherapistProfileCard &&
                       patientTherapistData?.therapist
-                    ? patientTherapistData?.therapist?.name
-                    : ''}
-              </span>
-            </p>
-            <p className="text-primaryBlue italic font-semibold mb-6">
-              {`${
-                isPatientDetailsProfileCard && patient && !isProfileEditing
-                  ? `${patient.age} ans`
-                  : isPatientTherapistProfileCard &&
-                      patientTherapistData?.therapist
-                    ? 'masseur kinésithérapeute'
-                    : ''
-              }`}
-            </p>
-            <div className="flex justify-around text-xs md:text-base">
-              <p className="font-semibold text-primaryBlue w-2/4 italic">
-                {`${
-                  isPatientDetailsProfileCard && patient && !isProfileEditing
-                    ? 'Adresse'
+                    ? patientTherapistData?.therapist?.surname
+                    : ''}{' '}
+                <span className="font-semibold">
+                  {isPatientDetailsProfileCard && patient && !isProfileEditing
+                    ? patient.name
                     : isPatientTherapistProfileCard &&
                         patientTherapistData?.therapist
-                      ? 'Diplôme'
+                      ? patientTherapistData?.therapist?.name
+                      : ''}
+                </span>
+              </p>
+              <p className="text-primaryBlue italic font-semibold mb-6">
+                {`${
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
+                    ? `${patient.age} ans`
+                    : isPatientTherapistProfileCard &&
+                        patientTherapistData?.therapist
+                      ? 'masseur kinésithérapeute'
                       : ''
                 }`}
               </p>
-              <p className="w-3/4">
-                {' '}
-                {`${
-                  isPatientDetailsProfileCard && patient && !isProfileEditing
-                    ? patient.address
-                    : isPatientTherapistProfileCard &&
-                        patientTherapistData?.therapist
-                      ? patientTherapistData?.therapist?.diploma
-                      : ''
-                }`}
-              </p>
-            </div>
-            <div className="flex justify-around text-xs md:text-base">
-              <p className="font-semibold text-primaryBlue w-2/4 italic">
-                {`${
-                  isPatientDetailsProfileCard && patient && !isProfileEditing
-                    ? 'Téléphone'
-                    : isPatientTherapistProfileCard &&
-                        patientTherapistData?.therapist
-                      ? 'Spécialité'
-                      : ''
-                }`}
-              </p>
-              <p className="w-3/4">
-                {' '}
-                {`${
-                  isPatientDetailsProfileCard && patient && !isProfileEditing
-                    ? patient.full_phone_number
-                    : isPatientTherapistProfileCard &&
-                        patientTherapistData?.therapist
-                      ? patientTherapistData?.therapist?.specialty
-                      : ''
-                }`}
-              </p>
-            </div>
-            <div className="flex justify-around mb-6 text-xs md:text-base">
-              <p className="font-semibold text-primaryBlue w-2/4 italic">
-                {`${
-                  isPatientDetailsProfileCard && patient && !isProfileEditing
-                    ? 'Mutuelle'
-                    : isPatientTherapistProfileCard &&
-                        patientTherapistData?.therapist
-                      ? 'Experience'
-                      : ''
-                }`}
-              </p>
-              <p className="w-3/4">
-                {isPatientDetailsProfileCard && patient && !isProfileEditing ? (
-                  isInsuranceAdded ? (
-                    patient.insurance && patient.insurance[0]?.name ? (
-                      patient.insurance[0]?.name
-                    ) : (
-                      'Pas de mutuelle'
-                    )
-                  ) : (
-                    <CustomButton
-                      btnText="+ Ajouter une mutuelle"
-                      profileCardAddInsuranceButton
-                      onClick={() => setIsAddInsuranceModalOpen(true)}
-                    />
-                  )
-                ) : isPatientTherapistProfileCard &&
-                  patientTherapistData?.therapist ? (
-                  patientTherapistData?.therapist?.experience
-                ) : (
-                  ''
-                )}
-              </p>
-            </div>
-            {isPatientTherapistProfileCard &&
-              patientTherapistData?.therapist && (
-                <p className="px-4 italic mb-6">
-                  "{patientTherapistData?.therapist?.description}"
+              <div className="flex justify-around text-xs md:text-base">
+                <p className="font-semibold text-primaryBlue w-2/4 italic">
+                  {`${
+                    isPatientDetailsProfileCard && patient && !isProfileEditing
+                      ? 'Adresse'
+                      : isPatientTherapistProfileCard &&
+                          patientTherapistData?.therapist
+                        ? 'Diplôme'
+                        : ''
+                  }`}
                 </p>
-              )}
+                <p className="w-3/4">
+                  {' '}
+                  {`${
+                    isPatientDetailsProfileCard && patient && !isProfileEditing
+                      ? patient.address
+                      : isPatientTherapistProfileCard &&
+                          patientTherapistData?.therapist
+                        ? patientTherapistData?.therapist?.diploma
+                        : ''
+                  }`}
+                </p>
+              </div>
+              <div className="flex justify-around text-xs md:text-base">
+                <p className="font-semibold text-primaryBlue w-2/4 italic">
+                  {`${
+                    isPatientDetailsProfileCard && patient && !isProfileEditing
+                      ? 'Téléphone'
+                      : isPatientTherapistProfileCard &&
+                          patientTherapistData?.therapist
+                        ? 'Spécialité'
+                        : ''
+                  }`}
+                </p>
+                <p className="w-3/4">
+                  {' '}
+                  {`${
+                    isPatientDetailsProfileCard && patient && !isProfileEditing
+                      ? patient.full_phone_number
+                      : isPatientTherapistProfileCard &&
+                          patientTherapistData?.therapist
+                        ? patientTherapistData?.therapist?.specialty
+                        : ''
+                  }`}
+                </p>
+              </div>
+              <div className="flex justify-around mb-6 text-xs md:text-base">
+                <p className="font-semibold text-primaryBlue w-2/4 italic">
+                  {`${
+                    isPatientDetailsProfileCard && patient && !isProfileEditing
+                      ? 'Mutuelle'
+                      : isPatientTherapistProfileCard &&
+                          patientTherapistData?.therapist
+                        ? 'Experience'
+                        : ''
+                  }`}
+                </p>
+                <p className="w-3/4">
+                  {isPatientDetailsProfileCard &&
+                  patient &&
+                  !isProfileEditing ? (
+                    isInsuranceAdded ? (
+                      patient.insurance && patient.insurance[0]?.name ? (
+                        patient.insurance[0]?.name
+                      ) : (
+                        'Pas de mutuelle'
+                      )
+                    ) : (
+                      <CustomButton
+                        btnText="+ Ajouter une mutuelle"
+                        profileCardAddInsuranceButton
+                        onClick={() => setIsAddInsuranceModalOpen(true)}
+                      />
+                    )
+                  ) : isPatientTherapistProfileCard &&
+                    patientTherapistData?.therapist ? (
+                    patientTherapistData?.therapist?.experience
+                  ) : (
+                    ''
+                  )}
+                </p>
+              </div>
+              {isPatientTherapistProfileCard &&
+                patientTherapistData?.therapist && (
+                  <p className="px-4 italic mb-6">
+                    "{patientTherapistData?.therapist?.description}"
+                  </p>
+                )}
+              <div className="bg-primaryBlue flex items-center justify-center gap-4 w-full">
+                {isPatientTherapistProfileCard &&
+                  patientTherapistData?.therapist && (
+                    <div className="flex gap-2 p-2">
+                      <Link to="#">
+                        <img
+                          src={linkedInIcon}
+                          alt="LinkedIn"
+                          className="w-8"
+                        />
+                      </Link>
+                      <Link to="#">
+                        <img
+                          src={facebookIcon}
+                          alt="facebook"
+                          className="w-8"
+                        />
+                      </Link>
+                      <Link to="#">
+                        <img
+                          src={instagramIcon}
+                          alt="instagram"
+                          className="w-8"
+                        />
+                      </Link>
+                      <Link to="#">
+                        <img src={phoneIcon} alt="phone" className="w-8" />
+                      </Link>
+                    </div>
+                  )}
+                <div>
+                  <p className="text-white text-base py-4">
+                    {isPatientTherapistProfileCard &&
+                      patientTherapistData?.therapist &&
+                      `   / ${patientTherapistData?.therapist?.surname.toLowerCase()}
+                  ${patientTherapistData?.therapist?.name.toLowerCase()}`}
 
-            {isProfileEditing && (
-              <div className="flex flex-col items-center  text-xs md:text-base">
-                <form action="POST" className="w-10/12">
+                    {isPatientDetailsProfileCard &&
+                      patient &&
+                      `   / ${patient.surname.toLowerCase()}${patient.name.toLowerCase()}`}
+                  </p>
+                </div>
+              </div>
+              {isPatientTherapistProfileCard &&
+                patientTherapistData?.therapist && (
+                  <div className="bg-primaryTeal py-4 rounded-b-xl">
+                    <form action="POST" onSubmit={handlePatientMessageSubmit}>
+                      <StandardTextInput
+                        patientSection={{ isPatientMessageInput: true }}
+                      />
+                      <CustomButton
+                        btnText="Envoyer"
+                        profileCardSendMessageButton
+                      />
+                    </form>
+                  </div>
+                )}
+              {isPatientDetailsProfileCard && patient && (
+                <div className="bg-primaryTeal py-4 rounded-b-xl">
+                  <div className="flex justify-center gap-4">
+                    <CustomButton
+                      btnText="Éditer mon profil"
+                      profileCardModifyProfileButton
+                      onClick={() => {
+                        setIsProfileEditing(true);
+                      }}
+                    />
+                    <CustomButton
+                      btnText="Supprimer mon profil"
+                      mobileDeleteButton
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center text-xs md:text-base mt-14 w-full">
+              <form
+                action="POST"
+                className="w-full flex flex-col items-center"
+                onSubmit={handlePatientProfileModification}
+              >
+                {' '}
+                <div className="w-11/12 flex flex-col gap-2 justify-center items-center">
+                  {' '}
                   <StandardTextInput
                     patientSection={{
                       isPatientProfileNameModification: true,
@@ -299,7 +478,7 @@ export default function ProfileCard({
                     isPatientProfileBirthDateModification
                     birth_date={patient?.birth_date}
                   />
-                  <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex flex-col md:flex-row gap-4 w-full">
                     <StandardTextInput
                       patientSection={{
                         isPatientProfileStreetNumberModification: true,
@@ -313,8 +492,7 @@ export default function ProfileCard({
                       dataInput={{ patient }}
                     />
                   </div>
-
-                  <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex flex-col md:flex-row gap-4  w-full">
                     <StandardTextInput
                       patientSection={{
                         isPatientProfilePostalCodeModification: true,
@@ -328,7 +506,7 @@ export default function ProfileCard({
                       dataInput={{ patient }}
                     />
                   </div>
-                  <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex flex-col md:flex-row gap-4 w-full">
                     <StandardChoiceDropdown
                       isCountryDropdownInput
                       isPatientProfilePrefixModification
@@ -344,8 +522,10 @@ export default function ProfileCard({
                     patient_email={patient?.email}
                   />
                   <div className="flex flex-col md:flex-row gap-2 justify-between w-full mb-4">
-                    <div className="flex gap-2">
-                      {isInsuranceEdited && <img src={checkIcon} alt="check" />}{' '}
+                    <div className="flex gap-2 items-center">
+                      {isInsuranceEdited && (
+                        <img src={checkIcon} alt="check" className="w-6 h-6" />
+                      )}{' '}
                       <Link
                         to="#"
                         onClick={() => setIsEditInsuranceModalOpen(true)}
@@ -360,8 +540,10 @@ export default function ProfileCard({
                         </p>
                       </Link>
                     </div>
-                    <div className="flex gap-2">
-                      {isPasswordEdited && <img src={checkIcon} alt="check" />}{' '}
+                    <div className="flex gap-2 items-center">
+                      {isPasswordEdited && (
+                        <img src={checkIcon} alt="check" className="w-6 h-6" />
+                      )}{' '}
                       <Link
                         to="#"
                         onClick={() => setIsEditPasswordModalOpen(true)}
@@ -377,101 +559,38 @@ export default function ProfileCard({
                       </Link>
                     </div>
                   </div>
-                </form>
-              </div>
-            )}
-
-            <div className="bg-primaryBlue flex items-center justify-center gap-4 w-full">
-              {isPatientTherapistProfileCard &&
-                patientTherapistData?.therapist && (
-                  <div className="flex gap-2 p-2">
-                    <Link to="#">
-                      <img src={linkedInIcon} alt="LinkedIn" className="w-8" />
-                    </Link>
-                    <Link to="#">
-                      <img src={facebookIcon} alt="facebook" className="w-8" />
-                    </Link>
-                    <Link to="#">
-                      <img
-                        src={instagramIcon}
-                        alt="instagram"
-                        className="w-8"
-                      />
-                    </Link>
-                    <Link to="#">
-                      <img src={phoneIcon} alt="phone" className="w-8" />
-                    </Link>
+                </div>
+                <div className="bg-primaryBlue flex items-center justify-center gap-4 w-full">
+                  <div>
+                    <p className="text-white text-base py-4">
+                      {isPatientDetailsProfileCard &&
+                        patient &&
+                        `   / ${patient.surname.toLowerCase()}${patient.name.toLowerCase()}`}
+                    </p>
                   </div>
-                )}
-              <div>
-                <p className="text-white text-base py-4">
-                  {isPatientTherapistProfileCard &&
-                    patientTherapistData?.therapist &&
-                    `   / ${patientTherapistData?.therapist?.surname.toLowerCase()}
-                  ${patientTherapistData?.therapist?.name.toLowerCase()}`}
-
-                  {isPatientDetailsProfileCard &&
-                    patient &&
-                    `   / ${patient.surname.toLowerCase()}${patient.name.toLowerCase()}`}
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-primaryTeal py-4 rounded-b-xl">
-              {isPatientTherapistProfileCard &&
-                patientTherapistData?.therapist && (
-                  <form action="POST" onSubmit={handlePatientMessageSubmit}>
-                    <StandardTextInput
-                      patientSection={{ isPatientMessageInput: true }}
+                </div>
+                <div className="bg-primaryTeal py-4 rounded-b-xl w-full">
+                  <div className="flex justify-center gap-4">
+                    <CustomButton
+                      btnText="Enregistrer modifications"
+                      profileCardModifyProfileButton
+                      btnType="submit"
                     />
                     <CustomButton
-                      btnText="Envoyer"
-                      profileCardSendMessageButton
+                      btnText="Annuler"
+                      mobileCancelButton
+                      onClick={() => {
+                        setIsProfileEditing(false);
+                        if (preview) {
+                          setPreview(undefined);
+                        }
+                      }}
                     />
-                  </form>
-                )}
-
-              {isPatientDetailsProfileCard && patient && (
-                <div className="flex justify-center gap-4">
-                  {isProfileEditing ? (
-                    <>
-                      <CustomButton
-                        btnText="Enregistrer modifications"
-                        profileCardModifyProfileButton
-                        onClick={() => {
-                          setIsProfileEditing(false);
-                        }}
-                      />
-                      <CustomButton
-                        btnText="Annuler"
-                        mobileCancelButton
-                        onClick={() => {
-                          setIsProfileEditing(false);
-                          if (preview) {
-                            setPreview(undefined);
-                          }
-                        }}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <CustomButton
-                        btnText="Éditer mon profil"
-                        profileCardModifyProfileButton
-                        onClick={() => {
-                          setIsProfileEditing(true);
-                        }}
-                      />
-                      <CustomButton
-                        btnText="Supprimer mon profil"
-                        mobileDeleteButton
-                      />
-                    </>
-                  )}
+                  </div>
                 </div>
-              )}
+              </form>
             </div>
-          </div>
+          )}
         </div>
       )}
 
@@ -510,14 +629,17 @@ export default function ProfileCard({
             patient?.insurance?.[0]?.Patient_Insurance?.adherent_code
           }
           setIsInsuranceEdited={setIsInsuranceEdited}
+          setNewInsurance={setNewInsurance}
         />
       )}
 
       {isEditPasswordModalOpen && (
         <EditPatientModal
-          setIEditPasswordModalOpen={setIsEditPasswordModalOpen}
+          setIsEditPasswordModalOpen={setIsEditPasswordModalOpen}
           isEditPasswordModalOpen={isEditPasswordModalOpen}
           patientId={patientId}
+          setNewPassword={setNewPassword}
+          setIsPasswordEdited={setIsPasswordEdited}
         />
       )}
     </>

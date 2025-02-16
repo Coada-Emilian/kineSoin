@@ -62,6 +62,7 @@ import computeAge from '../../utils/computeAge.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 import { Patient, Therapist, Admin } from '../../models/index.js';
 import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
+import { checkIsValidNumber } from '../../utils/checkIsValidNumber.js';
 
 const authentificationController = {
   // Function to register a new patient
@@ -352,8 +353,7 @@ const authentificationController = {
 
   // Function to check patient password
   checkPatientPassword: async (req, res) => {
-    const { patient_id } = parseInt(req.patient_id, 10);
-
+    const patient_id = parseInt(req.patient_id, 10);
     checkIsValidNumber(patient_id);
 
     if (!patient_id) {
