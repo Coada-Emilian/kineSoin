@@ -484,3 +484,36 @@ export default function PatientCard({ patientId }: PatientCardProps) {
     </>
   );
 }
+
+
+  <div className="relative w-full flex justify-center">
+            <div className="relative">
+              <img
+                src={
+                  isPatientDetailsProfileCard && patient
+                    ? patient.picture_url
+                    : isPatientTherapistProfileCard && patientData?.therapist
+                      ? patientData?.therapist?.picture_url
+                      : ''
+                }
+                alt={
+                  isPatientDetailsProfileCard && patient && !isProfileEditing
+                    ? patient.fullName
+                    : isPatientTherapistProfileCard && patientData?.therapist
+                      ? patientData?.therapist?.fullName
+                      : ''
+                }
+                className="w-32 h-32 rounded-full border-4 border-white object-cover"
+              />
+
+              {/* Edit Icon positioned absolutely inside the image container */}
+              {isPatientDetailsProfileCard && patient && isProfileEditing && (
+                <Link to="#" onClick={() => setIsPhotoEditModalOpen(true)}>
+                  {' '}
+                  <EditIcon isPatientProfilePhotoModification />
+                </Link>
+              )}
+            </div>
+          </div>
+
+          absolute top-[-20px] left-1/2 transform -translate-x-1/2
