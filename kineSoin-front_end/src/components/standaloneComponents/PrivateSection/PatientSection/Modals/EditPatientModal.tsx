@@ -9,8 +9,8 @@ import {
 } from '../../../../../utils/apiUtils';
 import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
-import { IInsurance } from '../../../../../@types/IInsurance';
-import { IPatient_Insurance } from '../../../../../@types/IPatient_Insurance';
+import { IInsurance, IPatient_Insurance } from '../../../../../@types/types';
+import StandardFileInput from '../../../generalComponents/StandardInputs/StandardFileInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -167,6 +167,7 @@ export default function EditPatientModal({
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setPreview && setPreview(previewUrl);
+      setFileName(file.name);
     }
   };
 
@@ -477,27 +478,14 @@ export default function EditPatientModal({
     }
   };
 
+  const [fileName, setFileName] = useState<string | null>(null);
+
   return (
     <ReactModal
-      isOpen={
-        !!isPhoneNumberEditModalOpen ||
-        !!isPhotoEditModalOpen ||
-        !!isAddressEditModalOpen ||
-        !!isInsuranceEditModalOpen ||
-        !!isEmailEditModalOpen ||
-        !!isPasswordEditModalOpen ||
-        !!isAddInsuranceModalOpen ||
-        !!isNameAndAgeEditModalOpen
-      }
+      isOpen={!!isPhotoEditModalOpen || !!isPasswordEditModalOpen}
       onRequestClose={() => {
-        if (setIsPhoneNumberEditModalOpen) setIsPhoneNumberEditModalOpen(false);
         if (setIsPhotoEditModalOpen) setIsPhotoEditModalOpen(false);
-        if (setIsAddressEditModalOpen) setIsAddressEditModalOpen(false);
-        if (setIsInsuranceEditModalOpen) setIsInsuranceEditModalOpen(false);
-        if (setIsEmailEditModalOpen) setIsEmailEditModalOpen(false);
         if (setIsPasswordEditModalOpen) setIsPasswordEditModalOpen(false);
-        if (setIsAddInsuranceModalOpen) setIsAddInsuranceModalOpen(false);
-        if (setIsNameAndAgeEditModalOpen) setIsNameAndAgeEditModalOpen(false);
       }}
       style={{
         content: {
@@ -505,8 +493,8 @@ export default function EditPatientModal({
           height: 'fit-content',
           maxWidth: '500px',
           margin: 'auto',
-          padding: '20px',
-          borderRadius: '8px',
+          padding: '0px',
+          borderRadius: '16px',
           backgroundColor: 'white',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
         },
@@ -515,332 +503,191 @@ export default function EditPatientModal({
         },
       }}
     >
-      <h3 className="text-xl text-center font-semibold text-primaryBlue italic mb-2">
-        {isPhoneNumberEditModalOpen ? 'Modifier le numéro de téléphone' : ''}
-        {isPhotoEditModalOpen ? 'Modifier votre photo' : ''}
-        {isAddressEditModalOpen ? 'Modifier votre adresse' : ''}
-        {isInsuranceEditModalOpen ? 'Modifier votre mutuelle' : ''}
-        {isEmailEditModalOpen ? 'Modifier votre email' : ''}
-        {isPasswordEditModalOpen ? 'Modifier votre mot de passe' : ''}
-        {isAddInsuranceModalOpen ? 'Ajouter une mutuelle' : ''}
-        {isNameAndAgeEditModalOpen ? 'Modifier votre nom, prénom et age' : ''}
-      </h3>
+      <div>
+        <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full text-center">
+          <p className="text-base md:text-lg">Cabinet kinésithérapie Ruffec</p>
+        </div>
+        <div className="bg-primaryTeal py-4 w-full">
+          <h3 className="text-xl text-center font-semibold text-primaryBlue italic">
+            {isPhotoEditModalOpen ? 'Modifier votre photo' : ''}
+            {isPasswordEditModalOpen ? 'Modifier votre mot de passe' : ''}
+            {isAddInsuranceModalOpen ? 'Ajouter une mutuelle' : ''}
+          </h3>
+        </div>
 
-      {errorMessage && (
-        <p className="text-red-500 text-center text-sm font-medium">
-          {errorMessage}
-        </p>
-      )}
+        {errorMessage && (
+          <p className="text-red-500 text-center text-sm font-medium">
+            {errorMessage}
+          </p>
+        )}
 
-      <form
-        onSubmit={
-          isPhoneNumberEditModalOpen
-            ? handlePhoneNumberEdit
-            : isPhotoEditModalOpen
+        <form
+          onSubmit={
+            isPhotoEditModalOpen
               ? handlePhotoEdit
-              : isAddressEditModalOpen
-                ? handleAddressEdit
-                : isInsuranceEditModalOpen
-                  ? handleInsuranceEdit
-                  : isEmailEditModalOpen
-                    ? handleEmailInput
-                    : isPasswordEditModalOpen
-                      ? handlePasswordEdit
-                      : isAddInsuranceModalOpen
-                        ? handleInsuranceAdd
-                        : isNameAndAgeEditModalOpen
-                          ? handleNameAndAgeEdit
-                          : () => {}
-        }
-        className="flex flex-col gap-4 mt-4 italic text-primaryBlue font-medium"
-      >
-        <div
-          className={`flex flex-col gap-4 ${isPhotoEditModalOpen ? 'justify-center items-center' : ''}`}
+              : isInsuranceEditModalOpen
+                ? handleInsuranceEdit
+                : isPasswordEditModalOpen
+                  ? handlePasswordEdit
+                  : isAddInsuranceModalOpen
+                    ? handleInsuranceAdd
+                    : () => {}
+          }
+          className="flex flex-col mt-4 italic text-primaryBlue font-medium"
         >
-          <label>
-            {isPhoneNumberEditModalOpen ? 'Ancien numéro de téléphone :' : ''}
-            {isPhotoEditModalOpen ? 'Ancienne photo :' : ''}
-            {isAddressEditModalOpen ? 'Ancienne adresse :' : ''}
-            {isEmailEditModalOpen ? 'Ancien email :' : ''}
-          </label>
-
-          {isPhoneNumberEditModalOpen && (
-            <input
-              type="text"
-              value={phone_number}
-              className="border p-2 rounded-lg"
-              readOnly
-            />
-          )}
-
-          {isPhotoEditModalOpen && (
-            <img
-              src={old_photo}
-              alt="ancienne photo"
-              className="w-32 h-32 rounded-full object-cover"
-            />
-          )}
-
-          {isAddressEditModalOpen && (
-            <div className="flex flex-col gap-2">
-              <input
-                type="text"
-                value={old_address}
-                className="border p-2 rounded-lg"
-                readOnly
-              />
-            </div>
-          )}
-
-          {isEmailEditModalOpen && (
-            <input
-              type="text"
-              value={old_email}
-              className="border p-2 rounded-lg"
-              readOnly
-            />
-          )}
-
-          {isPasswordEditModalOpen && (
-            <>
-              <StandardPasswordInput isOldPasswordInput />
-              <StandardPasswordInput isNewPasswordInput />
-              <StandardPasswordInput isRepeatPasswordInput />
-            </>
-          )}
-        </div>
-
-        <div
-          className={`flex flex-col gap-4 ${isPhotoEditModalOpen ? 'justify-center items-center' : ''}`}
-        >
-          <label
-            htmlFor={
-              isPhoneNumberEditModalOpen
-                ? 'patient-new-phone_number'
-                : isPhotoEditModalOpen
-                  ? 'patient-new-photo'
-                  : ''
-            }
+          <div
+            className={`flex flex-col gap-4 mb-2 ${isPhotoEditModalOpen ? 'justify-center items-center' : ''}`}
           >
-            {isPhoneNumberEditModalOpen
-              ? 'Nouveau numéro de téléphone :'
-              : isPhotoEditModalOpen
-                ? 'Nouvelle photo :'
-                : isAddressEditModalOpen
-                  ? 'Nouvelle adresse :'
-                  : isEmailEditModalOpen
-                    ? 'Nouvel email :'
-                    : ''}
-          </label>
+            <label>
+              {isPhoneNumberEditModalOpen ? 'Ancien numéro de téléphone :' : ''}
+              {isPhotoEditModalOpen ? 'Ancienne photo ' : ''}
+              {isAddressEditModalOpen ? 'Ancienne adresse :' : ''}
+              {isEmailEditModalOpen ? 'Ancien email :' : ''}
+            </label>
 
-          {isPhoneNumberEditModalOpen && (
-            <input
-              type="text"
-              name="phone_number"
-              id="patient-new-phone_number"
-              placeholder={phone_number}
-              className="border p-2 rounded-lg"
-            />
-          )}
-
-          {isPhotoEditModalOpen && !isNewPhotoAdded && (
-            <div className="mb-2 flex flex-col items-center gap-2">
-              {preview ? (
-                <img
-                  src={preview}
-                  alt="Aperçu du fichier"
-                  className="w-32 h-32 object-cover mb-2 rounded-full"
-                />
-              ) : (
-                <img
-                  src={UserPhotoIcon}
-                  alt="user icon"
-                  className="w-32 h-32 object-cover mb-2"
-                />
-              )}
-
-              <label htmlFor="new-photo-input">
-                Chargez votre nouvelle photo :
-              </label>
-              <input
-                type="file"
-                name="new_photo"
-                id="new-photo-input"
-                className="w-10/12"
-                onChange={handlePhotoChange}
+            {isPhotoEditModalOpen && (
+              <img
+                src={old_photo}
+                alt="ancienne photo"
+                className="w-32 h-32 rounded-full object-cover"
               />
-            </div>
-          )}
+            )}
 
-          {isAddressEditModalOpen && (
-            <div className="text-xs md:text-sm">
-              <div className="flex gap-2 ">
-                <div className="flex flex-col w-1/3">
-                  <label htmlFor="street_number">Numéro de rue :</label>
-                  <input
-                    type="text"
-                    name="street_number"
-                    id="street_number"
-                    className="border p-2 rounded-lg"
-                    defaultValue={old_street_number}
+            {isPasswordEditModalOpen && (
+              <>
+                <StandardPasswordInput isOldPasswordInput />
+                <StandardPasswordInput isNewPasswordInput />
+                <StandardPasswordInput isRepeatPasswordInput />
+              </>
+            )}
+          </div>
+
+          <div
+            className={`flex flex-col gap-4 ${isPhotoEditModalOpen ? 'justify-center items-center' : ''}`}
+          >
+            <label htmlFor={isPhotoEditModalOpen ? 'patient-new-photo' : ''}>
+              {isPhotoEditModalOpen ? 'Nouvelle photo' : ''}
+            </label>
+
+            {isPhotoEditModalOpen && !isNewPhotoAdded && (
+              <div className=" flex flex-col items-center gap-2 w-full ">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Aperçu du fichier"
+                    className="w-32 h-32 object-cover mb-4 rounded-full"
                   />
-                </div>
-                <div className="flex flex-col w-2/3">
-                  <label htmlFor="street_name">Nom de rue :</label>
-                  <input
-                    type="text"
-                    name="street_name"
-                    id="street_name"
-                    className="border p-2 rounded-lg"
-                    defaultValue={old_street_name}
+                ) : (
+                  <img
+                    src={UserPhotoIcon}
+                    alt="user icon"
+                    className="w-32 h-32 object-cover mb-4"
                   />
+                )}
+
+                <div className="flex flex-col justify-center items-center w-full bg-primaryBlue text-white">
+                  <label
+                    htmlFor="new-photo-input"
+                    className="cursor-pointer bg-primaryBlue text-white py-2 px-4 w-full text-center"
+                  >
+                    Chargez votre nouvelle photo
+                  </label>
+
+                  <input
+                    type="file"
+                    name="new_photo"
+                    id="new-photo-input"
+                    className="hidden"
+                    onChange={handlePhotoChange}
+                  />
+
+                  {fileName && (
+                    <div className="text-xs mb-2">
+                      {' '}
+                      <span>Fichier choisi:</span>
+                      <span className="font-medium">{fileName}</span>
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="flex gap-2">
-                <div className="flex flex-col w-1/3">
-                  <label htmlFor="postal_code">Code postal :</label>
-                  <input
-                    type="text"
-                    name="postal_code"
-                    id="postal_code"
-                    className="border p-2 rounded-lg"
-                    defaultValue={old_postal_code}
-                  />
-                </div>
-                <div className="flex flex-col w-2/3">
-                  <label htmlFor="city">Ville :</label>
-                  <input
-                    type="text"
-                    name="city"
-                    id="city"
-                    className="border p-2 rounded-lg"
-                    defaultValue={old_city}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
+            )}
 
-          {(isInsuranceEditModalOpen || isAddInsuranceModalOpen) && (
-            <div className="flex flex-col gap-2">
-              <StandardChoiceDropdown
-                isPatientInsuranceDropdownInput
-                oldPatientInsuranceName={
-                  isAddInsuranceModalOpen ? undefined : old_insurance_name
-                }
-                insuranceList={insurances}
-              />
-
-              <div className="w-full">
-                <label>Validité :</label>
-                <div className="flex gap-1 text-xs md:text-sm justify-between items-center">
-                  {' '}
-                  <input
-                    type="date"
-                    defaultValue={old_start_date}
-                    className="border p-2 rounded-lg w-1/3"
-                    name="start_date"
-                  />
-                  <p>au</p>
-                  <input
-                    type="date"
-                    defaultValue={old_end_date}
-                    className="border p-2 rounded-lg  w-1/3"
-                    name="end_date"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-2 w-full">
-                <div className="w-1/2 text-xs">
-                  <label>Numero contrat :</label>
-                  <input
-                    type="text"
-                    defaultValue={old_contract_number}
-                    className="border p-2 rounded-lg w-full"
-                    name="contract_number"
-                  />
-                </div>
-                <div className="w-1/2 text-xs">
-                  <label>Code adherent :</label>
-                  <input
-                    type="text"
-                    defaultValue={old_adherent_code}
-                    className="border p-2 rounded-lg w-full"
-                    name="adherent_code"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {isNameAndAgeEditModalOpen && (
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col">
-                <label htmlFor="name">Nom :</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="border p-2 rounded-lg"
-                  defaultValue={old_name}
+            {(isInsuranceEditModalOpen || isAddInsuranceModalOpen) && (
+              <div className="flex flex-col gap-2">
+                <StandardChoiceDropdown
+                  isPatientInsuranceDropdownInput
+                  oldPatientInsuranceName={
+                    isAddInsuranceModalOpen ? undefined : old_insurance_name
+                  }
+                  insuranceList={insurances}
                 />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="surname">Prénom :</label>
-                <input
-                  type="text"
-                  name="surname"
-                  id="surname"
-                  className="border p-2 rounded-lg"
-                  defaultValue={old_surname}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="birth_date">Date de naissance :</label>
-                <input
-                  type="date"
-                  name="birth_date"
-                  id="birth_date"
-                  className="border p-2 rounded-lg"
-                  defaultValue={old_birth_date}
-                />
-              </div>
-            </div>
-          )}
 
-          {isEmailEditModalOpen && (
-            <input
-              type="text"
-              name="email"
-              id="patient-new-email"
-              placeholder={old_email}
-              className="border p-2 rounded-lg"
+                <div className="w-full">
+                  <label>Validité :</label>
+                  <div className="flex gap-1 text-xs md:text-sm justify-between items-center">
+                    {' '}
+                    <input
+                      type="date"
+                      defaultValue={old_start_date}
+                      className="border p-2 rounded-lg w-1/3"
+                      name="start_date"
+                    />
+                    <p>au</p>
+                    <input
+                      type="date"
+                      defaultValue={old_end_date}
+                      className="border p-2 rounded-lg  w-1/3"
+                      name="end_date"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-2 w-full">
+                  <div className="w-1/2 text-xs">
+                    <label>Numero contrat :</label>
+                    <input
+                      type="text"
+                      defaultValue={old_contract_number}
+                      className="border p-2 rounded-lg w-full"
+                      name="contract_number"
+                    />
+                  </div>
+                  <div className="w-1/2 text-xs">
+                    <label>Code adherent :</label>
+                    <input
+                      type="text"
+                      defaultValue={old_adherent_code}
+                      className="border p-2 rounded-lg w-full"
+                      name="adherent_code"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="flex gap-4 justify-center py-4  bg-primaryTeal">
+            <CustomButton
+              btnText="Valider"
+              profileCardModifyProfileButton
+              btnType="submit"
             />
-          )}
-        </div>
 
-        <div className="flex gap-2">
-          <CustomButton btnText="Valider" normalButton btnType="submit" />
-
-          <CustomButton
-            btnText="Annuler"
-            cancelButton
-            onClick={() => {
-              setIsPhoneNumberEditModalOpen &&
-                setIsPhoneNumberEditModalOpen(false);
-              setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
-              setIsAddressEditModalOpen && setIsAddressEditModalOpen(false);
-              setIsInsuranceEditModalOpen && setIsInsuranceEditModalOpen(false);
-              setIsEmailEditModalOpen && setIsEmailEditModalOpen(false);
-              setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
-              setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
-              setIsNameAndAgeEditModalOpen &&
-                setIsNameAndAgeEditModalOpen(false);
-            }}
-          />
-        </div>
-      </form>
+            <CustomButton
+              btnText="Annuler"
+              mobileCancelButton
+              onClick={() => {
+                setIsPhotoEditModalOpen && setIsPhotoEditModalOpen(false);
+                setIsInsuranceEditModalOpen &&
+                  setIsInsuranceEditModalOpen(false);
+                setIsPasswordEditModalOpen && setIsPasswordEditModalOpen(false);
+                setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
+                setPreview && setPreview(undefined);
+              }}
+            />
+          </div>
+        </form>
+      </div>
     </ReactModal>
   );
 }
