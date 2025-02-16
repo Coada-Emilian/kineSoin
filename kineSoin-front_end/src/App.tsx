@@ -107,6 +107,7 @@ function App() {
     console.log(
       'TODO: make sure add insurance is working, contract numbers still need to be unique apparently'
     );
+    console.log('TODO: add form validation to profile modification forms');
   }, []);
 
   // useEffect to check if the admin is authenticated
