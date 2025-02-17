@@ -84,10 +84,22 @@ export default function StandardPasswordInput({
     return 'Mot de passe';
   };
 
+  const getAutoComplete = () => {
+    if (isPatientRegisterPasswordInput) return 'password';
+    if (isPatientRegisterConfirmPasswordInput) return 'repeated password';
+    if (isOldPasswordInput) return 'current-password';
+    if (isNewPasswordInput) return 'new-password';
+    if (isRepeatPasswordInput) return 'repeated password';
+    if (isAdminTherapistAddPasswordInput) return 'new-password';
+    if (isAdminTherapistAddRepeatedPasswordInput) return 'repeated-password';
+    return 'current-password';
+  };
+
   const inputId = getInputId();
   const inputName = getInputName();
   const placeholder = getPlaceholder();
   const labelText = getLabelText();
+  const auto_complete = getAutoComplete();
 
   return (
     <div className="mb-4 italic">
@@ -110,6 +122,7 @@ export default function StandardPasswordInput({
             title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial"
           >
             <img src={questionIcon} alt="aide" className="w-6 cursor-help" />
+
             <span className="sr-only">
               12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1
               caractère spécial
@@ -117,6 +130,7 @@ export default function StandardPasswordInput({
           </p>
         )}
       </label>
+
       <div className="flex rounded-md shadow-sm border">
         <input
           type={showPassword ? 'text' : 'password'}
@@ -124,6 +138,7 @@ export default function StandardPasswordInput({
           id={inputId}
           className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
           placeholder={placeholder}
+          autoComplete={auto_complete}
         />
         <button
           type="button"
