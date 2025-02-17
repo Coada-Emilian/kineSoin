@@ -69,12 +69,15 @@ export default function StandardDateInput({
     return undefined;
   };
 
+  const getInputValue = () => (birth_date ? patientBirthDate : undefined);
+
   const id = getHtmlFor();
   const divClassName = getDivClassName();
   const labelClassName = getLabelClassName();
   const labelContent = getLabelContent();
   const inputName = getInputName();
   const inputOnChange = getInputOnChange;
+  const inputValue = getInputValue();
 
   return (
     <div className={divClassName}>
@@ -88,7 +91,7 @@ export default function StandardDateInput({
         id={id}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
         onChange={(e) => inputOnChange(e)}
-        value={birth_date ? patientBirthDate : undefined}
+        value={inputValue}
       />
     </div>
   );
