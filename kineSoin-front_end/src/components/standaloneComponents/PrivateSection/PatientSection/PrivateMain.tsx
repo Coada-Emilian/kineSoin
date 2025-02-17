@@ -8,7 +8,6 @@ import SideNav from '../../generalComponents/SideNav/SideNav';
 import PatientNewPrescriptionForm from './PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
 import AppointmentsCalendar from '../../generalComponents/AppointmentCalendar/AppointmentsCalendar';
 import MessageForm from '../../generalComponents/MessageForm/MessageForm';
-import PatientCard from '../../../pageComponents/PatientSection/PatientDetailsPage/PatientCard';
 import { IAppointment } from '../../../../@types/types';
 import AppointmentCard from '../../generalComponents/AppointmentCard/AppointmentCard';
 import MessagesField from '../../generalComponents/MessagesField/MessagesField';

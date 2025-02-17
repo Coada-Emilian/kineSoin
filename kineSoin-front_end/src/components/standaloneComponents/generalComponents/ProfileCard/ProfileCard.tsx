@@ -131,6 +131,8 @@ export default function ProfileCard({
 
   const [newPassword, setNewPassword] = useState<string | undefined>(undefined);
 
+  const [errorMessage, setErrorMessage] = useState<string>();
+
   const handlePatientProfileModification = async (
     e?: React.FormEvent<HTMLFormElement> | null
   ) => {
@@ -189,19 +191,80 @@ export default function ProfileCard({
         if (newPassword) {
           formData.append('new_password', newPassword);
         }
+        const patientPrefix = formData.get('prefix') as string;
+        const patientPhoneNumber = formData.get('phone_number') as string;
+        const patientStreetNumber = formData.get('street_number') as string;
+        const patientStreetName = formData.get('street_name') as string;
+        const patientPostalCode = formData.get('postal_code') as string;
+        const patientCity = formData.get('city') as string;
+        const patientEmail = formData.get('email') as string;
+        const patientName = formData.get('name') as string;
+        const patientSurname = formData.get('surname') as string;
+        const patientBirthDate = formData.get('birth_date') as string;
 
-        if ([...formData.entries()].length > 0) {
-          updatePromises.push(
-            handlePatientUpdate(formData).then((response) => {
-              if (response) {
-                updatePatientDataInLocalStorage(
-                  '',
-                  `${formData.get('name')} ${formData.get('surname')}`
-                );
-                console.log('Patient updated successfully');
-              }
-            })
+        if (
+          !patientPrefix ||
+          !patientPhoneNumber ||
+          !patientStreetNumber ||
+          !patientStreetName ||
+          !patientPostalCode ||
+          !patientCity ||
+          !patientEmail ||
+          !patientName ||
+          !patientSurname ||
+          !patientBirthDate
+        ) {
+          setErrorMessage('Veuillez remplir tous les champs');
+        } else if (patientPrefix.length > 10) {
+          setErrorMessage(
+            'Le préfixe du téléphone ne doit pas dépasser 10 caractères'
           );
+        } else if (patientPhoneNumber.length > 15) {
+          setErrorMessage(
+            'Le numéro de téléphone ne doit pas dépasser 15 chiffres'
+          );
+        } else if (!/^\d+$/.test(patientPhoneNumber)) {
+          setErrorMessage(
+            'Le numéro de téléphone doit uniquement contenir des chiffres'
+          );
+        } else if (!/^\d{5}$/.test(patientPostalCode)) {
+          setErrorMessage('Le code postal doit être un nombre à 5 chiffres');
+        } else if (!/^[a-zA-Z\s]+$/.test(patientCity)) {
+          setErrorMessage(
+            'Le nom de la ville doit uniquement contenir des lettres et des espaces'
+          );
+        } else if (
+          !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(patientEmail)
+        ) {
+          setErrorMessage("L'adresse e-mail n'est pas valide");
+        } else if (!/^[a-zA-Z\s]+$/.test(patientName)) {
+          setErrorMessage('Le prénom doit uniquement contenir des lettres');
+        } else if (!/^[a-zA-Z\s]+$/.test(patientSurname)) {
+          setErrorMessage(
+            'Le nom de famille doit uniquement contenir des lettres'
+          );
+        } else if (!/^\d{4}-\d{2}-\d{2}$/.test(patientBirthDate)) {
+          setErrorMessage(
+            'La date de naissance doit être au format YYYY-MM-DD'
+          );
+        } else if (new Date(patientBirthDate) >= new Date()) {
+          setErrorMessage(
+            'La date de naissance ne peut pas être dans le futur'
+          );
+        } else {
+          if ([...formData.entries()].length > 0) {
+            updatePromises.push(
+              handlePatientUpdate(formData).then((response) => {
+                if (response) {
+                  updatePatientDataInLocalStorage(
+                    '',
+                    `${formData.get('name')} ${formData.get('surname')}`
+                  );
+                  console.log('Patient updated successfully');
+                }
+              })
+            );
+          }
         }
       }
 
@@ -461,7 +524,9 @@ export default function ProfileCard({
               >
                 {' '}
                 <div className="w-11/12 flex flex-col gap-2 justify-center items-center">
-                  {' '}
+                  {errorMessage && (
+                    <p className="text-red-500 text-base">{errorMessage}</p>
+                  )}{' '}
                   <StandardTextInput
                     patientSection={{
                       isPatientProfileNameModification: true,

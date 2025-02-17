@@ -69,24 +69,12 @@ interface EditPatientModalProps {
 }
 
 export default function EditPatientModal({
-  setIsPhoneNumberEditModalOpen,
-  isPhoneNumberEditModalOpen,
-  phone_number,
-  setNewPhoneNumber,
   setIsPhotoEditModalOpen,
   isPhotoEditModalOpen,
   setNewPhoto,
   old_photo,
   setPreview,
   preview,
-  setIsAddressEditModalOpen,
-  isAddressEditModalOpen,
-  setNewAddress,
-  old_address,
-  old_street_number,
-  old_street_name,
-  old_postal_code,
-  old_city,
   setIsEditInsuranceModalOpen,
   isEditInsuranceModalOpen,
   setNewInsurance,
@@ -95,28 +83,13 @@ export default function EditPatientModal({
   old_end_date,
   old_contract_number,
   old_adherent_code,
-  patientId,
-  setIsEmailEditModalOpen,
-  isEmailEditModalOpen,
-  old_email,
-  setNewEmail,
   setNewInsuranceName,
   setIsEditPasswordModalOpen,
   isEditPasswordModalOpen,
   setNewPassword,
   setIsAddInsuranceModalOpen,
   isAddInsuranceModalOpen,
-  setAddedPatientInsurance,
   setIsInsuranceAdded,
-  setIsNameAndAgeEditModalOpen,
-  isNameAndAgeEditModalOpen,
-  old_name,
-  old_surname,
-  old_birth_date,
-  setNewName,
-  setNewSurname,
-  setNewBirthDate,
-  old_insurance,
   setIsInsuranceEdited,
   setIsPasswordEdited,
 }: EditPatientModalProps) {
@@ -133,26 +106,6 @@ export default function EditPatientModal({
     };
     fetchInsurances();
   }, []);
-
-  const handlePhoneNumberEdit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newPhoneNumber = formData.get('phone_number') as string;
-    if (newPhoneNumber.length !== 10) {
-      setErrorMessage('Le numéro de téléphone doit contenir 10 chiffres');
-    } else if (newPhoneNumber === phone_number) {
-      setErrorMessage(
-        "Le nouveau numéro de téléphone doit être différent de l'ancien"
-      );
-    } else if (newPhoneNumber.match(/^[0-9]+$/) === null) {
-      setErrorMessage(
-        'Le numéro de téléphone doit contenir uniquement des chiffres'
-      );
-    } else {
-      setNewPhoneNumber && setNewPhoneNumber(newPhoneNumber);
-      setIsPhoneNumberEditModalOpen && setIsPhoneNumberEditModalOpen(false);
-    }
-  };
 
   const handlePhotoEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -176,66 +129,6 @@ export default function EditPatientModal({
     }
   };
 
-  const handleAddressEdit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newAddress: { [key: string]: string } = {};
-    const street_number = formData.get('street_number') as string;
-    if (street_number.match(/^[0-9]+$/) === null) {
-      setErrorMessage('Le numéro de rue doit contenir uniquement des chiffres');
-    } else if (street_number.length === 0) {
-      setErrorMessage('Le numéro de rue ne peut pas être vide');
-    } else if (street_number.length > 5) {
-      setErrorMessage('Le numéro de rue doit contenir moins de 6 chiffres');
-    } else {
-      newAddress['street_number'] = street_number;
-    }
-
-    const street_name = formData.get('street_name') as string;
-    if (street_name.length === 0) {
-      setErrorMessage('Le nom de rue ne peut pas être vide');
-    } else if (street_name.length > 50) {
-      setErrorMessage('Le nom de rue doit contenir moins de 50 caractères');
-    } else if (street_name.match(/^[a-zA-Z\s]+$/) === null) {
-      setErrorMessage('Le nom de rue doit contenir uniquement des lettres');
-    } else {
-      newAddress['street_name'] = street_name;
-    }
-
-    const postal_code = formData.get('postal_code') as string;
-    if (postal_code.length === 0) {
-      setErrorMessage('Le code postal ne peut pas être vide');
-    } else if (postal_code.length !== 5) {
-      setErrorMessage('Le code postal doit contenir 5 chiffres');
-    } else if (postal_code.match(/^[0-9]+$/) === null) {
-      setErrorMessage('Le code postal doit contenir uniquement des chiffres');
-    } else {
-      newAddress['postal_code'] = postal_code;
-    }
-
-    const city = formData.get('city') as string;
-    if (city.length === 0) {
-      setErrorMessage('La ville ne peut pas être vide');
-    } else if (city.length > 50) {
-      setErrorMessage('La ville doit contenir moins de 50 caractères');
-    } else if (city.match(/^[a-zA-Z\s]+$/) === null) {
-      setErrorMessage('La ville doit contenir uniquement des lettres');
-    } else {
-      newAddress['city'] = city;
-    }
-
-    const fullAddress = `${street_number} ${street_name}, ${postal_code} ${city}`;
-    newAddress['full_address'] = fullAddress;
-
-    if (
-      Object.keys(newAddress).length === 5 &&
-      Object.values(newAddress).every((value) => value.length > 0)
-    ) {
-      setNewAddress && setNewAddress(newAddress);
-      setIsAddressEditModalOpen && setIsAddressEditModalOpen(false);
-    }
-  };
-
   const handleInsuranceEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -248,6 +141,7 @@ export default function EditPatientModal({
         adherent_code?: string;
       }
     > = {};
+
     const insurance_id = formData.get('insurance_id') as string;
     if (!insurance_id) {
       setErrorMessage('Veuillez choisir une mutuelle');
@@ -256,31 +150,37 @@ export default function EditPatientModal({
     } else {
       newInsuranceData.insurance_id = insurance_id;
     }
+
     const current_date = new Date();
     const start_date = formData.get('start_date') as string;
     if (start_date.length === 0) {
       setErrorMessage('Veuillez choisir une date de début');
-    } else if (new Date(start_date) > current_date) {
-      setErrorMessage(
-        'La date de début doit être ultérieure à la date actuelle'
-      );
     } else if (start_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
       setErrorMessage('Veuillez choisir une date de début valide');
-    } else {
-      newInsuranceData['start_date'] = start_date;
     }
 
     const end_date = formData.get('end_date') as string;
     if (end_date.length === 0) {
       setErrorMessage('Veuillez choisir une date de fin');
-    } else if (new Date(end_date) < current_date) {
-      setErrorMessage(
-        'La date de fin doit être postérieure à la date actuelle'
-      );
     } else if (end_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
       setErrorMessage('Veuillez choisir une date de fin valide');
     } else {
-      newInsuranceData['end_date'] = end_date;
+      const endDateObj = new Date(end_date);
+      const startDateObj = new Date(start_date);
+
+      // Check if end date is within 365 days of start date
+      const diffTime = endDateObj.getTime() - startDateObj.getTime();
+      const diffDays = diffTime / (1000 * 3600 * 24);
+
+      if (diffDays > 365) {
+        setErrorMessage(
+          'La date de fin ne peut pas être plus de 365 jours après la date de début'
+        );
+      } else if (endDateObj < current_date) {
+        setErrorMessage('La date de fin ne peut pas être dans le passé');
+      } else {
+        newInsuranceData['end_date'] = end_date;
+      }
     }
 
     const contract_number = formData.get('contract_number') as string;
@@ -322,24 +222,6 @@ export default function EditPatientModal({
         } as IPatient_Insurance);
       setIsEditInsuranceModalOpen && setIsEditInsuranceModalOpen(false);
       setIsInsuranceEdited && setIsInsuranceEdited(true);
-    }
-  };
-
-  const handleEmailInput = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newEmail = formData.get('email') as string;
-    if (newEmail.length === 0) {
-      setErrorMessage("L'email ne peut pas être vide");
-    } else if (newEmail === old_email) {
-      setErrorMessage("Le nouvel email doit être différent de l'ancien");
-    } else if (
-      newEmail.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/) === null
-    ) {
-      setErrorMessage('Veuillez entrer une adresse email valide');
-    } else {
-      setNewEmail && setNewEmail(newEmail);
-      setIsEmailEditModalOpen && setIsEmailEditModalOpen(false);
     }
   };
 
@@ -390,46 +272,69 @@ export default function EditPatientModal({
   const handleInsuranceAdd = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
     const insurance_id = formData.get('insurance_id') as string;
     if (!insurance_id) {
       setErrorMessage('Veuillez choisir une mutuelle');
-    } else if (insurance_id.match(/^[0-9]+$/) === null) {
+      return;
+    } else if (!/^[0-9]+$/.test(insurance_id)) {
       setErrorMessage('Veuillez choisir une mutuelle valide');
+      return;
     }
-    const current_date = new Date();
+
     const start_date = formData.get('start_date') as string;
-    if (start_date.length === 0) {
+    if (!start_date) {
       setErrorMessage('Veuillez choisir une date de début');
-    } else if (start_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
+      return;
+    } else if (!/^\d{4}-\d{2}-\d{2}$/.test(start_date)) {
       setErrorMessage('Veuillez choisir une date de début valide');
+      return;
     }
 
     const end_date = formData.get('end_date') as string;
-    if (end_date.length === 0) {
+    if (!end_date) {
       setErrorMessage('Veuillez choisir une date de fin');
-    } else if (new Date(end_date) < current_date) {
-      setErrorMessage(
-        'La date de fin doit être postérieure à la date actuelle'
-      );
-    } else if (end_date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
+      return;
+    } else if (!/^\d{4}-\d{2}-\d{2}$/.test(end_date)) {
       setErrorMessage('Veuillez choisir une date de fin valide');
+      return;
+    }
+
+    const startDateObj = new Date(start_date);
+    const endDateObj = new Date(end_date);
+    const timeDifference = endDateObj.getTime() - startDateObj.getTime();
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+    if (endDateObj < startDateObj) {
+      setErrorMessage(
+        'La date de fin doit être postérieure à la date de début'
+      );
+      return;
+    } else if (daysDifference > 365) {
+      setErrorMessage('La mutuelle ne peut pas dépasser 365 jours');
+      return;
     }
 
     const contract_number = formData.get('contract_number') as string;
-    if (contract_number.length === 0) {
+    if (!contract_number) {
       setErrorMessage('Le numéro de contrat ne peut pas être vide');
+      return;
     } else if (contract_number.length > 15) {
       setErrorMessage(
         'Le numéro de contrat doit contenir moins de 15 caractères'
       );
+      return;
     }
 
     const adherent_code = formData.get('adherent_code') as string;
-    if (adherent_code.length === 0) {
+    if (!adherent_code) {
       setErrorMessage('Le code adhérent ne peut pas être vide');
+      return;
     } else if (adherent_code.length > 12) {
       setErrorMessage('Le code adhérent doit contenir moins de 12 caractères');
+      return;
     }
+
     const response = await handlePatientInsuranceAdd(formData);
     if (response) {
       setIsInsuranceAdded && setIsInsuranceAdded(true);
@@ -437,48 +342,6 @@ export default function EditPatientModal({
       window.location.reload();
     } else {
       setErrorMessage('Une erreur est survenue');
-    }
-  };
-
-  const handleNameAndAgeEdit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newName = formData.get('name') as string;
-    if (newName.length === 0) {
-      setErrorMessage('Le nom ne peut pas être vide');
-    } else if (newName.length > 15) {
-      setErrorMessage('Le nom doit contenir moins de 15 caractères');
-    } else if (newName.match(/^[a-zA-Z\s]+$/) === null) {
-      setErrorMessage('Le nom doit contenir uniquement des lettres');
-    } else {
-      setNewName && setNewName(newName);
-    }
-
-    const newSurname = formData.get('surname') as string;
-    if (newSurname.length === 0) {
-      setErrorMessage('Le prénom ne peut pas être vide');
-    } else if (newSurname.length > 50) {
-      setErrorMessage('Le prénom doit contenir moins de 50 caractères');
-    } else if (newSurname.match(/^[a-zA-Z\s]+$/) === null) {
-      setErrorMessage('Le prénom doit contenir uniquement des lettres');
-    } else {
-      setNewSurname && setNewSurname(newSurname);
-    }
-
-    const newBirthDate = formData.get('birth_date') as string;
-    if (newBirthDate.length === 0) {
-      setErrorMessage('La date de naissance ne peut pas être vide');
-    } else if (new Date(newBirthDate) > new Date()) {
-      setErrorMessage('La date de naissance ne peut pas être dans le futur');
-    } else if (newBirthDate.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
-      setErrorMessage('Veuillez entrer une date de naissance valide');
-    } else {
-      setNewBirthDate && setNewBirthDate(newBirthDate);
-      setIsNameAndAgeEditModalOpen && setIsNameAndAgeEditModalOpen(false);
-    }
-
-    if (newName && newSurname && newBirthDate) {
-      setIsNameAndAgeEditModalOpen && setIsNameAndAgeEditModalOpen(false);
     }
   };
 
