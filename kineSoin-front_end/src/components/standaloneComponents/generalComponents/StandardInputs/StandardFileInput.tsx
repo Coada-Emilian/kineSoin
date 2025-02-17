@@ -45,13 +45,22 @@ export default function StandardFileInput({
   const [isAdminTherapistImageUploaded, setIsAdminTherapistImageUploaded] =
     useState<boolean>(false);
 
+  const getLabelContent = () =>
+    isPatientRegisterImageInput
+      ? 'Chargez votre photo'
+      : isNewPrescriptionFileInput
+        ? "Ajouter un scan de l'ordonnance"
+        : isAdminTherapistImageAddInput
+          ? 'Ajouter une photo'
+          : '';
+
+  const labelContent = getLabelContent();
+
   return (
     <div className="mb-4">
       <div className="flex gap-2 items-center mb-2">
         <label className="text-primaryBlue text-sm font-medium">
-          {isPatientRegisterImageInput && 'Chargez votre photo'}
-          {isNewPrescriptionFileInput && "Ajouter un scan de l'ordonnance :"}
-          {isAdminTherapistImageAddInput && 'Ajouter une photo'}
+          {labelContent}
         </label>
 
         {((isPatientRegisterImageInput && isPatientImageUploaded) ||

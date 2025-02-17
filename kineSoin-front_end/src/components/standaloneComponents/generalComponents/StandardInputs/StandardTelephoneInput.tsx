@@ -39,40 +39,45 @@ export default function StandardTelephoneInput({
     string | undefined
   >(patient_phone_number);
 
+  const getInputId = () =>
+    isPatientTelephoneInput
+      ? 'patient-register-telephone_input'
+      : isAdminMedicAddTelephoneInput
+        ? 'admin-medic-add-telephone_input'
+        : isAdminInsuranceAddTelephoneInput
+          ? 'admin-insurance-add-telephone_input'
+          : isAdminTherapistEditTelephoneInput
+            ? 'admin-therapist-edit-telephone_input'
+            : isAdminTherapistAddTelephoneInput
+              ? 'admin-therapist-add-telephone_input'
+              : isAdminMedicEditTelephoneInput
+                ? 'admin-medic-edit-telephone_input'
+                : isAdminInsuranceEditTelephoneInput
+                  ? 'admin-insurance-edit-telephone_input'
+                  : isPatientProfileTelephoneModification
+                    ? 'patient-profile-telephone_input'
+                    : '';
+
+  const getLabelClassName = () => {
+    return `${
+      isAdminTherapistEditTelephoneInput ||
+      isAdminMedicEditTelephoneInput ||
+      isAdminInsuranceEditTelephoneInput
+        ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium'
+        : isPatientProfileTelephoneModification
+          ? 'text-xs md:text-base xl:text-xl w-1/4 text-start text-primaryBlue font-medium md:w-2/3'
+          : 'text-xs text-primaryBlue font-medium'
+    }`;
+  };
+
+  const inputId = getInputId();
+  const labelClassName = getLabelClassName();
+
   return (
     <div
       className={`flex gap-2 items-center mb-4 italic w-full ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'}`}
     >
-      <label
-        htmlFor={
-          isPatientTelephoneInput
-            ? 'patient-register-telephone_input'
-            : isAdminMedicAddTelephoneInput
-              ? 'admin-medic-add-telephone_input'
-              : isAdminInsuranceAddTelephoneInput
-                ? 'admin-insurance-add-telephone_input'
-                : isAdminTherapistEditTelephoneInput
-                  ? 'admin-therapist-edit-telephone_input'
-                  : isAdminTherapistAddTelephoneInput
-                    ? 'admin-therapist-add-telephone_input'
-                    : isAdminMedicEditTelephoneInput
-                      ? 'admin-medic-edit-telephone_input'
-                      : isAdminInsuranceEditTelephoneInput
-                        ? 'admin-insurance-edit-telephone_input'
-                        : isPatientProfileTelephoneModification
-                          ? 'patient-profile-telephone_input'
-                          : ''
-        }
-        className={`${
-          isAdminTherapistEditTelephoneInput ||
-          isAdminMedicEditTelephoneInput ||
-          isAdminInsuranceEditTelephoneInput
-            ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium'
-            : isPatientProfileTelephoneModification
-              ? 'text-xs md:text-base xl:text-xl w-1/4 text-start text-primaryBlue font-medium md:w-2/3'
-              : 'text-xs text-primaryBlue font-medium'
-        }`}
-      >
+      <label htmlFor={inputId} className={labelClassName}>
         {isPatientProfileTelephoneModification
           ? 'N° de téléphone'
           : '   Numero téléphone'}
@@ -81,23 +86,7 @@ export default function StandardTelephoneInput({
       <input
         type="tel"
         name="phone_number"
-        id={
-          isPatientTelephoneInput
-            ? 'patient-register-telephone_input'
-            : isAdminMedicAddTelephoneInput
-              ? 'admin-medic-add-telephone_input'
-              : isAdminInsuranceAddTelephoneInput
-                ? 'admin-insurance-add-telephone_input'
-                : isAdminTherapistEditTelephoneInput
-                  ? 'admin-therapist-edit-telephone_input'
-                  : isAdminTherapistAddTelephoneInput
-                    ? 'admin-therapist-add-telephone_input'
-                    : isAdminMedicEditTelephoneInput
-                      ? 'admin-medic-edit-telephone_input'
-                      : isAdminInsuranceEditTelephoneInput
-                        ? 'admin-insurance-edit-telephone_input'
-                        : ''
-        }
+        id={inputId}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
         placeholder="Numéro de téléphone"
         value={
