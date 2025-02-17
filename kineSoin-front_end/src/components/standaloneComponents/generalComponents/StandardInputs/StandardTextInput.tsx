@@ -320,7 +320,7 @@ export default function StandardTextInput({
     },
     {
       boolean: patientSection?.isAppointmentNumberInput,
-      divClassName: 'w-full flex flex-col mb-4 items-center md:items-start',
+      divClassName: 'w-full flex flex-col items-center md:items-start',
       inputId: 'appointment-number_input',
       labelClassName: 'text-sm',
       labelName: 'Quantité séances prescrites',
@@ -1028,7 +1028,7 @@ export default function StandardTextInput({
       boolean: adminInsurance?.isAdminInsuranceEditAMCCodeInput,
       divClassName: 'flex flex-row items-center gap-2 mb-2 w-full',
       inputId: 'insurance-licence-code_input',
-      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-fit',
+      labelClassName: 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3',
       labelName: 'Code AMC',
       inputName: 'amc_code',
       inputPlaceholder: '',
@@ -1230,7 +1230,7 @@ export default function StandardTextInput({
       autoComplete: 'city',
     },
   ];
-  
+
   return (
     <>
       {standardTextFields.map(

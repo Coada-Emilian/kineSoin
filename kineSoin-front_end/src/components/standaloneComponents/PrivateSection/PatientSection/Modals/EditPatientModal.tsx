@@ -493,20 +493,22 @@ export default function EditPatientModal({
                 />
 
                 <div className="w-full">
-                  <label>Validité :</label>
+                  <label className="text-sm text-primaryBlue font-medium italic w-1/2">
+                    Validité{' '}
+                  </label>
                   <div className="flex gap-1 text-xs md:text-sm justify-between items-center">
                     {' '}
                     <input
                       type="date"
                       defaultValue={old_start_date}
-                      className="border p-2 rounded-lg w-1/3"
+                      className="border p-2 rounded-lg w-1/3 focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent"
                       name="start_date"
                     />
                     <p>au</p>
                     <input
                       type="date"
                       defaultValue={old_end_date}
-                      className="border p-2 rounded-lg  w-1/3"
+                      className="border p-2 rounded-lg  w-1/3 focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent"
                       name="end_date"
                     />
                   </div>
@@ -514,20 +516,24 @@ export default function EditPatientModal({
 
                 <div className="flex gap-2 w-full">
                   <div className="w-1/2 text-xs">
-                    <label>Numero contrat :</label>
+                    <label className="text-sm text-primaryBlue font-medium italic w-1/2">
+                      Numero contrat
+                    </label>
                     <input
                       type="text"
                       defaultValue={old_contract_number}
-                      className="border p-2 rounded-lg w-full"
+                      className="border p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent"
                       name="contract_number"
                     />
                   </div>
                   <div className="w-1/2 text-xs">
-                    <label>Code adherent :</label>
+                    <label className="text-sm text-primaryBlue font-medium italic w-1/2">
+                      Code adherent
+                    </label>
                     <input
                       type="text"
                       defaultValue={old_adherent_code}
-                      className="border p-2 rounded-lg w-full"
+                      className="border p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent"
                       name="adherent_code"
                     />
                   </div>

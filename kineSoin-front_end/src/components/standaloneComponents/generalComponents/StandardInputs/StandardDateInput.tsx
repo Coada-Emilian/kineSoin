@@ -32,15 +32,15 @@ export default function StandardDateInput({
 
   const getDivClassName = () =>
     isNewPrescriptionDateInput
-      ? 'mb-4 flex gap-2 items-center md:items-start'
+      ? 'mb-4 flex flex-col gap-2 items-center md:items-start md:w-full md:text-start'
       : isPatientProfileBirthDateModification
-        ? 'mb-4 flex gap-2 items-center md:items-start w-full'
+        ? 'mb-4 flex gap-2 items-center w-full'
         : 'mb-4 flex gap-2 flex-col';
 
   const getLabelClassName = () =>
     isPatientProfileBirthDateModification
       ? 'text-xxs md:text-base xl:text-xl w-full md:w-1/2 flex text-primaryBlue font-medium italic'
-      : 'text-sm text-primaryBlue font-medium italic';
+      : 'text-sm text-primaryBlue font-medium italic w-1/2';
 
   const getLabelContent = () =>
     isPatientRegisterBirthdateInput
