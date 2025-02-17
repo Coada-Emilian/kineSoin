@@ -75,7 +75,10 @@ export default function StandardTelephoneInput({
 
   return (
     <div
-      className={`flex gap-2 items-center mb-4 italic w-full ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'}`}
+      className={`flex gap-2 mb-2 italic w-full 
+  ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'} 
+  ${isAdminMedicAddTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput || isAdminInsuranceAddTelephoneInput ? 'items-start' : 'items-center'}
+`}
     >
       <label htmlFor={inputId} className={labelClassName}>
         {isPatientProfileTelephoneModification

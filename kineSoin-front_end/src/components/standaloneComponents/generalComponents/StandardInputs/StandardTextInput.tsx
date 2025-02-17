@@ -615,7 +615,7 @@ export default function StandardTextInput({
     },
     {
       boolean: adminAffliction?.isAdminAfflictionAddDescriptionInput,
-      divClassName: 'w-full flex flex-col mb-4',
+      divClassName: 'w-full flex flex-col mb-4 ',
       inputId: 'affliction-description_input',
       labelClassName: 'text-sm',
       labelName: 'Description',
@@ -1269,7 +1269,7 @@ export default function StandardTextInput({
                   onChange={
                     field.inputOnChange as unknown as React.ChangeEventHandler<HTMLTextAreaElement>
                   }
-                  className="mt-1 block text-xs md:text-md xl:text-xl 2xl:text-2xl w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base font-normal "
+                  className="mt-1 block text-xs md:text-md xl:text-xl 2xl:text-2xl w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base font-normal placeholder:text-xs md:placeholder:text-md xl:placeholder:text-lg "
                   cols={32}
                   rows={5}
                 ></textarea>

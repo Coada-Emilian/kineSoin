@@ -94,7 +94,7 @@ export default function PatientNewPrescriptionForm({
 
   return (
     <form
-      className="flex flex-col gap-4 border border-gray-300 p-4 rounded-xl w-3/6 shadow-xl md:w-2/6"
+      className="flex flex-col gap-4 border border-gray-300 p-4 rounded-xl w-4/6 shadow-xl md:w-2/6 text-xs md:text-sm lg:text-base"
       encType="multipart/form-data"
       onSubmit={handleNewPrescriptionAdd}
     >
