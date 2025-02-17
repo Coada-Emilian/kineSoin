@@ -1,7 +1,7 @@
-import type { HomePageArticle } from '../../../../../@types/HomePageArticle';
+import { IHomePageArticle } from '../../../../@types/types';
 
 interface HomePageArticleProps {
-  article: HomePageArticle;
+  article: IHomePageArticle;
 }
 
 export default function HomePageArticle({ article }: HomePageArticleProps) {

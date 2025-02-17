@@ -1,21 +1,21 @@
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
+import CustomButton from '../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
-import StandardPasswordInput from '../../generalComponents/StandardInputs/StandardPasswordInput.tsx';
-import StandardEmailInput from '../../generalComponents/StandardInputs/StandardEmailInput.tsx';
+import StandardPasswordInput from '../generalComponents/StandardInputs/StandardPasswordInput.tsx';
+import StandardEmailInput from '../generalComponents/StandardInputs/StandardEmailInput.tsx';
 import {
   handlePatientLogin,
   handlePatientRegistration,
   handleTherapistConnection,
-} from '../../../../utils/apiUtils';
-import StandardTextInput from '../../generalComponents/StandardInputs/StandardTextInput.tsx';
-import StandardDateInput from '../../generalComponents/StandardInputs/StandardDateInput.tsx';
-import StandardDropdownInput from '../../generalComponents/StandardInputs/StandardDropdownInput.tsx';
-import StandardTelephoneInput from '../../generalComponents/StandardInputs/StandardTelephoneInput.tsx';
-import StandardFileInput from '../../generalComponents/StandardInputs/StandardFileInput.tsx';
+} from '../../../utils/apiUtils';
+import StandardTextInput from '../generalComponents/StandardInputs/StandardTextInput.tsx';
+import StandardDateInput from '../generalComponents/StandardInputs/StandardDateInput.tsx';
+import StandardDropdownInput from '../generalComponents/StandardInputs/StandardDropdownInput.tsx';
+import StandardTelephoneInput from '../generalComponents/StandardInputs/StandardTelephoneInput.tsx';
+import StandardFileInput from '../generalComponents/StandardInputs/StandardFileInput.tsx';
 import { useNavigate } from 'react-router-dom';
-import DNALoader from '../../../../utils/DNALoader.tsx';
+import DNALoader from '../../../utils/DNALoader.tsx';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;

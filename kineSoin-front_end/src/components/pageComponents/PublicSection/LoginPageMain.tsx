@@ -1,5 +1,5 @@
-import PublicMain from '../../standaloneComponents/PublicSection/PublicMain/PublicMain';
 import { ReactNode } from 'react';
+import PublicMain from '../../standaloneComponents/PublicSection/PublicMain';
 
 interface LoginPageProps {
   isPatientLoginMain?: boolean;
