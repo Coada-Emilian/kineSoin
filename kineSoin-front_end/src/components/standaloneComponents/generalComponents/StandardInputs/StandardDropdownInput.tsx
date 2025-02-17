@@ -189,133 +189,148 @@ export default function StandardChoiceDropdown({
     }
   }, [isCountryDropdownInput]);
 
-  return (
-    <div
-      className={`${
-        (isCountryDropdownInput && !isPatientProfilePrefixModification) ||
-        isAdminAfflictionAddOperatedStatusInput
-          ? 'w-1/3'
-          : isAdminAfflictionEditRegionInput ||
-              isAdminAfflictionEditOperatedStatusInput
-            ? 'flex flex-row items-center gap-2 mb-2 w-full'
-            : isMedicDropdownInput ||
-                isAtHomeCareDropdownInput ||
-                isAfflictionDropdownInput
-              ? 'flex flex-col items-center md:items-start'
-              : isPatientProfilePrefixModification
-                ? 'flex flex-row items-center gap-2 mb-2 w-full md:w-1/3 md:gap-4'
-                : ''
-      } mb-4 italic`}
-    >
-      <label
-        htmlFor={
-          isGenderDropdownInput
-            ? 'patient-register-gender_dropdown'
-            : isMedicDropdownInput
-              ? 'new-prescription-medic_dropdown'
-              : isAtHomeCareDropdownInput
-                ? 'patient-register-at_home_care_dropdown'
-                : isAfflictionDropdownInput
-                  ? 'new-prescription-affliction_dropdown'
-                  : isCountryDropdownInput
-                    ? 'country_prefix_dropdown'
-                    : isAdminTherapistAddStatusInput
-                      ? 'therapist-status_dropdown'
-                      : isAdminAfflictionAddRegionInput ||
-                          isAdminAfflictionEditRegionInput
-                        ? 'body-region_dropdown'
-                        : isAdminAfflictionAddOperatedStatusInput ||
-                            isAdminAfflictionEditOperatedStatusInput
-                          ? 'affliction-operated_status_dropdown'
-                          : isAdminTherapistEditPrefixDropdown ||
-                              isAdminMedicEditPrefixDropdown ||
-                              isAdminInsuranceEditPrefixDropdown ||
-                              isPatientProfilePrefixModification
-                            ? 'country_prefix_dropdown'
-                            : ''
-        }
-        className={`${
-          isCountryDropdownInput &&
-          !isAdminTherapistEditPrefixDropdown &&
-          !isAdminMedicEditPrefixDropdown &&
-          !isAdminInsuranceEditPrefixDropdown &&
-          !isPatientProfilePrefixModification
-            ? 'text-xs'
-            : isAdminAfflictionEditRegionInput ||
-                isAdminAfflictionEditOperatedStatusInput ||
-                isAdminTherapistEditPrefixDropdown ||
-                isAdminMedicEditPrefixDropdown ||
-                isAdminInsuranceEditPrefixDropdown
-              ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3 mb-2'
-              : isPatientProfilePrefixModification
-                ? 'text-xs md:text-base xl:text-xl w-1/4 text-start flex justify-center'
-                : ''
-        } text-primaryBlue text-sm font-medium block`}
-      >
-        {isGenderDropdownInput && 'Genre'}{' '}
-        {isMedicDropdownInput && 'Médecin prescripteur'}
-        {isAtHomeCareDropdownInput && 'A domicile ?'}
-        {isAfflictionDropdownInput && 'Affection concernée'}
-        {isPatientInsuranceDropdownInput && 'Nom mutuelle'}
-        {(isCountryDropdownInput ||
+  const getDivClassName = () =>
+    (isCountryDropdownInput && !isPatientProfilePrefixModification) ||
+    isAdminAfflictionAddOperatedStatusInput
+      ? 'w-1/3 mb-4 italic'
+      : isAdminAfflictionEditRegionInput ||
+          isAdminAfflictionEditOperatedStatusInput
+        ? 'flex flex-row items-center gap-2 mb-2 w-full mb-4 italic'
+        : isMedicDropdownInput ||
+            isAtHomeCareDropdownInput ||
+            isAfflictionDropdownInput
+          ? 'flex flex-col items-center md:items-start mb-4 italic'
+          : isPatientProfilePrefixModification
+            ? 'flex flex-row items-center gap-2 mb-2 w-full md:w-1/3 md:gap-4 mb-4 italic'
+            : 'mb-4 italic';
+
+  const getLabelId = () =>
+    isGenderDropdownInput
+      ? 'patient-register-gender_dropdown'
+      : isMedicDropdownInput
+        ? 'new-prescription-medic_dropdown'
+        : isAtHomeCareDropdownInput
+          ? 'patient-register-at_home_care_dropdown'
+          : isAfflictionDropdownInput
+            ? 'new-prescription-affliction_dropdown'
+            : isCountryDropdownInput
+              ? 'country_prefix_dropdown'
+              : isAdminTherapistAddStatusInput
+                ? 'therapist-status_dropdown'
+                : isAdminAfflictionAddRegionInput ||
+                    isAdminAfflictionEditRegionInput
+                  ? 'body-region_dropdown'
+                  : isAdminAfflictionAddOperatedStatusInput ||
+                      isAdminAfflictionEditOperatedStatusInput
+                    ? 'affliction-operated_status_dropdown'
+                    : isAdminTherapistEditPrefixDropdown ||
+                        isAdminMedicEditPrefixDropdown ||
+                        isAdminInsuranceEditPrefixDropdown ||
+                        isPatientProfilePrefixModification
+                      ? 'country_prefix_dropdown'
+                      : '';
+
+  const getLabelClassName = () =>
+    isCountryDropdownInput &&
+    !isAdminTherapistEditPrefixDropdown &&
+    !isAdminMedicEditPrefixDropdown &&
+    !isAdminInsuranceEditPrefixDropdown &&
+    !isPatientProfilePrefixModification
+      ? 'text-xs text-primaryBlue font-medium block'
+      : isAdminAfflictionEditRegionInput ||
+          isAdminAfflictionEditOperatedStatusInput ||
           isAdminTherapistEditPrefixDropdown ||
           isAdminMedicEditPrefixDropdown ||
-          isAdminInsuranceEditPrefixDropdown ||
-          isPatientProfilePrefixModification) &&
-          'Préfixe'}
-        {isAdminTherapistAddStatusInput && 'Statut'}
-        {(isAdminAfflictionAddRegionInput ||
-          isAdminAfflictionEditRegionInput) &&
-          'Région concernée'}
-        {(isAdminAfflictionAddOperatedStatusInput ||
-          isAdminAfflictionEditOperatedStatusInput) &&
-          windowWidth > 768 &&
-          'Est opéré ?'}
-        {isAdminAfflictionAddOperatedStatusInput &&
-          windowWidth <= 768 &&
-          'Opéré ?'}
+          isAdminInsuranceEditPrefixDropdown
+        ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl w-1/3 mb-2 text-primaryBlue font-medium block'
+        : isPatientProfilePrefixModification
+          ? 'text-xs md:text-base xl:text-xl w-1/4 text-start flex justify-center text-primaryBlue font-medium block'
+          : 'text-primaryBlue text-sm font-medium block';
+
+  const getLabelContent = () => {
+    return isGenderDropdownInput
+      ? 'Genre'
+      : isMedicDropdownInput
+        ? 'Médecin prescripteur'
+        : isAtHomeCareDropdownInput
+          ? 'A domicile ?'
+          : isAfflictionDropdownInput
+            ? 'Affection concernée'
+            : isPatientInsuranceDropdownInput
+              ? 'Nom mutuelle'
+              : isCountryDropdownInput ||
+                  isAdminTherapistEditPrefixDropdown ||
+                  isAdminMedicEditPrefixDropdown ||
+                  isAdminInsuranceEditPrefixDropdown ||
+                  isPatientProfilePrefixModification
+                ? 'Préfixe'
+                : isAdminTherapistAddStatusInput
+                  ? 'Statut'
+                  : isAdminAfflictionAddRegionInput ||
+                      isAdminAfflictionEditRegionInput
+                    ? 'Région concernée'
+                    : isAdminAfflictionAddOperatedStatusInput ||
+                        isAdminAfflictionEditOperatedStatusInput
+                      ? windowWidth > 768
+                        ? 'Est opéré ?'
+                        : 'Opéré ?'
+                      : '';
+  };
+
+  const getInputValue = () =>
+    isGenderDropdownInput && registeredPatientGender
+      ? registeredPatientGender
+      : isAdminTherapistEditPrefixDropdown && therapist_prefix
+        ? therapist_prefix
+        : isAdminMedicEditPrefixDropdown && medic_prefix
+          ? medic_prefix
+          : isAdminInsuranceEditPrefixDropdown && insurance_prefix
+            ? insurance_prefix
+            : isPatientProfilePrefixModification && patient_prefix
+              ? (patientPrefix ?? '')
+              : undefined;
+
+  const getInputClassName = () => {
+    return `${isPatientProfilePrefixModification ? 'w-full md:w-2/4' : 'w-full'} block p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent`;
+  };
+
+  const getInputName = () =>
+    isPatientInsuranceDropdownInput
+      ? 'insurance_id'
+      : isCountryDropdownInput
+        ? 'prefix'
+        : isAdminTherapistAddStatusInput
+          ? 'status'
+          : isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput
+            ? 'body_region_id'
+            : isAdminAfflictionAddOperatedStatusInput ||
+                isAdminAfflictionEditOperatedStatusInput
+              ? 'is_operated'
+              : isAtHomeCareDropdownInput
+                ? 'at_home_care'
+                : isMedicDropdownInput
+                  ? 'medic_id'
+                  : isAfflictionDropdownInput
+                    ? 'affliction_id'
+                    : '';
+
+  const divClassName = getDivClassName();
+  const id = getLabelId();
+  const labelClassName = getLabelClassName();
+  const labelContent = getLabelContent();
+  const inputValue = getInputValue();
+  const inputClassName = getInputClassName();
+  const inputName = getInputName();
+
+  return (
+    <div className={divClassName}>
+      <label htmlFor={id} className={labelClassName}>
+        {labelContent}
       </label>
 
       <select
-        id={
-          isGenderDropdownInput
-            ? 'patient-register-gender_dropdown'
-            : isMedicDropdownInput
-              ? 'new-prescription-medic_dropdown'
-              : isAtHomeCareDropdownInput
-                ? 'patient-register-at_home_care_dropdown'
-                : isAfflictionDropdownInput
-                  ? 'new-prescription-affliction_dropdown'
-                  : isCountryDropdownInput
-                    ? 'country_prefix_dropdown'
-                    : isAdminTherapistAddStatusInput
-                      ? 'therapist-status_dropdown'
-                      : isAdminAfflictionAddRegionInput ||
-                          isAdminAfflictionEditRegionInput
-                        ? 'body-region_dropdown'
-                        : isAdminAfflictionAddOperatedStatusInput ||
-                            isAdminAfflictionEditOperatedStatusInput
-                          ? 'affliction-operated_status_dropdown'
-                          : isAdminTherapistEditPrefixDropdown ||
-                              isAdminMedicEditPrefixDropdown ||
-                              isAdminInsuranceEditPrefixDropdown ||
-                              isPatientProfilePrefixModification
-                            ? 'country_prefix_dropdown'
-                            : ''
-        }
-        value={
-          isGenderDropdownInput && registeredPatientGender
-            ? registeredPatientGender
-            : isAdminTherapistEditPrefixDropdown && therapist_prefix
-              ? therapist_prefix
-              : isAdminMedicEditPrefixDropdown && medic_prefix
-                ? medic_prefix
-                : isAdminInsuranceEditPrefixDropdown && insurance_prefix
-                  ? insurance_prefix
-                  : isPatientProfilePrefixModification && patient_prefix
-                    ? (patientPrefix ?? '')
-                    : undefined
-        }
+        id={id}
+        value={inputValue}
         onChange={(e) => {
           if (isGenderDropdownInput && setRegisteredPatientGender) {
             setRegisteredPatientGender(e.target.value);
@@ -347,28 +362,8 @@ export default function StandardChoiceDropdown({
             setPatientPrefix(e.target.value);
           }
         }}
-        className={`${isPatientProfilePrefixModification ? 'w-full md:w-2/4' : 'w-full'} block p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent`}
-        name={
-          isPatientInsuranceDropdownInput
-            ? 'insurance_id'
-            : isCountryDropdownInput
-              ? 'prefix'
-              : isAdminTherapistAddStatusInput
-                ? 'status'
-                : isAdminAfflictionAddRegionInput ||
-                    isAdminAfflictionEditRegionInput
-                  ? 'body_region_id'
-                  : isAdminAfflictionAddOperatedStatusInput ||
-                      isAdminAfflictionEditOperatedStatusInput
-                    ? 'is_operated'
-                    : isAtHomeCareDropdownInput
-                      ? 'at_home_care'
-                      : isMedicDropdownInput
-                        ? 'medic_id'
-                        : isAfflictionDropdownInput
-                          ? 'affliction_id'
-                          : ''
-        }
+        className={inputClassName}
+        name={inputName}
       >
         {isGenderDropdownInput && (
           <>
