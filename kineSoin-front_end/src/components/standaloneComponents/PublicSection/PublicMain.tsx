@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import PublicMainDescriptionSection from '../PublicMainDescriptionSection/PublicMainDescriptionSection';
-import PublicMainFormSection from '../PublicMainFormSection/PublicMainFormSection';
-import PublicHeadBand from '../PublicHeadBand/PublicHeadBand';
+import PublicMainFormSection from './PublicMainFormSection';
+import PublicHeadBand from './PublicHeadBand';
+import PublicMainDescriptionSection from './PublicMainDescriptionSection/PublicMainDescriptionSection';
 
 interface PublicMainProps {
   isHomePageMain?: boolean;

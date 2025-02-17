@@ -168,7 +168,7 @@ export interface IAffliction {
   body_region?: IBodyRegion;
 }
 
-export interface HomePageArticle {
+export interface IHomePageArticle {
   imgSrc: string;
   title: string;
   description: string;

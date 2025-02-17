@@ -70,6 +70,23 @@ export default function PrivateMain({
     navigate('/patient/appointments');
   };
 
+  const fetchParagraph = () =>
+    isPatientDashboardMain
+      ? 'Rendez-vous à venir'
+      : isPatientPrescriptionMain
+        ? 'Ajouter une nouvelle ordonnance'
+        : isPatientAppointmentsMain
+          ? 'Mes rendez-vous'
+          : isPatientMessagesMain
+            ? 'Mes messages'
+            : isPatientTherapistPage
+              ? 'Mon thérapeute'
+              : isPatientDetailsMain
+                ? 'Mes informations'
+                : '';
+
+  const paragraph = fetchParagraph();
+
   return (
     <>
       {isPatientMain && (
@@ -86,14 +103,7 @@ export default function PrivateMain({
             )}
 
             <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
-              <p className="text-xl font-semibold italic mb-2 ">
-                {isPatientDashboardMain && 'Rendez-vous à venir'}
-                {isPatientPrescriptionMain && 'Ajouter une nouvelle ordonnance'}
-                {isPatientAppointmentsMain && 'Mes rendez-vous'}
-                {isPatientMessagesMain && 'Mes messages'}
-                {isPatientTherapistPage && 'Mon thérapeute'}
-                {isPatientDetailsMain && 'Mes informations'}
-              </p>
+              <p className="text-xl font-semibold italic mb-2 ">{paragraph}</p>
 
               {isPatientDashboardMain && (
                 <>

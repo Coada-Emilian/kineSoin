@@ -101,13 +101,7 @@ function App() {
   const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
     useState<boolean>(false);
 
-  useEffect(() => {
-    console.log('TODO: make sure insurance validity is one year');
-    console.log(
-      'TODO: make sure add insurance is working, contract numbers still need to be unique apparently'
-    );
-    console.log('TODO: add form validation to profile modification forms');
-  }, []);
+  useEffect(() => {}, []);
 
   // useEffect to check if the admin is authenticated
   useEffect(() => {
