@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import UserHeadband from '../UserHeadband/UserHeadband';
+import UserHeadband from '../../generalComponents/UserHeadband/UserHeadband';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import { fetchPatientAppointments } from '../../../../utils/apiUtils';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';

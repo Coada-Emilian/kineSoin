@@ -19,21 +19,34 @@ export default function StandardEmailInput({
   isPatientProfileEmailModification,
   patient_email,
 }: StandardEmailInputProps) {
-  const getInputId = () => {
-    if (isPatientLoginPageEmailInput) return 'patient-connexion-email_input';
-    if (isTherapistLoginPageEmailInput)
-      return 'therapist-connexion-email_input';
-    if (isPatientRegisterEmailInput) return 'patient-register-email_input';
-    if (isAdminEmailInput) return 'admin-email_input';
-    if (isAdminTherapistAddEmailInput) return 'admin-therapist-email_input';
-    if (isPatientProfileEmailModification) return 'patient_email_input';
-  };
+  const getInputId = () =>
+    isPatientLoginPageEmailInput
+      ? 'patient-connexion-email_input'
+      : isTherapistLoginPageEmailInput
+        ? 'therapist-connexion-email_input'
+        : isPatientRegisterEmailInput
+          ? 'patient-register-email_input'
+          : isAdminEmailInput
+            ? 'admin-email_input'
+            : isAdminTherapistAddEmailInput
+              ? 'admin-therapist-email_input'
+              : isPatientProfileEmailModification
+                ? 'patient_email_input'
+                : '';
 
   const [patientEmail, setPatientEmail] = useState(
     patient_email ? patient_email : ''
   );
 
+  const getInputClassName = () => {
+    return `${
+      isPatientProfileEmailModification ? 'w-full' : 'w-full'
+    } px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50`;
+  };
+
   const inputId = getInputId();
+  const inputClassName = getInputClassName();
+  
   const placeholder = isAdminTherapistAddEmailInput
     ? 'E-mail du kinésithérapeute'
     : isPatientProfileEmailModification
@@ -63,9 +76,7 @@ export default function StandardEmailInput({
         type="email"
         name="email"
         id={inputId}
-        className={`${
-          isPatientProfileEmailModification ? 'w-full' : 'w-full'
-        } px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50`}
+        className={inputClassName}
         placeholder={placeholder}
         required
         value={patientEmail}
