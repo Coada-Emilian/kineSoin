@@ -89,7 +89,7 @@ export default function ButtonsSection({
   setIsDeleteModalOpen,
 }: ButtonsSectionProps) {
   return (
-    <div className="buttons flex gap-2 items-center justify-between mb-6 md:w-1/2">
+    <div className="buttons flex gap-2 items-center justify-between mb-6 px-2 md:w-1/2">
       {isProfileEditing ? (
         <>
           {therapist && (

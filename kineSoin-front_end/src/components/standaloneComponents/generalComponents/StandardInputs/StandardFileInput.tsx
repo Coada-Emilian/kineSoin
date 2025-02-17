@@ -57,7 +57,7 @@ export default function StandardFileInput({
   const labelContent = getLabelContent();
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 flex flex-col gap-2 items-center md:items-start">
       <div className="flex gap-2 items-center mb-2">
         <label className="text-primaryBlue text-sm font-medium">
           {labelContent}
@@ -70,14 +70,14 @@ export default function StandardFileInput({
         )}
       </div>
 
-      <div className="flex rounded-md shadow-sm border">
+      <div className="flex rounded-md shadow-sm border md:w-full">
         {(isPatientRegisterImageInput ||
           isAdminTherapistImageAddInput ||
           isNewPrescriptionFileInput) && (
           <>
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic"
+              className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic "
               value={fileName}
               onChange={() => {}}
               readOnly
