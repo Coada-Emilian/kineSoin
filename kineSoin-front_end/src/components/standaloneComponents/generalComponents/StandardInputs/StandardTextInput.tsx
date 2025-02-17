@@ -6,7 +6,6 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/types';
-import { boolean } from 'joi';
 
 interface GeneralInputProps {
   isNameInput?: boolean;
@@ -221,6 +220,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: patientRegister?.isSurnameInput,
@@ -236,6 +236,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'surname',
     },
     {
       boolean: patientRegister?.isBirthNameInput,
@@ -251,6 +252,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'birth-name',
     },
     {
       boolean: patientRegister?.isStreetNumberInput,
@@ -266,6 +268,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-number',
     },
     {
       boolean: patientRegister?.isStreetNameInput,
@@ -281,6 +284,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-name',
     },
     {
       boolean: patientRegister?.isPostalCodeInput,
@@ -296,6 +300,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'postal-code',
     },
     {
       boolean: patientRegister?.isCityInput,
@@ -311,6 +316,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'city',
     },
     {
       boolean: patientSection?.isAppointmentNumberInput,
@@ -326,6 +332,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'appointment-quantity',
     },
     {
       boolean: patientSection?.isPatientMessageInput,
@@ -341,6 +348,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: false,
       generalLabelClassName: true,
+      autoComplete: 'content',
     },
     {
       boolean: adminTherapist?.isAdminTherapistAddNameInput,
@@ -356,6 +364,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminTherapist?.isAdminTherapistAddSurnameInput,
@@ -371,6 +380,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'surname',
     },
     {
       boolean: adminTherapist?.isAdminTherapistAddLicenceCodeInput,
@@ -386,6 +396,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'licence-code',
     },
     {
       boolean: adminTherapist?.isAdminTherapistAddDiplomaInput,
@@ -401,6 +412,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'diploma',
     },
     {
       boolean: adminTherapist?.isAdminTherapistAddExperienceInput,
@@ -416,6 +428,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'experience',
     },
     {
       boolean: adminTherapist?.isAdminTherapistAddSpecialtyInput,
@@ -431,6 +444,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'specialty',
     },
     {
       boolean: adminTherapist?.isAdminTherapistAddDescriptionInput,
@@ -446,6 +460,7 @@ export default function StandardTextInput({
       textArea: true,
       generalDivClassName: false,
       generalLabelClassName: true,
+      autoComplete: 'description',
     },
     {
       boolean: adminTherapist?.isAdminTherapistEditSurnameInput,
@@ -462,6 +477,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'surname',
     },
     {
       boolean: adminTherapist?.isAdminTherapistEditNameInput,
@@ -478,6 +494,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminTherapist?.isAdminTherapistEditLicenceCodeInput,
@@ -494,6 +511,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'licence-code',
     },
     {
       boolean: adminTherapist?.isAdminTherapistEditDiplomaInput,
@@ -510,6 +528,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'diploma',
     },
     {
       boolean: adminTherapist?.isAdminTherapistEditExperienceInput,
@@ -526,6 +545,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'experience',
     },
     {
       boolean: adminTherapist?.isAdminTherapistEditSpecialtyInput,
@@ -542,6 +562,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'specialty',
     },
     {
       boolean: adminTherapist?.isAdminTherapistEditDescriptionInput,
@@ -558,6 +579,7 @@ export default function StandardTextInput({
       textArea: true,
       generalDivClassName: false,
       generalLabelClassName: true,
+      autoComplete: 'description',
     },
     {
       boolean: adminAffliction?.isAdminAfflictionAddNameInput,
@@ -573,6 +595,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminAffliction?.isAdminAfflictionAddLicenceCodeInput,
@@ -588,6 +611,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'insurance-code',
     },
     {
       boolean: adminAffliction?.isAdminAfflictionAddDescriptionInput,
@@ -603,6 +627,7 @@ export default function StandardTextInput({
       textArea: true,
       generalDivClassName: false,
       generalLabelClassName: true,
+      autoComplete: 'description',
     },
     {
       boolean: adminAffliction?.isAdminAfflictionEditNameInput,
@@ -619,6 +644,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminAffliction?.isAdminAfflictionEditInsuranceCodeInput,
@@ -635,6 +661,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'insurance-code',
     },
     {
       boolean: adminAffliction?.isAdminAfflictionEditDescriptionInput,
@@ -651,6 +678,7 @@ export default function StandardTextInput({
       textArea: true,
       generalDivClassName: false,
       generalLabelClassName: true,
+      autoComplete: 'description',
     },
     {
       boolean: adminMedic?.isAdminMedicAddNameInput,
@@ -666,6 +694,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminMedic?.isAdminMedicAddSurnameInput,
@@ -681,6 +710,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'surname',
     },
     {
       boolean: adminMedic?.isAdminMedicAddLicenceCodeInput,
@@ -696,6 +726,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'licence-code',
     },
     {
       boolean: adminMedic?.isAdminMedicAddStreetNumberInput,
@@ -711,6 +742,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-number',
     },
     {
       boolean: adminMedic?.isAdminMedicAddStreetNameInput,
@@ -726,6 +758,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-name',
     },
     {
       boolean: adminMedic?.isAdminMedicAddPostalCodeInput,
@@ -741,6 +774,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'postal-code',
     },
     {
       boolean: adminMedic?.isAdminMedicAddCityInput,
@@ -756,6 +790,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'city',
     },
     {
       boolean: adminMedic?.isAdminMedicEditNameInput,
@@ -772,6 +807,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminMedic?.isAdminMedicEditSurnameInput,
@@ -788,6 +824,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'surname',
     },
     {
       boolean: adminMedic?.isAdminMedicEditLicenceCodeInput,
@@ -804,6 +841,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'licence-code',
     },
     {
       boolean: adminMedic?.isAdminMedicEditStreetNumberInput,
@@ -820,6 +858,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-number',
     },
     {
       boolean: adminMedic?.isAdminMedicEditStreetNameInput,
@@ -836,6 +875,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-name',
     },
     {
       boolean: adminMedic?.isAdminMedicEditPostalCodeInput,
@@ -852,6 +892,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'postal-code',
     },
     {
       boolean: adminMedic?.isAdminMedicEditCityInput,
@@ -868,6 +909,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'city',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceAddNameInput,
@@ -883,6 +925,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceAddLicenceCodeInput,
@@ -898,6 +941,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'amc-code',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceAddStreetNumberInput,
@@ -913,6 +957,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-number',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceAddStreetNameInput,
@@ -928,6 +973,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-name',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceAddPostalCodeInput,
@@ -943,6 +989,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'postal-code',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceAddCityInput,
@@ -958,6 +1005,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'city',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceEditNameInput,
@@ -974,6 +1022,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceEditAMCCodeInput,
@@ -990,6 +1039,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'amc-code',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceEditStreetNumberInput,
@@ -1006,6 +1056,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-number',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceEditStreetNameInput,
@@ -1022,6 +1073,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-name',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceEditPostalCodeInput,
@@ -1038,6 +1090,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'postal-code',
     },
     {
       boolean: adminInsurance?.isAdminInsuranceEditCityInput,
@@ -1054,6 +1107,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'city',
     },
     {
       boolean: adminRegion?.isAdminRegionAddNameInput,
@@ -1069,6 +1123,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: patientSection?.isPatientProfileNameModification,
@@ -1085,6 +1140,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'name',
     },
     {
       boolean: patientSection?.isPatientProfileSurnameModification,
@@ -1101,6 +1157,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'surname',
     },
     {
       boolean: patientSection?.isPatientProfileStreetNumberModification,
@@ -1117,6 +1174,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-number',
     },
     {
       boolean: patientSection?.isPatientProfileStreetNameModification,
@@ -1134,6 +1192,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'street-name',
     },
     {
       boolean: patientSection?.isPatientProfilePostalCodeModification,
@@ -1150,6 +1209,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'postal-code',
     },
     {
       boolean: patientSection?.isPatientProfileCityModification,
@@ -1167,6 +1227,7 @@ export default function StandardTextInput({
       textArea: false,
       generalDivClassName: true,
       generalLabelClassName: true,
+      autoComplete: 'city',
     },
   ];
   return (
@@ -1196,6 +1257,7 @@ export default function StandardTextInput({
                   onChange={
                     field.inputOnChange as React.ChangeEventHandler<HTMLInputElement>
                   }
+                  autoComplete={field.autoComplete}
                 />
               ) : (
                 <textarea

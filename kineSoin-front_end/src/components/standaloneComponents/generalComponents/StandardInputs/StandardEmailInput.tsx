@@ -58,6 +58,7 @@ export default function StandardEmailInput({
       >
         E-mail
       </label>
+
       <input
         type="email"
         name="email"
@@ -69,6 +70,7 @@ export default function StandardEmailInput({
         required
         value={patientEmail}
         onChange={(e) => setPatientEmail(e.target.value)}
+        autoComplete="email"
       />
     </div>
   );
