@@ -1,16 +1,16 @@
 import PrivateMain from '../../standaloneComponents/PrivateSection/PrivateMain';
 
-interface PatientDashboardProps {
+interface TherapistDashboardProps {
   windowWidth?: number;
 }
 
-export default function PatientDashboard({
+export default function TherapistDashboard({
   windowWidth,
-}: PatientDashboardProps) {
+}: TherapistDashboardProps) {
   return (
     <PrivateMain
-      isPatientDashboardMain
-      isPatientMain
+      isTherapistDashboardMain
+      isTherapistMain
       windowWidth={windowWidth}
     />
   );

@@ -1,4 +1,4 @@
-import PrivateMain from '../../standaloneComponents/PrivateSection/PatientSection/PrivateMain';
+import PrivateMain from '../../standaloneComponents/PrivateSection/PrivateMain';
 
 interface PatientAppointmentsPageMainProps {
   windowWidth?: number;

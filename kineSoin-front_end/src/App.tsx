@@ -28,6 +28,7 @@ import PatientAppointmentsPageMain from './components/pageComponents/PatientSect
 import PatientTherapistPageMain from './components/pageComponents/PatientSection/PatientTherapistPageMain';
 import PatientMessagesPageMain from './components/pageComponents/PatientSection/PatientMessagesPageMain';
 import PatientDetailsPageMain from './components/pageComponents/PatientSection/PatientDetailsPageMain';
+import TherapistDashboardPageMain from './components/pageComponents/TherapistSection/TherapistDashboardPageMain';
 
 interface LayoutProps {
   windowWidth: number;
@@ -411,6 +412,10 @@ function App() {
             />
           }
         >
+          <Route
+            path="dashboard"
+            element={<TherapistDashboardPageMain windowWidth={windowWidth} />}
+          />
           <Route
             path="*"
             element={<ErrorPage isUnconnectedTherapistErrorPage />}

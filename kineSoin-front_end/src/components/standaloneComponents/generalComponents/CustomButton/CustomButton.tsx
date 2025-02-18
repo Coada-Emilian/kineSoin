@@ -90,6 +90,7 @@ export default function CustomButton({
     } else if (
       patientNotificationButton ||
       patientLogoutButton ||
+      therapistLogoutButton ||
       therapistNotificationButton
     ) {
       return 'md:bg-primaryTeal md:hover:bg-secondaryTeal';
