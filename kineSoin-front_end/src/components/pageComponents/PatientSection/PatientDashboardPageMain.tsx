@@ -1,17 +1,5 @@
-import PrivateMain from '../../standaloneComponents/PrivateSection/PrivateMain';
+import PatientMain from '../../standaloneComponents/PrivateSection/PatientSection/PatientMain';
 
-interface PatientDashboardProps {
-  windowWidth?: number;
-}
-
-export default function PatientDashboard({
-  windowWidth,
-}: PatientDashboardProps) {
-  return (
-    <PrivateMain
-      isPatientDashboardMain
-      isPatientMain
-      windowWidth={windowWidth}
-    />
-  );
+export default function PatientDashboard() {
+  return <PatientMain isPatientDashboardMain />;
 }

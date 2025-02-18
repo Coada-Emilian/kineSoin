@@ -1,17 +1,5 @@
-import PrivateMain from '../../standaloneComponents/PrivateSection/PrivateMain';
+import TherapistMain from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistMain';
 
-interface TherapistDashboardProps {
-  windowWidth?: number;
-}
-
-export default function TherapistDashboard({
-  windowWidth,
-}: TherapistDashboardProps) {
-  return (
-    <PrivateMain
-      isTherapistDashboardMain
-      isTherapistMain
-      windowWidth={windowWidth}
-    />
-  );
+export default function TherapistDashboardPageMain() {
+  return <TherapistMain isTherapistDashboardMain />;
 }

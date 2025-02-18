@@ -1,17 +1,5 @@
-import PrivateMain from '../../standaloneComponents/PrivateSection/PrivateMain';
+import PatientMain from '../../standaloneComponents/PrivateSection/PatientSection/PatientMain';
 
-interface PatientTherapistPageMainProps {
-  windowWidth?: number;
-}
-
-export default function PatientTherapistPageMain({
-  windowWidth,
-}: PatientTherapistPageMainProps) {
-  return (
-    <PrivateMain
-      isPatientMain
-      windowWidth={windowWidth}
-      isPatientTherapistPage
-    />
-  );
+export default function PatientTherapistPageMain() {
+  return <PatientMain isPatientTherapistPage />;
 }

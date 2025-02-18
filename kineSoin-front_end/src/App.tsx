@@ -357,30 +357,18 @@ function App() {
             />
           }
         >
-          <Route
-            path="dashboard"
-            element={<PatientDashboardPageMain windowWidth={windowWidth} />}
-          />
+          <Route path="dashboard" element={<PatientDashboardPageMain />} />
           <Route
             path="new-prescription"
-            element={<PatientPrescriptionPageMain windowWidth={windowWidth} />}
+            element={<PatientPrescriptionPageMain />}
           ></Route>
           <Route
             path="appointments"
-            element={<PatientAppointmentsPageMain windowWidth={windowWidth} />}
+            element={<PatientAppointmentsPageMain />}
           />
-          <Route
-            path="messages"
-            element={<PatientMessagesPageMain windowWidth={windowWidth} />}
-          />
-          <Route
-            path="my-therapist"
-            element={<PatientTherapistPageMain windowWidth={windowWidth} />}
-          />
-          <Route
-            path="my-info"
-            element={<PatientDetailsPageMain windowWidth={windowWidth} />}
-          />
+          <Route path="messages" element={<PatientMessagesPageMain />} />
+          <Route path="my-therapist" element={<PatientTherapistPageMain />} />
+          <Route path="my-info" element={<PatientDetailsPageMain />} />
           <Route path="*" element={<ErrorPage isConnectedPatientErrorPage />} />
         </Route>
       ) : (
@@ -412,10 +400,7 @@ function App() {
             />
           }
         >
-          <Route
-            path="dashboard"
-            element={<TherapistDashboardPageMain windowWidth={windowWidth} />}
-          />
+          <Route path="dashboard" element={<TherapistDashboardPageMain />} />
           <Route
             path="*"
             element={<ErrorPage isUnconnectedTherapistErrorPage />}
@@ -426,8 +411,8 @@ function App() {
           path="/therapist"
           element={
             <TherapistLayout
-              isTherapistAuthenticated={isTherapistAuthenticated}
-              setIsTherapistAuthenticated={setIsTherapistAuthenticated}
+              isPatientAuthenticated={isPatientAuthenticated}
+              setIsPatientAuthenticated={setIsPatientAuthenticated}
               windowWidth={windowWidth}
             />
           }
@@ -452,8 +437,8 @@ function PublicLayout({
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
-        isPublicNavBar
         windowWidth={windowWidth}
+        isPublicNavBar
         setIsFirstFormValidated={setIsFirstFormValidated}
         setIsSecondFormValidated={setIsSecondFormValidated}
         setIsThirdFormValidated={setIsThirdFormValidated}
@@ -475,9 +460,9 @@ function AdminLayout({
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
+        windowWidth={windowWidth}
         isAdminAuthenticated={isAdminAuthenticated}
         setIsAdminAuthenticated={setIsAdminAuthenticated}
-        windowWidth={windowWidth}
         isAdminNavBar
       />
       <Outlet />

@@ -1,51 +1,41 @@
 import { useEffect, useState } from 'react';
-import UserHeadband from '../generalComponents/UserHeadband/UserHeadband';
-import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
-import { fetchPatientAppointments } from '../../../utils/apiUtils';
-import { Link, useNavigate } from 'react-router-dom';
-import SideNav from '../generalComponents/SideNav/SideNav';
-import PatientNewPrescriptionForm from './PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
-import AppointmentsCalendar from '../generalComponents/AppointmentCalendar/AppointmentsCalendar';
-import MessageForm from '../generalComponents/MessageForm/MessageForm';
-import { IAppointment } from '../../../@types/types';
-import AppointmentCard from '../generalComponents/AppointmentCard/AppointmentCard';
-import MessagesField from '../generalComponents/MessagesField/MessagesField';
-import ProfileCard from '../generalComponents/ProfileCard/ProfileCard';
-import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
+import UserHeadband from '../../generalComponents/UserHeadband/UserHeadband';
+import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
+import { fetchPatientAppointments } from '../../../../utils/apiUtils';
+import { Link } from 'react-router-dom';
+import SideNav from '../../generalComponents/SideNav/SideNav';
+import PatientNewPrescriptionForm from './PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
+import AppointmentsCalendar from '../../generalComponents/AppointmentCalendar/AppointmentsCalendar';
+import MessageForm from '../../generalComponents/MessageForm/MessageForm';
+import { IAppointment } from '../../../../@types/types';
+import AppointmentCard from '../../generalComponents/AppointmentCard/AppointmentCard';
+import MessagesField from '../../generalComponents/MessagesField/MessagesField';
+import ProfileCard from '../../generalComponents/ProfileCard/ProfileCard';
 
-interface PrivateMainProps {
-  windowWidth?: number;
-  isPatientMain?: boolean;
+interface PatientMainProps {
   isPatientDashboardMain?: boolean;
   isPatientPrescriptionMain?: boolean;
   isPatientAppointmentsMain?: boolean;
   isPatientMessagesMain?: boolean;
   isPatientTherapistPage?: boolean;
   isPatientDetailsMain?: boolean;
-  isTherapistMain?: boolean;
-  isTherapistDashboardMain?: boolean;
 }
 
-export default function PrivateMain({
-  windowWidth,
+export default function PatientMain({
   isPatientDashboardMain,
   isPatientPrescriptionMain,
-  isPatientMain,
   isPatientAppointmentsMain,
   isPatientMessagesMain,
   isPatientTherapistPage,
   isPatientDetailsMain,
-  isTherapistMain,
-  isTherapistDashboardMain,
-}: PrivateMainProps) {
+}: PatientMainProps) {
+  const windowWidth = window.innerWidth;
   const [patientId, setPatientId] = useState<number>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
     IAppointment[]
   >([]);
 
   const [scanPreview, setScanPreview] = useState<string | null>(null);
-
-  const [therapistId, setTherapistId] = useState<number>();
 
   useEffect(() => {
     try {
@@ -60,17 +50,6 @@ export default function PrivateMain({
 
   useEffect(() => {
     try {
-      const response = getTherapistTokenAndDataFromLocalStorage();
-      if (response) {
-        setTherapistId(response.id ? parseInt(response.id, 10) : undefined);
-      }
-    } catch (error) {
-      console.error('Error fetching patient data:', error);
-    }
-  }, [therapistId]);
-
-  useEffect(() => {
-    try {
       const fetchAppointments = async () => {
         const response = await fetchPatientAppointments();
         setUpcomingAppointments(response.futureAppointments);
@@ -80,8 +59,6 @@ export default function PrivateMain({
       console.error('Error fetching patient data:', error);
     }
   }, [patientId]);
-
-  const navigate = useNavigate();
 
   const fetchParagraph = () =>
     isPatientDashboardMain
@@ -96,23 +73,19 @@ export default function PrivateMain({
               ? 'Mon thérapeute'
               : isPatientDetailsMain
                 ? 'Mes informations'
-                : isTherapistDashboardMain
-                  ? 'Ma journée'
-                  : '';
+                : '';
 
   return (
     <>
       <main
         className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''}`}
       >
-        {isPatientMain && <UserHeadband isPatientHeadband />}
-        {isTherapistMain && <UserHeadband isTherapistHeadband />}
+        <UserHeadband isPatientHeadband />
 
         <div className="h-fit md:flex gap-4 mb-2 ">
-          {windowWidth && windowWidth > 768 && (
+          {windowWidth > 768 && (
             <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
-              {isPatientMain && <SideNav isPatientSideNav />}
-              {isTherapistMain && <SideNav isTherapistSideNav />}
+              <SideNav isPatientSideNav />
             </div>
           )}
 

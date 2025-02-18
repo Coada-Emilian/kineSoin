@@ -1,17 +1,5 @@
-import PrivateMain from '../../standaloneComponents/PrivateSection/PrivateMain';
+import PatientMain from '../../standaloneComponents/PrivateSection/PatientSection/PatientMain';
 
-interface PatientAppointmentsPageMainProps {
-  windowWidth?: number;
-}
-
-export default function PatientAppointmentsPageMain({
-  windowWidth,
-}: PatientAppointmentsPageMainProps) {
-  return (
-    <PrivateMain
-      isPatientMain
-      isPatientAppointmentsMain
-      windowWidth={windowWidth}
-    />
-  );
+export default function PatientAppointmentsPageMain() {
+  return <PatientMain isPatientAppointmentsMain />;
 }

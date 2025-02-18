@@ -1,5 +1,4 @@
-import PublicMain from "../../standaloneComponents/PublicSection/PublicMain";
-
+import PublicMain from '../../standaloneComponents/PublicSection/PublicMain';
 
 interface RegisterPageProps {
   isFirstFormValidated?: boolean;

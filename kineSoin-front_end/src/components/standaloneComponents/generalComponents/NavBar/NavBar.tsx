@@ -13,7 +13,7 @@ import { removePatientTokenFromLocalStorage } from '../../../../localStorage/pat
 import { removeTherapistTokenFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
 
 interface NavBarProps {
-  windowWidth: number;
+  windowWidth?: number;
   isAdminNavBar?: boolean;
   isAdminAuthenticated?: boolean;
   isPublicNavBar?: boolean;
@@ -106,7 +106,7 @@ export default function NavBar({
           }}
         >
           <img
-            src={windowWidth < 768 ? Logo2 : Logo1}
+            src={(windowWidth ?? 0) < 768 ? Logo2 : Logo1}
             alt="Retour a l'accueil"
             className="max-w-36 lg:max-w-52"
           />
@@ -172,7 +172,7 @@ export default function NavBar({
           {/* Admin navbar portion */}
           {isAdminNavBar &&
             isAdminAuthenticated &&
-            (windowWidth < 768 ? (
+            ((windowWidth ?? 0) < 768 ? (
               <>
                 <CustomButton adminLogoutButton onClick={handleAdminLogout} />
               </>
@@ -213,13 +213,15 @@ export default function NavBar({
                   <CustomButton
                     btnText={<>Notifications</>}
                     therapistNotificationButton
-                    therapistNotificationQuantity={therapistNotificationQuantity}
+                    therapistNotificationQuantity={
+                      therapistNotificationQuantity
+                    }
                     setTherapistNotificationQuantity={
                       setTherapistNotificationQuantity
                     }
                   />
 
-                  <Link to="/loginPatient" onClick={handlePatientLogout}>
+                  <Link to="/loginPatient" onClick={handleTherapistLogout}>
                     <CustomButton
                       btnText={<>Déconnexion</>}
                       therapistLogoutButton
