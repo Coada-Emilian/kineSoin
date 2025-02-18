@@ -292,6 +292,7 @@ function App() {
             path="therapists"
             element={<AdminTherapistsPageMain windowWidth={windowWidth} />}
           />
+
           <Route
             path="therapists/:id"
             element={<AdminTherapistPageMain windowWidth={windowWidth} />}
