@@ -1,21 +1,23 @@
 import { Link } from 'react-router-dom';
 
 interface ErrorPageProps {
-  isAdminAuthenticated?: boolean;
   isConnectedAdminErrorPage?: boolean;
   isUnconnectedAdminErrorPage?: boolean;
   isPublicErrorPage?: boolean;
   isConnectedPatientErrorPage?: boolean;
   isUnconnectedPatientErrorPage?: boolean;
+  isUnconnectedTherapistErrorPage?: boolean;
+  isConnectedTherapistErrorPage?: boolean;
 }
 
 export default function ErrorPage({
-  isAdminAuthenticated,
   isPublicErrorPage,
   isConnectedAdminErrorPage,
   isUnconnectedAdminErrorPage,
   isConnectedPatientErrorPage,
   isUnconnectedPatientErrorPage,
+  isUnconnectedTherapistErrorPage,
+  isConnectedTherapistErrorPage,
 }: ErrorPageProps) {
   const getLinkDestination = () => {
     return isConnectedAdminErrorPage
@@ -28,7 +30,11 @@ export default function ErrorPage({
             ? '/patient/dashboard'
             : isUnconnectedPatientErrorPage
               ? '/public/loginPatient'
-              : undefined;
+              : isConnectedTherapistErrorPage
+                ? '/therapist/dashboard'
+                : isUnconnectedTherapistErrorPage
+                  ? '/public/loginTherapist'
+                  : undefined;
   };
 
   const getLinkText = () => {
@@ -42,11 +48,19 @@ export default function ErrorPage({
             ? 'Retour au Tableau de Bord'
             : isUnconnectedPatientErrorPage
               ? 'Retour à la Page de Connexion'
-              : '';
+              : isConnectedTherapistErrorPage
+                ? 'Retour au Tableau de Bord'
+                : isUnconnectedTherapistErrorPage
+                  ? 'Retour à la Page de Connexion'
+                  : '';
   };
 
   const getErrorText = () => {
-    if (isUnconnectedAdminErrorPage || isUnconnectedPatientErrorPage) {
+    if (
+      isUnconnectedAdminErrorPage ||
+      isUnconnectedPatientErrorPage ||
+      isUnconnectedTherapistErrorPage
+    ) {
       return 'Accès refusé. Vous devez être connecté pour accéder à cette page.';
     }
     return "Page Introuvable. La page que vous recherchez n'existe pas ou a été déplacée.";
@@ -55,7 +69,9 @@ export default function ErrorPage({
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
       <h1 className="text-6xl font-bold text-red-600 mb-4">
-        {isUnconnectedAdminErrorPage || isUnconnectedPatientErrorPage
+        {isUnconnectedAdminErrorPage ||
+        isUnconnectedPatientErrorPage ||
+        isUnconnectedTherapistErrorPage
           ? '403'
           : '404'}
       </h1>

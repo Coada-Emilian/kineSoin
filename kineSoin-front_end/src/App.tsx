@@ -399,7 +399,40 @@ function App() {
           />
         </Route>
       )}
-      
+
+      {isTherapistAuthenticated ? (
+        <Route
+          path="/therapist"
+          element={
+            <TherapistLayout
+              isTherapistAuthenticated={isTherapistAuthenticated}
+              setIsTherapistAuthenticated={setIsTherapistAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        >
+          <Route
+            path="*"
+            element={<ErrorPage isUnconnectedTherapistErrorPage />}
+          />
+        </Route>
+      ) : (
+        <Route
+          path="/therapist"
+          element={
+            <TherapistLayout
+              isTherapistAuthenticated={isTherapistAuthenticated}
+              setIsTherapistAuthenticated={setIsTherapistAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        >
+          <Route
+            path="*"
+            element={<ErrorPage isUnconnectedTherapistErrorPage />}
+          />
+        </Route>
+      )}
     </Routes>
   );
 }
