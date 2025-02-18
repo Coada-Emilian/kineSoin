@@ -10,6 +10,7 @@ import Logo2 from '/logos/kinesoin-logo-2.webp';
 import CustomButton from '../CustomButton/CustomButton';
 import { useState } from 'react';
 import { removePatientTokenFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
+import { removeTherapistTokenFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
 
 interface NavBarProps {
   windowWidth: number;
@@ -24,6 +25,9 @@ interface NavBarProps {
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  isTherapistNavBar?: boolean;
+  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  isTherapistAuthenticated?: boolean;
 }
 
 export default function NavBar({
@@ -39,6 +43,9 @@ export default function NavBar({
   setIsSecondFormValidated,
   setIsThirdFormValidated,
   setIsPatientAuthenticated,
+  isTherapistNavBar,
+  setIsTherapistAuthenticated,
+  isTherapistAuthenticated,
 }: NavBarProps) {
   // Function to handle the admin logout
   const handleAdminLogout = () => {
@@ -58,8 +65,20 @@ export default function NavBar({
     window.location.href = '/public/loginPatient';
   };
 
+  // function to handle the therapist logout
+  const handleTherapistLogout = () => {
+    removeTherapistTokenFromLocalStorage();
+    if (setIsTherapistAuthenticated) {
+      setIsTherapistAuthenticated(false);
+    }
+    window.location.href = '/public/loginTherapist';
+  };
+
   // State to manage the patient notification quantity
   const [patientNotificationQuantity, setPatientNotificationQuantity] =
+    useState(0);
+
+  const [therapistNotificationQuantity, setTherapistNotificationQuantity] =
     useState(0);
 
   return (
@@ -166,24 +185,50 @@ export default function NavBar({
             ))}
 
           {/* Patient navbar portion */}
-          {isPatientNavBar && isPatientAuthenticated && (
+          {(isPatientNavBar && isPatientAuthenticated) ||
+          (isTherapistNavBar && isTherapistAuthenticated) ? (
             <div className="flex gap-2">
-              <Link to="#">
-                <CustomButton
-                  btnText={<>Notifications</>}
-                  patientNotificationButton
-                  patientNotificationQuantity={patientNotificationQuantity}
-                  setPatientNotificationQuantity={
-                    setPatientNotificationQuantity
-                  }
-                />
-              </Link>
+              {isPatientNavBar && isPatientAuthenticated && (
+                <>
+                  <CustomButton
+                    btnText={<>Notifications</>}
+                    patientNotificationButton
+                    patientNotificationQuantity={patientNotificationQuantity}
+                    setPatientNotificationQuantity={
+                      setPatientNotificationQuantity
+                    }
+                  />
 
-              <Link to="/loginPatient" onClick={handlePatientLogout}>
-                <CustomButton btnText={<>Déconnexion</>} patientLogoutButton />
-              </Link>
+                  <Link to="/loginPatient" onClick={handlePatientLogout}>
+                    <CustomButton
+                      btnText={<>Déconnexion</>}
+                      patientLogoutButton
+                    />
+                  </Link>
+                </>
+              )}
+
+              {isTherapistNavBar && isTherapistAuthenticated && (
+                <>
+                  <CustomButton
+                    btnText={<>Notifications</>}
+                    therapistNotificationButton
+                    therapistNotificationQuantity={therapistNotificationQuantity}
+                    setTherapistNotificationQuantity={
+                      setTherapistNotificationQuantity
+                    }
+                  />
+
+                  <Link to="/loginPatient" onClick={handlePatientLogout}>
+                    <CustomButton
+                      btnText={<>Déconnexion</>}
+                      therapistLogoutButton
+                    />
+                  </Link>
+                </>
+              )}
             </div>
-          )}
+          ) : null}
         </div>
       </nav>
     </header>

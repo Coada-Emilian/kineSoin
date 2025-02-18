@@ -471,10 +471,11 @@ function PatientLayout({
 }
 
 function TherapistLayout({
-  setIsTherapistAuthenticated
-  isTherapistAuthenticated, windowWidth,
+  setIsTherapistAuthenticated,
+  isTherapistAuthenticated,
+  windowWidth,
 }: LayoutProps) {
-  return(
+  return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
         windowWidth={windowWidth}
@@ -487,7 +488,7 @@ function TherapistLayout({
 
       {windowWidth < 768 && <MobileNav isTherapistMobileNav />}
     </div>
-  )
+  );
 }
 
 export default App;
