@@ -468,53 +468,58 @@ const therapistController = {
 
   // Get therapist dashboard data
   getTherapistDashboardData: async (req, res) => {
-    // const therapistId = parseInt(req.therapist_id, 10);
+    try {
+      const therapistId = parseInt(req.therapist_id, 10);
 
-    const therapistId = 1;
+      if (!checkIsValidNumber(therapistId)) {
+        return res.status(400).json({ message: 'Invalid therapist ID' });
+      }
 
-    checkIsValidNumber(therapistId);
+      const currentDate = new Date().toISOString().split('T')[0];
 
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    const sameDayAppointments = await Appointment.findAll({
-      attributes: ['id', 'date', 'time'],
-      where: {
-        therapist_id: therapistId,
-        is_accepted: true,
-        is_canceled: false,
-        date: { [Op]: currentDate },
-      },
-      order: [['time', 'ASC']],
-      include: [
-        {
-          association: 'patient',
-          attributes: ['id', 'name', 'surname', 'picture_url'],
+      const sameDayAppointments = await Appointment.findAll({
+        attributes: ['id', 'date', 'time'],
+        where: {
+          therapist_id: therapistId,
+          is_accepted: true,
+          is_canceled: false,
+          date: currentDate,
         },
-        {
-          association: 'therapist',
-          attributes: ['id', 'name', 'surname', 'picture_url'],
-        },
-      ],
-    });
+        order: [['time', 'ASC']],
+        include: [
+          {
+            association: 'patient',
+            attributes: ['id', 'name', 'surname', 'picture_url'],
+            include: [
+              {
+                association: 'prescription',
+                attributes: ['id', 'date'],
+                where: { is_completed: false },
+                include: [
+                  {
+                    association: 'affliction',
+                    attributes: ['id', 'name'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            association: 'therapist',
+            attributes: ['id', 'name', 'surname', 'picture_url'],
+          },
+        ],
+      });
 
-    let therapist_id = 0;
-    let therapist_fullName = '';
-    let therapist_picture_url = '';
-
-    if (sameDayAppointments.length > 0) {
-      therapist_id = sameDayAppointments[0].therapist.id;
-      therapist_fullName = `${sameDayAppointments[0].therapist.name} ${sameDayAppointments[0].therapist.surname}`;
-      therapist_picture_url = sameDayAppointments[0].therapist.picture_url;
+      if (sameDayAppointments.length > 0) {
+        return res.status(200).json({ sameDayAppointments });
+      } else {
+        return res.status(200).json({ message: 'No appointments today' });
+      }
+    } catch (error) {
+      console.error('Error fetching therapist dashboard data:', error);
+      return res.status(500).json({ message: 'Internal server error' });
     }
-
-    res.status(200).json({
-      sameDayAppointments,
-      therapist: {
-        id: therapist_id,
-        fullName: therapist_fullName,
-        picture_url: therapist_picture_url,
-      },
-    });
   },
 
   // Get therapist's data

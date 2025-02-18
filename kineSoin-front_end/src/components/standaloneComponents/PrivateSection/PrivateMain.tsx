@@ -111,7 +111,8 @@ export default function PrivateMain({
         <div className="h-fit md:flex gap-4 mb-2 ">
           {windowWidth && windowWidth > 768 && (
             <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
-              <SideNav isPatientSideNav />
+              {isPatientMain && <SideNav isPatientSideNav />}
+              {isTherapistMain && <SideNav isTherapistSideNav />}
             </div>
           )}
 
