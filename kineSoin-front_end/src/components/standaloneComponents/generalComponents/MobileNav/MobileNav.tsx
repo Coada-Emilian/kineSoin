@@ -10,6 +10,8 @@ import appointmentLogo from '/icons/appointment.png';
 import newFileLogo from '/icons/new-document.png';
 import conversationLogo from '/icons/conversation.png';
 import patientInfoLogo from '/icons/patient-info.png';
+import prescriptionIcon from '/icons/prescription.png';
+import patientsIcon from '/icons/patients.png';
 import { NavLink } from 'react-router-dom';
 
 interface MobileNavProps {
@@ -17,6 +19,7 @@ interface MobileNavProps {
   isPublicMobileNav?: boolean;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   isPatientMobileNav?: boolean;
+  isTherapistMobileNav?: boolean;
 }
 
 export default function MobileNav({
@@ -24,6 +27,7 @@ export default function MobileNav({
   isPublicMobileNav,
   setIsRegisterPageRendered,
   isPatientMobileNav,
+  isTherapistMobileNav,
 }: MobileNavProps) {
   const adminLinks = [
     {
@@ -94,7 +98,6 @@ export default function MobileNav({
       path: '/patient/messages',
       icon: conversationLogo,
     },
-
     {
       name: 'Mes informations',
       path: '/patient/my-info',
@@ -102,6 +105,33 @@ export default function MobileNav({
     },
   ];
 
+  const therapistLinks = [
+    {
+      name: 'Patients',
+      path: '/therapist/patients',
+      icon: patientsIcon,
+    },
+    {
+      name: 'Rendez-vous',
+      path: '/therapist/appointments',
+      icon: appointmentLogo,
+    },
+    {
+      name: 'Messages',
+      path: '/therapist/messages',
+      icon: conversationLogo,
+    },
+    {
+      name: 'Mes informations',
+      path: '/therapist/my-info',
+      icon: therapistIcon,
+    },
+    {
+      name: 'Ordonnances',
+      path: '/therapist/prescriptions',
+      icon: prescriptionIcon,
+    },
+  ];
   return (
     <>
       {isAdminMobileNav && (
@@ -149,6 +179,27 @@ export default function MobileNav({
       {isPatientMobileNav && (
         <div className="flex gap-2 justify-around w-full py-4 bg-container">
           {patientLinks.map((link, index) => (
+            <NavLink
+              to={link.path}
+              key={index}
+              className={({ isActive }) =>
+                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border  rounded-lg p-2 ${
+                  isActive
+                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
+                    : 'text-primaryBlue'
+                }`
+              }
+            >
+              <img src={link.icon} alt={link.name} className="w-8 mb-2" />
+              <p className="text-xxs font-medium">{link.name}</p>
+            </NavLink>
+          ))}
+        </div>
+      )}
+
+      {isTherapistMobileNav && (
+        <div className="flex gap-2 justify-around w-full py-4 bg-container">
+          {therapistLinks.map((link, index) => (
             <NavLink
               to={link.path}
               key={index}

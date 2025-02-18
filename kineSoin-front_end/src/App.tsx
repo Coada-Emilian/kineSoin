@@ -399,6 +399,7 @@ function App() {
           />
         </Route>
       )}
+      
     </Routes>
   );
 }
@@ -421,7 +422,7 @@ function PublicLayout({
         setIsRegisterPageRendered={setIsRegisterPageRendered}
       />
       <Outlet />
-      <Footer isPublicFooter />
+      <Footer />
 
       {windowWidth < 768 && <MobileNav isPublicMobileNav />}
     </div>
@@ -463,7 +464,7 @@ function PatientLayout({
         isPatientNavBar
       />
       <Outlet />
-      <Footer isPatientFooter />
+      <Footer />
 
       {windowWidth < 768 && <MobileNav isPatientMobileNav />}
     </div>
@@ -484,7 +485,7 @@ function TherapistLayout({
         isTherapistNavBar
       />
       <Outlet />
-      <Footer isTherapistFooter />
+      <Footer />
 
       {windowWidth < 768 && <MobileNav isTherapistMobileNav />}
     </div>

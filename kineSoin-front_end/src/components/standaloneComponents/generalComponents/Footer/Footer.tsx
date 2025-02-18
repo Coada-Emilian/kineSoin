@@ -9,15 +9,9 @@
 
 interface FooterProps {
   isAdminFooter?: boolean;
-  isPublicFooter?: boolean;
-  isPatientFooter?: boolean;
 }
 
-export default function Footer({
-  isAdminFooter,
-  isPublicFooter,
-  isPatientFooter,
-}: FooterProps) {
+export default function Footer({ isAdminFooter }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
@@ -44,12 +38,11 @@ export default function Footer({
   ];
   return (
     <>
-      {isAdminFooter && (
+      {isAdminFooter ? (
         <footer className="bg-primaryBlue text-white text-center py-4 md:py-2">
           <p>&copy; {currentYear} KineSoin. Tous droits réservés.</p>
         </footer>
-      )}
-      {(isPublicFooter || isPatientFooter) && (
+      ) : (
         <footer className=" p-4 flex flex-col font-semibold lg:justify-between items-center rounded-lg w-full mx-auto text-secondaryBlue text-xs md:text-sm lg:text-base mb-4 md:pb-4 static bottom-0">
           <div className="footer-assistance_container text-center mb-2">
             <p>
