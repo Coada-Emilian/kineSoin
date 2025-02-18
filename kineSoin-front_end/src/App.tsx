@@ -29,24 +29,21 @@ import PatientTherapistPageMain from './components/pageComponents/PatientSection
 import PatientMessagesPageMain from './components/pageComponents/PatientSection/PatientMessagesPageMain';
 import PatientDetailsPageMain from './components/pageComponents/PatientSection/PatientDetailsPageMain';
 
-interface PublicLayoutProps {
+interface LayoutProps {
   windowWidth: number;
-  setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsRegisterPageRendered: React.Dispatch<React.SetStateAction<boolean>>;
-}
+  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
 
-interface AdminLayoutProps {
-  isAdminAuthenticated: boolean;
-  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth: number;
-}
+  isAdminAuthenticated?: boolean;
+  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
 
-interface PatientLayoutProps {
-  isPatientAuthenticated: boolean;
-  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth: number;
+  isPatientAuthenticated?: boolean;
+  setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isTherapistAuthenticated?: boolean;
+  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function App() {
@@ -412,7 +409,7 @@ function PublicLayout({
   setIsSecondFormValidated,
   setIsThirdFormValidated,
   setIsRegisterPageRendered,
-}: PublicLayoutProps) {
+}: LayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
@@ -435,7 +432,7 @@ function AdminLayout({
   isAdminAuthenticated,
   setIsAdminAuthenticated,
   windowWidth,
-}: AdminLayoutProps) {
+}: LayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
@@ -456,7 +453,7 @@ function PatientLayout({
   setIsPatientAuthenticated,
   isPatientAuthenticated,
   windowWidth,
-}: PatientLayoutProps) {
+}: LayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
@@ -471,6 +468,26 @@ function PatientLayout({
       {windowWidth < 768 && <MobileNav isPatientMobileNav />}
     </div>
   );
+}
+
+function TherapistLayout({
+  setIsTherapistAuthenticated
+  isTherapistAuthenticated, windowWidth,
+}: LayoutProps) {
+  return(
+    <div className="flex flex-col justify-between min-h-screen">
+      <NavBar
+        windowWidth={windowWidth}
+        setIsTherapistAuthenticated={setIsTherapistAuthenticated}
+        isTherapistAuthenticated={isTherapistAuthenticated}
+        isTherapistNavBar
+      />
+      <Outlet />
+      <Footer isTherapistFooter />
+
+      {windowWidth < 768 && <MobileNav isTherapistMobileNav />}
+    </div>
+  )
 }
 
 export default App;
