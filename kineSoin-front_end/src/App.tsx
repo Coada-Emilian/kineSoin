@@ -268,6 +268,7 @@ function App() {
             />
           }
         ></Route>
+
         <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
 
@@ -329,7 +330,7 @@ function App() {
             path="insurances/:id"
             element={<AdminInsurancePageMain windowWidth={windowWidth} />}
           />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="*" element={<ErrorPage isConnectedAdminErrorPage />} />
         </Route>
       ) : (
         <Route
@@ -341,7 +342,9 @@ function App() {
               windowWidth={windowWidth}
             />
           }
-        ></Route>
+        >
+          <Route path="*" element={<ErrorPage isUnconnectedAdminErrorPage />} />
+        </Route>
       )}
 
       {/* Patient routes */}
@@ -380,6 +383,7 @@ function App() {
             path="my-info"
             element={<PatientDetailsPageMain windowWidth={windowWidth} />}
           />
+          <Route path="*" element={<ErrorPage isConnectedPatientErrorPage />} />
         </Route>
       ) : (
         <Route
@@ -392,7 +396,10 @@ function App() {
             />
           }
         >
-          <Route path="*" element={<ErrorPage />} />
+          <Route
+            path="*"
+            element={<ErrorPage isUnconnectedPatientErrorPage />}
+          />
         </Route>
       )}
     </Routes>
