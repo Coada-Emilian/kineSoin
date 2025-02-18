@@ -132,7 +132,32 @@ INSERT INTO "prescriptions" ("medic_id", "patient_id", "affliction_id", "appoint
 (1, 47, 2, 10,false, false, false, '2022-12-05', 'https://as4.ftcdn.net/v2/jpg/00/51/75/62/1000_F_51756200_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (2, 48, 3, 8,false, false, true, '2022-01-12', 'https://as5.ftcdn.net/v2/jpg/00/51/75/63/1000_F_51756300_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (2, 49, 4, 12,false, false, true, '2022-02-15', 'https://as2.ftcdn.net/v2/jpg/00/51/75/64/1000_F_51756400_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
-(3, 50, 5, 18, false,false, false, '2022-03-10', 'https://as1.ftcdn.net/v2/jpg/00/51/75/60/1000_F_51756000_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW());
+(3, 50, 5, 18, false,false, false, '2022-03-10', 'https://as1.ftcdn.net/v2/jpg/00/51/75/60/1000_F_51756000_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
+(1, 1, 1, 5, true, false, false, '2025-02-19', 'http://example.com/pic1.jpg', NOW()),
+(2, 2, 2, 3, true, false, false, '2025-02-19', 'http://example.com/pic2.jpg', NOW()),
+(3, 3, 3, 4, true, false, false, '2025-02-19', 'http://example.com/pic3.jpg', NOW()),
+(4, 4, 4, 2, true, false, false, '2025-02-19', 'http://example.com/pic4.jpg', NOW()),
+(5, 5, 5, 6, true, false, false, '2025-02-19', 'http://example.com/pic5.jpg', NOW()),
+(6, 6, 6, 4, true, false, false, '2025-02-19', 'http://example.com/pic6.jpg', NOW()),
+(7, 7, 7, 3, true, false, false, '2025-02-19', 'http://example.com/pic7.jpg', NOW()),
+(8, 8, 8, 5, true, false, false, '2025-02-19', 'http://example.com/pic8.jpg', NOW()),
+(9, 9, 9, 4, true, false, false, '2025-02-19', 'http://example.com/pic9.jpg', NOW()),
+(10, 10, 10, 2, true, false, false, '2025-02-19', 'http://example.com/pic10.jpg', NOW()),
+(11, 11, 11, 3, true, false, false, '2025-02-19', 'http://example.com/pic11.jpg', NOW()),
+(12, 12, 12, 6, true, false, false, '2025-02-19', 'http://example.com/pic12.jpg', NOW()),
+(13, 13, 13, 4, true, false, false, '2025-02-19', 'http://example.com/pic13.jpg', NOW()),
+(14, 14, 14, 2, true, false, false, '2025-02-19', 'http://example.com/pic14.jpg', NOW()),
+(1, 1, 15, 3, true, false, false, '2025-02-19', 'http://example.com/pic15.jpg', NOW()),
+(2, 2, 16, 5, true, false, false, '2025-02-19', 'http://example.com/pic16.jpg', NOW()),
+(3, 3, 17, 4, true, false, false, '2025-02-19', 'http://example.com/pic17.jpg', NOW()),
+(4, 4, 18, 6, true, false, false, '2025-02-19', 'http://example.com/pic18.jpg', NOW()),
+(5, 5, 1, 3, true, false, false, '2025-02-19', 'http://example.com/pic19.jpg', NOW()),
+(6, 6, 2, 4, true, false, false, '2025-02-19', 'http://example.com/pic20.jpg', NOW()),
+(7, 7, 3, 5, true, false, false, '2025-02-19', 'http://example.com/pic21.jpg', NOW()),
+(8, 8, 4, 2, true, false, false, '2025-02-19', 'http://example.com/pic22.jpg', NOW()),
+(9, 9, 5, 3, true, false, false, '2025-02-19', 'http://example.com/pic23.jpg', NOW()),
+(10, 10, 6, 4, true, false, false, '2025-02-19', 'http://example.com/pic24.jpg', NOW());
+
 
 -- Insert data into appointments table
 INSERT INTO "appointments" ("prescription_id", "therapist_id", "patient_id", "date", "time", "is_accepted", "created_at") VALUES
@@ -190,7 +215,31 @@ INSERT INTO "appointments" ("prescription_id", "therapist_id", "patient_id", "da
 (47, 1, 46, '2022-05-25', '14:30:00', false, NOW()),
 (48, 2, 47, '2022-05-28', '11:15:00', true, NOW()),
 (49, 3, 48, '2022-06-01', '16:45:00', false, NOW()),
-(50, 4, 49, '2022-06-05', '13:00:00', true, NOW());
+(50, 4, 49, '2022-06-05', '13:00:00', true, NOW()),
+(51, 6, 1, '2025-02-19', '08:00:00', true, NOW()),
+(52, 6, 2, '2025-02-19', '08:30:00', true, NOW()),
+(53, 6, 3, '2025-02-19', '09:00:00', true, NOW()),
+(54, 6, 4, '2025-02-19', '09:30:00', true, NOW()),
+(55, 6, 5, '2025-02-19', '10:00:00', true, NOW()),
+(56, 6, 6, '2025-02-19', '10:30:00', true, NOW()),
+(57, 6, 7, '2025-02-19', '11:00:00', true, NOW()),
+(58, 6, 8, '2025-02-19', '11:30:00', true, NOW()),
+(59, 6, 9, '2025-02-19', '12:00:00', true, NOW()),
+(60, 6, 10, '2025-02-19', '12:30:00', true, NOW()),
+(61, 6, 11, '2025-02-19', '13:00:00', true, NOW()),
+(62, 6, 12, '2025-02-19', '13:30:00', true, NOW()),
+(63, 6, 13, '2025-02-19', '14:00:00', true, NOW()),
+(64, 6, 14, '2025-02-19', '14:30:00', true, NOW()),
+(65, 6, 15, '2025-02-19', '15:00:00', true, NOW()),
+(66, 6, 16, '2025-02-19', '15:30:00', true, NOW()),
+(67, 6, 17, '2025-02-19', '16:00:00', true, NOW()),
+(68, 6, 18, '2025-02-19', '16:30:00', true, NOW()),
+(69, 6, 19, '2025-02-19', '17:00:00', true, NOW()),
+(70, 6, 20, '2025-02-19', '17:30:00', true, NOW()),
+(71, 6, 21, '2025-02-19', '18:00:00', true, NOW()),
+(72, 6, 22, '2025-02-19', '18:30:00', true, NOW()),
+(73, 6, 23, '2025-02-19', '19:00:00', true, NOW()),
+(74, 6, 24, '2025-02-19', '19:30:00', true, NOW());
 
 -- Insert data into patient_messages table
 INSERT INTO "patient_messages" ("receiver_id", "sender_id", "content", "date", "time", "created_at") VALUES

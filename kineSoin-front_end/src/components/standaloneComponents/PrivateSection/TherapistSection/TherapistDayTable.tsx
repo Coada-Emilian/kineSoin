@@ -36,7 +36,7 @@ export default function TherapistDayTable() {
         </p>
       </div>
       <div className="w-full ">
-        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-10/12 md:my-auto mb-6 rounded-lg">
+        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-10/12 md:my-auto mb-6 rounded-full">
           <thead
             className={
               windowWidth < 450
