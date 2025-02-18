@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { fetchTherapistDashboardData } from '../../../../utils/apiUtils';
+
 export default function TherapistDayTable() {
   const currentDate = new Date();
   const formattedDate = currentDate
@@ -25,6 +28,18 @@ export default function TherapistDayTable() {
 
     return times;
   };
+
+  useEffect(() => {
+    const fetchSameDayAppointments = async () => {
+      try {
+        const response = await fetchTherapistDashboardData();
+        console.log('Appointments:', response);
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
+    };
+    fetchSameDayAppointments();
+  }, []);
 
   const timeSlots = generateTimeSlots();
 

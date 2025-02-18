@@ -490,23 +490,16 @@ const therapistController = {
           {
             association: 'patient',
             attributes: ['id', 'name', 'surname', 'picture_url'],
-            include: [
-              {
-                association: 'prescription',
-                attributes: ['id', 'date'],
-                where: { is_completed: false },
-                include: [
-                  {
-                    association: 'affliction',
-                    attributes: ['id', 'name'],
-                  },
-                ],
-              },
-            ],
           },
           {
-            association: 'therapist',
-            attributes: ['id', 'name', 'surname', 'picture_url'],
+            association: 'prescription',
+            attributes: ['id'],
+            include: [
+              {
+                association: 'affliction',
+                attributes: ['id', 'name'],
+              },
+            ],
           },
         ],
       });

@@ -7,6 +7,7 @@ import { controllerWrapper as wrapper } from '../../middlewares/controllerWrappe
 import patientController from '../controllers/patientController.js';
 import appointmentController from '../controllers/appointmentController.js';
 import therapistController from '../controllers/therapistController.js';
+import { authenticateTherapist } from '../../middlewares/userAuthentication.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -14,6 +15,7 @@ export const therapistRouter = Router();
 
 therapistRouter.get(
   '/me/dashboard',
+  authenticateTherapist,
   wrapper(therapistController.getTherapistDashboardData)
 );
 
