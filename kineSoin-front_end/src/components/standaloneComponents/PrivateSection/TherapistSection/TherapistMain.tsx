@@ -6,10 +6,14 @@ import TherapistDayTable from './TherapistDayTable/TherapistDayTable';
 
 interface TherapistMainProps {
   isTherapistDashboardMain?: boolean;
+
+  isTherapistPatientsMain?: boolean;
 }
 
 export default function TherapistMain({
   isTherapistDashboardMain,
+
+  isTherapistPatientsMain,
 }: TherapistMainProps) {
   const windowWidth = window.innerWidth;
   const [therapistId, setTherapistId] = useState<number>();
@@ -25,7 +29,12 @@ export default function TherapistMain({
     }
   }, [therapistId]);
 
-  const fetchParagraph = () => (isTherapistDashboardMain ? 'Ma journée' : '');
+  const fetchParagraph = () =>
+    isTherapistDashboardMain
+      ? 'Ma journée'
+      : isTherapistPatientsMain
+        ? 'Patients'
+        : '';
 
   return (
     <>

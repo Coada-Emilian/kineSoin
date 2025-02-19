@@ -8,7 +8,6 @@ import NavBar from './components/standaloneComponents/generalComponents/NavBar/N
 import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
-import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
@@ -29,6 +28,8 @@ import PatientTherapistPageMain from './components/pageComponents/PatientSection
 import PatientMessagesPageMain from './components/pageComponents/PatientSection/PatientMessagesPageMain';
 import PatientDetailsPageMain from './components/pageComponents/PatientSection/PatientDetailsPageMain';
 import TherapistDashboardPageMain from './components/pageComponents/TherapistSection/TherapistDashboardPageMain';
+import TherapistPatientsPageMain from './components/pageComponents/TherapistSection/TherapistPatientsPageMain';
+import HomepageMain from './components/pageComponents/PublicSection/HomePageMain';
 
 interface LayoutProps {
   windowWidth: number;
@@ -401,6 +402,7 @@ function App() {
           }
         >
           <Route path="dashboard" element={<TherapistDashboardPageMain />} />
+          <Route path="patients" element={<TherapistPatientsPageMain />} />
           <Route
             path="*"
             element={<ErrorPage isUnconnectedTherapistErrorPage />}

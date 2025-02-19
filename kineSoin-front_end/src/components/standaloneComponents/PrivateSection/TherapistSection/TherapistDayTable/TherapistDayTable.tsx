@@ -110,7 +110,7 @@ export default function TherapistDayTable() {
   return (
     <div className="flex flex-col items-center w-10/12">
       <div className="w-full flex justify-end mb-6">
-        <p className="border border-gray-400 p-2 rounded-xl shadow-xl">
+        <p className="border border-gray-400 p-2 rounded-xl shadow-xl italic font-semibold">
           Date: {formattedDate}
         </p>
       </div>
