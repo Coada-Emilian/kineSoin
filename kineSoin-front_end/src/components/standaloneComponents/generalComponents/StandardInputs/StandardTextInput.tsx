@@ -1241,7 +1241,7 @@ export default function StandardTextInput({
       inputId: 'therapist-message_input',
       labelClassName: 'text-sm hidden',
       labelName: '',
-      inputName: 'message',
+      inputName: 'content',
       inputPlaceholder: 'Entrez votre message',
       required: true,
       inputValue: undefined,

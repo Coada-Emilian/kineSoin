@@ -6,7 +6,12 @@ import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsValidNumber } from '../../utils/checkIsValidNumber.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
-import { Patient, Appointment, Therapist } from '../../models/associations.js';
+import {
+  Patient,
+  Appointment,
+  Therapist,
+  Therapist_message,
+} from '../../models/associations.js';
 
 multer({ storage: therapistPhotoStorage });
 
@@ -466,7 +471,7 @@ const therapistController = {
     }
   },
 
-  // Get therapist dashboard data
+  // Function to get therapist dashboard data
   getTherapistDashboardData: async (req, res) => {
     try {
       const therapistId = parseInt(req.therapist_id, 10);
@@ -515,6 +520,46 @@ const therapistController = {
     }
   },
 
+  // Function to send message to a patient
+  sentMessageToPatient: async (req, res) => {
+    const therapist_id = parseInt(req.therapist_id, 10);
+    const patient_id = parseInt(req.params.patient_id, 10);
+    checkIsValidNumber(therapist_id);
+    checkIsValidNumber(patient_id);
+
+    if (!therapist_id || !patient_id) {
+      return res
+        .status(400)
+        .json({ message: 'Therapist or patient not found' });
+    } else {
+      try {
+        const contentValidation = Joi.string().min(1).max(255).required();
+        const { error } = contentValidation.validate(req.body.content);
+
+        if (error) {
+          return res.status(400).json({ message: error.message });
+        } else {
+          const newMessage = await Therapist_message.create({
+            receiver_id: patient_id,
+            sender_id: therapist_id,
+            content: req.body.content,
+            date: new Date().toISOString().split('T')[0],
+            time: new Date().toISOString().split('T')[1].split('.')[0],
+          });
+          if (newMessage) {
+            return res
+              .status(201)
+              .json({ message: 'Message sent successfully' });
+          } else {
+            return res.status(400).json({ message: 'Message not sent' });
+          }
+        }
+      } catch (error) {
+        console.error('Error sending message to patient:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
   // Get therapist's data
   getConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);

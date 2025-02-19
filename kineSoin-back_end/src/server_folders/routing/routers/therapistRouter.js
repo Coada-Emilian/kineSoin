@@ -66,3 +66,9 @@ therapistRouter.get(
   '/me/appointments',
   wrapper(appointmentController.getAllMyAppointments)
 );
+
+therapistRouter.post(
+  '/me/patients/:patient_id/messages',
+  authenticateTherapist,
+  wrapper(therapistController.sendMessageToPatient)
+);
