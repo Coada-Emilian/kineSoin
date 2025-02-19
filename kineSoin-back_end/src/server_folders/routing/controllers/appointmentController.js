@@ -182,6 +182,97 @@ const appointmentController = {
     }
   },
 
+  // Function to delete an appointment as a therapist
+  deleteAppointment: async (req, res) => {
+    const therapist_id = parseInt(req.therapist_id, 10);
+    checkIsValidNumber(therapist_id);
+    if (!therapist_id) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      try {
+        const appointment_id = parseInt(req.params.appointment_id, 10);
+        checkIsValidNumber(appointment_id);
+        const foundAppointment = await Appointment.destroy({
+          where: { id: appointment_id, therapist_id: therapist_id },
+        });
+
+        if (!foundAppointment) {
+          return res.status(400).json({ message: 'Appointment not found' });
+        } else {
+          return res
+            .status(200)
+            .json({ message: 'Appointment successfully deleted' });
+        }
+      } catch (error) {
+        console.error('Error deleting appointment:', error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
+
+  // Function to add to prescription appointment quantity
+  addToPrescriptionAppointmentQuantity: async (req, res) => {
+    const therapist_id = parseInt(req.therapist_id, 10);
+    checkIsValidNumber(therapist_id);
+    if (!therapist_id) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      try {
+        const prescription_id = parseInt(req.params.prescription_id, 10);
+        checkIsValidNumber(prescription_id);
+        const foundPrescription = await Prescription.findByPk(prescription_id);
+        if (!foundPrescription) {
+          return res.status(400).json({ message: 'Prescription not found' });
+        }
+        foundPrescription.appointment_quantity += 1;
+        await foundPrescription.save();
+        return res
+          .status(200)
+          .json({ message: 'Appointment quantity successfully added' });
+      } catch (error) {
+        console.error(
+          'Error adding to prescription appointment quantity:',
+          error
+        );
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
+
+  // Function to reduce the prescription appointment quantity
+  reduceFromPrescriptionAppointmentQuantity: async (req, res) => {
+    const therapist_id = parseInt(req.therapist_id, 10);
+    checkIsValidNumber(therapist_id);
+    if (!therapist_id) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      try {
+        const prescription_id = parseInt(req.params.prescription_id, 10);
+        checkIsValidNumber(prescription_id);
+        const foundPrescription = await Prescription.findByPk(prescription_id);
+        if (!foundPrescription) {
+          return res.status(400).json({ message: 'Prescription not found' });
+        }
+        if (foundPrescription.appointment_quantity === 0) {
+          return res
+            .status(400)
+            .json({ message: 'Appointment quantity already at 0' });
+        }
+        foundPrescription.appointment_quantity -= 1;
+        await foundPrescription.save();
+        return res
+          .status(200)
+          .json({ message: 'Appointment quantity successfully reduced' });
+      } catch (error) {
+        console.error(
+          'Error reducing prescription appointment quantity:',
+          error
+        );
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
+
   // Get all proposed appointments for a patient
   getAllProposedAppointments: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);
@@ -387,7 +478,7 @@ const appointmentController = {
       }
     }
   },
-  
+
   // Get one appointment for a patient
   getOneAppointment: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);

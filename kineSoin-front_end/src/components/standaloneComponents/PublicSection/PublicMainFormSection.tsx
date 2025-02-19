@@ -56,9 +56,7 @@ export default function PublicMainFormSection({
   isGlobalFormSubmitted,
 }: PublicMainFormSectionProps) {
   // Patient and therapist error messages states
-  const [patientErrorMessage, setPatientErrorMessage] = useState<string>('');
-  const [therapistErrorMessage, setTherapistErrorMessage] =
-    useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   // Sent patient data state
   const [sentPatientData, setSentPatientData] = useState({});
@@ -81,21 +79,21 @@ export default function PublicMainFormSection({
     e.preventDefault();
     try {
       setIsLoading(true);
-      setPatientErrorMessage('');
+      setErrorMessage('');
       const formData = new FormData(e.currentTarget);
       const patientLoginEmail = formData.get('email') as string;
       const patientLoginPassword = formData.get('password') as string;
 
       // Check if the email and password fields are empty
       if (!patientLoginEmail || !patientLoginPassword) {
-        setPatientErrorMessage('Veuillez remplir tous les champs');
+        setErrorMessage('Veuillez remplir tous les champs');
         return;
       } else if (
         !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
           patientLoginEmail as string
         )
       ) {
-        setPatientErrorMessage('Veuillez entrer une adresse email valide');
+        setErrorMessage('Veuillez entrer une adresse email valide');
         return;
       }
 
@@ -113,14 +111,14 @@ export default function PublicMainFormSection({
           navigate('/patient/dashboard');
         } else {
           setIsLoading(false);
-          setPatientErrorMessage('Email et/ou Mot de passe invalide');
+          setErrorMessage('Email et/ou Mot de passe invalide');
         }
       } else {
         setIsLoading(false);
-        setPatientErrorMessage('Email et/ou Mot de passe invalide');
+        setErrorMessage('Email et/ou Mot de passe invalide');
       }
     } catch (error) {
-      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
       console.error(error);
     }
   };
@@ -132,21 +130,21 @@ export default function PublicMainFormSection({
     e.preventDefault();
     try {
       setIsLoading(true);
-      setTherapistErrorMessage('');
+      setErrorMessage('');
       const formData = new FormData(e.currentTarget);
       const therapistLoginEmail = formData.get('email') as string;
       const therapistLoginPassword = formData.get('password') as string;
 
       // Check if the email and password fields are empty
       if (!therapistLoginEmail || !therapistLoginPassword) {
-        setTherapistErrorMessage('Veuillez remplir tous les champs');
+        setErrorMessage('Veuillez remplir tous les champs');
         return;
       } else if (
         !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
           therapistLoginEmail
         )
       ) {
-        setPatientErrorMessage('Veuillez entrer une adresse email valide');
+        setErrorMessage('Veuillez entrer une adresse email valide');
         return;
       }
 
@@ -163,13 +161,13 @@ export default function PublicMainFormSection({
           setIsLoading(false);
           navigate('/therapist/dashboard');
         } else {
-          setTherapistErrorMessage('Email et/ou Mot de passe invalide');
+          setErrorMessage('Email et/ou Mot de passe invalide');
         }
       } else {
-        setTherapistErrorMessage('Email et/ou Mot de passe invalide');
+        setErrorMessage('Email et/ou Mot de passe invalide');
       }
     } catch (error) {
-      setTherapistErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
       console.error(error);
     }
   };
@@ -181,7 +179,7 @@ export default function PublicMainFormSection({
     try {
       setIsLoading(true);
       e.preventDefault();
-      setPatientErrorMessage('');
+      setErrorMessage('');
 
       // Retrieve the form data, the current date and year
       const form = e.currentTarget;
@@ -197,7 +195,7 @@ export default function PublicMainFormSection({
         !formData.get('surname') ||
         !formData.get('birth-date')
       ) {
-        setPatientErrorMessage('Veuillez remplir tous les champs');
+        setErrorMessage('Veuillez remplir tous les champs');
         return;
       }
       // Check if the birth date is empty or invalid
@@ -205,16 +203,16 @@ export default function PublicMainFormSection({
         registeredPatientBirthDate &&
         registeredPatientBirthDate > currentDate.toISOString().split('T')[0]
       ) {
-        setPatientErrorMessage('Veuillez entrer une date valide');
+        setErrorMessage('Veuillez entrer une date valide');
         return;
       } // Check if the patient gender is empty
       else if (registeredPatientGender === '') {
-        setPatientErrorMessage('Veuillez sélectionner votre genre');
+        setErrorMessage('Veuillez sélectionner votre genre');
       } else if (
         registeredPatientBirthDate &&
         registeredPatientBirthDate < '1900-01-01'
       ) {
-        setPatientErrorMessage(
+        setErrorMessage(
           'Veuillez entrer une date de naissance valide (après 1900)'
         );
         return;
@@ -223,7 +221,7 @@ export default function PublicMainFormSection({
         !nameRegex.test(formData.get('birth_name') as string) ||
         !nameRegex.test(formData.get('surname') as string)
       ) {
-        setPatientErrorMessage(
+        setErrorMessage(
           'Le nom, le prénom et le nom de naissance ne doivent contenir que des lettres.'
         );
         return;
@@ -233,7 +231,7 @@ export default function PublicMainFormSection({
         const age =
           currentYear - Number(registeredPatientBirthDate?.split('-')[0]);
         if (age < 12) {
-          setPatientErrorMessage(
+          setErrorMessage(
             'Vous devez avoir au moins 12 ans pour vous inscrire'
           );
           return;
@@ -250,7 +248,7 @@ export default function PublicMainFormSection({
       };
 
       // Set the patient error message to an empty string
-      setPatientErrorMessage('');
+      setErrorMessage('');
       // Set the sent patient data with the form data
       setSentPatientData(sentData);
       // Set the first form as validated and the second form as not validated
@@ -260,7 +258,7 @@ export default function PublicMainFormSection({
       }
       setIsLoading(false);
     } catch (error) {
-      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
       console.error(error);
     }
   };
@@ -272,7 +270,7 @@ export default function PublicMainFormSection({
     try {
       setIsLoading(true);
       e.preventDefault();
-      setPatientErrorMessage('');
+      setErrorMessage('');
 
       // Retrieve the form data
       const form = e.currentTarget;
@@ -287,25 +285,25 @@ export default function PublicMainFormSection({
         !formData.get('phone_number') ||
         !formData.get('prefix')
       ) {
-        setPatientErrorMessage('Veuillez remplir tous les champs');
+        setErrorMessage('Veuillez remplir tous les champs');
       } else if (!/^\d{5}$/.test(formData.get('postal_code') as string)) {
-        setPatientErrorMessage('Veuillez entrer un code postal valide');
+        setErrorMessage('Veuillez entrer un code postal valide');
         return;
       } else if (!/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('city') as string)) {
-        setPatientErrorMessage('Veuillez entrer un nom de ville valide');
+        setErrorMessage('Veuillez entrer un nom de ville valide');
         return;
       } else if (!/^\d+$/.test(formData.get('street_number') as string)) {
-        setPatientErrorMessage('Veuillez entrer un numéro de rue valide');
+        setErrorMessage('Veuillez entrer un numéro de rue valide');
         return;
       } else if (
         !/^[A-Za-zÀ-ÿ\s'-]+$/.test(formData.get('street_name') as string)
       ) {
-        setPatientErrorMessage('Veuillez entrer un nom de rue valide');
+        setErrorMessage('Veuillez entrer un nom de rue valide');
         return;
       } else if (
         !/^\+?\d{1,15}$/.test(formData.get('phone_number') as string)
       ) {
-        setPatientErrorMessage(
+        setErrorMessage(
           "Veuillez entrer un numéro de téléphone valide (+ et jusqu'à 15 chiffres)"
         );
         return;
@@ -323,7 +321,7 @@ export default function PublicMainFormSection({
         };
 
         // Set the patient error message to an empty string
-        setPatientErrorMessage('');
+        setErrorMessage('');
         // Set the sent patient data with the form data
         setSentPatientData({ ...sentPatientData, ...sentData });
         // Set the second form as validated and the third form as not validated
@@ -333,7 +331,7 @@ export default function PublicMainFormSection({
       }
     } catch (error) {
       console.error(error);
-      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 
@@ -344,7 +342,7 @@ export default function PublicMainFormSection({
     try {
       setIsLoading(true);
       e.preventDefault();
-      setPatientErrorMessage('');
+      setErrorMessage('');
 
       const form = e.currentTarget;
       const formData = new FormData(form);
@@ -355,24 +353,22 @@ export default function PublicMainFormSection({
         !formData.get('password') ||
         !formData.get('confirm-password')
       ) {
-        setPatientErrorMessage('Veuillez remplir tous les champs');
+        setErrorMessage('Veuillez remplir tous les champs');
         return;
       } else if (
         formData.get('password') !== formData.get('confirm-password')
       ) {
-        setPatientErrorMessage('Les mots de passe ne correspondent pas');
+        setErrorMessage('Les mots de passe ne correspondent pas');
         return;
       } else if ((formData.get('password') as string).length < 12) {
-        setPatientErrorMessage(
-          'Le mot de passe doit contenir au moins 12 caractères'
-        );
+        setErrorMessage('Le mot de passe doit contenir au moins 12 caractères');
         return;
       } else if (
         !/\d/.test(formData.get('password') as string) ||
         !/[a-z]/.test(formData.get('password') as string) ||
         !/[A-Z]/.test(formData.get('password') as string)
       ) {
-        setPatientErrorMessage(
+        setErrorMessage(
           'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre'
         );
         return;
@@ -381,7 +377,7 @@ export default function PublicMainFormSection({
           formData.get('email') as string
         )
       ) {
-        setPatientErrorMessage('Veuillez entrer une adresse email valide');
+        setErrorMessage('Veuillez entrer une adresse email valide');
         return;
       } else {
         const sentData = {
@@ -397,7 +393,7 @@ export default function PublicMainFormSection({
       }
     } catch (error) {
       console.error(error);
-      setPatientErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 
@@ -515,11 +511,11 @@ export default function PublicMainFormSection({
 
             <img src={mainLogo} alt="kinesoin" className="w-14 mx-auto mb-4" />
 
-            {patientErrorMessage || therapistErrorMessage ? (
+            {errorMessage && (
               <p className="text-center text-red-600 font-medium mb-2">
-                {patientErrorMessage || therapistErrorMessage}
+                {errorMessage}
               </p>
-            ) : null}
+            )}
 
             {isPatientLoginPageFormSection && (
               <>

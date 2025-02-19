@@ -28,6 +28,12 @@ interface CustomButtonProps {
   profileCardSendMessageButton?: boolean;
   profileCardModifyProfileButton?: boolean;
   profileCardAddInsuranceButton?: boolean;
+  therapistNotificationButton?: boolean;
+  therapistNotificationQuantity?: number;
+  setTherapistNotificationQuantity?: React.Dispatch<
+    React.SetStateAction<number>
+  >;
+  therapistLogoutButton?: boolean;
 }
 
 export default function CustomButton({
@@ -45,18 +51,22 @@ export default function CustomButton({
   addButton,
   allButton,
   btnType,
-  patientNotificationButton,
-  patientLogoutButton,
   adminLogoutButton,
   onClick,
-  patientNotificationQuantity = 0,
-  setPatientNotificationQuantity,
   mobileButton,
   mobileDeleteButton,
   mobileCancelButton,
   profileCardSendMessageButton,
   profileCardModifyProfileButton,
   profileCardAddInsuranceButton,
+  patientNotificationButton,
+  patientLogoutButton,
+  patientNotificationQuantity = 0,
+  setPatientNotificationQuantity,
+  therapistNotificationButton,
+  therapistNotificationQuantity = 0,
+  setTherapistNotificationQuantity,
+  therapistLogoutButton,
 }: CustomButtonProps) {
   const getBtnBackground = () => {
     if (normalButton || navBarButton || mobileButton || allButton) {
@@ -77,7 +87,12 @@ export default function CustomButton({
       return 'bg-yellow-300 hover:bg-yellow-500';
     } else if (bannedButton) {
       return 'bg-red-300 hover:bg-red-500';
-    } else if (patientNotificationButton || patientLogoutButton) {
+    } else if (
+      patientNotificationButton ||
+      patientLogoutButton ||
+      therapistLogoutButton ||
+      therapistNotificationButton
+    ) {
       return 'md:bg-primaryTeal md:hover:bg-secondaryTeal';
     } else if (profileCardSendMessageButton || profileCardModifyProfileButton) {
       return 'bg-primaryBlue hover:bg-gray-500';
@@ -106,7 +121,9 @@ export default function CustomButton({
     } else if (
       navBarButton ||
       patientNotificationButton ||
+      therapistNotificationButton ||
       patientLogoutButton ||
+      therapistLogoutButton ||
       mobileButton ||
       mobileDeleteButton ||
       mobileCancelButton
@@ -117,23 +134,31 @@ export default function CustomButton({
     }
   };
 
-  const btnClasses = `rounded-lg text-primaryBlue ${profileCardAddInsuranceButton ? 'hover:text-primaryTeal italic' : 'hover:text-white'} font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton) && 'flex items-center gap-2 relative'}`;
+  const btnClasses = `rounded-lg text-primaryBlue ${profileCardAddInsuranceButton ? 'hover:text-primaryTeal italic' : 'hover:text-white'} font-bold black ${getBtnBackground()} ${getSizeAndPadding()} ${(patientNotificationButton || patientLogoutButton || therapistNotificationButton || therapistLogoutButton) && 'flex items-center gap-2 relative'}`;
 
   const renderIcon = () => {
-    if (patientNotificationButton) {
+    if (patientNotificationButton || therapistNotificationButton) {
       return (
         <>
           <img src={NotificationIcon} alt="Notification" className="max-w-8" />
           {patientNotificationQuantity > 0 && (
             <div className="flex items-center">
               <p className="bg-red-600 px-1 md:px-2 rounded-full text-white text-xxs md:text-xxs flex items-center absolute top-1 left-8 md:left-7">
-                {patientNotificationQuantity}
+                {patientNotificationQuantity
+                  ? patientNotificationQuantity
+                  : therapistNotificationQuantity
+                    ? therapistNotificationQuantity
+                    : ''}
               </p>
             </div>
           )}
         </>
       );
-    } else if (patientLogoutButton || adminLogoutButton) {
+    } else if (
+      patientLogoutButton ||
+      adminLogoutButton ||
+      therapistLogoutButton
+    ) {
       return <img src={LogoutIcon} alt="Logout" className="max-w-8" />;
     }
     return null;
@@ -144,7 +169,10 @@ export default function CustomButton({
       {renderIcon()}
       <span
         className={
-          patientLogoutButton || patientNotificationButton
+          patientLogoutButton ||
+          patientNotificationButton ||
+          therapistLogoutButton ||
+          therapistNotificationButton
             ? 'hidden md:block'
             : undefined
         }

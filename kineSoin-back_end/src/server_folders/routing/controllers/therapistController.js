@@ -6,7 +6,12 @@ import { checkPatientStatus } from '../../utils/checkPatientStatus.js';
 import { checkIsValidNumber } from '../../utils/checkIsValidNumber.js';
 import { Scrypt } from '../../authentification/Scrypt.js';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
-import { Patient, Appointment, Therapist } from '../../models/associations.js';
+import {
+  Patient,
+  Appointment,
+  Therapist,
+  Therapist_message,
+} from '../../models/associations.js';
 
 multer({ storage: therapistPhotoStorage });
 
@@ -466,57 +471,95 @@ const therapistController = {
     }
   },
 
-  // Get therapist dashboard data
+  // Function to get therapist dashboard data
   getTherapistDashboardData: async (req, res) => {
-    // const therapistId = parseInt(req.therapist_id, 10);
+    try {
+      const therapistId = parseInt(req.therapist_id, 10);
 
-    const therapistId = 1;
+      if (!checkIsValidNumber(therapistId)) {
+        return res.status(400).json({ message: 'Invalid therapist ID' });
+      }
 
-    checkIsValidNumber(therapistId);
+      const currentDate = new Date().toISOString().split('T')[0];
 
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    const sameDayAppointments = await Appointment.findAll({
-      attributes: ['id', 'date', 'time'],
-      where: {
-        therapist_id: therapistId,
-        is_accepted: true,
-        is_canceled: false,
-        date: { [Op]: currentDate },
-      },
-      order: [['time', 'ASC']],
-      include: [
-        {
-          association: 'patient',
-          attributes: ['id', 'name', 'surname', 'picture_url'],
+      const sameDayAppointments = await Appointment.findAll({
+        attributes: ['id', 'date', 'time'],
+        where: {
+          therapist_id: therapistId,
+          is_accepted: true,
+          is_canceled: false,
+          date: currentDate,
         },
-        {
-          association: 'therapist',
-          attributes: ['id', 'name', 'surname', 'picture_url'],
-        },
-      ],
-    });
+        order: [['time', 'ASC']],
+        include: [
+          {
+            association: 'patient',
+            attributes: ['id', 'name', 'surname', 'picture_url'],
+          },
+          {
+            association: 'prescription',
+            attributes: ['id', 'appointment_quantity'],
+            include: [
+              {
+                association: 'affliction',
+                attributes: ['id', 'name'],
+              },
+            ],
+          },
+        ],
+      });
 
-    let therapist_id = 0;
-    let therapist_fullName = '';
-    let therapist_picture_url = '';
-
-    if (sameDayAppointments.length > 0) {
-      therapist_id = sameDayAppointments[0].therapist.id;
-      therapist_fullName = `${sameDayAppointments[0].therapist.name} ${sameDayAppointments[0].therapist.surname}`;
-      therapist_picture_url = sameDayAppointments[0].therapist.picture_url;
+      if (sameDayAppointments.length > 0) {
+        return res.status(200).json({ sameDayAppointments });
+      } else {
+        return res.status(200).json({ message: 'No appointments today' });
+      }
+    } catch (error) {
+      console.error('Error fetching therapist dashboard data:', error);
+      return res.status(500).json({ message: 'Internal server error' });
     }
-
-    res.status(200).json({
-      sameDayAppointments,
-      therapist: {
-        id: therapist_id,
-        fullName: therapist_fullName,
-        picture_url: therapist_picture_url,
-      },
-    });
   },
 
+  // Function to send message to a patient
+  sendMessageToPatient: async (req, res) => {
+    const therapist_id = parseInt(req.therapist_id, 10);
+    const patient_id = parseInt(req.params.patient_id, 10);
+    checkIsValidNumber(therapist_id);
+    checkIsValidNumber(patient_id);
+
+    if (!therapist_id || !patient_id) {
+      return res
+        .status(400)
+        .json({ message: 'Therapist or patient not found' });
+    } else {
+      try {
+        const contentValidation = Joi.string().min(1).max(255).required();
+        const { error } = contentValidation.validate(req.body.content);
+
+        if (error) {
+          return res.status(400).json({ message: error.message });
+        } else {
+          const newMessage = await Therapist_message.create({
+            receiver_id: patient_id,
+            sender_id: therapist_id,
+            content: req.body.content,
+            date: new Date().toISOString().split('T')[0],
+            time: new Date().toISOString().split('T')[1].split('.')[0],
+          });
+          if (newMessage) {
+            return res
+              .status(201)
+              .json({ message: 'Message sent successfully' });
+          } else {
+            return res.status(400).json({ message: 'Message not sent' });
+          }
+        }
+      } catch (error) {
+        console.error('Error sending message to patient:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
   // Get therapist's data
   getConnectedTherapist: async (req, res) => {
     // const therapistId = parseInt(req.therapist_id, 10);

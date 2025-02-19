@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 interface SideNavProps {
   isAdminSideNav?: boolean;
   isPatientSideNav?: boolean;
+  isTherapistSideNav?: boolean;
 }
 
 const links = {
@@ -23,13 +24,22 @@ const links = {
     { name: 'Mon kinésithérapeute', path: '/patient/my-therapist' },
     { name: 'Mes informations', path: '/patient/my-info' },
   ],
+  therapist: [
+    { name: 'Tableau de bord', path: '/therapist/dashboard' },
+    { name: 'Patients', path: '/therapist/patients' },
+    { name: 'Rendez-vous', path: '/therapist/appointments' },
+    { name: 'Messages', path: '/therapist/messages' },
+    { name: 'Mes informations', path: '/therapist/my-profile' },
+    { name: 'Ordonnances', path: '/therapist/prescriptions' },
+  ],
 };
 
 export default function SideNav({
   isAdminSideNav,
   isPatientSideNav,
+  isTherapistSideNav,
 }: SideNavProps) {
-  const renderLinks = (type: 'admin' | 'patient') => {
+  const renderLinks = (type: 'admin' | 'patient' | 'therapist') => {
     const currentLinks = links[type];
 
     return currentLinks.map((link) => (
@@ -55,6 +65,7 @@ export default function SideNav({
     <div className="mx-4">
       {isAdminSideNav && renderLinks('admin')}
       {isPatientSideNav && renderLinks('patient')}
+      {isTherapistSideNav && renderLinks('therapist')}
     </div>
   );
 }

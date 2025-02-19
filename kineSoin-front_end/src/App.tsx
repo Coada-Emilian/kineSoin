@@ -8,7 +8,6 @@ import NavBar from './components/standaloneComponents/generalComponents/NavBar/N
 import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
-import HomepageMain from './components/pageComponents/PublicSection/HomepageMain';
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
@@ -28,25 +27,25 @@ import PatientAppointmentsPageMain from './components/pageComponents/PatientSect
 import PatientTherapistPageMain from './components/pageComponents/PatientSection/PatientTherapistPageMain';
 import PatientMessagesPageMain from './components/pageComponents/PatientSection/PatientMessagesPageMain';
 import PatientDetailsPageMain from './components/pageComponents/PatientSection/PatientDetailsPageMain';
+import TherapistDashboardPageMain from './components/pageComponents/TherapistSection/TherapistDashboardPageMain';
+import TherapistPatientsPageMain from './components/pageComponents/TherapistSection/TherapistPatientsPageMain';
+import HomepageMain from './components/pageComponents/PublicSection/HomePageMain';
 
-interface PublicLayoutProps {
+interface LayoutProps {
   windowWidth: number;
-  setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsRegisterPageRendered: React.Dispatch<React.SetStateAction<boolean>>;
-}
+  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
 
-interface AdminLayoutProps {
-  isAdminAuthenticated: boolean;
-  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth: number;
-}
+  isAdminAuthenticated?: boolean;
+  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
 
-interface PatientLayoutProps {
-  isPatientAuthenticated: boolean;
-  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth: number;
+  isPatientAuthenticated?: boolean;
+  setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isTherapistAuthenticated?: boolean;
+  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function App() {
@@ -268,6 +267,7 @@ function App() {
             />
           }
         ></Route>
+
         <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
 
@@ -329,7 +329,7 @@ function App() {
             path="insurances/:id"
             element={<AdminInsurancePageMain windowWidth={windowWidth} />}
           />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="*" element={<ErrorPage isConnectedAdminErrorPage />} />
         </Route>
       ) : (
         <Route
@@ -341,7 +341,9 @@ function App() {
               windowWidth={windowWidth}
             />
           }
-        ></Route>
+        >
+          <Route path="*" element={<ErrorPage isUnconnectedAdminErrorPage />} />
+        </Route>
       )}
 
       {/* Patient routes */}
@@ -356,30 +358,19 @@ function App() {
             />
           }
         >
-          <Route
-            path="dashboard"
-            element={<PatientDashboardPageMain windowWidth={windowWidth} />}
-          />
+          <Route path="dashboard" element={<PatientDashboardPageMain />} />
           <Route
             path="new-prescription"
-            element={<PatientPrescriptionPageMain windowWidth={windowWidth} />}
+            element={<PatientPrescriptionPageMain />}
           ></Route>
           <Route
             path="appointments"
-            element={<PatientAppointmentsPageMain windowWidth={windowWidth} />}
+            element={<PatientAppointmentsPageMain />}
           />
-          <Route
-            path="messages"
-            element={<PatientMessagesPageMain windowWidth={windowWidth} />}
-          />
-          <Route
-            path="my-therapist"
-            element={<PatientTherapistPageMain windowWidth={windowWidth} />}
-          />
-          <Route
-            path="my-info"
-            element={<PatientDetailsPageMain windowWidth={windowWidth} />}
-          />
+          <Route path="messages" element={<PatientMessagesPageMain />} />
+          <Route path="my-therapist" element={<PatientTherapistPageMain />} />
+          <Route path="my-info" element={<PatientDetailsPageMain />} />
+          <Route path="*" element={<ErrorPage isConnectedPatientErrorPage />} />
         </Route>
       ) : (
         <Route
@@ -392,7 +383,46 @@ function App() {
             />
           }
         >
-          <Route path="*" element={<ErrorPage />} />
+          <Route
+            path="*"
+            element={<ErrorPage isUnconnectedPatientErrorPage />}
+          />
+        </Route>
+      )}
+
+      {isTherapistAuthenticated ? (
+        <Route
+          path="/therapist"
+          element={
+            <TherapistLayout
+              isTherapistAuthenticated={isTherapistAuthenticated}
+              setIsTherapistAuthenticated={setIsTherapistAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        >
+          <Route path="dashboard" element={<TherapistDashboardPageMain />} />
+          <Route path="patients" element={<TherapistPatientsPageMain />} />
+          <Route
+            path="*"
+            element={<ErrorPage isUnconnectedTherapistErrorPage />}
+          />
+        </Route>
+      ) : (
+        <Route
+          path="/therapist"
+          element={
+            <TherapistLayout
+              isPatientAuthenticated={isPatientAuthenticated}
+              setIsPatientAuthenticated={setIsPatientAuthenticated}
+              windowWidth={windowWidth}
+            />
+          }
+        >
+          <Route
+            path="*"
+            element={<ErrorPage isUnconnectedTherapistErrorPage />}
+          />
         </Route>
       )}
     </Routes>
@@ -405,19 +435,19 @@ function PublicLayout({
   setIsSecondFormValidated,
   setIsThirdFormValidated,
   setIsRegisterPageRendered,
-}: PublicLayoutProps) {
+}: LayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
-        isPublicNavBar
         windowWidth={windowWidth}
+        isPublicNavBar
         setIsFirstFormValidated={setIsFirstFormValidated}
         setIsSecondFormValidated={setIsSecondFormValidated}
         setIsThirdFormValidated={setIsThirdFormValidated}
         setIsRegisterPageRendered={setIsRegisterPageRendered}
       />
       <Outlet />
-      <Footer isPublicFooter />
+      <Footer />
 
       {windowWidth < 768 && <MobileNav isPublicMobileNav />}
     </div>
@@ -428,13 +458,13 @@ function AdminLayout({
   isAdminAuthenticated,
   setIsAdminAuthenticated,
   windowWidth,
-}: AdminLayoutProps) {
+}: LayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
+        windowWidth={windowWidth}
         isAdminAuthenticated={isAdminAuthenticated}
         setIsAdminAuthenticated={setIsAdminAuthenticated}
-        windowWidth={windowWidth}
         isAdminNavBar
       />
       <Outlet />
@@ -449,7 +479,7 @@ function PatientLayout({
   setIsPatientAuthenticated,
   isPatientAuthenticated,
   windowWidth,
-}: PatientLayoutProps) {
+}: LayoutProps) {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar
@@ -459,9 +489,30 @@ function PatientLayout({
         isPatientNavBar
       />
       <Outlet />
-      <Footer isPatientFooter />
+      <Footer />
 
       {windowWidth < 768 && <MobileNav isPatientMobileNav />}
+    </div>
+  );
+}
+
+function TherapistLayout({
+  setIsTherapistAuthenticated,
+  isTherapistAuthenticated,
+  windowWidth,
+}: LayoutProps) {
+  return (
+    <div className="flex flex-col justify-between min-h-screen">
+      <NavBar
+        windowWidth={windowWidth}
+        setIsTherapistAuthenticated={setIsTherapistAuthenticated}
+        isTherapistAuthenticated={isTherapistAuthenticated}
+        isTherapistNavBar
+      />
+      <Outlet />
+      <Footer />
+
+      {windowWidth < 768 && <MobileNav isTherapistMobileNav />}
     </div>
   );
 }

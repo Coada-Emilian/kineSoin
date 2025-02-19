@@ -650,35 +650,39 @@ const patientController = {
 
   // Get all the therapist's patients
   getAllMyPatients: async (req, res) => {
-    // const therapistId = parseInt(req.therapist_id, 10);
+    const therapist_id = parseInt(req.therapist_id, 10);
+    checkIsValidNumber(therapist_id);
 
-    const therapistId = 1;
+    try {
+      const foundPatients = await Patient.findAll({
+        where: { therapist_id: therapist_id },
+        order: [['status', 'ASC']],
+        attributes: ['id', 'name', 'surname', 'status'],
+      });
 
-    checkIsValidNumber(therapistId);
+      if (!foundPatients) {
+        return res.status(400).json({ message: 'No patients found' });
+      } else {
+        const sentPatients = [];
 
-    const foundPatients = await Patient.findAll({
-      where: { therapist_id: therapistId },
-      order: [['status', 'ASC']],
-      attributes: ['id', 'name', 'surname', 'status', 'birth_date'],
-    });
-
-    if (!foundPatients) {
-      return res.status(400).json({ message: 'No patients found' });
+        for (const patient of foundPatients) {
+          const newPatient = {
+            id: patient.id,
+            status: patient.status,
+            fullName: `${patient.name} ${patient.surname}`,
+          };
+          sentPatients.push(newPatient);
+        }
+        if (sentPatients.length === 0) {
+          return res.status(400).json({ message: 'No patients found' });
+        } else {
+          return res.status(200).json(sentPatients);
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving patients:', error.message);
+      return res.status(500).json({ message: 'Internal server error' });
     }
-
-    const sentPatients = [];
-
-    for (const patient of foundPatients) {
-      const newPatient = {
-        id: patient.id,
-        status: patient.status,
-        fullName: `${patient.name} ${patient.surname}`,
-        age: computeAge(patient.birth_date),
-      };
-      sentPatients.push(newPatient);
-    }
-
-    return res.status(200).json(sentPatients);
   },
 };
 

@@ -262,15 +262,15 @@ const authentificationController = {
 
       const foundTherapist = await Therapist.findOne({ where: { email } });
 
-      if (foundTherapist.status === 'inactive') {
-        return res.status(401).json({
-          message: `Your account is inactive. Please contact the administrator.`,
-        });
-      }
-
       if (!foundTherapist) {
         return res.status(401).json({
           message: `Invalid email or password. Please try again.`,
+        });
+      }
+
+      if (foundTherapist.status === 'inactive') {
+        return res.status(401).json({
+          message: `Your account is inactive. Please contact the administrator.`,
         });
       }
 
