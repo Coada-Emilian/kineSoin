@@ -186,6 +186,7 @@ export interface ISameDayAppointment {
     picture_url: string;
   };
   prescription: {
+    id: number;
     affliction: {
       id: number;
       name: string;

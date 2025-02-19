@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
 import {
   cancelAppointment,
+  reducePrescriptionQuantity,
   sendMessageToPatient,
 } from '../../../../../utils/apiUtils';
 import { ISameDayAppointment } from '../../../../../@types/types';
@@ -55,7 +56,7 @@ export default function TherapistModal({
     }
   };
 
-  const handleAppointmentCancelation = async (
+  const handleAppointmentCancellation = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
@@ -63,29 +64,26 @@ export default function TherapistModal({
       if (appointment && appointment.id) {
         const response = await cancelAppointment(appointment.id);
         if (response) {
-          setIsCancelAppointmentModalOpen &&
-            setIsCancelAppointmentModalOpen(false);
+          console.log('Appointment canceled');
         } else {
           setErrorMessage("Erreur lors de l'annulation du rendez-vous");
         }
-      //   if(prescription && prescription.id) {
-      //     const response = await cancelPrescription(prescription.id);
-      //     if (response) {
-      //       setIsCancelAppointmentModalOpen &&
-      //         setIsCancelAppointmentModalOpen(false);
-      //     } else {
-      //       setErrorMessage("Erreur lors de l'annulation de la prescription");
-      // }
+      }
+      if (prescription && prescription.id) {
+        const response = await reducePrescriptionQuantity(prescription.id);
+        if (response) {
+          console.log('Prescription quantity reduced');
+        } else {
+          setErrorMessage("Erreur lors de l'annulation de la prescription");
+        }
+      }
+      setIsCancelAppointmentModalOpen && setIsCancelAppointmentModalOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error('Error canceling appointment:', error);
       setErrorMessage("Erreur lors de l'annulation du rendez-vous");
     }
   };
-
-  useEffect(() => {
-    console.log(prescription);
-    console.log(appointment);
-  }, [prescription, appointment]);
 
   return (
     <ReactModal
@@ -133,7 +131,13 @@ export default function TherapistModal({
         {(isSendMessageModal || isCancelAppointmentModal) && (
           <form
             className="flex flex-col mt-2 italic text-primaryBlue font-medium"
-            onSubmit={handleMessageSubmit}
+            onSubmit={
+              isSendMessageModal
+                ? handleMessageSubmit
+                : isCancelAppointmentModal
+                  ? handleAppointmentCancellation
+                  : undefined
+            }
           >
             <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 ">
               {isSendMessageModal && patient ? (
