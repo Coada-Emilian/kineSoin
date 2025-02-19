@@ -82,5 +82,11 @@ therapistRouter.delete(
 therapistRouter.patch(
   '/me/prescriptions/:prescription_id/add',
   authenticateTherapist,
-  wrapper(appointmentController.addToPrescriptionAppointmentQuantity),
+  wrapper(appointmentController.addToPrescriptionAppointmentQuantity)
+);
+
+therapistRouter.patch(
+  '/me/prescriptions/:prescription_id/reduce',
+  authenticateTherapist,
+  wrapper(appointmentController.reduceFromPrescriptionAppointmentQuantity)
 );
