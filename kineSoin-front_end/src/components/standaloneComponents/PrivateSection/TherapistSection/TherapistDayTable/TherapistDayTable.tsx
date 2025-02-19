@@ -56,6 +56,7 @@ export default function TherapistDayTable() {
               const formattedTime = appointment.time.slice(0, 5);
 
               const sentAppointmentData: ISameDayAppointment = {
+                id: appointment.id,
                 time: formattedTime,
                 patient: appointment.patient,
                 prescription: appointment.prescription,

@@ -2,7 +2,10 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
 import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
-import { sendMessageToPatient } from '../../../../../utils/apiUtils';
+import {
+  cancelAppointment,
+  sendMessageToPatient,
+} from '../../../../../utils/apiUtils';
 import { ISameDayAppointment } from '../../../../../@types/types';
 
 interface TherapistModalProps {
@@ -52,21 +55,30 @@ export default function TherapistModal({
     }
   };
 
-  // const handleAppointmentCancelation = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   try {
-  //     if (appointment && appointment.id) {
-  //       // Cancel appointment
-  //     }
-  //   } catch (error) {
-  //     console.error('Error canceling appointment:', error);
-  //     setErrorMessage("Erreur lors de l'annulation du rendez-vous");
-  //   }
-  // }
+  const handleAppointmentCancelation = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    try {
+      if (appointment && appointment.id) {
+        const response = await cancelAppointment(appointment.id);
+        if (response) {
+          setIsCancelAppointmentModalOpen &&
+            setIsCancelAppointmentModalOpen(false);
+        } else {
+          setErrorMessage("Erreur lors de l'annulation du rendez-vous");
+        }
+      }
+    } catch (error) {
+      console.error('Error canceling appointment:', error);
+      setErrorMessage("Erreur lors de l'annulation du rendez-vous");
+    }
+  };
 
   useEffect(() => {
     console.log(prescription);
-  }, [prescription]);
+    console.log(appointment);
+  }, [prescription, appointment]);
 
   return (
     <ReactModal
