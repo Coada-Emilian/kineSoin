@@ -52,10 +52,22 @@ export default function TherapistModal({
     }
   };
 
+  // const handleAppointmentCancelation = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   try {
+  //     if (appointment && appointment.id) {
+  //       // Cancel appointment
+  //     }
+  //   } catch (error) {
+  //     console.error('Error canceling appointment:', error);
+  //     setErrorMessage("Erreur lors de l'annulation du rendez-vous");
+  //   }
+  // }
+
   useEffect(() => {
     console.log(prescription);
   }, [prescription]);
-  
+
   return (
     <ReactModal
       isOpen={!!isSendMessageModalOpen || !!isCancelAppointmentModalOpen}

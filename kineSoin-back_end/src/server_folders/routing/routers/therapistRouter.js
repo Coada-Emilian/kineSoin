@@ -72,3 +72,9 @@ therapistRouter.post(
   authenticateTherapist,
   wrapper(therapistController.sendMessageToPatient)
 );
+
+therapistRouter.delete(
+  '/me/appointments/:appointment_id',
+  authenticateTherapist,
+  wrapper(appointmentController.deleteAppointment)
+);
