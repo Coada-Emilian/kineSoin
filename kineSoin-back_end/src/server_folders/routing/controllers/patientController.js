@@ -655,7 +655,7 @@ const patientController = {
 
     try {
       const foundPatients = await Patient.findAll({
-        where: { therapist_id: therapistId },
+        where: { therapist_id: therapist_id },
         order: [['status', 'ASC']],
         attributes: ['id', 'name', 'surname', 'status'],
       });

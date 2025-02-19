@@ -193,3 +193,8 @@ export interface ISameDayAppointment {
     };
   };
 }
+
+export interface ITherapistPatient {
+  id: number;
+  full_name: string;
+}
