@@ -919,3 +919,27 @@ export const fetchTherapistDashboardData = async () => {
     return null;
   }
 };
+
+export const sendMessageToPatient = async (id: number, formData: FormData) => {
+  try {
+    const response = await axios.post(
+      `/therapist/me/patients/${id}/messages`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (response.status === 201) {
+      console.log('Message sent successfully');
+      return true;
+    } else {
+      console.error('Failed to send message', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error sending message:', error);
+    return false;
+  }
+};

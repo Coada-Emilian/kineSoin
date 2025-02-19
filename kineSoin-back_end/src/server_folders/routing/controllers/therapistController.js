@@ -521,7 +521,7 @@ const therapistController = {
   },
 
   // Function to send message to a patient
-  sentMessageToPatient: async (req, res) => {
+  sendMessageToPatient: async (req, res) => {
     const therapist_id = parseInt(req.therapist_id, 10);
     const patient_id = parseInt(req.params.patient_id, 10);
     checkIsValidNumber(therapist_id);
