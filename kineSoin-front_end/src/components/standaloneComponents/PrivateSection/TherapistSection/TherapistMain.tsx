@@ -3,6 +3,7 @@ import UserHeadband from '../../generalComponents/UserHeadband/UserHeadband';
 import SideNav from '../../generalComponents/SideNav/SideNav';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
 import TherapistDayTable from './TherapistDayTable/TherapistDayTable';
+import TherapistPatientsTable from './TherapistPatientsTable/TherapistPatientsTable';
 
 interface TherapistMainProps {
   isTherapistDashboardMain?: boolean;
@@ -54,6 +55,8 @@ export default function TherapistMain({
             </p>
 
             {isTherapistDashboardMain && <TherapistDayTable />}
+
+            {isTherapistPatientsMain && <TherapistPatientsTable />}
           </div>
         </div>
       </main>

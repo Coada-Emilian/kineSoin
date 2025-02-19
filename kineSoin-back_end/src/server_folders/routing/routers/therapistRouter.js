@@ -42,10 +42,6 @@ therapistRouter.post(
 //   wrapper(patientController.getPendingPatients)
 // );.
 
-therapistRouter.get(
-  '/me/allMyPatients',
-  wrapper(patientController.getAllMyPatients)
-);
 
 therapistRouter.get(
   '/me/allPatients',
@@ -89,4 +85,10 @@ therapistRouter.patch(
   '/me/prescriptions/:prescription_id/reduceQuantity',
   authenticateTherapist,
   wrapper(appointmentController.reduceFromPrescriptionAppointmentQuantity)
+);
+
+therapistRouter.get(
+  '/me/allMyPatients',
+  authenticateTherapist,
+  wrapper(patientController.getAllMyPatients)
 );
