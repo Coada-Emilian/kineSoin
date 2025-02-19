@@ -90,7 +90,7 @@
     "prefix": "+41",
     "phone_number": "0987654321",
     "email": "emilian@therapist.com",
-    "password": "1234",
+    "password": "emilianPass123",
     "picture_url": "https://res.cloudinary.com/dqu03bwml/image/upload/v1739896620/therapist_photos/r4unire7lwd1fbh7ffrn.jpg",
     "licence_code": "65432198",
     "status": "active"

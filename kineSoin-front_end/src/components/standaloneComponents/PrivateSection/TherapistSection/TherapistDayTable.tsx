@@ -45,13 +45,13 @@ export default function TherapistDayTable() {
 
   return (
     <div className="flex flex-col w-10/12">
-      <div className="w-full flex justify-end mb-4">
+      <div className="w-full flex justify-end mb-6">
         <p className="border border-gray-400 p-2 rounded-xl shadow-xl">
           Date: {formattedDate}
         </p>
       </div>
-      <div className="w-full ">
-        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-10/12 md:my-auto mb-6 rounded-full">
+      <div className="w-full rounded-xl ">
+        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-10/12 md:my-auto mb-6 shadow-xl ">
           <thead
             className={
               windowWidth < 450
