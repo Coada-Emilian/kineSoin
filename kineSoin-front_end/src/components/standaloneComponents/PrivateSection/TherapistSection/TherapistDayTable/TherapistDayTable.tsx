@@ -3,6 +3,7 @@ import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils';
 import { ISameDayAppointment } from '../../../../../@types/types';
 import { Link } from 'react-router-dom';
 import messageIcon from '/icons/message.png';
+import TherapistModal from '../Modals/TherapistModal';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();
@@ -88,6 +89,13 @@ export default function TherapistDayTable() {
   const timeSlots = generateTimeSlots();
   const [noAppointments, setNoAppointments] = useState(false);
   const [isSendMessageModalOpen, setIsSendMessageModalOpen] = useState(false);
+  const [selectedPatientFullName, setSelectedPatientFullName] = useState<
+    string | null
+  >(null);
+
+  const [selectedPatientPictureUrl, setSelectedPatientPictureUrl] = useState<
+    string | null
+  >('');
 
   return (
     <div className="flex flex-col w-10/12">
@@ -159,7 +167,15 @@ export default function TherapistDayTable() {
                         <td className="border border-gray-300 px-4 py-2 flex justify-center items-center ">
                           <Link
                             to="#"
-                            onClick={() => setIsSendMessageModalOpen(true)}
+                            onClick={() => {
+                              setSelectedPatientFullName(
+                                appointment.patientFullName
+                              );
+                              setSelectedPatientPictureUrl(
+                                appointment.patient.picture_url
+                              );
+                              setIsSendMessageModalOpen(true);
+                            }}
                           >
                             <img
                               src={messageIcon}
@@ -190,7 +206,16 @@ export default function TherapistDayTable() {
           <p className="text-lg">Pas de rendez-vous pour aujourd'hui</p>
         </div>
       )}
-      {isSendMessageModalOpen && <h1>Modal</h1>}
+
+      {isSendMessageModalOpen && (
+        <TherapistModal
+          isSendMessageModal
+          patient_name={selectedPatientFullName}
+          patient_url={selectedPatientPictureUrl}
+          isSendMessageModalOpen={isSendMessageModalOpen}
+          setIsSendMessageModalOpen={setIsSendMessageModalOpen}
+        />
+      )}
     </div>
   );
 }
