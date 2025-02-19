@@ -68,7 +68,14 @@ export default function TherapistModal({
         } else {
           setErrorMessage("Erreur lors de l'annulation du rendez-vous");
         }
-      }
+      //   if(prescription && prescription.id) {
+      //     const response = await cancelPrescription(prescription.id);
+      //     if (response) {
+      //       setIsCancelAppointmentModalOpen &&
+      //         setIsCancelAppointmentModalOpen(false);
+      //     } else {
+      //       setErrorMessage("Erreur lors de l'annulation de la prescription");
+      // }
     } catch (error) {
       console.error('Error canceling appointment:', error);
       setErrorMessage("Erreur lors de l'annulation du rendez-vous");

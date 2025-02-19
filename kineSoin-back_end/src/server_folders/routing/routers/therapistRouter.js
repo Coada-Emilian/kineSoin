@@ -80,13 +80,13 @@ therapistRouter.delete(
 );
 
 therapistRouter.patch(
-  '/me/prescriptions/:prescription_id/add',
+  '/me/prescriptions/:prescription_id/addQuantity',
   authenticateTherapist,
   wrapper(appointmentController.addToPrescriptionAppointmentQuantity)
 );
 
 therapistRouter.patch(
-  '/me/prescriptions/:prescription_id/reduce',
+  '/me/prescriptions/:prescription_id/reduceQuantity',
   authenticateTherapist,
   wrapper(appointmentController.reduceFromPrescriptionAppointmentQuantity)
 );
