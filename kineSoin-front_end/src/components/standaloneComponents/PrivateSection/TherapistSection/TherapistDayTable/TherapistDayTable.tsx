@@ -89,13 +89,9 @@ export default function TherapistDayTable() {
   const timeSlots = generateTimeSlots();
   const [noAppointments, setNoAppointments] = useState(false);
   const [isSendMessageModalOpen, setIsSendMessageModalOpen] = useState(false);
-  const [selectedPatientFullName, setSelectedPatientFullName] = useState<
-    string | null
+  const [selectedPatient, setSelectedPatient] = useState<
+    ISameDayAppointment['patient'] | null
   >(null);
-
-  const [selectedPatientPictureUrl, setSelectedPatientPictureUrl] = useState<
-    string | null
-  >('');
 
   return (
     <div className="flex flex-col w-10/12">
@@ -168,12 +164,7 @@ export default function TherapistDayTable() {
                           <Link
                             to="#"
                             onClick={() => {
-                              setSelectedPatientFullName(
-                                appointment.patientFullName
-                              );
-                              setSelectedPatientPictureUrl(
-                                appointment.patient.picture_url
-                              );
+                              setSelectedPatient(appointment.patient);
                               setIsSendMessageModalOpen(true);
                             }}
                           >
@@ -210,8 +201,7 @@ export default function TherapistDayTable() {
       {isSendMessageModalOpen && (
         <TherapistModal
           isSendMessageModal
-          patient_name={selectedPatientFullName}
-          patient_url={selectedPatientPictureUrl}
+          patient={selectedPatient}
           isSendMessageModalOpen={isSendMessageModalOpen}
           setIsSendMessageModalOpen={setIsSendMessageModalOpen}
         />
