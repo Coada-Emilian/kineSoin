@@ -184,26 +184,31 @@ const appointmentController = {
 
   // Function to delete an appointment as a therapist
   deleteAppointment: async (req, res) => {
-    const therapist_id=parseInt(req.therapist_id, 10);
+    const therapist_id = parseInt(req.therapist_id, 10);
     checkIsValidNumber(therapist_id);
-    if(!therapist_id){
-      return res.status(400).json({message: 'Therapist not found'});
+    if (!therapist_id) {
+      return res.status(400).json({ message: 'Therapist not found' });
     } else {
       try {
         const appointmentId = parseInt(req.params.appointment_id, 10);
         checkIsValidNumber(appointmentId);
         const foundAppointment = await Appointment.destroy({
-          where: {id: appointmentId, therapist_id: therapist_id},
+          where: { id: appointmentId, therapist_id: therapist_id },
         });
-        if(!foundAppointment){
-          return res.status(400).json({message: 'Appointment not found'});
-        }else {
-          return res.status(200).json({message: 'Appointment successfully deleted'});
+
+        if (!foundAppointment) {
+          return res.status(400).json({ message: 'Appointment not found' });
+        } else {
+          return res
+            .status(200)
+            .json({ message: 'Appointment successfully deleted' });
         }
-      } catch(error){
+      } catch (error) {
         console.error('Error deleting appointment:', error);
-        res.status(500).json({message: 'Internal server error'});
-      }}
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  },
 
   // Get all proposed appointments for a patient
   getAllProposedAppointments: async (req, res) => {
