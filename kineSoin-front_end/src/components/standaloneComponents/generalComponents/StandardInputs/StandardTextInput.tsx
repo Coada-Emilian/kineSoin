@@ -98,6 +98,10 @@ interface AdminRegionProps {
   isAdminRegionAddNameInput?: boolean;
 }
 
+interface TherapistMessageProps {
+  isTherapistSendMessageInput?: boolean;
+}
+
 interface StandardTextInputProps {
   patientRegister?: GeneralInputProps;
   adminTherapist?: AdminTherapistProps;
@@ -107,6 +111,7 @@ interface StandardTextInputProps {
   dataInput?: DataInputProps;
   adminRegion?: AdminRegionProps;
   patientSection?: PatientSectionProps;
+  therapistMessage?: TherapistMessageProps;
 }
 
 export default function StandardTextInput({
@@ -118,6 +123,7 @@ export default function StandardTextInput({
   dataInput,
   adminRegion,
   patientSection,
+  therapistMessage,
 }: StandardTextInputProps) {
   const [therapistState, setTherapistState] = useState({
     name: dataInput?.therapist?.name || '',
@@ -1228,6 +1234,22 @@ export default function StandardTextInput({
       generalDivClassName: true,
       generalLabelClassName: true,
       autoComplete: 'city',
+    },
+    {
+      boolean: therapistMessage?.isTherapistSendMessageInput,
+      divClassName: 'w-11/12 mx-auto',
+      inputId: 'therapist-message_input',
+      labelClassName: 'text-sm hidden',
+      labelName: '',
+      inputName: 'message',
+      inputPlaceholder: 'Entrez votre message',
+      required: true,
+      inputValue: undefined,
+      inputOnChange: undefined,
+      textArea: false,
+      generalDivClassName: true,
+      generalLabelClassName: true,
+      autoComplete: 'message',
     },
   ];
 

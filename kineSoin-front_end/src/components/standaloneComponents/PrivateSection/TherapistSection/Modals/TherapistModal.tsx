@@ -67,12 +67,13 @@ export default function TherapistModal({
 
         {isSendMessageModal && (
           <form className="flex flex-col mt-2 italic text-primaryBlue font-medium">
-            <h2>hello</h2>
             <div className={`flex flex-col gap-4 mb-2`}>
-              <StandardTextInput />
+              <StandardTextInput
+                therapistMessage={{
+                  isTherapistSendMessageInput: true,
+                }}
+              />
             </div>
-
-            <div className={`flex flex-col gap-4 `}></div>
 
             <div className="flex gap-4 justify-center py-4  bg-primaryTeal">
               <CustomButton
