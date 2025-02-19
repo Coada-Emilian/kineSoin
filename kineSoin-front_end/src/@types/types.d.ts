@@ -173,3 +173,21 @@ export interface IHomePageArticle {
   title: string;
   description: string;
 }
+
+export interface ISameDayAppointment {
+  time: string;
+  patientName: string;
+  afflictionName: string;
+  patient: {
+    id: number;
+    name: string;
+    surname: string;
+    picture_url: string;
+  };
+  prescription: {
+    affliction: {
+      id: number;
+      name: string;
+    };
+  };
+}

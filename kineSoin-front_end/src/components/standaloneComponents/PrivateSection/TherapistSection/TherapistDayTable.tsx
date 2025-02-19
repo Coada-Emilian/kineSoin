@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchTherapistDashboardData } from '../../../../utils/apiUtils';
+import { ISameDayAppointment } from '../../../../@types/types';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();
@@ -29,11 +30,31 @@ export default function TherapistDayTable() {
     return times;
   };
 
+  const [tableAppointments, setTableAppointments] = useState<
+    ISameDayAppointment[] | []
+  >([]);
+
   useEffect(() => {
     const fetchSameDayAppointments = async () => {
       try {
-        const response = await fetchTherapistDashboardData();
-        console.log('Appointments:', response);
+        const sameDayAppointments = await fetchTherapistDashboardData();
+        if (sameDayAppointments.length > 0) {
+          const sameDayAppointments: ISameDayAppointment[] =
+            await fetchTherapistDashboardData();
+          sameDayAppointments.forEach((appointment: ISameDayAppointment) => {
+            const sentAppointmentData: ISameDayAppointment = {
+              time: appointment.time,
+              patient: appointment.patient,
+              prescription: appointment.prescription,
+              patientName: appointment.patient.name,
+              afflictionName: appointment.prescription.affliction.name,
+            };
+            setTableAppointments((prevAppointments: ISameDayAppointment[]) => [
+              ...prevAppointments,
+              sentAppointmentData,
+            ]);
+          });
+        }
       } catch (error) {
         console.error('Error fetching appointments:', error);
       }
