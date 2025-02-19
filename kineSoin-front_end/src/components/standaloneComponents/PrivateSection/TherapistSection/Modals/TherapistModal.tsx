@@ -63,6 +63,7 @@ export default function TherapistModal({
         <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full text-center">
           <p className="text-base md:text-lg">Cabinet kinésithérapie Ruffec</p>
         </div>
+        
         <div className="bg-primaryTeal py-4 w-full flex flex-col items-center">
           <h3 className="text-xl text-center font-semibold text-primaryBlue italic py-2 ">
             {isSendMessageModalOpen && patient

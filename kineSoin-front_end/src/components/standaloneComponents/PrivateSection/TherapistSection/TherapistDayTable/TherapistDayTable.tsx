@@ -3,7 +3,9 @@ import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils';
 import { ISameDayAppointment } from '../../../../../@types/types';
 import { Link } from 'react-router-dom';
 import messageIcon from '/icons/message.png';
+import cancelIcon from '/icons/cancel.png';
 import TherapistModal from '../Modals/TherapistModal';
+import DNALoader from '../../../../../utils/DNALoader';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();
@@ -37,9 +39,12 @@ export default function TherapistDayTable() {
     ISameDayAppointment[] | []
   >([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const fetchSameDayAppointments = async () => {
       try {
+        setIsLoading(true);
         const response = await fetchTherapistDashboardData();
 
         // Check if response contains `sameDayAppointments`
@@ -84,6 +89,7 @@ export default function TherapistDayTable() {
     };
 
     fetchSameDayAppointments();
+    setIsLoading(false);
   }, []);
 
   const timeSlots = generateTimeSlots();
@@ -93,6 +99,9 @@ export default function TherapistDayTable() {
     ISameDayAppointment['patient'] | null
   >(null);
 
+  if (isLoading) {
+    return DNALoader();
+  }
   return (
     <div className="flex flex-col w-10/12">
       <div className="w-full flex justify-end mb-6">
@@ -127,9 +136,14 @@ export default function TherapistDayTable() {
                   <th className="border border-gray-300 py-2 text-center w-fit">
                     Envoyer message
                   </th>
+
+                  <th className="border border-gray-300 py-2 text-center w-fit">
+                    Annuler RDV
+                  </th>
                 </>
               </tr>
             </thead>
+
             <tbody
               className={windowWidth < 450 ? 'text-xxs' : 'text-xs md:text-sm'}
             >
@@ -153,6 +167,7 @@ export default function TherapistDayTable() {
                             {appointment.patientFullName}
                           </Link>
                         </td>
+
                         <td className="border border-gray-300 px-4 py-2 text-center  hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-125 hover:italic">
                           <Link
                             to={`/therapist/afflictions/${appointment.prescription.affliction.id}`}
@@ -160,31 +175,46 @@ export default function TherapistDayTable() {
                             {appointment.afflictionName}
                           </Link>
                         </td>
-                        <td className="border border-gray-300 px-4 py-2 flex justify-center items-center ">
+
+                        <td className="border border-gray-300 px-4 py-2 text-center w-2/12 ">
                           <Link
                             to="#"
                             onClick={() => {
                               setSelectedPatient(appointment.patient);
                               setIsSendMessageModalOpen(true);
                             }}
+                            className="flex justify-center"
                           >
                             <img
                               src={messageIcon}
                               alt="message"
-                              className="w-6  hover:transform hover:scale-125"
+                              className="w-6 hover:transform hover:scale-125"
+                            />
+                          </Link>
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2 text-center w-2/12">
+                          <Link
+                            to="#"
+                            onClick={() => {
+                              setSelectedPatient(appointment.patient);
+                            }}
+                            className="flex justify-center"
+                          >
+                            <img
+                              src={cancelIcon}
+                              alt="cancel"
+                              className="w-6 hover:transform hover:scale-125"
                             />
                           </Link>
                         </td>
                       </>
                     ) : (
-                      <>
-                        <td
-                          className="border border-gray-300 px-4 py-2 text-center"
-                          colSpan={2}
-                        >
-                          Pas de RDV
-                        </td>
-                      </>
+                      <td
+                        className="border border-gray-300 px-4 py-2 text-center"
+                        colSpan={4}
+                      >
+                        Pas de RDV
+                      </td>
                     )}
                   </tr>
                 );
