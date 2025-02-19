@@ -176,7 +176,7 @@ export interface IHomePageArticle {
 
 export interface ISameDayAppointment {
   time: string;
-  patientName: string;
+  patientFullName: string;
   afflictionName: string;
   patient: {
     id: number;
