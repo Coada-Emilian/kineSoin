@@ -107,7 +107,7 @@ export default function TherapistDayTable() {
     return DNALoader();
   }
   return (
-    <div className="flex flex-col w-10/12">
+    <div className="flex flex-col items-center w-10/12">
       <div className="w-full flex justify-end mb-6">
         <p className="border border-gray-400 p-2 rounded-xl shadow-xl">
           Date: {formattedDate}
@@ -248,6 +248,7 @@ export default function TherapistDayTable() {
           isCancelAppointmentModal
           patient={selectedPatient}
           appointment={selectedAppointment}
+          prescription={selectedAppointment?.prescription}
           isCancelAppointmentModalOpen={isCancelAppointmentModalOpen}
           setIsCancelAppointmentModalOpen={setIsCancelAppointmentModalOpen}
         />

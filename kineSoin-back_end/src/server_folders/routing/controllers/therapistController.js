@@ -498,7 +498,7 @@ const therapistController = {
           },
           {
             association: 'prescription',
-            attributes: ['id'],
+            attributes: ['id', 'appointment_quantity'],
             include: [
               {
                 association: 'affliction',

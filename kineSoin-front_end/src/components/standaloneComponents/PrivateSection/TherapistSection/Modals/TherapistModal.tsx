@@ -17,6 +17,7 @@ interface TherapistModalProps {
   >;
   isCancelAppointmentModalOpen?: boolean;
   appointment?: ISameDayAppointment | null;
+  prescription?: ISameDayAppointment['prescription'] | null;
 }
 
 export default function TherapistModal({
@@ -29,6 +30,7 @@ export default function TherapistModal({
   setIsCancelAppointmentModalOpen,
   isCancelAppointmentModalOpen,
   appointment,
+  prescription,
 }: TherapistModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -50,6 +52,10 @@ export default function TherapistModal({
     }
   };
 
+  useEffect(() => {
+    console.log(prescription);
+  }, [prescription]);
+  
   return (
     <ReactModal
       isOpen={!!isSendMessageModalOpen || !!isCancelAppointmentModalOpen}
