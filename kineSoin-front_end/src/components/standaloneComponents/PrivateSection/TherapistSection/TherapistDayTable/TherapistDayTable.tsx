@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { fetchTherapistDashboardData } from '../../../../utils/apiUtils';
-import { ISameDayAppointment } from '../../../../@types/types';
+import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils';
+import { ISameDayAppointment } from '../../../../../@types/types';
 import { Link } from 'react-router-dom';
+import messageIcon from '/icons/message.png';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();
@@ -86,6 +87,7 @@ export default function TherapistDayTable() {
 
   const timeSlots = generateTimeSlots();
   const [noAppointments, setNoAppointments] = useState(false);
+  const [isSendMessageModalOpen, setIsSendMessageModalOpen] = useState(false);
 
   return (
     <div className="flex flex-col w-10/12">
@@ -116,6 +118,10 @@ export default function TherapistDayTable() {
 
                   <th className="border border-gray-300 px-4 py-2 text-center ">
                     Affliction
+                  </th>
+
+                  <th className="border border-gray-300 py-2 text-center w-fit">
+                    Envoyer message
                   </th>
                 </>
               </tr>
@@ -150,6 +156,18 @@ export default function TherapistDayTable() {
                             {appointment.afflictionName}
                           </Link>
                         </td>
+                        <td className="border border-gray-300 px-4 py-2 flex justify-center items-center ">
+                          <Link
+                            to="#"
+                            onClick={() => setIsSendMessageModalOpen(true)}
+                          >
+                            <img
+                              src={messageIcon}
+                              alt="message"
+                              className="w-6  hover:transform hover:scale-125"
+                            />
+                          </Link>
+                        </td>
                       </>
                     ) : (
                       <>
@@ -172,6 +190,7 @@ export default function TherapistDayTable() {
           <p className="text-lg">Pas de rendez-vous pour aujourd'hui</p>
         </div>
       )}
+      {isSendMessageModalOpen && <h1>Modal</h1>}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import UserHeadband from '../../generalComponents/UserHeadband/UserHeadband';
 import SideNav from '../../generalComponents/SideNav/SideNav';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
-import TherapistDayTable from './TherapistDayTable';
+import TherapistDayTable from './TherapistDayTable/TherapistDayTable';
 
 interface TherapistMainProps {
   isTherapistDashboardMain?: boolean;
