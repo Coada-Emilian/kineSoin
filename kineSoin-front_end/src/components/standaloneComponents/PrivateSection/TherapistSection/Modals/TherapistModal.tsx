@@ -10,6 +10,13 @@ interface TherapistModalProps {
   setIsSendMessageModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isSendMessageModalOpen?: boolean;
   patient?: ISameDayAppointment['patient'] | null;
+
+  isCancelAppointmentModal?: boolean;
+  setIsCancelAppointmentModalOpen?: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  isCancelAppointmentModalOpen?: boolean;
+  appointment?: ISameDayAppointment | null;
 }
 
 export default function TherapistModal({
@@ -17,6 +24,11 @@ export default function TherapistModal({
   setIsSendMessageModalOpen,
   isSendMessageModalOpen,
   patient,
+
+  isCancelAppointmentModal,
+  setIsCancelAppointmentModalOpen,
+  isCancelAppointmentModalOpen,
+  appointment,
 }: TherapistModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -37,11 +49,14 @@ export default function TherapistModal({
       setErrorMessage("Erreur lors de l'envoi du message");
     }
   };
+
   return (
     <ReactModal
-      isOpen={!!isSendMessageModalOpen}
+      isOpen={!!isSendMessageModalOpen || !!isCancelAppointmentModalOpen}
       onRequestClose={() => {
         setIsSendMessageModalOpen && setIsSendMessageModalOpen(false);
+        setIsCancelAppointmentModalOpen &&
+          setIsCancelAppointmentModalOpen(false);
       }}
       style={{
         content: {
@@ -63,38 +78,59 @@ export default function TherapistModal({
         <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full text-center">
           <p className="text-base md:text-lg">Cabinet kinésithérapie Ruffec</p>
         </div>
-        
-        <div className="bg-primaryTeal py-4 w-full flex flex-col items-center">
-          <h3 className="text-xl text-center font-semibold text-primaryBlue italic py-2 ">
-            {isSendMessageModalOpen && patient
-              ? `Envoyer un message à ${patient.name} ${patient.surname}`
-              : ''}
-          </h3>
+
+        <div className="bg-primaryTeal py-8 w-full flex flex-col items-center relative mb-14">
           <img
             src={patient?.picture_url || undefined}
             alt={patient?.name || undefined}
-            className="w-24 h-24 object-cover rounded-full border-4 border-white"
+            className="w-24 h-24 object-cover rounded-full border-4 border-white absolute top-4"
           />
         </div>
 
         {errorMessage && (
-          <p className="text-red-500 text-center text-sm font-medium">
+          <p className="text-red-500 text-center text-sm md:text-md xl:text-xl font-medium">
             {errorMessage}
           </p>
         )}
 
-        {isSendMessageModal && (
+        {(isSendMessageModal || isCancelAppointmentModal) && (
           <form
             className="flex flex-col mt-2 italic text-primaryBlue font-medium"
             onSubmit={handleMessageSubmit}
           >
-            <div className={`flex flex-col gap-4 mb-2`}>
-              <StandardTextInput
-                therapistMessage={{
-                  isTherapistSendMessageInput: true,
-                }}
-              />
-            </div>
+            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 ">
+              {isSendMessageModal && patient ? (
+                <span>
+                  {'Envoyez un message à '}
+                  <span className="font-semibold">
+                    {patient.name} {patient.surname}
+                  </span>
+                </span>
+              ) : isCancelAppointmentModal && appointment && patient ? (
+                <span>
+                  {' Voulez-vous '}
+                  <span className="text-red-500">annuler</span>
+                  {' le rendez-vous de '}
+                  <span className="font-semibold">
+                    {patient.name} {patient.surname}
+                  </span>
+                  {' prévu à '}
+                  <span className="font-semibold">{appointment.time}</span>?
+                </span>
+              ) : (
+                ''
+              )}
+            </h3>
+
+            {isSendMessageModal && patient && (
+              <div className={`flex flex-col gap-4 mb-2`}>
+                <StandardTextInput
+                  therapistMessage={{
+                    isTherapistSendMessageInput: true,
+                  }}
+                />
+              </div>
+            )}
 
             <div className="flex gap-4 justify-center py-4  bg-primaryTeal">
               <CustomButton
@@ -108,6 +144,8 @@ export default function TherapistModal({
                 mobileCancelButton
                 onClick={() => {
                   setIsSendMessageModalOpen && setIsSendMessageModalOpen(false);
+                  setIsCancelAppointmentModalOpen &&
+                    setIsCancelAppointmentModalOpen(false);
                 }}
               />
             </div>

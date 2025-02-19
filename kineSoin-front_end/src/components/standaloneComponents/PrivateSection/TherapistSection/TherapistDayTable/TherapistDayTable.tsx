@@ -98,6 +98,10 @@ export default function TherapistDayTable() {
   const [selectedPatient, setSelectedPatient] = useState<
     ISameDayAppointment['patient'] | null
   >(null);
+  const [selectedAppointment, setSelectedAppointment] =
+    useState<ISameDayAppointment | null>(null);
+  const [isCancelAppointmentModalOpen, setIsCancelAppointmentModalOpen] =
+    useState(false);
 
   if (isLoading) {
     return DNALoader();
@@ -111,41 +115,41 @@ export default function TherapistDayTable() {
       </div>
       {!noAppointments ? (
         <div className="w-full rounded-xl ">
-          <table className="border-collapse border border-gray-300 w-full mx-auto md:w-10/12 md:my-auto mb-6 shadow-xl ">
+          <table className="border-collapse border border-gray-300 w-11/12 mx-auto md:w-10/12 md:my-auto mb-6 shadow-xl ">
             <thead
               className={
-                windowWidth < 450
+                windowWidth < 768
                   ? 'bg-gray-100 text-xs'
                   : 'bg-gray-100 text-sm md:text-base '
               }
             >
-              <tr>
+              <tr className="text-xxs md:text-base ">
                 <>
-                  <th className="border border-gray-300 px-4 py-2 text-center w-2/12">
+                  <th className="border border-gray-300  p-1 md:p-2 text-center w-2/12">
                     Heure
                   </th>
 
-                  <th className="border border-gray-300 px-4 py-2 text-center">
+                  <th className="border border-gray-300  p-1 md:p-2 text-center">
                     Patient
                   </th>
 
-                  <th className="border border-gray-300 px-4 py-2 text-center ">
+                  <th className="border border-gray-300  p-1 md:p-2 text-center ">
                     Affliction
                   </th>
 
-                  <th className="border border-gray-300 py-2 text-center w-fit">
-                    Envoyer message
+                  <th className="border border-gray-300 text-center p-1 md:p-2 w-fit">
+                    {windowWidth < 768 ? 'Message' : 'Envoyer un message'}
                   </th>
 
-                  <th className="border border-gray-300 py-2 text-center w-fit">
-                    Annuler RDV
+                  <th className="border border-gray-300  text-center p-1 md:p-2 ">
+                    {windowWidth < 768 ? 'Annuler' : 'Annuler RDV'}
                   </th>
                 </>
               </tr>
             </thead>
 
             <tbody
-              className={windowWidth < 450 ? 'text-xxs' : 'text-xs md:text-sm'}
+              className={windowWidth < 768 ? 'text-xxs' : 'text-xs md:text-sm'}
             >
               {timeSlots.map((time, index) => {
                 const appointment = tableAppointments.find(
@@ -188,7 +192,7 @@ export default function TherapistDayTable() {
                             <img
                               src={messageIcon}
                               alt="message"
-                              className="w-6 hover:transform hover:scale-125"
+                              className="w-3 md:w-6 hover:transform hover:scale-125"
                             />
                           </Link>
                         </td>
@@ -196,14 +200,16 @@ export default function TherapistDayTable() {
                           <Link
                             to="#"
                             onClick={() => {
+                              setSelectedAppointment(appointment);
                               setSelectedPatient(appointment.patient);
+                              setIsCancelAppointmentModalOpen(true);
                             }}
                             className="flex justify-center"
                           >
                             <img
                               src={cancelIcon}
                               alt="cancel"
-                              className="w-6 hover:transform hover:scale-125"
+                              className="w-3 md:w-6 hover:transform hover:scale-125"
                             />
                           </Link>
                         </td>
@@ -234,6 +240,16 @@ export default function TherapistDayTable() {
           patient={selectedPatient}
           isSendMessageModalOpen={isSendMessageModalOpen}
           setIsSendMessageModalOpen={setIsSendMessageModalOpen}
+        />
+      )}
+
+      {isCancelAppointmentModalOpen && (
+        <TherapistModal
+          isCancelAppointmentModal
+          patient={selectedPatient}
+          appointment={selectedAppointment}
+          isCancelAppointmentModalOpen={isCancelAppointmentModalOpen}
+          setIsCancelAppointmentModalOpen={setIsCancelAppointmentModalOpen}
         />
       )}
     </div>
