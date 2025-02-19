@@ -78,3 +78,9 @@ therapistRouter.delete(
   authenticateTherapist,
   wrapper(appointmentController.deleteAppointment)
 );
+
+therapistRouter.patch(
+  '/me/prescriptions/:prescription_id/add',
+  authenticateTherapist,
+  wrapper(appointmentController.addToPrescriptionAppointmentQuantity),
+);
