@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { ITherapistPatient } from '../../../../../@types/types';
-import {
-  fetchTherapist,
-  fetchTherapistPatients,
-} from '../../../../../utils/apiUtils';
+import { fetchTherapistPatients } from '../../../../../utils/apiUtils';
+import deleteIcon from '/icons/delete.png';
+import editIcon from '/icons/edit.png';
+import refreshIcon from '/icons/refresh.png';
+import { Link } from 'react-router-dom';
 
 export default function TherapistPatientsTable() {
   const windowWidth = window.innerWidth;
@@ -30,10 +31,6 @@ export default function TherapistPatientsTable() {
     };
     handleGetTherapistPatients();
   }, []);
-
-  useEffect(() => {
-    console.log(therapistPatients);
-  }, [therapistPatients]);
 
   return (
     <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
@@ -77,18 +74,110 @@ export default function TherapistPatientsTable() {
             </td>
           </tr>
         )}
-        {/* {therapistPatients && therapistPatients.length > 0 && (
-            therapistPatients.map((patient, index) => (
-                <tr key={patient.id} className="odd:bg-white even:bg-gray-50">
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                    {index + 1}
-                </td>
-                <td>
-                    <p className="border border-gray-300 px-4 py-2 text-center">
-                    {patient.fullName}
-                    </p>
-                </td>
-        )} */}
+        {therapistPatients &&
+          therapistPatients.length > 0 &&
+          therapistPatients.map((patient, index) => (
+            <tr key={patient.id} className="odd:bg-white even:bg-gray-50">
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {index + 1}
+              </td>
+
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {patient.fullName}
+              </td>
+
+              <td
+                className={`border border-gray-300 ${
+                  patient.status === 'active'
+                    ? 'bg-green-300'
+                    : patient.status === 'pending'
+                      ? 'bg-yellow-300'
+                      : patient.status === 'banned'
+                        ? 'bg-red-300'
+                        : 'bg-gray-200'
+                } px-4 py-2 text-center flex gap-1 items-center justify-center`}
+              >
+                {(patient.status === 'active' ||
+                  patient.status === 'inactive') && (
+                  <Link to="#" className="hidden md:block">
+                    <img
+                      src={refreshIcon}
+                      alt="change status"
+                      className="max-w-6"
+                      onClick={() => handleStatusChange(patient.id)}
+                    />
+                  </Link>
+                )}
+
+                <p>
+                  {patient.status === 'active'
+                    ? 'ACTIF'
+                    : patient.status === 'inactive'
+                      ? 'INACTIF'
+                      : patient.status === 'banned'
+                        ? 'BANNI'
+                        : 'EN ATTENTE'}
+                </p>
+              </td>
+
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {windowWidth < 768 ? (
+                  <Link to={`/admin/patients/${patient.id}`}>
+                    <img
+                      src={editIcon}
+                      alt="edit"
+                      className={
+                        windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
+                      }
+                    />
+                  </Link>
+                ) : (
+                  <Link
+                    to={`/therapist/patients/${patient.id}`}
+                    className="w-25 flex items-center justify-center"
+                  >
+                    <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
+                    <p className="text-blue-300 font-semibold">Inspecter</p>
+                  </Link>
+                )}
+              </td>
+
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {windowWidth < 768 ? (
+                  <Link
+                    to="#"
+                    className="w-12"
+                    onClick={() => {
+                      openDeleteModal(undefined, patient, undefined, undefined);
+                    }}
+                  >
+                    <img
+                      src={deleteIcon}
+                      alt="delete"
+                      className={
+                        windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
+                      }
+                    />
+                  </Link>
+                ) : (
+                  <Link
+                    to="#"
+                    className="w-25 flex justify-center items-center"
+                    onClick={() => {
+                      openDeleteModal(undefined, patient, undefined, undefined);
+                    }}
+                  >
+                    <img
+                      src={deleteIcon}
+                      alt="supprimer"
+                      className="w-5 mx-1"
+                    />
+                    <p className="text-red-600 font-semibold">Supprimer</p>
+                  </Link>
+                )}
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
