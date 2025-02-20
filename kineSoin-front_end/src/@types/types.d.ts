@@ -179,6 +179,7 @@ export interface ISameDayAppointment {
   time: string;
   patientFullName: string;
   afflictionName: string;
+  isTimePassed?: boolean;
   patient: {
     id: number;
     name: string;

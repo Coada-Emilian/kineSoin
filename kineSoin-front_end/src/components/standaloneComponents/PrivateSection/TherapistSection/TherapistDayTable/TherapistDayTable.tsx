@@ -3,7 +3,9 @@ import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils';
 import { ISameDayAppointment } from '../../../../../@types/types';
 import { Link } from 'react-router-dom';
 import messageIcon from '/icons/message.png';
+import messageIcon2 from '/icons/message2.png';
 import cancelIcon from '/icons/cancel.png';
+import cancelIcon2 from '/icons/cancel2.png';
 import TherapistModal from '../Modals/TherapistModal';
 import DNALoader from '../../../../../utils/DNALoader';
 import dynamicIcon from '/icons/dynamic.png';
@@ -119,11 +121,43 @@ export default function TherapistDayTable() {
     }
   };
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout | undefined;
+
+    const formatTime = (date: Date): string => {
+      return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      });
+    };
+
+    if (isDynamicModeOn) {
+      const currentTime = formatTime(new Date());
+      tableAppointments.forEach((appointment) => {
+        if (appointment.time < currentTime) {
+          appointment.isTimePassed = true;
+        }
+      });
+      interval = setInterval(() => {
+        const currentTime = formatTime(new Date());
+        tableAppointments.forEach((appointment) => {
+          if (appointment.time < currentTime) {
+            appointment.isTimePassed = true;
+          }
+        });
+      }, 180000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isDynamicModeOn]);
+
   if (isLoading) {
     return DNALoader();
   }
+
   return (
-    <div className="flex flex-col items-center w-10/12">
+    <div className="flex flex-col items-center w-11/12">
       <div className="w-full flex justify-end mb-6 gap-4 items-center">
         {showParagraph && (
           <p className="w-1/6 p-2 text-primaryBlue text-center rounded-xl italic font-medium">
@@ -199,9 +233,12 @@ export default function TherapistDayTable() {
 
                     {appointment ? (
                       <>
-                        <td className="border border-gray-300 px-4 py-2 text-center hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-125 hover:italic">
+                        <td
+                          className={`${appointment.isTimePassed ? '' : 'hover:transform hover:scale-125'} border border-gray-300 px-4 py-2 text-center`}
+                        >
                           <Link
-                            to={`/therapist/patients/${appointment.patient.id}`}
+                            to={`${appointment.isTimePassed ? '#' : `/therapist/patients/${appointment.patient.id}`}`}
+                            className={`${appointment.isTimePassed ? 'italic text-gray-500 hover:transform hover:scale-100 ' : 'hover:text-secondaryBlue hover:font-semibold  hover:transform hover:scale-125 hover:italic font-medium'}  `}
                           >
                             {appointment.patientFullName}
                           </Link>
