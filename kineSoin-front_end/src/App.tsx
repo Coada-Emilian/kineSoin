@@ -219,7 +219,6 @@ function App() {
       {/* Public routes */}
 
       <Route
-        path="/public"
         element={
           <PublicLayout
             windowWidth={windowWidth}
@@ -230,8 +229,7 @@ function App() {
           />
         }
       >
-        <Route path="home" element={<HomepageMain />}></Route>
-
+        <Route index element={<HomepageMain />} />
         <Route
           path="loginPatient"
           element={
@@ -240,8 +238,7 @@ function App() {
               setPatientProfileToken={setPatientProfileToken}
             />
           }
-        ></Route>
-
+        />
         <Route
           path="loginTherapist"
           element={
@@ -250,8 +247,7 @@ function App() {
               setTherapistProfileToken={setTherapistProfileToken}
             />
           }
-        ></Route>
-
+        />
         <Route
           path="registerPatient"
           element={
@@ -262,12 +258,11 @@ function App() {
               setIsFirstFormValidated={setIsFirstFormValidated}
               setIsSecondFormValidated={setIsSecondFormValidated}
               setIsThirdFormValidated={setIsThirdFormValidated}
-              setIsGlobalFormSubmitted={setIsGlobalFormSubmitted}
               isGlobalFormSubmitted={isGlobalFormSubmitted}
+              setIsGlobalFormSubmitted={setIsGlobalFormSubmitted}
             />
           }
-        ></Route>
-
+        />
         <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
 
@@ -413,8 +408,8 @@ function App() {
           path="/therapist"
           element={
             <TherapistLayout
-              isPatientAuthenticated={isPatientAuthenticated}
-              setIsPatientAuthenticated={setIsPatientAuthenticated}
+              isTherapistAuthenticated={isTherapistAuthenticated}
+              setIsTherapistAuthenticated={setIsTherapistAuthenticated}
               windowWidth={windowWidth}
             />
           }
