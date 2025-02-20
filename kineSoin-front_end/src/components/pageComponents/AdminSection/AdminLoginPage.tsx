@@ -25,23 +25,6 @@ export default function AdminLoginPage({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const validateForm = (email: string, password: string) => {
-    if (!email || !password || !email.includes('@')) {
-      setErrorMessage(ERROR_MESSAGES.INVALID_CREDENTIALS);
-      return false;
-    }
-    return true;
-  };
-
-  const handleError = (error: unknown) => {
-    if (error instanceof AxiosError && error.response?.status === 401) {
-      setErrorMessage(ERROR_MESSAGES.INVALID_CREDENTIALS);
-    } else {
-      setErrorMessage(ERROR_MESSAGES.GENERAL_ERROR);
-    }
-    console.error(error);
-  };
-
   const checkAdminCredentials = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -51,21 +34,30 @@ export default function AdminLoginPage({
       const adminEmail = formData.get('email') as string;
       const adminPassword = formData.get('password') as string;
 
-      if (!validateForm(adminEmail, adminPassword)) {
+      if (!adminEmail || !adminPassword) {
         setIsLoading(false);
+        setErrorMessage('Veuillez remplir tous les champs');
+        return;
+      } else if (!adminEmail.includes('@')) {
+        setIsLoading(false);
+        setErrorMessage('Veuillez entrer une adresse email valide');
         return;
       }
 
       const response = await handleAdminLogin(adminEmail, adminPassword);
-      setAdminTokenAndDataInLocalStorage(
-        response.token,
-        response.name,
-        response.id
-      );
-      setAdminProfileToken(response.token);
+      if (response) {
+        setAdminTokenAndDataInLocalStorage(
+          response.token,
+          response.name,
+          response.id
+        );
+        setAdminProfileToken(response.token);
+      } else {
+        setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      }
       navigate('/admin/therapists');
     } catch (error) {
-      handleError(error);
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     } finally {
       setIsLoading(false);
     }
