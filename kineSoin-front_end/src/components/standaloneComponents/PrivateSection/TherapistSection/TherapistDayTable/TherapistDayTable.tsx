@@ -6,6 +6,8 @@ import messageIcon from '/icons/message.png';
 import cancelIcon from '/icons/cancel.png';
 import TherapistModal from '../Modals/TherapistModal';
 import DNALoader from '../../../../../utils/DNALoader';
+import dynamicIcon from '/icons/dynamic.png';
+import dynamicIcon2 from '/icons/dynamic2.png';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();
@@ -104,16 +106,48 @@ export default function TherapistDayTable() {
   const [isCancelAppointmentModalOpen, setIsCancelAppointmentModalOpen] =
     useState(false);
 
+  const [isDynamicModeOn, setIsDynamicModeOn] = useState(false);
+  const [showParagraph, setShowParagraph] = useState(false);
+
+  const handleDynamicModeClick = () => {
+    setIsDynamicModeOn(!isDynamicModeOn);
+    if (!isDynamicModeOn) {
+      setShowParagraph(true);
+      setTimeout(() => {
+        setShowParagraph(false);
+      }, 3000); // Hide paragraph after 3 seconds
+    }
+  };
+
   if (isLoading) {
     return DNALoader();
   }
   return (
     <div className="flex flex-col items-center w-10/12">
-      <div className="w-full flex justify-end mb-6">
-        <p className="border border-gray-400 p-2 rounded-xl shadow-xl italic font-semibold">
+      <div className="w-full flex justify-end mb-6 gap-4 items-center">
+        {showParagraph && (
+          <p className="w-1/6 p-2 text-primaryBlue text-center rounded-xl italic font-medium">
+            Dynamic mode is{' '}
+            {isDynamicModeOn ? (
+              <span className="text-green-500">ON</span>
+            ) : (
+              <span className="text-red-500">OFF</span>
+            )}
+          </p>
+        )}
+        <Link to="#" onClick={handleDynamicModeClick}>
+          <img
+            src={!isDynamicModeOn ? dynamicIcon : dynamicIcon2}
+            alt="dynamic mode on"
+            className="w-8 h-8 hover:animate-spin"
+          />
+        </Link>
+
+        <p className="border border-gray-400 p-2 rounded-xl shadow-xl italic font-semibold ">
           Date: {formattedDate}
         </p>
       </div>
+
       {!noAppointments ? (
         <div className="w-full rounded-xl ">
           <table className="border-collapse border border-gray-300 w-11/12 mx-auto md:w-10/12 md:my-auto mb-6 shadow-xl ">

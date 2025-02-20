@@ -198,4 +198,5 @@ export interface ITherapistPatient {
   id: number;
   fullName: string;
   status: string;
+  picture_url: string;
 }

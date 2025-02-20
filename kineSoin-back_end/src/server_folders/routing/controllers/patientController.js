@@ -594,7 +594,7 @@ const patientController = {
       const foundPatients = await Patient.findAll({
         where: { therapist_id: therapist_id },
         order: [['status', 'ASC']],
-        attributes: ['id', 'name', 'surname', 'status'],
+        attributes: ['id', 'name', 'surname', 'status', 'picture_url'],
       });
 
       if (!foundPatients) {
@@ -607,6 +607,7 @@ const patientController = {
             id: patient.id,
             status: patient.status,
             fullName: `${patient.name} ${patient.surname}`,
+            picture_url: patient.picture_url,
           };
           sentPatients.push(newPatient);
         }

@@ -7,7 +7,10 @@ import {
   reducePrescriptionQuantity,
   sendMessageToPatient,
 } from '../../../../../utils/apiUtils';
-import { ISameDayAppointment } from '../../../../../@types/types';
+import {
+  ISameDayAppointment,
+  ITherapistPatient,
+} from '../../../../../@types/types';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;
@@ -22,6 +25,11 @@ interface TherapistModalProps {
   isCancelAppointmentModalOpen?: boolean;
   appointment?: ISameDayAppointment | null;
   prescription?: ISameDayAppointment['prescription'] | null;
+
+  isDeletePatientModal?: boolean;
+  isDeletePatientModalOpen?: boolean;
+  setIsDeletePatientModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  selected_patient?: ITherapistPatient | null;
 }
 
 export default function TherapistModal({
@@ -35,6 +43,11 @@ export default function TherapistModal({
   isCancelAppointmentModalOpen,
   appointment,
   prescription,
+
+  isDeletePatientModal,
+  isDeletePatientModalOpen,
+  setIsDeletePatientModalOpen,
+  selected_patient,
 }: TherapistModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -87,11 +100,16 @@ export default function TherapistModal({
 
   return (
     <ReactModal
-      isOpen={!!isSendMessageModalOpen || !!isCancelAppointmentModalOpen}
+      isOpen={
+        !!isSendMessageModalOpen ||
+        !!isCancelAppointmentModalOpen ||
+        !!isDeletePatientModalOpen
+      }
       onRequestClose={() => {
         setIsSendMessageModalOpen && setIsSendMessageModalOpen(false);
         setIsCancelAppointmentModalOpen &&
           setIsCancelAppointmentModalOpen(false);
+        setIsDeletePatientModalOpen && setIsDeletePatientModalOpen(false);
       }}
       style={{
         content: {
@@ -116,8 +134,10 @@ export default function TherapistModal({
 
         <div className="bg-primaryTeal py-8 w-full flex flex-col items-center relative mb-14">
           <img
-            src={patient?.picture_url || undefined}
-            alt={patient?.name || undefined}
+            src={
+              patient?.picture_url || selected_patient?.picture_url || undefined
+            }
+            alt={patient?.name || selected_patient?.fullName || undefined}
             className="w-24 h-24 object-cover rounded-full border-4 border-white absolute top-4"
           />
         </div>
@@ -128,7 +148,9 @@ export default function TherapistModal({
           </p>
         )}
 
-        {(isSendMessageModal || isCancelAppointmentModal) && (
+        {(isSendMessageModal ||
+          isCancelAppointmentModal ||
+          isDeletePatientModal) && (
           <form
             className="flex flex-col mt-2 italic text-primaryBlue font-medium"
             onSubmit={
@@ -139,7 +161,7 @@ export default function TherapistModal({
                   : undefined
             }
           >
-            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 ">
+            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 flex flex-col items-center">
               {isSendMessageModal && patient ? (
                 <span>
                   {'Envoyez un message à '}
@@ -158,6 +180,19 @@ export default function TherapistModal({
                   {' prévu à '}
                   <span className="font-semibold">{appointment.time}</span>?
                 </span>
+              ) : isDeletePatientModal && selected_patient ? (
+                <>
+                  <span>
+                    {' Voulez-vous '}
+                    <span className="text-red-500">supprimer</span>
+                    {' le compte de '}
+                    <span className="font-semibold">
+                      {selected_patient.fullName}
+                    </span>
+                    {' ?'}
+                  </span>
+                  <span>buci</span>
+                </>
               ) : (
                 ''
               )}
@@ -187,6 +222,8 @@ export default function TherapistModal({
                   setIsSendMessageModalOpen && setIsSendMessageModalOpen(false);
                   setIsCancelAppointmentModalOpen &&
                     setIsCancelAppointmentModalOpen(false);
+                  setIsDeletePatientModalOpen &&
+                    setIsDeletePatientModalOpen(false);
                 }}
               />
             </div>
