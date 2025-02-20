@@ -691,7 +691,8 @@ const patientController = {
       if (!foundPatient) {
         return res.status(400).json({ message: 'Patient not found' });
       } else {
-        console.log('Patient data retrieved succesfully');
+        const age = computeAge(foundPatient.birth_date);
+        foundPatient.dataValues.age = age;
         return res.status(200).json(foundPatient);
       }
     } catch (error) {

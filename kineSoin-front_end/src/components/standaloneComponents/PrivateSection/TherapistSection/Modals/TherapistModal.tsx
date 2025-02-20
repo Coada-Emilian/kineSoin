@@ -13,7 +13,6 @@ import {
   ISameDayAppointment,
   ITherapistPatient,
 } from '../../../../../@types/types';
-import { DNA } from 'react-loader-spinner';
 import DNALoader from '../../../../../utils/DNALoader';
 
 interface TherapistModalProps {
@@ -65,7 +64,9 @@ export default function TherapistModal({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [patientData, setPatientData] = useState<IFullPatient | null>(null);
+  const [patientData, setPatientData] = useState<IFullPatient | undefined>(
+    undefined
+  );
 
   const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,35 +115,37 @@ export default function TherapistModal({
     }
   };
 
-  const handlePatientDataRetrieval = async (id: number) => {
-    try {
-      setIsLoading(true);
-      const response = await fetchPatientDataAsTherapist(id);
-      if (response) {
-        setPatientData(response);
-        setIsLoading(false);
-      } else {
-        setIsLoading(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selected_patient?.id) return; // Prevents unnecessary API calls
+
+      try {
+        setIsLoading(true);
+        const response = await fetchPatientDataAsTherapist(selected_patient.id);
+
+        if (!response) {
+          setErrorMessage(
+            'Erreur lors de la récupération des données du patient'
+          );
+        } else {
+          setPatientData(response);
+        }
+      } catch (error) {
+        console.error('Error retrieving patient data:', error);
         setErrorMessage(
           'Erreur lors de la récupération des données du patient'
         );
-      }
-    } catch (error) {
-      console.error('Error retrieving patient data:', error);
-      setIsLoading(false);
-      setErrorMessage('Erreur lors de la récupération des données du patient');
-    }
-  };
-
-  useEffect(() => {
-    const fetchPatientData = async () => {
-      if (selected_patient && selected_patient.id) {
-        await handlePatientDataRetrieval(selected_patient.id);
-        console.log('Patient data:', patientData);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchPatientData();
+
+    fetchData();
   }, [selected_patient]);
+
+  useEffect(() => {
+    console.log(patientData);
+  }, [patientData]);
 
   return (
     <ReactModal
@@ -200,7 +203,8 @@ export default function TherapistModal({
 
         {(isSendMessageModal ||
           isCancelAppointmentModal ||
-          isDeletePatientModal) && (
+          isDeletePatientModal ||
+          isPatientDetailsModal) && (
           <form
             className="flex flex-col mt-2 italic text-primaryBlue font-medium"
             onSubmit={
@@ -249,7 +253,6 @@ export default function TherapistModal({
                 ''
               )}
             </h3>
-
             {isSendMessageModal && patient && (
               <div className={`flex flex-col gap-4 mb-2`}>
                 <StandardTextInput
@@ -257,6 +260,19 @@ export default function TherapistModal({
                     isTherapistSendMessageInput: true,
                   }}
                 />
+              </div>
+            )}
+
+            {isPatientDetailsModal && patientData && (
+              <div className="w-full flex flex-col items-center gap-4">
+                <p className="text-xl md:text-2xl mt-8">
+                  <span className="font-semibold">{patientData?.surname}</span>{' '}
+                  <span className="font-semibold">{patientData?.name}</span>
+                </p>
+
+                <p className="text-primaryBlue italic font-semibold mb-6">
+                  {patientData?.age} ans
+                </p>
               </div>
             )}
 

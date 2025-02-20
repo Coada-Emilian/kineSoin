@@ -194,6 +194,7 @@ export interface IFullPatient {
   therapist_id: number;
   name: string;
   surname: string;
+  age: number;
   gender: string;
   birth_date: string;
   street_number: string;
