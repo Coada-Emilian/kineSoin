@@ -165,7 +165,7 @@ export default function TherapistDayTable() {
     <div className="flex flex-col items-center w-11/12">
       <div className="w-full flex justify-end mb-6 gap-4 items-center">
         {showParagraph && (
-          <p className="w-1/6 p-2 text-primaryBlue text-center rounded-xl italic font-medium">
+          <p className="w-2/6 text-xs md:w-1/6 text-mdp-2 text-primaryBlue text-center rounded-xl italic font-medium">
             Dynamic mode is{' '}
             {isDynamicModeOn ? (
               <span className="text-green-500">ON</span>
@@ -177,8 +177,8 @@ export default function TherapistDayTable() {
         <Link to="#" onClick={handleDynamicModeClick}>
           <img
             src={!isDynamicModeOn ? dynamicIcon : dynamicIcon2}
-            alt="dynamic mode on"
-            className={`${isDynamicModeOn ? 'animate-spin' : ''} w-8 h-8 hover:animate-spin`}
+            alt={isDynamicModeOn ? 'dynamic mode on' : 'dynamic mode off'}
+            className={`${isDynamicModeOn ? 'animate-spin' : ''} w-6 h-6 md:w-8 md:h-8 hover:animate-spin`}
           />
         </Link>
 

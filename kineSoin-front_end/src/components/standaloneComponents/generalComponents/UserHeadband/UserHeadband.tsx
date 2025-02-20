@@ -36,7 +36,7 @@ export default function UserHeadband({
 
   return (
     <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center ">
-      <Link tp={`${isTherapistHeadband ? '/therapist/dashboard' : '#'}`}>
+      <Link to={`${isTherapistHeadband ? '/therapist/dashboard' : '#'}`}>
         <img
           src={
             isPatientHeadband
