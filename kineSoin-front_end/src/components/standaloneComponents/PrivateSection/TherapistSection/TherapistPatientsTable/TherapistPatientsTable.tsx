@@ -76,7 +76,7 @@ export default function TherapistPatientsTable() {
           <DNALoader />
         </div>
       )}
-      <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12  mb-6 rounded-lg shadow-xl">
+      <table className="border-collapse border border-gray-300 w-11/12 mx-auto  mb-6 rounded-lg shadow-xl">
         <thead
           className={
             windowWidth < 450
@@ -145,11 +145,11 @@ export default function TherapistPatientsTable() {
                 >
                   {(patient.status === 'active' ||
                     patient.status === 'inactive') && (
-                    <Link to="#" className="hidden md:block">
+                    <Link to="#" className=" md:block">
                       <img
                         src={refreshIcon}
                         alt="change status"
-                        className="max-w-6 hover:animate-spin"
+                        className="max-w-4 md:max-w-6 hover:animate-spin"
                         onClick={() => handlePatientStatusChange(patient.id)}
                       />
                     </Link>

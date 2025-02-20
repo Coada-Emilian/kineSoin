@@ -13,6 +13,8 @@ import {
   ISameDayAppointment,
   ITherapistPatient,
 } from '../../../../../@types/types';
+import { DNA } from 'react-loader-spinner';
+import DNALoader from '../../../../../utils/DNALoader';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;
@@ -60,6 +62,10 @@ export default function TherapistModal({
   setIsPatientDetailsModalOpen,
 }: TherapistModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [patientData, setPatientData] = useState<IFullPatient | null>(null);
 
   const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -110,22 +116,34 @@ export default function TherapistModal({
 
   const handlePatientDataRetrieval = async (id: number) => {
     try {
+      setIsLoading(true);
       const response = await fetchPatientDataAsTherapist(id);
       if (response) {
-        console.log('Patient data retrieved successfully');
+        setPatientData(response);
+        setIsLoading(false);
       } else {
+        setIsLoading(false);
         setErrorMessage(
           'Erreur lors de la récupération des données du patient'
         );
       }
     } catch (error) {
       console.error('Error retrieving patient data:', error);
+      setIsLoading(false);
       setErrorMessage('Erreur lors de la récupération des données du patient');
     }
   };
 
-  const [patientData, setPatientData] = useState<IFullPatient | null>(null);
-  
+  useEffect(() => {
+    const fetchPatientData = async () => {
+      if (selected_patient && selected_patient.id) {
+        await handlePatientDataRetrieval(selected_patient.id);
+        console.log('Patient data:', patientData);
+      }
+    };
+    fetchPatientData();
+  }, [selected_patient]);
+
   return (
     <ReactModal
       isOpen={
@@ -177,6 +195,8 @@ export default function TherapistModal({
             {errorMessage}
           </p>
         )}
+
+        {isLoading && DNALoader()}
 
         {(isSendMessageModal ||
           isCancelAppointmentModal ||

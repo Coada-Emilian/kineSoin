@@ -400,7 +400,7 @@ function App() {
           <Route path="patients" element={<TherapistPatientsPageMain />} />
           <Route
             path="*"
-            element={<ErrorPage isUnconnectedTherapistErrorPage />}
+            element={<ErrorPage isConnectedTherapistErrorPage />}
           />
         </Route>
       ) : (
