@@ -7,7 +7,6 @@ import TherapistPatientsTable from './TherapistPatientsTable/TherapistPatientsTa
 
 interface TherapistMainProps {
   isTherapistDashboardMain?: boolean;
-
   isTherapistPatientsMain?: boolean;
 }
 
@@ -16,7 +15,16 @@ export default function TherapistMain({
 
   isTherapistPatientsMain,
 }: TherapistMainProps) {
-  const windowWidth = window.innerWidth;
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, [windowWidth]);
+
   const [therapistId, setTherapistId] = useState<number>();
 
   useEffect(() => {
@@ -40,7 +48,7 @@ export default function TherapistMain({
   return (
     <>
       <main className={`bg-gray-200 `}>
-        <UserHeadband isTherapistHeadband />
+        <UserHeadband isTherapistHeadband windowWidth={windowWidth} />
 
         <div className="h-fit md:flex gap-4 mb-2 ">
           {windowWidth && windowWidth > 768 && (

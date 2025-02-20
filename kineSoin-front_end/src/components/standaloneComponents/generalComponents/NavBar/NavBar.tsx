@@ -108,7 +108,7 @@ export default function NavBar({
           <img
             src={(windowWidth ?? 0) < 768 ? Logo2 : Logo1}
             alt="Retour a l'accueil"
-            className="max-w-28 lg:max-w-32"
+            className="max-w-32 lg:max-w-40"
           />
         </Link>
 

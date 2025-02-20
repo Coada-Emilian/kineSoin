@@ -96,7 +96,6 @@ export default function StandardChoiceDropdown({
   const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
     const response =
       await fetchPatientAppointmentsByPrescription(prescriptionId);
-    console.log(response);
     if (response) {
       setFutureAppointments &&
         setFutureAppointments(response.futureAppointments);
@@ -278,6 +277,7 @@ export default function StandardChoiceDropdown({
                         windowWidth <= 768
                       ? 'Opéré ?'
                       : '';
+
   const inputClassName = `${isPatientProfilePrefixModification ? 'w-full md:w-2/4' : 'w-full'} block p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent`;
 
   const inputName = isPatientInsuranceDropdownInput
@@ -331,7 +331,7 @@ export default function StandardChoiceDropdown({
 
           if (isPrescriptionDropdownInput) {
             const selectedPrescriptionId = Number(e.target.value);
-            if (selectedPrescriptionId && patientId) {
+            if (selectedPrescriptionId) {
               fetchAppointmentsByPrescription(selectedPrescriptionId);
             }
           }
