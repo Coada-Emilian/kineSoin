@@ -42,7 +42,6 @@ therapistRouter.post(
 //   wrapper(patientController.getPendingPatients)
 // );.
 
-
 therapistRouter.get(
   '/me/allPatients',
   wrapper(patientController.getAllPatients)
@@ -91,4 +90,10 @@ therapistRouter.get(
   '/me/allMyPatients',
   authenticateTherapist,
   wrapper(patientController.getAllMyPatients)
+);
+
+therapistRouter.patch(
+  '/me/patients/:patient_id/status',
+  authenticateTherapist,
+  wrapper(patientController.togglePatientStatusAsTherapist)
 );

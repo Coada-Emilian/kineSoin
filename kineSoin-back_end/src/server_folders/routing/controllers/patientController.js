@@ -437,6 +437,56 @@ const patientController = {
     }
   },
 
+  // Function to toggle patient status as therapist
+  togglePatientStatusAsTherapist: async (req, res) => {
+    const therapist_id = parseInt(req.therapist_id, 10);
+
+    checkIsValidNumber(therapist_id);
+
+    if (!therapist_id) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      try {
+        const patientId = parseInt(req.params.patient_id, 10);
+
+        checkIsValidNumber(patientId);
+
+        const foundPatient = await Patient.findByPk(patientId);
+
+        if (!foundPatient) {
+          return res.status(400).json({ message: 'Patient not found' });
+        } else {
+          if (
+            foundPatient.status === 'pending' ||
+            foundPatient.status === 'banned'
+          ) {
+            return res
+              .status(400)
+              .json({
+                message: 'Cannot change status of pending or banned patient',
+              });
+          } else {
+            if (foundPatient.status === 'active') {
+              foundPatient.status = 'inactive';
+              await foundPatient.save();
+              return res.status(200).json({
+                message: 'Patient status updated successfully!',
+              });
+            } else if (foundPatient.status === 'inactive') {
+              foundPatient.status = 'active';
+              await foundPatient.save();
+              return res.status(200).json({
+                message: 'Patient status updated successfully!',
+              });
+            }
+          }
+        }
+      } catch (error) {
+        return res.status(500).json({ message: error.message });
+      }
+    }
+  },
+
   // Get the patient's dashboard data
   getPatientDashboardData: async (req, res) => {
     // const patientId = parseInt(req.patient_id, 10);

@@ -32,6 +32,10 @@ export default function TherapistPatientsTable() {
     handleGetTherapistPatients();
   }, []);
 
+  const handleStatusChange = (id: number) => {
+    console.log('status change for therapist id: ', id);
+  };
+
   return (
     <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
       <thead
@@ -43,7 +47,7 @@ export default function TherapistPatientsTable() {
       >
         <tr>
           <>
-            <th className="border border-gray-300 px-4 py-2 text-center">#</th>
+            <th className="border border-gray-300 px-4 py-2 text-">#</th>
 
             <th className="border border-gray-300 px-4 py-2 text-center">
               Nom patient
@@ -74,6 +78,7 @@ export default function TherapistPatientsTable() {
             </td>
           </tr>
         )}
+
         {therapistPatients &&
           therapistPatients.length > 0 &&
           therapistPatients.map((patient, index) => (

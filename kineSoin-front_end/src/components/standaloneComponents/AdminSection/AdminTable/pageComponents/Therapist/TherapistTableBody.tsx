@@ -10,7 +10,6 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/types';
-import { useEffect } from 'react';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];
