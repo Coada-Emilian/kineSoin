@@ -113,11 +113,11 @@ export default function TherapistDayTable() {
 
   const handleDynamicModeClick = () => {
     setIsDynamicModeOn(!isDynamicModeOn);
-    if (!isDynamicModeOn) {
+    if (!isDynamicModeOn || isDynamicModeOn) {
       setShowParagraph(true);
       setTimeout(() => {
         setShowParagraph(false);
-      }, 2000); // Hide paragraph after 3 seconds
+      }, 3000);
     }
   };
 
@@ -154,7 +154,7 @@ export default function TherapistDayTable() {
       });
     }
 
-    return () => clearInterval(interval); // Clear the interval on cleanup or when isDynamicModeOn changes
+    return () => clearInterval(interval);
   }, [isDynamicModeOn]);
 
   if (isLoading) {
