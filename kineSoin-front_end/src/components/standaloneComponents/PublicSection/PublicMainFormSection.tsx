@@ -471,10 +471,7 @@ export default function PublicMainFormSection({
             </p>
 
             <p>
-              <Link
-                to="/public/registerPatient"
-                className="font-bold text-primaryRed"
-              >
+              <Link to="/registerPatient" className="font-bold text-primaryRed">
                 Inscrivez-vous ici !
               </Link>{' '}
             </p>
@@ -617,7 +614,7 @@ export default function PublicMainFormSection({
                 </p>
 
                 <p className="indent-4">
-                  <Link to="/public/home" className="font-bold text-primaryRed">
+                  <Link to="/home" className="font-bold text-primaryRed">
                     Retour à l'accueil
                   </Link>{' '}
                 </p>
@@ -629,10 +626,7 @@ export default function PublicMainFormSection({
                 <div className="text-xs mb-4 text-center mt-4">
                   <p>
                     Pas encore membre?{' '}
-                    <Link
-                      to="/public/registerPatient"
-                      className="text-primaryRed"
-                    >
+                    <Link to="/registerPatient" className="text-primaryRed">
                       Inscrivez-vous ici
                     </Link>
                   </p>
@@ -658,7 +652,7 @@ export default function PublicMainFormSection({
                   <p>
                     Déjà membre?{' '}
                     <Link
-                      to="/public/loginPatient"
+                      to="/loginPatient"
                       className="text-primaryRed"
                       onClick={() => {
                         setIsFirstFormValidated(false),

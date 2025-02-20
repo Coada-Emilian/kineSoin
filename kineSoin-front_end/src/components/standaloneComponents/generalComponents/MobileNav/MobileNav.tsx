@@ -73,21 +73,21 @@ export default function MobileNav({
   const publicLinks = [
     {
       name: 'Connexion Kiné',
-      path: '/public/loginTherapist',
+      path: '/loginTherapist',
       icon: therapistIcon,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(false),
     },
     {
       name: 'Inscription Patient',
-      path: '/public/registerPatient',
+      path: '/registerPatient',
       icon: mainLogo,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(true),
     },
     {
       name: 'Connexion Patient',
-      path: '/public/loginPatient',
+      path: '/loginPatient',
       icon: patientIcon,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(false),

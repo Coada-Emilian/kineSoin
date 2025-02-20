@@ -62,7 +62,7 @@ export default function NavBar({
     if (setIsPatientAuthenticated) {
       setIsPatientAuthenticated(false);
     }
-    window.location.href = '/public/loginPatient';
+    window.location.href = '/loginPatient';
   };
 
   // function to handle the therapist logout
@@ -71,7 +71,7 @@ export default function NavBar({
     if (setIsTherapistAuthenticated) {
       setIsTherapistAuthenticated(false);
     }
-    window.location.href = '/public/loginTherapist';
+    window.location.href = '/loginTherapist';
   };
 
   // State to manage the patient notification quantity
@@ -89,7 +89,7 @@ export default function NavBar({
         className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}
       >
         <Link
-          to="/public/home"
+          to="/"
           onClick={() => {
             if (setIsRegisterPageRendered) {
               setIsRegisterPageRendered(false);
@@ -119,7 +119,7 @@ export default function NavBar({
           {isPublicNavBar && (
             <div className="flex gap-2">
               <Link
-                to="/public/loginTherapist"
+                to="/loginTherapist"
                 className="hidden md:block"
                 onClick={() => {
                   if (setIsRegisterPageRendered) {
@@ -140,7 +140,7 @@ export default function NavBar({
               </Link>
 
               <Link
-                to="/public/loginPatient"
+                to="/loginPatient"
                 className="hidden md:block"
                 onClick={() => {
                   if (setIsRegisterPageRendered) {
