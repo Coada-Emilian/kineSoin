@@ -55,6 +55,12 @@ therapistRouter.patch(
   wrapper(patientController.togglePatientStatusAsTherapist)
 );
 
+therapistRouter.get(
+  '/me/patients/:patient_id',
+  authenticateTherapist,
+  wrapper(patientController.getOnePatientAsTherapist)
+);
+
 therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
 
 therapistRouter.delete(
@@ -76,11 +82,6 @@ therapistRouter.post(
 therapistRouter.get(
   '/me/allPatients',
   wrapper(patientController.getAllPatients)
-);
-
-therapistRouter.get(
-  '/me/patients/:patient_id',
-  wrapper(patientController.getOnePatient)
 );
 
 therapistRouter.post(

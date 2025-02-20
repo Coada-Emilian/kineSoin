@@ -66,6 +66,8 @@ export default function TherapistPatientsTable() {
     useState<boolean>(false);
   const [selectedPatient, setSelectedPatient] =
     useState<ITherapistPatient | null>(null);
+  const [isPatientDetailsModalOpen, setIsPatientDetailsModalOpen] =
+    useState<boolean>(false);
 
   return (
     <>
@@ -166,8 +168,12 @@ export default function TherapistPatientsTable() {
 
                 <td className="border border-gray-300 px-4 py-2 text-center hover:transform hover:scale-125">
                   <Link
-                    to={`/admin/patients/${patient.id}`}
+                    to="#"
                     className={`${windowWidth < 768 ? 'w-12' : 'w-25 flex justify-center items-center'}`}
+                    onClick={() => {
+                      setSelectedPatient(patient);
+                      setIsPatientDetailsModalOpen(true);
+                    }}
                   >
                     <img
                       src={editIcon}
@@ -203,12 +209,22 @@ export default function TherapistPatientsTable() {
             ))}
         </tbody>
       </table>
+
       {isDeletePatientModalOpen && (
         <TherapistModal
           isDeletePatientModal
           isDeletePatientModalOpen={isDeletePatientModalOpen}
           setIsDeletePatientModalOpen={setIsDeletePatientModalOpen}
           selected_patient={selectedPatient}
+        />
+      )}
+
+      {isPatientDetailsModalOpen && (
+        <TherapistModal
+          selected_patient={selectedPatient}
+          isPatientDetailsModal
+          isPatientDetailsModalOpen={isPatientDetailsModalOpen}
+          setIsPatientDetailsModalOpen={setIsPatientDetailsModalOpen}
         />
       )}
     </>

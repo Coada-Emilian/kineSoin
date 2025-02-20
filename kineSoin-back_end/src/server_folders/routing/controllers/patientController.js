@@ -623,6 +623,70 @@ const patientController = {
     }
   },
 
+  // Function to get one patients data as a therapist
+  getOnePatientAsTherapist: async (req, res) => {
+    const therapist_id = parseInt(req.therapist_id, 10);
+    checkIsValidNumber(therapist_id);
+
+    try {
+      const patientId = parseInt(req.params.patient_id, 10);
+
+      checkIsValidNumber(patientId);
+
+      const foundPatient = await Patient.findByPk(patientId, {
+        attributes: {
+          exclude: [
+            'password',
+            'old_password',
+            'new_password',
+            'repeated_password',
+            'created_at',
+            'updated_at',
+            'picture_id',
+            'birth_name',
+          ],
+        },
+        include: [
+          {
+            association: 'prescriptions',
+            attributes: [
+              'id',
+              'appointment_quantity',
+              'is_completed',
+              'at_home_care',
+              'date',
+            ],
+            include: [
+              {
+                association: 'medic',
+                attributes: ['id', 'name', 'surname'],
+              },
+              {
+                association: 'affliction',
+                attributes: ['id', 'name', 'description'],
+              },
+              {
+                association: 'appointments',
+                attributes: ['id', 'is_canceled', 'date', 'time'],
+              },
+            ],
+          },
+          { association: 'therapist' },
+        ],
+      });
+
+      if (!foundPatient) {
+        return res.status(400).json({ message: 'Patient not found' });
+      } else {
+        console.log('Patient data retrieved succesfully');
+        return res.status(200).json(foundPatient);
+      }
+    } catch (error) {
+      console.error('Error retrieving patient:', error.message);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
   // Unused functions
 
   // // Delete the patient's account

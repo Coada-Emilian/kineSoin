@@ -30,6 +30,10 @@ interface TherapistModalProps {
   isDeletePatientModalOpen?: boolean;
   setIsDeletePatientModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   selected_patient?: ITherapistPatient | null;
+
+  isPatientDetailsModal?: boolean;
+  isPatientDetailsModalOpen?: boolean;
+  setIsPatientDetailsModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function TherapistModal({
@@ -48,6 +52,10 @@ export default function TherapistModal({
   isDeletePatientModalOpen,
   setIsDeletePatientModalOpen,
   selected_patient,
+
+  isPatientDetailsModal,
+  isPatientDetailsModalOpen,
+  setIsPatientDetailsModalOpen,
 }: TherapistModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -98,18 +106,23 @@ export default function TherapistModal({
     }
   };
 
+  // const handlePatientRetrieval = async (id: number) => {
+
+  // }
   return (
     <ReactModal
       isOpen={
         !!isSendMessageModalOpen ||
         !!isCancelAppointmentModalOpen ||
-        !!isDeletePatientModalOpen
+        !!isDeletePatientModalOpen ||
+        !!isPatientDetailsModalOpen
       }
       onRequestClose={() => {
         setIsSendMessageModalOpen && setIsSendMessageModalOpen(false);
         setIsCancelAppointmentModalOpen &&
           setIsCancelAppointmentModalOpen(false);
         setIsDeletePatientModalOpen && setIsDeletePatientModalOpen(false);
+        setIsPatientDetailsModalOpen && setIsPatientDetailsModalOpen(false);
       }}
       style={{
         content: {
@@ -226,6 +239,8 @@ export default function TherapistModal({
                     setIsCancelAppointmentModalOpen(false);
                   setIsDeletePatientModalOpen &&
                     setIsDeletePatientModalOpen(false);
+                  setIsPatientDetailsModalOpen &&
+                    setIsPatientDetailsModalOpen(false);
                 }}
               />
             </div>
