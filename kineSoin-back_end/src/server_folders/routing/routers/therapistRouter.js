@@ -19,49 +19,6 @@ therapistRouter.get(
   wrapper(therapistController.getTherapistDashboardData)
 );
 
-therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
-
-therapistRouter.delete(
-  '/me',
-  wrapper(therapistController.deleteConnectedTherapist)
-);
-
-therapistRouter.patch(
-  '/me',
-  wrapper(therapistController.updateConnectedTherapist)
-);
-
-therapistRouter.post(
-  '/me/uploadPhoto',
-  uploadTherapistPhoto.single('photo'),
-  therapistController.uploadTherapistPhoto
-);
-
-// therapistRouter.get(
-//   '/me/pendingPatients',
-//   wrapper(patientController.getPendingPatients)
-// );.
-
-therapistRouter.get(
-  '/me/allPatients',
-  wrapper(patientController.getAllPatients)
-);
-
-therapistRouter.get(
-  '/me/patients/:patient_id',
-  wrapper(patientController.getOnePatient)
-);
-
-therapistRouter.post(
-  '/me/newAppointment',
-  wrapper(appointmentController.addNewAppointment)
-);
-
-therapistRouter.get(
-  '/me/appointments',
-  wrapper(appointmentController.getAllMyAppointments)
-);
-
 therapistRouter.post(
   '/me/patients/:patient_id/messages',
   authenticateTherapist,
@@ -93,7 +50,49 @@ therapistRouter.get(
 );
 
 therapistRouter.patch(
-  '/me/patients/:patient_id/status',
+  '/me/patients/:patient_id/toggleStatus',
   authenticateTherapist,
   wrapper(patientController.togglePatientStatusAsTherapist)
 );
+
+therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
+
+therapistRouter.delete(
+  '/me',
+  wrapper(therapistController.deleteConnectedTherapist)
+);
+
+therapistRouter.patch(
+  '/me',
+  wrapper(therapistController.updateConnectedTherapist)
+);
+
+therapistRouter.post(
+  '/me/uploadPhoto',
+  uploadTherapistPhoto.single('photo'),
+  therapistController.uploadTherapistPhoto
+);
+
+therapistRouter.get(
+  '/me/allPatients',
+  wrapper(patientController.getAllPatients)
+);
+
+therapistRouter.get(
+  '/me/patients/:patient_id',
+  wrapper(patientController.getOnePatient)
+);
+
+therapistRouter.post(
+  '/me/newAppointment',
+  wrapper(appointmentController.addNewAppointment)
+);
+
+therapistRouter.get(
+  '/me/appointments',
+  wrapper(appointmentController.getAllMyAppointments)
+);
+// therapistRouter.get(
+//   '/me/pendingPatients',
+//   wrapper(patientController.getPendingPatients)
+// );.

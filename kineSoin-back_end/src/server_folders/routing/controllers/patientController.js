@@ -460,11 +460,9 @@ const patientController = {
             foundPatient.status === 'pending' ||
             foundPatient.status === 'banned'
           ) {
-            return res
-              .status(400)
-              .json({
-                message: 'Cannot change status of pending or banned patient',
-              });
+            return res.status(400).json({
+              message: 'Cannot change status of pending or banned patient',
+            });
           } else {
             if (foundPatient.status === 'active') {
               foundPatient.status = 'inactive';
@@ -487,118 +485,7 @@ const patientController = {
     }
   },
 
-  // Get the patient's dashboard data
-  getPatientDashboardData: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 1;
-
-    checkIsValidNumber(patientId);
-
-    const currentDate = new Date().toISOString().split('T')[0];
-    const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
-
-    const foundPatient = await Patient.findByPk(patientId, {
-      attributes: {
-        exclude: [
-          'password',
-          'old_password',
-          'new_password',
-          'repeated_password',
-          'created_at',
-          'updated_at',
-          'picture_id',
-          'birth_name',
-        ],
-      },
-      include: [
-        {
-          association: 'prescriptions',
-          where: { is_completed: false },
-          required: false,
-          attributes: [
-            'id',
-            'appointment_quantity',
-            'at_home_care',
-            'date',
-            'picture_url',
-          ],
-          include: [
-            {
-              association: 'appointments',
-              where: {
-                [Op.and]: [{ is_canceled: false }, { is_accepted: true }],
-              },
-              required: false,
-              attributes: ['id', 'date', 'time'],
-            },
-            { association: 'medic', attributes: ['name', 'surname'] },
-            { association: 'affliction', attributes: ['name', 'description'] },
-          ],
-        },
-      ],
-    });
-
-    checkPatientStatus(foundPatient);
-
-    const modifiedPrescriptions = [];
-
-    for (const prescription of foundPatient.prescriptions) {
-      const past_appointments = [];
-      const upcoming_appointments = [];
-
-      for (const appointment of prescription.appointments) {
-        if (appointment.date < currentDate && appointment.time < currentTime) {
-          past_appointments.push(appointment);
-        } else {
-          upcoming_appointments.push(appointment);
-        }
-      }
-
-      const modifiedPrescription = {
-        id: prescription.id,
-        appointment_quantity: prescription.appointment_quantity,
-        at_home_care: prescription.at_home_care,
-        date: prescription.date,
-        picture_url: prescription.picture_url,
-        past_appointments,
-        upcoming_appointments,
-      };
-
-      modifiedPrescriptions.push(modifiedPrescription);
-    }
-
-    const sentPatientData = {
-      fullName: `${foundPatient.name} ${foundPatient.surname}`,
-      surname: foundPatient.surname,
-      address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
-      age: computeAge(foundPatient.birth_date),
-      gender: foundPatient.gender,
-      insurance: foundPatient.insurance,
-      prescriptions: modifiedPrescriptions,
-    };
-
-    res.status(200).json(sentPatientData);
-  },
-
-  // Delete the patient's account
-  deleteConnectedPatient: async (req, res) => {
-    // const patientId = parseInt(req.patient_id, 10);
-
-    const patientId = 82;
-
-    checkIsValidNumber(patientId);
-
-    const response = await Patient.destroy({ where: { id: patientId } });
-
-    if (!response) {
-      return res.status(400).json({ message: 'Patient not found' });
-    } else {
-      return res.status(200).json({ message: 'Patient deleted successfully!' });
-    }
-  },
-
-  // Update the patient's profile
+  // Function to update the connected patient's profile
   updateConnectedPatient: async (req, res) => {
     const patientId = parseInt(req.patient_id, 10);
 
@@ -698,7 +585,7 @@ const patientController = {
     }
   },
 
-  // Get all the therapist's patients
+  // Function to get all the patients of a therapist
   getAllMyPatients: async (req, res) => {
     const therapist_id = parseInt(req.therapist_id, 10);
     checkIsValidNumber(therapist_id);
@@ -734,6 +621,119 @@ const patientController = {
       return res.status(500).json({ message: 'Internal server error' });
     }
   },
+
+  // Unused functions
+
+  // // Delete the patient's account
+  // deleteConnectedPatient: async (req, res) => {
+  //   // const patientId = parseInt(req.patient_id, 10);
+
+  //   const patientId = 82;
+
+  //   checkIsValidNumber(patientId);
+
+  //   const response = await Patient.destroy({ where: { id: patientId } });
+
+  //   if (!response) {
+  //     return res.status(400).json({ message: 'Patient not found' });
+  //   } else {
+  //     return res.status(200).json({ message: 'Patient deleted successfully!' });
+  //   }
+  // },
+
+  // // Get the patient's dashboard data
+  // getPatientDashboardData: async (req, res) => {
+  //   // const patientId = parseInt(req.patient_id, 10);
+
+  //   const patientId = 1;
+
+  //   checkIsValidNumber(patientId);
+
+  //   const currentDate = new Date().toISOString().split('T')[0];
+  //   const currentTime = new Date().toISOString().split('T')[1].split('.')[0];
+
+  //   const foundPatient = await Patient.findByPk(patientId, {
+  //     attributes: {
+  //       exclude: [
+  //         'password',
+  //         'old_password',
+  //         'new_password',
+  //         'repeated_password',
+  //         'created_at',
+  //         'updated_at',
+  //         'picture_id',
+  //         'birth_name',
+  //       ],
+  //     },
+  //     include: [
+  //       {
+  //         association: 'prescriptions',
+  //         where: { is_completed: false },
+  //         required: false,
+  //         attributes: [
+  //           'id',
+  //           'appointment_quantity',
+  //           'at_home_care',
+  //           'date',
+  //           'picture_url',
+  //         ],
+  //         include: [
+  //           {
+  //             association: 'appointments',
+  //             where: {
+  //               [Op.and]: [{ is_canceled: false }, { is_accepted: true }],
+  //             },
+  //             required: false,
+  //             attributes: ['id', 'date', 'time'],
+  //           },
+  //           { association: 'medic', attributes: ['name', 'surname'] },
+  //           { association: 'affliction', attributes: ['name', 'description'] },
+  //         ],
+  //       },
+  //     ],
+  //   });
+
+  //   checkPatientStatus(foundPatient);
+
+  //   const modifiedPrescriptions = [];
+
+  //   for (const prescription of foundPatient.prescriptions) {
+  //     const past_appointments = [];
+  //     const upcoming_appointments = [];
+
+  //     for (const appointment of prescription.appointments) {
+  //       if (appointment.date < currentDate && appointment.time < currentTime) {
+  //         past_appointments.push(appointment);
+  //       } else {
+  //         upcoming_appointments.push(appointment);
+  //       }
+  //     }
+
+  //     const modifiedPrescription = {
+  //       id: prescription.id,
+  //       appointment_quantity: prescription.appointment_quantity,
+  //       at_home_care: prescription.at_home_care,
+  //       date: prescription.date,
+  //       picture_url: prescription.picture_url,
+  //       past_appointments,
+  //       upcoming_appointments,
+  //     };
+
+  //     modifiedPrescriptions.push(modifiedPrescription);
+  //   }
+
+  //   const sentPatientData = {
+  //     fullName: `${foundPatient.name} ${foundPatient.surname}`,
+  //     surname: foundPatient.surname,
+  //     address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
+  //     age: computeAge(foundPatient.birth_date),
+  //     gender: foundPatient.gender,
+  //     insurance: foundPatient.insurance,
+  //     prescriptions: modifiedPrescriptions,
+  //   };
+
+  //   res.status(200).json(sentPatientData);
+  // },
 };
 
 export default patientController;
