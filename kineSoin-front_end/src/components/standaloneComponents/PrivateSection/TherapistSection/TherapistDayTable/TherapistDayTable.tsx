@@ -117,7 +117,7 @@ export default function TherapistDayTable() {
       setShowParagraph(true);
       setTimeout(() => {
         setShowParagraph(false);
-      }, 3000); // Hide paragraph after 3 seconds
+      }, 2000); // Hide paragraph after 3 seconds
     }
   };
 
@@ -132,24 +132,29 @@ export default function TherapistDayTable() {
       });
     };
 
-    if (isDynamicModeOn) {
+    const checkAppointments = () => {
       const currentTime = formatTime(new Date());
       tableAppointments.forEach((appointment) => {
         if (appointment.time < currentTime) {
           appointment.isTimePassed = true;
         }
       });
+    };
+
+    if (isDynamicModeOn) {
+      checkAppointments();
+
       interval = setInterval(() => {
-        const currentTime = formatTime(new Date());
-        tableAppointments.forEach((appointment) => {
-          if (appointment.time < currentTime) {
-            appointment.isTimePassed = true;
-          }
-        });
-      }, 180000);
+        console.log('Checking appointments...');
+        checkAppointments();
+      }, 600000);
+    } else if (!isDynamicModeOn) {
+      tableAppointments.forEach((appointment) => {
+        appointment.isTimePassed = false;
+      });
     }
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // Clear the interval on cleanup or when isDynamicModeOn changes
   }, [isDynamicModeOn]);
 
   if (isLoading) {
@@ -244,9 +249,12 @@ export default function TherapistDayTable() {
                           </Link>
                         </td>
 
-                        <td className="border border-gray-300 px-4 py-2 text-center  hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-125 hover:italic">
+                        <td
+                          className={`${appointment.isTimePassed ? '' : 'hover:transform hover:scale-125'} border border-gray-300 px-4 py-2 text-center`}
+                        >
                           <Link
-                            to={`/therapist/afflictions/${appointment.prescription.affliction.id}`}
+                            to={`${appointment.isTimePassed ? '#' : `/therapist/afflictions/${appointment.prescription.affliction.id}`}`}
+                            className={`${appointment.isTimePassed ? 'italic text-gray-500 hover:transform hover:scale-100 ' : 'hover:text-secondaryBlue hover:font-semibold  hover:transform hover:scale-125 hover:italic font-medium'}  `}
                           >
                             {appointment.afflictionName}
                           </Link>
@@ -256,32 +264,53 @@ export default function TherapistDayTable() {
                           <Link
                             to="#"
                             onClick={() => {
-                              setSelectedPatient(appointment.patient);
-                              setIsSendMessageModalOpen(true);
+                              if (!appointment.isTimePassed) {
+                                setSelectedPatient(appointment.patient);
+                                setIsSendMessageModalOpen(true);
+                              }
                             }}
                             className="flex justify-center"
                           >
                             <img
-                              src={messageIcon}
+                              src={
+                                appointment.isTimePassed
+                                  ? messageIcon2
+                                  : messageIcon
+                              }
                               alt="message"
-                              className="w-3 md:w-6 hover:transform hover:scale-125"
+                              className={
+                                appointment.isTimePassed
+                                  ? 'w-3 md:w-6'
+                                  : 'w-3 md:w-6 hover:transform hover:scale-125'
+                              }
                             />
                           </Link>
                         </td>
+
                         <td className="border border-gray-300 px-4 py-2 text-center w-2/12">
                           <Link
                             to="#"
                             onClick={() => {
-                              setSelectedAppointment(appointment);
-                              setSelectedPatient(appointment.patient);
-                              setIsCancelAppointmentModalOpen(true);
+                              if (!appointment.isTimePassed) {
+                                setSelectedAppointment(appointment);
+                                setSelectedPatient(appointment.patient);
+                                setIsCancelAppointmentModalOpen(true);
+                              }
                             }}
                             className="flex justify-center"
                           >
                             <img
-                              src={cancelIcon}
+                              src={
+                                appointment.isTimePassed
+                                  ? cancelIcon2
+                                  : cancelIcon
+                              }
                               alt="cancel"
-                              className="w-3 md:w-6 hover:transform hover:scale-125"
+                              className={
+                                appointment.isTimePassed
+                                  ? 'w-3 md:w-6'
+                                  : 'w-3 md:w-6 hover:transform hover:scale-125'
+                              }
                             />
                           </Link>
                         </td>
