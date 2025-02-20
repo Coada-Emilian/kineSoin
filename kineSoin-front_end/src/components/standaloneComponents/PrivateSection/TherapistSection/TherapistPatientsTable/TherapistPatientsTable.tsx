@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ITherapistPatient } from '../../../../../@types/types';
-import { fetchTherapistPatients } from '../../../../../utils/apiUtils';
+import {
+  fetchTherapistPatients,
+  togglePatientStatusAsTherapist,
+} from '../../../../../utils/apiUtils';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
@@ -32,8 +35,18 @@ export default function TherapistPatientsTable() {
     handleGetTherapistPatients();
   }, []);
 
-  const handleStatusChange = (id: number) => {
-    console.log('status change for therapist id: ', id);
+  const handlePatientStatusChange = async (id: number) => {
+    try {
+      const response = await togglePatientStatusAsTherapist(id);
+      if (response) {
+        console.log('Status changed successfully');
+        window.location.reload();
+      } else {
+        console.error('Error changing patient status', response);
+      }
+    } catch (error) {
+      console.error('Error changing status: ', error);
+    }
   };
 
   return (
@@ -109,7 +122,7 @@ export default function TherapistPatientsTable() {
                       src={refreshIcon}
                       alt="change status"
                       className="max-w-6"
-                      onClick={() => handleStatusChange(patient.id)}
+                      onClick={() => handlePatientStatusChange(patient.id)}
                     />
                   </Link>
                 )}
