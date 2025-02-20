@@ -13,6 +13,7 @@ import patientInfoLogo from '/icons/patient-info.png';
 import prescriptionIcon from '/icons/prescription.png';
 import patientsIcon from '/icons/patients.png';
 import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 interface MobileNavProps {
   isAdminMobileNav?: boolean;
@@ -29,51 +30,63 @@ export default function MobileNav({
   isPatientMobileNav,
   isTherapistMobileNav,
 }: MobileNavProps) {
+  interface Link {
+    name: string;
+    path: string;
+    icon: string;
+    onClick?: () => void;
+  }
+
   const adminLinks = [
     {
       name: 'Patients',
       path: '/admin/patients',
       icon: patientIcon,
+      onChange: () => {},
     },
     {
       name: 'Afflictions',
       path: '/admin/afflictions',
       icon: afflictionIcon,
+      onChange: () => {},
     },
     {
       name: 'Kinés',
       path: '/admin/therapists',
       icon: therapistIcon,
+      onChange: () => {},
     },
     {
       name: 'Médecins',
       path: '/admin/medics',
       icon: doctorIcon,
+      onChange: () => {},
     },
     {
       name: 'Assurances',
       path: '/admin/insurances',
       icon: insuranceIcon,
+      onChange: () => {},
     },
   ];
 
   const publicLinks = [
     {
-      name: 'Connexion kiné',
+      name: 'Connexion Kiné',
       path: '/public/loginTherapist',
       icon: therapistIcon,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(false),
     },
     {
-      name: 'Inscription patient',
+      name: 'Inscription Patient',
       path: '/public/registerPatient',
       icon: mainLogo,
       onClick: () =>
         setIsRegisterPageRendered && setIsRegisterPageRendered(true),
     },
     {
-      name: 'Connexion patient',
+      name: 'Connexion Patient',
       path: '/public/loginPatient',
       icon: patientIcon,
       onClick: () =>
@@ -83,25 +96,34 @@ export default function MobileNav({
 
   const patientLinks = [
     {
-      name: 'Nouvelle ordonnance',
+      name: 'Ordonnance',
       path: '/patient/new-prescription',
       icon: newFileLogo,
+      onChange: () => {},
     },
     {
-      name: 'Rendez-vous',
+      name: 'RDV',
       path: '/patient/appointments',
       icon: appointmentLogo,
+      onChange: () => {},
     },
-    { name: 'Mon kine', path: '/patient/my-therapist', icon: therapistIcon },
+    {
+      name: 'Mon kine',
+      path: '/patient/my-therapist',
+      icon: therapistIcon,
+      onChange: () => {},
+    },
     {
       name: 'Messages',
       path: '/patient/messages',
       icon: conversationLogo,
+      onChange: () => {},
     },
     {
-      name: 'Mes informations',
+      name: 'Mes infos',
       path: '/patient/my-info',
       icon: patientInfoLogo,
+      onChange: () => {},
     },
   ];
 
@@ -110,113 +132,66 @@ export default function MobileNav({
       name: 'Patients',
       path: '/therapist/patients',
       icon: patientsIcon,
+      onChange: () => {},
     },
     {
-      name: 'Rendez-vous',
+      name: 'RDV',
       path: '/therapist/appointments',
       icon: appointmentLogo,
+      onChange: () => {},
     },
     {
       name: 'Messages',
       path: '/therapist/messages',
       icon: conversationLogo,
+      onChange: () => {},
     },
     {
-      name: 'Mes informations',
+      name: 'Mes infos',
       path: '/therapist/my-info',
       icon: therapistIcon,
+      onChange: () => {},
     },
     {
       name: 'Ordonnances',
       path: '/therapist/prescriptions',
       icon: prescriptionIcon,
+      onChange: () => {},
     },
   ];
+
+  const [activeLinks, setActiveLinks] = useState<Link[]>([]);
+
+  useEffect(() => {
+    if (isAdminMobileNav) {
+      setActiveLinks(adminLinks);
+    } else if (isPublicMobileNav) {
+      setActiveLinks(publicLinks);
+    } else if (isPatientMobileNav) {
+      setActiveLinks(patientLinks);
+    } else if (isTherapistMobileNav) {
+      setActiveLinks(therapistLinks);
+    }
+  }, []);
+
   return (
-    <>
-      {isAdminMobileNav && (
-        <div className="flex gap-2 justify-around w-full my-2 px-4">
-          {adminLinks.map((link, index) => (
-            <NavLink
-              to={link.path}
-              key={index}
-              className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-gray-50 bg-opacity-50 justify-center text-center border rounded-lg p-1 ${
-                  isActive
-                    ? 'text-secondaryBlue font-bold italic ring-1 ring-secondaryBlue ring-offset-2'
-                    : 'text-primaryBlue'
-                }`
-              }
-            >
-              <img src={link.icon} alt={link.name} className="w-8 mb-2" />
-              <p className="text-xs font-medium">{link.name}</p>
-            </NavLink>
-          ))}
-        </div>
-      )}
-
-      {isPublicMobileNav && (
-        <div className="flex gap-2 justify-around w-full py-4 bg-container">
-          {publicLinks.map((link, index) => (
-            <NavLink
-              to={link.path}
-              key={index}
-              className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border shadow-2xl rounded-2xl p-2 ${
-                  isActive
-                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal scale-110 text-lg'
-                    : 'text-primaryBlue'
-                }`
-              }
-            >
-              <img src={link.icon} alt={link.name} className="w-8 mb-2" />
-              <p className="text-xs font-medium">{link.name}</p>
-            </NavLink>
-          ))}
-        </div>
-      )}
-
-      {isPatientMobileNav && (
-        <div className="flex gap-2 justify-around w-full py-4 bg-container">
-          {patientLinks.map((link, index) => (
-            <NavLink
-              to={link.path}
-              key={index}
-              className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border  rounded-lg p-2 ${
-                  isActive
-                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
-                    : 'text-primaryBlue'
-                }`
-              }
-            >
-              <img src={link.icon} alt={link.name} className="w-8 mb-2" />
-              <p className="text-xxs font-medium">{link.name}</p>
-            </NavLink>
-          ))}
-        </div>
-      )}
-
-      {isTherapistMobileNav && (
-        <div className="flex gap-2 justify-around w-full py-4 bg-container">
-          {therapistLinks.map((link, index) => (
-            <NavLink
-              to={link.path}
-              key={index}
-              className={({ isActive }) =>
-                `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border  rounded-lg p-2 ${
-                  isActive
-                    ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal'
-                    : 'text-primaryBlue'
-                }`
-              }
-            >
-              <img src={link.icon} alt={link.name} className="w-8 mb-2" />
-              <p className="text-xxs font-medium">{link.name}</p>
-            </NavLink>
-          ))}
-        </div>
-      )}
-    </>
+    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3">
+      {activeLinks.map((link, index) => (
+        <NavLink
+          to={link.path}
+          key={index}
+          className={({ isActive }) =>
+            `flex flex-col w-16 items-center bg-white bg-opacity-50 justify-center text-center border shadow-2xl rounded-2xl p-2 ${
+              isActive
+                ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal scale-105 text-md animate-pulse'
+                : 'text-primaryBlue'
+            }`
+          }
+        >
+          <img src={link.icon} alt={link.name} className="w-8 mb-1" />
+          <p className="text-xxs font-medium">{link.name}</p>
+        </NavLink>
+      ))}
+    </div>
   );
 }
