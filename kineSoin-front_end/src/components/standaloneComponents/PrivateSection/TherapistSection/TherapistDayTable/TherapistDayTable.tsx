@@ -178,7 +178,7 @@ export default function TherapistDayTable() {
           <img
             src={!isDynamicModeOn ? dynamicIcon : dynamicIcon2}
             alt="dynamic mode on"
-            className="w-8 h-8 hover:animate-spin"
+            className={`${isDynamicModeOn ? 'animate-spin' : ''} w-8 h-8 hover:animate-spin`}
           />
         </Link>
 
