@@ -10,7 +10,13 @@ import refreshIcon from '/icons/refresh.png';
 import { Link } from 'react-router-dom';
 
 export default function TherapistPatientsTable() {
-  const windowWidth = window.innerWidth;
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, [windowWidth]);
 
   const [therapistPatients, setTherapistPatients] = useState<
     ITherapistPatient[]
@@ -49,8 +55,10 @@ export default function TherapistPatientsTable() {
     }
   };
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
   return (
-    <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
+    <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12  mb-6 rounded-lg shadow-xl">
       <thead
         className={
           windowWidth < 450
@@ -138,61 +146,39 @@ export default function TherapistPatientsTable() {
                 </p>
               </td>
 
-              <td className="border border-gray-300 px-4 py-2 text-center">
-                {windowWidth < 768 ? (
-                  <Link to={`/admin/patients/${patient.id}`}>
-                    <img
-                      src={editIcon}
-                      alt="edit"
-                      className={
-                        windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                      }
-                    />
-                  </Link>
-                ) : (
-                  <Link
-                    to={`/therapist/patients/${patient.id}`}
-                    className="w-25 flex items-center justify-center"
-                  >
-                    <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
+              <td className="border border-gray-300 px-4 py-2 text-center hover:transform hover:scale-125">
+                <Link
+                  to={`/admin/patients/${patient.id}`}
+                  className={`${windowWidth < 768 ? 'w-12' : 'w-25 flex justify-center items-center'}`}
+                >
+                  <img
+                    src={editIcon}
+                    alt="edit"
+                    className={windowWidth < 768 ? 'w-5 mx-auto' : 'w-5 mx-1'}
+                  />
+                  {windowWidth > 768 && (
                     <p className="text-blue-300 font-semibold">Inspecter</p>
-                  </Link>
-                )}
+                  )}
+                </Link>
               </td>
 
-              <td className="border border-gray-300 px-4 py-2 text-center">
-                {windowWidth < 768 ? (
-                  <Link
-                    to="#"
-                    className="w-12"
-                    onClick={() => {
-                      openDeleteModal(undefined, patient, undefined, undefined);
-                    }}
-                  >
-                    <img
-                      src={deleteIcon}
-                      alt="delete"
-                      className={
-                        windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'
-                      }
-                    />
-                  </Link>
-                ) : (
-                  <Link
-                    to="#"
-                    className="w-25 flex justify-center items-center"
-                    onClick={() => {
-                      openDeleteModal(undefined, patient, undefined, undefined);
-                    }}
-                  >
-                    <img
-                      src={deleteIcon}
-                      alt="supprimer"
-                      className="w-5 mx-1"
-                    />
+              <td className="border border-gray-300 px-4 py-2 text-center hover:transform hover:scale-125">
+                <Link
+                  to="#"
+                  className={`${windowWidth < 768 ? 'w-12' : 'w-25 flex justify-center items-center'}`}
+                  onClick={() => {
+                    setIsDeleteModalOpen(true);
+                  }}
+                >
+                  <img
+                    src={deleteIcon}
+                    alt="supprimer"
+                    className={windowWidth < 768 ? 'w-5 mx-auto' : 'w-5 mx-1'}
+                  />
+                  {windowWidth > 768 && (
                     <p className="text-red-600 font-semibold">Supprimer</p>
-                  </Link>
-                )}
+                  )}
+                </Link>
               </td>
             </tr>
           ))}
