@@ -86,6 +86,7 @@ export default function PublicMainFormSection({
 
       // Check if the email and password fields are empty
       if (!patientLoginEmail || !patientLoginPassword) {
+        setIsLoading(false);
         setErrorMessage('Veuillez remplir tous les champs');
         return;
       } else if (
@@ -93,6 +94,7 @@ export default function PublicMainFormSection({
           patientLoginEmail as string
         )
       ) {
+        setIsLoading(false);
         setErrorMessage('Veuillez entrer une adresse email valide');
         return;
       }
@@ -137,6 +139,7 @@ export default function PublicMainFormSection({
 
       // Check if the email and password fields are empty
       if (!therapistLoginEmail || !therapistLoginPassword) {
+        setIsLoading(false);
         setErrorMessage('Veuillez remplir tous les champs');
         return;
       } else if (
@@ -144,6 +147,7 @@ export default function PublicMainFormSection({
           therapistLoginEmail
         )
       ) {
+        setIsLoading(false);
         setErrorMessage('Veuillez entrer une adresse email valide');
         return;
       }
