@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
 import CustomButton from '../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
@@ -72,6 +72,12 @@ export default function PublicMainFormSection({
   // Loading state
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    setErrorMessage('');
+  }, [location.pathname]);
+
   // Patient login function
   const checkPatientCredentials = async (
     e: React.FormEvent<HTMLFormElement>
@@ -120,6 +126,7 @@ export default function PublicMainFormSection({
         setErrorMessage('Email et/ou Mot de passe invalide');
       }
     } catch (error) {
+      setIsLoading(false);
       setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
       console.error(error);
     }
@@ -165,12 +172,15 @@ export default function PublicMainFormSection({
           setIsLoading(false);
           navigate('/therapist/dashboard');
         } else {
+          setIsLoading(false);
           setErrorMessage('Email et/ou Mot de passe invalide');
         }
       } else {
+        setIsLoading(false);
         setErrorMessage('Email et/ou Mot de passe invalide');
       }
     } catch (error) {
+      setIsLoading(false);
       setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
       console.error(error);
     }
