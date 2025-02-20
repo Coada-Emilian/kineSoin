@@ -65,7 +65,9 @@ export default function AfflictionTableBody({
               <img
                 src={editIcon}
                 alt="edit"
-                className={windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'}
+                className={
+                  windowWidth < 450 ? 'max-w-4 mx-auto' : 'w-5 mx-auto'
+                }
               />
             </Link>
           ) : (
@@ -91,7 +93,9 @@ export default function AfflictionTableBody({
               <img
                 src={deleteIcon}
                 alt="delete"
-                className={windowWidth < 450 ? 'w-10 mx-auto' : 'w-5 mx-auto'}
+                className={
+                  windowWidth < 450 ? 'max-w-4 mx-auto' : 'w-5 mx-auto'
+                }
               />
             </Link>
           ) : (

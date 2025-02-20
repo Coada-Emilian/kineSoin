@@ -30,7 +30,7 @@ export default function TableTitle({
   afflictionStatus,
 }: TableTitleProps) {
   return (
-    <h2 className="text-center text-2xl font-semibold mb-4 md:text-left ml-10">
+    <h2 className="text-center md:text-2xl font-semibold mb-4 md:text-left ml-10">
       {allTherapists &&
         (therapistStatus === 'all'
           ? 'Tous les kinésithérapeutes'

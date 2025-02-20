@@ -3,7 +3,7 @@
 // The navigation bar is used in the public pages, the admin pages and the patient pages.
 // The navigation bar is used to navigate between the different pages of the website. The navigation bar is also used to log in and log out of the website.
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
@@ -47,13 +47,14 @@ export default function NavBar({
   setIsTherapistAuthenticated,
   isTherapistAuthenticated,
 }: NavBarProps) {
+  const navigate = useNavigate();
   // Function to handle the admin logout
   const handleAdminLogout = () => {
     removeAdminTokenFromLocalStorage();
     if (setIsAdminAuthenticated) {
       setIsAdminAuthenticated(false);
     }
-    window.location.href = '/loginAdmin';
+    navigate('/loginAdmin');
   };
 
   // Function to handle the patient logout
@@ -62,16 +63,16 @@ export default function NavBar({
     if (setIsPatientAuthenticated) {
       setIsPatientAuthenticated(false);
     }
-    window.location.href = '/loginPatient';
+    navigate('/loginPatient');
   };
 
   // function to handle the therapist logout
   const handleTherapistLogout = () => {
-    removeTherapistTokenFromLocalStorage();
     if (setIsTherapistAuthenticated) {
       setIsTherapistAuthenticated(false);
     }
-    window.location.href = '/loginTherapist';
+    removeTherapistTokenFromLocalStorage();
+    navigate('/loginTherapist');
   };
 
   // State to manage the patient notification quantity
@@ -159,10 +160,6 @@ export default function NavBar({
               >
                 <CustomButton btnText="Connexion patient" navBarButton />
               </Link>
-
-              {/* <Link to="/loginAdmin">
-                <CustomButton btnText="Connexion Admin" navBarButton />
-              </Link> */}
             </div>
           )}
 
@@ -196,9 +193,11 @@ export default function NavBar({
                     }
                   />
 
-                  <Link to="/loginPatient" onClick={handlePatientLogout}>
-                    <CustomButton btnText="Déconnexion" patientLogoutButton />
-                  </Link>
+                  <CustomButton
+                    btnText="Déconnexion"
+                    patientLogoutButton
+                    onClick={handlePatientLogout}
+                  />
                 </>
               )}
 
@@ -215,9 +214,11 @@ export default function NavBar({
                     }
                   />
 
-                  <Link to="/loginPatient" onClick={handleTherapistLogout}>
-                    <CustomButton btnText="Déconnexion" therapistLogoutButton />
-                  </Link>
+                  <CustomButton
+                    btnText="Déconnexion"
+                    therapistLogoutButton
+                    onClick={handleTherapistLogout}
+                  />
                 </>
               )}
             </div>

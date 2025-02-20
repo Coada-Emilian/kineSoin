@@ -143,10 +143,6 @@ export default function TherapistModal({
     fetchData();
   }, [selected_patient]);
 
-  useEffect(() => {
-    console.log(patientData);
-  }, [patientData]);
-
   return (
     <ReactModal
       isOpen={

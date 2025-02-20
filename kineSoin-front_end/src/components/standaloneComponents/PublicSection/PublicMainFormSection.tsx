@@ -116,11 +116,11 @@ export default function PublicMainFormSection({
         if (setPatientProfileToken) {
           setPatientProfileToken(response);
           setIsLoading(false);
-          navigate('/patient/dashboard');
         } else {
           setIsLoading(false);
           setErrorMessage('Email et/ou Mot de passe invalide');
         }
+        navigate('/patient/dashboard');
       } else {
         setIsLoading(false);
         setErrorMessage('Email et/ou Mot de passe invalide');
@@ -170,11 +170,11 @@ export default function PublicMainFormSection({
         if (setTherapistProfileToken) {
           setTherapistProfileToken(response);
           setIsLoading(false);
-          navigate('/therapist/dashboard');
         } else {
           setIsLoading(false);
           setErrorMessage('Email et/ou Mot de passe invalide');
         }
+        navigate('/therapist/dashboard');
       } else {
         setIsLoading(false);
         setErrorMessage('Email et/ou Mot de passe invalide');
