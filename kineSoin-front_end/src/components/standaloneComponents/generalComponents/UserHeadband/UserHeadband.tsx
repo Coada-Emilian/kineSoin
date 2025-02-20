@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
+import { Link } from 'react-router-dom';
 
 interface UserHeadbandProps {
   isPatientHeadband?: boolean;
@@ -35,23 +36,25 @@ export default function UserHeadband({
 
   return (
     <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center ">
-      <img
-        src={
-          isPatientHeadband
-            ? patientPictureUrl
-            : isTherapistHeadband
-              ? therapistPictureUrl
-              : undefined
-        }
-        alt={
-          isPatientHeadband
-            ? patientFullName
-            : isTherapistHeadband
-              ? therapistFullName
-              : undefined
-        }
-        className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
-      />
+      <Link tp={`${isTherapistHeadband ? '/therapist/dashboard' : '#'}`}>
+        <img
+          src={
+            isPatientHeadband
+              ? patientPictureUrl
+              : isTherapistHeadband
+                ? therapistPictureUrl
+                : undefined
+          }
+          alt={
+            isPatientHeadband
+              ? patientFullName
+              : isTherapistHeadband
+                ? therapistFullName
+                : undefined
+          }
+          className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
+        />
+      </Link>
       <p className="text-primaryBlue text-sm font-semibold md:text-sm xl:text-base italic">
         Bienvenue{' '}
         {isPatientHeadband

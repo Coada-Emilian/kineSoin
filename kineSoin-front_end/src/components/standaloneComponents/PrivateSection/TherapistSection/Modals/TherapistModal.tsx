@@ -183,7 +183,7 @@ export default function TherapistModal({
               ) : isDeletePatientModal && selected_patient ? (
                 <>
                   <span>
-                    {' Voulez-vous '}
+                    {' Voulez-vous vraiment '}
                     <span className="text-red-500">supprimer</span>
                     {' le compte de '}
                     <span className="font-semibold">
@@ -191,7 +191,9 @@ export default function TherapistModal({
                     </span>
                     {' ?'}
                   </span>
-                  <span>buci</span>
+                  <span className="text-red-500 font-normal italic text-sm m-2">
+                    Cette action est definitive et ne peut pas être annulée.
+                  </span>
                 </>
               ) : (
                 ''

@@ -147,7 +147,7 @@ export default function TherapistPatientsTable() {
                       <img
                         src={refreshIcon}
                         alt="change status"
-                        className="max-w-6"
+                        className="max-w-6 animate-spin"
                         onClick={() => handlePatientStatusChange(patient.id)}
                       />
                     </Link>
