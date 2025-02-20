@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
 import {
   cancelAppointment,
+  fetchPatientDataAsTherapist,
   reducePrescriptionQuantity,
   sendMessageToPatient,
 } from '../../../../../utils/apiUtils';
 import {
+  IFullPatient,
   ISameDayAppointment,
   ITherapistPatient,
 } from '../../../../../@types/types';
@@ -106,9 +108,24 @@ export default function TherapistModal({
     }
   };
 
-  // const handlePatientRetrieval = async (id: number) => {
+  const handlePatientDataRetrieval = async (id: number) => {
+    try {
+      const response = await fetchPatientDataAsTherapist(id);
+      if (response) {
+        console.log('Patient data retrieved successfully');
+      } else {
+        setErrorMessage(
+          'Erreur lors de la récupération des données du patient'
+        );
+      }
+    } catch (error) {
+      console.error('Error retrieving patient data:', error);
+      setErrorMessage('Erreur lors de la récupération des données du patient');
+    }
+  };
 
-  // }
+  const [patientData, setPatientData] = useState<IFullPatient | null>(null);
+  
   return (
     <ReactModal
       isOpen={

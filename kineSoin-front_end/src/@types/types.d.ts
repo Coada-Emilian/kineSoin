@@ -144,19 +144,6 @@ export interface IAppointment {
   prescription?: IPrescription;
 }
 
-export interface IAppointment {
-  id: number;
-  therapist_id: number;
-  patient_id: number;
-  prescription_id: number;
-  is_canceled: boolean;
-  is_accepted: boolean;
-  date: string;
-  time: string;
-  therapist?: ITherapist;
-  prescription?: IPrescription;
-}
-
 export interface IAffliction {
   id: number;
   admin_id: number;
@@ -200,4 +187,56 @@ export interface ITherapistPatient {
   fullName: string;
   status: string;
   picture_url: string;
+}
+
+export interface IFullPatient {
+  id: number;
+  therapist_id: number;
+  name: string;
+  surname: string;
+  gender: string;
+  birth_date: string;
+  street_number: string;
+  street_name: string;
+  postal_code: string;
+  city: string;
+  prefix: string;
+  phone_number: string;
+  full_phone_number: string;
+  statys: string;
+  picture_url: string;
+  prescription: {
+    id: number;
+    appointment_quantity: number;
+    is_new_prescription: boolean;
+    is_completed: boolean;
+    at_home_care: boolean;
+    date: string;
+    picture_url: string;
+  };
+  medic: {
+    id: number;
+    name: string;
+    surname: string;
+    street_number: string;
+    street_name: string;
+    postal_code: string;
+    city: string;
+    prefix: string;
+    phone_number: string;
+    licence_code: string;
+  };
+  affliction: {
+    id: number;
+    name: string;
+    description: string;
+    insurance_code: string;
+    is_operated: boolean;
+  };
+  appointments: {
+    is: number;
+    date: string;
+    time: string;
+  }[];
+  therapist: ITherapist;
 }

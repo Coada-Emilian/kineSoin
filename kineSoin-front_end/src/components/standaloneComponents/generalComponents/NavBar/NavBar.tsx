@@ -108,7 +108,7 @@ export default function NavBar({
           <img
             src={(windowWidth ?? 0) < 768 ? Logo2 : Logo1}
             alt="Retour a l'accueil"
-            className="max-w-36 lg:max-w-52"
+            className="max-w-28 lg:max-w-32"
           />
         </Link>
 
@@ -136,10 +136,7 @@ export default function NavBar({
                   }
                 }}
               >
-                <CustomButton
-                  btnText={<>Connexion thérapeute</>}
-                  navBarButton
-                />
+                <CustomButton btnText="Connexion thérapeute" navBarButton />
               </Link>
 
               <Link
@@ -160,7 +157,7 @@ export default function NavBar({
                   }
                 }}
               >
-                <CustomButton btnText={<>Connexion patient</>} navBarButton />
+                <CustomButton btnText="Connexion patient" navBarButton />
               </Link>
 
               <Link to="/loginAdmin">
@@ -178,7 +175,7 @@ export default function NavBar({
               </>
             ) : (
               <CustomButton
-                btnText={<>Se déconnecter</>}
+                btnText="Se déconnecter"
                 navBarButton
                 onClick={handleAdminLogout}
               />
@@ -191,7 +188,7 @@ export default function NavBar({
               {isPatientNavBar && isPatientAuthenticated && (
                 <>
                   <CustomButton
-                    btnText={<>Notifications</>}
+                    btnText="Notifications"
                     patientNotificationButton
                     patientNotificationQuantity={patientNotificationQuantity}
                     setPatientNotificationQuantity={
@@ -200,10 +197,7 @@ export default function NavBar({
                   />
 
                   <Link to="/loginPatient" onClick={handlePatientLogout}>
-                    <CustomButton
-                      btnText={<>Déconnexion</>}
-                      patientLogoutButton
-                    />
+                    <CustomButton btnText="Déconnexion" patientLogoutButton />
                   </Link>
                 </>
               )}
@@ -211,7 +205,7 @@ export default function NavBar({
               {isTherapistNavBar && isTherapistAuthenticated && (
                 <>
                   <CustomButton
-                    btnText={<>Notifications</>}
+                    btnText="Notifications"
                     therapistNotificationButton
                     therapistNotificationQuantity={
                       therapistNotificationQuantity
@@ -222,10 +216,7 @@ export default function NavBar({
                   />
 
                   <Link to="/loginPatient" onClick={handleTherapistLogout}>
-                    <CustomButton
-                      btnText={<>Déconnexion</>}
-                      therapistLogoutButton
-                    />
+                    <CustomButton btnText="Déconnexion" therapistLogoutButton />
                   </Link>
                 </>
               )}

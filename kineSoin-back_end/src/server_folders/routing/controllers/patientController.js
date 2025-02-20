@@ -652,14 +652,27 @@ const patientController = {
             attributes: [
               'id',
               'appointment_quantity',
+              'is_new_prescription',
               'is_completed',
               'at_home_care',
               'date',
+              'picture_url',
             ],
             include: [
               {
                 association: 'medic',
-                attributes: ['id', 'name', 'surname'],
+                attributes: [
+                  'id',
+                  'name',
+                  'surname',
+                  'street_number',
+                  'street_name',
+                  'postal_code',
+                  'city',
+                  'prefix',
+                  'phone_number',
+                  'licence_code',
+                ],
               },
               {
                 association: 'affliction',

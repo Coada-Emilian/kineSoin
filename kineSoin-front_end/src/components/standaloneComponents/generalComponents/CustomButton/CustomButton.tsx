@@ -140,7 +140,7 @@ export default function CustomButton({
     if (patientNotificationButton || therapistNotificationButton) {
       return (
         <>
-          <img src={NotificationIcon} alt="Notification" className="max-w-8" />
+          <img src={NotificationIcon} alt="Notification" className="max-w-6" />
           {patientNotificationQuantity > 0 && (
             <div className="flex items-center">
               <p className="bg-red-600 px-1 md:px-2 rounded-full text-white text-xxs md:text-xxs flex items-center absolute top-1 left-8 md:left-7">
@@ -159,7 +159,7 @@ export default function CustomButton({
       adminLogoutButton ||
       therapistLogoutButton
     ) {
-      return <img src={LogoutIcon} alt="Logout" className="max-w-8" />;
+      return <img src={LogoutIcon} alt="Logout" className="max-w-6" />;
     }
     return null;
   };
