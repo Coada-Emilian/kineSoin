@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
+import { Link } from 'react-router-dom';
 
 interface UserHeadbandProps {
   isPatientHeadband?: boolean;
   isTherapistHeadband?: boolean;
+  windowWidth?: number;
 }
 
 export default function UserHeadband({
   isPatientHeadband,
   isTherapistHeadband,
+  windowWidth,
 }: UserHeadbandProps) {
   const [patientFullName, setPatientFullName] = useState<string>('');
   const [patientPictureUrl, setPatientPictureUrl] = useState<string>('');
@@ -35,32 +38,48 @@ export default function UserHeadband({
 
   return (
     <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center ">
-      <img
-        src={
-          isPatientHeadband
-            ? patientPictureUrl
-            : isTherapistHeadband
-              ? therapistPictureUrl
-              : undefined
-        }
-        alt={
-          isPatientHeadband
+      <Link
+        to={`${isTherapistHeadband ? '/therapist/my-profile' : isPatientHeadband ? '/patient/my-info' : '/'}`}
+      >
+        <img
+          src={
+            isPatientHeadband
+              ? patientPictureUrl
+              : isTherapistHeadband
+                ? therapistPictureUrl
+                : undefined
+          }
+          alt={
+            isPatientHeadband
+              ? patientFullName
+              : isTherapistHeadband
+                ? therapistFullName
+                : undefined
+          }
+          className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
+        />
+      </Link>
+      <div className="flex flex-col gap-1 items-center">
+        {' '}
+        <p className="text-primaryBlue text-sm font-semibold md:text-sm xl:text-base italic">
+          Bienvenue{' '}
+          {isPatientHeadband
             ? patientFullName
             : isTherapistHeadband
               ? therapistFullName
-              : undefined
-        }
-        className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
-      />
-      <p className="text-primaryBlue text-sm font-semibold md:text-sm xl:text-base italic">
-        Bienvenue{' '}
-        {isPatientHeadband
-          ? patientFullName
-          : isTherapistHeadband
-            ? therapistFullName
-            : ''}{' '}
-        !
-      </p>
+              : ''}{' '}
+          !
+        </p>
+        {windowWidth && windowWidth < 768 && (
+          <Link
+            to={`${isTherapistHeadband ? '/therapist/dashboard' : isPatientHeadband ? '/patient/dashboard' : '/'}`}
+          >
+            <p className="text-primaryBlue text-xs font-semibold md:text-sm xl:text-base italic">
+              Revenir au tableau de bord
+            </p>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

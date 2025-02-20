@@ -62,7 +62,7 @@ export default function NavBar({
     if (setIsPatientAuthenticated) {
       setIsPatientAuthenticated(false);
     }
-    window.location.href = '/public/loginPatient';
+    window.location.href = '/loginPatient';
   };
 
   // function to handle the therapist logout
@@ -71,7 +71,7 @@ export default function NavBar({
     if (setIsTherapistAuthenticated) {
       setIsTherapistAuthenticated(false);
     }
-    window.location.href = '/public/loginTherapist';
+    window.location.href = '/loginTherapist';
   };
 
   // State to manage the patient notification quantity
@@ -89,7 +89,7 @@ export default function NavBar({
         className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}
       >
         <Link
-          to="/public/home"
+          to="/"
           onClick={() => {
             if (setIsRegisterPageRendered) {
               setIsRegisterPageRendered(false);
@@ -108,7 +108,7 @@ export default function NavBar({
           <img
             src={(windowWidth ?? 0) < 768 ? Logo2 : Logo1}
             alt="Retour a l'accueil"
-            className="max-w-36 lg:max-w-52"
+            className="max-w-32 lg:max-w-40"
           />
         </Link>
 
@@ -119,7 +119,7 @@ export default function NavBar({
           {isPublicNavBar && (
             <div className="flex gap-2">
               <Link
-                to="/public/loginTherapist"
+                to="/loginTherapist"
                 className="hidden md:block"
                 onClick={() => {
                   if (setIsRegisterPageRendered) {
@@ -136,14 +136,11 @@ export default function NavBar({
                   }
                 }}
               >
-                <CustomButton
-                  btnText={<>Connexion thérapeute</>}
-                  navBarButton
-                />
+                <CustomButton btnText="Connexion thérapeute" navBarButton />
               </Link>
 
               <Link
-                to="/public/loginPatient"
+                to="/loginPatient"
                 className="hidden md:block"
                 onClick={() => {
                   if (setIsRegisterPageRendered) {
@@ -160,12 +157,12 @@ export default function NavBar({
                   }
                 }}
               >
-                <CustomButton btnText={<>Connexion patient</>} navBarButton />
+                <CustomButton btnText="Connexion patient" navBarButton />
               </Link>
 
-              <Link to="/loginAdmin">
+              {/* <Link to="/loginAdmin">
                 <CustomButton btnText="Connexion Admin" navBarButton />
-              </Link>
+              </Link> */}
             </div>
           )}
 
@@ -178,7 +175,7 @@ export default function NavBar({
               </>
             ) : (
               <CustomButton
-                btnText={<>Se déconnecter</>}
+                btnText="Se déconnecter"
                 navBarButton
                 onClick={handleAdminLogout}
               />
@@ -191,7 +188,7 @@ export default function NavBar({
               {isPatientNavBar && isPatientAuthenticated && (
                 <>
                   <CustomButton
-                    btnText={<>Notifications</>}
+                    btnText="Notifications"
                     patientNotificationButton
                     patientNotificationQuantity={patientNotificationQuantity}
                     setPatientNotificationQuantity={
@@ -200,10 +197,7 @@ export default function NavBar({
                   />
 
                   <Link to="/loginPatient" onClick={handlePatientLogout}>
-                    <CustomButton
-                      btnText={<>Déconnexion</>}
-                      patientLogoutButton
-                    />
+                    <CustomButton btnText="Déconnexion" patientLogoutButton />
                   </Link>
                 </>
               )}
@@ -211,7 +205,7 @@ export default function NavBar({
               {isTherapistNavBar && isTherapistAuthenticated && (
                 <>
                   <CustomButton
-                    btnText={<>Notifications</>}
+                    btnText="Notifications"
                     therapistNotificationButton
                     therapistNotificationQuantity={
                       therapistNotificationQuantity
@@ -222,10 +216,7 @@ export default function NavBar({
                   />
 
                   <Link to="/loginPatient" onClick={handleTherapistLogout}>
-                    <CustomButton
-                      btnText={<>Déconnexion</>}
-                      therapistLogoutButton
-                    />
+                    <CustomButton btnText="Déconnexion" therapistLogoutButton />
                   </Link>
                 </>
               )}

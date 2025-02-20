@@ -25,15 +25,15 @@ export default function ErrorPage({
       : isUnconnectedAdminErrorPage
         ? '/loginAdmin'
         : isPublicErrorPage
-          ? '/public/home'
+          ? '/home'
           : isConnectedPatientErrorPage
             ? '/patient/dashboard'
             : isUnconnectedPatientErrorPage
-              ? '/public/loginPatient'
+              ? '/loginPatient'
               : isConnectedTherapistErrorPage
                 ? '/therapist/dashboard'
                 : isUnconnectedTherapistErrorPage
-                  ? '/public/loginTherapist'
+                  ? '/loginTherapist'
                   : undefined;
   };
 

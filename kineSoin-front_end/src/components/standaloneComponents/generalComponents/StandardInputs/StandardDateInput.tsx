@@ -40,7 +40,9 @@ export default function StandardDateInput({
   const getLabelClassName = () =>
     isPatientProfileBirthDateModification
       ? 'text-xxs md:text-base xl:text-xl w-full md:w-1/2 flex text-primaryBlue font-medium italic'
-      : 'text-sm text-primaryBlue font-medium italic w-1/2';
+      : isNewPrescriptionDateInput
+        ? 'text-sm text-primaryBlue font-medium italic w-full'
+        : 'text-sm text-primaryBlue font-medium italic w-1/2';
 
   const getLabelContent = () =>
     isPatientRegisterBirthdateInput

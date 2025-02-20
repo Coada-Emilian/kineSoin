@@ -10,7 +10,6 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/types';
-import { useEffect } from 'react';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];
@@ -50,7 +49,7 @@ export default function TherapistTableBody({
             <img
               src={refreshIcon}
               alt="change status"
-              className="max-w-6"
+              className="max-w-6 hover:animate-spin"
               onClick={() => handleStatusChange(therapist.id)}
             />
           </Link>

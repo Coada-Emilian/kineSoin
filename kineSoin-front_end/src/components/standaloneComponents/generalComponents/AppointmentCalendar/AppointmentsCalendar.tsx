@@ -81,7 +81,8 @@ export default function AppointmentsCalendar({
     }
 
     setCalendarEvents(events);
-  }, [patientPrescriptions]);
+    console.log(events);
+  }, [futureAppointments, pastAppointments]);
 
   // Event style getter to apply different colors based on event status
   interface EventStyle {

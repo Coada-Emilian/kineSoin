@@ -81,7 +81,7 @@ export default function AdminLoginPage({
         <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue">
           Connexion administrateur
         </h1>
-        <Link to="/public/home">
+        <Link to="/">
           <img
             src={logo}
             alt="kinesoin"
@@ -96,7 +96,7 @@ export default function AdminLoginPage({
         )}
         <form onSubmit={checkAdminCredentials} className="space-y-4">
           <StandardEmailInput isAdminEmailInput />
-          
+
           <StandardPasswordInput isAdminPasswordInput />
           <div className="flex justify-center">
             <CustomButton

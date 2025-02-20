@@ -29,7 +29,16 @@ export default function PatientMain({
   isPatientTherapistPage,
   isPatientDetailsMain,
 }: PatientMainProps) {
-  const windowWidth = window.innerWidth;
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, [windowWidth]);
+
   const [patientId, setPatientId] = useState<number>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
     IAppointment[]
@@ -80,7 +89,7 @@ export default function PatientMain({
       <main
         className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''}`}
       >
-        <UserHeadband isPatientHeadband />
+        <UserHeadband isPatientHeadband windowWidth={windowWidth} />
 
         <div className="h-fit md:flex gap-4 mb-2 ">
           {windowWidth > 768 && (

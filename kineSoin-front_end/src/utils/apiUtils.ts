@@ -992,3 +992,36 @@ export const fetchTherapistPatients = async () => {
     return [];
   }
 };
+
+export const togglePatientStatusAsTherapist = async (id: number) => {
+  try {
+    const response = await axios.patch(
+      `/therapist/me/patients/${id}/toggleStatus`
+    );
+    if (response.status === 200) {
+      console.log('Patient status updated successfully');
+      return true;
+    } else {
+      console.error('Failed to update patient status', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating patient status:', error);
+    return false;
+  }
+};
+
+export const fetchPatientDataAsTherapist = async (id: number) => {
+  try {
+    const response = await axios.get(`/therapist/me/patients/${id}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to fetch patient data', response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching patient data:', error);
+    return null;
+  }
+};

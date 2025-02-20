@@ -4,10 +4,16 @@ import { useEffect, useState } from 'react';
 import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
 import {
   cancelAppointment,
+  fetchPatientDataAsTherapist,
   reducePrescriptionQuantity,
   sendMessageToPatient,
 } from '../../../../../utils/apiUtils';
-import { ISameDayAppointment } from '../../../../../@types/types';
+import {
+  IFullPatient,
+  ISameDayAppointment,
+  ITherapistPatient,
+} from '../../../../../@types/types';
+import DNALoader from '../../../../../utils/DNALoader';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;
@@ -22,6 +28,15 @@ interface TherapistModalProps {
   isCancelAppointmentModalOpen?: boolean;
   appointment?: ISameDayAppointment | null;
   prescription?: ISameDayAppointment['prescription'] | null;
+
+  isDeletePatientModal?: boolean;
+  isDeletePatientModalOpen?: boolean;
+  setIsDeletePatientModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  selected_patient?: ITherapistPatient | null;
+
+  isPatientDetailsModal?: boolean;
+  isPatientDetailsModalOpen?: boolean;
+  setIsPatientDetailsModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function TherapistModal({
@@ -35,8 +50,23 @@ export default function TherapistModal({
   isCancelAppointmentModalOpen,
   appointment,
   prescription,
+
+  isDeletePatientModal,
+  isDeletePatientModalOpen,
+  setIsDeletePatientModalOpen,
+  selected_patient,
+
+  isPatientDetailsModal,
+  isPatientDetailsModalOpen,
+  setIsPatientDetailsModalOpen,
 }: TherapistModalProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [patientData, setPatientData] = useState<IFullPatient | undefined>(
+    undefined
+  );
 
   const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -85,13 +115,52 @@ export default function TherapistModal({
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selected_patient?.id) return; // Prevents unnecessary API calls
+
+      try {
+        setIsLoading(true);
+        const response = await fetchPatientDataAsTherapist(selected_patient.id);
+
+        if (!response) {
+          setErrorMessage(
+            'Erreur lors de la récupération des données du patient'
+          );
+        } else {
+          setPatientData(response);
+        }
+      } catch (error) {
+        console.error('Error retrieving patient data:', error);
+        setErrorMessage(
+          'Erreur lors de la récupération des données du patient'
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selected_patient]);
+
+  useEffect(() => {
+    console.log(patientData);
+  }, [patientData]);
+
   return (
     <ReactModal
-      isOpen={!!isSendMessageModalOpen || !!isCancelAppointmentModalOpen}
+      isOpen={
+        !!isSendMessageModalOpen ||
+        !!isCancelAppointmentModalOpen ||
+        !!isDeletePatientModalOpen ||
+        !!isPatientDetailsModalOpen
+      }
       onRequestClose={() => {
         setIsSendMessageModalOpen && setIsSendMessageModalOpen(false);
         setIsCancelAppointmentModalOpen &&
           setIsCancelAppointmentModalOpen(false);
+        setIsDeletePatientModalOpen && setIsDeletePatientModalOpen(false);
+        setIsPatientDetailsModalOpen && setIsPatientDetailsModalOpen(false);
       }}
       style={{
         content: {
@@ -116,8 +185,10 @@ export default function TherapistModal({
 
         <div className="bg-primaryTeal py-8 w-full flex flex-col items-center relative mb-14">
           <img
-            src={patient?.picture_url || undefined}
-            alt={patient?.name || undefined}
+            src={
+              patient?.picture_url || selected_patient?.picture_url || undefined
+            }
+            alt={patient?.name || selected_patient?.fullName || undefined}
             className="w-24 h-24 object-cover rounded-full border-4 border-white absolute top-4"
           />
         </div>
@@ -128,7 +199,12 @@ export default function TherapistModal({
           </p>
         )}
 
-        {(isSendMessageModal || isCancelAppointmentModal) && (
+        {isLoading && DNALoader()}
+
+        {(isSendMessageModal ||
+          isCancelAppointmentModal ||
+          isDeletePatientModal ||
+          isPatientDetailsModal) && (
           <form
             className="flex flex-col mt-2 italic text-primaryBlue font-medium"
             onSubmit={
@@ -139,7 +215,7 @@ export default function TherapistModal({
                   : undefined
             }
           >
-            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 ">
+            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 flex flex-col items-center">
               {isSendMessageModal && patient ? (
                 <span>
                   {'Envoyez un message à '}
@@ -158,11 +234,25 @@ export default function TherapistModal({
                   {' prévu à '}
                   <span className="font-semibold">{appointment.time}</span>?
                 </span>
+              ) : isDeletePatientModal && selected_patient ? (
+                <>
+                  <span>
+                    {' Voulez-vous vraiment '}
+                    <span className="text-red-500">supprimer</span>
+                    {' le compte de '}
+                    <span className="font-semibold">
+                      {selected_patient.fullName}
+                    </span>
+                    {' ?'}
+                  </span>
+                  <span className="text-red-500 font-normal italic text-sm m-2">
+                    Cette action est definitive et ne peut pas être annulée.
+                  </span>
+                </>
               ) : (
                 ''
               )}
             </h3>
-
             {isSendMessageModal && patient && (
               <div className={`flex flex-col gap-4 mb-2`}>
                 <StandardTextInput
@@ -170,6 +260,19 @@ export default function TherapistModal({
                     isTherapistSendMessageInput: true,
                   }}
                 />
+              </div>
+            )}
+
+            {isPatientDetailsModal && patientData && (
+              <div className="w-full flex flex-col items-center gap-4">
+                <p className="text-xl md:text-2xl mt-8">
+                  <span className="font-semibold">{patientData?.surname}</span>{' '}
+                  <span className="font-semibold">{patientData?.name}</span>
+                </p>
+
+                <p className="text-primaryBlue italic font-semibold mb-6">
+                  {patientData?.age} ans
+                </p>
               </div>
             )}
 
@@ -187,6 +290,10 @@ export default function TherapistModal({
                   setIsSendMessageModalOpen && setIsSendMessageModalOpen(false);
                   setIsCancelAppointmentModalOpen &&
                     setIsCancelAppointmentModalOpen(false);
+                  setIsDeletePatientModalOpen &&
+                    setIsDeletePatientModalOpen(false);
+                  setIsPatientDetailsModalOpen &&
+                    setIsPatientDetailsModalOpen(false);
                 }}
               />
             </div>

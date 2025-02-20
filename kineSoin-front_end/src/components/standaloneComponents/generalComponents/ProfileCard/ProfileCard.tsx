@@ -283,7 +283,7 @@ export default function ProfileCard({
         <p>Vous n'avez pas de thérapeute associé.</p>
       ) : (
         <div
-          className={`${isPatientDetailsProfileCard ? 'md:w-4/6' : 'md:w-5/12'} w-3/4 bg-white mx-auto rounded-xl shadow-lg relative flex flex-col justify-center items-center`}
+          className={`${isPatientDetailsProfileCard ? 'md:w-4/6' : 'md:w-5/12'} w-10/12 bg-white mx-auto rounded-xl shadow-lg relative flex flex-col justify-center items-center`}
         >
           <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full">
             <p className="text-base md:text-lg">
