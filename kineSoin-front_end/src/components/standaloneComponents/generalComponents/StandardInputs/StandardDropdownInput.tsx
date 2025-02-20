@@ -245,7 +245,7 @@ export default function StandardChoiceDropdown({
         : isPatientProfilePrefixModification
           ? 'text-xs md:text-base xl:text-xl w-1/4 text-start flex justify-center mb-0'
           : 'text-sm'
-  } text-primaryBlue font-medium block mb-2`;
+  } text-primaryBlue font-medium block mb-2 italic`;
 
   const labelContent = isGenderDropdownInput
     ? 'Genre'

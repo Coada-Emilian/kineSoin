@@ -59,7 +59,7 @@ export default function StandardFileInput({
   return (
     <div className="mb-4 flex flex-col gap-2 items-center md:items-start">
       <div className="flex gap-2 items-center mb-2">
-        <label className="text-primaryBlue text-sm font-medium">
+        <label className="text-primaryBlue text-sm font-medium italic">
           {labelContent}
         </label>
 

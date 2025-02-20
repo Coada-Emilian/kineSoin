@@ -12,6 +12,7 @@ export default function MessagesField({
   patientId,
   isPatientMessagesField,
 }: MessagesFieldProps) {
+  const windowWidth = window.innerWidth;
   const [sentPatientMessages, setSentPatientMessages] =
     useState<IPatientMessage[]>();
   const [receivedPatientMessages, setReceivedPatientMessages] =
@@ -40,7 +41,7 @@ export default function MessagesField({
       {isPatientMessagesField &&
         allPatientMessages &&
         allPatientMessages.length > 0 && (
-          <div className="flex flex-col gap-6 px-6 w-full h-[500px] md:h-[700px] overflow-y-auto">
+          <div className="flex flex-col gap-6 px-6 w-full h-[450px] md:h-[700px] overflow-y-auto">
             {allPatientMessages.map((message) => (
               <MessageCard
                 key={message.content}
