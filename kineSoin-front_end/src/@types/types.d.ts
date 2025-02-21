@@ -204,7 +204,7 @@ export interface IFullPatient {
   prefix: string;
   phone_number: string;
   full_phone_number: string;
-  statys: string;
+  status: string;
   picture_url: string;
   prescription: {
     id: number;

@@ -143,6 +143,28 @@ export default function TherapistModal({
     fetchData();
   }, [selected_patient]);
 
+  // const patientDetails = [
+  //   {
+  //     label: 'Adresse',
+  //     value:
+  //       patientData?.street_number +
+  //       ' ' +
+  //       patientData?.street_name +
+  //       ', ' +
+  //       patientData?.postal_code +
+  //       ' ' +
+  //       patientData?.city,
+  //   },
+  //   { label: 'Numéro de téléphone', value: patientData?.full_phone_number },
+  //   { label: 'Email', value: patientData?.email },
+  //   { label: 'Date de naissance', value: patientData?.birth_date },
+  //   { label: 'Mutuelle', value: patientData?.insurance.name },
+  // ];
+
+  useEffect(() => {
+    console.log(patientData);
+  }, [patientData]);
+
   return (
     <ReactModal
       isOpen={
@@ -211,7 +233,7 @@ export default function TherapistModal({
                   : undefined
             }
           >
-            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 flex flex-col items-center">
+            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic flex flex-col items-center">
               {isSendMessageModal && patient ? (
                 <span>
                   {'Envoyez un message à '}
@@ -249,6 +271,7 @@ export default function TherapistModal({
                 ''
               )}
             </h3>
+
             {isSendMessageModal && patient && (
               <div className={`flex flex-col gap-4 mb-2`}>
                 <StandardTextInput
@@ -260,16 +283,18 @@ export default function TherapistModal({
             )}
 
             {isPatientDetailsModal && patientData && (
-              <div className="w-full flex flex-col items-center gap-4">
-                <p className="text-xl md:text-2xl mt-8">
-                  <span className="font-semibold">{patientData?.surname}</span>{' '}
-                  <span className="font-semibold">{patientData?.name}</span>
-                </p>
+              <>
+                <div className="w-full flex flex-col items-center  mb-6">
+                  <p className="text-lg md:text-xl ">
+                    <span className="font-normal">{patientData?.surname}</span>{' '}
+                    <span className="font-semibold">{patientData?.name}</span>
+                  </p>
 
-                <p className="text-primaryBlue italic font-semibold mb-6">
-                  {patientData?.age} ans
-                </p>
-              </div>
+                  <p className="text-primaryBlue italic font-semibold">
+                    {patientData?.age} ans
+                  </p>
+                </div>
+              </>
             )}
 
             <div className="flex gap-4 justify-center py-4  bg-primaryTeal">

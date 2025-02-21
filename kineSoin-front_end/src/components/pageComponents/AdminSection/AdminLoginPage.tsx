@@ -1,7 +1,6 @@
 import CustomButton from '../../standaloneComponents/generalComponents/CustomButton/CustomButton.tsx';
 import { setAdminTokenAndDataInLocalStorage } from '../../../localStorage/adminLocalStorage.ts';
 import { useState } from 'react';
-import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { handleAdminLogin } from '../../../utils/apiUtils.ts';
 import DNALoader from '../../../utils/DNALoader.tsx';
@@ -12,11 +11,6 @@ import StandardPasswordInput from '../../standaloneComponents/generalComponents/
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
-
-const ERROR_MESSAGES = {
-  INVALID_CREDENTIALS: 'Email et/ou Mot de passe invalide',
-  GENERAL_ERROR: 'Une erreur est survenue. Veuillez réessayer.',
-};
 
 export default function AdminLoginPage({
   setAdminProfileToken,

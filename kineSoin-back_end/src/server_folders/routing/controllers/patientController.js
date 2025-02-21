@@ -648,6 +648,9 @@ const patientController = {
         },
         include: [
           {
+            association: 'insurance',
+          },
+          {
             association: 'prescriptions',
             attributes: [
               'id',
@@ -684,7 +687,9 @@ const patientController = {
               },
             ],
           },
-          { association: 'therapist' },
+          {
+            association: 'therapist',
+          },
         ],
       });
 
