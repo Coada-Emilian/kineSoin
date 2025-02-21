@@ -3,17 +3,17 @@ import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
 import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
 import {
-  cancelAppointment,
-  fetchPatientDataAsTherapist,
-  reducePrescriptionQuantity,
-  sendMessageToPatient,
-} from '../../../../../utils/apiUtils';
-import {
   IFullPatient,
   ISameDayAppointment,
   ITherapistPatient,
 } from '../../../../../@types/types';
 import DNALoader from '../../../../../utils/DNALoader';
+import {
+  cancelAppointment,
+  fetchPatientDataAsTherapist,
+  reducePrescriptionQuantity,
+  sendMessageToPatient,
+} from '../../../../../utils/apiUtils/therapistApiUtils';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;
@@ -155,7 +155,7 @@ export default function TherapistModal({
               ? 'EN ATTENTE'
               : 'INACTIF',
     },
-   
+
     {
       label: 'Adresse',
       value:
@@ -350,5 +350,3 @@ export default function TherapistModal({
     </ReactModal>
   );
 }
-
-

@@ -10,10 +10,10 @@ import {
 } from '../../../../../../../@types/types';
 
 interface GeneralInputProps {
-  therapist?: ITherapist | null;
-  affliction?: IAffliction | null;
-  medic?: IMedic | null;
-  insurance?: IInsurance | null;
+  therapist?: ITherapist;
+  affliction?: IAffliction;
+  medic?: IMedic;
+  insurance?: IInsurance;
   isProfileNameInput?: boolean;
   isProfileSurnameInput?: boolean;
   isTherapistLicenceCodeInput?: boolean;

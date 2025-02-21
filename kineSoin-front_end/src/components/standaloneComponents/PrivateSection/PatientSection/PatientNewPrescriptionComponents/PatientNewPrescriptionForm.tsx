@@ -4,13 +4,13 @@ import StandardDateInput from '../../../generalComponents/StandardInputs/Standar
 import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardFileInput from '../../../generalComponents/StandardInputs/StandardFileInput';
 import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
+import { useNavigate } from 'react-router-dom';
+import { IAffliction, IMedic } from '../../../../../@types/types';
 import {
   fetchAfflictionNamesAsPatient,
   fetchAllMedicNamesAsPatient,
   handleNewPrescriptionCreation,
-} from '../../../../../utils/apiUtils';
-import { useNavigate } from 'react-router-dom';
-import { IAffliction, IMedic } from '../../../../../@types/types';
+} from '../../../../../utils/apiUtils/patientApiUtils';
 
 interface PatientNewPrescriptionFormProps {
   windowWidth?: number;

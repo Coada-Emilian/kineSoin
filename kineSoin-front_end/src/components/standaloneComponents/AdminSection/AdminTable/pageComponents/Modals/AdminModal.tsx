@@ -8,13 +8,13 @@ import StandardFileInput from '../../../../generalComponents/StandardInputs/Stan
 import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
 import StandardChoiceDropdown from '../../../../generalComponents/StandardInputs/StandardDropdownInput';
-import {
-  handleAfflictionCreation,
-  handleInsuranceOrganismCreation,
-  handleMedicCreation,
-  handleTherapistCreation,
-} from '../../../../../../utils/apiUtils';
 import StandardTelephoneInput from '../../../../generalComponents/StandardInputs/StandardTelephoneInput';
+import {
+  handleAfflictionCreationAsAdmin,
+  handleInsuranceOrganismCreationAsAdmin,
+  handleMedicCreationAsAdmin,
+  handleTherapistCreationAsAdmin,
+} from '../../../../../../utils/apiUtils/adminApiUtils';
 
 interface AdminModalProps {
   setAddForm?: React.Dispatch<
@@ -342,7 +342,7 @@ export default function AdminModal({
         return;
       }
 
-      const response = await handleAfflictionCreation(formData);
+      const response = await handleAfflictionCreationAsAdmin(formData);
       if (response) {
         setIsAddAfflictionModalOpen && setIsAddAfflictionModalOpen(false);
         window.location.reload();
@@ -436,7 +436,7 @@ export default function AdminModal({
           console.log(pair[0] + ', ' + pair[1]);
         }
 
-        const response = await handleMedicCreation(newFormData);
+        const response = await handleMedicCreationAsAdmin(newFormData);
         if (response) {
           setIsAddMedicModalOpen && setIsAddMedicModalOpen(false);
           window.location.reload();
@@ -526,7 +526,8 @@ export default function AdminModal({
         newFormData.append('phone_number', insuranceTelephone);
         newFormData.append('full_phone_number', insuranceFullTelephone);
 
-        const response = await handleInsuranceOrganismCreation(newFormData);
+        const response =
+          await handleInsuranceOrganismCreationAsAdmin(newFormData);
         if (response) {
           setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
           window.location.reload();
@@ -566,7 +567,7 @@ export default function AdminModal({
       newFormData.append('phone_number', addForm?.phone_number as string);
       newFormData.append('prefix', addForm?.prefix as string);
 
-      const response = await handleTherapistCreation(newFormData);
+      const response = await handleTherapistCreationAsAdmin(newFormData);
       if (response) {
         setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(false);
         window.location.reload();

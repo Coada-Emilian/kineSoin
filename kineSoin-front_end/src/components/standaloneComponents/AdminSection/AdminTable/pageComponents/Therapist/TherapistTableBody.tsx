@@ -10,11 +10,11 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/types';
+import { handleTherapistStatusChange } from '../../utils/handleStatusChange';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];
   windowWidth: number;
-  handleStatusChange: (id: number) => void;
   openDeleteModal: (
     therapist?: ITherapist,
     patient?: IPatient,
@@ -26,7 +26,6 @@ interface TherapistTableBodyProps {
 export default function TherapistTableBody({
   renderedTherapists,
   windowWidth,
-  handleStatusChange,
   openDeleteModal,
 }: TherapistTableBodyProps) {
   return renderedTherapists.map((therapist: ITherapist) => {
@@ -50,7 +49,7 @@ export default function TherapistTableBody({
               src={refreshIcon}
               alt="change status"
               className="max-w-6 hover:animate-spin"
-              onClick={() => handleStatusChange(therapist.id)}
+              onClick={() => handleTherapistStatusChange(therapist.id)}
             />
           </Link>
 

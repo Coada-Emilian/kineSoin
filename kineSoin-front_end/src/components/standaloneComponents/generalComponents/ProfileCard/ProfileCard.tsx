@@ -1,13 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  fetchPatientData,
-  fetchPatientTherapist,
-  handlePatientInsuranceUpdate,
-  handlePatientMessageCreation,
-  handlePatientPhotoUpdate,
-  handlePatientUpdate,
-} from '../../../../utils/apiUtils';
-import {
   IInsurance,
   IPatient,
   IPatient_Insurance,
@@ -28,6 +20,7 @@ import EditIcon from '../EditIcon/EditIcon';
 import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
 import checkIcon from '/icons/check.png';
 import { updatePatientDataInLocalStorage } from '../../../../localStorage/patientLocalStorage';
+import { fetchPatientData, fetchPatientTherapist, handlePatientInsuranceUpdate, handlePatientMessageCreation, handlePatientPhotoUpdate, handlePatientUpdate } from '../../../../utils/apiUtils/patientApiUtils';
 
 interface ProfileCardProps {
   patientId?: number;

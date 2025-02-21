@@ -11,16 +11,6 @@ import MobileNav from './components/standaloneComponents/generalComponents/Mobil
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
-import AdminTherapistsPageMain from './components/pageComponents/AdminSection/Mains/AdminTherapistsPageMain';
-import AdminTherapistPageMain from './components/pageComponents/AdminSection/Mains/AdminTherapistPageMain';
-import AdminPatientsPageMain from './components/pageComponents/AdminSection/Mains/AdminPatientsPageMain';
-import AdminPatientPageMain from './components/pageComponents/AdminSection/Mains/AdminPatientPageMain';
-import AdminAfflictionsPageMain from './components/pageComponents/AdminSection/Mains/AdminAfflictionsPageMain';
-import AdminAfflictionPageMain from './components/pageComponents/AdminSection/Mains/AdminAfflictionPageMain';
-import AdminMedicsPageMain from './components/pageComponents/AdminSection/Mains/AdminMedicsPageMain';
-import AdminMedicPageMain from './components/pageComponents/AdminSection/Mains/AdminMedicPageMain';
-import AdminInsurancesPageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancesMain';
-import AdminInsurancePageMain from './components/pageComponents/AdminSection/Mains/AdminInsurancePageMain';
 import PatientDashboardPageMain from './components/pageComponents/PatientSection/PatientDashboardPageMain';
 import PatientPrescriptionPageMain from './components/pageComponents/PatientSection/PatientPrescriptionPageMain';
 import PatientAppointmentsPageMain from './components/pageComponents/PatientSection/PatientAppointmentsPageMain';
@@ -30,6 +20,7 @@ import PatientDetailsPageMain from './components/pageComponents/PatientSection/P
 import TherapistDashboardPageMain from './components/pageComponents/TherapistSection/TherapistDashboardPageMain';
 import TherapistPatientsPageMain from './components/pageComponents/TherapistSection/TherapistPatientsPageMain';
 import HomepageMain from './components/pageComponents/PublicSection/HomePageMain';
+import AdminMain from './components/standaloneComponents/AdminSection/AdminMain/AdminMain';
 
 interface LayoutProps {
   windowWidth: number;
@@ -285,44 +276,58 @@ function App() {
         >
           <Route
             path="therapists"
-            element={<AdminTherapistsPageMain windowWidth={windowWidth} />}
+            element={
+              <AdminMain isAdminTherapistsMain windowWidth={windowWidth} />
+            }
           />
 
           <Route
             path="therapists/:id"
-            element={<AdminTherapistPageMain windowWidth={windowWidth} />}
+            element={
+              <AdminMain isAdminTherapistMain windowWidth={windowWidth} />
+            }
           />
           <Route
             path="patients"
-            element={<AdminPatientsPageMain windowWidth={windowWidth} />}
+            element={
+              <AdminMain isAdminPatientsMain windowWidth={windowWidth} />
+            }
           />
           <Route
             path="patients/:id"
-            element={<AdminPatientPageMain windowWidth={windowWidth} />}
+            element={<AdminMain isAdminPatientMain windowWidth={windowWidth} />}
           />
           <Route
             path="afflictions"
-            element={<AdminAfflictionsPageMain windowWidth={windowWidth} />}
+            element={
+              <AdminMain isAdminAfflictionsMain windowWidth={windowWidth} />
+            }
           />
           <Route
             path="afflictions/:id"
-            element={<AdminAfflictionPageMain windowWidth={windowWidth} />}
+            element={
+              <AdminMain isAdminAfflictionMain windowWidth={windowWidth} />
+            }
           />
           <Route
             path="medics"
-            element={<AdminMedicsPageMain windowWidth={windowWidth} />}
+            element={<AdminMain isAdminMedicsMain windowWidth={windowWidth} />}
           />
           <Route
             path="medics/:id"
-            element={<AdminMedicPageMain windowWidth={windowWidth} />}
+            element={<AdminMain isAdminMedicMain windowWidth={windowWidth} />}
           />
           <Route
             path="insurances"
-            element={<AdminInsurancesPageMain windowWidth={windowWidth} />}
+            element={
+              <AdminMain isAdminInsurancesMain windowWidth={windowWidth} />
+            }
           />
           <Route
             path="insurances/:id"
-            element={<AdminInsurancePageMain windowWidth={windowWidth} />}
+            element={
+              <AdminMain isAdminInsuranceMain windowWidth={windowWidth} />
+            }
           />
           <Route path="*" element={<ErrorPage isConnectedAdminErrorPage />} />
         </Route>

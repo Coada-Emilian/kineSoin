@@ -16,11 +16,11 @@ import {
   ITherapist,
 } from '../../../../@types/types';
 import {
-  handleAfflictionUpdate,
-  handleInsuranceOrganismUpdate,
-  handleMedicUpdate,
-  handlePatientStatusChange,
-  handleTherapistUpdate,
+  handleAfflictionUpdateAsAdmin,
+  handleInsuranceOrganismUpdateAsAdmin,
+  handleMedicUpdateAsAdmin,
+  handlePatientStatusChangeAsAdmin,
+  handleTherapistUpdateAsAdmin,
 } from '../../../../utils/apiUtils/adminApiUtils.tsx';
 
 interface AdminProfileDetailsProps {
@@ -56,7 +56,7 @@ export default function AdminProfileDetails({
 
   // Function to handle patient status changes
   const handlePatientStatusChanges = async (id: number, status: string) => {
-    const response = handlePatientStatusChange(id, status);
+    const response = handlePatientStatusChangeAsAdmin(id, status);
     if (await response) {
       console.log('Patient status updated successfully');
       window.location.reload();
@@ -123,15 +123,16 @@ export default function AdminProfileDetails({
   const getUpdateFunction = () => {
     if (therapist)
       return (formData: FormData) =>
-        handleTherapistUpdate(therapist.id, formData);
+        handleTherapistUpdateAsAdmin(therapist.id, formData);
     if (affliction)
       return (formData: FormData) =>
-        handleAfflictionUpdate(affliction.id, formData);
+        handleAfflictionUpdateAsAdmin(affliction.id, formData);
     if (medic)
-      return (formData: FormData) => handleMedicUpdate(formData, medic.id);
+      return (formData: FormData) =>
+        handleMedicUpdateAsAdmin(formData, medic.id);
     if (insurance)
       return (formData: FormData) =>
-        handleInsuranceOrganismUpdate(formData, insurance.id);
+        handleInsuranceOrganismUpdateAsAdmin(formData, insurance.id);
     return null;
   };
 
@@ -148,7 +149,7 @@ export default function AdminProfileDetails({
           className={`flex flex-col md:space-x-6 md:m-20 border border-gray-400 rounded-xl shadow-2xl ${therapist ? 'md:w-5/6' : 'md:w-2/3'}  items-center `}
         >
           <div
-            className={`flex flex-col p-8 w-10/12 ${therapist || patient ? 'md:flex-row items-center justify-around' : ''}`}
+            className={`flex flex-col p-8 w-full ${therapist || patient ? 'md:flex-row items-center justify-around' : ''}`}
           >
             <div className="flex-1 p-4 rounded-md">
               <GeneralOutput

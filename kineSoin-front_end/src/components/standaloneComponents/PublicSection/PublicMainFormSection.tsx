@@ -4,11 +4,6 @@ import CustomButton from '../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
 import StandardPasswordInput from '../generalComponents/StandardInputs/StandardPasswordInput.tsx';
 import StandardEmailInput from '../generalComponents/StandardInputs/StandardEmailInput.tsx';
-import {
-  handlePatientLogin,
-  handlePatientRegistration,
-  handleTherapistConnection,
-} from '../../../utils/apiUtils';
 import StandardTextInput from '../generalComponents/StandardInputs/StandardTextInput.tsx';
 import StandardDateInput from '../generalComponents/StandardInputs/StandardDateInput.tsx';
 import StandardDropdownInput from '../generalComponents/StandardInputs/StandardDropdownInput.tsx';
@@ -16,6 +11,11 @@ import StandardTelephoneInput from '../generalComponents/StandardInputs/Standard
 import StandardFileInput from '../generalComponents/StandardInputs/StandardFileInput.tsx';
 import { useNavigate } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
+import {
+  handlePatientLogin,
+  handlePatientRegistration,
+} from '../../../utils/apiUtils/publicApiUtils.tsx';
+import { handleTherapistConnection } from '../../../utils/apiUtils/patientApiUtils.tsx';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;

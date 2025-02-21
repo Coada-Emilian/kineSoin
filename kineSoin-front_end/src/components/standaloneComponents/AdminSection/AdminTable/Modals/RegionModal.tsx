@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import { fetchBodyRegions } from '../../../../../utils/apiUtils';
 import AdminTable from '../AdminTable';
 import { IBodyRegion } from '../../../../../@types/types';
+import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils';
 
 interface RegionModalProps {
   isRegionModalOpen: boolean;
@@ -20,7 +20,7 @@ export default function RegionModal({
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
   useEffect(() => {
-    fetchBodyRegions().then((bodyRegions) => {
+    fetchBodyRegionsAsAdmin().then((bodyRegions) => {
       setBodyRegions(bodyRegions);
     });
   }, []);

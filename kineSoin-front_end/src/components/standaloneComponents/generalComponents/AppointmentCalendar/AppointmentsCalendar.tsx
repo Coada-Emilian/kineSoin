@@ -4,8 +4,8 @@ import 'dayjs/locale/fr'; // Import French locale for Day.js
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import { useEffect, useState } from 'react';
-import { fetchPatientPrescriptions } from '../../../../utils/apiUtils';
 import { IAppointment, IPrescription } from '../../../../@types/types';
+import { fetchPatientPrescriptions } from '../../../../utils/apiUtils/patientApiUtils';
 
 interface AppointmentsCalendarProps {
   patientId?: number;

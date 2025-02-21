@@ -1,14 +1,7 @@
 // Purpose: Provide the ConfirmDeleteModal component which displays a modal to confirm the deletion of a profile.
 
 import ReactModal from 'react-modal';
-import {
-  handleAfflictionDelete,
-  handleInsuranceOrganismDelete,
-  handleMedicDelete,
-  handlePatientDelete,
-  handleRegionDelete,
-  handleTherapistDelete,
-} from '../../../../utils/apiUtils';
+
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
@@ -21,6 +14,14 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/types';
+import {
+  handleAfflictionDeleteAsAdmin,
+  handleInsuranceOrganismDeleteAsAdmin,
+  handleMedicDeleteAsAdmin,
+  handlePatientDeleteAsAdmin,
+  handleRegionDeleteAsAdmin,
+  handleTherapistDeleteAsAdmin,
+} from '../../../../utils/apiUtils/adminApiUtils';
 
 interface ConfirmDeleteModalProps {
   isDeleteModalOpen: boolean;
@@ -121,17 +122,17 @@ export default function ConfirmDeleteModal({
               setIsLoading(true);
               {
                 therapist
-                  ? handleTherapistDelete(therapist.id)
+                  ? handleTherapistDeleteAsAdmin(therapist.id)
                   : patient
-                    ? handlePatientDelete(patient.id)
+                    ? handlePatientDeleteAsAdmin(patient.id)
                     : affliction
-                      ? handleAfflictionDelete(affliction.id)
+                      ? handleAfflictionDeleteAsAdmin(affliction.id)
                       : medic
-                        ? handleMedicDelete(medic.id)
+                        ? handleMedicDeleteAsAdmin(medic.id)
                         : insurance
-                          ? handleInsuranceOrganismDelete(insurance.id)
+                          ? handleInsuranceOrganismDeleteAsAdmin(insurance.id)
                           : region
-                            ? handleRegionDelete(region.id)
+                            ? handleRegionDeleteAsAdmin(region.id)
                             : '';
               }
               setIsLoading(false);

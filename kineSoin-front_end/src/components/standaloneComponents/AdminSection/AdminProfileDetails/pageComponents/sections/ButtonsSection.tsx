@@ -112,7 +112,7 @@ export default function ButtonsSection({
         <>
           {!patient && (
             <CustomButton
-              btnText={`Modifier ${affliction ? 'affliction' : therapist ? 'kiné' : medic ? 'médecin' : insurance ? 'assurance' : ''}`}
+              btnText={`Modifier`}
               btnType="button"
               modifyButton
               onClick={() => setIsProfileEditing(true)}

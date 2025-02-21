@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { fetchPatientMessages } from '../../../../utils/apiUtils';
 import MessageCard from '../MessageCard/MessageCard';
 import { IPatientMessage } from '../../../../@types/types';
+import { fetchPatientMessages } from '../../../../utils/apiUtils/patientApiUtils';
 
 interface MessagesFieldProps {
   patientId?: number;
@@ -12,7 +12,6 @@ export default function MessagesField({
   patientId,
   isPatientMessagesField,
 }: MessagesFieldProps) {
-  const windowWidth = window.innerWidth;
   const [sentPatientMessages, setSentPatientMessages] =
     useState<IPatientMessage[]>();
   const [receivedPatientMessages, setReceivedPatientMessages] =

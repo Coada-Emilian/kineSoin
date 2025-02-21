@@ -1,8 +1,4 @@
 import { useEffect, useState } from 'react';
-import {
-  fetchBodyRegions,
-  fetchPatientAppointmentsByPrescription,
-} from '../../../../utils/apiUtils';
 import axios from 'axios';
 import {
   IAffliction,
@@ -13,6 +9,8 @@ import {
   IMedic,
   IPrescription,
 } from '../../../../@types/types';
+import { fetchPatientAppointmentsByPrescription } from '../../../../utils/apiUtils/patientApiUtils';
+import { fetchBodyRegionsAsAdmin } from '../../../../utils/apiUtils/adminApiUtils';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -147,7 +145,7 @@ export default function StandardChoiceDropdown({
   {
     if (isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput) {
       useEffect(() => {
-        fetchBodyRegions().then((bodyRegions) => {
+        fetchBodyRegionsAsAdmin().then((bodyRegions) => {
           setBodyRegions(bodyRegions);
         });
       }, []);

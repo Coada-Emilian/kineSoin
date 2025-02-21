@@ -1,7 +1,6 @@
 // Purpose: The purpose of this component is to render the admin table.
 
 import { useEffect, useState } from 'react';
-import { handleTherapistStatusChange } from '../../../../utils/apiUtils';
 import AfflictionUtilityButtons from './pageComponents/Affliction/AfflictionUtilityButtons';
 import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
@@ -20,6 +19,11 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/types';
+import {
+  renderTherapists,
+  renderPatients,
+  renderAfflictions,
+} from './utils/renderFunctions';
 
 interface AdminTableProps {
   allPatients?: IPatient[];
@@ -87,105 +91,36 @@ export default function AdminTable({
 
   // State for the add form
   const [addForm, setAddForm] = useState({
-    name: '',
-    surname: '',
-    email: '',
-    password: '',
-    repeated_password: '',
-    description: '',
-    diploma: '',
-    experience: '',
-    specialty: '',
-    licence_code: '',
-    status: '',
+    name: '' as string,
+    surname: '' as string,
+    email: '' as string,
+    password: '' as string,
+    repeated_password: '' as string,
+    description: '' as string,
+    diploma: '' as string,
+    experience: '' as string,
+    specialty: '' as string,
+    licence_code: '' as string,
+    status: '' as string,
     photo: '' as File | unknown,
-    prefix: '',
-    phone_number: '',
-    full_phone_number: '',
+    prefix: '' as string,
+    phone_number: '' as string,
+    full_phone_number: '' as string,
   });
 
   // useEffects to set rendered therapists, patients, afflictions
   useEffect(() => {
-    setRenderedTherapists(allTherapists || []);
-  }, [allTherapists]);
-  useEffect(() => {
-    setRenderedPatients(allPatients || []);
-  }, [allPatients]);
-  useEffect(() => {
-    setRenderedAfflictions(allAfflictions || []);
-  }, [allAfflictions]);
+    allTherapists && setRenderedTherapists(allTherapists || []);
+    allPatients && setRenderedPatients(allPatients || []);
+    allAfflictions && setRenderedAfflictions(allAfflictions || []);
+  }, [allTherapists, allPatients, allAfflictions]);
 
   // useEffects to render therapists, patients, afflictions
   useEffect(() => {
-    renderTherapists();
-  }, [therapistStatus]);
-  useEffect(() => {
-    renderPatients();
-  }, [patientStatus]);
-  useEffect(() => {
-    renderAfflictions();
-  }, [afflictionStatus]);
-
-  // Function to render therapists based on status
-  const renderTherapists = () => {
-    if (therapistStatus === 'all') {
-      setRenderedTherapists(allTherapists ?? []);
-    } else if (therapistStatus === 'active') {
-      const activeTherapists = (allTherapists ?? []).filter(
-        (therapist) => therapist.status === 'active'
-      );
-      setRenderedTherapists(activeTherapists);
-    } else if (therapistStatus === 'inactive') {
-      const inactiveTherapists = (allTherapists ?? []).filter(
-        (therapist) => therapist.status === 'inactive'
-      );
-      setRenderedTherapists(inactiveTherapists);
-    }
-  };
-
-  // Function to render patients
-  const renderPatients = () => {
-    if (patientStatus === 'all') {
-      setRenderedPatients(allPatients ?? []);
-    } else if (patientStatus === 'active') {
-      const activePatients = (allPatients ?? []).filter(
-        (patient) => patient.status === 'active'
-      );
-      setRenderedPatients(activePatients);
-    } else if (patientStatus === 'inactive') {
-      const inactivePatients = (allPatients ?? []).filter(
-        (patient) => patient.status === 'inactive'
-      );
-      setRenderedPatients(inactivePatients);
-    } else if (patientStatus === 'banned') {
-      const bannedPatients = (allPatients ?? []).filter(
-        (patient) => patient.status === 'banned'
-      );
-      setRenderedPatients(bannedPatients);
-    } else if (patientStatus === 'pending') {
-      const pendingPatients = (allPatients ?? []).filter(
-        (patient) => patient.status === 'pending'
-      );
-      setRenderedPatients(pendingPatients);
-    }
-  };
-
-  // Function to render afflictions
-  const renderAfflictions = () => {
-    if (afflictionStatus === 'all') {
-      setRenderedAfflictions(allAfflictions ?? []);
-    } else if (afflictionStatus === 'operated') {
-      const operatedAfflictions = (allAfflictions ?? []).filter(
-        (affliction) => affliction.is_operated === true
-      );
-      setRenderedAfflictions(operatedAfflictions);
-    } else if (afflictionStatus === 'non-operated') {
-      const nonOperatedAfflictions = (allAfflictions ?? []).filter(
-        (affliction) => affliction.is_operated === false
-      );
-      setRenderedAfflictions(nonOperatedAfflictions);
-    }
-  };
+    renderTherapists(allTherapists, setRenderedTherapists, therapistStatus);
+    renderPatients(allPatients, setRenderedPatients, patientStatus);
+    renderAfflictions(allAfflictions, setRenderedAfflictions, afflictionStatus);
+  }, [therapistStatus, patientStatus, afflictionStatus]);
 
   // Function to open delete modal
   const openDeleteModal = (
@@ -196,148 +131,130 @@ export default function AdminTable({
     insurance?: IInsurance,
     body_region?: IBodyRegion
   ) => {
-    if (therapist) {
-      setSelectedTherapist(therapist);
-    }
-    if (patient) {
-      setSelectedPatient(patient);
-    }
-    if (affliction) {
-      setSelectedAffliction(affliction);
-    }
-    if (medic) {
-      setSelectedMedic(medic);
-    }
-    if (insurance) {
-      setSelectedInsurance(insurance);
-    }
-    if (body_region) {
-      setSelectedBodyRegion(body_region);
-    }
+    therapist
+      ? setSelectedTherapist(therapist)
+      : patient
+        ? setSelectedPatient(patient)
+        : affliction
+          ? setSelectedAffliction(affliction)
+          : medic
+            ? setSelectedMedic(medic)
+            : insurance
+              ? setSelectedInsurance(insurance)
+              : body_region
+                ? setSelectedBodyRegion(body_region)
+                : null;
     setIsDeleteModalOpen(true);
   };
 
-  // Function to handle therapist status change
-  const handleStatusChange = async (therapistId: number) => {
-    const response = await handleTherapistStatusChange(therapistId);
-    if (response) {
-      window.location.reload();
-    } else {
-      console.error('Failed to change therapist status');
-    }
-  };
-
   return (
-    <>
-      <div>
-        <div
-          className={`buttons mb-6 flex flex-row  ${allMedics || allInsurances || allBodyRegions ? 'justify-end' : 'justify-between'} md:ml-10 md:mr-10`}
-        >
-          {allTherapists && (
-            <>
-              <StatusButtons
-                isTherapistStatusButtons
-                setTherapistStatus={setTherapistStatus}
-              />
-
-              <div>
-                <CustomButton
-                  btnText="Ajouter un kiné"
-                  addButton
-                  onClick={() => setIsAddTherapistModalP1Open(true)}
-                />
-              </div>
-            </>
-          )}
-
-          {allPatients && (
+    <div className="min-h-screen">
+      <div
+        className={`${allMedics || allInsurances || allBodyRegions ? 'justify-end' : 'justify-between'} buttons mb-6 flex flex-row md:ml-10 md:mr-10`}
+      >
+        {allTherapists && (
+          <>
             <StatusButtons
-              isPatientStatusButtons
-              setPatientStatus={setPatientStatus}
+              isTherapistStatusButtons
+              setTherapistStatus={setTherapistStatus}
             />
-          )}
 
-          {allAfflictions && (
-            <>
-              <StatusButtons
-                isAfflictionStatusButtons
-                setAfflictionStatus={setAfflictionStatus}
-              />
-
-              <AfflictionUtilityButtons
-                setIsRegionModalOpen={setIsRegionModalOpen}
-                setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
-              />
-            </>
-          )}
-
-          {(allMedics || allInsurances) && (
-            <div className="flex">
+            <div>
               <CustomButton
-                btnText={
-                  allMedics ? 'Ajouter un médecin' : 'Ajouter une assurance'
-                }
+                btnText="Ajouter un kiné"
                 addButton
-                onClick={() => {
-                  if (allMedics) setIsAddMedicModalOpen(true);
-                  if (allInsurances) setIsAddInsuranceModalOpen(true);
-                }}
+                onClick={() => setIsAddTherapistModalP1Open(true)}
               />
             </div>
-          )}
+          </>
+        )}
 
-          {allBodyRegions && (
+        {allPatients && (
+          <StatusButtons
+            isPatientStatusButtons
+            setPatientStatus={setPatientStatus}
+          />
+        )}
+
+        {allAfflictions && (
+          <>
+            <StatusButtons
+              isAfflictionStatusButtons
+              setAfflictionStatus={setAfflictionStatus}
+            />
+
+            <AfflictionUtilityButtons
+              setIsRegionModalOpen={setIsRegionModalOpen}
+              setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
+            />
+          </>
+        )}
+
+        {(allMedics || allInsurances) && (
+          <div className="flex">
             <CustomButton
-              btnText="Ajouter une region"
+              btnText={
+                allMedics ? 'Ajouter un médecin' : 'Ajouter une assurance'
+              }
               addButton
               onClick={() => {
-                setIsRegionModalOpen(false);
-                setIsAddRegionModalOpen(true);
+                if (allMedics) setIsAddMedicModalOpen(true);
+                if (allInsurances) setIsAddInsuranceModalOpen(true);
               }}
             />
-          )}
-        </div>
+          </div>
+        )}
 
-        <div>
-          <TableTitle
-            allTherapists={allTherapists}
-            allPatients={allPatients}
-            allAfflictions={allAfflictions}
-            allInsurances={allInsurances}
-            therapistStatus={therapistStatus}
-            patientStatus={patientStatus}
-            afflictionStatus={afflictionStatus}
-            allMedics={allMedics}
+        {allBodyRegions && (
+          <CustomButton
+            btnText="Ajouter une region"
+            addButton
+            onClick={() => {
+              setIsRegionModalOpen(false);
+              setIsAddRegionModalOpen(true);
+            }}
           />
-        </div>
-
-        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
-          <TableHead
-            windowWidth={windowWidth ?? 0}
-            allTherapists={allTherapists}
-            allPatients={allPatients}
-            allAfflictions={allAfflictions}
-            allMedics={allMedics}
-            allInsurances={allInsurances}
-            allBodyRegions={allBodyRegions}
-          />
-
-          <TableBody
-            windowWidth={windowWidth ?? 0}
-            allTherapists={allTherapists}
-            allPatients={allPatients}
-            allMedics={allMedics}
-            allAfflictions={allAfflictions}
-            allInsurances={allInsurances}
-            renderedAfflictions={renderedAfflictions}
-            renderedPatients={renderedPatients}
-            renderedTherapists={renderedTherapists}
-            handleStatusChange={handleStatusChange}
-            openDeleteModal={openDeleteModal}
-            allBodyRegions={allBodyRegions}
-          />
-        </table>
+        )}
       </div>
+
+      <div>
+        <TableTitle
+          allTherapists={allTherapists}
+          allPatients={allPatients}
+          allAfflictions={allAfflictions}
+          allInsurances={allInsurances}
+          therapistStatus={therapistStatus}
+          patientStatus={patientStatus}
+          afflictionStatus={afflictionStatus}
+          allMedics={allMedics}
+        />
+      </div>
+
+      <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
+        <TableHead
+          windowWidth={windowWidth ?? 0}
+          allTherapists={allTherapists}
+          allPatients={allPatients}
+          allAfflictions={allAfflictions}
+          allMedics={allMedics}
+          allInsurances={allInsurances}
+          allBodyRegions={allBodyRegions}
+        />
+
+        <TableBody
+          windowWidth={windowWidth ?? 0}
+          allTherapists={allTherapists}
+          allPatients={allPatients}
+          allMedics={allMedics}
+          allAfflictions={allAfflictions}
+          allInsurances={allInsurances}
+          renderedAfflictions={renderedAfflictions}
+          renderedPatients={renderedPatients}
+          renderedTherapists={renderedTherapists}
+          openDeleteModal={openDeleteModal}
+          allBodyRegions={allBodyRegions}
+        />
+      </table>
 
       {isDeleteModalOpen && (
         <ConfirmDeleteModal
@@ -419,6 +336,6 @@ export default function AdminTable({
           setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
         />
       )}
-    </>
+    </div>
   );
 }

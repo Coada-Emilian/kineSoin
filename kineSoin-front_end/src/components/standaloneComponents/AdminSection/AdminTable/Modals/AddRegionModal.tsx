@@ -3,7 +3,7 @@
 import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
-import { handleBodyRegionCreation } from '../../../../../utils/apiUtils';
+import { handleBodyRegionCreationAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils';
 
 interface AddRegionModalProps {
   isAddRegionModalOpen: boolean;
@@ -18,7 +18,7 @@ export default function AddRegionModal({
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
-    const response = await handleBodyRegionCreation(formData);
+    const response = await handleBodyRegionCreationAsAdmin(formData);
     if (response) {
       setIsAddRegionModalOpen(false);
       window.location.reload();

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils';
 import { ISameDayAppointment } from '../../../../../@types/types';
 import { Link } from 'react-router-dom';
 import messageIcon from '/icons/message.png';
@@ -10,6 +9,7 @@ import TherapistModal from '../Modals/TherapistModal';
 import DNALoader from '../../../../../utils/DNALoader';
 import dynamicIcon from '/icons/dynamic.png';
 import dynamicIcon2 from '/icons/dynamic2.png';
+import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();

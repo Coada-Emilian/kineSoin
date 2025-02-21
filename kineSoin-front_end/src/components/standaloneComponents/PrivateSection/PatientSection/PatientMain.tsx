@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import UserHeadband from '../../generalComponents/UserHeadband/UserHeadband';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
-import { fetchPatientAppointments } from '../../../../utils/apiUtils';
 import { Link } from 'react-router-dom';
 import SideNav from '../../generalComponents/SideNav/SideNav';
 import PatientNewPrescriptionForm from './PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
@@ -11,6 +10,7 @@ import { IAppointment } from '../../../../@types/types';
 import AppointmentCard from '../../generalComponents/AppointmentCard/AppointmentCard';
 import MessagesField from '../../generalComponents/MessagesField/MessagesField';
 import ProfileCard from '../../generalComponents/ProfileCard/ProfileCard';
+import { fetchPatientAppointments } from '../../../../utils/apiUtils/patientApiUtils';
 
 interface PatientMainProps {
   isPatientDashboardMain?: boolean;

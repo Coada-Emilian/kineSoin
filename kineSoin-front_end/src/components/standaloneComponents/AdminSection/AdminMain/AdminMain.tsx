@@ -1,17 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SideNav from '../generalComponents/SideNav/SideNav';
-import AdminTable from './AdminTable/AdminTable';
-import AdminProfileDetails from './AdminProfileDetails/AdminProfileDetails';
-import DNALoader from '../../../utils/DNALoader';
+import SideNav from '../../generalComponents/SideNav/SideNav';
+import AdminTable from '../AdminTable/AdminTable';
+import AdminProfileDetails from '../AdminProfileDetails/AdminProfileDetails';
+import DNALoader from '../../../../utils/DNALoader';
 import {
   ITherapist,
   IPatient,
   IAffliction,
   IMedic,
   IInsurance,
-} from '../../../@types/types';
-import { fetchAffliction, fetchAfflictions, fetchInsuranceOrganism, fetchInsuranceOrganisms, fetchMedic, fetchMedics, fetchPatient, fetchPatients, fetchTherapist, fetchTherapists } from '../../../utils/apiUtils/adminApiUtils';
+} from '../../../../@types/types';
+import {
+  fetchAfflictionAsAdmin,
+  fetchAfflictionsAsAdmin,
+  fetchInsuranceOrganismAsAdmin,
+  fetchInsuranceOrganismsAsAdmin,
+  fetchMedicAsAdmin,
+  fetchMedicsAsAdmin,
+  fetchPatientAsAdmin,
+  fetchPatientsAsAdmin,
+  fetchTherapistAsAdmin,
+  fetchTherapistsAsAdmin,
+} from '../../../../utils/apiUtils/adminApiUtils';
 
 interface AdminMainProps {
   windowWidth: number;
@@ -43,8 +54,8 @@ export default function AdminMain({
   //  Get the id from the URL
   const { id } = useParams();
 
-  // States
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const [allTherapists, setAllTherapists] = useState<ITherapist[]>([]);
   const [therapist, setTherapist] = useState<ITherapist | null>(null);
   const [therapistId, setTherapistId] = useState<number | null>(null);
@@ -73,33 +84,45 @@ export default function AdminMain({
       isAdminMedicMain && setMedicId(id ? entityId : null);
       isAdminInsuranceMain && setInsuranceId(id ? entityId : null);
     }
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    console.log('therapistId', therapistId);
+    console.log('patientId', patientId);
+    console.log('afflictionId', afflictionId);
+    console.log('medicId', medicId);
+    console.log('insuranceId', insuranceId);
+  }, [therapistId, patientId, afflictionId, medicId, insuranceId]);
 
   // Fetch the data of the entity to be displayed
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDetailsData = async () => {
       setIsLoading(true);
       const fetchPromises = [];
 
       if (isAdminTherapistMain && therapistId) {
-        fetchPromises.push(fetchTherapist(therapistId).then(setTherapist));
+        fetchPromises.push(
+          fetchTherapistAsAdmin(therapistId).then(setTherapist)
+        );
       }
 
       if (isAdminPatientMain && patientId) {
-        fetchPromises.push(fetchPatient(patientId).then(setPatient));
+        fetchPromises.push(fetchPatientAsAdmin(patientId).then(setPatient));
       }
 
       if (isAdminAfflictionMain && afflictionId) {
-        fetchPromises.push(fetchAffliction(afflictionId).then(setAffliction));
+        fetchPromises.push(
+          fetchAfflictionAsAdmin(afflictionId).then(setAffliction)
+        );
       }
 
       if (isAdminMedicMain && medicId) {
-        fetchPromises.push(fetchMedic(medicId).then(setMedic));
+        fetchPromises.push(fetchMedicAsAdmin(medicId).then(setMedic));
       }
 
       if (isAdminInsuranceMain && insuranceId) {
         fetchPromises.push(
-          fetchInsuranceOrganism(insuranceId).then(setInsurance)
+          fetchInsuranceOrganismAsAdmin(insuranceId).then(setInsurance)
         );
       }
 
@@ -107,42 +130,50 @@ export default function AdminMain({
       setIsLoading(false);
     };
 
-    fetchData();
+    fetchDetailsData();
   }, [patientId, therapistId, afflictionId, medicId, insuranceId]);
 
   // Fetch all the data to be displayed in the table
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTableData = async () => {
       setIsLoading(true);
 
       const fetchPromises = [];
 
       if (isAdminTherapistsMain) {
-        fetchPromises.push(fetchTherapists().then(setAllTherapists));
+        fetchPromises.push(fetchTherapistsAsAdmin().then(setAllTherapists));
       }
 
       if (isAdminPatientsMain) {
-        fetchPromises.push(fetchPatients().then(setAllPatients));
+        fetchPromises.push(fetchPatientsAsAdmin().then(setAllPatients));
       }
 
       if (isAdminAfflictionsMain) {
-        fetchPromises.push(fetchAfflictions().then(setAllAfflictions));
+        fetchPromises.push(fetchAfflictionsAsAdmin().then(setAllAfflictions));
       }
 
       if (isAdminMedicsMain) {
-        fetchPromises.push(fetchMedics().then(setAllMedics));
+        fetchPromises.push(fetchMedicsAsAdmin().then(setAllMedics));
       }
 
       if (isAdminInsurancesMain) {
-        fetchPromises.push(fetchInsuranceOrganisms().then(setAllInsurances));
+        fetchPromises.push(
+          fetchInsuranceOrganismsAsAdmin().then(setAllInsurances)
+        );
       }
 
       await Promise.all(fetchPromises);
       setIsLoading(false);
     };
 
-    fetchData();
-  }, []);
+    fetchTableData();
+  }, [
+    isAdminTherapistsMain,
+    isAdminPatientsMain,
+    isAdminAfflictionsMain,
+    isAdminMedicsMain,
+    isAdminInsurancesMain,
+  ]);
 
   if (isLoading) {
     return DNALoader();

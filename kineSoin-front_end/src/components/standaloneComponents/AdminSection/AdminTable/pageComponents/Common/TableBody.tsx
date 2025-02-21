@@ -25,7 +25,6 @@ interface TableBodyProps {
   renderedTherapists: ITherapist[];
   renderedPatients: IPatient[];
   renderedAfflictions: IAffliction[];
-  handleStatusChange: (id: number) => void;
   openDeleteModal: (
     therapist?: ITherapist,
     patient?: IPatient,
@@ -47,7 +46,6 @@ export default function TableBody({
   renderedTherapists,
   renderedPatients,
   renderedAfflictions,
-  handleStatusChange,
   openDeleteModal,
   allBodyRegions,
 }: TableBodyProps) {
@@ -57,7 +55,6 @@ export default function TableBody({
         <TherapistTableBody
           renderedTherapists={renderedTherapists}
           windowWidth={windowWidth}
-          handleStatusChange={handleStatusChange}
           openDeleteModal={openDeleteModal}
         />
       )}

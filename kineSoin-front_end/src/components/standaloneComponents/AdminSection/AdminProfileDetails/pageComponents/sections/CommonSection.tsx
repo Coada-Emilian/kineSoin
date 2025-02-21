@@ -11,11 +11,11 @@ import GeneralInput from '../generalComponents/common/GeneralInput';
 import GeneralOutput from '../generalComponents/common/GeneralOutput';
 
 interface CommonSectionProps {
-  patient?: IPatient | null;
-  therapist?: ITherapist | null;
+  patient?: IPatient;
+  therapist?: ITherapist;
   affliction?: IAffliction;
-  medic?: IMedic | null;
-  insurance?: IInsurance | null;
+  medic?: IMedic;
+  insurance?: IInsurance;
   isProfileEditing: boolean;
 }
 
