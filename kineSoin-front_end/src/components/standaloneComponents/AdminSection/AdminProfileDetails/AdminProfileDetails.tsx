@@ -3,13 +3,6 @@
 import { useState } from 'react';
 import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal.tsx';
 import EditPhotoModal from '../Modals/EditPhotoModal.tsx';
-import {
-  handleAfflictionUpdate,
-  handleInsuranceOrganismUpdate,
-  handleMedicUpdate,
-  handlePatientStatusChange,
-  handleTherapistUpdate,
-} from '../../../../utils/apiUtils.ts';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
@@ -22,6 +15,13 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/types';
+import {
+  handleAfflictionUpdate,
+  handleInsuranceOrganismUpdate,
+  handleMedicUpdate,
+  handlePatientStatusChange,
+  handleTherapistUpdate,
+} from '../../../../utils/apiUtils/adminApiUtils.tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;

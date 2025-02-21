@@ -206,6 +206,8 @@ export interface IFullPatient {
   full_phone_number: string;
   status: string;
   picture_url: string;
+  email: string;
+  insurance: IInsurance[];
   prescription: {
     id: number;
     appointment_quantity: number;

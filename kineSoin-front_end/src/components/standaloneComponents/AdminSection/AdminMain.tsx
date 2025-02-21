@@ -5,24 +5,13 @@ import AdminTable from './AdminTable/AdminTable';
 import AdminProfileDetails from './AdminProfileDetails/AdminProfileDetails';
 import DNALoader from '../../../utils/DNALoader';
 import {
-  fetchAffliction,
-  fetchAfflictions,
-  fetchInsuranceOrganism,
-  fetchInsuranceOrganisms,
-  fetchMedic,
-  fetchMedics,
-  fetchPatient,
-  fetchPatients,
-  fetchTherapist,
-  fetchTherapists,
-} from '../../../utils/apiUtils';
-import {
   ITherapist,
   IPatient,
   IAffliction,
   IMedic,
   IInsurance,
 } from '../../../@types/types';
+import { fetchAffliction, fetchAfflictions, fetchInsuranceOrganism, fetchInsuranceOrganisms, fetchMedic, fetchMedics, fetchPatient, fetchPatients, fetchTherapist, fetchTherapists } from '../../../utils/apiUtils/adminApiUtils';
 
 interface AdminMainProps {
   windowWidth: number;

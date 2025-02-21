@@ -1,12 +1,39 @@
+/*
+ * This file contains the AdminLoginPage component, which handles the login process for administrators.
+ * It imports necessary components and utilities, manages form state and validation,
+ * and handles the submission of login credentials to the server. It also displays a loading state
+ * and any error messages that may occur during the login process.
+ *
+ * Imported components and utilities:
+ * - CustomButton: A customizable button component.
+ * - setAdminTokenAndDataInLocalStorage: A utility function to store admin data in local storage.
+ * - useState: React hook to manage component state.
+ * - Link, useNavigate: React Router components for navigation.
+ * - DNALoader: A component to display a loading animation.
+ * - logo: Path to the main logo image.
+ * - StandardEmailInput, StandardPasswordInput: Input components for email and password fields.
+ * - handleAdminLogin: A function to handle the admin login API call.
+ *
+ * Interface:
+ * - AdminLoginPageProps: Props interface for the AdminLoginPage component.
+ *
+ * AdminLoginPage Component:
+ * - Manages form state (errorMessage, isLoading).
+ * - Handles form submission with checkAdminCredentials function.
+ * - Validates form data and calls handleAdminLogin API.
+ * - Sets admin data in local storage and updates state.
+ * - Displays loading animation and error messages.
+ */
+
 import CustomButton from '../../standaloneComponents/generalComponents/CustomButton/CustomButton.tsx';
 import { setAdminTokenAndDataInLocalStorage } from '../../../localStorage/adminLocalStorage.ts';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { handleAdminLogin } from '../../../utils/apiUtils.ts';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
 import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput.tsx';
 import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardPasswordInput.tsx';
+import { handleAdminLogin } from '../../../utils/apiUtils/publicApiUtils.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -22,7 +49,6 @@ export default function AdminLoginPage({
   const checkAdminCredentials = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       const formData = new FormData(e.currentTarget);
       const adminEmail = formData.get('email') as string;

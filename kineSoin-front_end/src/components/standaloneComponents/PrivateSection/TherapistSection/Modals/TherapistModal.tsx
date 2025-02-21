@@ -143,23 +143,38 @@ export default function TherapistModal({
     fetchData();
   }, [selected_patient]);
 
-  // const patientDetails = [
-  //   {
-  //     label: 'Adresse',
-  //     value:
-  //       patientData?.street_number +
-  //       ' ' +
-  //       patientData?.street_name +
-  //       ', ' +
-  //       patientData?.postal_code +
-  //       ' ' +
-  //       patientData?.city,
-  //   },
-  //   { label: 'Numéro de téléphone', value: patientData?.full_phone_number },
-  //   { label: 'Email', value: patientData?.email },
-  //   { label: 'Date de naissance', value: patientData?.birth_date },
-  //   { label: 'Mutuelle', value: patientData?.insurance.name },
-  // ];
+  const patientDetails = [
+    {
+      label: 'Statut',
+      value:
+        patientData?.status === 'active'
+          ? 'ACTIF'
+          : patientData?.status === 'banned'
+            ? 'BANNI'
+            : patientData?.status === 'pending'
+              ? 'EN ATTENTE'
+              : 'INACTIF',
+    },
+   
+    {
+      label: 'Adresse',
+      value:
+        patientData?.street_number +
+        ' ' +
+        patientData?.street_name +
+        ', ' +
+        patientData?.postal_code +
+        ' ' +
+        patientData?.city,
+    },
+    {
+      label: 'N° de téléphone',
+      value: patientData?.prefix + ' ' + patientData?.phone_number,
+    },
+    { label: 'Email', value: patientData?.email },
+    { label: 'Date de naissance', value: patientData?.birth_date },
+    { label: 'Mutuelle', value: patientData?.insurance[0].name },
+  ];
 
   useEffect(() => {
     console.log(patientData);
@@ -294,6 +309,17 @@ export default function TherapistModal({
                     {patientData?.age} ans
                   </p>
                 </div>
+                <div>
+                  {patientDetails.map((detail, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between px-4 py-1 text-xs md:text-lg"
+                    >
+                      <p className="w-1/2">{detail.label}</p>
+                      <p className="w-1/2 font-normal">{detail.value}</p>
+                    </div>
+                  ))}
+                </div>
               </>
             )}
 
@@ -324,3 +350,5 @@ export default function TherapistModal({
     </ReactModal>
   );
 }
+
+
