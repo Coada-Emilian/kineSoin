@@ -4,10 +4,7 @@ import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLo
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import { Route, Routes } from 'react-router-dom';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
-import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
-import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
-import HomepageMain from './components/pageComponents/PublicSection/HomePageMain';
 import AdminMain from './components/pageComponents/AdminSection/AdminMain';
 import PatientMain from './components/pageComponents/PatientSection/PatientMain';
 import TherapistMain from './components/pageComponents/TherapistSection/TherapistMain';
@@ -17,6 +14,7 @@ import {
   checkPatientAuthentication,
   checkTherapistAuthentication,
 } from './utils/AppUtils/authentificationFunctions/appAuthentificationFunctions';
+import PublicMain from './components/pageComponents/PublicSection/PublicMain';
 
 function App() {
   // Use state to keep track of the window width
@@ -220,13 +218,13 @@ function App() {
           />
         }
       >
-        <Route index element={<HomepageMain />} />
+        <Route index element={<PublicMain isHomePageMain />} />
 
         <Route
           path="loginPatient"
           element={
-            <LoginPageMain
-              isPatientLoginMain
+            <PublicMain
+              isPatientLoginPageMain
               setPatientProfileToken={setPatientProfileToken}
             />
           }
@@ -235,8 +233,8 @@ function App() {
         <Route
           path="loginTherapist"
           element={
-            <LoginPageMain
-              isTherapistLoginMain
+            <PublicMain
+              isTherapistLoginPageMain
               setTherapistProfileToken={setTherapistProfileToken}
             />
           }
@@ -245,7 +243,8 @@ function App() {
         <Route
           path="registerPatient"
           element={
-            <RegisterPageMain
+            <PublicMain
+              isPatientRegisterPageMain
               isFirstFormValidated={isFirstFormValidated}
               isSecondFormValidated={isSecondFormValidated}
               isThirdFormValidated={isThirdFormValidated}
