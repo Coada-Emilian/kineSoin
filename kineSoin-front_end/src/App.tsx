@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from './axios';
 import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalStorage';
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
@@ -17,12 +16,12 @@ import {
   PatientLayout,
   PublicLayout,
   TherapistLayout,
-} from './utils/appLayouts/appLayouts';
+} from './utils/AppUtils/authentificationFunctions/appLayouts/appLayouts';
 import {
   checkAdminAuthentication,
   checkPatientAuthentication,
   checkTherapistAuthentication,
-} from './utils/authentificationFunctions/appAuthentificationFunctions';
+} from './utils/AppUtils/authentificationFunctions/appAuthentificationFunctions';
 
 function App() {
   // Use state to keep track of the window width
@@ -75,8 +74,6 @@ function App() {
     useState<boolean>(false);
   const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
     useState<boolean>(false);
-
-  useEffect(() => {}, []);
 
   // useEffect to check if the admin is authenticated
   useEffect(() => {
@@ -211,6 +208,10 @@ function App() {
     { path: 'my-profile', boolean: 'isTherapistProfileMain' },
     { path: 'prescriptions', boolean: 'isTherapistPrescriptionsMain' },
   ];
+
+  useEffect(() => {
+    console.log(isFirstFormValidated);
+  }, [isFirstFormValidated]);
 
   return (
     <Routes>

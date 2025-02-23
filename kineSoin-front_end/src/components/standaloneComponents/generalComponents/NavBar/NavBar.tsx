@@ -75,6 +75,16 @@ export default function NavBar({
     navigate('/loginTherapist');
   };
 
+  const onClickFunction = () => {
+    setIsRegisterPageRendered &&
+      (setIsFirstFormValidated
+        ? setIsFirstFormValidated(false)
+        : setIsSecondFormValidated
+          ? setIsSecondFormValidated(false)
+          : setIsThirdFormValidated
+            ? setIsThirdFormValidated(false)
+            : undefined);
+  };
   // State to manage the patient notification quantity
   const [patientNotificationQuantity, setPatientNotificationQuantity] =
     useState(0);
@@ -92,18 +102,7 @@ export default function NavBar({
         <Link
           to="/"
           onClick={() => {
-            if (setIsRegisterPageRendered) {
-              setIsRegisterPageRendered(false);
-              if (setIsFirstFormValidated) {
-                setIsFirstFormValidated(false);
-              }
-              if (setIsSecondFormValidated) {
-                setIsSecondFormValidated(false);
-              }
-              if (setIsThirdFormValidated) {
-                setIsThirdFormValidated(false);
-              }
-            }
+            onClickFunction();
           }}
         >
           <img
@@ -123,18 +122,7 @@ export default function NavBar({
                 to="/loginTherapist"
                 className="hidden md:block"
                 onClick={() => {
-                  if (setIsRegisterPageRendered) {
-                    setIsRegisterPageRendered(false);
-                    if (setIsFirstFormValidated) {
-                      setIsFirstFormValidated(false);
-                    }
-                    if (setIsSecondFormValidated) {
-                      setIsSecondFormValidated(false);
-                    }
-                    if (setIsThirdFormValidated) {
-                      setIsThirdFormValidated(false);
-                    }
-                  }
+                  onClickFunction();
                 }}
               >
                 <CustomButton btnText="Connexion thérapeute" navBarButton />
@@ -144,21 +132,21 @@ export default function NavBar({
                 to="/loginPatient"
                 className="hidden md:block"
                 onClick={() => {
-                  if (setIsRegisterPageRendered) {
-                    setIsRegisterPageRendered(false);
-                    if (setIsFirstFormValidated) {
-                      setIsFirstFormValidated(false);
-                    }
-                    if (setIsSecondFormValidated) {
-                      setIsSecondFormValidated(false);
-                    }
-                    if (setIsThirdFormValidated) {
-                      setIsThirdFormValidated(false);
-                    }
-                  }
+                  onClickFunction();
                 }}
               >
                 <CustomButton btnText="Connexion patient" navBarButton />
+              </Link>
+
+              <Link
+                to="/loginAdmin"
+                className="hidden md:block"
+                onClick={() => {
+                  onClickFunction();
+                }}
+              >
+                {' '}
+                <CustomButton btnText="Connexion admin" navBarButton />
               </Link>
             </div>
           )}

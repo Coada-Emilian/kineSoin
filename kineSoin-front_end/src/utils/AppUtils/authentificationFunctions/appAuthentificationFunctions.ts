@@ -1,7 +1,7 @@
-import axios from '../../axios';
-import { getAdminTokenAndDataFromLocalStorage } from '../../localStorage/adminLocalStorage';
-import { getPatientTokenAndDataFromLocalStorage } from '../../localStorage/patientLocalStorage';
-import { getTherapistTokenAndDataFromLocalStorage } from '../../localStorage/therapistLocalStorage';
+import axios from '../../../axios';
+import { getAdminTokenAndDataFromLocalStorage } from '../../../localStorage/adminLocalStorage';
+import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
+import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
 
 interface FunctionProps {
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,7 +1,7 @@
-import NavBar from '../../components/standaloneComponents/generalComponents/NavBar/NavBar';
+import NavBar from '../../../../components/standaloneComponents/generalComponents/NavBar/NavBar';
 import { Outlet } from 'react-router-dom';
-import Footer from '../../components/standaloneComponents/generalComponents/Footer/Footer';
-import MobileNav from '../../components/standaloneComponents/generalComponents/MobileNav/MobileNav';
+import Footer from '../../../../components/standaloneComponents/generalComponents/Footer/Footer';
+import MobileNav from '../../../../components/standaloneComponents/generalComponents/MobileNav/MobileNav';
 
 interface LayoutProps {
   windowWidth: number;
