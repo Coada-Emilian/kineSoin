@@ -30,81 +30,95 @@ export default function StandardPasswordInput({
 }: StandardPasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
-  const getInputId = () => {
-    if (isPatientLoginPagePasswordInput)
-      return 'patient-connexion-password_input';
-    if (isTherapistLoginPagePasswordInput)
-      return 'therapist-connexion-password_input';
-    if (isPatientRegisterPasswordInput)
-      return 'patient-register-password_input';
-    if (isPatientRegisterConfirmPasswordInput)
-      return 'patient-register-confirm-password_input';
-    if (isAdminPasswordInput) return 'admin-password_input';
-    if (isAdminTherapistAddPasswordInput)
-      return 'admin-therapist-password_input';
-    if (isAdminTherapistAddRepeatedPasswordInput)
-      return 'admin-therapist-repeated-password_input';
-    if (isOldPasswordInput) return 'old-password_input';
-    if (isNewPasswordInput) return 'new-password_input';
-    if (isRepeatPasswordInput) return 'repeat-password_input';
-    return '';
-  };
+  const getInputId = () =>
+    isPatientLoginPagePasswordInput
+      ? 'patient-connexion-password_input'
+      : isTherapistLoginPagePasswordInput
+        ? 'therapist-connexion-password_input'
+        : isPatientRegisterPasswordInput
+          ? 'patient-register-password_input'
+          : isPatientRegisterConfirmPasswordInput
+            ? 'patient-register-confirm-password_input'
+            : isAdminPasswordInput
+              ? 'admin-password_input'
+              : isAdminTherapistAddPasswordInput
+                ? 'admin-therapist-password_input'
+                : isAdminTherapistAddRepeatedPasswordInput
+                  ? 'admin-therapist-repeated-password_input'
+                  : isOldPasswordInput
+                    ? 'old-password_input'
+                    : isNewPasswordInput
+                      ? 'new-password_input'
+                      : isRepeatPasswordInput
+                        ? 'repeat-password_input'
+                        : '';
 
-  const getInputName = () => {
-    if (isPatientRegisterConfirmPasswordInput) return 'confirm-password';
-    if (isOldPasswordInput) return 'old_password';
-    if (isNewPasswordInput) return 'new_password';
-    if (isRepeatPasswordInput) return 'repeat_password';
-    if (isAdminTherapistAddPasswordInput) return 'password';
-    if (isAdminTherapistAddRepeatedPasswordInput) return 'repeated_password';
-    return 'password';
-  };
+  const getInputName = () =>
+    isPatientRegisterConfirmPasswordInput
+      ? 'confirm-password'
+      : isOldPasswordInput
+        ? 'old_password'
+        : isNewPasswordInput
+          ? 'new_password'
+          : isRepeatPasswordInput
+            ? 'repeat_password'
+            : isAdminTherapistAddPasswordInput
+              ? 'password'
+              : isAdminTherapistAddRepeatedPasswordInput
+                ? 'repeated_password'
+                : 'password';
 
-  const getPlaceholder = () => {
-    if (isOldPasswordInput) return 'Entrez votre ancien mot de passe';
-    if (isNewPasswordInput) return 'Entrez votre nouveau mot de passe';
-    if (isRepeatPasswordInput) return 'Répétez le mot de passe';
-    if (isAdminTherapistAddPasswordInput) return 'Entrez le mot de passe';
-    if (isAdminTherapistAddRepeatedPasswordInput)
-      return 'Confirmez le mot de passe';
-    if (isPatientRegisterConfirmPasswordInput)
-      return 'Confirmez le mot de passe';
-    return 'Entrez votre mot de passe';
-  };
+  const getPlaceholder = () =>
+    isOldPasswordInput
+      ? 'Entrez votre ancien mot de passe'
+      : isNewPasswordInput
+        ? 'Entrez votre nouveau mot de passe'
+        : isRepeatPasswordInput
+          ? 'Répétez le mot de passe'
+          : isAdminTherapistAddPasswordInput
+            ? 'Entrez le mot de passe'
+            : isAdminTherapistAddRepeatedPasswordInput
+              ? 'Confirmez le mot de passe'
+              : isPatientRegisterConfirmPasswordInput
+                ? 'Confirmez le mot de passe'
+                : 'Entrez votre mot de passe';
 
-  const getLabelText = () => {
-    if (isOldPasswordInput) return 'Ancien mot de passe';
-    if (isNewPasswordInput) return 'Nouveau mot de passe';
-    if (isRepeatPasswordInput) return 'Confirmer le mot de passe';
-    if (isAdminTherapistAddPasswordInput) return 'Mot de passe';
-    if (isAdminTherapistAddRepeatedPasswordInput)
-      return 'Confirmer le mot de passe';
-    if (isPatientRegisterConfirmPasswordInput)
-      return 'Confirmation mot de passe';
-    return 'Mot de passe';
-  };
+  const getLabelText = () =>
+    isOldPasswordInput
+      ? 'Ancien mot de passe'
+      : isNewPasswordInput
+        ? 'Nouveau mot de passe'
+        : isRepeatPasswordInput
+          ? 'Confirmer le mot de passe'
+          : isAdminTherapistAddPasswordInput
+            ? 'Mot de passe'
+            : isAdminTherapistAddRepeatedPasswordInput
+              ? 'Confirmer le mot de passe'
+              : isPatientRegisterConfirmPasswordInput
+                ? 'Confirmation mot de passe'
+                : 'Mot de passe';
 
-  const getAutoComplete = () => {
-    if (isPatientRegisterPasswordInput) return 'password';
-    if (isPatientRegisterConfirmPasswordInput) return 'repeated password';
-    if (isOldPasswordInput) return 'current-password';
-    if (isNewPasswordInput) return 'new-password';
-    if (isRepeatPasswordInput) return 'repeated password';
-    if (isAdminTherapistAddPasswordInput) return 'new-password';
-    if (isAdminTherapistAddRepeatedPasswordInput) return 'repeated-password';
-    return 'current-password';
-  };
-
-  const inputId = getInputId();
-  const inputName = getInputName();
-  const placeholder = getPlaceholder();
-  const labelText = getLabelText();
-  const auto_complete = getAutoComplete();
+  const getAutoComplete = () =>
+    isPatientRegisterPasswordInput
+      ? 'password'
+      : isPatientRegisterConfirmPasswordInput
+        ? 'repeated password'
+        : isOldPasswordInput
+          ? 'current-password'
+          : isNewPasswordInput
+            ? 'new-password'
+            : isRepeatPasswordInput
+              ? 'repeated password'
+              : isAdminTherapistAddPasswordInput
+                ? 'new-password'
+                : isAdminTherapistAddRepeatedPasswordInput
+                  ? 'repeated-password'
+                  : 'current-password';
 
   return (
     <div className="mb-4 italic">
       <label
-        htmlFor={inputId}
+        htmlFor={getInputId()}
         className={`${
           isPatientRegisterPasswordInput ||
           isNewPasswordInput ||
@@ -113,7 +127,7 @@ export default function StandardPasswordInput({
             : ''
         } text-primaryBlue text-sm font-medium`}
       >
-        {labelText}
+        {getLabelText()}
         {(isPatientRegisterPasswordInput ||
           isNewPasswordInput ||
           isAdminTherapistAddPasswordInput) && (
@@ -134,11 +148,11 @@ export default function StandardPasswordInput({
       <div className="flex rounded-md shadow-sm border">
         <input
           type={showPassword ? 'text' : 'password'}
-          name={inputName}
-          id={inputId}
+          name={getInputName()}
+          id={getInputId()}
           className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-base"
-          placeholder={placeholder}
-          autoComplete={auto_complete}
+          placeholder={getPlaceholder()}
+          autoComplete={getAutoComplete()}
         />
         <button
           type="button"

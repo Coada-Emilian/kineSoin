@@ -44,14 +44,13 @@ export default function StandardEmailInput({
     } px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50`;
   };
 
-  const inputId = getInputId();
-  const inputClassName = getInputClassName();
-  
-  const placeholder = isAdminTherapistAddEmailInput
-    ? 'E-mail du kinésithérapeute'
-    : isPatientProfileEmailModification
-      ? ''
-      : 'Entrez votre e-mail';
+  const getInputPlaceholder = () => {
+    return isAdminTherapistAddEmailInput
+      ? 'E-mail du kinésithérapeute'
+      : isPatientProfileEmailModification
+        ? ''
+        : 'Entrez votre e-mail';
+  };
 
   return (
     <div
@@ -62,7 +61,7 @@ export default function StandardEmailInput({
       }`}
     >
       <label
-        htmlFor={inputId}
+        htmlFor={getInputId()}
         className={`${
           isPatientProfileEmailModification
             ? 'text-xs md:text-base xl:text-xl italic w-1/4 flex justify-start'
@@ -75,9 +74,9 @@ export default function StandardEmailInput({
       <input
         type="email"
         name="email"
-        id={inputId}
-        className={inputClassName}
-        placeholder={placeholder}
+        id={getInputId()}
+        className={getInputClassName()}
+        placeholder={getInputPlaceholder()}
         required
         value={patientEmail}
         onChange={(e) => setPatientEmail(e.target.value)}
