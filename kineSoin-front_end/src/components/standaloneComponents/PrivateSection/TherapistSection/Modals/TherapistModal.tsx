@@ -1,7 +1,7 @@
 import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
-import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
+import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import {
   IFullPatient,
   ISameDayAppointment,

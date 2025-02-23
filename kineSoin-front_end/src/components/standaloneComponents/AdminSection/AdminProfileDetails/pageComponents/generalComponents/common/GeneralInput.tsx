@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
-import StandardTextInput from '../../../../../generalComponents/StandardInputs/StandardTextInput';
+import StandardTextInput from '../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import {
   IAffliction,
   IInsurance,

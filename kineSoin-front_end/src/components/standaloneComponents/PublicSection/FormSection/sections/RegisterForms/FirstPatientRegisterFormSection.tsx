@@ -1,5 +1,5 @@
 import StandardDateInput from '../../../../generalComponents/StandardInputs/StandardDateInput';
-import StandardTextInput from '../../../../generalComponents/StandardInputs/StandardTextInput';
+import StandardTextInput from '../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import StandardDropdownInput from '../../../../generalComponents/StandardInputs/StandardDropdownInput';
 
 export default function FirstPatientRegisterFormSection() {

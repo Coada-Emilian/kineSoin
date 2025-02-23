@@ -11,7 +11,7 @@ import instagramIcon from '/icons/insta.png';
 import linkedInIcon from '/icons/linkedIn.png';
 import phoneIcon from '/icons/phone-call.png';
 import { Link, useNavigate } from 'react-router-dom';
-import StandardTextInput from '../StandardInputs/StandardTextInput';
+import StandardTextInput from '../StandardInputs/standardTextFields/StandardTextInput';
 import StandardDateInput from '../StandardInputs/StandardDateInput';
 import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
@@ -20,7 +20,14 @@ import EditIcon from '../EditIcon/EditIcon';
 import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
 import checkIcon from '/icons/check.png';
 import { updatePatientDataInLocalStorage } from '../../../../localStorage/patientLocalStorage';
-import { fetchPatientData, fetchPatientTherapist, handlePatientInsuranceUpdate, handlePatientMessageCreation, handlePatientPhotoUpdate, handlePatientUpdate } from '../../../../utils/apiUtils/patientApiUtils';
+import {
+  fetchPatientData,
+  fetchPatientTherapist,
+  handlePatientInsuranceUpdate,
+  handlePatientMessageCreation,
+  handlePatientPhotoUpdate,
+  handlePatientUpdate,
+} from '../../../../utils/apiUtils/patientApiUtils';
 
 interface ProfileCardProps {
   patientId?: number;

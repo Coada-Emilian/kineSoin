@@ -3,7 +3,7 @@ import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import StandardDateInput from '../../../generalComponents/StandardInputs/StandardDateInput';
 import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/StandardDropdownInput';
 import StandardFileInput from '../../../generalComponents/StandardInputs/StandardFileInput';
-import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
+import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import { useNavigate } from 'react-router-dom';
 import { IAffliction, IMedic } from '../../../../../@types/types';
 import {
