@@ -256,3 +256,4 @@ export const handleThirdPatientRegisterForm = async (
     setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
   }
 };
+

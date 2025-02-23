@@ -2,13 +2,6 @@ import { Link, useLocation } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
-import StandardPasswordInput from '../../generalComponents/StandardInputs/StandardPasswordInput.tsx';
-import StandardEmailInput from '../../generalComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardTextInput from '../../generalComponents/StandardInputs/StandardTextInput.tsx';
-import StandardDateInput from '../../generalComponents/StandardInputs/StandardDateInput.tsx';
-import StandardDropdownInput from '../../generalComponents/StandardInputs/StandardDropdownInput.tsx';
-import StandardTelephoneInput from '../../generalComponents/StandardInputs/StandardTelephoneInput.tsx';
-import StandardFileInput from '../../generalComponents/StandardInputs/StandardFileInput.tsx';
 import { useNavigate } from 'react-router-dom';
 import DNALoader from '../../../../utils/DNALoader.tsx';
 import { handlePatientRegistration } from '../../../../utils/apiUtils/publicApiUtils.tsx';
@@ -21,6 +14,12 @@ import {
   handleSecondPatientRegisterForm,
   handleThirdPatientRegisterForm,
 } from './registerFormUtils.ts';
+import HomePageFormSection from './sections/HomePageFormSection.tsx';
+import PatientLoginFormSection from './sections/PatientLoginFormSection.tsx';
+import TherapistLoginFormSection from './sections/TherapistLoginFormSection.tsx';
+import ThirdPatientRegisterFormSection from './sections/RegisterForms/ThirdPatientRegisterFormSection.tsx';
+import SecondPatientRegisterFormSection from './sections/RegisterForms/SecondPatientRegisterFormSection.tsx';
+import FirstPatientRegisterFormSection from './sections/RegisterForms/FirstPatientRegisterFormSection.tsx';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;
@@ -112,54 +111,50 @@ export default function FormSection({
     return DNALoader();
   }
 
+  const sectionPadding = isHomePageFormSection
+    ? 'md:p-96'
+    : isPatientLoginPageFormSection ||
+        isTherapistLoginPageFormSection ||
+        isPatientRegisterPageRendered ||
+        isFirstFormValidated ||
+        isSecondFormValidated ||
+        isThirdFormValidated
+      ? ' md:p-48 xl:p-56 2xl:p-72'
+      : '';
+
+  const sectionBackground = isHomePageFormSection
+    ? 'bg-homePage'
+    : isPatientLoginPageFormSection
+      ? 'bg-patientConnectionPage'
+      : isTherapistLoginPageFormSection
+        ? 'bg-therapistConnectionPage'
+        : isPatientRegisterPageRendered
+          ? 'bg-patientFirstRegisterPage'
+          : isFirstFormValidated
+            ? 'bg-patientSecondRegisterPage'
+            : isSecondFormValidated
+              ? 'bg-patientThirdRegisterPage'
+              : isThirdFormValidated
+                ? 'bg-confirmationPage'
+                : '';
+
   return (
     // Render the form section with the corresponding background image and form content
     <section
-      className={`${
-        isHomePageFormSection
-          ? 'bg-homePage md:p-96'
-          : isPatientLoginPageFormSection
-            ? 'bg-patientConnectionPage md:p-48 xl:p-56 2xl:p-72'
-            : isTherapistLoginPageFormSection
-              ? 'bg-therapistConnectionPage md:p-48 xl:p-56 2xl:p-72'
-              : isPatientRegisterPageRendered
-                ? 'bg-patientFirstRegisterPage md:p-48 xl:p-56 2xl:p-72'
-                : isFirstFormValidated
-                  ? 'bg-patientSecondRegisterPage md:p-48 xl:p-56 2xl:p-72'
-                  : isSecondFormValidated
-                    ? 'bg-patientThirdRegisterPage md:p-48 xl:p-56 2xl:p-72'
-                    : isThirdFormValidated
-                      ? 'bg-confirmationPage md:p-48 xl:p-56 2xl:p-72'
-                      : ''
-      } bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
+      className={`${sectionPadding} ${sectionBackground} bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
     >
       {' '}
       <div
-        className={`${!isHomePageFormSection ? (isGlobalFormSubmitted ? 'max-w-2xl opacity-90' : 'opacity-90 max-w-80') : 'opacity-75 md:w-2/3 md:absolute md:top-32 md:left-16 md:text-base lg:text-lg lg:left-20 lg:w-2/4 xl:top-32 xl:text-xl 2xl:top-52 2xl:text-2xl'} font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-gradient-to-r from-white to-gray-200 p-6 rounded-3xl italic`}
+        className={`${
+          !isHomePageFormSection
+            ? isGlobalFormSubmitted
+              ? 'max-w-2xl opacity-90'
+              : 'opacity-90 max-w-80'
+            : 'opacity-75 md:w-2/3 md:absolute md:top-32 md:left-16 md:text-base lg:text-lg lg:left-20 lg:w-2/4 xl:top-32 xl:text-xl 2xl:top-52 2xl:text-2xl'
+        } font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-gradient-to-r from-white to-gray-200 p-6 rounded-3xl italic`}
       >
         {isHomePageFormSection ? (
-          <div className="indent-4">
-            <p className="mb-2">
-              Bienvenue sur <span className="font-bold">kineSoin</span> !
-            </p>
-
-            <p className="mb-2">
-              Votre espace dédié à la kinésithérapie et à votre bien-être.
-              Prenez soin de votre santé en toute simplicité en prenant
-              rendez-vous avec nos professionnels qualifiés.
-            </p>
-
-            <p className="mb-2">
-              Inscrivez-vous dès maintenant pour accéder à tous nos services
-              personnalisés et planifier vos séances en ligne.
-            </p>
-
-            <p>
-              <Link to="/registerPatient" className="font-bold text-primaryRed">
-                Inscrivez-vous ici !
-              </Link>{' '}
-            </p>
-          </div>
+          <HomePageFormSection />
         ) : (
           <form
             encType={isSecondFormValidated ? 'multipart/form-data' : undefined}
@@ -215,10 +210,6 @@ export default function FormSection({
                               sentPatientData,
                             })
                         : (e) => e.preventDefault()
-
-              //   : isSecondFormValidated
-              //     ? handleThirdPatientRegisterForm
-              //     : (e) => e.preventDefault()
             }
           >
             <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
@@ -246,78 +237,20 @@ export default function FormSection({
               </p>
             )}
 
-            {isPatientLoginPageFormSection && (
-              <>
-                <StandardEmailInput isPatientLoginPageEmailInput />
+            {isPatientLoginPageFormSection && <PatientLoginFormSection />}
 
-                <StandardPasswordInput isPatientLoginPagePasswordInput />
-              </>
-            )}
-
-            {isTherapistLoginPageFormSection && (
-              <>
-                <StandardEmailInput isTherapistLoginPageEmailInput />
-                <StandardPasswordInput isTherapistLoginPagePasswordInput />
-              </>
-            )}
+            {isTherapistLoginPageFormSection && <TherapistLoginFormSection />}
 
             {isPatientRegisterPageRendered && (
-              <>
-                <StandardTextInput patientRegister={{ isNameInput: true }} />
-
-                <StandardTextInput
-                  patientRegister={{ isBirthNameInput: true }}
-                />
-
-                <StandardTextInput patientRegister={{ isSurnameInput: true }} />
-
-                <StandardDateInput isPatientRegisterBirthdateInput />
-
-                <StandardDropdownInput isGenderDropdownInput />
-              </>
+              <FirstPatientRegisterFormSection />
             )}
 
-            {isFirstFormValidated && (
-              <>
-                <div className="flex gap-2 items-center justify-between">
-                  <StandardTextInput
-                    patientRegister={{ isStreetNumberInput: true }}
-                  />
-
-                  <StandardTextInput
-                    patientRegister={{ isStreetNameInput: true }}
-                  />
-                </div>
-
-                <div className="flex gap-2 items-center justify-between">
-                  <StandardTextInput
-                    patientRegister={{ isPostalCodeInput: true }}
-                  />
-
-                  <StandardTextInput patientRegister={{ isCityInput: true }} />
-                </div>
-
-                <div className="flex gap-2 items-center justify-between">
-                  {' '}
-                  <StandardDropdownInput isCountryDropdownInput />
-                  <StandardTelephoneInput isPatientTelephoneInput />
-                </div>
-              </>
-            )}
+            {isFirstFormValidated && <SecondPatientRegisterFormSection />}
 
             {isSecondFormValidated && (
-              <>
-                <StandardFileInput
-                  isPatientRegisterImageInput
-                  setPatientImage={setPatientImage}
-                />
-
-                <StandardEmailInput isPatientRegisterEmailInput />
-
-                <StandardPasswordInput isPatientRegisterPasswordInput />
-
-                <StandardPasswordInput isPatientRegisterConfirmPasswordInput />
-              </>
+              <ThirdPatientRegisterFormSection
+                setPatientImage={setPatientImage}
+              />
             )}
 
             {isGlobalFormSubmitted && (
@@ -340,19 +273,6 @@ export default function FormSection({
                   </Link>{' '}
                 </p>
               </div>
-            )}
-
-            {isPatientLoginPageFormSection && (
-              <>
-                <div className="text-xs mb-4 text-center mt-4">
-                  <p>
-                    Pas encore membre?{' '}
-                    <Link to="/registerPatient" className="text-primaryRed">
-                      Inscrivez-vous ici
-                    </Link>
-                  </p>
-                </div>
-              </>
             )}
 
             {!isThirdFormValidated && (
