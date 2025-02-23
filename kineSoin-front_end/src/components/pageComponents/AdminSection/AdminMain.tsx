@@ -86,14 +86,6 @@ export default function AdminMain({
     }
   }, [id]);
 
-  useEffect(() => {
-    console.log('therapistId', therapistId);
-    console.log('patientId', patientId);
-    console.log('afflictionId', afflictionId);
-    console.log('medicId', medicId);
-    console.log('insuranceId', insuranceId);
-  }, [therapistId, patientId, afflictionId, medicId, insuranceId]);
-
   // Fetch the data of the entity to be displayed
   useEffect(() => {
     const fetchDetailsData = async () => {

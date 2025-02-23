@@ -9,14 +9,14 @@ import RegisterPageMain from './components/pageComponents/PublicSection/Register
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
 import HomepageMain from './components/pageComponents/PublicSection/HomePageMain';
 import AdminMain from './components/pageComponents/AdminSection/AdminMain';
-import PatientMain from './components/pageComponents/patientSection/PatientMain';
-import TherapistMain from './components/pageComponents/therapistSection/TherapistMain';
+import PatientMain from './components/pageComponents/PatientSection/PatientMain';
+import TherapistMain from './components/pageComponents/TherapistSection/TherapistMain';
 import {
   AdminLayout,
   PatientLayout,
   PublicLayout,
   TherapistLayout,
-} from './utils/AppUtils/authentificationFunctions/appLayouts/appLayouts';
+} from './utils/AppUtils/appLayouts/appLayouts';
 import {
   checkAdminAuthentication,
   checkPatientAuthentication,
@@ -209,10 +209,6 @@ function App() {
     { path: 'prescriptions', boolean: 'isTherapistPrescriptionsMain' },
   ];
 
-  useEffect(() => {
-    console.log(isFirstFormValidated);
-  }, [isFirstFormValidated]);
-
   return (
     <Routes>
       {/* Public routes */}
@@ -229,6 +225,7 @@ function App() {
         }
       >
         <Route index element={<HomepageMain />} />
+
         <Route
           path="loginPatient"
           element={
@@ -238,6 +235,7 @@ function App() {
             />
           }
         />
+
         <Route
           path="loginTherapist"
           element={
@@ -247,6 +245,7 @@ function App() {
             />
           }
         />
+
         <Route
           path="registerPatient"
           element={
@@ -262,6 +261,7 @@ function App() {
             />
           }
         />
+
         <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
 
@@ -293,6 +293,7 @@ function App() {
               }
             />
           ))}
+
           <Route path="*" element={<ErrorPage isConnectedAdminErrorPage />} />
         </Route>
       ) : (
@@ -328,6 +329,7 @@ function App() {
               element={<PatientMain {...{ [route.boolean]: true }} />}
             />
           ))}
+
           <Route path="*" element={<ErrorPage isConnectedPatientErrorPage />} />
         </Route>
       ) : (
@@ -365,6 +367,7 @@ function App() {
               element={<TherapistMain {...{ [route.boolean]: true }} />}
             />
           ))}
+
           <Route
             path="*"
             element={<ErrorPage isConnectedTherapistErrorPage />}

@@ -624,7 +624,7 @@ export default function PublicMainFormSection({
                 </p>
 
                 <p className="indent-4">
-                  <Link to="/home" className="font-bold text-primaryRed">
+                  <Link to="/" className="font-bold text-primaryRed">
                     Retour à l'accueil
                   </Link>{' '}
                 </p>
