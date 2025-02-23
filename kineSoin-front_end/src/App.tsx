@@ -18,6 +18,11 @@ import {
   PublicLayout,
   TherapistLayout,
 } from './utils/appLayouts/appLayouts';
+import {
+  checkAdminAuthentication,
+  checkPatientAuthentication,
+  checkTherapistAuthentication,
+} from './utils/authentificationFunctions/appAuthentificationFunctions';
 
 function App() {
   // Use state to keep track of the window width
@@ -75,24 +80,14 @@ function App() {
 
   // useEffect to check if the admin is authenticated
   useEffect(() => {
-    // Check if the admin is authenticated
-    // const checkAdminAuthentication = () => {
-    //   const response = getAdminTokenAndDataFromLocalStorage();
-    //   const token = response?.token;
-    //   if (token && token === response?.token) {
-    //     setIsAdminAuthenticated(true);
-    //     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    //   } else {
-    //     setIsAdminAuthenticated(false);
-    //     setAdminProfileToken(null);
-    //     delete axios.defaults.headers.common.Authorization;
-    //   }
-    // };
-    checkAdminAuthentication();
+    checkAdminAuthentication({ setIsAdminAuthenticated, setAdminProfileToken });
     // Listen for changes in the local storage
     const handleAdminStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
-        checkAdminAuthentication();
+        checkAdminAuthentication({
+          setIsAdminAuthenticated,
+          setAdminProfileToken,
+        });
       }
     };
 
@@ -100,7 +95,12 @@ function App() {
     window.addEventListener('storage', handleAdminStorageChange);
 
     // Check every 5 seconds if the admin is authenticated
-    const intervalId = setInterval(checkAdminAuthentication, 30000);
+    const intervalId = setInterval(() => {
+      checkAdminAuthentication({
+        setIsAdminAuthenticated,
+        setAdminProfileToken,
+      });
+    }, 30000);
 
     // Cleanup
     return () => {
@@ -111,28 +111,18 @@ function App() {
 
   // useEffect to check if the patient is authenticated
   useEffect(() => {
-    // Check if the patient is authenticated
-    // const checkPatientAuthentication = () => {
-    //   const response = getPatientTokenAndDataFromLocalStorage();
-    //   const token = response?.token;
-
-    //   // Make sure to set token in axios only if it's available and valid
-    //   if (token && token === response?.token) {
-    //     setIsPatientAuthenticated(true);
-    //     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    //   } else {
-    //     setIsPatientAuthenticated(false);
-    //     setPatientProfileToken(null);
-    //     delete axios.defaults.headers.common.Authorization;
-    //   }
-    // };
-
-    checkPatientAuthentication();
+    checkPatientAuthentication({
+      setIsPatientAuthenticated,
+      setPatientProfileToken,
+    });
 
     // Listen for changes in localStorage
     const handlePatientStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
-        checkPatientAuthentication();
+        checkPatientAuthentication({
+          setIsPatientAuthenticated,
+          setPatientProfileToken,
+        });
       }
     };
 
@@ -140,7 +130,12 @@ function App() {
     window.addEventListener('storage', handlePatientStorageChange);
 
     // Check every 30 seconds if the patient is authenticated
-    const intervalId = setInterval(checkPatientAuthentication, 30000);
+    const intervalId = setInterval(() => {
+      checkPatientAuthentication({
+        setIsPatientAuthenticated,
+        setPatientProfileToken,
+      });
+    }, 30000);
 
     // Cleanup
     return () => {
@@ -151,24 +146,17 @@ function App() {
 
   // useEffect to check if the therapist is authenticated
   useEffect(() => {
-    // Check if the therapist is authenticated
-    // const checkTherapistAuthentication = () => {
-    //   const response = getTherapistTokenAndDataFromLocalStorage();
-    //   const token = response?.token;
-    //   if (token && token === response?.token) {
-    //     setIsTherapistAuthenticated(true);
-    //     axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
-    //   } else {
-    //     setIsTherapistAuthenticated(false);
-    //     setTherapistProfileToken(null);
-    //     delete axios.defaults.headers.common.Authorization;
-    //   }
-    // };
-    checkTherapistAuthentication();
+    checkTherapistAuthentication({
+      setIsTherapistAuthenticated,
+      setTherapistProfileToken,
+    });
     // Listen for changes in the local storage
     const handleTherapistStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
-        checkTherapistAuthentication();
+        checkTherapistAuthentication({
+          setIsTherapistAuthenticated,
+          setTherapistProfileToken,
+        });
       }
     };
 
@@ -176,7 +164,12 @@ function App() {
     window.addEventListener('storage', handleTherapistStorageChange);
 
     // Check every 5 seconds if the therapist is authenticated
-    const intervalId = setInterval(checkTherapistAuthentication, 30000);
+    const intervalId = setInterval(() => {
+      checkTherapistAuthentication({
+        setIsTherapistAuthenticated,
+        setTherapistProfileToken,
+      });
+    }, 30000);
 
     // Cleanup
     return () => {

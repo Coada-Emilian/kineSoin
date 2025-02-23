@@ -4,12 +4,14 @@ import { getPatientTokenAndDataFromLocalStorage } from '../../localStorage/patie
 import { getTherapistTokenAndDataFromLocalStorage } from '../../localStorage/therapistLocalStorage';
 
 interface FunctionProps {
-  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsTherapistAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-  setPatientProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-  setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
+  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAdminProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+  setPatientProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+  setTherapistProfileToken?: React.Dispatch<
+    React.SetStateAction<string | null>
+  >;
 }
 
 export const checkAdminAuthentication = ({
@@ -19,11 +21,11 @@ export const checkAdminAuthentication = ({
   const response = getAdminTokenAndDataFromLocalStorage();
   const token = response?.token;
   if (token && token === response?.token) {
-    setIsAdminAuthenticated(true);
+    setIsAdminAuthenticated && setIsAdminAuthenticated(true);
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
-    setIsAdminAuthenticated(false);
-    setAdminProfileToken(null);
+    setIsAdminAuthenticated && setIsAdminAuthenticated(false);
+    setAdminProfileToken && setAdminProfileToken(null);
     delete axios.defaults.headers.common.Authorization;
   }
 };
@@ -37,27 +39,27 @@ export const checkPatientAuthentication = ({
 
   // Make sure to set token in axios only if it's available and valid
   if (token && token === response?.token) {
-    setIsPatientAuthenticated(true);
+    setIsPatientAuthenticated && setIsPatientAuthenticated(true);
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
-    setIsPatientAuthenticated(false);
-    setPatientProfileToken(null);
+    setIsPatientAuthenticated && setIsPatientAuthenticated(false);
+    setPatientProfileToken && setPatientProfileToken(null);
     delete axios.defaults.headers.common.Authorization;
   }
 };
 
-export const checkTherapistAuthentication = (
-  setIsTherapistAuthenticated: React.Dispatch<React.SetStateAction<boolean>>,
-  setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>
-) => {
+export const checkTherapistAuthentication = ({
+  setIsTherapistAuthenticated,
+  setTherapistProfileToken,
+}: FunctionProps) => {
   const response = getTherapistTokenAndDataFromLocalStorage();
   const token = response?.token;
   if (token && token === response?.token) {
-    setIsTherapistAuthenticated(true);
+    setIsTherapistAuthenticated && setIsTherapistAuthenticated(true);
     axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
   } else {
-    setIsTherapistAuthenticated(false);
-    setTherapistProfileToken(null);
+    setIsTherapistAuthenticated && setIsTherapistAuthenticated(false);
+    setTherapistProfileToken && setTherapistProfileToken(null);
     delete axios.defaults.headers.common.Authorization;
   }
 };
