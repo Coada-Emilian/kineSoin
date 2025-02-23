@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import PublicMainFormSection from '../../standaloneComponents/PublicSection/PublicMainFormSection';
+import PublicMainFormSection from '../../standaloneComponents/PublicSection/mainFormSection/PublicMainFormSection';
 import PublicHeadBand from '../../standaloneComponents/PublicSection/PublicHeadBand';
 import PublicMainDescriptionSection from '../../standaloneComponents/PublicSection/PublicMainDescriptionSection/PublicMainDescriptionSection';
 
@@ -107,7 +107,7 @@ export default function PublicMain({
     isPatientLoginPageDescriptionSection: isPatientLoginPageMain ?? false,
 
     isTherapistLoginPageDescriptionSection: isTherapistLoginPageMain ?? false,
-    
+
     isPatientRegisterFirstFormPageDescriptionSection:
       isPatientRegisterPageMain ?? false,
     isPatientRegisterSecondFormPageDescriptionSection:
@@ -116,6 +116,7 @@ export default function PublicMain({
       isSecondFormValidated ?? false,
     isPatientConfirmationPageDescriptionSection: isThirdFormValidated ?? false,
   };
+
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
       <div className="flex flex-col w-full h-full">

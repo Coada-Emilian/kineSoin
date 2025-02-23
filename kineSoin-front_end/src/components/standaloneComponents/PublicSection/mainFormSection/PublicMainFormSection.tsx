@@ -1,30 +1,37 @@
 import { Link, useLocation } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../generalComponents/CustomButton/CustomButton.tsx';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
-import StandardPasswordInput from '../generalComponents/StandardInputs/StandardPasswordInput.tsx';
-import StandardEmailInput from '../generalComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardTextInput from '../generalComponents/StandardInputs/StandardTextInput.tsx';
-import StandardDateInput from '../generalComponents/StandardInputs/StandardDateInput.tsx';
-import StandardDropdownInput from '../generalComponents/StandardInputs/StandardDropdownInput.tsx';
-import StandardTelephoneInput from '../generalComponents/StandardInputs/StandardTelephoneInput.tsx';
-import StandardFileInput from '../generalComponents/StandardInputs/StandardFileInput.tsx';
+import StandardPasswordInput from '../../generalComponents/StandardInputs/StandardPasswordInput.tsx';
+import StandardEmailInput from '../../generalComponents/StandardInputs/StandardEmailInput.tsx';
+import StandardTextInput from '../../generalComponents/StandardInputs/StandardTextInput.tsx';
+import StandardDateInput from '../../generalComponents/StandardInputs/StandardDateInput.tsx';
+import StandardDropdownInput from '../../generalComponents/StandardInputs/StandardDropdownInput.tsx';
+import StandardTelephoneInput from '../../generalComponents/StandardInputs/StandardTelephoneInput.tsx';
+import StandardFileInput from '../../generalComponents/StandardInputs/StandardFileInput.tsx';
 import { useNavigate } from 'react-router-dom';
-import DNALoader from '../../../utils/DNALoader.tsx';
+import DNALoader from '../../../../utils/DNALoader.tsx';
 import {
   handlePatientLogin,
   handlePatientRegistration,
-} from '../../../utils/apiUtils/publicApiUtils.tsx';
-import { handleTherapistConnection } from '../../../utils/apiUtils/patientApiUtils.tsx';
+} from '../../../../utils/apiUtils/publicApiUtils.tsx';
+import { handleTherapistConnection } from '../../../../utils/apiUtils/patientApiUtils.tsx';
+import {
+  checkPatientCredentials,
+  checkTherapistCredentials,
+} from './authentificationUtils.ts';
 
 interface PublicMainFormSectionProps {
   isHomePageFormSection?: boolean;
+
   isPatientLoginPageFormSection?: boolean;
   setPatientProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+
   isTherapistLoginPageFormSection?: boolean;
   setTherapistProfileToken?: React.Dispatch<
     React.SetStateAction<string | null>
   >;
+
   isPatientRegisterPageRendered?: boolean;
   setIsPatientRegisterPageRendered?: React.Dispatch<
     React.SetStateAction<boolean>
@@ -40,15 +47,18 @@ interface PublicMainFormSectionProps {
 }
 export default function PublicMainFormSection({
   isHomePageFormSection,
+
   isPatientLoginPageFormSection,
+  setPatientProfileToken,
+
   isTherapistLoginPageFormSection,
+  setTherapistProfileToken,
+
   isPatientRegisterPageRendered,
   setIsPatientRegisterPageRendered,
   isFirstFormValidated,
   isSecondFormValidated,
   isThirdFormValidated,
-  setPatientProfileToken,
-  setTherapistProfileToken,
   setIsFirstFormValidated,
   setIsSecondFormValidated,
   setIsThirdFormValidated,
@@ -61,13 +71,13 @@ export default function PublicMainFormSection({
   // Sent patient data state
   const [sentPatientData, setSentPatientData] = useState({});
 
+  const navigate = useNavigate();
+
   // Patient registration forms validation states
   const [registeredPatientGender, setRegisteredPatientGender] = useState('');
   const [registeredPatientBirthDate, setRegisteredPatientBirthDate] =
     useState<string>();
   const [patientImage, setPatientImage] = useState<File | null>(null);
-
-  const navigate = useNavigate();
 
   // Loading state
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -77,114 +87,6 @@ export default function PublicMainFormSection({
   useEffect(() => {
     setErrorMessage('');
   }, [location.pathname]);
-
-  // Patient login function
-  const checkPatientCredentials = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-    try {
-      setIsLoading(true);
-      setErrorMessage('');
-      const formData = new FormData(e.currentTarget);
-      const patientLoginEmail = formData.get('email') as string;
-      const patientLoginPassword = formData.get('password') as string;
-
-      // Check if the email and password fields are empty
-      if (!patientLoginEmail || !patientLoginPassword) {
-        setIsLoading(false);
-        setErrorMessage('Veuillez remplir tous les champs');
-        return;
-      } else if (
-        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-          patientLoginEmail as string
-        )
-      ) {
-        setIsLoading(false);
-        setErrorMessage('Veuillez entrer une adresse email valide');
-        return;
-      }
-
-      // Call the handlePatientConnection function from the apiUtils file
-      const response = await handlePatientLogin(
-        patientLoginEmail,
-        patientLoginPassword
-      );
-
-      // If the response is true, set the patient profile token
-      if (response) {
-        if (setPatientProfileToken) {
-          setPatientProfileToken(response);
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-          setErrorMessage('Email et/ou Mot de passe invalide');
-        }
-        navigate('/patient/dashboard');
-      } else {
-        setIsLoading(false);
-        setErrorMessage('Email et/ou Mot de passe invalide');
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
-      console.error(error);
-    }
-  };
-
-  // Therapist login function
-  const checkTherapistCredentials = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-    try {
-      setIsLoading(true);
-      setErrorMessage('');
-      const formData = new FormData(e.currentTarget);
-      const therapistLoginEmail = formData.get('email') as string;
-      const therapistLoginPassword = formData.get('password') as string;
-
-      // Check if the email and password fields are empty
-      if (!therapistLoginEmail || !therapistLoginPassword) {
-        setIsLoading(false);
-        setErrorMessage('Veuillez remplir tous les champs');
-        return;
-      } else if (
-        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-          therapistLoginEmail
-        )
-      ) {
-        setIsLoading(false);
-        setErrorMessage('Veuillez entrer une adresse email valide');
-        return;
-      }
-
-      // Call the handleTherapistConnection function from the apiUtils file
-      const response = await handleTherapistConnection(
-        therapistLoginEmail,
-        therapistLoginPassword
-      );
-
-      // If the response is true, set the therapist profile token
-      if (response) {
-        if (setTherapistProfileToken) {
-          setTherapistProfileToken(response);
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-          setErrorMessage('Email et/ou Mot de passe invalide');
-        }
-        navigate('/therapist/dashboard');
-      } else {
-        setIsLoading(false);
-        setErrorMessage('Email et/ou Mot de passe invalide');
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
-      console.error(error);
-    }
-  };
 
   // Patient registration function for the first form
   const handleFirstPatientRegisterForm = async (
@@ -491,9 +393,21 @@ export default function PublicMainFormSection({
             encType={isSecondFormValidated ? 'multipart/form-data' : undefined}
             onSubmit={
               isPatientLoginPageFormSection
-                ? checkPatientCredentials
+                ? (e) =>
+                    checkPatientCredentials(e, {
+                      setIsLoading,
+                      setErrorMessage,
+                      setPatientProfileToken,
+                      navigate,
+                    })
                 : isTherapistLoginPageFormSection
-                  ? checkTherapistCredentials
+                  ? (e) =>
+                      checkTherapistCredentials(e, {
+                        setIsLoading,
+                        setErrorMessage,
+                        setTherapistProfileToken,
+                        navigate,
+                      })
                   : isPatientRegisterPageRendered
                     ? handleFirstPatientRegisterForm
                     : isFirstFormValidated
