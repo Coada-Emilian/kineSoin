@@ -2,9 +2,7 @@ import { useState } from 'react';
 
 interface StandardDateInputProps {
   isPatientRegisterBirthdateInput?: boolean;
-  setRegisteredPatientBirthDate?: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
+
   isNewPrescriptionDateInput?: boolean;
   isPatientProfileBirthDateModification?: boolean;
   birth_date?: string;
@@ -12,7 +10,7 @@ interface StandardDateInputProps {
 
 export default function StandardDateInput({
   isPatientRegisterBirthdateInput,
-  setRegisteredPatientBirthDate,
+
   isNewPrescriptionDateInput,
   isPatientProfileBirthDateModification,
   birth_date,
@@ -21,65 +19,52 @@ export default function StandardDateInput({
     birth_date
   );
 
-  const getHtmlFor = () =>
-    isPatientRegisterBirthdateInput
-      ? 'patient-register-birth_date_input'
-      : isNewPrescriptionDateInput
-        ? 'new-prescription-date_input'
-        : isPatientProfileBirthDateModification
-          ? 'patient-profile-birth_date_input'
-          : '';
-
-  const getDivClassName = () =>
-    isNewPrescriptionDateInput
-      ? 'mb-4 flex flex-col gap-2 items-center md:items-start md:w-full md:text-start'
+  const id = isPatientRegisterBirthdateInput
+    ? 'patient-register-birth_date_input'
+    : isNewPrescriptionDateInput
+      ? 'new-prescription-date_input'
       : isPatientProfileBirthDateModification
-        ? 'mb-4 flex gap-2 items-center w-full'
-        : 'mb-4 flex gap-2 flex-col';
+        ? 'patient-profile-birth_date_input'
+        : '';
 
-  const getLabelClassName = () =>
-    isPatientProfileBirthDateModification
-      ? 'text-xxs md:text-base xl:text-xl w-full md:w-1/2 flex text-primaryBlue font-medium italic'
-      : isNewPrescriptionDateInput
-        ? 'text-sm text-primaryBlue font-medium italic w-full'
-        : 'text-sm text-primaryBlue font-medium italic w-1/2';
+  const divClassName = isNewPrescriptionDateInput
+    ? 'mb-4 flex flex-col gap-2 items-center md:items-start md:w-full md:text-start'
+    : isPatientProfileBirthDateModification
+      ? 'mb-4 flex gap-2 items-center w-full'
+      : 'mb-4 flex gap-2 flex-col';
 
-  const getLabelContent = () =>
-    isPatientRegisterBirthdateInput
-      ? 'Date de naissance'
-      : isNewPrescriptionDateInput
-        ? "Date de l'ordonnance"
-        : isPatientProfileBirthDateModification
-          ? 'Date de naissance'
-          : '';
+  const labelClassName = isPatientProfileBirthDateModification
+    ? 'text-xxs md:text-base xl:text-xl w-full md:w-1/2 flex text-primaryBlue font-medium italic'
+    : isNewPrescriptionDateInput
+      ? 'text-sm text-primaryBlue font-medium italic w-full'
+      : 'text-sm text-primaryBlue font-medium italic w-1/2';
 
-  const getInputName = () =>
-    isPatientRegisterBirthdateInput
-      ? 'birth-date'
+  const labelContent = isPatientRegisterBirthdateInput
+    ? 'Date de naissance'
+    : isNewPrescriptionDateInput
+      ? "Date de l'ordonnance"
       : isPatientProfileBirthDateModification
-        ? 'birth_date'
-        : isNewPrescriptionDateInput
-          ? 'date'
-          : '';
+        ? 'Date de naissance'
+        : '';
+
+  const inputName = isPatientRegisterBirthdateInput
+    ? 'birth-date'
+    : isPatientProfileBirthDateModification
+      ? 'birth_date'
+      : isNewPrescriptionDateInput
+        ? 'date'
+        : '';
 
   const getInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isPatientRegisterBirthdateInput && setRegisteredPatientBirthDate) {
-      setRegisteredPatientBirthDate(e.target.value);
-    } else if (isPatientProfileBirthDateModification) {
+    if (isPatientProfileBirthDateModification) {
       setPatientBirthDate(e.target.value);
     }
     return undefined;
   };
 
-  const getInputValue = () => (birth_date ? patientBirthDate : undefined);
+  const inputValue = birth_date ? patientBirthDate : undefined;
 
-  const id = getHtmlFor();
-  const divClassName = getDivClassName();
-  const labelClassName = getLabelClassName();
-  const labelContent = getLabelContent();
-  const inputName = getInputName();
   const inputOnChange = getInputOnChange;
-  const inputValue = getInputValue();
 
   return (
     <div className={divClassName}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import PublicMainFormSection from '../../standaloneComponents/PublicSection/mainFormSection/PublicMainFormSection';
 import PublicHeadBand from '../../standaloneComponents/PublicSection/PublicHeadBand';
-import PublicMainDescriptionSection from '../../standaloneComponents/PublicSection/PublicMainDescriptionSection/PublicMainDescriptionSection';
+import FormSection from '../../standaloneComponents/PublicSection/FormSection/FormSection';
+import DescriptionSection from '../../standaloneComponents/PublicSection/DescriptionSection/DescriptionSection';
 
 interface PublicMainProps {
   isHomePageMain?: boolean;
@@ -120,11 +120,11 @@ export default function PublicMain({
   return (
     <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
       <div className="flex flex-col w-full h-full">
-        <PublicMainFormSection {...formSectionProps} />
+        <FormSection {...formSectionProps} />
 
         <PublicHeadBand />
 
-        <PublicMainDescriptionSection {...mainDescriptionProps} />
+        <DescriptionSection {...mainDescriptionProps} />
       </div>
     </main>
   );

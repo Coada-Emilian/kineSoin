@@ -280,22 +280,24 @@ export default function StandardChoiceDropdown({
 
   const inputName = isPatientInsuranceDropdownInput
     ? 'insurance_id'
-    : isCountryDropdownInput
-      ? 'prefix'
-      : isAdminTherapistAddStatusInput
-        ? 'status'
-        : isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput
-          ? 'body_region_id'
-          : isAdminAfflictionAddOperatedStatusInput ||
-              isAdminAfflictionEditOperatedStatusInput
-            ? 'is_operated'
-            : isAtHomeCareDropdownInput
-              ? 'at_home_care'
-              : isMedicDropdownInput
-                ? 'medic_id'
-                : isAfflictionDropdownInput
-                  ? 'affliction_id'
-                  : '';
+    : isGenderDropdownInput
+      ? 'gender'
+      : isCountryDropdownInput
+        ? 'prefix'
+        : isAdminTherapistAddStatusInput
+          ? 'status'
+          : isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput
+            ? 'body_region_id'
+            : isAdminAfflictionAddOperatedStatusInput ||
+                isAdminAfflictionEditOperatedStatusInput
+              ? 'is_operated'
+              : isAtHomeCareDropdownInput
+                ? 'at_home_care'
+                : isMedicDropdownInput
+                  ? 'medic_id'
+                  : isAfflictionDropdownInput
+                    ? 'affliction_id'
+                    : '';
 
   return (
     <div className={divClassName}>
@@ -306,22 +308,23 @@ export default function StandardChoiceDropdown({
       <select
         id={inputId}
         value={
-          isGenderDropdownInput && registeredPatientGender
-            ? registeredPatientGender
-            : isAdminTherapistEditPrefixDropdown && therapist_prefix
-              ? therapist_prefix
-              : isAdminMedicEditPrefixDropdown && medic_prefix
-                ? medic_prefix
-                : isAdminInsuranceEditPrefixDropdown && insurance_prefix
-                  ? insurance_prefix
-                  : isPatientProfilePrefixModification && patient_prefix
-                    ? (patientPrefix ?? '')
-                    : undefined
+          // isGenderDropdownInput && registeredPatientGender
+          //   ? registeredPatientGender
+          //   :
+          isAdminTherapistEditPrefixDropdown && therapist_prefix
+            ? therapist_prefix
+            : isAdminMedicEditPrefixDropdown && medic_prefix
+              ? medic_prefix
+              : isAdminInsuranceEditPrefixDropdown && insurance_prefix
+                ? insurance_prefix
+                : isPatientProfilePrefixModification && patient_prefix
+                  ? (patientPrefix ?? '')
+                  : undefined
         }
         onChange={(e) => {
-          if (isGenderDropdownInput && setRegisteredPatientGender) {
-            setRegisteredPatientGender(e.target.value);
-          }
+          // if (isGenderDropdownInput && setRegisteredPatientGender) {
+          //   setRegisteredPatientGender(e.target.value);
+          // }
 
           if (isAfflictionDropdownInput && setNewPrescriptionAfflictionId) {
             setNewPrescriptionAfflictionId(Number(e.target.value));
