@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import UserHeadband from '../../generalComponents/UserHeadband/UserHeadband';
-import { getPatientTokenAndDataFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
+import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
+import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
 import { Link } from 'react-router-dom';
-import SideNav from '../../generalComponents/SideNav/SideNav';
-import PatientNewPrescriptionForm from './PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
-import AppointmentsCalendar from '../../generalComponents/AppointmentCalendar/AppointmentsCalendar';
-import MessageForm from '../../generalComponents/MessageForm/MessageForm';
-import { IAppointment } from '../../../../@types/types';
-import AppointmentCard from '../../generalComponents/AppointmentCard/AppointmentCard';
-import MessagesField from '../../generalComponents/MessagesField/MessagesField';
-import ProfileCard from '../../generalComponents/ProfileCard/ProfileCard';
-import { fetchPatientAppointments } from '../../../../utils/apiUtils/patientApiUtils';
+import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
+import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
+import AppointmentsCalendar from '../../standaloneComponents/generalComponents/AppointmentCalendar/AppointmentsCalendar';
+import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';
+import { IAppointment } from '../../../@types/types';
+import AppointmentCard from '../../standaloneComponents/generalComponents/AppointmentCard/AppointmentCard';
+import MessagesField from '../../standaloneComponents/generalComponents/MessagesField/MessagesField';
+import ProfileCard from '../../standaloneComponents/generalComponents/ProfileCard/ProfileCard';
+import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils';
 
 interface PatientMainProps {
   isPatientDashboardMain?: boolean;

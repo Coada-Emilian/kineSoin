@@ -39,7 +39,7 @@ export default function UserHeadband({
   return (
     <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center ">
       <Link
-        to={`${isTherapistHeadband ? '/therapist/my-profile' : isPatientHeadband ? '/patient/my-info' : '/'}`}
+        to={`${isTherapistHeadband ? '/therapist/my-profile' : isPatientHeadband ? '/patient/my-profile' : '/'}`}
       >
         <img
           src={

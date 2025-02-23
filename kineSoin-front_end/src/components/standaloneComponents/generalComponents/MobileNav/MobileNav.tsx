@@ -121,7 +121,7 @@ export default function MobileNav({
     },
     {
       name: 'Mes infos',
-      path: '/patient/my-info',
+      path: '/patient/my-profile',
       icon: patientInfoLogo,
       onChange: () => {},
     },
@@ -148,7 +148,7 @@ export default function MobileNav({
     },
     {
       name: 'Mes infos',
-      path: '/therapist/my-info',
+      path: '/therapist/my-profile',
       icon: therapistIcon,
       onChange: () => {},
     },

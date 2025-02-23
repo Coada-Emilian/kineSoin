@@ -12,7 +12,7 @@ export const SideNavLinks = {
     { name: 'Rendez-vous', path: '/patient/appointments' },
     { name: 'Messages', path: '/patient/messages' },
     { name: 'Mon kinésithérapeute', path: '/patient/my-therapist' },
-    { name: 'Mes informations', path: '/patient/my-info' },
+    { name: 'Mes informations', path: '/patient/my-profile' },
   ],
   therapist: [
     { name: 'Tableau de bord', path: '/therapist/dashboard' },

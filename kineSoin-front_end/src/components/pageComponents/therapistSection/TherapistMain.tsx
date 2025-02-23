@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import UserHeadband from '../../generalComponents/UserHeadband/UserHeadband';
-import SideNav from '../../generalComponents/SideNav/SideNav';
-import { getTherapistTokenAndDataFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
-import TherapistDayTable from './TherapistDayTable/TherapistDayTable';
-import TherapistPatientsTable from './TherapistPatientsTable/TherapistPatientsTable';
+import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
+import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
+import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
+import TherapistDayTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistDayTable/TherapistDayTable';
+import TherapistPatientsTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistPatientsTable/TherapistPatientsTable';
 
 interface TherapistMainProps {
   isTherapistDashboardMain?: boolean;

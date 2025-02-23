@@ -3,41 +3,21 @@ import axios from './axios';
 import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalStorage';
 import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
-import { Outlet, Route, Routes } from 'react-router-dom';
-import NavBar from './components/standaloneComponents/generalComponents/NavBar/NavBar';
-import Footer from './components/standaloneComponents/generalComponents/Footer/Footer';
+import { Route, Routes } from 'react-router-dom';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
-import MobileNav from './components/standaloneComponents/generalComponents/MobileNav/MobileNav';
 import LoginPageMain from './components/pageComponents/PublicSection/LoginPageMain';
 import RegisterPageMain from './components/pageComponents/PublicSection/RegisterPageMain';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
-import PatientDashboardPageMain from './components/pageComponents/PatientSection/PatientDashboardPageMain';
-import PatientPrescriptionPageMain from './components/pageComponents/PatientSection/PatientPrescriptionPageMain';
-import PatientAppointmentsPageMain from './components/pageComponents/PatientSection/PatientAppointmentsPageMain';
-import PatientTherapistPageMain from './components/pageComponents/PatientSection/PatientTherapistPageMain';
-import PatientMessagesPageMain from './components/pageComponents/PatientSection/PatientMessagesPageMain';
-import PatientDetailsPageMain from './components/pageComponents/PatientSection/PatientDetailsPageMain';
-import TherapistDashboardPageMain from './components/pageComponents/TherapistSection/TherapistDashboardPageMain';
-import TherapistPatientsPageMain from './components/pageComponents/TherapistSection/TherapistPatientsPageMain';
 import HomepageMain from './components/pageComponents/PublicSection/HomePageMain';
-import AdminMain from './components/standaloneComponents/AdminSection/AdminMain/AdminMain';
-
-interface LayoutProps {
-  windowWidth: number;
-  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
-
-  isAdminAuthenticated?: boolean;
-  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
-
-  isPatientAuthenticated?: boolean;
-  setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
-
-  isTherapistAuthenticated?: boolean;
-  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import AdminMain from './components/pageComponents/AdminSection/AdminMain';
+import PatientMain from './components/pageComponents/patientSection/PatientMain';
+import TherapistMain from './components/pageComponents/therapistSection/TherapistMain';
+import {
+  AdminLayout,
+  PatientLayout,
+  PublicLayout,
+  TherapistLayout,
+} from './utils/appLayouts/appLayouts';
 
 function App() {
   // Use state to keep track of the window width
@@ -96,18 +76,18 @@ function App() {
   // useEffect to check if the admin is authenticated
   useEffect(() => {
     // Check if the admin is authenticated
-    const checkAdminAuthentication = () => {
-      const response = getAdminTokenAndDataFromLocalStorage();
-      const token = response?.token;
-      if (token && token === response?.token) {
-        setIsAdminAuthenticated(true);
-        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      } else {
-        setIsAdminAuthenticated(false);
-        setAdminProfileToken(null);
-        delete axios.defaults.headers.common.Authorization;
-      }
-    };
+    // const checkAdminAuthentication = () => {
+    //   const response = getAdminTokenAndDataFromLocalStorage();
+    //   const token = response?.token;
+    //   if (token && token === response?.token) {
+    //     setIsAdminAuthenticated(true);
+    //     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    //   } else {
+    //     setIsAdminAuthenticated(false);
+    //     setAdminProfileToken(null);
+    //     delete axios.defaults.headers.common.Authorization;
+    //   }
+    // };
     checkAdminAuthentication();
     // Listen for changes in the local storage
     const handleAdminStorageChange = (event: StorageEvent) => {
@@ -132,20 +112,20 @@ function App() {
   // useEffect to check if the patient is authenticated
   useEffect(() => {
     // Check if the patient is authenticated
-    const checkPatientAuthentication = () => {
-      const response = getPatientTokenAndDataFromLocalStorage();
-      const token = response?.token;
+    // const checkPatientAuthentication = () => {
+    //   const response = getPatientTokenAndDataFromLocalStorage();
+    //   const token = response?.token;
 
-      // Make sure to set token in axios only if it's available and valid
-      if (token && token === response?.token) {
-        setIsPatientAuthenticated(true);
-        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      } else {
-        setIsPatientAuthenticated(false);
-        setPatientProfileToken(null);
-        delete axios.defaults.headers.common.Authorization;
-      }
-    };
+    //   // Make sure to set token in axios only if it's available and valid
+    //   if (token && token === response?.token) {
+    //     setIsPatientAuthenticated(true);
+    //     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    //   } else {
+    //     setIsPatientAuthenticated(false);
+    //     setPatientProfileToken(null);
+    //     delete axios.defaults.headers.common.Authorization;
+    //   }
+    // };
 
     checkPatientAuthentication();
 
@@ -172,18 +152,18 @@ function App() {
   // useEffect to check if the therapist is authenticated
   useEffect(() => {
     // Check if the therapist is authenticated
-    const checkTherapistAuthentication = () => {
-      const response = getTherapistTokenAndDataFromLocalStorage();
-      const token = response?.token;
-      if (token && token === response?.token) {
-        setIsTherapistAuthenticated(true);
-        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
-      } else {
-        setIsTherapistAuthenticated(false);
-        setTherapistProfileToken(null);
-        delete axios.defaults.headers.common.Authorization;
-      }
-    };
+    // const checkTherapistAuthentication = () => {
+    //   const response = getTherapistTokenAndDataFromLocalStorage();
+    //   const token = response?.token;
+    //   if (token && token === response?.token) {
+    //     setIsTherapistAuthenticated(true);
+    //     axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
+    //   } else {
+    //     setIsTherapistAuthenticated(false);
+    //     setTherapistProfileToken(null);
+    //     delete axios.defaults.headers.common.Authorization;
+    //   }
+    // };
     checkTherapistAuthentication();
     // Listen for changes in the local storage
     const handleTherapistStorageChange = (event: StorageEvent) => {
@@ -204,6 +184,40 @@ function App() {
       clearInterval(intervalId);
     };
   }, [therapistProfileToken, isTherapistAuthenticated]);
+
+  const adminRoutes = [
+    {
+      path: 'therapists',
+      boolean: 'isAdminTherapistsMain',
+    },
+    { path: 'therapists/:id', boolean: 'isAdminTherapistMain' },
+    { path: 'patients', boolean: 'isAdminPatientsMain' },
+    { path: 'patients/:id', boolean: 'isAdminPatientMain' },
+    { path: 'afflictions', boolean: 'isAdminAfflictionsMain' },
+    { path: 'afflictions/:id', boolean: 'isAdminAfflictionMain' },
+    { path: 'medics', boolean: 'isAdminMedicsMain' },
+    { path: 'medics/:id', boolean: 'isAdminMedicMain' },
+    { path: 'insurances', boolean: 'isAdminInsurancesMain' },
+    { path: 'insurances/:id', boolean: 'isAdminInsuranceMain' },
+  ];
+
+  const patientRoutes = [
+    { path: 'dashboard', boolean: 'isPatientDashboardMain' },
+    { path: 'new-prescription', boolean: 'isPatientPrescriptionMain' },
+    { path: 'appointments', boolean: 'isPatientAppointmentsMain' },
+    { path: 'messages', boolean: 'isPatientMessagesMain' },
+    { path: 'my-therapist', boolean: 'isPatientTherapistPage' },
+    { path: 'my-profile', boolean: 'isPatientDetailsMain' },
+  ];
+
+  const therapistRoutes = [
+    { path: 'dashboard', boolean: 'isTherapistDashboardMain' },
+    { path: 'patients', boolean: 'isTherapistPatientsMain' },
+    { path: 'appointments', boolean: 'isTherapistAppointmentsMain' },
+    { path: 'messages', boolean: 'isTherapistMessagesMain' },
+    { path: 'my-profile', boolean: 'isTherapistProfileMain' },
+    { path: 'prescriptions', boolean: 'isTherapistPrescriptionsMain' },
+  ];
 
   return (
     <Routes>
@@ -274,61 +288,17 @@ function App() {
             />
           }
         >
-          <Route
-            path="therapists"
-            element={
-              <AdminMain isAdminTherapistsMain windowWidth={windowWidth} />
-            }
-          />
-
-          <Route
-            path="therapists/:id"
-            element={
-              <AdminMain isAdminTherapistMain windowWidth={windowWidth} />
-            }
-          />
-          <Route
-            path="patients"
-            element={
-              <AdminMain isAdminPatientsMain windowWidth={windowWidth} />
-            }
-          />
-          <Route
-            path="patients/:id"
-            element={<AdminMain isAdminPatientMain windowWidth={windowWidth} />}
-          />
-          <Route
-            path="afflictions"
-            element={
-              <AdminMain isAdminAfflictionsMain windowWidth={windowWidth} />
-            }
-          />
-          <Route
-            path="afflictions/:id"
-            element={
-              <AdminMain isAdminAfflictionMain windowWidth={windowWidth} />
-            }
-          />
-          <Route
-            path="medics"
-            element={<AdminMain isAdminMedicsMain windowWidth={windowWidth} />}
-          />
-          <Route
-            path="medics/:id"
-            element={<AdminMain isAdminMedicMain windowWidth={windowWidth} />}
-          />
-          <Route
-            path="insurances"
-            element={
-              <AdminMain isAdminInsurancesMain windowWidth={windowWidth} />
-            }
-          />
-          <Route
-            path="insurances/:id"
-            element={
-              <AdminMain isAdminInsuranceMain windowWidth={windowWidth} />
-            }
-          />
+          {adminRoutes.map((route) => (
+            <Route
+              path={route.path}
+              element={
+                <AdminMain
+                  windowWidth={windowWidth}
+                  {...{ [route.boolean]: true }}
+                />
+              }
+            />
+          ))}
           <Route path="*" element={<ErrorPage isConnectedAdminErrorPage />} />
         </Route>
       ) : (
@@ -358,18 +328,12 @@ function App() {
             />
           }
         >
-          <Route path="dashboard" element={<PatientDashboardPageMain />} />
-          <Route
-            path="new-prescription"
-            element={<PatientPrescriptionPageMain />}
-          ></Route>
-          <Route
-            path="appointments"
-            element={<PatientAppointmentsPageMain />}
-          />
-          <Route path="messages" element={<PatientMessagesPageMain />} />
-          <Route path="my-therapist" element={<PatientTherapistPageMain />} />
-          <Route path="my-info" element={<PatientDetailsPageMain />} />
+          {patientRoutes.map((route) => (
+            <Route
+              path={route.path}
+              element={<PatientMain {...{ [route.boolean]: true }} />}
+            />
+          ))}
           <Route path="*" element={<ErrorPage isConnectedPatientErrorPage />} />
         </Route>
       ) : (
@@ -401,8 +365,12 @@ function App() {
             />
           }
         >
-          <Route path="dashboard" element={<TherapistDashboardPageMain />} />
-          <Route path="patients" element={<TherapistPatientsPageMain />} />
+          {therapistRoutes.map((route) => (
+            <Route
+              path={route.path}
+              element={<TherapistMain {...{ [route.boolean]: true }} />}
+            />
+          ))}
           <Route
             path="*"
             element={<ErrorPage isConnectedTherapistErrorPage />}
@@ -426,94 +394,6 @@ function App() {
         </Route>
       )}
     </Routes>
-  );
-}
-
-function PublicLayout({
-  windowWidth,
-  setIsFirstFormValidated,
-  setIsSecondFormValidated,
-  setIsThirdFormValidated,
-  setIsRegisterPageRendered,
-}: LayoutProps) {
-  return (
-    <div className="flex flex-col justify-between min-h-screen">
-      <NavBar
-        windowWidth={windowWidth}
-        isPublicNavBar
-        setIsFirstFormValidated={setIsFirstFormValidated}
-        setIsSecondFormValidated={setIsSecondFormValidated}
-        setIsThirdFormValidated={setIsThirdFormValidated}
-        setIsRegisterPageRendered={setIsRegisterPageRendered}
-      />
-      <Outlet />
-      <Footer />
-
-      {windowWidth < 768 && <MobileNav isPublicMobileNav />}
-    </div>
-  );
-}
-
-function AdminLayout({
-  isAdminAuthenticated,
-  setIsAdminAuthenticated,
-  windowWidth,
-}: LayoutProps) {
-  return (
-    <div className="flex flex-col justify-between min-h-screen">
-      <NavBar
-        windowWidth={windowWidth}
-        isAdminAuthenticated={isAdminAuthenticated}
-        setIsAdminAuthenticated={setIsAdminAuthenticated}
-        isAdminNavBar
-      />
-      <Outlet />
-      <Footer isAdminFooter />
-
-      {windowWidth < 768 && <MobileNav isAdminMobileNav />}
-    </div>
-  );
-}
-
-function PatientLayout({
-  setIsPatientAuthenticated,
-  isPatientAuthenticated,
-  windowWidth,
-}: LayoutProps) {
-  return (
-    <div className="flex flex-col justify-between min-h-screen">
-      <NavBar
-        windowWidth={windowWidth}
-        setIsPatientAuthenticated={setIsPatientAuthenticated}
-        isPatientAuthenticated={isPatientAuthenticated}
-        isPatientNavBar
-      />
-      <Outlet />
-      <Footer />
-
-      {windowWidth < 768 && <MobileNav isPatientMobileNav />}
-    </div>
-  );
-}
-
-function TherapistLayout({
-  setIsTherapistAuthenticated,
-  isTherapistAuthenticated,
-  windowWidth,
-}: LayoutProps) {
-  return (
-    <div className="flex flex-col justify-between min-h-screen">
-      <NavBar
-        windowWidth={windowWidth}
-        setIsTherapistAuthenticated={setIsTherapistAuthenticated}
-        isTherapistAuthenticated={isTherapistAuthenticated}
-        isTherapistNavBar
-      />
-      <Outlet />
-      <Footer />
-
-      {windowWidth < 768 && <MobileNav isTherapistMobileNav />}
-    </div>
   );
 }
 

@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SideNav from '../../generalComponents/SideNav/SideNav';
-import AdminTable from '../AdminTable/AdminTable';
-import AdminProfileDetails from '../AdminProfileDetails/AdminProfileDetails';
-import DNALoader from '../../../../utils/DNALoader';
+import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
+import AdminTable from '../../standaloneComponents/AdminSection/AdminTable/AdminTable';
+import AdminProfileDetails from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetails';
+import DNALoader from '../../../utils/DNALoader';
 import {
   ITherapist,
   IPatient,
   IAffliction,
   IMedic,
   IInsurance,
-} from '../../../../@types/types';
+} from '../../../@types/types';
 import {
   fetchAfflictionAsAdmin,
   fetchAfflictionsAsAdmin,
@@ -22,7 +22,7 @@ import {
   fetchPatientsAsAdmin,
   fetchTherapistAsAdmin,
   fetchTherapistsAsAdmin,
-} from '../../../../utils/apiUtils/adminApiUtils';
+} from '../../../utils/apiUtils/adminApiUtils';
 
 interface AdminMainProps {
   windowWidth: number;
