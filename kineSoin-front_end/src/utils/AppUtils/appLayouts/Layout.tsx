@@ -1,0 +1,157 @@
+import NavBar from '../../../components/standaloneComponents/generalComponents/NavBar/NavBar';
+import { Outlet } from 'react-router-dom';
+import Footer from '../../../components/standaloneComponents/generalComponents/Footer/Footer';
+import MobileNav from '../../../components/standaloneComponents/generalComponents/MobileNav/MobileNav';
+
+interface LayoutProps {
+  isPublicLayout?: boolean;
+  isAdminLayout?: boolean;
+  isPatientLayout?: boolean;
+  isTherapistLayout?: boolean;
+
+  windowWidth: number;
+  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isAdminAuthenticated?: boolean;
+  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isPatientAuthenticated?: boolean;
+  setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isTherapistAuthenticated?: boolean;
+  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function Layout({
+  isPublicLayout,
+  isAdminLayout,
+  isPatientLayout,
+  isTherapistLayout,
+
+  windowWidth,
+  setIsFirstFormValidated,
+  setIsSecondFormValidated,
+  setIsThirdFormValidated,
+  setIsRegisterPageRendered,
+
+  isAdminAuthenticated,
+  setIsAdminAuthenticated,
+
+  setIsPatientAuthenticated,
+  isPatientAuthenticated,
+
+  setIsTherapistAuthenticated,
+  isTherapistAuthenticated,
+}: LayoutProps) {
+  const navBarProps = {
+    ...(isPublicLayout && {
+      isPublicNavBar: true,
+      setIsFirstFormValidated,
+      setIsSecondFormValidated,
+      setIsThirdFormValidated,
+      setIsRegisterPageRendered,
+    }),
+    ...(isAdminLayout && {
+      isAdminNavBar: true,
+      isAdminAuthenticated,
+      setIsAdminAuthenticated,
+    }),
+    ...(isPatientLayout && {
+      isPatientNavBar: true,
+      isPatientAuthenticated,
+      setIsPatientAuthenticated,
+    }),
+    ...(isTherapistLayout && {
+      isTherapistNavBar: true,
+      isTherapistAuthenticated,
+      setIsTherapistAuthenticated,
+    }),
+    windowWidth,
+  };
+
+  const footerProps = {
+    ...(isAdminLayout && { isAdminFooter: true }),
+  };
+
+  const mobileNavProps = {
+    ...(isPublicLayout && { isPublicMobileNav: true }),
+    ...(isAdminLayout && { isAdminMobileNav: true }),
+    ...(isPatientLayout && { isPatientMobileNav: true }),
+    ...(isTherapistLayout && { isTherapistMobileNav: true }),
+  };
+
+  return (
+    <div className="flex flex-col justify-between min-h-screen">
+      <NavBar {...navBarProps} />
+      <Outlet />
+      <Footer {...footerProps} />
+      {windowWidth < 768 && <MobileNav {...mobileNavProps} />}
+    </div>
+  );
+}
+
+// export function AdminLayout({
+//   isAdminAuthenticated,
+//   setIsAdminAuthenticated,
+//   windowWidth,
+// }: LayoutProps) {
+//   return (
+//     <div className="flex flex-col justify-between min-h-screen">
+//       <NavBar
+//         isAdminNavBar
+//         windowWidth={windowWidth}
+//         isAdminAuthenticated={isAdminAuthenticated}
+//         setIsAdminAuthenticated={setIsAdminAuthenticated}
+//       />
+//       <Outlet />
+//       <Footer isAdminFooter />
+
+//       {windowWidth < 768 && <MobileNav isAdminMobileNav />}
+//     </div>
+//   );
+// }
+
+// export function PatientLayout({
+//   setIsPatientAuthenticated,
+//   isPatientAuthenticated,
+//   windowWidth,
+// }: LayoutProps) {
+//   return (
+//     <div className="flex flex-col justify-between min-h-screen">
+//       <NavBar
+//         isPatientNavBar
+//         windowWidth={windowWidth}
+//         setIsPatientAuthenticated={setIsPatientAuthenticated}
+//         isPatientAuthenticated={isPatientAuthenticated}
+//       />
+//       <Outlet />
+//       <Footer />
+
+//       {windowWidth < 768 && <MobileNav isPatientMobileNav />}
+//     </div>
+//   );
+// }
+
+// export function TherapistLayout({
+//   setIsTherapistAuthenticated,
+//   isTherapistAuthenticated,
+//   windowWidth,
+// }: LayoutProps) {
+//   return (
+//     <div className="flex flex-col justify-between min-h-screen">
+//       <NavBar
+//         isTherapistNavBar
+//         windowWidth={windowWidth}
+//         setIsTherapistAuthenticated={setIsTherapistAuthenticated}
+//         isTherapistAuthenticated={isTherapistAuthenticated}
+//       />
+//       <Outlet />
+//       <Footer />
+
+//       {windowWidth < 768 && <MobileNav isTherapistMobileNav />}
+//     </div>
+//   );
+// }

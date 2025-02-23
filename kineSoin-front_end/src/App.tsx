@@ -11,12 +11,7 @@ import HomepageMain from './components/pageComponents/PublicSection/HomePageMain
 import AdminMain from './components/pageComponents/AdminSection/AdminMain';
 import PatientMain from './components/pageComponents/PatientSection/PatientMain';
 import TherapistMain from './components/pageComponents/TherapistSection/TherapistMain';
-import {
-  AdminLayout,
-  PatientLayout,
-  PublicLayout,
-  TherapistLayout,
-} from './utils/AppUtils/appLayouts/appLayouts';
+import { Layout } from './utils/AppUtils/appLayouts/Layout';
 import {
   checkAdminAuthentication,
   checkPatientAuthentication,
@@ -215,7 +210,8 @@ function App() {
 
       <Route
         element={
-          <PublicLayout
+          <Layout
+            isPublicLayout
             windowWidth={windowWidth}
             setIsFirstFormValidated={setIsFirstFormValidated}
             setIsSecondFormValidated={setIsSecondFormValidated}
@@ -275,7 +271,8 @@ function App() {
         <Route
           path="/admin"
           element={
-            <AdminLayout
+            <Layout
+              isAdminLayout
               isAdminAuthenticated={isAdminAuthenticated}
               setIsAdminAuthenticated={setIsAdminAuthenticated}
               windowWidth={windowWidth}
@@ -285,6 +282,7 @@ function App() {
           {adminRoutes.map((route) => (
             <Route
               path={route.path}
+              key={route.path}
               element={
                 <AdminMain
                   windowWidth={windowWidth}
@@ -300,7 +298,8 @@ function App() {
         <Route
           path="/admin"
           element={
-            <AdminLayout
+            <Layout
+              isAdminLayout
               isAdminAuthenticated={isAdminAuthenticated}
               setIsAdminAuthenticated={setIsAdminAuthenticated}
               windowWidth={windowWidth}
@@ -316,7 +315,8 @@ function App() {
         <Route
           path="/patient"
           element={
-            <PatientLayout
+            <Layout
+              isPatientLayout
               isPatientAuthenticated={isPatientAuthenticated}
               setIsPatientAuthenticated={setIsPatientAuthenticated}
               windowWidth={windowWidth}
@@ -326,6 +326,7 @@ function App() {
           {patientRoutes.map((route) => (
             <Route
               path={route.path}
+              key={route.path}
               element={<PatientMain {...{ [route.boolean]: true }} />}
             />
           ))}
@@ -336,7 +337,8 @@ function App() {
         <Route
           path="/patient"
           element={
-            <PatientLayout
+            <Layout
+              isPatientLayout
               isPatientAuthenticated={isPatientAuthenticated}
               setIsPatientAuthenticated={setIsPatientAuthenticated}
               windowWidth={windowWidth}
@@ -354,7 +356,8 @@ function App() {
         <Route
           path="/therapist"
           element={
-            <TherapistLayout
+            <Layout
+              isTherapistLayout
               isTherapistAuthenticated={isTherapistAuthenticated}
               setIsTherapistAuthenticated={setIsTherapistAuthenticated}
               windowWidth={windowWidth}
@@ -364,6 +367,7 @@ function App() {
           {therapistRoutes.map((route) => (
             <Route
               path={route.path}
+              key={route.path}
               element={<TherapistMain {...{ [route.boolean]: true }} />}
             />
           ))}
@@ -377,7 +381,8 @@ function App() {
         <Route
           path="/therapist"
           element={
-            <TherapistLayout
+            <Layout
+              isTherapistLayout
               isTherapistAuthenticated={isTherapistAuthenticated}
               setIsTherapistAuthenticated={setIsTherapistAuthenticated}
               windowWidth={windowWidth}
