@@ -1,29 +1,24 @@
-/**
- * @file PatientStatusButtons.tsx
- * @description A React functional component that provides buttons to change the status of a patient. It utilizes Headless UI's MenuItem and MenuItems components for dropdown functionality.
- *
- * @param {Object} props - The props for the PatientStatusButtons component.
- * @param {Function} props.toggleStatus - A function to toggle the status of the patient.
- * @param {Function} props.handlePatientStatusChanges - A function to handle changes to the patient's status, which is asynchronous and returns a promise.
- * @param {IPatient} props.patient - The patient object containing the patient's details, including their ID.
- *
- * @returns {JSX.Element} The rendered PatientStatusButtons component containing menu items for changing the patient's status.
- */
-
 import { MenuItem, MenuItems } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IPatient } from '../../../../../../../@types/types';
+import { toggleStatus } from '../../utils/toggleStatus';
 
 interface PatientStatusButtons {
-  toggleStatus: (status: string) => void;
   handlePatientStatusChanges: (id: number, status: string) => Promise<void>;
   patient: IPatient;
+
+  setButtonMessage: React.Dispatch<React.SetStateAction<string>>;
+  setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
+  setTherapistStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function PatientStatusButtons({
-  toggleStatus,
   handlePatientStatusChanges,
   patient,
+
+  setButtonMessage,
+  setBackgroundColor,
+  setTherapistStatus,
 }: PatientStatusButtons) {
   return (
     <MenuItems
@@ -36,7 +31,11 @@ export default function PatientStatusButtons({
             to="#"
             className="block px-4 py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
             onClick={() => {
-              toggleStatus('active');
+              toggleStatus('active', {
+                setButtonMessage,
+                setTherapistStatus,
+                setBackgroundColor,
+              });
               handlePatientStatusChanges(patient.id, 'active');
             }}
           >
@@ -48,7 +47,11 @@ export default function PatientStatusButtons({
             to="#"
             className="block px-4 py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
             onClick={() => {
-              toggleStatus('inactive');
+              toggleStatus('inactive', {
+                setButtonMessage,
+                setTherapistStatus,
+                setBackgroundColor,
+              });
               handlePatientStatusChanges(patient.id, 'inactive');
             }}
           >
@@ -60,7 +63,11 @@ export default function PatientStatusButtons({
             to="#"
             className="block px-4 py-2 text-sm text-gray-700 bg-yellow-300 font-medium data-[focus]:bg-yellow-500 data-[focus]:text-gray-900"
             onClick={() => {
-              toggleStatus('pending');
+              toggleStatus('pending', {
+                setButtonMessage,
+                setTherapistStatus,
+                setBackgroundColor,
+              });
               handlePatientStatusChanges(patient.id, 'pending');
             }}
           >
@@ -72,7 +79,11 @@ export default function PatientStatusButtons({
             to="#"
             className="block px-4 py-2 text-sm text-gray-700 bg-red-300 font-medium data-[focus]:bg-red-500 data-[focus]:text-gray-900"
             onClick={() => {
-              toggleStatus('banned');
+              toggleStatus('banned', {
+                setButtonMessage,
+                setTherapistStatus,
+                setBackgroundColor,
+              });
               handlePatientStatusChanges(patient.id, 'banned');
             }}
           >

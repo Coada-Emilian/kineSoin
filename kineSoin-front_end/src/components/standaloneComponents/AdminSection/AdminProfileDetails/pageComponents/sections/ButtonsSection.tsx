@@ -15,7 +15,6 @@ interface ButtonsSectionProps {
   isProfileEditing: boolean;
   buttonMessage: string;
   backgroundColor: string;
-  toggleStatus: (status: string) => void;
   setIsProfileEditing: React.Dispatch<React.SetStateAction<boolean>>;
   patient?: IPatient;
   affliction?: IAffliction;
@@ -24,6 +23,9 @@ interface ButtonsSectionProps {
   insurance?: IInsurance;
   handlePatientStatusChanges: (id: number, status: string) => Promise<void>;
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setButtonMessage: React.Dispatch<React.SetStateAction<string>>;
+  setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
+  setTherapistStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const StatusMenu = ({
@@ -78,7 +80,6 @@ export default function ButtonsSection({
   isProfileEditing,
   buttonMessage,
   backgroundColor,
-  toggleStatus,
   setIsProfileEditing,
   patient,
   affliction,
@@ -87,6 +88,9 @@ export default function ButtonsSection({
   insurance,
   handlePatientStatusChanges,
   setIsDeleteModalOpen,
+  setButtonMessage,
+  setBackgroundColor,
+  setTherapistStatus,
 }: ButtonsSectionProps) {
   return (
     <div className="buttons flex gap-2 items-center justify-between mb-6 px-2 md:w-1/2">
@@ -97,7 +101,11 @@ export default function ButtonsSection({
               buttonMessage={buttonMessage}
               backgroundColor={backgroundColor}
             >
-              <TherapistStatusButtons toggleStatus={toggleStatus} />
+              <TherapistStatusButtons
+                setButtonMessage={setButtonMessage}
+                setBackgroundColor={setBackgroundColor}
+                setTherapistStatus={setTherapistStatus}
+              />
             </StatusMenu>
           )}
           <CustomButton btnText="Valider" btnType="submit" normalButton />
@@ -124,7 +132,9 @@ export default function ButtonsSection({
               backgroundColor={backgroundColor}
             >
               <PatientStatusButtons
-                toggleStatus={toggleStatus}
+                setButtonMessage={setButtonMessage}
+                setBackgroundColor={setBackgroundColor}
+                setTherapistStatus={setTherapistStatus}
                 handlePatientStatusChanges={handlePatientStatusChanges}
                 patient={patient}
               />

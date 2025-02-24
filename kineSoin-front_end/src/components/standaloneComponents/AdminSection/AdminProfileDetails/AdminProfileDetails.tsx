@@ -1,5 +1,3 @@
-// Purpose: Provide the AdminProfileDetails component which displays the profile details of a therapist, patient, affliction, medic, or insurance.
-
 import { useState } from 'react';
 import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal.tsx';
 import EditPhotoModal from '../Modals/EditPhotoModal.tsx';
@@ -22,6 +20,9 @@ import {
   handlePatientStatusChangeAsAdmin,
   handleTherapistUpdateAsAdmin,
 } from '../../../../utils/apiUtils/adminApiUtils.tsx';
+import { handleFormSubmit } from './pageComponents/utils/handleFormSubmit.ts';
+import { handlePatientStatusChanges } from './pageComponents/utils/handlePatientStatusChange.ts';
+import { toggleStatus } from './pageComponents/utils/toggleStatus.ts';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
@@ -54,72 +55,6 @@ export default function AdminProfileDetails({
     therapist?.status || 'inactive'
   );
 
-  // Function to handle patient status changes
-  const handlePatientStatusChanges = async (id: number, status: string) => {
-    const response = handlePatientStatusChangeAsAdmin(id, status);
-    if (await response) {
-      console.log('Patient status updated successfully');
-      window.location.reload();
-    } else {
-      console.error('Failed to update patient status', response);
-    }
-  };
-
-  // Function to toggle the status of the therapist, patient, medic, or insurance
-  const toggleStatus = (status: string) => {
-    if (status === 'active' || status === 'opérée') {
-      if (status === 'active') {
-        setButtonMessage('Active');
-        setTherapistStatus('active');
-      } else if (status === 'opérée') {
-        setButtonMessage('Opérée');
-      }
-      setBackgroundColor('bg-green-300 hover:bg-green-500');
-    } else if (status === 'inactive' || status === 'non-opérée') {
-      if (status === 'inactive') {
-        setButtonMessage('Inactive');
-        setTherapistStatus('inactive');
-      } else if (status === 'non-opérée') {
-        setButtonMessage('Non-opérée');
-      }
-      setBackgroundColor('bg-gray-200 hover:bg-gray-400');
-    } else if (status === 'pending') {
-      setButtonMessage('Pending');
-      setBackgroundColor('bg-yellow-300 hover:bg-yellow-500');
-    } else if (status === 'banned') {
-      setButtonMessage('Banned');
-      setBackgroundColor('bg-red-300 hover:bg-red-500');
-    }
-  };
-
-  const handleFormSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
-    updateFunction: Function
-  ) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    {
-      therapist && formData.append('status', therapistStatus);
-    }
-
-    if (selectedFile) {
-      formData.append('file', selectedFile);
-    }
-
-    try {
-      const response = await updateFunction(formData);
-      if (response) {
-        setIsProfileEditing(false);
-        window.location.reload();
-      } else {
-        console.error('Failed to update profile');
-      }
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
-  };
-
   const getUpdateFunction = () => {
     if (therapist)
       return (formData: FormData) =>
@@ -142,7 +77,14 @@ export default function AdminProfileDetails({
     <>
       <form
         action="*"
-        onSubmit={(e) => updateFunction && handleFormSubmit(e, updateFunction)}
+        onSubmit={(e) =>
+          updateFunction &&
+          handleFormSubmit(
+            e,
+            { therapist, therapistStatus, selectedFile, setIsProfileEditing },
+            updateFunction
+          )
+        }
         className="flex justify-center"
       >
         <div
@@ -221,7 +163,9 @@ export default function AdminProfileDetails({
             isProfileEditing={isProfileEditing}
             buttonMessage={buttonMessage}
             backgroundColor={backgroundColor}
-            toggleStatus={toggleStatus}
+            setButtonMessage={setButtonMessage}
+            setBackgroundColor={setBackgroundColor}
+            setTherapistStatus={setTherapistStatus}
             setIsProfileEditing={setIsProfileEditing}
             handlePatientStatusChanges={handlePatientStatusChanges}
             setIsDeleteModalOpen={setIsDeleteModalOpen}

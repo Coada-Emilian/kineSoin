@@ -1,22 +1,17 @@
-/**
- * @file TherapistStatusButtons.tsx
- * @description A React functional component that renders buttons for changing the status of a therapist. It provides options to set the therapist's status to either "Active" or "Inactive."
- *
- * @param {Object} props - The props for the TherapistStatusButtons component.
- * @param {function(string): void} props.toggleStatus - A function to handle the status change, which takes a status string ('active' or 'inactive') as an argument.
- *
- * @returns {JSX.Element} The rendered TherapistStatusButtons component with options to toggle therapist status.
- */
-
 import { MenuItem } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { toggleStatus } from '../../utils/toggleStatus';
 
 interface TherapistStatusButtonsProps {
-  toggleStatus: (status: string) => void;
+  setButtonMessage: React.Dispatch<React.SetStateAction<string>>;
+  setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
+  setTherapistStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function TherapistStatusButtons({
-  toggleStatus,
+  setButtonMessage,
+  setBackgroundColor,
+  setTherapistStatus,
 }: TherapistStatusButtonsProps) {
   return (
     <div className="py-1">
@@ -24,7 +19,13 @@ export default function TherapistStatusButtons({
         <Link
           to="#"
           className="block px-4 py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
-          onClick={() => toggleStatus('active')}
+          onClick={() =>
+            toggleStatus('active', {
+              setButtonMessage,
+              setTherapistStatus,
+              setBackgroundColor,
+            })
+          }
         >
           Active
         </Link>
@@ -33,7 +34,13 @@ export default function TherapistStatusButtons({
         <Link
           to="#"
           className="block px-4 py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
-          onClick={() => toggleStatus('inactive')}
+          onClick={() =>
+            toggleStatus('inactive', {
+              setButtonMessage,
+              setTherapistStatus,
+              setBackgroundColor,
+            })
+          }
         >
           Inactive
         </Link>
