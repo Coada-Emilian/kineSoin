@@ -14,7 +14,7 @@ import {
 import {
   fetchDetailsData,
   fetchTableData,
-} from '../../../utils/pageUtils/AdminMainUtils/adminMainUtils';
+} from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtils';
 
 interface AdminMainProps {
   windowWidth: number;

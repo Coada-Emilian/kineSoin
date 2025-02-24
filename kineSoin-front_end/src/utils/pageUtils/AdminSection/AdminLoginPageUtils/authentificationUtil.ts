@@ -1,6 +1,6 @@
 import { NavigateFunction } from 'react-router-dom';
-import { setAdminTokenAndDataInLocalStorage } from '../../../localStorage/adminLocalStorage';
-import { handleAdminLogin } from '../../apiUtils/publicApiUtils';
+import { setAdminTokenAndDataInLocalStorage } from '../../../../localStorage/adminLocalStorage';
+import { handleAdminLogin } from '../../../apiUtils/publicApiUtils';
 
 interface AuthentificationUtilsProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;

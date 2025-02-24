@@ -3,7 +3,7 @@ import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
 import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
-import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
+
 import {
   IInsurance,
   IPatient_Insurance,
@@ -13,6 +13,7 @@ import {
   fetchInsurancesAsPatient,
   handlePatientInsuranceAdd,
 } from '../../../../../utils/apiUtils/patientApiUtils';
+import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -428,9 +429,33 @@ export default function EditPatientModal({
 
             {isEditPasswordModalOpen && (
               <div className="flex flex-col gap-2 mx-6 my-2">
-                <StandardPasswordInput isOldPasswordInput />
-                <StandardPasswordInput isNewPasswordInput />
-                <StandardPasswordInput isRepeatPasswordInput />
+                <StandardPasswordInput
+                  passwordInput={{
+                    inputId: 'patient-edit-password_old-input',
+                    inputName: 'old_password',
+                    inputPlaceholder: 'Entrez votre ancien mot de passe',
+                    labelContent: 'Ancien mot de passe',
+                    autoComplete: 'current-password',
+                  }}
+                />
+                <StandardPasswordInput
+                  passwordInput={{
+                    inputId: 'patient-edit-password_new-input',
+                    inputName: 'new_password',
+                    inputPlaceholder: 'Entrez votre nouveau mot de passe',
+                    labelContent: 'Nouveau mot de passe',
+                    autoComplete: 'new-password',
+                  }}
+                />
+                <StandardPasswordInput
+                  passwordInput={{
+                    inputId: 'patient-edit-password_repeat-input',
+                    inputName: 'repeat_password',
+                    inputPlaceholder: 'Confirmez le mot de passe',
+                    labelContent: 'Confirmer le mot de passe',
+                    autoComplete: 'repeated password',
+                  }}
+                />
               </div>
             )}
           </div>

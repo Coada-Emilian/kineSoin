@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
 import StandardEmailInput from '../../../generalComponents/StandardInputs/StandardEmailInput';
+import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
 
 export default function PatientLoginFormSection() {
   return (
@@ -12,7 +12,15 @@ export default function PatientLoginFormSection() {
         }}
       />
 
-      <StandardPasswordInput isPatientLoginPagePasswordInput />
+      <StandardPasswordInput
+        passwordInput={{
+          inputId: 'patient-login-password_input',
+          inputName: 'password',
+          inputPlaceholder: 'Entrez votre mot de passe',
+          labelContent: 'Mot de passe',
+          autoComplete: 'current-password',
+        }}
+      />
 
       <div className="text-xs mb-4 text-center mt-4">
         <p>

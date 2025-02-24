@@ -20,9 +20,24 @@ export default function ThirdPatientRegisterFormSection({
         emailInput={{ inputId: 'patient-register-email_input' }}
       />
 
-      <StandardPasswordInput isPatientRegisterPasswordInput />
-
-      <StandardPasswordInput isPatientRegisterConfirmPasswordInput />
+      <StandardPasswordInput
+        passwordInput={{
+          inputId: 'patient-register-password_input',
+          inputName: 'password',
+          inputPlaceholder: 'Entrez votre mot de passe',
+          labelContent: 'Mot de passe',
+          autoComplete: 'password',
+        }}
+      />
+      <StandardPasswordInput
+        passwordInput={{
+          inputId: 'patient-register-confirm-password_input',
+          inputName: 'confirm-password',
+          inputPlaceholder: 'Confirmez le mot de passe',
+          labelContent: 'Confirmation mot de passe',
+          autoComplete: 'repeated-password',
+        }}
+      />
     </>
   );
 }

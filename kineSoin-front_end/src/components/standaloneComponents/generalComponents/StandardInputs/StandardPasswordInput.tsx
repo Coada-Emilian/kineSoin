@@ -2,149 +2,29 @@ import openedEyeIcon from '/icons/eye.svg';
 import closedEyeIcon from '/icons/eye-closed.svg';
 import { useState } from 'react';
 import questionIcon from '/icons/question-circle.svg';
+import { IPasswordInput } from '../../../../@types/customTypes';
 
 interface StandardPasswordInputProps {
-  isPatientLoginPagePasswordInput?: boolean;
-
-  isTherapistLoginPagePasswordInput?: boolean;
-
-  isPatientRegisterPasswordInput?: boolean;
-
-  isPatientRegisterConfirmPasswordInput?: boolean;
-
-  isOldPasswordInput?: boolean;
-  isNewPasswordInput?: boolean;
-  isRepeatPasswordInput?: boolean;
-
-  isAdminPasswordInput?: boolean;
-
-  isAdminTherapistAddPasswordInput?: boolean;
-
-  isAdminTherapistAddRepeatedPasswordInput?: boolean;
+  passwordInput: IPasswordInput;
 }
 
 export default function StandardPasswordInput({
-  isPatientLoginPagePasswordInput,
-
-  isTherapistLoginPagePasswordInput,
-
-  isPatientRegisterPasswordInput,
-
-  isPatientRegisterConfirmPasswordInput,
-
-  isOldPasswordInput,
-  isNewPasswordInput,
-  isRepeatPasswordInput,
-
-  isAdminPasswordInput,
-
-  isAdminTherapistAddPasswordInput,
-
-  isAdminTherapistAddRepeatedPasswordInput,
+  passwordInput,
 }: StandardPasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
-  const getInputId = () =>
-    isPatientLoginPagePasswordInput
-      ? 'patient-connexion-password_input'
-      : isTherapistLoginPagePasswordInput
-        ? 'therapist-connexion-password_input'
-        : isPatientRegisterPasswordInput
-          ? 'patient-register-password_input'
-          : isPatientRegisterConfirmPasswordInput
-            ? 'patient-register-confirm-password_input'
-            : isAdminPasswordInput
-              ? 'admin-password_input'
-              : isAdminTherapistAddPasswordInput
-                ? 'admin-therapist-password_input'
-                : isAdminTherapistAddRepeatedPasswordInput
-                  ? 'admin-therapist-repeated-password_input'
-                  : isOldPasswordInput
-                    ? 'old-password_input'
-                    : isNewPasswordInput
-                      ? 'new-password_input'
-                      : isRepeatPasswordInput
-                        ? 'repeat-password_input'
-                        : '';
-
-  const getInputName = () =>
-    isPatientRegisterConfirmPasswordInput
-      ? 'confirm-password'
-      : isOldPasswordInput
-        ? 'old_password'
-        : isNewPasswordInput
-          ? 'new_password'
-          : isRepeatPasswordInput
-            ? 'repeat_password'
-            : isAdminTherapistAddPasswordInput
-              ? 'password'
-              : isAdminTherapistAddRepeatedPasswordInput
-                ? 'repeated_password'
-                : 'password';
-
-  const getPlaceholder = () =>
-    isOldPasswordInput
-      ? 'Entrez votre ancien mot de passe'
-      : isNewPasswordInput
-        ? 'Entrez votre nouveau mot de passe'
-        : isRepeatPasswordInput
-          ? 'Répétez le mot de passe'
-          : isAdminTherapistAddPasswordInput
-            ? 'Entrez le mot de passe'
-            : isAdminTherapistAddRepeatedPasswordInput
-              ? 'Confirmez le mot de passe'
-              : isPatientRegisterConfirmPasswordInput
-                ? 'Confirmez le mot de passe'
-                : 'Entrez votre mot de passe';
-
-  const getLabelText = () =>
-    isOldPasswordInput
-      ? 'Ancien mot de passe'
-      : isNewPasswordInput
-        ? 'Nouveau mot de passe'
-        : isRepeatPasswordInput
-          ? 'Confirmer le mot de passe'
-          : isAdminTherapistAddPasswordInput
-            ? 'Mot de passe'
-            : isAdminTherapistAddRepeatedPasswordInput
-              ? 'Confirmer le mot de passe'
-              : isPatientRegisterConfirmPasswordInput
-                ? 'Confirmation mot de passe'
-                : 'Mot de passe';
-
-  const getAutoComplete = () =>
-    isPatientRegisterPasswordInput
-      ? 'password'
-      : isPatientRegisterConfirmPasswordInput
-        ? 'repeated password'
-        : isOldPasswordInput
-          ? 'current-password'
-          : isNewPasswordInput
-            ? 'new-password'
-            : isRepeatPasswordInput
-              ? 'repeated password'
-              : isAdminTherapistAddPasswordInput
-                ? 'new-password'
-                : isAdminTherapistAddRepeatedPasswordInput
-                  ? 'repeated-password'
-                  : 'current-password';
-
   return (
-    <div className="mb-4 italic">
+    <div className="mb-4 italic text-xs md:text-sm xl:text-md 2xl:text-lg">
       <label
-        htmlFor={getInputId()}
+        htmlFor={passwordInput.inputId}
         className={`${
-          isPatientRegisterPasswordInput ||
-          isNewPasswordInput ||
-          isAdminTherapistAddPasswordInput
-            ? 'flex mb-1 items-center'
+          passwordInput.additionalLabelClassName
+            ? passwordInput.additionalLabelClassName
             : ''
-        } text-primaryBlue text-sm font-medium`}
+        } text-primaryBlue font-medium`}
       >
-        {getLabelText()}
-        {(isPatientRegisterPasswordInput ||
-          isNewPasswordInput ||
-          isAdminTherapistAddPasswordInput) && (
+        {passwordInput.labelContent}
+        {passwordInput.hasInfoIcon && (
           <p
             className="text-sm text-center ml-4"
             title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial"
@@ -162,11 +42,11 @@ export default function StandardPasswordInput({
       <div className="flex rounded-md shadow-sm border">
         <input
           type={showPassword ? 'text' : 'password'}
-          name={getInputName()}
-          id={getInputId()}
+          name={passwordInput.inputName}
+          id={passwordInput.inputId}
           className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md "
-          placeholder={getPlaceholder()}
-          autoComplete={getAutoComplete()}
+          placeholder={passwordInput.inputPlaceholder}
+          autoComplete={passwordInput.autoComplete}
         />
 
         <button

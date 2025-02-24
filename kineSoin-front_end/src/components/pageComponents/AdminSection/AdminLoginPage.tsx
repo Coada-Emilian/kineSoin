@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
-import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardPasswordInput.tsx';
-import { checkAdminCredentials } from '../../../utils/pageUtils/AdminLoginPageUtils/authentificationUtil.ts';
+import { checkAdminCredentials } from '../../../utils/pageUtils/AdminSection/AdminLoginPageUtils/authentificationUtil.ts';
 import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput.tsx';
+import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardPasswordInput.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -58,7 +58,16 @@ export default function AdminLoginPage({
             }}
           />
 
-          <StandardPasswordInput isAdminPasswordInput />
+          <StandardPasswordInput
+            passwordInput={{
+              inputId: 'admin-login-password_input',
+              inputName: 'password',
+              inputPlaceholder: 'Entrez votre mot de passe',
+              labelContent: 'Mot de passe',
+              autoComplete: 'current-password',
+            }}
+          />
+
           <div className="flex justify-center">
             <CustomButton
               btnText="Se connecter"
