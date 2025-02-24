@@ -1,21 +1,16 @@
 import { Link } from 'react-router-dom';
-import { IUserProfile } from '../../../../@types/standardTypes';
+import { IUserProfile } from '../../../../@types/customTypes';
 
 interface UserHeadbandProps {
   userProfile?: IUserProfile;
   profileUrl: string;
   dashboardUrl: string;
-
-  isPatientHeadband?: boolean;
-  isTherapistHeadband?: boolean;
-  windowWidth?: number;
 }
 
 export default function UserHeadband({
   userProfile,
   profileUrl,
   dashboardUrl,
-  windowWidth,
 }: UserHeadbandProps) {
   return (
     <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center ">
@@ -26,18 +21,17 @@ export default function UserHeadband({
           className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
         />
       </Link>
+
       <div className="flex flex-col gap-1 items-center">
-        {' '}
         <p className="text-primaryBlue text-sm font-semibold md:text-sm xl:text-base italic">
           Bienvenue {userProfile?.fullName} !
         </p>
-        {windowWidth && windowWidth < 768 && (
-          <Link to={dashboardUrl}>
-            <p className="text-primaryBlue text-xs font-semibold md:text-sm xl:text-base italic">
-              Revenir au tableau de bord
-            </p>
-          </Link>
-        )}
+
+        <Link to={dashboardUrl}>
+          <p className="text-primaryBlue text-xs font-semibold md:text-sm xl:text-base italic block md:hidden">
+            Revenir au tableau de bord
+          </p>
+        </Link>
       </div>
     </div>
   );

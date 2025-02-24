@@ -4,7 +4,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../@types/standardTypes';
+} from '../../../@types/standardTypes';
 import {
   fetchAfflictionAsAdmin,
   fetchAfflictionsAsAdmin,
@@ -16,7 +16,7 @@ import {
   fetchPatientsAsAdmin,
   fetchTherapistAsAdmin,
   fetchTherapistsAsAdmin,
-} from '../../../../../utils/apiUtils/adminApiUtils';
+} from '../../apiUtils/adminApiUtils';
 
 interface AdminMainUtilsProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;

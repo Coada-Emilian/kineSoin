@@ -5,7 +5,8 @@ import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
 import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput.tsx';
 import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardPasswordInput.tsx';
-import { checkAdminCredentials } from './utils/authentificationUtil.ts';
+import { checkAdminCredentials } from '../../../utils/pageUtils/AdminLoginPageUtils/authentificationUtil.ts';
+import StandardEmailInput2 from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput2.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -52,7 +53,12 @@ export default function AdminLoginPage({
           }
           className="space-y-4"
         >
-          <StandardEmailInput isAdminEmailInput />
+          <StandardEmailInput2
+            emailInput={{
+              inputId: 'admin-email_input',
+              inputPlaceholder: 'Entrez votre e-mail',
+            }}
+          />
 
           <StandardPasswordInput isAdminPasswordInput />
           <div className="flex justify-center">

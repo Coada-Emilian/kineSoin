@@ -107,3 +107,10 @@ export interface IUserProfile {
   id: number | null;
   token: string | null;
 }
+
+export interface IEmailInput {
+  inputId: string;
+  inputPlaceholder: string;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+}
