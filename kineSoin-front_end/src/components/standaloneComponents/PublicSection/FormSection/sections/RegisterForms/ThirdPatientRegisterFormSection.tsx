@@ -16,7 +16,9 @@ export default function ThirdPatientRegisterFormSection({
         setPatientImage={setPatientImage}
       />
 
-      <StandardEmailInput isPatientRegisterEmailInput />
+      <StandardEmailInput
+        emailInput={{ inputId: 'patient-register-email_input' }}
+      />
 
       <StandardPasswordInput isPatientRegisterPasswordInput />
 

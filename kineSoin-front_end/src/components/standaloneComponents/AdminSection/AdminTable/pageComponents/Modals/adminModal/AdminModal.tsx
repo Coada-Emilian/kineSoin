@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
-import { IAddForm } from '../../../../../../../@types/standardTypes';
 import {
   addFirstFormDetails,
   addSecondFormDetails,
@@ -22,6 +21,7 @@ import ThirdAddTherapistModal from './variations/ThirdAddTherapistModal';
 import AddAfflictionModal from './variations/AddAfflictionModal';
 import AddMedicModal from './variations/AddMedicModal';
 import AddInsuranceModal from './variations/AddInsuranceModal';
+import { IAddForm } from '../../../../../../../@types/formTypes';
 
 interface AdminModalProps {
   setAddForm?: React.Dispatch<React.SetStateAction<IAddForm>>;

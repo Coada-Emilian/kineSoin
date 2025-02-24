@@ -110,7 +110,8 @@ export interface IUserProfile {
 
 export interface IEmailInput {
   inputId: string;
-  inputPlaceholder: string;
+  inputPlaceholder?: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
+  old_email?: string;
 }

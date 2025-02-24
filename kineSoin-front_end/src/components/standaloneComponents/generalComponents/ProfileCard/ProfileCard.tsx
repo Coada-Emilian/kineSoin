@@ -15,7 +15,6 @@ import StandardTextInput from '../StandardInputs/standardTextFields/StandardText
 import StandardDateInput from '../StandardInputs/StandardDateInput';
 import StandardChoiceDropdown from '../StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
-import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 import EditIcon from '../EditIcon/EditIcon';
 import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
 import checkIcon from '/icons/check.png';
@@ -28,6 +27,7 @@ import {
   handlePatientPhotoUpdate,
   handlePatientUpdate,
 } from '../../../../utils/apiUtils/patientApiUtils';
+import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -583,8 +583,12 @@ export default function ProfileCard({
                     />
                   </div>
                   <StandardEmailInput
-                    isPatientProfileEmailModification
-                    patient_email={patient?.email}
+                    emailInput={{
+                      inputId: 'patient-edit-email_input',
+                      old_email: patient?.email,
+                      additionalDivClassName: 'flex-row items-center ',
+                      additionalLabelClassName: 'w-1/6 md:w-1/12 text-start',
+                    }}
                   />
                   <div className="flex flex-col md:flex-row gap-2 justify-between w-full mb-4">
                     <div className="flex gap-2 items-center">

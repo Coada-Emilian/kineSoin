@@ -3,10 +3,9 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
-import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput.tsx';
 import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardPasswordInput.tsx';
 import { checkAdminCredentials } from '../../../utils/pageUtils/AdminLoginPageUtils/authentificationUtil.ts';
-import StandardEmailInput2 from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput2.tsx';
+import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -53,10 +52,9 @@ export default function AdminLoginPage({
           }
           className="space-y-4"
         >
-          <StandardEmailInput2
+          <StandardEmailInput
             emailInput={{
-              inputId: 'admin-email_input',
-              inputPlaceholder: 'Entrez votre e-mail',
+              inputId: 'admin-login-email_input',
             }}
           />
 

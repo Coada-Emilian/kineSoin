@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
-import StandardEmailInput from '../../../generalComponents/StandardInputs/StandardEmailInput';
+
 import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
+import StandardEmailInput from '../../../generalComponents/StandardInputs/StandardEmailInput';
 
 export default function PatientLoginFormSection() {
   return (
     <>
-      <StandardEmailInput isPatientLoginPageEmailInput />
+      <StandardEmailInput
+        emailInput={{
+          inputId: 'patient-login-email_input',
+        }}
+      />
 
       <StandardPasswordInput isPatientLoginPagePasswordInput />
 

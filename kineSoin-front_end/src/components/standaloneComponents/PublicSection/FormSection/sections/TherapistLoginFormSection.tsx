@@ -4,7 +4,9 @@ import StandardPasswordInput from '../../../generalComponents/StandardInputs/Sta
 export default function TherapistLoginFormSection() {
   return (
     <>
-      <StandardEmailInput isTherapistLoginPageEmailInput />
+      <StandardEmailInput
+        emailInput={{ inputId: 'therapist-login-email_input' }}
+      />
 
       <StandardPasswordInput isTherapistLoginPagePasswordInput />
     </>
