@@ -158,7 +158,7 @@ export default function StandardTextInput({
                   id={field.inputId}
                   name={field.inputName}
                   placeholder={field.inputPlaceholder}
-                  className="text-xs md:text-sm xl:text-base 2xl:text-lg w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
+                  className="text-xxs md:text-xs xl:text-sm 2xl:text-md w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
                   required={field.required}
                   value={field.inputValue}
                   onChange={

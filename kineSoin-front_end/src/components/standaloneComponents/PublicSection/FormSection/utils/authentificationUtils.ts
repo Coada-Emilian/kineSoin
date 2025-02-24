@@ -1,5 +1,5 @@
-import { handleTherapistConnection } from '../../../../utils/apiUtils/patientApiUtils';
-import { handlePatientLogin } from '../../../../utils/apiUtils/publicApiUtils';
+import { handleTherapistConnection } from '../../../../../utils/apiUtils/patientApiUtils';
+import { handlePatientLogin } from '../../../../../utils/apiUtils/publicApiUtils';
 
 interface AuthentificationUtilsProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;

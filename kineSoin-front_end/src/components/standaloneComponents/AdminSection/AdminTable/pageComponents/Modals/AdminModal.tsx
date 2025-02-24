@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import StandardTextInput from '../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
-import StandardFileInput from '../../../../generalComponents/StandardInputs/StandardFileInput';
+import StandardFileInput from '../../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
 import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
 import StandardChoiceDropdown from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';

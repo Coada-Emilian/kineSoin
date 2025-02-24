@@ -1,5 +1,5 @@
 import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
-import StandardFileInput from '../../../../generalComponents/StandardInputs/StandardFileInput';
+import StandardFileInput from '../../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
 
 interface ThirdPatientRegisterFormSectionProps {

@@ -246,7 +246,7 @@ export const standardTextFields = ({
     {
       boolean: patientRegister?.isBirthNameInput,
       divClassName: 'w-full flex flex-col mb-4',
-      inputId: 'patient-register-birthname_input',
+      inputId: 'patient-register-birth_name_input',
       labelClassName: 'text-sm',
       labelName: 'Nom de naissance',
       inputName: 'birth_name',

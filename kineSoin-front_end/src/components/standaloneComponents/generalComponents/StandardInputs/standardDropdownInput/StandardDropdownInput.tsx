@@ -16,8 +16,6 @@ import { fetchCountriesData } from './functions/fetchCountriesData';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
-  registeredPatientGender?: string;
-  setRegisteredPatientGender?: React.Dispatch<React.SetStateAction<string>>;
   isMedicDropdownInput?: boolean;
   medics?: IMedic[];
   isAtHomeCareDropdownInput?: boolean;
@@ -28,7 +26,6 @@ interface StandardChoiceDropdownProps {
   afflictions?: IAffliction[];
   patientPrescriptions?: IPrescription[];
   isPrescriptionDropdownInput?: boolean;
-  patientId?: number;
   setFutureAppointments?: React.Dispatch<React.SetStateAction<IAppointment[]>>;
   setPastAppointments?: React.Dispatch<React.SetStateAction<IAppointment[]>>;
   isPatientInsuranceDropdownInput?: boolean;
@@ -56,8 +53,6 @@ interface StandardChoiceDropdownProps {
 
 export default function StandardChoiceDropdown({
   isGenderDropdownInput,
-  registeredPatientGender,
-  setRegisteredPatientGender,
   isMedicDropdownInput,
   medics,
   isAtHomeCareDropdownInput,
@@ -66,7 +61,6 @@ export default function StandardChoiceDropdown({
   afflictions,
   patientPrescriptions,
   isPrescriptionDropdownInput,
-  patientId,
   setFutureAppointments,
   setPastAppointments,
   isPatientInsuranceDropdownInput,
@@ -124,13 +118,13 @@ export default function StandardChoiceDropdown({
   }, [insuranceList, oldPatientInsuranceName]);
 
   {
-    if (isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput) {
-      useEffect(() => {
+    useEffect(() => {
+      if (isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput) {
         fetchBodyRegionsAsAdmin().then((bodyRegions) => {
           setBodyRegions(bodyRegions);
         });
-      }, []);
-    }
+      }
+    }, []);
   }
 
   useEffect(() => {
@@ -142,10 +136,10 @@ export default function StandardChoiceDropdown({
   const divClassName = `${
     (isCountryDropdownInput && !isPatientProfilePrefixModification) ||
     isAdminAfflictionAddOperatedStatusInput
-      ? 'w-1/3 italic'
+      ? 'w-1/3 italic text-xxs md:text-xs xl:text-sm 2xl:text-md flex flex-col gap-2'
       : isAdminAfflictionEditRegionInput ||
           isAdminAfflictionEditOperatedStatusInput
-        ? 'flex flex-row items-center  gap-2 mb-2 w-full'
+        ? 'flex flex-row items-center gap-2 mb-2 w-full'
         : isMedicDropdownInput ||
             isAtHomeCareDropdownInput ||
             isAfflictionDropdownInput
@@ -186,7 +180,7 @@ export default function StandardChoiceDropdown({
     !isAdminMedicEditPrefixDropdown &&
     !isAdminInsuranceEditPrefixDropdown &&
     !isPatientProfilePrefixModification
-      ? 'text-xs '
+      ? 'text-xs'
       : isAdminAfflictionEditRegionInput ||
           isAdminAfflictionEditOperatedStatusInput ||
           isAdminTherapistEditPrefixDropdown ||
@@ -196,7 +190,7 @@ export default function StandardChoiceDropdown({
         : isPatientProfilePrefixModification
           ? 'text-xs md:text-base xl:text-xl w-1/4 text-start flex justify-center mb-0'
           : 'text-sm'
-  } text-primaryBlue font-medium block mb-2 italic`;
+  } text-primaryBlue font-medium block  italic`;
 
   const labelContent = isGenderDropdownInput
     ? 'Genre'
@@ -229,7 +223,7 @@ export default function StandardChoiceDropdown({
                       ? 'Opéré ?'
                       : '';
 
-  const inputClassName = `${isPatientProfilePrefixModification ? 'w-full md:w-2/4' : 'w-full'} block p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent`;
+  const inputClassName = `${isPatientProfilePrefixModification ? 'w-full md:w-2/4' : 'w-full'} block p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent text-xxs md:text-xs xl:text-sm 2xl:text-md`;
 
   const inputName = isPatientInsuranceDropdownInput
     ? 'insurance_id'
@@ -407,7 +401,7 @@ export default function StandardChoiceDropdown({
                       ? patient_prefix
                       : 'Choisissez un préfixe'}
             </option>
-            
+
             {countries &&
               countries.map((country) => (
                 <option key={country.name} value={country.prefix}>

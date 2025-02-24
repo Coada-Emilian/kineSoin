@@ -70,17 +70,14 @@ export default function StandardTelephoneInput({
     }`;
   };
 
-  const inputId = getInputId();
-  const labelClassName = getLabelClassName();
-
   return (
     <div
       className={`flex gap-2 mb-2 italic w-full 
   ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'} 
-  ${isAdminMedicAddTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput || isAdminInsuranceAddTelephoneInput ? 'items-start' : 'items-center'}
+  ${isAdminMedicAddTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput || isAdminInsuranceAddTelephoneInput || isPatientTelephoneInput ? 'items-start' : 'items-center'}
 `}
     >
-      <label htmlFor={inputId} className={labelClassName}>
+      <label htmlFor={getInputId()} className={getLabelClassName()}>
         {isPatientProfileTelephoneModification
           ? 'N° de téléphone'
           : '   Numero téléphone'}
@@ -89,8 +86,8 @@ export default function StandardTelephoneInput({
       <input
         type="tel"
         name="phone_number"
-        id={inputId}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
+        id={getInputId()}
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal text-xxs md:text-xs xl:text-sm 2xl:text-md"
         placeholder="Numéro de téléphone"
         value={
           isAdminTherapistEditTelephoneInput

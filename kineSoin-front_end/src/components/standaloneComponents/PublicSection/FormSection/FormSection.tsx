@@ -8,12 +8,13 @@ import { handlePatientRegistration } from '../../../../utils/apiUtils/publicApiU
 import {
   checkPatientCredentials,
   checkTherapistCredentials,
-} from './authentificationUtils.ts';
+} from './utils/authentificationUtils.ts';
 import {
   handleFirstPatientRegisterForm,
   handleSecondPatientRegisterForm,
   handleThirdPatientRegisterForm,
-} from './registerFormUtils.ts';
+  registerPatient,
+} from './utils/registerFormUtils.ts';
 import HomePageFormSection from './sections/HomePageFormSection.tsx';
 import PatientLoginFormSection from './sections/PatientLoginFormSection.tsx';
 import TherapistLoginFormSection from './sections/TherapistLoginFormSection.tsx';
@@ -86,25 +87,17 @@ export default function FormSection({
 
   // useEffect hook to register the patient
   useEffect(() => {
-    const registerPatient = async () => {
-      if (isThirdFormValidated) {
-        try {
-          const formData = new FormData();
-          Object.entries(sentPatientData).forEach(([key, value]) => {
-            formData.append(key, value as string | Blob);
-          });
-          const response = await handlePatientRegistration(formData);
-          if (response) {
-            if (setIsGlobalFormSubmitted) {
-              setIsGlobalFormSubmitted(true);
-            }
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    registerPatient();
+    registerPatient({
+      isThirdFormValidated,
+      setIsLoading,
+      sentPatientData,
+      setIsGlobalFormSubmitted,
+      setErrorMessage,
+      setIsFirstFormValidated,
+      setIsSecondFormValidated,
+      setIsThirdFormValidated,
+      setSentPatientData,
+    });
   }, [sentPatientData]);
 
   if (isLoading) {
@@ -252,27 +245,26 @@ export default function FormSection({
               />
             )}
 
-            {isGlobalFormSubmitted && (
-              <div className="text-base">
-                <p className="mb-4 indent-4">
-                  {isGlobalFormSubmitted
-                    ? 'Votre inscription a bien été enregistrée !'
-                    : "Nous avons rencontré un problème lors de l'inscription. Veuillez réessayer ultérieurement."}
-                </p>
-
-                <p className="mb-4 indent-4">
-                  {isGlobalFormSubmitted
-                    ? 'Merci de vous être inscrit sur KineSoin. Votre compte est en cours de validation et sera activé prochainement. Vous recevrez une confirmation dès son activation.'
-                    : "Une erreur est survenue lors de l'inscription. Cela peut être dû à une connexion instable ou à un problème temporaire sur nos serveurs. Veuillez vérifier votre connexion Internet et réessayer dans quelques minutes. Si le problème persiste, contactez notre support technique pour obtenir de l'aide."}
-                </p>
-
-                <p className="indent-4">
-                  <Link to="/" className="font-bold text-primaryRed">
-                    Retour à l'accueil
-                  </Link>{' '}
-                </p>
-              </div>
-            )}
+            {isGlobalFormSubmitted &&
+              (isLoading ? (
+                DNALoader()
+              ) : (
+                <div className="text-base">
+                  <p className="mb-4 indent-4">
+                    Votre inscription a bien été enregistrée !
+                  </p>
+                  <p className="mb-4 indent-4">
+                    Merci de vous être inscrit sur KineSoin. Votre compte est en
+                    cours de validation et sera activé prochainement. Vous
+                    recevrez une confirmation dès son activation.
+                  </p>
+                  <p className="indent-4">
+                    <Link to="/" className="font-bold text-primaryRed">
+                      Retour à l'accueil
+                    </Link>
+                  </p>
+                </div>
+              ))}
 
             {!isThirdFormValidated && (
               <div className="flex items-center">

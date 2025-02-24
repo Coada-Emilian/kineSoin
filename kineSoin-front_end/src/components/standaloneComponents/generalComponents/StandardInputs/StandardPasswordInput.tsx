@@ -164,7 +164,7 @@ export default function StandardPasswordInput({
           type={showPassword ? 'text' : 'password'}
           name={getInputName()}
           id={getInputId()}
-          className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-base"
+          className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md "
           placeholder={getPlaceholder()}
           autoComplete={getAutoComplete()}
         />

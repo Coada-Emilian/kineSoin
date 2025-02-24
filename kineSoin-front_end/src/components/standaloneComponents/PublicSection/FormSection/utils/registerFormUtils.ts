@@ -1,17 +1,21 @@
+import { handlePatientRegistration } from '../../../../../utils/apiUtils/publicApiUtils';
+
 interface RegisterFormUtilsProps {
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  setErrorMessage?: React.Dispatch<React.SetStateAction<string>>;
+  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPatientRegisterPageRendered?: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  setSentPatientData: React.Dispatch<
+  setSentPatientData?: React.Dispatch<
     React.SetStateAction<Record<string, string | Blob>>
   >;
   patientImage?: Blob | null;
   sentPatientData?: Record<string, string | Blob>;
+  isThirdFormValidated?: boolean;
+  setIsGlobalFormSubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Patient registration function for the first form
@@ -26,9 +30,13 @@ export const handleFirstPatientRegisterForm = async (
   }: RegisterFormUtilsProps
 ) => {
   try {
-    setIsLoading(true);
+    if (setIsLoading) {
+      setIsLoading(true);
+    }
     e.preventDefault();
-    setErrorMessage('');
+    if (setErrorMessage) {
+      setErrorMessage('');
+    }
 
     // Retrieve the form data, the current date and year
     const form = e.currentTarget;
@@ -51,31 +59,41 @@ export const handleFirstPatientRegisterForm = async (
       !patientBirthDate ||
       !patientGender
     ) {
-      setErrorMessage('Veuillez remplir tous les champs');
+      setErrorMessage && setErrorMessage('Veuillez remplir tous les champs');
+
       return;
     } else if (patientBirthDate > currentDate.toISOString().split('T')[0]) {
-      setErrorMessage('Veuillez entrer une date valide');
+      setErrorMessage && setErrorMessage('Veuillez entrer une date valide');
+
       return;
     } else if (patientBirthDate < '1900-01-01') {
-      setErrorMessage(
-        'Veuillez entrer une date de naissance valide (après 1900)'
-      );
+      setErrorMessage &&
+        setErrorMessage(
+          'Veuillez entrer une date de naissance valide (après 1900)'
+        );
+
       return;
     } else if (
       !nameRegex.test(patientName as string) ||
       !nameRegex.test(patientBirthName as string) ||
       !nameRegex.test(patientSurname as string)
     ) {
-      setErrorMessage(
-        'Le nom, le prénom et le nom de naissance ne doivent contenir que des lettres.'
-      );
+      setErrorMessage &&
+        setErrorMessage(
+          'Le nom, le prénom et le nom de naissance ne doivent contenir que des lettres.'
+        );
+
       return;
     }
     // Check if the patient is under 12 years old
     else {
       const age = currentYear - Number(patientBirthDate.split('-')[0]);
       if (age < 12) {
-        setErrorMessage('Vous devez avoir au moins 12 ans pour vous inscrire');
+        setErrorMessage &&
+          setErrorMessage(
+            'Vous devez avoir au moins 12 ans pour vous inscrire'
+          );
+
         return;
       }
     }
@@ -90,17 +108,18 @@ export const handleFirstPatientRegisterForm = async (
     };
 
     // Set the patient error message to an empty string
-    setErrorMessage('');
+    setErrorMessage && setErrorMessage('');
     // Set the sent patient data with the form data
-    setSentPatientData(sentData);
+    setSentPatientData && setSentPatientData(sentData);
     // Set the first form as validated and the second form as not validated
-    setIsFirstFormValidated(true);
+    setIsFirstFormValidated && setIsFirstFormValidated(true);
     if (setIsPatientRegisterPageRendered) {
       setIsPatientRegisterPageRendered(false);
     }
-    setIsLoading(false);
+    setIsLoading && setIsLoading(false);
   } catch (error) {
-    setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+    setErrorMessage &&
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     console.error(error);
   }
 };
@@ -118,9 +137,9 @@ export const handleSecondPatientRegisterForm = async (
   }: RegisterFormUtilsProps
 ) => {
   try {
-    setIsLoading(true);
+    setIsLoading && setIsLoading(true);
     e.preventDefault();
-    setErrorMessage('');
+    setErrorMessage && setErrorMessage('');
 
     // Retrieve the form data
     const form = e.currentTarget;
@@ -141,23 +160,28 @@ export const handleSecondPatientRegisterForm = async (
       !patientPhoneNumber ||
       !patientPrefix
     ) {
-      setErrorMessage('Veuillez remplir tous les champs');
+      setErrorMessage && setErrorMessage('Veuillez remplir tous les champs');
     } else if (!/^\d{5}$/.test(patientPostalCode)) {
-      setErrorMessage('Veuillez entrer un code postal valide');
+      setErrorMessage &&
+        setErrorMessage('Veuillez entrer un code postal valide');
       return;
     } else if (!/^[A-Za-zÀ-ÿ\s'-]+$/.test(patientCity)) {
-      setErrorMessage('Veuillez entrer un nom de ville valide');
+      setErrorMessage &&
+        setErrorMessage('Veuillez entrer un nom de ville valide');
       return;
     } else if (!/^\d+$/.test(patientStreetNumber)) {
-      setErrorMessage('Veuillez entrer un numéro de rue valide');
+      setErrorMessage &&
+        setErrorMessage('Veuillez entrer un numéro de rue valide');
       return;
     } else if (!/^[A-Za-zÀ-ÿ\s'-]+$/.test(patientStreetName)) {
-      setErrorMessage('Veuillez entrer un nom de rue valide');
+      setErrorMessage &&
+        setErrorMessage('Veuillez entrer un nom de rue valide');
       return;
     } else if (!/^\+?\d{1,15}$/.test(patientPhoneNumber)) {
-      setErrorMessage(
-        "Veuillez entrer un numéro de téléphone valide (+ et jusqu'à 15 chiffres)"
-      );
+      setErrorMessage &&
+        setErrorMessage(
+          "Veuillez entrer un numéro de téléphone valide (+ et jusqu'à 15 chiffres)"
+        );
       return;
     } else {
       // Create an object with the form data
@@ -173,17 +197,19 @@ export const handleSecondPatientRegisterForm = async (
       };
 
       // Set the patient error message to an empty string
-      setErrorMessage('');
+      setErrorMessage && setErrorMessage('');
       // Set the sent patient data with the form data
-      setSentPatientData({ ...sentPatientData, ...sentData });
+      setSentPatientData &&
+        setSentPatientData({ ...sentPatientData, ...sentData });
       // Set the second form as validated and the third form as not validated
-      setIsFirstFormValidated(false);
-      setIsSecondFormValidated(true);
-      setIsLoading(false);
+      setIsLoading && setIsLoading(false);
+      setIsFirstFormValidated && setIsFirstFormValidated(false);
+      setIsSecondFormValidated && setIsSecondFormValidated(true);
     }
   } catch (error) {
     console.error(error);
-    setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+    setErrorMessage &&
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
   }
 };
 
@@ -201,9 +227,9 @@ export const handleThirdPatientRegisterForm = async (
   }: RegisterFormUtilsProps
 ) => {
   try {
-    setIsLoading(true);
+    setIsLoading && setIsLoading(true);
     e.preventDefault();
-    setErrorMessage('');
+    setErrorMessage && setErrorMessage('');
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -217,27 +243,31 @@ export const handleThirdPatientRegisterForm = async (
       !patientPassword ||
       !patientConfirmPassword
     ) {
-      setErrorMessage('Veuillez remplir tous les champs');
+      setErrorMessage && setErrorMessage('Veuillez remplir tous les champs');
       return;
     } else if (patientPassword !== patientConfirmPassword) {
-      setErrorMessage('Les mots de passe ne correspondent pas');
+      setErrorMessage &&
+        setErrorMessage('Les mots de passe ne correspondent pas');
       return;
     } else if (patientPassword.length < 12) {
-      setErrorMessage('Le mot de passe doit contenir au moins 12 caractères');
+      setErrorMessage &&
+        setErrorMessage('Le mot de passe doit contenir au moins 12 caractères');
       return;
     } else if (
       !/\d/.test(patientPassword) ||
       !/[a-z]/.test(patientPassword) ||
       !/[A-Z]/.test(patientPassword)
     ) {
-      setErrorMessage(
-        'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre'
-      );
+      setErrorMessage &&
+        setErrorMessage(
+          'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre'
+        );
       return;
     } else if (
       !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(patientEmail)
     ) {
-      setErrorMessage('Veuillez entrer une adresse email valide');
+      setErrorMessage &&
+        setErrorMessage('Veuillez entrer une adresse email valide');
       return;
     } else {
       const sentData = {
@@ -246,14 +276,42 @@ export const handleThirdPatientRegisterForm = async (
         repeated_password: patientConfirmPassword,
         photo: patientImage,
       };
-      setSentPatientData({ ...sentPatientData, ...sentData });
-      setIsSecondFormValidated(false);
-      setIsThirdFormValidated(true);
-      setIsLoading(false);
+      setSentPatientData &&
+        setSentPatientData({ ...sentPatientData, ...sentData });
+      setIsSecondFormValidated && setIsSecondFormValidated(false);
+      setIsThirdFormValidated && setIsThirdFormValidated(true);
+      setIsLoading && setIsLoading(false);
     }
   } catch (error) {
     console.error(error);
-    setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+    setErrorMessage &&
+      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
   }
 };
 
+export const registerPatient = async ({
+  isThirdFormValidated,
+  setIsLoading,
+  sentPatientData,
+  setIsGlobalFormSubmitted,
+}: RegisterFormUtilsProps) => {
+  if (isThirdFormValidated) {
+    try {
+      setIsLoading && setIsLoading(true);
+      const formData = new FormData();
+      Object.entries(sentPatientData || {}).forEach(([key, value]) => {
+        formData.append(key, value as string | Blob);
+      });
+      const response = await handlePatientRegistration(formData);
+      if (response) {
+        if (setIsGlobalFormSubmitted) {
+          setIsLoading && setIsLoading(false);
+          setIsGlobalFormSubmitted(true);
+        }
+      }
+    } catch (error) {
+      setIsLoading && setIsLoading(false);
+      console.error(error);
+    }
+  }
+};

@@ -79,7 +79,7 @@ export default function StandardDateInput({
         type="date"
         name={inputName}
         id={id}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md"
         onChange={(e) => getInputOnChange(e)}
         value={inputValue}
       />

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
-import CustomButton from '../CustomButton/CustomButton';
+import CustomButton from '../../CustomButton/CustomButton';
+import { handleFileChange } from './functions/handleFileChange';
 
 interface ImageModalProps {
   isPatientRegisterImageModalOpen?: boolean;
@@ -12,12 +13,14 @@ interface ImageModalProps {
   setFileName?: React.Dispatch<React.SetStateAction<string>>;
   setIsPatientImageUploaded?: React.Dispatch<React.SetStateAction<boolean>>;
   isPatientRegisterImageModal?: boolean;
+
   isNewPrescriptionScanModal?: boolean;
   setPrescriptionScan?: React.Dispatch<React.SetStateAction<File | null>>;
   isNewPrescriptionModalOpen?: boolean;
   setIsNewPrescriptionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setScanPreview?: React.Dispatch<React.SetStateAction<string | null>>;
   setIsScanUploaded?: React.Dispatch<React.SetStateAction<boolean>>;
+
   isAdminTherapistImageModal?: boolean;
   isAdminTherapistImageModalOpen?: boolean;
   setIsAdminTherapistImageModalOpen?: React.Dispatch<
@@ -37,12 +40,14 @@ export default function ImageModal({
   setFileName,
   setIsPatientImageUploaded,
   isPatientRegisterImageModal,
+
   isNewPrescriptionScanModal,
   setPrescriptionScan,
   isNewPrescriptionModalOpen,
   setIsNewPrescriptionModalOpen,
   setScanPreview,
   setIsScanUploaded,
+
   isAdminTherapistImageModal,
   isAdminTherapistImageModalOpen,
   setIsAdminTherapistImageModalOpen,
@@ -52,33 +57,6 @@ export default function ImageModal({
 }: ImageModalProps) {
   const windowWidth = window.innerWidth;
   const [preview, setPreview] = useState<string | null>(null);
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (setFileName) {
-        setFileName(file.name);
-      }
-      // Create a URL for the file preview
-      const previewUrl = URL.createObjectURL(file);
-      setPreview(previewUrl);
-      if (setPreviewUrl) {
-        setPreviewUrl(previewUrl);
-      }
-      if (setPatientImage) {
-        setPatientImage(file);
-      }
-      if (setPrescriptionScan) {
-        setPrescriptionScan(file);
-      }
-      if (setTherapistImageFile) {
-        setTherapistImageFile(file);
-      }
-    } else {
-      if (setFileName) {
-        setFileName('Aucun fichier sélectionné');
-      }
-    }
-  };
 
   return (
     <ReactModal
@@ -141,7 +119,16 @@ export default function ImageModal({
                   : ''
           }`}
           className="hidden"
-          onChange={handleFileChange}
+          onChange={(e) =>
+            handleFileChange(e, {
+              setFileName,
+              setPreview,
+              setPreviewUrl,
+              setPatientImage,
+              setPrescriptionScan,
+              setTherapistImageFile,
+            })
+          }
         />
 
         <label
@@ -162,6 +149,7 @@ export default function ImageModal({
               ? `${(fileName || '').slice(0, 10)}...`
               : `${(fileName || '').slice(0, 35)}...`}
           </span>
+
           <span className="bg-secondaryTeal text-white px-3 py-1 rounded-md text-center">
             Choisir un fichier
           </span>
@@ -170,6 +158,7 @@ export default function ImageModal({
         {preview && (
           <div className="mt-4 flex flex-col items-center gap-2">
             <p className="text-gray-700 text-sm mb-4">Aperçu de l'image </p>
+
             <img
               src={preview}
               alt="Aperçu du fichier"

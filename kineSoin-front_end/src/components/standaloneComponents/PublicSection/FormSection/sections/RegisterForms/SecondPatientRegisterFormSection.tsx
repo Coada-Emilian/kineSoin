@@ -18,8 +18,8 @@ export default function SecondPatientRegisterFormSection() {
       </div>
 
       <div className="flex gap-2 items-center justify-between">
-        {' '}
         <StandardDropdownInput isCountryDropdownInput />
+
         <StandardTelephoneInput isPatientTelephoneInput />
       </div>
     </>

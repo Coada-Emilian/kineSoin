@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import addIcon from '/icons/plus.png';
 import checkIcon from '/icons/check.png';
-import ImageModal from '../Modals/ImageModal';
+import ImageModal from '../../Modals/imageModal/ImageModal';
 
 interface StandardFileInputProps {
   isPatientRegisterImageInput?: boolean;
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
+
   isNewPrescriptionFileInput?: boolean;
   setPrescriptionScan?: React.Dispatch<React.SetStateAction<File | null>>;
   setScanPreview?: React.Dispatch<React.SetStateAction<string | null>>;
+
   isAdminTherapistImageAddInput?: boolean;
   setPreviewUrl?: React.Dispatch<React.SetStateAction<string | null>>;
   setTherapistImageFile?: React.Dispatch<React.SetStateAction<File | null>>;
@@ -17,9 +19,11 @@ interface StandardFileInputProps {
 export default function StandardFileInput({
   isPatientRegisterImageInput,
   setPatientImage,
+
   isNewPrescriptionFileInput,
   setPrescriptionScan,
   setScanPreview,
+
   isAdminTherapistImageAddInput,
   setPreviewUrl,
   setTherapistImageFile,
@@ -54,13 +58,11 @@ export default function StandardFileInput({
           ? 'Ajouter une photo'
           : '';
 
-  const labelContent = getLabelContent();
-
   return (
     <div className="mb-4 flex flex-col gap-2 items-center md:items-start">
-      <div className="flex gap-2 items-center mb-2">
-        <label className="text-primaryBlue text-sm font-medium italic">
-          {labelContent}
+      <div className="flex gap-2 items-center text-xxs md:text-xs xl:text-sm 2xl:text-md">
+        <label className="text-primaryBlue font-medium italic">
+          {getLabelContent()}
         </label>
 
         {((isPatientRegisterImageInput && isPatientImageUploaded) ||
@@ -77,7 +79,7 @@ export default function StandardFileInput({
           <>
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic "
+              className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic text-xxs md:text-xs xl:text-sm 2xl:text-md "
               value={fileName}
               onChange={() => {}}
               readOnly
