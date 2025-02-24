@@ -1,5 +1,3 @@
-// Purpose: The purpose of this component is to render the table title of the admin table.
-
 import {
   IAffliction,
   IBodyRegion,
@@ -28,6 +26,24 @@ export default function TableHead({
   allInsurances,
   allBodyRegions,
 }: TableHeadProps) {
+  const getSecondTableHeadContent = () => {
+    if (allTherapists) return 'Nom kiné';
+    if (allPatients) return 'Nom patient';
+    if (allAfflictions) return 'Nom affliction';
+    if (allMedics) return 'Nom médecin';
+    if (allInsurances) return 'Nom organisme';
+    if (allBodyRegions) return 'Nom région';
+    return null;
+  };
+
+  const getThirdTableHeadContent = () => {
+    if (allTherapists || allPatients) return 'Statut';
+    if (allAfflictions) return 'Region concernée';
+    if (allMedics) return 'Code ADELI';
+    if (allInsurances) return 'Code AMC';
+    return null;
+  };
+
   return (
     <thead
       className={
@@ -41,24 +57,12 @@ export default function TableHead({
           <th className="border border-gray-300 px-4 py-2 text-center">#id</th>
 
           <th className="border border-gray-300 px-4 py-2 text-center">
-            {allTherapists && 'Nom kiné'}
-            {allPatients && 'Nom patient'}
-            {allAfflictions && 'Nom affliction'}
-            {allMedics && 'Nom médecin'}
-            {allInsurances && 'Nom organisme'}
-            {allBodyRegions && 'Nom région'}
+            {getSecondTableHeadContent()}
           </th>
 
-          {(allTherapists ||
-            allPatients ||
-            allAfflictions ||
-            allMedics ||
-            allInsurances) && (
+          {!allBodyRegions && (
             <th className="border border-gray-300 px-4 py-2 text-center">
-              {allTherapists ? 'Statut' : allPatients && 'Statut'}
-              {allAfflictions && 'Region concernée'}
-              {allMedics && 'Code ADELI'}
-              {allInsurances && 'Code AMC'}
+              {getThirdTableHeadContent()}
             </th>
           )}
 

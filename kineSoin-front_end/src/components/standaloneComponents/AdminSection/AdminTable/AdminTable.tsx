@@ -8,10 +8,11 @@ import TableTitle from './pageComponents/Common/TableTitle';
 import TableHead from './pageComponents/Common/TableHead';
 import TableBody from './pageComponents/Common/TableBody';
 import StatusButtons from './pageComponents/Common/StatusButtons';
-import AdminModal from './pageComponents/Modals/AdminModal';
+import AdminModal from './pageComponents/Modals/adminModal/AdminModal';
 import RegionModal from './pageComponents/Modals/RegionModal';
 import AddRegionModal from './pageComponents/Modals/AddRegionModal';
 import {
+  IAddForm,
   IAffliction,
   IBodyRegion,
   IInsurance,
@@ -90,22 +91,22 @@ export default function AdminTable({
   );
 
   // State for the add form
-  const [addForm, setAddForm] = useState({
-    name: '' as string,
-    surname: '' as string,
-    email: '' as string,
-    password: '' as string,
-    repeated_password: '' as string,
-    description: '' as string,
-    diploma: '' as string,
-    experience: '' as string,
-    specialty: '' as string,
-    licence_code: '' as string,
-    status: '' as string,
-    photo: '' as File | unknown,
-    prefix: '' as string,
-    phone_number: '' as string,
-    full_phone_number: '' as string,
+  const [addForm, setAddForm] = useState<IAddForm>({
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    repeated_password: '',
+    description: '',
+    diploma: '',
+    experience: '',
+    specialty: '',
+    licence_code: '',
+    status: '',
+    photo: undefined,
+    prefix: '',
+    phone_number: '',
+    full_phone_number: '',
   });
 
   // useEffects to set rendered therapists, patients, afflictions
