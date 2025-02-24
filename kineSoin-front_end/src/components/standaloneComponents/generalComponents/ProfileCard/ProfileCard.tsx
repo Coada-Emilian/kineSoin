@@ -13,7 +13,7 @@ import phoneIcon from '/icons/phone-call.png';
 import { Link, useNavigate } from 'react-router-dom';
 import StandardTextInput from '../StandardInputs/standardTextFields/StandardTextInput';
 import StandardDateInput from '../StandardInputs/StandardDateInput';
-import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
+import StandardChoiceDropdown from '../StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
 import StandardEmailInput from '../StandardInputs/StandardEmailInput';
 import EditIcon from '../EditIcon/EditIcon';

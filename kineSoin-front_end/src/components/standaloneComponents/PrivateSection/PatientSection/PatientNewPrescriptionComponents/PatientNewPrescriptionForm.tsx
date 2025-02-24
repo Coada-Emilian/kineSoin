@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import StandardDateInput from '../../../generalComponents/StandardInputs/StandardDateInput';
-import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardFileInput from '../../../generalComponents/StandardInputs/StandardFileInput';
 import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import { useNavigate } from 'react-router-dom';

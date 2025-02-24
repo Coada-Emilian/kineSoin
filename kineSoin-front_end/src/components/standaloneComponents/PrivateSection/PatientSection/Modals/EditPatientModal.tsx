@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
-import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
 import { IInsurance, IPatient_Insurance } from '../../../../../@types/types';
 import {

@@ -17,17 +17,23 @@ import { useEffect, useState } from 'react';
 
 interface MobileNavProps {
   isAdminMobileNav?: boolean;
+
   isPublicMobileNav?: boolean;
+
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   isPatientMobileNav?: boolean;
+
   isTherapistMobileNav?: boolean;
 }
 
 export default function MobileNav({
   isAdminMobileNav,
+
   isPublicMobileNav,
+
   setIsRegisterPageRendered,
   isPatientMobileNav,
+
   isTherapistMobileNav,
 }: MobileNavProps) {
   interface Link {
@@ -163,15 +169,17 @@ export default function MobileNav({
   const [activeLinks, setActiveLinks] = useState<Link[]>([]);
 
   useEffect(() => {
-    if (isAdminMobileNav) {
-      setActiveLinks(adminLinks);
-    } else if (isPublicMobileNav) {
-      setActiveLinks(publicLinks);
-    } else if (isPatientMobileNav) {
-      setActiveLinks(patientLinks);
-    } else if (isTherapistMobileNav) {
-      setActiveLinks(therapistLinks);
-    }
+    setActiveLinks(
+      isAdminMobileNav
+        ? adminLinks
+        : isPublicMobileNav
+          ? publicLinks
+          : isPatientMobileNav
+            ? patientLinks
+            : isTherapistMobileNav
+              ? therapistLinks
+              : []
+    );
   }, []);
 
   return (
@@ -189,6 +197,7 @@ export default function MobileNav({
           }
         >
           <img src={link.icon} alt={link.name} className="w-8 mb-1" />
+
           <p className="text-xxs font-medium">{link.name}</p>
         </NavLink>
       ))}

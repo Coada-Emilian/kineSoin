@@ -14,9 +14,12 @@ import { removeTherapistTokenFromLocalStorage } from '../../../../localStorage/t
 
 interface NavBarProps {
   windowWidth?: number;
+
   isAdminNavBar?: boolean;
   isAdminAuthenticated?: boolean;
+
   isPublicNavBar?: boolean;
+
   isPatientNavBar?: boolean;
   isPatientAuthenticated?: boolean;
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,16 +28,20 @@ interface NavBarProps {
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+
   isTherapistNavBar?: boolean;
-  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   isTherapistAuthenticated?: boolean;
+  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function NavBar({
   windowWidth,
+
   isAdminNavBar,
   isAdminAuthenticated,
+
   isPublicNavBar,
+
   isPatientNavBar,
   isPatientAuthenticated,
   setIsAdminAuthenticated,
@@ -43,6 +50,7 @@ export default function NavBar({
   setIsSecondFormValidated,
   setIsThirdFormValidated,
   setIsPatientAuthenticated,
+
   isTherapistNavBar,
   setIsTherapistAuthenticated,
   isTherapistAuthenticated,
@@ -93,11 +101,9 @@ export default function NavBar({
     useState(0);
 
   return (
-    <header
-      className={`bg-gradient-to-r from-white to-gray-200 bg-opacity-70 sticky top-0 w-full py-1 z-10`}
-    >
+    <header className="bg-gradient-to-r from-white to-gray-200 bg-opacity-70 sticky top-0 w-full py-1 z-10">
       <nav
-        className={`flex ${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} items-center w-full px-4 `}
+        className={`${isPublicNavBar ? 'justify-center md:justify-between' : 'justify-between'} flex items-center w-full px-4 `}
       >
         <Link
           to="/"

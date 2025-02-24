@@ -4,6 +4,7 @@ interface StandardDateInputProps {
   isPatientRegisterBirthdateInput?: boolean;
 
   isNewPrescriptionDateInput?: boolean;
+
   isPatientProfileBirthDateModification?: boolean;
   birth_date?: string;
 }
@@ -12,13 +13,16 @@ export default function StandardDateInput({
   isPatientRegisterBirthdateInput,
 
   isNewPrescriptionDateInput,
+
   isPatientProfileBirthDateModification,
   birth_date,
 }: StandardDateInputProps) {
+  // State to store the patient birth date
   const [patientBirthDate, setPatientBirthDate] = useState<string | undefined>(
     birth_date
   );
 
+  // Conditional rendering variables
   const id = isPatientRegisterBirthdateInput
     ? 'patient-register-birth_date_input'
     : isNewPrescriptionDateInput
@@ -55,6 +59,7 @@ export default function StandardDateInput({
         ? 'date'
         : '';
 
+  // Function to get the input value on change
   const getInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isPatientProfileBirthDateModification) {
       setPatientBirthDate(e.target.value);
@@ -63,8 +68,6 @@ export default function StandardDateInput({
   };
 
   const inputValue = birth_date ? patientBirthDate : undefined;
-
-  const inputOnChange = getInputOnChange;
 
   return (
     <div className={divClassName}>
@@ -77,7 +80,7 @@ export default function StandardDateInput({
         name={inputName}
         id={id}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50"
-        onChange={(e) => inputOnChange(e)}
+        onChange={(e) => getInputOnChange(e)}
         value={inputValue}
       />
     </div>

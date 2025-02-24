@@ -1,12 +1,3 @@
-/**
- * @file Footer.tsx
- * @description A React functional component that renders the footer for the admin section
- * of the KineSoin application. The footer displays the current year and a copyright notice.
- *
- * @returns {JSX.Element} The rendered Footer component, which includes the copyright
- * information styled as a footer.
- */
-
 interface FooterProps {
   isAdminFooter?: boolean;
 }
@@ -36,6 +27,7 @@ export default function Footer({ isAdminFooter }: FooterProps) {
       href: '/cookies',
     },
   ];
+
   return (
     <>
       {isAdminFooter ? (

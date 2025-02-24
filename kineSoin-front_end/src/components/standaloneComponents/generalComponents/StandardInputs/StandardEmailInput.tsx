@@ -2,20 +2,30 @@ import { useState } from 'react';
 
 interface StandardEmailInputProps {
   isPatientLoginPageEmailInput?: boolean;
+
   isTherapistLoginPageEmailInput?: boolean;
+
   isPatientRegisterEmailInput?: boolean;
+
   isAdminEmailInput?: boolean;
+
   isAdminTherapistAddEmailInput?: boolean;
+
   isPatientProfileEmailModification?: boolean;
   patient_email?: string;
 }
 
 export default function StandardEmailInput({
   isPatientLoginPageEmailInput,
+
   isTherapistLoginPageEmailInput,
+
   isPatientRegisterEmailInput,
+
   isAdminEmailInput,
+
   isAdminTherapistAddEmailInput,
+
   isPatientProfileEmailModification,
   patient_email,
 }: StandardEmailInputProps) {
@@ -34,10 +44,6 @@ export default function StandardEmailInput({
                 ? 'patient_email_input'
                 : '';
 
-  const [patientEmail, setPatientEmail] = useState(
-    patient_email ? patient_email : ''
-  );
-
   const getInputClassName = () => {
     return `${
       isPatientProfileEmailModification ? 'w-full' : 'w-full'
@@ -51,6 +57,10 @@ export default function StandardEmailInput({
         ? ''
         : 'Entrez votre e-mail';
   };
+
+  const [patientEmail, setPatientEmail] = useState(
+    patient_email ? patient_email : ''
+  );
 
   return (
     <div

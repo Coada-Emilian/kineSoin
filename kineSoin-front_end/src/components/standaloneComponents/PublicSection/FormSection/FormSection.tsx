@@ -143,7 +143,6 @@ export default function FormSection({
     <section
       className={`${sectionPadding} ${sectionBackground} bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
     >
-      {' '}
       <div
         className={`${
           !isHomePageFormSection
@@ -229,7 +228,7 @@ export default function FormSection({
               {isGlobalFormSubmitted && "Confirmation d'inscription"}
             </h2>
 
-            <img src={mainLogo} alt="kinesoin" className="w-14 mx-auto mb-4" />
+            <img src={mainLogo} alt="Kinesoin" className="w-14 mx-auto mb-4" />
 
             {errorMessage && (
               <p className="text-center text-red-600 font-medium mb-2">

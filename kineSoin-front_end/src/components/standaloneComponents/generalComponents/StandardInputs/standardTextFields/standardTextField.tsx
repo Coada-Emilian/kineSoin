@@ -102,7 +102,7 @@ interface TherapistMessageProps {
   isTherapistSendMessageInput?: boolean;
 }
 
-interface StandardTextFieldProps {
+interface StandardTextFieldsProps {
   patientRegister?: GeneralInputProps;
   adminTherapist?: AdminTherapistProps;
   adminAffliction?: AdminAfflictionProps;
@@ -124,7 +124,7 @@ export const standardTextFields = ({
   dataInput,
   adminRegion,
   therapistMessage,
-}: StandardTextFieldProps) => {
+}: StandardTextFieldsProps) => {
   const [therapistState, setTherapistState] = useState({
     name: dataInput?.therapist?.name || '',
     surname: dataInput?.therapist?.surname || '',

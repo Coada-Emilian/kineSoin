@@ -5,27 +5,41 @@ import questionIcon from '/icons/question-circle.svg';
 
 interface StandardPasswordInputProps {
   isPatientLoginPagePasswordInput?: boolean;
+
   isTherapistLoginPagePasswordInput?: boolean;
+
   isPatientRegisterPasswordInput?: boolean;
+
   isPatientRegisterConfirmPasswordInput?: boolean;
+
   isOldPasswordInput?: boolean;
   isNewPasswordInput?: boolean;
   isRepeatPasswordInput?: boolean;
+
   isAdminPasswordInput?: boolean;
+
   isAdminTherapistAddPasswordInput?: boolean;
+
   isAdminTherapistAddRepeatedPasswordInput?: boolean;
 }
 
 export default function StandardPasswordInput({
   isPatientLoginPagePasswordInput,
+
   isTherapistLoginPagePasswordInput,
+
   isPatientRegisterPasswordInput,
+
   isPatientRegisterConfirmPasswordInput,
+
   isOldPasswordInput,
   isNewPasswordInput,
   isRepeatPasswordInput,
+
   isAdminPasswordInput,
+
   isAdminTherapistAddPasswordInput,
+
   isAdminTherapistAddRepeatedPasswordInput,
 }: StandardPasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -154,6 +168,7 @@ export default function StandardPasswordInput({
           placeholder={getPlaceholder()}
           autoComplete={getAutoComplete()}
         />
+
         <button
           type="button"
           onClick={() => setShowPassword((prev) => !prev)}

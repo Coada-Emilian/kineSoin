@@ -5,7 +5,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../@types/types';
-import { standardTextFields } from './standardTextFields';
+import { standardTextFields } from './standardTextField';
 
 interface GeneralInputProps {
   isNameInput?: boolean;

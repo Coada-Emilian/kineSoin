@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import {
   IAffliction,
   IAppointment,
@@ -8,9 +8,11 @@ import {
   IInsurance,
   IMedic,
   IPrescription,
-} from '../../../../@types/types';
-import { fetchPatientAppointmentsByPrescription } from '../../../../utils/apiUtils/patientApiUtils';
-import { fetchBodyRegionsAsAdmin } from '../../../../utils/apiUtils/adminApiUtils';
+} from '../../../../../@types/types';
+import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils';
+import { fetchAppointmentsByPrescription } from './functions/fetchAppointmentsByPrescription';
+import { identifyOldInsurance } from './functions/identifyOldInsurance';
+import { fetchCountriesData } from './functions/fetchCountriesData';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -89,17 +91,10 @@ export default function StandardChoiceDropdown({
   isPatientProfilePrefixModification,
   patient_prefix,
 }: StandardChoiceDropdownProps) {
+  // Get the window width
   const windowWidth = window.innerWidth;
+
   // Function to fetch appointments by prescription
-  const fetchAppointmentsByPrescription = async (prescriptionId: number) => {
-    const response =
-      await fetchPatientAppointmentsByPrescription(prescriptionId);
-    if (response) {
-      setFutureAppointments &&
-        setFutureAppointments(response.futureAppointments);
-      setPastAppointments && setPastAppointments(response.pastAppointments);
-    }
-  };
 
   // Patient insurance dropdown state
   const [otherInsurances, setOtherInsurances] = useState<IInsurance[]>([]);
@@ -112,35 +107,21 @@ export default function StandardChoiceDropdown({
     patient_prefix || null
   );
 
-  // Function to identify the old insurance
-  const identifyOldInsurance = (
-    insuranceList: IInsurance[],
-    oldInsuranceName: string
-  ) => {
-    const oldInsurance = insuranceList.find(
-      (insurance) => insurance.name === oldInsuranceName
-    );
-    if (oldInsurance) {
-      setActualInsurance(oldInsurance);
-    }
-    const otherInsurances = insuranceList.filter(
-      (insurance) => insurance.name !== oldInsuranceName
-    );
-    if (otherInsurances.length > 0) {
-      setOtherInsurances(otherInsurances);
-    }
-  };
-
   const [isPrefixChosen, setIsPrefixChosen] = useState(false);
+
+  const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+
+  const [countries, setCountries] = useState<ICountry[]>([]);
 
   // UseEffect to identify the old insurance
   useEffect(() => {
     if (insuranceList && oldPatientInsuranceName) {
-      identifyOldInsurance(insuranceList, oldPatientInsuranceName);
+      identifyOldInsurance(insuranceList, oldPatientInsuranceName, {
+        setActualInsurance,
+        setOtherInsurances,
+      });
     }
   }, [insuranceList, oldPatientInsuranceName]);
-
-  const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
   {
     if (isAdminAfflictionAddRegionInput || isAdminAfflictionEditRegionInput) {
@@ -152,37 +133,9 @@ export default function StandardChoiceDropdown({
     }
   }
 
-  const [countries, setCountries] = useState<ICountry[]>([]);
-
   useEffect(() => {
     if (isCountryDropdownInput) {
-      const fetchCountriesData = async () => {
-        try {
-          const response = await axios.get(
-            'https://restcountries.com/v3.1/all'
-          );
-          if (response) {
-            const data: ICountry[] = response.data
-              .map((country: any): ICountry => {
-                const root = country.idd?.root || '';
-                const suffixes = country.idd?.suffixes || [];
-                const prefix = suffixes.length ? `${root}${suffixes[0]}` : root;
-
-                return {
-                  prefix: prefix,
-                  name: country.name.common,
-                };
-              })
-              .sort((a: ICountry, b: ICountry) => a.name.localeCompare(b.name));
-
-            setCountries(data);
-          }
-        } catch (error) {
-          console.error('Error fetching countries:', error);
-        }
-      };
-
-      fetchCountriesData();
+      fetchCountriesData({ setCountries });
     }
   }, [isCountryDropdownInput]);
 
@@ -308,9 +261,6 @@ export default function StandardChoiceDropdown({
       <select
         id={inputId}
         value={
-          // isGenderDropdownInput && registeredPatientGender
-          //   ? registeredPatientGender
-          //   :
           isAdminTherapistEditPrefixDropdown && therapist_prefix
             ? therapist_prefix
             : isAdminMedicEditPrefixDropdown && medic_prefix
@@ -333,7 +283,10 @@ export default function StandardChoiceDropdown({
           if (isPrescriptionDropdownInput) {
             const selectedPrescriptionId = Number(e.target.value);
             if (selectedPrescriptionId) {
-              fetchAppointmentsByPrescription(selectedPrescriptionId);
+              fetchAppointmentsByPrescription(selectedPrescriptionId, {
+                setFutureAppointments,
+                setPastAppointments,
+              });
             }
           }
           if (setIsPrefixChosen) {
@@ -454,6 +407,7 @@ export default function StandardChoiceDropdown({
                       ? patient_prefix
                       : 'Choisissez un préfixe'}
             </option>
+            
             {countries &&
               countries.map((country) => (
                 <option key={country.name} value={country.prefix}>

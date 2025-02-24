@@ -1,6 +1,6 @@
 import StandardTelephoneInput from '../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
-import StandardDropdownInput from '../../../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardDropdownInput from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 
 export default function SecondPatientRegisterFormSection() {
   return (

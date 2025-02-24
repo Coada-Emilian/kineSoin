@@ -7,7 +7,7 @@ import StandardTextInput from '../../../../generalComponents/StandardInputs/stan
 import StandardFileInput from '../../../../generalComponents/StandardInputs/StandardFileInput';
 import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
-import StandardChoiceDropdown from '../../../../generalComponents/StandardInputs/StandardDropdownInput';
+import StandardChoiceDropdown from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import {
   handleAfflictionCreationAsAdmin,

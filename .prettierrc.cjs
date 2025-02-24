@@ -8,6 +8,6 @@ module.exports = {
   sql: {
     tabWidth: 4,
     useTabs: false,
-    printWidth: 80,
+    printWidth: 120,
   },
 };
