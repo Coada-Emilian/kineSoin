@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
-import { IAddForm } from '../../../../../../../@types/types';
+import { IAddForm } from '../../../../../../../@types/standardTypes';
 import {
   addFirstFormDetails,
   addSecondFormDetails,

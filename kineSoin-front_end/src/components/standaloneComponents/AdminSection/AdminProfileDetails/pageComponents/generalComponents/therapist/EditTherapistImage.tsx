@@ -2,7 +2,7 @@
 
 import { Link } from 'react-router-dom';
 import editIcon from '/icons/edit.svg';
-import { ITherapist } from '../../../../../../../@types/types';
+import { ITherapist } from '../../../../../../../@types/standardTypes';
 
 interface EditTherapistImageProps {
   therapist: ITherapist;

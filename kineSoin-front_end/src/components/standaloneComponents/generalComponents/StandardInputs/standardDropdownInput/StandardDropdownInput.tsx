@@ -8,7 +8,7 @@ import {
   IInsurance,
   IMedic,
   IPrescription,
-} from '../../../../../@types/types';
+} from '../../../../../@types/standardTypes';
 import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils';
 import { fetchAppointmentsByPrescription } from './functions/fetchAppointmentsByPrescription';
 import { identifyOldInsurance } from './functions/identifyOldInsurance';

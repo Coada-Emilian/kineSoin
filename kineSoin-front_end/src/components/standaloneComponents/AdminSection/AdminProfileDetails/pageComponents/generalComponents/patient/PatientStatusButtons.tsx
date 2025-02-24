@@ -1,6 +1,6 @@
 import { MenuItem, MenuItems } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import { IPatient } from '../../../../../../../@types/types';
+import { IPatient } from '../../../../../../../@types/standardTypes';
 import { toggleStatus } from '../../utils/toggleStatus';
 
 interface PatientStatusButtons {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import AdminTable from '../../AdminTable';
-import { IBodyRegion } from '../../../../../../@types/types';
+import { IBodyRegion } from '../../../../../../@types/standardTypes';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils';
 
 interface RegionModalProps {

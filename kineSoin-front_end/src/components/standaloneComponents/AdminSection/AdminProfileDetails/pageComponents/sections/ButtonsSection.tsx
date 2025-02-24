@@ -9,7 +9,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/types';
+} from '../../../../../../@types/standardTypes';
 
 interface ButtonsSectionProps {
   isProfileEditing: boolean;

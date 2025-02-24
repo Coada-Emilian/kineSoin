@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ISameDayAppointment } from '../../../../../@types/types';
+import { ISameDayAppointment } from '../../../../../@types/standardTypes';
 import { Link } from 'react-router-dom';
 import messageIcon from '/icons/message.png';
 import messageIcon2 from '/icons/message2.png';
@@ -10,6 +10,8 @@ import DNALoader from '../../../../../utils/DNALoader';
 import dynamicIcon from '/icons/dynamic.png';
 import dynamicIcon2 from '/icons/dynamic2.png';
 import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils';
+import { generateTimeSlots } from '../../../../../utils/AppUtils/time';
+import SendMessageModal from '../Modals/SendMessageModal';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();
@@ -17,27 +19,6 @@ export default function TherapistDayTable() {
     .toLocaleDateString('fr-FR')
     .split('/')
     .join('/');
-
-  const windowWidth = window.innerWidth;
-
-  const generateTimeSlots = () => {
-    const times: string[] = [];
-    let start = new Date();
-    start.setHours(8, 0, 0, 0); // Start at 08:00 AM
-
-    while (start.getHours() < 20) {
-      // Until 08:00 PM
-      times.push(
-        start.toLocaleTimeString('fr-FR', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })
-      );
-      start.setMinutes(start.getMinutes() + 30); // Increment by 30 minutes
-    }
-
-    return times;
-  };
 
   const [tableAppointments, setTableAppointments] = useState<
     ISameDayAppointment[] | []
@@ -190,13 +171,7 @@ export default function TherapistDayTable() {
       {!noAppointments ? (
         <div className="w-full rounded-xl ">
           <table className="border-collapse border border-gray-300 w-11/12 mx-auto md:w-10/12 md:my-auto mb-6 shadow-xl ">
-            <thead
-              className={
-                windowWidth < 768
-                  ? 'bg-gray-100 text-xs'
-                  : 'bg-gray-100 text-sm md:text-base '
-              }
-            >
+            <thead className="bg-gray-100 xs:text-xs md:text-base">
               <tr className="text-xxs md:text-base ">
                 <>
                   <th className="border border-gray-300  p-1 md:p-2 text-center w-2/12">
@@ -212,19 +187,19 @@ export default function TherapistDayTable() {
                   </th>
 
                   <th className="border border-gray-300 text-center p-1 md:p-2 w-fit">
-                    {windowWidth < 768 ? 'Message' : 'Envoyer un message'}
+                    <span className="block md:hidden">Message</span>
+                    <span className="hidden md:block">Envoyer un message</span>
                   </th>
 
                   <th className="border border-gray-300  text-center p-1 md:p-2 ">
-                    {windowWidth < 768 ? 'Annuler' : 'Annuler RDV'}
+                    <span className="block md:hidden">Annuler</span>
+                    <span className="hidden md:block">Annuler RDV</span>
                   </th>
                 </>
               </tr>
             </thead>
 
-            <tbody
-              className={windowWidth < 768 ? 'text-xxs' : 'text-xs md:text-sm'}
-            >
+            <tbody className="xs:text-xxs sm:text-xs md:text-sm">
               {timeSlots.map((time, index) => {
                 const appointment = tableAppointments.find(
                   (appointment) => appointment.time === time
@@ -336,11 +311,12 @@ export default function TherapistDayTable() {
       )}
 
       {isSendMessageModalOpen && (
-        <TherapistModal
-          isSendMessageModal
+        <SendMessageModal
+          isOpen={isSendMessageModalOpen}
+          onClose={() => {
+            setIsSendMessageModalOpen(false);
+          }}
           patient={selectedPatient}
-          isSendMessageModalOpen={isSendMessageModalOpen}
-          setIsSendMessageModalOpen={setIsSendMessageModalOpen}
         />
       )}
 

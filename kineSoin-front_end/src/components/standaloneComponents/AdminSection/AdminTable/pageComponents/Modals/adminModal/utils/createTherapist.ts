@@ -1,4 +1,4 @@
-import { IAddForm } from '../../../../../../../../@types/types';
+import { IAddForm } from '../../../../../../../../@types/standardTypes';
 import { handleTherapistCreationAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils';
 
 interface FunctionProps {

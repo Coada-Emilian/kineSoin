@@ -5,7 +5,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/types';
+} from '../../../../../../../@types/standardTypes';
 
 interface GeneralOutputProps {
   isPageTitleOutput?: boolean;

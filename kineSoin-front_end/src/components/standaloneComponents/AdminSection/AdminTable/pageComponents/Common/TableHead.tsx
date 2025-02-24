@@ -5,7 +5,7 @@ import {
   IInsurance,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/types';
+} from '../../../../../../@types/standardTypes';
 
 interface TableHeadProps {
   windowWidth: number;

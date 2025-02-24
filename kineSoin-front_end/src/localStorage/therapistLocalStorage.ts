@@ -21,7 +21,7 @@ export const getTherapistTokenAndDataFromLocalStorage = () => {
     const token = localStorage.getItem('token');
     const fullName = localStorage.getItem('fullName');
     const picture_url = localStorage.getItem('picture_url');
-    const id = localStorage.getItem('id');
+    const id = parseInt(localStorage.getItem('id') || '', 10);
 
     // If no token present send null
     if (!token) {

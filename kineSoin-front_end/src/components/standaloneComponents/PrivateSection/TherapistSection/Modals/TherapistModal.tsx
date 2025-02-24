@@ -2,11 +2,6 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
 import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
-import {
-  IFullPatient,
-  ISameDayAppointment,
-  ITherapistPatient,
-} from '../../../../../@types/types';
 import DNALoader from '../../../../../utils/DNALoader';
 import {
   cancelAppointment,
@@ -14,6 +9,11 @@ import {
   reducePrescriptionQuantity,
   sendMessageToPatient,
 } from '../../../../../utils/apiUtils/therapistApiUtils';
+import {
+  IFullPatient,
+  ISameDayAppointment,
+  ITherapistPatient,
+} from '../../../../../@types/customTypes';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;

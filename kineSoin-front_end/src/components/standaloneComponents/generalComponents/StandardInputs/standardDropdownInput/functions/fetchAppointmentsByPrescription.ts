@@ -1,4 +1,4 @@
-import { IAppointment } from '../../../../../../@types/types';
+import { IAppointment } from '../../../../../../@types/standardTypes';
 import { fetchPatientAppointmentsByPrescription } from '../../../../../../utils/apiUtils/patientApiUtils';
 
 interface FunctionProps {

@@ -10,7 +10,10 @@
  * @returns {JSX.Element} The rendered ModifyButtons component, displaying buttons for therapist and affliction modifications based on the provided props.
  */
 
-import { IAffliction, ITherapist } from '../../../../../../../@types/types';
+import {
+  IAffliction,
+  ITherapist,
+} from '../../../../../../../@types/standardTypes';
 import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
 
 interface ModifyButtonsProps {

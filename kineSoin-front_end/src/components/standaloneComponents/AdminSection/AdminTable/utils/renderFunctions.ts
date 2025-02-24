@@ -1,5 +1,9 @@
 // renderFunctions.ts
-import { ITherapist, IPatient, IAffliction } from '../../../../../@types/types';
+import {
+  ITherapist,
+  IPatient,
+  IAffliction,
+} from '../../../../../@types/standardTypes';
 
 // Function to render therapists based on status
 export const renderTherapists = (

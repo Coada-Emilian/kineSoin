@@ -4,6 +4,7 @@ import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNa
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
 import TherapistDayTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistDayTable/TherapistDayTable';
 import TherapistPatientsTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistPatientsTable/TherapistPatientsTable';
+import { IUserProfile } from '../../../@types/customTypes';
 
 interface TherapistMainProps {
   isTherapistDashboardMain?: boolean;
@@ -25,18 +26,18 @@ export default function TherapistMain({
     return () => window.removeEventListener('resize', handleWindowResize);
   }, [windowWidth]);
 
-  const [therapistId, setTherapistId] = useState<number>();
+  const [therapist, setTherapist] = useState<IUserProfile>();
 
   useEffect(() => {
     try {
       const response = getTherapistTokenAndDataFromLocalStorage();
       if (response) {
-        setTherapistId(response.id ? parseInt(response.id, 10) : undefined);
+        setTherapist(response);
       }
     } catch (error) {
       console.error('Error fetching patient data:', error);
     }
-  }, [therapistId]);
+  }, [therapist?.id]);
 
   const fetchParagraph = () =>
     isTherapistDashboardMain
@@ -48,7 +49,11 @@ export default function TherapistMain({
   return (
     <>
       <main className={`bg-gray-200 `}>
-        <UserHeadband isTherapistHeadband windowWidth={windowWidth} />
+        <UserHeadband
+          userProfile={therapist}
+          profileUrl={'/therapist/my-profile'}
+          dashboardUrl={'/therapist/dashboard'}
+        />
 
         <div className="h-fit md:flex gap-4 mb-2 ">
           {windowWidth && windowWidth > 768 && (

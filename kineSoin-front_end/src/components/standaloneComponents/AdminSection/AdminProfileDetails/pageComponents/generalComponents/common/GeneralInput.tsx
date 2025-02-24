@@ -7,7 +7,7 @@ import {
   IInsurance,
   IMedic,
   ITherapist,
-} from '../../../../../../../@types/types';
+} from '../../../../../../../@types/standardTypes';
 
 interface GeneralInputProps {
   therapist?: ITherapist;

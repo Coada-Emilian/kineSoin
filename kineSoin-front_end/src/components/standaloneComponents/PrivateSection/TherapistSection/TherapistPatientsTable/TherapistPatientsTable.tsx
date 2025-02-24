@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { ITherapistPatient } from '../../../../../@types/types';
+import { ITherapistPatient } from '../../../../../@types/standardTypes';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
 import { Link } from 'react-router-dom';
 import TherapistModal from '../Modals/TherapistModal';
 import DNALoader from '../../../../../utils/DNALoader';
-import { fetchTherapistPatients, togglePatientStatusAsTherapist } from '../../../../../utils/apiUtils/therapistApiUtils';
+import {
+  fetchTherapistPatients,
+  togglePatientStatusAsTherapist,
+} from '../../../../../utils/apiUtils/therapistApiUtils';
 
 export default function TherapistPatientsTable() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

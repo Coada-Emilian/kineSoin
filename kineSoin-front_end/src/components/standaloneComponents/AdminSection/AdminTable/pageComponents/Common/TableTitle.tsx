@@ -6,7 +6,7 @@ import {
   IAffliction,
   IMedic,
   IInsurance,
-} from '../../../../../../@types/types';
+} from '../../../../../../@types/standardTypes';
 
 interface TableTitleProps {
   allTherapists?: ITherapist[];

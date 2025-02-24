@@ -6,7 +6,7 @@ import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNa
 import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
 import AppointmentsCalendar from '../../standaloneComponents/generalComponents/AppointmentCalendar/AppointmentsCalendar';
 import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';
-import { IAppointment } from '../../../@types/types';
+import { IAppointment, IUserProfile } from '../../../@types/standardTypes';
 import AppointmentCard from '../../standaloneComponents/generalComponents/AppointmentCard/AppointmentCard';
 import MessagesField from '../../standaloneComponents/generalComponents/MessagesField/MessagesField';
 import ProfileCard from '../../standaloneComponents/generalComponents/ProfileCard/ProfileCard';
@@ -39,7 +39,7 @@ export default function PatientMain({
     return () => window.removeEventListener('resize', handleWindowResize);
   }, [windowWidth]);
 
-  const [patientId, setPatientId] = useState<number>();
+  const [patient, setPatient] = useState<IUserProfile>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
     IAppointment[]
   >([]);
@@ -50,12 +50,12 @@ export default function PatientMain({
     try {
       const response = getPatientTokenAndDataFromLocalStorage();
       if (response) {
-        setPatientId(response.id ? parseInt(response.id, 10) : undefined);
+        setPatient(response);
       }
     } catch (error) {
       console.error('Error fetching patient data:', error);
     }
-  }, [patientId]);
+  }, [patient?.id]);
 
   useEffect(() => {
     try {
@@ -67,7 +67,7 @@ export default function PatientMain({
     } catch (error) {
       console.error('Error fetching patient data:', error);
     }
-  }, [patientId]);
+  }, [patient?.id]);
 
   const fetchParagraph = () =>
     isPatientDashboardMain
@@ -89,7 +89,11 @@ export default function PatientMain({
       <main
         className={`bg-gray-200 ${isPatientPrescriptionMain ? 'mb-8 md:mb-0' : ''}`}
       >
-        <UserHeadband isPatientHeadband windowWidth={windowWidth} />
+        <UserHeadband
+          userProfile={patient}
+          profileUrl={'/patient/my-profile'}
+          dashboardUrl={'/patient/dashboard'}
+        />
 
         <div className="h-fit md:flex gap-4 mb-2 ">
           {windowWidth > 768 && (
@@ -132,7 +136,7 @@ export default function PatientMain({
               <div className="flex justify-center md:justify-around items-center w-full">
                 <PatientNewPrescriptionForm
                   windowWidth={windowWidth}
-                  patientId={patientId}
+                  patientId={patient?.id || undefined}
                   scanPreview={scanPreview}
                   setScanPreview={setScanPreview}
                 />
@@ -157,13 +161,16 @@ export default function PatientMain({
             {isPatientAppointmentsMain && (
               <AppointmentsCalendar
                 isPatientAppointmentsCalendar
-                patientId={patientId}
+                patientId={patient?.id || undefined}
               />
             )}
 
             {isPatientMessagesMain && (
               <div className="flex flex-col gap-4 justify-between w-full h-full">
-                <MessagesField isPatientMessagesField patientId={patientId} />
+                <MessagesField
+                  isPatientMessagesField
+                  patientId={patient?.id || undefined}
+                />
                 <MessageForm isPatientMessageForm />
               </div>
             )}
@@ -171,12 +178,15 @@ export default function PatientMain({
             {isPatientTherapistPage && (
               <ProfileCard
                 isPatientTherapistProfileCard
-                patientId={patientId}
+                patientId={patient?.id || undefined}
               />
             )}
 
             {isPatientDetailsMain && (
-              <ProfileCard isPatientDetailsProfileCard patientId={patientId} />
+              <ProfileCard
+                isPatientDetailsProfileCard
+                patientId={patient?.id || undefined}
+              />
             )}
           </div>
         </div>

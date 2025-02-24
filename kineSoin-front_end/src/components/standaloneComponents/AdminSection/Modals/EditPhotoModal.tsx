@@ -3,7 +3,7 @@
 import ReactModal from 'react-modal';
 import { useState } from 'react';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
-import { ITherapist } from '../../../../@types/types';
+import { ITherapist } from '../../../../@types/standardTypes';
 
 interface EditPhotoModalProps {
   isEditPhotoModalOpen: boolean;

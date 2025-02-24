@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
 import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
-import { IInsurance, IPatient_Insurance } from '../../../../../@types/types';
+import {
+  IInsurance,
+  IPatient_Insurance,
+} from '../../../../../@types/standardTypes';
 import {
   checkPatientCredentials,
   fetchInsurancesAsPatient,

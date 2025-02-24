@@ -4,7 +4,7 @@ import {
   IPatient,
   IPatient_Insurance,
   ITherapist,
-} from '../../../../@types/types';
+} from '../../../../@types/standardTypes';
 import CustomButton from '../CustomButton/CustomButton';
 import facebookIcon from '/icons/facebook.png';
 import instagramIcon from '/icons/insta.png';

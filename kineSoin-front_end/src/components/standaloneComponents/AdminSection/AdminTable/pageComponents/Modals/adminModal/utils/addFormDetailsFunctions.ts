@@ -1,4 +1,4 @@
-import { IAddForm } from '../../../../../../../../@types/types';
+import { IAddForm } from '../../../../../../../../@types/standardTypes';
 
 interface addFormDetailsProps {
   therapistImageFile?: File | null;

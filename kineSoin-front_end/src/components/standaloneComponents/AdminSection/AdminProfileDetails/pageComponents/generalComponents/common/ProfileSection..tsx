@@ -4,7 +4,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/types';
+} from '../../../../../../../@types/standardTypes';
 import GeneralInput from './GeneralInput';
 import GeneralOutput from './GeneralOutput';
 

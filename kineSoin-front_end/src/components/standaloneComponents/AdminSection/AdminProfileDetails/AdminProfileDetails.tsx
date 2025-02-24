@@ -12,17 +12,15 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../@types/types';
+} from '../../../../@types/standardTypes';
 import {
   handleAfflictionUpdateAsAdmin,
   handleInsuranceOrganismUpdateAsAdmin,
   handleMedicUpdateAsAdmin,
-  handlePatientStatusChangeAsAdmin,
   handleTherapistUpdateAsAdmin,
 } from '../../../../utils/apiUtils/adminApiUtils.tsx';
 import { handleFormSubmit } from './pageComponents/utils/handleFormSubmit.ts';
 import { handlePatientStatusChanges } from './pageComponents/utils/handlePatientStatusChange.ts';
-import { toggleStatus } from './pageComponents/utils/toggleStatus.ts';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;
