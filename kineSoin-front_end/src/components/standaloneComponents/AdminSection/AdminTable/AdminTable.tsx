@@ -12,7 +12,6 @@ import AdminModal from './pageComponents/Modals/adminModal/AdminModal';
 import RegionModal from './pageComponents/Modals/RegionModal';
 import AddRegionModal from './pageComponents/Modals/AddRegionModal';
 import {
-  IAddForm,
   IAffliction,
   IBodyRegion,
   IInsurance,
@@ -25,6 +24,7 @@ import {
   renderPatients,
   renderAfflictions,
 } from './utils/renderFunctions';
+import { IAddForm } from '../../../../@types/formTypes';
 
 interface AdminTableProps {
   allPatients?: IPatient[];
@@ -149,9 +149,9 @@ export default function AdminTable({
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen ">
       <div
-        className={`${allMedics || allInsurances || allBodyRegions ? 'justify-end' : 'justify-between'} buttons mb-6 flex flex-row md:ml-10 md:mr-10`}
+        className={`${allMedics || allInsurances || allBodyRegions ? 'justify-end' : 'justify-between'} buttons mb-6 flex flex-row md:ml-10 md:mr-10 `}
       >
         {allTherapists && (
           <>
@@ -231,9 +231,9 @@ export default function AdminTable({
         />
       </div>
 
-      <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg">
+      <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg ">
         <TableHead
-          windowWidth={windowWidth ?? 0}
+         
           allTherapists={allTherapists}
           allPatients={allPatients}
           allAfflictions={allAfflictions}
@@ -243,7 +243,7 @@ export default function AdminTable({
         />
 
         <TableBody
-          windowWidth={windowWidth ?? 0}
+       
           allTherapists={allTherapists}
           allPatients={allPatients}
           allMedics={allMedics}

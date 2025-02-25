@@ -2,7 +2,7 @@ import openedEyeIcon from '/icons/eye.svg';
 import closedEyeIcon from '/icons/eye-closed.svg';
 import { useState } from 'react';
 import questionIcon from '/icons/question-circle.svg';
-import { IPasswordInput } from '../../../../@types/customTypes';
+import { IPasswordInput } from '../../../../@types/inputTypes';
 
 interface StandardPasswordInputProps {
   passwordInput: IPasswordInput;

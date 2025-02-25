@@ -16,7 +16,6 @@ import {
 } from '../../../../../../@types/standardTypes';
 
 interface TableBodyProps {
-  windowWidth: number;
   allTherapists?: ITherapist[];
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
@@ -37,7 +36,6 @@ interface TableBodyProps {
 }
 
 export default function TableBody({
-  windowWidth,
   allTherapists,
   allPatients,
   allAfflictions,
@@ -50,11 +48,10 @@ export default function TableBody({
   allBodyRegions,
 }: TableBodyProps) {
   return (
-    <tbody className={windowWidth < 450 ? 'text-xxs' : 'text-xs md:text-sm'}>
+    <tbody className="xxs:text-xs xs:text-xs md:text-sm">
       {allTherapists && (
         <TherapistTableBody
           renderedTherapists={renderedTherapists}
-          windowWidth={windowWidth}
           openDeleteModal={openDeleteModal}
         />
       )}
@@ -62,7 +59,6 @@ export default function TableBody({
       {allPatients && (
         <PatientTableBody
           renderedPatients={renderedPatients}
-          windowWidth={windowWidth}
           openDeleteModal={openDeleteModal}
         />
       )}
@@ -70,7 +66,6 @@ export default function TableBody({
       {allAfflictions && (
         <AfflictionTableBody
           renderedAfflictions={renderedAfflictions}
-          windowWidth={windowWidth}
           openDeleteModal={openDeleteModal}
         />
       )}

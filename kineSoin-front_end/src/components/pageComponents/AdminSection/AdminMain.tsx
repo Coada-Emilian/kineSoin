@@ -49,15 +49,19 @@ export default function AdminMain({
   const [allTherapists, setAllTherapists] = useState<ITherapist[]>([]);
   const [therapist, setTherapist] = useState<ITherapist | null>(null);
   const [therapistId, setTherapistId] = useState<number | null>(null);
+
   const [allPatients, setAllPatients] = useState<IPatient[]>([]);
   const [patient, setPatient] = useState<IPatient | null>(null);
   const [patientId, setPatientId] = useState<number | null>(null);
+
   const [allAfflictions, setAllAfflictions] = useState<IAffliction[]>([]);
   const [afflictionId, setAfflictionId] = useState<number | null>(null);
   const [affliction, setAffliction] = useState<IAffliction | null>(null);
+
   const [allMedics, setAllMedics] = useState<IMedic[]>([]);
   const [medicId, setMedicId] = useState<number | null>(null);
   const [medic, setMedic] = useState<IMedic | null>(null);
+
   const [allInsurances, setAllInsurances] = useState<IInsurance[]>([]);
   const [insuranceId, setInsuranceId] = useState<number | null>(null);
   const [insurance, setInsurance] = useState<IInsurance | null>(null);
@@ -132,7 +136,7 @@ export default function AdminMain({
         <SideNav isAdminSideNav />
       </div>
 
-      <div className="md:w-full md:border-l-2 md:border-solid">
+      <div className="md:w-full md:border-l-2 md:border-solid ">
         {(isAdminTherapistsMain ||
           isAdminPatientsMain ||
           isAdminAfflictionsMain ||

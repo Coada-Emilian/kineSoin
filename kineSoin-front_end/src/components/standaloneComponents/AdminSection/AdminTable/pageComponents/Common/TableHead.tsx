@@ -8,7 +8,6 @@ import {
 } from '../../../../../../@types/standardTypes';
 
 interface TableHeadProps {
-  windowWidth: number;
   allTherapists?: ITherapist[];
   allPatients?: IPatient[];
   allAfflictions?: IAffliction[];
@@ -18,7 +17,6 @@ interface TableHeadProps {
 }
 
 export default function TableHead({
-  windowWidth,
   allTherapists,
   allPatients,
   allAfflictions,
@@ -45,13 +43,7 @@ export default function TableHead({
   };
 
   return (
-    <thead
-      className={
-        windowWidth < 450
-          ? 'bg-gray-100 text-xs'
-          : 'bg-gray-100 text-sm md:text-base'
-      }
-    >
+    <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base ">
       <tr>
         <>
           <th className="border border-gray-300 px-4 py-2 text-center">#id</th>
@@ -66,8 +58,8 @@ export default function TableHead({
             </th>
           )}
 
-          {allAfflictions && windowWidth > 768 && (
-            <th className="border border-gray-300 px-4 py-2 text-center">
+          {allAfflictions && (
+            <th className="border border-gray-300 px-4 py-2 text-center hidden md:table-cell  ">
               Cotation
             </th>
           )}

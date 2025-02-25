@@ -21,7 +21,6 @@ import {
 } from '../../../../../../@types/standardTypes';
 
 interface AfflictionTableBodyProps {
-  windowWidth: number;
   renderedAfflictions: IAffliction[];
   openDeleteModal: (
     therapist?: ITherapist,
@@ -32,7 +31,6 @@ interface AfflictionTableBodyProps {
 }
 
 export default function AfflictionTableBody({
-  windowWidth,
   renderedAfflictions,
   openDeleteModal,
 }: AfflictionTableBodyProps) {
@@ -53,14 +51,12 @@ export default function AfflictionTableBody({
           <p>{affliction.body_region?.name ?? 'N/A'}</p>
         </td>
 
-        {windowWidth > 768 && (
-          <td className="text-center border border-gray-300 ">
-            {affliction.insurance_code}
-          </td>
-        )}
+        <td className="text-center border border-gray-300 hidden md:block">
+          {affliction.insurance_code}
+        </td>
 
         <td className="border border-gray-300 py-2 px-2 text-center">
-          {windowWidth < 768 ? (
+     
             <Link to={`/admin/afflictions/${affliction.id}`}>
               <img
                 src={editIcon}
@@ -70,7 +66,7 @@ export default function AfflictionTableBody({
                 }
               />
             </Link>
-          ) : (
+
             <Link
               to={`/admin/afflictions/${affliction.id}`}
               className="w-25 flex items-center justify-center"
@@ -78,7 +74,7 @@ export default function AfflictionTableBody({
               <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
               <p className="text-blue-300 font-semibold">Inspecter</p>
             </Link>
-          )}
+      
         </td>
 
         <td className="border border-gray-300 px-4 py-2 text-center">
