@@ -17,7 +17,6 @@ import {
 } from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtils';
 
 interface AdminMainProps {
-  windowWidth: number;
   isAdminTherapistsMain?: boolean;
   isAdminTherapistMain?: boolean;
   isAdminPatientsMain?: boolean;
@@ -31,7 +30,6 @@ interface AdminMainProps {
 }
 
 export default function AdminMain({
-  windowWidth,
   isAdminTherapistsMain,
   isAdminTherapistMain,
   isAdminPatientsMain,
@@ -128,56 +126,48 @@ export default function AdminMain({
   }
 
   return (
-    <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2">
-      <div
-        className={`${windowWidth < 768 ? 'flex flex-col justify-between h-full p-4' : 'flex'}`}
-      >
-        {windowWidth > 768 && (
-          <div className="w-1/4 h-screen ">
-            <SideNav isAdminSideNav />
-          </div>
-        )}
-        <div
-          className={windowWidth > 768 ? 'w-3/4 border-l-2 border-solid' : ''}
-        >
-          {(isAdminTherapistsMain ||
-            isAdminPatientsMain ||
-            isAdminAfflictionsMain ||
-            isAdminMedicsMain ||
-            isAdminInsurancesMain) && (
-            <AdminTable
-              allTherapists={isAdminTherapistsMain ? allTherapists : undefined}
-              allPatients={isAdminPatientsMain ? allPatients : undefined}
-              allAfflictions={
-                isAdminAfflictionsMain ? allAfflictions : undefined
-              }
-              allMedics={isAdminMedicsMain ? allMedics : undefined}
-              allInsurances={isAdminInsurancesMain ? allInsurances : undefined}
-              windowWidth={windowWidth}
-            />
-          )}
-
-          {(isAdminTherapistMain ||
-            isAdminPatientMain ||
-            isAdminAfflictionMain ||
-            isAdminMedicMain ||
-            isAdminInsuranceMain) && (
-            <AdminProfileDetails
-              therapist={
-                isAdminTherapistMain && therapist ? therapist : undefined
-              }
-              patient={isAdminPatientMain && patient ? patient : undefined}
-              affliction={
-                isAdminAfflictionMain && affliction ? affliction : undefined
-              }
-              medic={isAdminMedicMain && medic ? medic : undefined}
-              insurance={
-                isAdminInsuranceMain && insurance ? insurance : undefined
-              }
-            />
-          )}
-        </div>
+    <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
+      {/* <div className=" md:flex-row md:justify-normal"> */}
+      <div className="w-1/4 h-screen hidden md:block">
+        <SideNav isAdminSideNav />
       </div>
+
+      <div className="md:w-full md:border-l-2 md:border-solid">
+        {(isAdminTherapistsMain ||
+          isAdminPatientsMain ||
+          isAdminAfflictionsMain ||
+          isAdminMedicsMain ||
+          isAdminInsurancesMain) && (
+          <AdminTable
+            allTherapists={isAdminTherapistsMain ? allTherapists : undefined}
+            allPatients={isAdminPatientsMain ? allPatients : undefined}
+            allAfflictions={isAdminAfflictionsMain ? allAfflictions : undefined}
+            allMedics={isAdminMedicsMain ? allMedics : undefined}
+            allInsurances={isAdminInsurancesMain ? allInsurances : undefined}
+          />
+        )}
+
+        {(isAdminTherapistMain ||
+          isAdminPatientMain ||
+          isAdminAfflictionMain ||
+          isAdminMedicMain ||
+          isAdminInsuranceMain) && (
+          <AdminProfileDetails
+            therapist={
+              isAdminTherapistMain && therapist ? therapist : undefined
+            }
+            patient={isAdminPatientMain && patient ? patient : undefined}
+            affliction={
+              isAdminAfflictionMain && affliction ? affliction : undefined
+            }
+            medic={isAdminMedicMain && medic ? medic : undefined}
+            insurance={
+              isAdminInsuranceMain && insurance ? insurance : undefined
+            }
+          />
+        )}
+      </div>
+      {/* </div> */}
     </main>
   );
 }

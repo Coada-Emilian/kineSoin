@@ -14,7 +14,7 @@ export default function StandardPasswordInput({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="mb-4 italic text-xs md:text-sm xl:text-md 2xl:text-lg">
+    <div className="mb-2 flex flex-col gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg">
       <label
         htmlFor={passwordInput.inputId}
         className={`${

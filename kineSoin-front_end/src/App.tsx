@@ -282,12 +282,7 @@ function App() {
             <Route
               path={route.path}
               key={route.path}
-              element={
-                <AdminMain
-                  windowWidth={windowWidth}
-                  {...{ [route.boolean]: true }}
-                />
-              }
+              element={<AdminMain {...{ [route.boolean]: true }} />}
             />
           ))}
 

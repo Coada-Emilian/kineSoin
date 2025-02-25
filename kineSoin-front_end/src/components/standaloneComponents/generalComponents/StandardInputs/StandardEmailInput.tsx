@@ -14,7 +14,7 @@ export default function StandardEmailInput({
 
   return (
     <div
-      className={`${emailInput.additionalDivClassName ? emailInput.additionalDivClassName : 'flex-col'} flex gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic `}
+      className={`${emailInput.additionalDivClassName ? emailInput.additionalDivClassName : 'flex-col'} flex gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-2`}
     >
       <label
         htmlFor={emailInput.inputId}
