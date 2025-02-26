@@ -3,6 +3,8 @@ import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import {
   IAffliction,
+  IBodyRegion,
+  IInsurance,
   IMedic,
   IPatient,
   ITherapist,
@@ -12,10 +14,13 @@ import { Button } from '@headlessui/react';
 interface AfflictionTableBodyProps {
   renderedAfflictions: IAffliction[];
   openDeleteModal: (
-    therapist?: ITherapist,
-    patient?: IPatient,
-    affliction?: IAffliction,
-    medic?: IMedic
+    entity:
+      | ITherapist
+      | IPatient
+      | IAffliction
+      | IMedic
+      | IInsurance
+      | IBodyRegion
   ) => void;
 }
 
@@ -23,13 +28,18 @@ export default function AfflictionTableBody({
   renderedAfflictions,
   openDeleteModal,
 }: AfflictionTableBodyProps) {
-  return renderedAfflictions.map((affliction: IAffliction) => {
+  return renderedAfflictions.map((affliction: IAffliction, index: number) => {
+    const isLastRow = index === renderedAfflictions.length - 1;
     return (
       <tr
         key={affliction.id}
         className="odd:bg-white even:bg-gray-100 text-xxs xs:text-xs md:text-sm"
       >
-        <td className="border border-gray-300 p-2 text-center">
+        <td
+          className={`border border-gray-300 p-2 text-center ${
+            isLastRow ? 'rounded-bl-2xl' : ''
+          }`}
+        >
           {affliction.id}
         </td>
 
@@ -56,27 +66,31 @@ export default function AfflictionTableBody({
 
             <Link
               to={`/admin/afflictions/${affliction.id}`}
-              className="w-25 items-center justify-center hidden md:flex"
+              className="w-25 items-center justify-center hidden md:flex hover:scale-110"
             >
               <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
               <p className="text-blue-300 font-semibold">Inspecter</p>
             </Link>
           </td>
 
-          <td className="border border-gray-300 p-2 text-center">
+          <td
+            className={`border border-gray-300 p-2 text-center ${
+              isLastRow ? 'rounded-br-2xl' : ''
+            }`}
+          >
             <Button
               className="mx-auto block md:hidden"
               onClick={() => {
-                openDeleteModal(undefined, undefined, affliction, undefined);
+                openDeleteModal(affliction);
               }}
             >
               <img src={deleteIcon} alt="delete" className="w-5 mx-1" />
             </Button>
 
             <Button
-              className="w-25 mx-auto items-center hidden md:flex"
+              className="w-25 mx-auto items-center hidden md:flex hover:scale-110"
               onClick={() => {
-                openDeleteModal(undefined, undefined, affliction, undefined);
+                openDeleteModal(affliction);
               }}
             >
               <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />

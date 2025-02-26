@@ -45,7 +45,7 @@ export default function PatientsStatusButtons({
         btnText="Bannis"
         bannedButton
         onClick={() => {
-          setStatus('blocked');
+          setStatus('banned');
         }}
       />
     </div>

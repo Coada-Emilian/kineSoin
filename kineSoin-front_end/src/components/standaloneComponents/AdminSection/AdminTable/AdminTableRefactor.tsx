@@ -44,20 +44,6 @@ export default function AdminTableRefactor({
   entities,
   entityType,
 }: AdminTableRefactorProps) {
-  //   // States for selected therapist, patient, affliction, medic, insurance
-  //   const [selectedTherapist, setSelectedTherapist] = useState<ITherapist | null>(
-  //     null
-  //   );
-  //   const [selectedPatient, setSelectedPatient] = useState<IPatient | null>(null);
-  //   const [selectedAffliction, setSelectedAffliction] =
-  //     useState<IAffliction | null>(null);
-  //   const [selectedMedic, setSelectedMedic] = useState<IMedic | null>(null);
-  //   const [selectedInsurance, setSelectedInsurance] = useState<IInsurance | null>(
-  //     null
-  //   );
-  //   const [selectedBodyRegion, setSelectedBodyRegion] =
-  //     useState<IBodyRegion | null>(null);
-
   // States for modal opening
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAddAfflictionModalOpen, setIsAddAfflictionModalOpen] =
@@ -74,9 +60,9 @@ export default function AdminTableRefactor({
   const [isAddRegionModalOpen, setIsAddRegionModalOpen] = useState(false);
 
   // States for status changes
-  const [therapistStatus, setTherapistStatus] = useState('all');
-  const [patientStatus, setPatientStatus] = useState('all');
-  const [afflictionStatus, setAfflictionStatus] = useState('all');
+  const [therapistStatus, setTherapistStatus] = useState<string>('all');
+  const [patientStatus, setPatientStatus] = useState<string>('all');
+  const [afflictionStatus, setAfflictionStatus] = useState<string>('all');
 
   // States for rendered therapists, patients, afflictions
   const [renderedEntities, setRenderedEntities] = useState<
@@ -84,14 +70,14 @@ export default function AdminTableRefactor({
   >(entities || []);
 
   const [selectedEntity, setSelectedEntity] = useState<
-    ITherapist | IPatient | IAffliction | IMedic | IInsurance | null
+    | ITherapist
+    | IPatient
+    | IAffliction
+    | IMedic
+    | IInsurance
+    | null
+    | IBodyRegion
   >(null);
-
-  //   const entitySetRenderedEntityFunctions = [
-  //     { entityType: 'therapist', setFunction: setRenderedEntities },
-  //     { entityType: 'patient', setFunction: setRenderedEntities },
-  //     { entityType: 'affliction', setFunction: setRenderedEntities },
-  //   ];
 
   //   // State for the add form
   //   const [addForm, setAddForm] = useState<IAddForm>({
@@ -118,14 +104,42 @@ export default function AdminTableRefactor({
   }, [entityType]);
 
   // useEffects to render therapists, patients, afflictions
-  // useEffect(() => {
-  //   renderTherapists(allTherapists, setRenderedTherapists, therapistStatus);
-  //   renderPatients(allPatients, setRenderedPatients, patientStatus);
-  //   renderAfflictions(allAfflictions, setRenderedAfflictions, afflictionStatus);
-  // }, [therapistStatus, patientStatus, afflictionStatus]);
+  useEffect(() => {
+    if (entityType === 'therapist') {
+      renderTherapists(
+        entities as ITherapist[],
+        setRenderedEntities as React.Dispatch<
+          React.SetStateAction<ITherapist[]>
+        >,
+        therapistStatus
+      );
+    } else if (entityType === 'affliction') {
+      renderAfflictions(
+        entities as IAffliction[],
+        setRenderedEntities as React.Dispatch<
+          React.SetStateAction<IAffliction[]>
+        >,
+        afflictionStatus
+      );
+    } else if (entityType === 'patient') {
+      renderPatients(
+        entities as IPatient[],
+        setRenderedEntities as React.Dispatch<React.SetStateAction<IPatient[]>>,
+        patientStatus
+      );
+    }
+  }, [entityType, therapistStatus, patientStatus, afflictionStatus]);
 
   // Function to open delete modal
-  const openDeleteModal = () => {
+  const openDeleteModal = (
+    entity:
+      | ITherapist
+      | IPatient
+      | IAffliction
+      | IMedic
+      | IInsurance
+      | IBodyRegion
+  ) => {
     setSelectedEntity(entity);
     setIsDeleteModalOpen(true);
   };
@@ -186,7 +200,10 @@ export default function AdminTableRefactor({
     (group) => entityType === group.entityType
   );
 
-  console.log(activeEntity);
+  useEffect(() => {
+    console.log(selectedEntity);
+  }, [selectedEntity]);
+
   return (
     <>
       <div className="min-h-screen">
@@ -224,7 +241,7 @@ export default function AdminTableRefactor({
           />
         </div>
 
-        <table className="border-separate border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl ">
+        <table className="border-separate border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
           <TableHeadRefactor
             secondHeaderContent={activeEntity?.secondTableHeadContent || ''}
             thirdHeaderContent={activeEntity?.thirdTableHeadContent || ''}
@@ -238,20 +255,24 @@ export default function AdminTableRefactor({
           />
         </table>
 
-        {/* {isDeleteModalOpen && (
+        {isDeleteModalOpen && (
           <ConfirmDeleteModal
-            isDeleteModalOpen={isDeleteModalOpen}
-            setIsDeleteModalOpen={setIsDeleteModalOpen}
-            therapist={selectedTherapist}
-            patient={selectedPatient}
-            affliction={selectedAffliction}
-            medic={selectedMedic}
-            insurance={selectedInsurance}
-            region={selectedBodyRegion}
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            entity={
+              selectedEntity as
+                | ITherapist
+                | IPatient
+                | IAffliction
+                | IMedic
+                | IInsurance
+                | IBodyRegion
+            }
+            entityType={entityType}
           />
         )}
 
-        {isAddTherapistModalP1Open && (
+        {/* {isAddTherapistModalP1Open && (
           <AdminModal
             isFirstAddTherapistModal
             setAddForm={setAddForm}
@@ -319,7 +340,6 @@ export default function AdminTableRefactor({
           />
         )} */}
       </div>
-      {/* ); */}
     </>
   );
 }

@@ -7,7 +7,7 @@ import {
 
 // Function to render therapists based on status
 export const renderTherapists = (
-  allTherapists: ITherapist[] | undefined,
+  allTherapists: ITherapist[],
   setRenderedTherapists: React.Dispatch<React.SetStateAction<ITherapist[]>>,
   therapistStatus: string
 ) => {
@@ -28,7 +28,7 @@ export const renderTherapists = (
 
 // Function to render patients
 export const renderPatients = (
-  allPatients: IPatient[] | undefined,
+  allPatients: IPatient[],
   setRenderedPatients: React.Dispatch<React.SetStateAction<IPatient[]>>,
   patientStatus: string
 ) => {
@@ -59,7 +59,7 @@ export const renderPatients = (
 
 // Function to render afflictions
 export const renderAfflictions = (
-  allAfflictions: IAffliction[] | undefined,
+  allAfflictions: IAffliction[],
   setRenderedAfflictions: React.Dispatch<React.SetStateAction<IAffliction[]>>,
   afflictionStatus: string
 ) => {

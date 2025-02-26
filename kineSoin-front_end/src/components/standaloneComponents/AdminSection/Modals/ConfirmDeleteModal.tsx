@@ -5,7 +5,7 @@ import ReactModal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   IAffliction,
   IBodyRegion,
@@ -22,27 +22,26 @@ import {
   handleRegionDeleteAsAdmin,
   handleTherapistDeleteAsAdmin,
 } from '../../../../utils/apiUtils/adminApiUtils';
+import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
 
 interface ConfirmDeleteModalProps {
-  isDeleteModalOpen: boolean;
-  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  therapist?: ITherapist | null;
-  patient?: IPatient | null;
-  affliction?: IAffliction | null;
-  medic?: IMedic | null;
-  insurance?: IInsurance | null;
-  region?: IBodyRegion | null;
+  isOpen: boolean;
+  onClose: () => void;
+  entity:
+    | ITherapist
+    | IPatient
+    | IAffliction
+    | IMedic
+    | IInsurance
+    | IBodyRegion;
+  entityType: string;
 }
 
 export default function ConfirmDeleteModal({
-  isDeleteModalOpen,
-  setIsDeleteModalOpen,
-  therapist,
-  patient,
-  affliction,
-  medic,
-  insurance,
-  region,
+  isOpen,
+  onClose,
+  entity,
+  entityType,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -51,63 +50,83 @@ export default function ConfirmDeleteModal({
     return DNALoader();
   }
 
+  useEffect(() => {
+    console.log(entity);
+  }, [entity]);
+
+  const entityDeleteDetails = [
+    {
+      entityType: 'therapist',
+      function: handleTherapistDeleteAsAdmin,
+      redirect: '/admin/therapists',
+      full_name: (entity as ITherapist | IPatient | IMedic).fullName,
+    },
+    {
+      entityType: 'patient',
+      function: handlePatientDeleteAsAdmin,
+      redirect: '/admin/patients',
+      full_name: (entity as ITherapist | IPatient | IMedic).fullName,
+    },
+    {
+      entityType: 'affliction',
+      function: handleAfflictionDeleteAsAdmin,
+      redirect: '/admin/afflictions',
+      name: entity.name,
+    },
+    {
+      entityType: 'medic',
+      function: handleMedicDeleteAsAdmin,
+      redirect: '/admin/medics',
+      full_name: (entity as ITherapist | IPatient | IMedic).fullName,
+    },
+    {
+      entityType: 'insurance',
+      function: handleInsuranceOrganismDeleteAsAdmin,
+      redirect: '/admin/insurances',
+      name: (entity as IAffliction | IInsurance | IBodyRegion).name,
+    },
+    {
+      entityType: 'region',
+      function: handleRegionDeleteAsAdmin,
+      redirect: '/admin/regions',
+      name: 'entity.name',
+    },
+  ];
+
+  const activeEntity = entityDeleteDetails.find(
+    (entityDetails) => entityDetails.entityType === entityType
+  );
+
   return (
-    <ReactModal
-      isOpen={isDeleteModalOpen}
-      onRequestClose={() => setIsDeleteModalOpen(false)}
-      style={{
-        content: {
-          width: '80vw',
-          height: 'fit-content',
-          maxWidth: '500px',
-          margin: 'auto',
-          padding: '20px',
-          borderRadius: '8px',
-          backgroundColor: 'white',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        },
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        },
-      }}
-    >
-      <div className="flex flex-col text-center items-center gap-3 w-fit">
-        {(patient || therapist || medic) && (
+    <BaseModal isOpen={isOpen} onClose={onClose}>
+      <div className="flex flex-col text-center items-center gap-3 w-fit p-6 text:xxs xs:text-xs md:text-sm lg:text-base xl:text-lg">
+        {activeEntity?.full_name && (
           <p>
             Êtes-vous sûr de vouloir supprimer le profile de{' '}
-            <span className="font-semibold">
-              {therapist
-                ? therapist.fullName
-                : patient
-                  ? patient.fullName
-                  : medic
-                    ? medic.fullName
-                    : ''}
-            </span>{' '}
-            ?
+            <span className="font-semibold">{activeEntity.full_name}</span> ?
           </p>
         )}
 
-        {affliction && (
+        {activeEntity?.entityType === 'affliction' && (
           <p>
             Êtes-vous sûr de vouloir supprimer l'affliction{' '}
-            <span className="font-semibold">{affliction.name}</span> ?
+            <span className="font-semibold">{activeEntity.name}</span> ?
           </p>
         )}
 
-        {insurance && (
+        {activeEntity?.entityType === 'insurance' && (
           <p>
             Êtes-vous sûr de vouloir supprimer l'organisme{' '}
-            <span className="font-semibold">{insurance.name}</span> ?
+            <span className="font-semibold">{activeEntity.name}</span> ?
           </p>
         )}
 
-        {region && (
+        {/* {region && (
           <p>
             Êtes-vous sûr de vouloir supprimer la région{' '}
             <span className="font-semibold">{region.name}</span> ?
           </p>
-        )}
+        )} */}
 
         <span className="text-red-500 font-medium">
           Cette action est irréversible.
@@ -118,36 +137,14 @@ export default function ConfirmDeleteModal({
             btnText="Confirmer la suppression"
             deleteButton
             onClick={() => {
-              setIsDeleteModalOpen(false);
+              onClose && onClose();
               setIsLoading(true);
               {
-                therapist
-                  ? handleTherapistDeleteAsAdmin(therapist.id)
-                  : patient
-                    ? handlePatientDeleteAsAdmin(patient.id)
-                    : affliction
-                      ? handleAfflictionDeleteAsAdmin(affliction.id)
-                      : medic
-                        ? handleMedicDeleteAsAdmin(medic.id)
-                        : insurance
-                          ? handleInsuranceOrganismDeleteAsAdmin(insurance.id)
-                          : region
-                            ? handleRegionDeleteAsAdmin(region.id)
-                            : '';
+                activeEntity?.function(entity.id);
               }
               setIsLoading(false);
               navigate(
-                therapist
-                  ? '/admin/therapists'
-                  : patient
-                    ? '/admin/patients'
-                    : affliction
-                      ? '/admin/afflictions'
-                      : medic
-                        ? '/admin/medics'
-                        : insurance
-                          ? '/admin/insurances'
-                          : ''
+                activeEntity?.redirect ? activeEntity.redirect : '/admin'
               );
               window.location.reload();
             }}
@@ -156,10 +153,10 @@ export default function ConfirmDeleteModal({
           <CustomButton
             btnText="Annuler"
             cancelButton
-            onClick={() => setIsDeleteModalOpen(false)}
+            onClick={() => onClose && onClose()}
           />
         </div>
       </div>
-    </ReactModal>
+    </BaseModal>
   );
 }

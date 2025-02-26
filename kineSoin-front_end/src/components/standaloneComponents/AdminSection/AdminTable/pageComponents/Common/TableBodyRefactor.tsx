@@ -2,14 +2,12 @@
 
 import {
   IAffliction,
+  IBodyRegion,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardTypes';
-import { useEffect } from 'react';
-import TableBodyRefactors from '../Therapist/TherapistTableBodyRefactor';
-import TBodyRefactors from '../Therapist/TherapistTableBodyRefactor';
 import TherapistTableBody from '../Therapist/TherapistTableBody';
 import PatientTableBody from '../Patient/PatientTableBody';
 import AfflictionTableBody from '../Affliction/AfflictionTableBody';
@@ -24,7 +22,15 @@ interface TableBodyRefactorProps {
     | IMedic[]
     | IInsurance[];
   entityType: string;
-  openDeleteModal: () => void;
+  openDeleteModal: (
+    entity:
+      | ITherapist
+      | IPatient
+      | IAffliction
+      | IMedic
+      | IInsurance
+      | IBodyRegion
+  ) => void;
 }
 
 export default function TableBodyRefactor({
@@ -84,6 +90,7 @@ export default function TableBodyRefactor({
   const currentEntity = entityTableBodies.find(
     (entity) => entity.entityType === entityType
   );
+
   return (
     <tbody className="xxs:text-xs xs:text-xs md:text-sm">
       {currentEntity && currentEntity.component}

@@ -13,7 +13,7 @@ export default function TableHeadRefactor({
     <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base">
       <tr>
         <>
-          <th className="border border-gray-300 px-4 py-2 text-center rounded-tl-2xl">
+          <th className="border border-gray-300 px-4 py-2 text-center rounded-tl-2xl w-1/12">
             #id
           </th>
 

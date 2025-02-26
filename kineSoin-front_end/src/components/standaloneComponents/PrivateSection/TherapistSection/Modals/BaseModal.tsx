@@ -1,16 +1,16 @@
 import ReactModal from 'react-modal';
 
-interface TherapistModalProps extends ReactModal.Props {
+interface BaseModalProps extends ReactModal.Props {
   isOpen: boolean;
   onClose?: () => void;
 }
 
-export default function TherapistModal({
+export default function BaseModal({
   isOpen,
   onClose,
   children,
   ...props
-}: TherapistModalProps) {
+}: BaseModalProps) {
   return (
     <ReactModal
       isOpen={isOpen}

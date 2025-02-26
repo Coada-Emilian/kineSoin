@@ -6,6 +6,8 @@ import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
 import {
   IAffliction,
+  IBodyRegion,
+  IInsurance,
   IMedic,
   IPatient,
   ITherapist,
@@ -15,27 +17,33 @@ import { Button } from '@headlessui/react';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];
-
   openDeleteModal: (
-    therapist?: ITherapist,
-    patient?: IPatient,
-    affliction?: IAffliction,
-    medic?: IMedic
+    entity:
+      | ITherapist
+      | IPatient
+      | IAffliction
+      | IMedic
+      | IInsurance
+      | IBodyRegion
   ) => void;
 }
 
 export default function TherapistTableBody({
   renderedTherapists,
-
   openDeleteModal,
 }: TherapistTableBodyProps) {
-  return renderedTherapists.map((therapist: ITherapist) => {
+  return renderedTherapists.map((therapist: ITherapist, index: number) => {
+    const isLastRow = index === renderedTherapists.length - 1;
     return (
       <tr
         key={therapist.id}
         className="odd:bg-white even:bg-gray-100 text-xxs xs:text-xs md:text-sm"
       >
-        <td className="border border-gray-300 p-2 text-center">
+        <td
+          className={`border border-gray-300 p-2 text-center ${
+            isLastRow ? 'rounded-bl-2xl' : ''
+          }`}
+        >
           {therapist.id}
         </td>
 
@@ -65,33 +73,33 @@ export default function TherapistTableBody({
             to={`/admin/therapists/${therapist.id}`}
             className="block md:hidden"
           >
-            <img src={editIcon} alt="edit" className="mx-auto w-8" />
+            <img src={editIcon} alt="edit" className="mx-auto w-6" />
           </Link>
 
           <Link
             to={`/admin/therapists/${therapist.id}`}
-            className="w-25 items-center justify-center hidden md:flex"
+            className="w-25 items-center justify-center hidden md:flex hover:scale-110"
           >
             <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
             <p className="text-blue-300 font-semibold ">Inspecter</p>
           </Link>
         </td>
 
-        <td className="border border-gray-300 p-2 text-center ">
+        <td
+          className={`border border-gray-300 p-2 text-center ${
+            isLastRow ? 'rounded-br-2xl' : ''
+          }`}
+        >
           <Button
-            onClick={() =>
-              openDeleteModal(therapist, undefined, undefined, undefined)
-            }
+            onClick={() => openDeleteModal(therapist)}
             className="mx-auto block md:hidden"
           >
             <img src={deleteIcon} alt="delete" className="w-5 mx-1" />
           </Button>
 
           <Button
-            className="w-25 mx-auto items-center hidden md:flex"
-            onClick={() =>
-              openDeleteModal(therapist, undefined, undefined, undefined)
-            }
+            className="w-25 mx-auto items-center hidden md:flex hover:scale-110"
+            onClick={() => openDeleteModal(therapist)}
           >
             <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />
             <p className="text-red-600 font-semibold">Supprimer</p>
