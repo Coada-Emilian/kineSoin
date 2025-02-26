@@ -58,6 +58,7 @@ export default function AdminPage({
   // Mapping object to dynamically group state based on boolean flag
   const entityStateMap = {
     therapists: {
+      entityType: 'therapist',
       isActive: isAdminTherapistsMain || isAdminTherapistMain,
       entities: allTherapists,
       setEntities: setAllTherapists,
@@ -67,6 +68,7 @@ export default function AdminPage({
       setEntityId: setTherapistId,
     },
     patients: {
+      entityType: 'patient',
       isActive: isAdminPatientsMain || isAdminPatientMain,
       entities: allPatients,
       setEntities: setAllPatients,
@@ -76,6 +78,7 @@ export default function AdminPage({
       setEntityId: setPatientId,
     },
     afflictions: {
+      entityType: 'affliction',
       isActive: isAdminAfflictionsMain || isAdminAfflictionMain,
       entities: allAfflictions,
       setEntities: setAllAfflictions,
@@ -85,6 +88,7 @@ export default function AdminPage({
       setEntityId: setAfflictionId,
     },
     medics: {
+      entityType: 'medic',
       isActive: isAdminMedicsMain || isAdminMedicMain,
       entities: allMedics,
       setEntities: setAllMedics,
@@ -94,6 +98,7 @@ export default function AdminPage({
       setEntityId: setMedicId,
     },
     insurances: {
+      entityType: 'insurance',
       isActive: isAdminInsurancesMain || isAdminInsuranceMain,
       entities: allInsurances,
       setEntities: setAllInsurances,
@@ -109,12 +114,13 @@ export default function AdminPage({
     (group) => group.isActive
   );
 
-  useEffect(() => {
-    console.log('Active Entity Group:', activeEntityGroup);
-  }, [activeEntityGroup]);
+  //   useEffect(() => {
+  //     console.log('Active Entity Group:', activeEntityGroup);
+  //   }, [activeEntityGroup]);
 
   return activeEntityGroup ? (
     <AdminMain2
+      entityType={activeEntityGroup.entityType}
       entities={activeEntityGroup.entities}
       setEntities={activeEntityGroup.setEntities}
       entity={activeEntityGroup.entity}

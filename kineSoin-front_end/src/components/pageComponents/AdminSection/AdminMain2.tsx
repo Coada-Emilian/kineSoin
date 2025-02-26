@@ -15,17 +15,34 @@ import {
   fetchDetailsData,
   fetchTableData,
 } from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtils';
+import {
+  fetchDetailsDataRefactor,
+  fetchTableDataRefactor,
+} from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtilsRefactor';
 
 interface AdminMain2Props {
-  entities: T[];
-  setEntities: React.Dispatch<React.SetStateAction<T[]>>;
-  entity: T;
-  setEntity: React.Dispatch<React.SetStateAction<T>>;
-  entityId: number | null;
+  entityType: string;
+  entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
+  setEntities:
+    | React.Dispatch<React.SetStateAction<ITherapist[]>>
+    | React.Dispatch<React.SetStateAction<IPatient[]>>
+    | React.Dispatch<React.SetStateAction<IAffliction[]>>
+    | React.Dispatch<React.SetStateAction<IMedic[]>>
+    | React.Dispatch<React.SetStateAction<IInsurance[]>>;
+  entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
+  setEntity:
+    | React.Dispatch<React.SetStateAction<ITherapist>>
+    | React.Dispatch<React.SetStateAction<IPatient>>
+    | React.Dispatch<React.SetStateAction<IAffliction>>
+    | React.Dispatch<React.SetStateAction<IMedic>>
+    | React.Dispatch<React.SetStateAction<IInsurance>>
+    | React.Dispatch<React.SetStateAction<any | null>>;
+  entityId: number | undefined | null;
   setEntityId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 export default function AdminMain2({
+  entityType,
   entities,
   setEntities,
   entity,
@@ -35,7 +52,7 @@ export default function AdminMain2({
 }: AdminMain2Props) {
   //  Get the id from the URL
   const { id } = useParams();
-  const entity_id = parseInt(id, 10);
+  const entity_id = id ? parseInt(id, 10) : null;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -48,59 +65,37 @@ export default function AdminMain2({
     }
   }, [id]);
 
+  //   useEffect(() => {
+  //     console.log(entityId);
+  //     console.log(entityType);
+  //   }, [entityId, entityType]);
+
+  // Fetch all the data to be displayed in the table
   useEffect(() => {
-    console.log(entityId);
-  }, [entityId]);
-
-  //   Fetch the data of the entity to be displayed
-  //   useEffect(() => {
-  //     fetchDetailsData({
-  //       setIsLoading,
-  //       isAdminTherapistMain,
-  //       therapistId,
-  //       setTherapist,
-  //       isAdminPatientMain,
-  //       patientId,
-  //       setPatient,
-  //       isAdminAfflictionMain,
-  //       afflictionId,
-  //       setAffliction,
-  //       isAdminMedicMain,
-  //       medicId,
-  //       setMedic,
-  //       isAdminInsuranceMain,
-  //       insuranceId,
-  //       setInsurance,
-  //     });
-  //   }, [patientId, therapistId, afflictionId, medicId, insuranceId]);
-
-  //   // Fetch all the data to be displayed in the table
-  //   useEffect(() => {
-  //     fetchTableData({
-  //       setIsLoading,
-  //       isAdminTherapistsMain,
-  //       setAllTherapists,
-  //       isAdminPatientsMain,
-  //       setAllPatients,
-  //       isAdminAfflictionsMain,
-  //       setAllAfflictions,
-  //       isAdminMedicsMain,
-  //       setAllMedics,
-  //       isAdminInsurancesMain,
-  //       setAllInsurances,
-  //     });
-  //   }, [
-  //     isAdminTherapistsMain,
-  //     isAdminPatientsMain,
-  //     isAdminAfflictionsMain,
-  //     isAdminMedicsMain,
-  //     isAdminInsurancesMain,
-  //   ]);
+    fetchTableDataRefactor({
+      setIsLoading,
+      entityType,
+      setEntities,
+    });
+  }, [entityType]);
 
   if (isLoading) {
     return DNALoader();
   }
 
+  //   Fetch the data of the entity to be displayed
+  useEffect(() => {
+    fetchDetailsDataRefactor({
+      setIsLoading,
+      entityType,
+      entityId,
+      setEntity,
+    });
+  }, [entityId]);
+
+  useEffect(() => {
+    console.log(entity), console.log(entities);
+  }, [entity, entities]);
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
       {/* <div className=" md:flex-row md:justify-normal"> */}
