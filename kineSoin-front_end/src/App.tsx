@@ -15,6 +15,7 @@ import {
   checkTherapistAuthentication,
 } from './utils/AppUtils/authentificationFunctions/appAuthentificationFunctions';
 import PublicMain from './components/pageComponents/PublicSection/PublicMain';
+import AdminPage from './components/pageComponents/AdminSection/AdminPage';
 
 function App() {
   // Authentication states
@@ -266,7 +267,7 @@ function App() {
             <Route
               path={route.path}
               key={route.path}
-              element={<AdminMain {...{ [route.boolean]: true }} />}
+              element={<AdminPage {...{ [route.boolean]: true }} />}
             />
           ))}
 
