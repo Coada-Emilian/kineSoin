@@ -6,11 +6,12 @@ import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNa
 import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
 import AppointmentsCalendar from '../../standaloneComponents/generalComponents/AppointmentCalendar/AppointmentsCalendar';
 import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';
-import { IAppointment, IUserProfile } from '../../../@types/standardTypes';
+import { IAppointment } from '../../../@types/standardTypes';
 import AppointmentCard from '../../standaloneComponents/generalComponents/AppointmentCard/AppointmentCard';
 import MessagesField from '../../standaloneComponents/generalComponents/MessagesField/MessagesField';
 import ProfileCard from '../../standaloneComponents/generalComponents/ProfileCard/ProfileCard';
 import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils';
+import { IUserProfile } from '../../../@types/customTypes';
 
 interface PatientMainProps {
   isPatientDashboardMain?: boolean;
@@ -29,16 +30,6 @@ export default function PatientMain({
   isPatientTherapistPage,
   isPatientDetailsMain,
 }: PatientMainProps) {
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', handleWindowResize);
-    return () => window.removeEventListener('resize', handleWindowResize);
-  }, [windowWidth]);
-
   const [patient, setPatient] = useState<IUserProfile>();
   const [upcomingAppointments, setUpcomingAppointments] = useState<
     IAppointment[]
@@ -96,11 +87,9 @@ export default function PatientMain({
         />
 
         <div className="h-fit md:flex gap-4 mb-2 ">
-          {windowWidth > 768 && (
-            <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
-              <SideNav isPatientSideNav />
-            </div>
-          )}
+          <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
+            <SideNav isPatientSideNav />
+          </div>
 
           <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
             <p className="text-xl font-semibold italic mb-2 ">
@@ -135,7 +124,6 @@ export default function PatientMain({
             {isPatientPrescriptionMain && (
               <div className="flex justify-center md:justify-around items-center w-full">
                 <PatientNewPrescriptionForm
-                  windowWidth={windowWidth}
                   patientId={patient?.id || undefined}
                   scanPreview={scanPreview}
                   setScanPreview={setScanPreview}

@@ -4,7 +4,6 @@ import {
   IAffliction,
   IAppointment,
   IBodyRegion,
-  ICountry,
   IInsurance,
   IMedic,
   IPrescription,
@@ -13,6 +12,7 @@ import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiU
 import { fetchAppointmentsByPrescription } from './functions/fetchAppointmentsByPrescription';
 import { identifyOldInsurance } from './functions/identifyOldInsurance';
 import { fetchCountriesData } from './functions/fetchCountriesData';
+import { ICountry } from '../../../../../@types/customTypes';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;
@@ -87,8 +87,6 @@ export default function StandardChoiceDropdown({
 }: StandardChoiceDropdownProps) {
   // Get the window width
   const windowWidth = window.innerWidth;
-
-  // Function to fetch appointments by prescription
 
   // Patient insurance dropdown state
   const [otherInsurances, setOtherInsurances] = useState<IInsurance[]>([]);

@@ -70,7 +70,7 @@ export default function CustomButton({
 }: CustomButtonProps) {
   const getBtnBackground = () => {
     if (normalButton || navBarButton || mobileButton || allButton) {
-      return 'bg-primaryTeal hover:bg-secondaryTeal';
+      return 'bg-primaryTeal hover:bg-secondaryTeal hidden md:block';
     } else if (cancelButton || mobileCancelButton) {
       return 'bg-gray-300 hover:bg-gray-300';
     } else if (modifyButton) {
@@ -159,7 +159,13 @@ export default function CustomButton({
       adminLogoutButton ||
       therapistLogoutButton
     ) {
-      return <img src={LogoutIcon} alt="Logout" className="max-w-6" />;
+      return (
+        <img
+          src={LogoutIcon}
+          alt="Logout"
+          className="max-w-6 block md:hidden"
+        />
+      );
     }
     return null;
   };

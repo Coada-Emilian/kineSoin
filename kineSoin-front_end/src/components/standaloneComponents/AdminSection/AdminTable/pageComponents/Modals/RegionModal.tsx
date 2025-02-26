@@ -9,7 +9,6 @@ import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminA
 interface RegionModalProps {
   isRegionModalOpen: boolean;
   setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  windowWidth?: number;
 }
 
 export default function RegionModal({

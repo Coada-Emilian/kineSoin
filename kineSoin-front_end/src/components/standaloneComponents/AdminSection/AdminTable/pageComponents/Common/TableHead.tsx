@@ -31,7 +31,6 @@ export default function TableHead({
     if (allMedics) return 'Nom médecin';
     if (allInsurances) return 'Nom organisme';
     if (allBodyRegions) return 'Nom région';
-    return null;
   };
 
   const getThirdTableHeadContent = () => {
@@ -39,7 +38,6 @@ export default function TableHead({
     if (allAfflictions) return 'Region concernée';
     if (allMedics) return 'Code ADELI';
     if (allInsurances) return 'Code AMC';
-    return null;
   };
 
   return (

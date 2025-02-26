@@ -13,7 +13,6 @@ import {
 } from '../../../../../utils/apiUtils/patientApiUtils';
 
 interface PatientNewPrescriptionFormProps {
-  windowWidth?: number;
   patientId?: number;
   scanPreview?: string | null;
   setScanPreview?: React.Dispatch<React.SetStateAction<string | null>>;

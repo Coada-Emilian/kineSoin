@@ -13,8 +13,6 @@ import { removePatientTokenFromLocalStorage } from '../../../../localStorage/pat
 import { removeTherapistTokenFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
 
 interface NavBarProps {
-  windowWidth?: number;
-
   isAdminNavBar?: boolean;
   isAdminAuthenticated?: boolean;
 
@@ -35,8 +33,6 @@ interface NavBarProps {
 }
 
 export default function NavBar({
-  windowWidth,
-
   isAdminNavBar,
   isAdminAuthenticated,
 
@@ -112,9 +108,14 @@ export default function NavBar({
           }}
         >
           <img
-            src={(windowWidth ?? 0) < 768 ? Logo2 : Logo1}
+            src={Logo2}
             alt="Retour a l'accueil"
-            className="max-w-32 lg:max-w-40"
+            className="max-w-32 lg:max-w-40 block md:hidden"
+          />
+          <img
+            src={Logo1}
+            alt="Retour a l'accueil"
+            className="max-w-32 lg:max-w-40 hidden md:block"
           />
         </Link>
 
@@ -158,19 +159,17 @@ export default function NavBar({
           )}
 
           {/* Admin navbar portion */}
-          {isAdminNavBar &&
-            isAdminAuthenticated &&
-            ((windowWidth ?? 0) < 768 ? (
-              <>
-                <CustomButton adminLogoutButton onClick={handleAdminLogout} />
-              </>
-            ) : (
+          {isAdminNavBar && isAdminAuthenticated && (
+            <>
+              <CustomButton adminLogoutButton onClick={handleAdminLogout} />
+
               <CustomButton
                 btnText="Se déconnecter"
                 navBarButton
                 onClick={handleAdminLogout}
               />
-            ))}
+            </>
+          )}
 
           {/* Patient navbar portion */}
           {(isPatientNavBar && isPatientAuthenticated) ||

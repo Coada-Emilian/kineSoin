@@ -31,19 +31,22 @@ export default function TherapistTableBody({
 }: TherapistTableBodyProps) {
   return renderedTherapists.map((therapist: ITherapist) => {
     return (
-      <tr key={therapist.id} className="odd:bg-white even:bg-gray-50">
-        <td className="border border-gray-300 px-4 py-2 text-center">
+      <tr
+        key={therapist.id}
+        className="odd:bg-white even:bg-gray-100 text-xxs xs:text-xs md:text-sm"
+      >
+        <td className="border border-gray-300 p-2 text-center">
           {therapist.id}
         </td>
 
-        <td className="border border-gray-300 px-4 py-2 text-center">
+        <td className="border border-gray-300 p-2 text-center">
           {therapist.fullName}
         </td>
 
         <td
           className={`border border-gray-300 ${
             therapist.status === 'active' ? 'bg-green-300' : 'bg-gray-200'
-          } px-4 py-2 text-center flex gap-1 items-center justify-center`}
+          } p-2 text-center flex gap-1 items-center justify-center`}
         >
           <Button className="hidden md:block">
             <img
@@ -57,24 +60,24 @@ export default function TherapistTableBody({
           <p>{therapist.status === 'active' ? 'ACTIF' : 'INACTIF'}</p>
         </td>
 
-        <td className="border border-gray-300 px-4 py-2 text-center ">
+        <td className="border border-gray-300 p-2 text-center ">
           <Link
             to={`/admin/therapists/${therapist.id}`}
             className="block md:hidden"
           >
-            <img src={editIcon} alt="edit" className="mx-auto w-10 " />
+            <img src={editIcon} alt="edit" className="mx-auto w-8" />
           </Link>
 
           <Link
             to={`/admin/therapists/${therapist.id}`}
             className="w-25 items-center justify-center hidden md:flex"
           >
-            <img src={editIcon} alt="edit" className="w-5 mx-1" />{' '}
+            <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
             <p className="text-blue-300 font-semibold ">Inspecter</p>
           </Link>
         </td>
 
-        <td className="border border-gray-300 px-4 py-2 text-center ">
+        <td className="border border-gray-300 p-2 text-center ">
           <Button
             onClick={() =>
               openDeleteModal(therapist, undefined, undefined, undefined)

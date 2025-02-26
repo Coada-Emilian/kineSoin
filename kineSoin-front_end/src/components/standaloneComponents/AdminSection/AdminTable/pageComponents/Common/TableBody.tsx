@@ -72,7 +72,6 @@ export default function TableBody({
 
       {allMedics && (
         <MedicTableBody
-          windowWidth={windowWidth}
           openDeleteModal={openDeleteModal}
           allMedics={allMedics}
         />
@@ -80,7 +79,6 @@ export default function TableBody({
 
       {allInsurances && (
         <InsuranceTableBody
-          windowWidth={windowWidth}
           allInsurances={allInsurances}
           openDeleteModal={openDeleteModal}
         />

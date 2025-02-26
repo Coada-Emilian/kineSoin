@@ -183,7 +183,7 @@ export default function MobileNav({
   }, []);
 
   return (
-    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3">
+    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 md:hidden">
       {activeLinks.map((link, index) => (
         <NavLink
           to={link.path}

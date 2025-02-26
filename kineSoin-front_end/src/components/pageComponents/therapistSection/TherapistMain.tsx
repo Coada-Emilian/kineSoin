@@ -13,19 +13,8 @@ interface TherapistMainProps {
 
 export default function TherapistMain({
   isTherapistDashboardMain,
-
   isTherapistPatientsMain,
 }: TherapistMainProps) {
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', handleWindowResize);
-    return () => window.removeEventListener('resize', handleWindowResize);
-  }, [windowWidth]);
-
   const [therapist, setTherapist] = useState<IUserProfile>();
 
   useEffect(() => {
@@ -56,11 +45,11 @@ export default function TherapistMain({
         />
 
         <div className="h-fit md:flex gap-4 mb-2 ">
-          {windowWidth && windowWidth > 768 && (
+  
             <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
               <SideNav isTherapistSideNav />
             </div>
-          )}
+      
 
           <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
             <p className="text-xl font-semibold italic mb-2 ">

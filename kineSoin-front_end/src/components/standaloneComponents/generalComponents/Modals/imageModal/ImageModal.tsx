@@ -55,7 +55,6 @@ export default function ImageModal({
   setPreviewUrl,
   setTherapistImageFile,
 }: ImageModalProps) {
-  const windowWidth = window.innerWidth;
   const [preview, setPreview] = useState<string | null>(null);
 
   return (
@@ -143,11 +142,12 @@ export default function ImageModal({
           }`}
           className="w-full flex gap-2 items-center justify-between px-1 py-1 border rounded-md cursor-pointer text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-secondaryTeal"
         >
-          <span className="text-center">
-            {' '}
-            {windowWidth && windowWidth < 768
-              ? `${(fileName || '').slice(0, 10)}...`
-              : `${(fileName || '').slice(0, 35)}...`}
+          <span className="text-center block md:hidden">
+            `${(fileName || '').slice(0, 10)}...`
+          </span>
+
+          <span className="text-center hidden md:block">
+            `${(fileName || '').slice(0, 35)}...`
           </span>
 
           <span className="bg-secondaryTeal text-white px-3 py-1 rounded-md text-center">

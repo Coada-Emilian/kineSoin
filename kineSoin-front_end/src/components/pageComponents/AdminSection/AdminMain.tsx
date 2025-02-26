@@ -136,7 +136,7 @@ export default function AdminMain({
         <SideNav isAdminSideNav />
       </div>
 
-      <div className="md:w-full md:border-l-2 md:border-solid ">
+      <div className="w-full md:border-l-2 md:border-solid ">
         {(isAdminTherapistsMain ||
           isAdminPatientsMain ||
           isAdminAfflictionsMain ||

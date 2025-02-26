@@ -1,17 +1,4 @@
-/**
- * @file InsuranceTableBody.tsx
- * @description A React functional component that renders the body of a table displaying insurance information. It maps over an array of insurances, generating table rows with details and actions (edit and delete) for each insurance entry.
- *
- * @param {Object} props - The props for the InsuranceTableBody component.
- * @param {number} props.windowWidth - The current width of the window, used to conditionally render styles and content based on the screen size.
- * @param {IInsurance[]} props.allInsurances - An array of insurance objects to be displayed in the table.
- * @param {function} props.openDeleteModal - A function to open the delete confirmation modal for a specific insurance, receiving the insurance as an argument.
- *
- * @returns {JSX.Element} The rendered table body containing rows for each insurance, with action buttons for editing and deleting entries.
- */
-
 import { Link } from 'react-router-dom';
-
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import {
@@ -21,9 +8,9 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardTypes';
+import { Button } from '@headlessui/react';
 
 interface InsuranceTableBodyProps {
-  windowWidth: number;
   openDeleteModal: (
     therapist?: ITherapist,
     patient?: IPatient,
@@ -35,7 +22,6 @@ interface InsuranceTableBodyProps {
 }
 
 export default function InsuranceTableBody({
-  windowWidth,
   allInsurances,
   openDeleteModal,
 }: InsuranceTableBodyProps) {
@@ -55,68 +41,53 @@ export default function InsuranceTableBody({
         </td>
 
         <td className="border border-gray-300 py-2 px-2 text-center">
-          {windowWidth < 768 ? (
-            <Link to={`/admin/insurances/${insurance.id}`}>
-              <img
-                src={editIcon}
-                alt="edit"
-                className={
-                  windowWidth < 450 ? 'max-w-4 mx-auto' : 'w-5 mx-auto'
-                }
-              />
-            </Link>
-          ) : (
-            <Link
-              to={`/admin/insurances/${insurance.id}`}
-              className="w-25 flex items-center justify-center"
-            >
-              <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
-              <p className="text-blue-300 font-semibold">Inspecter</p>
-            </Link>
-          )}
+          <Link
+            to={`/admin/insurances/${insurance.id}`}
+            className="block md:hidden"
+          >
+            <img src={editIcon} alt="edit" className="mx-auto w-10" />
+          </Link>
+
+          <Link
+            to={`/admin/insurances/${insurance.id}`}
+            className="w-25 items-center justify-center hidden md:flex"
+          >
+            <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
+            <p className="text-blue-300 font-semibold">Inspecter</p>
+          </Link>
         </td>
 
         <td className="border border-gray-300 px-4 py-2 text-center">
-          {windowWidth < 768 ? (
-            <Link
-              to="#"
-              className="w-12"
-              onClick={() => {
-                openDeleteModal(
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  insurance
-                );
-              }}
-            >
-              <img
-                src={deleteIcon}
-                alt="delete"
-                className={
-                  windowWidth < 450 ? 'max-w-4 mx-auto' : 'w-5 mx-auto'
-                }
-              />
-            </Link>
-          ) : (
-            <Link
-              to="#"
-              className="w-25 flex justify-center items-center"
-              onClick={() => {
-                openDeleteModal(
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  insurance
-                );
-              }}
-            >
-              <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />
-              <p className="text-red-600 font-semibold">Supprimer</p>
-            </Link>
-          )}
+          <Button
+            className="mx-auto block md:hidden"
+            onClick={() => {
+              openDeleteModal(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                insurance
+              );
+            }}
+          >
+            <img src={deleteIcon} alt="delete" className="w-5 mx-1" />
+          </Button>
+
+          <Button
+            className="w-25 mx-auto items-center hidden md:flex"
+            onClick={() => {
+              openDeleteModal(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                insurance
+              );
+            }}
+          >
+            <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />
+            <p className="text-red-600 font-semibold">Supprimer</p>
+          </Button>
         </td>
       </tr>
     );

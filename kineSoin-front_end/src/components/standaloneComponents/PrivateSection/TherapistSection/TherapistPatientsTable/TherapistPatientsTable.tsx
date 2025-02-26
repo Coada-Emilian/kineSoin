@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ITherapistPatient } from '../../../../../@types/standardTypes';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
@@ -10,16 +9,10 @@ import {
   fetchTherapistPatients,
   togglePatientStatusAsTherapist,
 } from '../../../../../utils/apiUtils/therapistApiUtils';
+import { ITherapistPatient } from '../../../../../@types/customTypes';
 
 export default function TherapistPatientsTable() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWindowWidth(window.innerWidth);
-    });
-  }, [windowWidth]);
 
   const [therapistPatients, setTherapistPatients] = useState<
     ITherapistPatient[]
@@ -77,13 +70,7 @@ export default function TherapistPatientsTable() {
         </div>
       )}
       <table className="border-collapse border border-gray-300 w-11/12 mx-auto  mb-6 rounded-lg shadow-xl">
-        <thead
-          className={
-            windowWidth < 450
-              ? 'bg-gray-100 text-xs'
-              : 'bg-gray-100 text-sm md:text-base'
-          }
-        >
+        <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base">
           <tr>
             <>
               <th className="border border-gray-300 px-4 py-2 text-">#</th>
@@ -106,9 +93,7 @@ export default function TherapistPatientsTable() {
           </tr>
         </thead>
 
-        <tbody
-          className={windowWidth < 450 ? 'text-xxs' : 'text-xs md:text-sm'}
-        >
+        <tbody className="xxs:text-xxs text-xs md:text-sm">
           {noTherapistPatients && (
             <tr>
               <td
@@ -169,7 +154,7 @@ export default function TherapistPatientsTable() {
                 <td className="border border-gray-300 px-4 py-2 text-center hover:transform hover:scale-125">
                   <Link
                     to="#"
-                    className={`${windowWidth < 768 ? 'w-12' : 'w-25 flex justify-center items-center'}`}
+                    className="w-12 md:w-25 flex justify-center items-center"
                     onClick={() => {
                       setSelectedPatient(patient);
                       setIsPatientDetailsModalOpen(true);
@@ -178,18 +163,19 @@ export default function TherapistPatientsTable() {
                     <img
                       src={editIcon}
                       alt="edit"
-                      className={windowWidth < 768 ? 'w-5 mx-auto' : 'w-5 mx-1'}
+                      className="mx-auto w-5 md:mx-1"
                     />
-                    {windowWidth > 768 && (
-                      <p className="text-blue-300 font-semibold">Inspecter</p>
-                    )}
+
+                    <p className="text-blue-300 font-semibold hidden md:block">
+                      Inspecter
+                    </p>
                   </Link>
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2 text-center hover:transform hover:scale-125">
                   <Link
                     to="#"
-                    className={`${windowWidth < 768 ? 'w-12' : 'w-25 flex justify-center items-center'}`}
+                    className="w-12 md:w-25 flex justify-center items-center"
                     onClick={() => {
                       setSelectedPatient(patient);
                       setIsDeletePatientModalOpen(true);
@@ -198,11 +184,12 @@ export default function TherapistPatientsTable() {
                     <img
                       src={deleteIcon}
                       alt="supprimer"
-                      className={windowWidth < 768 ? 'w-5 mx-auto' : 'w-5 mx-1'}
+                      className="mx-auto w-5 md:mx-1"
                     />
-                    {windowWidth > 768 && (
-                      <p className="text-red-600 font-semibold">Supprimer</p>
-                    )}
+
+                    <p className="text-red-600 font-semibold hidden md:block">
+                      Supprimer
+                    </p>
                   </Link>
                 </td>
               </tr>

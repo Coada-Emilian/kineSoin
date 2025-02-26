@@ -31,7 +31,6 @@ interface AdminTableProps {
   allAfflictions?: IAffliction[];
   allMedics?: IMedic[];
   allInsurances?: IInsurance[];
-  windowWidth?: number;
   allTherapists?: ITherapist[];
   allBodyRegions?: IBodyRegion[];
 }
@@ -41,7 +40,6 @@ export default function AdminTable({
   allAfflictions,
   allMedics,
   allInsurances,
-  windowWidth,
   allTherapists,
   allBodyRegions,
 }: AdminTableProps) {
@@ -149,7 +147,7 @@ export default function AdminTable({
   };
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <div
         className={`${allMedics || allInsurances || allBodyRegions ? 'justify-end' : 'justify-between'} buttons mb-6 flex flex-row md:ml-10 md:mr-10 `}
       >
@@ -233,7 +231,6 @@ export default function AdminTable({
 
       <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg ">
         <TableHead
-         
           allTherapists={allTherapists}
           allPatients={allPatients}
           allAfflictions={allAfflictions}
@@ -243,7 +240,6 @@ export default function AdminTable({
         />
 
         <TableBody
-       
           allTherapists={allTherapists}
           allPatients={allPatients}
           allMedics={allMedics}

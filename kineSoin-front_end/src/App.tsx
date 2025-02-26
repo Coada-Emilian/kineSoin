@@ -17,20 +17,6 @@ import {
 import PublicMain from './components/pageComponents/PublicSection/PublicMain';
 
 function App() {
-  // Use state to keep track of the window width
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // Make sure the windowWidth state always has the current window width
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-  // useEffect to listen for window resize events
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   // Authentication states
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
@@ -210,7 +196,6 @@ function App() {
         element={
           <Layout
             isPublicLayout
-            windowWidth={windowWidth}
             setIsFirstFormValidated={setIsFirstFormValidated}
             setIsSecondFormValidated={setIsSecondFormValidated}
             setIsThirdFormValidated={setIsThirdFormValidated}
@@ -274,7 +259,6 @@ function App() {
               isAdminLayout
               isAdminAuthenticated={isAdminAuthenticated}
               setIsAdminAuthenticated={setIsAdminAuthenticated}
-              windowWidth={windowWidth}
             />
           }
         >
@@ -296,7 +280,6 @@ function App() {
               isAdminLayout
               isAdminAuthenticated={isAdminAuthenticated}
               setIsAdminAuthenticated={setIsAdminAuthenticated}
-              windowWidth={windowWidth}
             />
           }
         >
@@ -313,7 +296,6 @@ function App() {
               isPatientLayout
               isPatientAuthenticated={isPatientAuthenticated}
               setIsPatientAuthenticated={setIsPatientAuthenticated}
-              windowWidth={windowWidth}
             />
           }
         >
@@ -335,7 +317,6 @@ function App() {
               isPatientLayout
               isPatientAuthenticated={isPatientAuthenticated}
               setIsPatientAuthenticated={setIsPatientAuthenticated}
-              windowWidth={windowWidth}
             />
           }
         >
@@ -354,7 +335,6 @@ function App() {
               isTherapistLayout
               isTherapistAuthenticated={isTherapistAuthenticated}
               setIsTherapistAuthenticated={setIsTherapistAuthenticated}
-              windowWidth={windowWidth}
             />
           }
         >
@@ -379,7 +359,6 @@ function App() {
               isTherapistLayout
               isTherapistAuthenticated={isTherapistAuthenticated}
               setIsTherapistAuthenticated={setIsTherapistAuthenticated}
-              windowWidth={windowWidth}
             />
           }
         >

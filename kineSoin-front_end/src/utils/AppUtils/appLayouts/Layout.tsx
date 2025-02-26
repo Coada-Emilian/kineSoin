@@ -9,7 +9,6 @@ interface LayoutProps {
   isPatientLayout?: boolean;
   isTherapistLayout?: boolean;
 
-  windowWidth: number;
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +30,6 @@ export function Layout({
   isPatientLayout,
   isTherapistLayout,
 
-  windowWidth,
   setIsFirstFormValidated,
   setIsSecondFormValidated,
   setIsThirdFormValidated,
@@ -69,7 +67,6 @@ export function Layout({
       isTherapistAuthenticated,
       setIsTherapistAuthenticated,
     }),
-    windowWidth,
   };
 
   const footerProps = {
@@ -86,9 +83,12 @@ export function Layout({
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavBar {...navBarProps} />
+
       <Outlet />
+
       <Footer {...footerProps} />
-      {windowWidth < 768 && <MobileNav {...mobileNavProps} />}
+      
+      <MobileNav {...mobileNavProps} />
     </div>
   );
 }
