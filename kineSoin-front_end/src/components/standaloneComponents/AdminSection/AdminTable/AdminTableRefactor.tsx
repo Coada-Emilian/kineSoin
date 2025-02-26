@@ -30,6 +30,7 @@ import TherapistsStatusButtons from './pageComponents/Common/TherapistsStatusBut
 import PatientsStatusButtons from './pageComponents/Common/PatientsStatusButtons';
 import AfflictionsStatusButtons from './pageComponents/Common/AfflictionsStatusButtons';
 import TableTitleRefactor from './pageComponents/Common/TableTitleRefactor';
+import TableHeadRefactor from './pageComponents/Common/TableHeadRefactor';
 
 interface AdminTableRefactorProps {
   entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
@@ -149,12 +150,16 @@ export default function AdminTableRefactor({
       setModalOpen: setIsAddTherapistModalP1Open,
       tableTitle: 'Tous les kinésithérapeutes',
       entityStatus: therapistStatus,
+      secondTableHeadContent: 'Nom kiné',
+      thirdTableHeadContent: 'Statut',
     },
     {
       entityType: 'patient',
       statusButtons: <PatientsStatusButtons setStatus={setPatientStatus} />,
       tableTitle: 'Tous les patients',
       entityStatus: patientStatus,
+      secondTableHeadContent: 'Nom patient',
+      thirdTableHeadContent: 'Statut',
     },
     {
       entityType: 'affliction',
@@ -167,18 +172,25 @@ export default function AdminTableRefactor({
       setRegionModalOpen: setIsRegionModalOpen,
       tableTitle: 'Toutes les afflictions',
       entityStatus: afflictionStatus,
+      secondTableHeadContent: 'Nom affliction',
+      thirdTableHeadContent: 'Region concernée',
+      fourthTableHeadContent: 'Cotation',
     },
     {
       entityType: 'medic',
       customBtnText: 'Ajouter un médecin',
       setModalOpen: setIsAddMedicModalOpen,
       tableTitle: 'Tous les médecins',
+      secondTableHeadContent: 'Nom médecin',
+      thirdTableHeadContent: 'Code ADELI',
     },
     {
       entityType: 'insurance',
       customBtnText: 'Ajouter une assurance',
       setModalOpen: setIsAddInsuranceModalOpen,
       tableTitle: 'Toutes les assurances',
+      secondTableHeadContent: 'Nom organisme',
+      thirdTableHeadContent: 'Code AMC',
     },
   ];
 
@@ -193,31 +205,28 @@ export default function AdminTableRefactor({
         <div
           className={`${activeEntity && !activeEntity.statusButtons ? 'justify-end' : 'justify-between'} mb-6 flex flex-row md:ml-10 md:mr-10`}
         >
-          {activeEntity && (
-            <>
-              {activeEntity.statusButtons && activeEntity.statusButtons}
-              <div className="flex gap-2">
-                {' '}
-                {activeEntity.regionButton && (
-                  <CustomButton
-                    btnText="Ajouter une region"
-                    addButton
-                    onClick={() => activeEntity.setRegionModalOpen(true)}
-                  />
-                )}
-                {activeEntity.customBtnText && (
-                  <CustomButton
-                    btnText={activeEntity.customBtnText}
-                    addButton
-                    onClick={() =>
-                      activeEntity.setModalOpen &&
-                      activeEntity.setModalOpen(true)
-                    }
-                  />
-                )}
-              </div>
-            </>
-          )}
+          <>
+            {activeEntity?.statusButtons}
+            <div className="flex gap-2">
+              {' '}
+              {activeEntity?.regionButton && (
+                <CustomButton
+                  btnText="Ajouter une region"
+                  addButton
+                  onClick={() => activeEntity.setRegionModalOpen(true)}
+                />
+              )}
+              {activeEntity?.customBtnText && (
+                <CustomButton
+                  btnText={activeEntity.customBtnText}
+                  addButton
+                  onClick={() =>
+                    activeEntity.setModalOpen && activeEntity.setModalOpen(true)
+                  }
+                />
+              )}
+            </div>
+          </>
         </div>
 
         <div>
@@ -227,17 +236,14 @@ export default function AdminTableRefactor({
           />
         </div>
 
-        {/* <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg ">
-          <TableHead
-            allTherapists={allTherapists}
-            allPatients={allPatients}
-            allAfflictions={allAfflictions}
-            allMedics={allMedics}
-            allInsurances={allInsurances}
-            allBodyRegions={allBodyRegions}
+        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg ">
+          <TableHeadRefactor
+            secondHeaderContent={activeEntity?.secondTableHeadContent || ''}
+            thirdHeaderContent={activeEntity?.thirdTableHeadContent || ''}
+            fourthHeaderContent={activeEntity?.fourthTableHeadContent || ''}
           />
 
-          <TableBody
+          {/* <TableBody
             allTherapists={allTherapists}
             allPatients={allPatients}
             allMedics={allMedics}
@@ -248,10 +254,10 @@ export default function AdminTableRefactor({
             renderedTherapists={renderedTherapists}
             openDeleteModal={openDeleteModal}
             allBodyRegions={allBodyRegions}
-          />
+          /> */}
         </table>
 
-        {isDeleteModalOpen && (
+        {/* {isDeleteModalOpen && (
           <ConfirmDeleteModal
             isDeleteModalOpen={isDeleteModalOpen}
             setIsDeleteModalOpen={setIsDeleteModalOpen}
