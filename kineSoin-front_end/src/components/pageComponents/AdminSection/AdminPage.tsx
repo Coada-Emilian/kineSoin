@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   IAffliction,
   IInsurance,
@@ -6,7 +6,6 @@ import {
   IPatient,
   ITherapist,
 } from '../../../@types/standardTypes';
-import AdminMain from './AdminMain';
 import AdminMain2 from './AdminMain2';
 
 interface AdminPageProps {

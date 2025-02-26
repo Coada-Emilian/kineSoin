@@ -20,6 +20,7 @@ import {
   fetchTableDataRefactor,
 } from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtilsRefactor';
 import AdminTableRefactor from '../../standaloneComponents/AdminSection/AdminTable/AdminTableRefactor';
+import AdminProfileDetailsRefactor from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetailsRefactor';
 
 interface AdminMain2Props {
   entityType: string;
@@ -55,6 +56,8 @@ export default function AdminMain2({
   const { id } = useParams();
   const entity_id = id ? parseInt(id, 10) : null;
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isTableRendered, setIsTableRendered] = useState<boolean>(false);
+  const [isDetailsRendered, setIsDetailsRendered] = useState<boolean>(false);
 
   // Fetch the data of the entity to be displayed
   useEffect(() => {
@@ -86,6 +89,8 @@ export default function AdminMain2({
     });
   }, [entityId]);
 
+  console.log('entity', entity);
+  console.log(entities.length);
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
       {/* <div className=" md:flex-row md:justify-normal"> */}
@@ -102,25 +107,12 @@ export default function AdminMain2({
           />
         )}
 
-        {/* {(isAdminTherapistMain ||
-          isAdminPatientMain ||
-          isAdminAfflictionMain ||
-          isAdminMedicMain ||
-          isAdminInsuranceMain) && (
-          <AdminProfileDetails
-            therapist={
-              isAdminTherapistMain && therapist ? therapist : undefined
-            }
-            patient={isAdminPatientMain && patient ? patient : undefined}
-            affliction={
-              isAdminAfflictionMain && affliction ? affliction : undefined
-            }
-            medic={isAdminMedicMain && medic ? medic : undefined}
-            insurance={
-              isAdminInsuranceMain && insurance ? insurance : undefined
-            }
+        {entity && (
+          <AdminProfileDetailsRefactor
+            entityType={entityType}
+            entity={entity}
           />
-        )} */}
+        )}
       </div>
     </main>
   );
