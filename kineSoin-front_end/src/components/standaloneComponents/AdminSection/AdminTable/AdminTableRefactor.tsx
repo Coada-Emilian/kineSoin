@@ -35,6 +35,9 @@ import TableBodyRefactor from './pageComponents/Common/TableBodyRefactor';
 import FirstAddTherapistModal from './pageComponents/Modals/adminModal/variations/FirstAddTherapistModal';
 import SecondAddTherapistModal from './pageComponents/Modals/adminModal/variations/SecondAddTherapistModal';
 import ThirdAddTherapistModal from './pageComponents/Modals/adminModal/variations/ThirdAddTherapistModal';
+import AddAfflictionModal from './pageComponents/Modals/adminModal/variations/AddAfflictionModal';
+import AddMedicModal from './pageComponents/Modals/adminModal/variations/AddMedicModal';
+import AddInsuranceModal from './pageComponents/Modals/adminModal/variations/AddInsuranceModal';
 
 interface AdminTableRefactorProps {
   entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
@@ -197,6 +200,13 @@ export default function AdminTableRefactor({
       secondTableHeadContent: 'Nom organisme',
       thirdTableHeadContent: 'Code AMC',
     },
+    {
+      entityType: 'region',
+      customBtnText: 'Ajouter une region',
+      setModalOpen: setIsAddRegionModalOpen,
+      tableTitle: 'Toutes les regions',
+      secondTableHeadContent: 'Nom region',
+    },
   ];
 
   const activeEntity = Object.values(tableElements).find(
@@ -221,7 +231,7 @@ export default function AdminTableRefactor({
               {' '}
               {activeEntity?.regionButton && (
                 <CustomButton
-                  btnText="Ajouter une region"
+                  btnText="Voir les regions"
                   addButton
                   onClick={() => activeEntity.setRegionModalOpen(true)}
                 />
@@ -310,43 +320,52 @@ export default function AdminTableRefactor({
           />
         )}
 
-        {/* {isAddAfflictionModalOpen && (
-          <AdminModal
-            isAdminAfflictionAddModal
-            isAddAfflictionModalOpen={isAddAfflictionModalOpen}
-            setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
+        {isAddAfflictionModalOpen && (
+          <AddAfflictionModal
+            isOpen={isAddAfflictionModalOpen}
+            onClose={() => setIsAddAfflictionModalOpen(false)}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
+          />
+        )}
+
+        {isAddMedicModalOpen && (
+          <AddMedicModal
+            isOpen={isAddMedicModalOpen}
+            onClose={() => setIsAddMedicModalOpen(false)}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
+          />
+        )}
+
+        {isAddInsuranceModalOpen && (
+          <AddInsuranceModal
+            isOpen={isAddInsuranceModalOpen}
+            onClose={() => setIsAddInsuranceModalOpen(false)}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
           />
         )}
 
         {isRegionModalOpen && (
           <RegionModal
-            isRegionModalOpen={isRegionModalOpen}
-            setIsRegionModalOpen={setIsRegionModalOpen}
+            isOpen={isRegionModalOpen}
+            onClose={() => setIsRegionModalOpen(false)}
+            setIsAddRegionModalOpen={setIsAddRegionModalOpen}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
+            openDeleteModal={openDeleteModal}
           />
         )}
 
         {isAddRegionModalOpen && (
           <AddRegionModal
-            isAddRegionModalOpen={isAddRegionModalOpen}
-            setIsAddRegionModalOpen={setIsAddRegionModalOpen}
+            isOpen={isAddRegionModalOpen}
+            onClose={() => setIsAddRegionModalOpen(false)}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
           />
         )}
-
-        {isAddMedicModalOpen && (
-          <AdminModal
-            isAdminAddMedicModal
-            isAddMedicModalOpen={isAddMedicModalOpen}
-            setIsAddMedicModalOpen={setIsAddMedicModalOpen}
-          />
-        )}
-
-        {isAddInsuranceModalOpen && (
-          <AdminModal
-            isAdminAddInsuranceModal
-            isAddInsuranceModalOpen={isAddInsuranceModalOpen}
-            setIsAddInsuranceModalOpen={setIsAddInsuranceModalOpen}
-          />
-        )} */}
       </div>
     </>
   );

@@ -1,19 +1,43 @@
-// Purpose: The purpose of this component is to render the admin therapists page.
-
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import AdminTable from '../../AdminTable';
-import { IBodyRegion } from '../../../../../../@types/standardTypes';
+import {
+  IAffliction,
+  IBodyRegion,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/standardTypes';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils';
+import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import RegionTable from '../../RegionTable';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 
 interface RegionModalProps {
-  isRegionModalOpen: boolean;
-  setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
+  onClose: () => void;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  errorMessage: string;
+  setIsAddRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openDeleteModal: (
+    entity:
+      | ITherapist
+      | IPatient
+      | IAffliction
+      | IMedic
+      | IInsurance
+      | IBodyRegion
+  ) => void;
 }
 
 export default function RegionModal({
-  isRegionModalOpen,
-  setIsRegionModalOpen,
+  isOpen,
+  onClose,
+  setErrorMessage,
+  setIsAddRegionModalOpen,
+  errorMessage,
+  openDeleteModal,
 }: RegionModalProps) {
   // State to store all body regions fetched
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
@@ -25,31 +49,33 @@ export default function RegionModal({
   }, []);
 
   return (
-    <ReactModal
-      isOpen={isRegionModalOpen}
-      onRequestClose={() => setIsRegionModalOpen(false)}
-      style={{
-        content: {
-          width: '80vw',
-          height: 'fit-content',
-          maxWidth: '500px',
-          margin: 'auto',
-          padding: '20px',
-          borderRadius: '8px',
-          backgroundColor: 'white',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          top: '10%',
-        },
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        },
-      }}
-    >
-      <div className="space-y-4">
-        <h2 className="text-sm md:text-base font-bold mb-2 md:mb-4">Regions</h2>
+    <BaseModal isOpen={isOpen} onClose={onClose}>
+      <div className="space-y-4 p-8">
+        <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
+          Toutes les regions
+        </h2>
 
-        <AdminTable allBodyRegions={bodyRegions} />
+        {errorMessage && (
+          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        )}
+
+        <RegionTable
+          allBodyRegions={bodyRegions}
+          setIsRegionModalOpen={onClose}
+          setIsAddRegionModalOpen={setIsAddRegionModalOpen}
+          openDeleteModal={openDeleteModal}
+        />
       </div>
-    </ReactModal>
+      <div className="flex gap-2 mt-6 w-fit mx-auto mb-4">
+        <CustomButton
+          btnText="Annuler"
+          btnType="button"
+          mobileCancelButton
+          onClick={() => {
+            onClose && onClose();
+          }}
+        />
+      </div>
+    </BaseModal>
   );
 }

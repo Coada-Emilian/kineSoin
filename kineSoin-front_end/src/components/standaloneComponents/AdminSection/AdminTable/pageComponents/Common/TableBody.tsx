@@ -85,10 +85,7 @@ export default function TableBody({
       )}
 
       {allBodyRegions && (
-        <RegionTableBody
-          allBodyRegions={allBodyRegions}
-          openDeleteModal={openDeleteModal}
-        />
+       
       )}
     </tbody>
   );

@@ -103,21 +103,24 @@ export default function ConfirmDeleteModal({
         {activeEntity?.full_name && (
           <p>
             Êtes-vous sûr de vouloir supprimer le profile de{' '}
-            <span className="font-semibold">{activeEntity.full_name}</span> ?
+            <span className="font-semibold italic">
+              {activeEntity.full_name}
+            </span>{' '}
+            ?
           </p>
         )}
 
         {activeEntity?.entityType === 'affliction' && (
           <p>
             Êtes-vous sûr de vouloir supprimer l'affliction{' '}
-            <span className="font-semibold">{activeEntity.name}</span> ?
+            <span className="font-semibold italic">{activeEntity.name}</span> ?
           </p>
         )}
 
         {activeEntity?.entityType === 'insurance' && (
           <p>
             Êtes-vous sûr de vouloir supprimer l'organisme{' '}
-            <span className="font-semibold">{activeEntity.name}</span> ?
+            <span className="font-semibold italic">{activeEntity.name}</span> ?
           </p>
         )}
 

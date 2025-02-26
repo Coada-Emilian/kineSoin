@@ -1,41 +1,93 @@
+import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
+import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import { handleMedicSubmit } from '../utils/dataSubmitFunctions';
 
-export default function AddMedicModal() {
+interface AddMedicModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  errorMessage: string;
+}
+
+export default function AddMedicModal({
+  isOpen,
+  onClose,
+  setErrorMessage,
+  errorMessage,
+}: AddMedicModalProps) {
   return (
-    <>
-      <StandardTextInput adminMedic={{ isAdminMedicAddNameInput: true }} />
+    <BaseModal isOpen={isOpen} onClose={onClose}>
+      <div className="space-y-4 p-8">
+        <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
+          Ajouter un médecin
+        </h2>
 
-      <StandardTextInput adminMedic={{ isAdminMedicAddSurnameInput: true }} />
+        {errorMessage && (
+          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        )}
 
-      <StandardTextInput
-        adminMedic={{ isAdminMedicAddLicenceCodeInput: true }}
-      />
+        <form
+          className="space-y-4 "
+          onSubmit={(e) =>
+            handleMedicSubmit(e, {
+              setErrorMessage: setErrorMessage,
+              setIsAddMedicModalOpen: onClose,
+            })
+          }
+        >
+          <StandardTextInput adminMedic={{ isAdminMedicAddNameInput: true }} />
 
-      <div className="flex gap-2 items-center justify-between">
-        <StandardTextInput
-          adminMedic={{ isAdminMedicAddStreetNumberInput: true }}
-        />
+          <StandardTextInput
+            adminMedic={{ isAdminMedicAddSurnameInput: true }}
+          />
 
-        <StandardTextInput
-          adminMedic={{ isAdminMedicAddStreetNameInput: true }}
-        />
+          <StandardTextInput
+            adminMedic={{ isAdminMedicAddLicenceCodeInput: true }}
+          />
+
+          <div className="flex gap-2 items-center justify-between">
+            <StandardTextInput
+              adminMedic={{ isAdminMedicAddStreetNumberInput: true }}
+            />
+
+            <StandardTextInput
+              adminMedic={{ isAdminMedicAddStreetNameInput: true }}
+            />
+          </div>
+
+          <div className="flex gap-2 items-center justify-between">
+            <StandardTextInput
+              adminMedic={{ isAdminMedicAddPostalCodeInput: true }}
+            />
+
+            <StandardTextInput
+              adminMedic={{ isAdminMedicAddCityInput: true }}
+            />
+          </div>
+
+          <div className="flex gap-2 items-center justify-between">
+            <StandardChoiceDropdown isCountryDropdownInput />
+
+            <StandardTelephoneInput isAdminMedicAddTelephoneInput />
+          </div>
+
+          <div className="flex gap-2 mt-6 w-fit mx-auto">
+            <CustomButton btnText="Valider" btnType="submit" normalButton />
+
+            <CustomButton
+              btnText="Annuler"
+              btnType="button"
+              cancelButton
+              onClick={() => {
+                onClose && onClose();
+              }}
+            />
+          </div>
+        </form>
       </div>
-
-      <div className="flex gap-2 items-center justify-between">
-        <StandardTextInput
-          adminMedic={{ isAdminMedicAddPostalCodeInput: true }}
-        />
-
-        <StandardTextInput adminMedic={{ isAdminMedicAddCityInput: true }} />
-      </div>
-
-      <div className="flex gap-2 items-center justify-between">
-        <StandardChoiceDropdown isCountryDropdownInput />
-
-        <StandardTelephoneInput isAdminMedicAddTelephoneInput />
-      </div>
-    </>
+    </BaseModal>
   );
 }
