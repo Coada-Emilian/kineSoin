@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ISameDayAppointment } from '../../../../../@types/standardTypes';
 import { Link } from 'react-router-dom';
 import messageIcon from '/icons/message.png';
 import messageIcon2 from '/icons/message2.png';
@@ -12,6 +11,8 @@ import dynamicIcon2 from '/icons/dynamic2.png';
 import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils';
 import { generateTimeSlots } from '../../../../../utils/AppUtils/time';
 import SendMessageModal from '../Modals/SendMessageModal';
+import { Button } from '@headlessui/react';
+import { ISameDayAppointment } from '../../../../../@types/customTypes';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();
@@ -155,13 +156,13 @@ export default function TherapistDayTable() {
             )}
           </p>
         )}
-        <Link to="#" onClick={handleDynamicModeClick}>
+        <Button onClick={handleDynamicModeClick}>
           <img
             src={!isDynamicModeOn ? dynamicIcon : dynamicIcon2}
             alt={isDynamicModeOn ? 'dynamic mode on' : 'dynamic mode off'}
             className={`${isDynamicModeOn ? 'animate-spin' : ''} w-6 h-6 md:w-8 md:h-8 hover:animate-spin`}
           />
-        </Link>
+        </Button>
 
         <p className="border border-gray-400 p-2 rounded-xl shadow-xl italic font-semibold ">
           Date: {formattedDate}
@@ -236,8 +237,7 @@ export default function TherapistDayTable() {
                         </td>
 
                         <td className="border border-gray-300 px-4 py-2 text-center w-2/12 ">
-                          <Link
-                            to="#"
+                          <Button
                             onClick={() => {
                               if (!appointment.isTimePassed) {
                                 setSelectedPatient(appointment.patient);
@@ -259,12 +259,11 @@ export default function TherapistDayTable() {
                                   : 'w-3 md:w-6 hover:transform hover:scale-125'
                               }
                             />
-                          </Link>
+                          </Button>
                         </td>
 
                         <td className="border border-gray-300 px-4 py-2 text-center w-2/12">
-                          <Link
-                            to="#"
+                          <Button
                             onClick={() => {
                               if (!appointment.isTimePassed) {
                                 setSelectedAppointment(appointment);
@@ -287,7 +286,7 @@ export default function TherapistDayTable() {
                                   : 'w-3 md:w-6 hover:transform hover:scale-125'
                               }
                             />
-                          </Link>
+                          </Button>
                         </td>
                       </>
                     ) : (

@@ -8,6 +8,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardTypes';
+import { Button } from '@headlessui/react';
 
 interface RegionTableBodyProps {
   openDeleteModal: (
@@ -40,7 +41,7 @@ export default function RegionTableBody({
         </td>
 
         <td className="border border-gray-300 px-4 py-1 text-center">
-          <Link to="#" className="w-12">
+          <Button className="w-12">
             <img
               src={deleteIcon}
               alt="delete"
@@ -56,7 +57,7 @@ export default function RegionTableBody({
                 )
               }
             />
-          </Link>
+          </Button>
         </td>
       </tr>
     );

@@ -1,5 +1,4 @@
-import { MenuItem, MenuItems } from '@headlessui/react';
-import { Link } from 'react-router-dom';
+import { Button, MenuItem, MenuItems } from '@headlessui/react';
 import { IPatient } from '../../../../../../../@types/standardTypes';
 import { toggleStatus } from '../../utils/toggleStatus';
 
@@ -27,8 +26,7 @@ export default function PatientStatusButtons({
     >
       <div className="py-1">
         <MenuItem>
-          <Link
-            to="#"
+          <Button
             className="block px-4 py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
             onClick={() => {
               toggleStatus('active', {
@@ -40,11 +38,11 @@ export default function PatientStatusButtons({
             }}
           >
             Active
-          </Link>
+          </Button>
         </MenuItem>
+
         <MenuItem>
-          <Link
-            to="#"
+          <Button
             className="block px-4 py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
             onClick={() => {
               toggleStatus('inactive', {
@@ -56,11 +54,10 @@ export default function PatientStatusButtons({
             }}
           >
             Inactive
-          </Link>
+          </Button>
         </MenuItem>
         <MenuItem>
-          <Link
-            to="#"
+          <Button
             className="block px-4 py-2 text-sm text-gray-700 bg-yellow-300 font-medium data-[focus]:bg-yellow-500 data-[focus]:text-gray-900"
             onClick={() => {
               toggleStatus('pending', {
@@ -72,11 +69,10 @@ export default function PatientStatusButtons({
             }}
           >
             Pending
-          </Link>
+          </Button>
         </MenuItem>
         <MenuItem>
-          <Link
-            to="#"
+          <Button
             className="block px-4 py-2 text-sm text-gray-700 bg-red-300 font-medium data-[focus]:bg-red-500 data-[focus]:text-gray-900"
             onClick={() => {
               toggleStatus('banned', {
@@ -88,7 +84,7 @@ export default function PatientStatusButtons({
             }}
           >
             Banned
-          </Link>
+          </Button>
         </MenuItem>
       </div>
     </MenuItems>

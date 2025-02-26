@@ -10,6 +10,7 @@ import {
   togglePatientStatusAsTherapist,
 } from '../../../../../utils/apiUtils/therapistApiUtils';
 import { ITherapistPatient } from '../../../../../@types/customTypes';
+import { Button } from '@headlessui/react';
 
 export default function TherapistPatientsTable() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -130,14 +131,16 @@ export default function TherapistPatientsTable() {
                 >
                   {(patient.status === 'active' ||
                     patient.status === 'inactive') && (
-                    <Link to="#" className=" md:block">
+                    <Button
+                      className=" md:block"
+                      onClick={() => handlePatientStatusChange(patient.id)}
+                    >
                       <img
                         src={refreshIcon}
                         alt="change status"
                         className="max-w-4 md:max-w-6 hover:animate-spin"
-                        onClick={() => handlePatientStatusChange(patient.id)}
                       />
-                    </Link>
+                    </Button>
                   )}
 
                   <p>
@@ -152,8 +155,7 @@ export default function TherapistPatientsTable() {
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2 text-center hover:transform hover:scale-125">
-                  <Link
-                    to="#"
+                  <Button
                     className="w-12 md:w-25 flex justify-center items-center"
                     onClick={() => {
                       setSelectedPatient(patient);
@@ -169,12 +171,11 @@ export default function TherapistPatientsTable() {
                     <p className="text-blue-300 font-semibold hidden md:block">
                       Inspecter
                     </p>
-                  </Link>
+                  </Button>
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2 text-center hover:transform hover:scale-125">
-                  <Link
-                    to="#"
+                  <Button
                     className="w-12 md:w-25 flex justify-center items-center"
                     onClick={() => {
                       setSelectedPatient(patient);
@@ -190,7 +191,7 @@ export default function TherapistPatientsTable() {
                     <p className="text-red-600 font-semibold hidden md:block">
                       Supprimer
                     </p>
-                  </Link>
+                  </Button>
                 </td>
               </tr>
             ))}

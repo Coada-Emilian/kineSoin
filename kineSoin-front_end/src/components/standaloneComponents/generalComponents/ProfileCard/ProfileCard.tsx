@@ -28,6 +28,7 @@ import {
   handlePatientUpdate,
 } from '../../../../utils/apiUtils/patientApiUtils';
 import StandardEmailInput from '../StandardInputs/StandardEmailInput';
+import { Button } from '@headlessui/react';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -315,10 +316,9 @@ export default function ProfileCard({
                 className="w-32 h-32 rounded-full border-4 border-white object-cover "
               />
               {isPatientDetailsProfileCard && patient && isProfileEditing && (
-                <Link to="#" onClick={() => setIsPhotoEditModalOpen(true)}>
-                  {' '}
+                <Button onClick={() => setIsPhotoEditModalOpen(true)}>
                   <EditIcon isPatientProfilePhotoModification />
-                </Link>
+                </Button>
               )}
             </div>
           </div>
@@ -444,30 +444,30 @@ export default function ProfileCard({
                 {isPatientTherapistProfileCard &&
                   patientTherapistData?.therapist && (
                     <div className="flex gap-2 p-2">
-                      <Link to="#">
+                      <Button>
                         <img
                           src={linkedInIcon}
                           alt="LinkedIn"
                           className="w-8"
                         />
-                      </Link>
-                      <Link to="#">
+                      </Button>
+                      <Button>
                         <img
                           src={facebookIcon}
                           alt="facebook"
                           className="w-8"
                         />
-                      </Link>
-                      <Link to="#">
+                      </Button>
+                      <Button>
                         <img
                           src={instagramIcon}
                           alt="instagram"
                           className="w-8"
                         />
-                      </Link>
-                      <Link to="#">
+                      </Button>
+                      <Button>
                         <img src={phoneIcon} alt="phone" className="w-8" />
-                      </Link>
+                      </Button>
                     </div>
                   )}
                 <div>
@@ -595,10 +595,7 @@ export default function ProfileCard({
                       {isInsuranceEdited && (
                         <img src={checkIcon} alt="check" className="w-6 h-6" />
                       )}{' '}
-                      <Link
-                        to="#"
-                        onClick={() => setIsEditInsuranceModalOpen(true)}
-                      >
+                      <Button onClick={() => setIsEditInsuranceModalOpen(true)}>
                         {' '}
                         <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
                           <EditIcon />
@@ -607,16 +604,13 @@ export default function ProfileCard({
                             Modifier l'assurance mutuelle
                           </span>
                         </p>
-                      </Link>
+                      </Button>
                     </div>
                     <div className="flex gap-2 items-center">
                       {isPasswordEdited && (
                         <img src={checkIcon} alt="check" className="w-6 h-6" />
                       )}{' '}
-                      <Link
-                        to="#"
-                        onClick={() => setIsEditPasswordModalOpen(true)}
-                      >
+                      <Button onClick={() => setIsEditPasswordModalOpen(true)}>
                         {' '}
                         <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
                           <EditIcon />
@@ -625,7 +619,7 @@ export default function ProfileCard({
                             Modifier votre mot de passe
                           </span>
                         </p>
-                      </Link>
+                      </Button>
                     </div>
                   </div>
                 </div>
