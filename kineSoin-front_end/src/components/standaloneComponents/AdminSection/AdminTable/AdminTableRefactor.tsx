@@ -31,13 +31,16 @@ import PatientsStatusButtons from './pageComponents/Common/PatientsStatusButtons
 import AfflictionsStatusButtons from './pageComponents/Common/AfflictionsStatusButtons';
 import TableTitleRefactor from './pageComponents/Common/TableTitleRefactor';
 import TableHeadRefactor from './pageComponents/Common/TableHeadRefactor';
+import TableBodyRefactor from './pageComponents/Common/TableBodyRefactor';
 
 interface AdminTableRefactorProps {
   entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
   entityType: string;
+  entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
 }
 
 export default function AdminTableRefactor({
+  entity,
   entities,
   entityType,
 }: AdminTableRefactorProps) {
@@ -80,6 +83,10 @@ export default function AdminTableRefactor({
     ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[]
   >(entities || []);
 
+  const [selectedEntity, setSelectedEntity] = useState<
+    ITherapist | IPatient | IAffliction | IMedic | IInsurance | null
+  >(null);
+
   //   const entitySetRenderedEntityFunctions = [
   //     { entityType: 'therapist', setFunction: setRenderedEntities },
   //     { entityType: 'patient', setFunction: setRenderedEntities },
@@ -110,37 +117,18 @@ export default function AdminTableRefactor({
     setRenderedEntities(entities);
   }, [entityType]);
 
-  //   // useEffects to render therapists, patients, afflictions
-  //   useEffect(() => {
-  //     renderTherapists(allTherapists, setRenderedTherapists, therapistStatus);
-  //     renderPatients(allPatients, setRenderedPatients, patientStatus);
-  //     renderAfflictions(allAfflictions, setRenderedAfflictions, afflictionStatus);
-  //   }, [therapistStatus, patientStatus, afflictionStatus]);
+  // useEffects to render therapists, patients, afflictions
+  // useEffect(() => {
+  //   renderTherapists(allTherapists, setRenderedTherapists, therapistStatus);
+  //   renderPatients(allPatients, setRenderedPatients, patientStatus);
+  //   renderAfflictions(allAfflictions, setRenderedAfflictions, afflictionStatus);
+  // }, [therapistStatus, patientStatus, afflictionStatus]);
 
-  //   // Function to open delete modal
-  //   const openDeleteModal = (
-  //     therapist?: ITherapist,
-  //     patient?: IPatient,
-  //     affliction?: IAffliction,
-  //     medic?: IMedic,
-  //     insurance?: IInsurance,
-  //     body_region?: IBodyRegion
-  //   ) => {
-  //     therapist
-  //       ? setSelectedTherapist(therapist)
-  //       : patient
-  //         ? setSelectedPatient(patient)
-  //         : affliction
-  //           ? setSelectedAffliction(affliction)
-  //           : medic
-  //             ? setSelectedMedic(medic)
-  //             : insurance
-  //               ? setSelectedInsurance(insurance)
-  //               : body_region
-  //                 ? setSelectedBodyRegion(body_region)
-  //                 : null;
-  //     setIsDeleteModalOpen(true);
-  //   };
+  // Function to open delete modal
+  const openDeleteModal = () => {
+    setSelectedEntity(entity);
+    setIsDeleteModalOpen(true);
+  };
 
   const tableElements = [
     {
@@ -236,25 +224,18 @@ export default function AdminTableRefactor({
           />
         </div>
 
-        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg ">
+        <table className="border-separate border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl ">
           <TableHeadRefactor
             secondHeaderContent={activeEntity?.secondTableHeadContent || ''}
             thirdHeaderContent={activeEntity?.thirdTableHeadContent || ''}
             fourthHeaderContent={activeEntity?.fourthTableHeadContent || ''}
           />
 
-          {/* <TableBody
-            allTherapists={allTherapists}
-            allPatients={allPatients}
-            allMedics={allMedics}
-            allAfflictions={allAfflictions}
-            allInsurances={allInsurances}
-            renderedAfflictions={renderedAfflictions}
-            renderedPatients={renderedPatients}
-            renderedTherapists={renderedTherapists}
+          <TableBodyRefactor
+            renderedEntities={renderedEntities}
+            entityType={entityType}
             openDeleteModal={openDeleteModal}
-            allBodyRegions={allBodyRegions}
-          /> */}
+          />
         </table>
 
         {/* {isDeleteModalOpen && (

@@ -18,14 +18,14 @@ interface InsuranceTableBodyProps {
     medic?: IMedic,
     insurance?: IInsurance
   ) => void;
-  allInsurances: IInsurance[];
+  renderedInsurances: IInsurance[];
 }
 
 export default function InsuranceTableBody({
-  allInsurances,
+  renderedInsurances,
   openDeleteModal,
 }: InsuranceTableBodyProps) {
-  return allInsurances.map((insurance: IInsurance) => {
+  return renderedInsurances.map((insurance: IInsurance) => {
     return (
       <tr key={insurance.id} className="odd:bg-white even:bg-gray-50">
         <td className="border border-gray-300 px-4 py-2 text-center">

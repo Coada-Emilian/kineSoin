@@ -16,14 +16,14 @@ interface MedicTableBodyProps {
     affliction?: IAffliction,
     medic?: IMedic
   ) => void;
-  allMedics: IMedic[];
+  renderedMedics: IMedic[];
 }
 
 export default function MedicTableBody({
   openDeleteModal,
-  allMedics,
+  renderedMedics,
 }: MedicTableBodyProps) {
-  return allMedics.map((medic: IMedic) => {
+  return renderedMedics.map((medic: IMedic) => {
     return (
       <tr key={medic.id} className="odd:bg-white even:bg-gray-50">
         <td className="border border-gray-300 px-4 py-2 text-center">

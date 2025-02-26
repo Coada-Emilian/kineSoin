@@ -43,7 +43,7 @@ export default function PatientTableBody({
                 : patient.status === 'banned'
                   ? 'bg-red-300'
                   : 'bg-gray-200'
-          } px-4 py-2 text-center flex gap-1 items-center justify-center`}
+          } px-4 py-2 text-center flex gap-1 items-center font-medium justify-center`}
         >
           <p>
             {patient.status === 'active'

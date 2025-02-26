@@ -10,10 +10,12 @@ export default function TableHeadRefactor({
   fourthHeaderContent,
 }: TableHeadRefactorProps) {
   return (
-    <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base ">
+    <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base">
       <tr>
         <>
-          <th className="border border-gray-300 px-4 py-2 text-center">#id</th>
+          <th className="border border-gray-300 px-4 py-2 text-center rounded-tl-2xl">
+            #id
+          </th>
 
           <th className="border border-gray-300 px-4 py-2 text-center">
             {secondHeaderContent}
@@ -30,7 +32,7 @@ export default function TableHeadRefactor({
           )}
 
           <th
-            className="border border-gray-300 px-4 py-2 text-center"
+            className="border border-gray-300 px-4 py-2 text-center rounded-tr-2xl"
             colSpan={2}
           >
             Action

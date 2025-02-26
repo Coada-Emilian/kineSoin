@@ -98,7 +98,11 @@ export default function AdminMain2({
 
       <div className="w-full md:border-l-2 md:border-solid ">
         {entities.length > 0 && (
-          <AdminTableRefactor entities={entities} entityType={entityType} />
+          <AdminTableRefactor
+            entities={entities}
+            entityType={entityType}
+            entity={entity}
+          />
         )}
 
         {/* {(isAdminTherapistMain ||
