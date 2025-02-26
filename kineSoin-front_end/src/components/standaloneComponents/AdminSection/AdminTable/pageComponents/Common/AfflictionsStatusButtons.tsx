@@ -10,6 +10,14 @@ export default function AfflictionsStatusButtons({
   return (
     <div className="flex gap-2 ">
       <CustomButton
+        btnText="Tous"
+        allButton
+        onClick={() => {
+          setStatus('all');
+        }}
+      />
+
+      <CustomButton
         btnText="Opérées"
         activeButton
         onClick={() => {

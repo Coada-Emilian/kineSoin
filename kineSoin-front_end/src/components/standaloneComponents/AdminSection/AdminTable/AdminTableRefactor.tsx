@@ -29,6 +29,7 @@ import TherapistStatusButtons from '../AdminProfileDetails/pageComponents/genera
 import TherapistsStatusButtons from './pageComponents/Common/TherapistsStatusButtons';
 import PatientsStatusButtons from './pageComponents/Common/PatientsStatusButtons';
 import AfflictionsStatusButtons from './pageComponents/Common/AfflictionsStatusButtons';
+import TableTitleRefactor from './pageComponents/Common/TableTitleRefactor';
 
 interface AdminTableRefactorProps {
   entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
@@ -143,31 +144,41 @@ export default function AdminTableRefactor({
   const tableElements = [
     {
       entityType: 'therapist',
-      stsBtns: <TherapistsStatusButtons setStatus={setTherapistStatus} />,
+      statusButtons: <TherapistsStatusButtons setStatus={setTherapistStatus} />,
       customBtnText: 'Ajouter un kiné',
       setModalOpen: setIsAddTherapistModalP1Open,
+      tableTitle: 'Tous les kinésithérapeutes',
+      entityStatus: therapistStatus,
     },
     {
       entityType: 'patient',
-      stsBtns: <PatientsStatusButtons setStatus={setPatientStatus} />,
+      statusButtons: <PatientsStatusButtons setStatus={setPatientStatus} />,
+      tableTitle: 'Tous les patients',
+      entityStatus: patientStatus,
     },
     {
       entityType: 'affliction',
-      stsBtns: <AfflictionsStatusButtons setStatus={setAfflictionStatus} />,
+      statusButtons: (
+        <AfflictionsStatusButtons setStatus={setAfflictionStatus} />
+      ),
       customBtnText: 'Ajouter une affliction',
       setModalOpen: setIsAddAfflictionModalOpen,
       regionButton: true,
       setRegionModalOpen: setIsRegionModalOpen,
+      tableTitle: 'Toutes les afflictions',
+      entityStatus: afflictionStatus,
     },
     {
       entityType: 'medic',
       customBtnText: 'Ajouter un médecin',
       setModalOpen: setIsAddMedicModalOpen,
+      tableTitle: 'Tous les médecins',
     },
     {
       entityType: 'insurance',
       customBtnText: 'Ajouter une assurance',
       setModalOpen: setIsAddInsuranceModalOpen,
+      tableTitle: 'Toutes les assurances',
     },
   ];
 
@@ -180,11 +191,11 @@ export default function AdminTableRefactor({
     <>
       <div className="min-h-screen">
         <div
-          className={`${activeEntity && !activeEntity.stsBtns ? 'justify-end' : 'justify-between'} mb-6 flex flex-row md:ml-10 md:mr-10`}
+          className={`${activeEntity && !activeEntity.statusButtons ? 'justify-end' : 'justify-between'} mb-6 flex flex-row md:ml-10 md:mr-10`}
         >
           {activeEntity && (
             <>
-              {activeEntity.stsBtns && activeEntity.stsBtns}
+              {activeEntity.statusButtons && activeEntity.statusButtons}
               <div className="flex gap-2">
                 {' '}
                 {activeEntity.regionButton && (
@@ -207,69 +218,16 @@ export default function AdminTableRefactor({
               </div>
             </>
           )}
-
-          {/* {allPatients && (
-            <StatusButtons
-              isPatientStatusButtons
-              setPatientStatus={setPatientStatus}
-            />
-          )}
-
-          {allAfflictions && (
-            <>
-              <StatusButtons
-                isAfflictionStatusButtons
-                setAfflictionStatus={setAfflictionStatus}
-              />
-
-              <AfflictionUtilityButtons
-                setIsRegionModalOpen={setIsRegionModalOpen}
-                setIsAddAfflictionModalOpen={setIsAddAfflictionModalOpen}
-              />
-            </>
-          )}
-
-          {(allMedics || allInsurances) && (
-            <div className="flex">
-              <CustomButton
-                btnText={
-                  allMedics ? 'Ajouter un médecin' : 'Ajouter une assurance'
-                }
-                addButton
-                onClick={() => {
-                  if (allMedics) setIsAddMedicModalOpen(true);
-                  if (allInsurances) setIsAddInsuranceModalOpen(true);
-                }}
-              />
-            </div>
-          )}
-
-          {allBodyRegions && (
-            <CustomButton
-              btnText="Ajouter une region"
-              addButton
-              onClick={() => {
-                setIsRegionModalOpen(false);
-                setIsAddRegionModalOpen(true);
-              }}
-            />
-          )} */}
         </div>
 
-        {/* <div>
-          <TableTitle
-            allTherapists={allTherapists}
-            allPatients={allPatients}
-            allAfflictions={allAfflictions}
-            allInsurances={allInsurances}
-            therapistStatus={therapistStatus}
-            patientStatus={patientStatus}
-            afflictionStatus={afflictionStatus}
-            allMedics={allMedics}
+        <div>
+          <TableTitleRefactor
+            tableTitle={activeEntity?.tableTitle || ''}
+            entityStatus={activeEntity?.entityStatus || ''}
           />
         </div>
 
-        <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg ">
+        {/* <table className="border-collapse border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-lg ">
           <TableHead
             allTherapists={allTherapists}
             allPatients={allPatients}
@@ -374,7 +332,7 @@ export default function AdminTableRefactor({
           />
         )} */}
       </div>
-      );
+      {/* ); */}
     </>
   );
 }
