@@ -16,7 +16,7 @@ export default function TableTitleRefactor({
       return `${tableTitle} actifs`;
     } else if (entityStatus === 'inactive') {
       return `${tableTitle} inactifs`;
-    } else if (entityStatus === 'blocked') {
+    } else if (entityStatus === 'banned') {
       return `${tableTitle} bannis`;
     } else if (entityStatus === 'pending') {
       return `${tableTitle} en attente`;

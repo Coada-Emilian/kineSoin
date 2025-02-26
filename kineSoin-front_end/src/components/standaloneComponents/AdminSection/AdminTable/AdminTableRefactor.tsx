@@ -32,6 +32,9 @@ import AfflictionsStatusButtons from './pageComponents/Common/AfflictionsStatusB
 import TableTitleRefactor from './pageComponents/Common/TableTitleRefactor';
 import TableHeadRefactor from './pageComponents/Common/TableHeadRefactor';
 import TableBodyRefactor from './pageComponents/Common/TableBodyRefactor';
+import FirstAddTherapistModal from './pageComponents/Modals/adminModal/variations/FirstAddTherapistModal';
+import SecondAddTherapistModal from './pageComponents/Modals/adminModal/variations/SecondAddTherapistModal';
+import ThirdAddTherapistModal from './pageComponents/Modals/adminModal/variations/ThirdAddTherapistModal';
 
 interface AdminTableRefactorProps {
   entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
@@ -80,23 +83,23 @@ export default function AdminTableRefactor({
   >(null);
 
   //   // State for the add form
-  //   const [addForm, setAddForm] = useState<IAddForm>({
-  //     name: '',
-  //     surname: '',
-  //     email: '',
-  //     password: '',
-  //     repeated_password: '',
-  //     description: '',
-  //     diploma: '',
-  //     experience: '',
-  //     specialty: '',
-  //     licence_code: '',
-  //     status: '',
-  //     photo: undefined,
-  //     prefix: '',
-  //     phone_number: '',
-  //     full_phone_number: '',
-  //   });
+  const [addForm, setAddForm] = useState<IAddForm>({
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    repeated_password: '',
+    description: '',
+    diploma: '',
+    experience: '',
+    specialty: '',
+    licence_code: '',
+    status: '',
+    photo: undefined,
+    prefix: '',
+    phone_number: '',
+    full_phone_number: '',
+  });
 
   // useEffects to set rendered therapists, patients, afflictions
   useEffect(() => {
@@ -204,6 +207,8 @@ export default function AdminTableRefactor({
     console.log(selectedEntity);
   }, [selectedEntity]);
 
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
   return (
     <>
       <div className="min-h-screen">
@@ -272,37 +277,40 @@ export default function AdminTableRefactor({
           />
         )}
 
-        {/* {isAddTherapistModalP1Open && (
-          <AdminModal
-            isFirstAddTherapistModal
+        {isAddTherapistModalP1Open && (
+          <FirstAddTherapistModal
             setAddForm={setAddForm}
-            setIsAddTherapistModalP1Open={setIsAddTherapistModalP1Open}
+            onClose={() => setIsAddTherapistModalP1Open(false)}
+            isOpen={isAddTherapistModalP1Open}
             setIsAddTherapistModalP2Open={setIsAddTherapistModalP2Open}
-            isAddTherapistModalP1Open={isAddTherapistModalP1Open}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
           />
         )}
 
         {isAddTherapistModalP2Open && (
-          <AdminModal
-            isSecondAddTherapistModal
+          <SecondAddTherapistModal
             setAddForm={setAddForm}
-            setIsAddTherapistModalP2Open={setIsAddTherapistModalP2Open}
+            isOpen={isAddTherapistModalP2Open}
+            onClose={() => setIsAddTherapistModalP2Open(false)}
             setIsAddTherapistModalP3Open={setIsAddTherapistModalP3Open}
-            isAddTherapistModalP2Open={isAddTherapistModalP2Open}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
           />
         )}
 
         {isAddTherapistModalP3Open && (
-          <AdminModal
-            isThirdAddTherapistModal
+          <ThirdAddTherapistModal
             addForm={addForm}
             setAddForm={setAddForm}
-            setIsAddTherapistModalP3Open={setIsAddTherapistModalP3Open}
-            isAddTherapistModalP3Open={isAddTherapistModalP3Open}
+            isOpen={isAddTherapistModalP3Open}
+            onClose={() => setIsAddTherapistModalP3Open(false)}
+            setErrorMessage={setErrorMessage}
+            errorMessage={errorMessage}
           />
         )}
 
-        {isAddAfflictionModalOpen && (
+        {/* {isAddAfflictionModalOpen && (
           <AdminModal
             isAdminAfflictionAddModal
             isAddAfflictionModalOpen={isAddAfflictionModalOpen}

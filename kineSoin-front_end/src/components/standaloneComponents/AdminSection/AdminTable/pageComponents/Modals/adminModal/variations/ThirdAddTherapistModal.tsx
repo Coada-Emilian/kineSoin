@@ -1,38 +1,109 @@
+import { useEffect, useState } from 'react';
+import { IAddForm } from '../../../../../../../../@types/formTypes';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardEmailInput from '../../../../../../generalComponents/StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../../../generalComponents/StandardInputs/StandardPasswordInput';
+import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
+import { createTherapist } from '../utils/createTherapist';
+import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 
-export default function ThirdAddTherapistModal() {
+interface ThirdAddTherapistModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  setAddForm: React.Dispatch<React.SetStateAction<IAddForm>>;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  errorMessage: string;
+  addForm: IAddForm;
+}
+
+export default function ThirdAddTherapistModal({
+  isOpen,
+  onClose,
+  setAddForm,
+  setErrorMessage,
+  errorMessage,
+  addForm,
+}: ThirdAddTherapistModalProps) {
+  const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
+    useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isAdminTherapistFormValid) {
+      createTherapist({
+        setErrorMessage,
+        setIsAddTherapistModalP3Open: onClose,
+        addForm,
+        setIsLoading,
+      });
+    }
+  }, [isAdminTherapistFormValid]);
+
   return (
-    <>
-      <StandardEmailInput
-        emailInput={{
-          inputId: 'admin-therapist-email_input',
-          inputPlaceholder: 'E-mail du kinésithérapeute',
-        }}
-      />
+    <BaseModal isOpen={isOpen} onClose={onClose}>
+      <div className="space-y-4 p-8">
+        <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
+          Ajouter un thérapeute
+        </h2>
 
-      <StandardPasswordInput
-        passwordInput={{
-          inputId: 'admin-add-therapist-password_input',
-          inputName: 'password',
-          inputPlaceholder: 'Entrez le mot de passe',
-          labelContent: 'Mot de passe',
-          autoComplete: 'new-password',
-        }}
-      />
+        {errorMessage && (
+          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        )}
+        <form
+          className="space-y-4 "
+          onSubmit={(e) =>
+            addThirdFormDetails(e, {
+              setErrorMessage: setErrorMessage,
+              setAddForm: setAddForm,
+              setIsAdminTherapistFormValid: setIsAdminTherapistFormValid,
+            })
+          }
+        >
+          {' '}
+          <StandardEmailInput
+            emailInput={{
+              inputId: 'admin-therapist-email_input',
+              inputPlaceholder: 'E-mail du kinésithérapeute',
+            }}
+          />
+          <StandardPasswordInput
+            passwordInput={{
+              inputId: 'admin-add-therapist-password_input',
+              inputName: 'password',
+              inputPlaceholder: 'Entrez le mot de passe',
+              labelContent: 'Mot de passe',
+              autoComplete: 'new-password',
+            }}
+          />
+          <StandardPasswordInput
+            passwordInput={{
+              inputId: 'admin-add-therapist-repeated-password_input',
+              inputName: 'repeated_password',
+              inputPlaceholder: 'Confirmez le mot de passe',
+              labelContent: 'Confirmer le mot de passe',
+              autoComplete: 'repeated-password',
+            }}
+          />
+          <StandardChoiceDropdown isAdminTherapistAddStatusInput />
+          <p className="text-red-500 text-center text-xs md:text-sm">
+            Etape 3 / 3 : Finition
+          </p>
+          <div className="flex gap-2 mt-6 w-fit mx-auto">
+            <CustomButton btnText="Valider" btnType="submit" normalButton />
 
-      <StandardPasswordInput
-        passwordInput={{
-          inputId: 'admin-add-therapist-repeated-password_input',
-          inputName: 'repeated_password',
-          inputPlaceholder: 'Confirmez le mot de passe',
-          labelContent: 'Confirmer le mot de passe',
-          autoComplete: 'repeated-password',
-        }}
-      />
-
-      <StandardChoiceDropdown isAdminTherapistAddStatusInput />
-    </>
+            <CustomButton
+              btnText="Annuler"
+              btnType="button"
+              cancelButton
+              onClick={() => {
+                onClose && onClose();
+              }}
+            />
+          </div>
+        </form>
+      </div>
+    </BaseModal>
   );
 }

@@ -66,7 +66,7 @@ export default function StandardTelephoneInput({
         ? 'text-base md:text-lg xl:text-xl 2xl:text-2xl text-primaryBlue font-medium'
         : isPatientProfileTelephoneModification
           ? 'text-xs md:text-base xl:text-xl w-1/4 text-start text-primaryBlue font-medium md:w-2/3'
-          : 'text-xs text-primaryBlue font-medium'
+          : 'text-sm text-primaryBlue font-medium'
     }`;
   };
 
@@ -74,7 +74,7 @@ export default function StandardTelephoneInput({
     <div
       className={`flex gap-2 mb-2 italic w-full 
   ${isPatientProfileTelephoneModification ? 'flex-row' : 'flex-col'} 
-  ${isAdminMedicAddTelephoneInput || isAdminMedicEditTelephoneInput || isAdminInsuranceEditTelephoneInput || isAdminInsuranceAddTelephoneInput || isPatientTelephoneInput ? 'items-start' : 'items-center'}
+  'items-start'
 `}
     >
       <label htmlFor={getInputId()} className={getLabelClassName()}>

@@ -178,7 +178,7 @@ export default function StandardChoiceDropdown({
     !isAdminMedicEditPrefixDropdown &&
     !isAdminInsuranceEditPrefixDropdown &&
     !isPatientProfilePrefixModification
-      ? 'text-xs'
+      ? 'text-sm'
       : isAdminAfflictionEditRegionInput ||
           isAdminAfflictionEditOperatedStatusInput ||
           isAdminTherapistEditPrefixDropdown ||

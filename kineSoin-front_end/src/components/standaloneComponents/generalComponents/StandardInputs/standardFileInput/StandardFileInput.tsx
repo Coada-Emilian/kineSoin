@@ -59,8 +59,8 @@ export default function StandardFileInput({
           : '';
 
   return (
-    <div className="mb-4 flex flex-col gap-2 items-center md:items-start">
-      <div className="flex gap-2 items-center text-xxs md:text-xs xl:text-sm 2xl:text-md">
+    <div className="mb-4 flex flex-col gap-2 items-start">
+      <div className="flex gap-2 items-center text-base ">
         <label className="text-primaryBlue font-medium italic">
           {getLabelContent()}
         </label>
@@ -72,7 +72,7 @@ export default function StandardFileInput({
         )}
       </div>
 
-      <div className="flex rounded-md shadow-sm border md:w-full">
+      <div className="flex rounded-md shadow-sm border w-full">
         {(isPatientRegisterImageInput ||
           isAdminTherapistImageAddInput ||
           isNewPrescriptionFileInput) && (

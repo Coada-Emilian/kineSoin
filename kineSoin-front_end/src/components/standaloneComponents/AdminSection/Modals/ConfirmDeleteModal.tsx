@@ -134,7 +134,7 @@ export default function ConfirmDeleteModal({
 
         <div className="flex justify-center mt-4 gap-4">
           <CustomButton
-            btnText="Confirmer la suppression"
+            btnText="Confirmer"
             deleteButton
             onClick={() => {
               onClose && onClose();
