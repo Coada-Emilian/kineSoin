@@ -19,6 +19,7 @@ import {
   fetchDetailsDataRefactor,
   fetchTableDataRefactor,
 } from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtilsRefactor';
+import AdminTableRefactor from '../../standaloneComponents/AdminSection/AdminTable/AdminTableRefactor';
 
 interface AdminMain2Props {
   entityType: string;
@@ -53,10 +54,7 @@ export default function AdminMain2({
   //  Get the id from the URL
   const { id } = useParams();
   const entity_id = id ? parseInt(id, 10) : null;
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  // Set the id of the entity to be displayed
 
   // Fetch the data of the entity to be displayed
   useEffect(() => {
@@ -64,11 +62,6 @@ export default function AdminMain2({
       setEntityId(id ? entity_id : null);
     }
   }, [id]);
-
-  //   useEffect(() => {
-  //     console.log(entityId);
-  //     console.log(entityType);
-  //   }, [entityId, entityType]);
 
   // Fetch all the data to be displayed in the table
   useEffect(() => {
@@ -93,9 +86,9 @@ export default function AdminMain2({
     });
   }, [entityId]);
 
-  useEffect(() => {
-    console.log(entity), console.log(entities);
-  }, [entity, entities]);
+  //   useEffect(() => {
+  //     console.log(entity), console.log(entities);
+  //   }, [entity, entities]);
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
       {/* <div className=" md:flex-row md:justify-normal"> */}
@@ -103,22 +96,12 @@ export default function AdminMain2({
         <SideNav isAdminSideNav />
       </div>
 
-      {/* <div className="w-full md:border-l-2 md:border-solid ">
-        {(isAdminTherapistsMain ||
-          isAdminPatientsMain ||
-          isAdminAfflictionsMain ||
-          isAdminMedicsMain ||
-          isAdminInsurancesMain) && (
-          <AdminTable
-            allTherapists={isAdminTherapistsMain ? allTherapists : undefined}
-            allPatients={isAdminPatientsMain ? allPatients : undefined}
-            allAfflictions={isAdminAfflictionsMain ? allAfflictions : undefined}
-            allMedics={isAdminMedicsMain ? allMedics : undefined}
-            allInsurances={isAdminInsurancesMain ? allInsurances : undefined}
-          />
+      <div className="w-full md:border-l-2 md:border-solid ">
+        {entities.length > 0 && (
+          <AdminTableRefactor entities={entities} entityType={entityType} />
         )}
 
-        {(isAdminTherapistMain ||
+        {/* {(isAdminTherapistMain ||
           isAdminPatientMain ||
           isAdminAfflictionMain ||
           isAdminMedicMain ||
@@ -136,9 +119,8 @@ export default function AdminMain2({
               isAdminInsuranceMain && insurance ? insurance : undefined
             }
           />
-        )}
+        )} */}
       </div>
-      </div> */}
     </main>
   );
 }
