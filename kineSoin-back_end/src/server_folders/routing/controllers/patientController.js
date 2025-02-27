@@ -59,6 +59,8 @@ const patientController = {
           const newPatient = {
             id: patient.id,
             status: patient.status,
+            name: patient.name,
+            surname: patient.surname,
             fullName: `${patient.name} ${patient.surname}`,
             age: computeAge(patient.birth_date),
             address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
@@ -173,6 +175,8 @@ const patientController = {
         const fullPhoneNumber = foundPatient.prefix + foundPatient.phone_number;
         const sentPatient = {
           id: foundPatient.id,
+          name: foundPatient.name,
+          surname: foundPatient.surname,
           fullName: `${foundPatient.name} ${foundPatient.surname}`,
           age: computeAge(foundPatient.birth_date),
           gender: foundPatient.gender,

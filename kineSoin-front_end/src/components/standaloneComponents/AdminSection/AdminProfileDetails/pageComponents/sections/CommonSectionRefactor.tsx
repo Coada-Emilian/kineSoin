@@ -6,6 +6,7 @@ import {
   ITherapist,
 } from '../../../../../../@types/standardTypes';
 import IdOutputRefactor from '../generalComponents/common/IdOutputRefactor';
+import NameOutputRefactor from '../generalComponents/common/NameOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/StatusOutputRefactor';
 
 interface CommonSectionRefactorProps {
@@ -21,6 +22,11 @@ export default function CommonSectionRefactor({
     status:
       entity && 'status' in entity ? entity.status || undefined : undefined,
     id: entity && entity.id,
+    name: entity && 'name' in entity ? entity.name || undefined : undefined,
+    surname:
+      entity && 'surname' in entity ? entity.surname || undefined : undefined,
+    fullName:
+      entity && 'fullName' in entity ? entity.fullName || undefined : undefined,
   };
 
   return (
@@ -28,6 +34,12 @@ export default function CommonSectionRefactor({
       <StatusOutputRefactor status={entityDetails.status} />
 
       <IdOutputRefactor id={entityDetails.id} />
+
+      <NameOutputRefactor
+        name={entityDetails.name}
+        surname={entityDetails.surname}
+
+      />
 
       {/* {isProfileEditing ? (
         <div className="flex flex-col gap-2 mb-2 ">
