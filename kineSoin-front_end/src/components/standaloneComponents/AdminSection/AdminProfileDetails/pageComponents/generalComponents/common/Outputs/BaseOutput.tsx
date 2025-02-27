@@ -17,7 +17,7 @@ export default function BaseOutput({
 
   return (
     <div
-      className={`${isTextArea ? 'flex-col items-center md:items-start' : 'flex-row items-center'} ${isOneThirdWidth ? 'w-1/3' : 'w-full'} mb-2 flex gap-1 text-xs md:text-sm lg:text-base xl:text-lg`}
+      className={`${isTextArea ? 'flex-col items-start' : 'flex-row items-center'} ${isOneThirdWidth ? 'w-1/3' : 'w-full'} mb-2 flex gap-1 text-xs md:text-sm lg:text-base xl:text-lg`}
     >
       <h4 className="font-bold">{label}: </h4>
       {!isTextArea ? (

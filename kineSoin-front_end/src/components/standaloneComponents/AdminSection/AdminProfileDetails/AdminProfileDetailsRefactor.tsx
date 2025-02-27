@@ -28,6 +28,11 @@ import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx'
 import ProfileSectionRefactor from './pageComponents/generalComponents/common/ProfileSectionRefactor.tsx';
 import ImageOutputRefactor from './pageComponents/generalComponents/common/Outputs/ImageOutputRefactor.tsx';
 import mainLogo from '/logos/Main-Logo.png';
+import facebookIcon from '/icons/facebook.png';
+import instagramIcon from '/icons/insta.png';
+import linkedInIcon from '/icons/linkedIn.png';
+import phoneIcon from '/icons/phone-call.png';
+import messageIcon from '/icons/message3.png';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -86,12 +91,39 @@ export default function AdminProfileDetailsRefactor({
   );
 
   const [picture_url, setPictureUrl] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone_number, setPhoneNumber] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [surname, setSurname] = useState<string>('');
 
   useEffect(() => {
     activeEntity &&
       activeEntity.entity &&
       'picture_url' in activeEntity.entity &&
       setPictureUrl(activeEntity.entity.picture_url);
+
+    activeEntity &&
+      activeEntity.entity &&
+      'email' in activeEntity.entity &&
+      setEmail(activeEntity.entity.email);
+
+    activeEntity &&
+      activeEntity.entity &&
+      'prefix' in activeEntity.entity &&
+      'phone_number' in activeEntity.entity &&
+      setPhoneNumber(
+        activeEntity.entity.prefix + activeEntity.entity.phone_number
+      );
+
+    activeEntity &&
+      activeEntity.entity &&
+      'name' in activeEntity.entity &&
+      setName(activeEntity.entity.name);
+
+    activeEntity &&
+      activeEntity.entity &&
+      'surname' in activeEntity.entity &&
+      setSurname(activeEntity.entity.surname);
   }, [activeEntity]);
 
   return (
@@ -113,14 +145,14 @@ export default function AdminProfileDetailsRefactor({
           </div>
 
           <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
-            <div className="absolute top-3 left-0 w-full h-full rounded-xl">
+            <div className="absolute top-3 md:top-8 left-0 w-full h-full rounded-xl">
               <ImageOutputRefactor
                 picture_url={picture_url ? picture_url : mainLogo}
               />
             </div>
           </div>
 
-          <div className="w-full p-4">
+          <div className="w-full p-4 md:py-10 md:px-32">
             {activeEntity && (
               <>
                 <CommonSectionRefactor
@@ -138,6 +170,37 @@ export default function AdminProfileDetailsRefactor({
               </>
             )}
           </div>
+
+          <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
+            <div className="flex gap-2">
+              {email && (
+                <a
+                  href={`mailto:${email}`}
+                  className="hover:animate-pulse hover:ease-in-out hover:delay-200"
+                >
+                  <img
+                    src={messageIcon}
+                    alt="send mail"
+                    className="w-8 md:w-10"
+                  />
+                </a>
+              )}
+
+              {phone_number && (
+                <a href={`tel:${phone_number}`}>
+                  <img
+                    src={phoneIcon}
+                    alt="send mail"
+                    className="w-8 md:w-10"
+                  />
+                </a>
+              )}
+            </div>
+            <div>
+              <p className="text-white italic">{`/ ${name.toLowerCase()}${surname && `.${surname.toLowerCase()}`}`}</p>
+            </div>
+          </div>
+          <div className="bg-primaryTeal p-12 w-full"></div>
         </div>
 
         {/* {(therapist || patient) && (

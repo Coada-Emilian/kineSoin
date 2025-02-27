@@ -8,7 +8,7 @@ export default function ImageOutputRefactor({
   if (!picture_url) return null;
 
   return (
-    <div className="w-24 h-24 md:w-40 md:h-40 object-cover mx-auto flex justify-center items-center ">
+    <div className="w-24 h-24 md:w-32 md:h-32 object-cover mx-auto flex justify-center items-center ">
       <img
         src={picture_url}
         alt="profile"
