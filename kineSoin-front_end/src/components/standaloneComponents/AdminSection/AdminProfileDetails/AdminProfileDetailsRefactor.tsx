@@ -24,6 +24,7 @@ import { handlePatientStatusChanges } from './pageComponents/utils/handlePatient
 import GeneralOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
 import TitleOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
 import CommonSectionRefactor from './pageComponents/sections/CommonSectionRefactor.tsx';
+import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -49,6 +50,7 @@ export default function AdminProfileDetailsRefactor({
   const [entityStatus, setEntityStatus] = useState(
     entity && 'status' in entity ? entity.status : 'inactive'
   );
+  const [updateEntityForm, setUpdateEntityForm] = useState<FormData | null>();
 
   //   const getUpdateFunction = () => {
   //     if (therapist)
@@ -93,13 +95,15 @@ export default function AdminProfileDetailsRefactor({
         // }
         className="flex justify-center"
       >
-        <div className="flex flex-col p-8 md:space-x-6  md:m-2 border border-gray-300 rounded-xl shadow-2xl md:w-5/6 items-center md:items-start">
+        <div className="flex flex-col p-8 md:space-x-6  md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl md:w-5/6 items-center md:items-start">
           <TitleOutputRefactor entityType={entityType} />
           <div className="w-full">
             {activeEntity && (
               <CommonSectionRefactor
                 entity={activeEntity.entity}
                 isProfileEditing={isProfileEditing}
+                entityType={activeEntity.entityType}
+                setUpdateEntityForm={setUpdateEntityForm}
               />
             )}
 
@@ -167,6 +171,19 @@ export default function AdminProfileDetailsRefactor({
             insurance={insurance}
           /> */}
       </form>
+      {isProfileEditing ? (
+        <CustomButton
+          btnText="Annuler"
+          cancelButton
+          onClick={() => setIsProfileEditing(false)}
+        />
+      ) : (
+        <CustomButton
+          btnText="Modifier"
+          normalButton
+          onClick={() => setIsProfileEditing(true)}
+        />
+      )}
 
       {/* {isDeleteModalOpen && (
         <ConfirmDeleteModal

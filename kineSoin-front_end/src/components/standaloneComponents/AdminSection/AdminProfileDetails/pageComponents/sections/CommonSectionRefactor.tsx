@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   IAffliction,
   IInsurance,
@@ -5,18 +6,26 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardTypes';
-import IdOutputRefactor from '../generalComponents/common/IdOutputRefactor';
-import NameOutputRefactor from '../generalComponents/common/NameOutputRefactor';
-import StatusOutputRefactor from '../generalComponents/common/StatusOutputRefactor';
+import NameInputRefactor from '../generalComponents/common/Inputs/NameInputRefactor';
+import EmailOutputRefactor from '../generalComponents/common/Outputs/EmailOutputRefactor';
+import IdOutputRefactor from '../generalComponents/common/Outputs/IdOutputRefactor';
+import NameOutputRefactor from '../generalComponents/common/Outputs/NameOutputRefactor';
+import StatusOutputRefactor from '../generalComponents/common/Outputs/StatusOutputRefactor';
 
 interface CommonSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
   isProfileEditing: boolean;
+  entityType: string;
+  setUpdateEntityForm: React.Dispatch<
+    React.SetStateAction<FormData | null | undefined>
+  >;
 }
 
 export default function CommonSectionRefactor({
   entity,
   isProfileEditing,
+  entityType,
+  setUpdateEntityForm,
 }: CommonSectionRefactorProps) {
   const entityDetails = {
     status:
@@ -27,7 +36,16 @@ export default function CommonSectionRefactor({
       entity && 'surname' in entity ? entity.surname || undefined : undefined,
     fullName:
       entity && 'fullName' in entity ? entity.fullName || undefined : undefined,
+    email: entity && 'email' in entity ? entity.email || undefined : undefined,
   };
+
+  useEffect(() => {
+    setEntityName(entityDetails.name);
+    setEntitySurname(entityDetails.surname);
+  }, [entity]);
+
+  const [entityName, setEntityName] = useState(entityDetails.name);
+  const [entitySurname, setEntitySurname] = useState(entityDetails.surname);
 
   return (
     <section className="md:text-2xl">
@@ -35,11 +53,33 @@ export default function CommonSectionRefactor({
 
       <IdOutputRefactor id={entityDetails.id} />
 
-      <NameOutputRefactor
-        name={entityDetails.name}
-        surname={entityDetails.surname}
+      {isProfileEditing ? (
+        <div className="w-full flex gap-4 mb-2 ">
+          <NameInputRefactor
+            entityType={entityType}
+            setFunction={setEntityName}
+            value={entityName}
+            type="name"
+          />
+          {entityDetails.surname && (
+            <NameInputRefactor
+              entityType={entityType}
+              setFunction={setEntitySurname}
+              value={entitySurname}
+              type="surname"
+            />
+          )}
+        </div>
+      ) : (
+        <>
+          <NameOutputRefactor
+            name={entityDetails.name}
+            surname={entityDetails.surname}
+          />
 
-      />
+          <EmailOutputRefactor email={entityDetails.email} />
+        </>
+      )}
 
       {/* {isProfileEditing ? (
         <div className="flex flex-col gap-2 mb-2 ">
