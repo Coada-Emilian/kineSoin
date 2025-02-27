@@ -95,34 +95,34 @@ export default function AdminProfileDetailsRefactor({
       >
         <div className="flex flex-col p-8 md:space-x-6  md:m-2 border border-gray-300 rounded-xl shadow-2xl md:w-5/6 items-center md:items-start">
           <TitleOutputRefactor entityType={entityType} />
+          <div className="w-full">
+            {activeEntity && (
+              <CommonSectionRefactor
+                entity={activeEntity.entity}
+                isProfileEditing={isProfileEditing}
+              />
+            )}
 
-          {activeEntity && (
-            <CommonSectionRefactor
-              entity={activeEntity.entity}
+            {/* {therapist && (
+            <ProfileSection
+              isTherapistProfileSection
               isProfileEditing={isProfileEditing}
+              therapist={therapist}
             />
-          )}
+          )} */}
 
-          {/* {therapist && (
-                <ProfileSection
-                  isTherapistProfileSection
-                  isProfileEditing={isProfileEditing}
-                  therapist={therapist}
-                />
-              )} */}
-
-          {/* {patient && (
+            {/* {patient && (
                 <ProfileSection patient={patient} isPatientProfileSection />
               )} */}
 
-          {/* {affliction && (
+            {/* {affliction && (
                 <ProfileSection
                   isAfflictionProfileSection
                   affliction={affliction}
                   isProfileEditing={isProfileEditing}
                 />
               )} */}
-          {/* 
+            {/* 
               {medic && (
                 <ProfileSection
                   isMedicProfileSection
@@ -131,13 +131,14 @@ export default function AdminProfileDetailsRefactor({
                 />
               )} */}
 
-          {/* {insurance && (
+            {/* {insurance && (
                 <ProfileSection
                   isInsuranceProfileSection
                   insurance={insurance}
                   isProfileEditing={isProfileEditing}
                 />
               )} */}
+          </div>
         </div>
 
         {/* {(therapist || patient) && (

@@ -5,6 +5,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardTypes';
+import IdOutputRefactor from '../generalComponents/common/IdOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/StatusOutputRefactor';
 
 interface CommonSectionRefactorProps {
@@ -16,20 +17,19 @@ export default function CommonSectionRefactor({
   entity,
   isProfileEditing,
 }: CommonSectionRefactorProps) {
+  const entityDetails = {
+    status:
+      entity && 'status' in entity ? entity.status || undefined : undefined,
+    id: entity && entity.id,
+  };
+
   return (
     <section className="md:text-2xl">
-      <StatusOutputRefactor entity={entity} />
+      <StatusOutputRefactor status={entityDetails.status} />
 
-      {/* <GeneralOutput
-        isProfileIdOutput
-        therapist={therapist}
-        patient={patient}
-        affliction={affliction}
-        medic={medic}
-        insurance={insurance}
-      />
+      <IdOutputRefactor id={entityDetails.id} />
 
-      {isProfileEditing ? (
+      {/* {isProfileEditing ? (
         <div className="flex flex-col gap-2 mb-2 ">
           {(therapist || affliction || medic || insurance) && (
             <GeneralInput
@@ -70,7 +70,7 @@ export default function CommonSectionRefactor({
             />
           )}
         </>
-      )} */}
+      )}  */}
     </section>
   );
 }

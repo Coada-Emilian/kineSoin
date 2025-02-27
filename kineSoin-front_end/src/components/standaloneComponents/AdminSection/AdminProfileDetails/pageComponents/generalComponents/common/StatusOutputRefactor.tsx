@@ -1,57 +1,52 @@
 import { useEffect, useState } from 'react';
-import {
-  IAffliction,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../../../../@types/standardTypes';
 
 interface StatusOutputRefactorProps {
-  entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
+  status: string | undefined;
 }
 export default function StatusOutputRefactor({
-  entity,
+  status,
 }: StatusOutputRefactorProps) {
   const getStatusClassName = (status: string | undefined) => {
     switch (status) {
       case 'ACTIF':
-        return 'bg-green-300 p-2 rounded-xl font-semibold';
+        return 'bg-green-300 ';
       case 'INACTIF':
-        return 'bg-gray-200 p-2 rounded-xl font-semibold';
+        return 'bg-gray-200 ';
       case 'EN ATTENTE':
-        return 'bg-yellow-300 p-2 rounded-xl font-semibold';
+        return 'bg-yellow-300 ';
       case 'BANNI':
-        return 'bg-red-300 p-2 rounded-xl font-semibold';
+        return 'bg-red-300 ';
       default:
-        return 'bg-gray-200 p-2 rounded-xl font-semibold';
+        return 'bg-gray-200 ';
     }
   };
 
-  const [entityStatus, setEntityStatus] = useState(
-    entity && 'status' in entity ? entity.status : 'inactive'
-  );
+  const [entityStatus, setEntityStatus] = useState(status ? status : '');
 
   useEffect(() => {
-    if (entity && 'status' in entity) {
-      if (entity.status === 'active') {
+    if (status) {
+      if (status === 'active') {
         setEntityStatus('ACTIF');
-      } else if (entity.status === 'inactive') {
+      } else if (status === 'inactive') {
         setEntityStatus('INACTIF');
-      } else if (entity.status === 'pending') {
+      } else if (status === 'pending') {
         setEntityStatus('EN ATTENTE');
-      } else if (entity.status === 'banned') {
+      } else if (status === 'banned') {
         setEntityStatus('BANNI');
       }
     }
-  }, [entity && 'status' in entity ? entity.status : undefined]);
+  }, [status]);
+
+  if (!status) {
+    return null;
+  }
 
   return (
-    <div className="mb-2 md:mb-4 text-sm md:text-md lg:text-lg xl:text-xl ">
-      <div className="flex gap-1 items-center">
+    <div className="mb-2 text-sm md:text-md lg:text-lg xl:text-xl ">
+      <div className="flex gap-2 items-center">
         <h4 className="font-bold">Statut: </h4>
         <span
-          className={`${getStatusClassName(entityStatus)} italic font-normal`}
+          className={`${getStatusClassName(entityStatus)}py-1 px-2 rounded-xl font-semibold italic`}
         >
           {entityStatus}
         </span>
