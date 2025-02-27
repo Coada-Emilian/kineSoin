@@ -180,7 +180,13 @@ const patientController = {
           fullName: `${foundPatient.name} ${foundPatient.surname}`,
           age: computeAge(foundPatient.birth_date),
           gender: foundPatient.gender,
+          city: foundPatient.city,
+          street_name: foundPatient.street_name,
+          street_number: foundPatient.street_number,
+          postal_code: foundPatient.postal_code,
           address: `${foundPatient.street_number} ${foundPatient.street_name}, ${foundPatient.postal_code} ${foundPatient.city}`,
+          phone_number: foundPatient.phone_number,
+          prefix: foundPatient.prefix,
           full_phone_number: fullPhoneNumber,
           therapist: foundPatient.therapist
             ? `${foundPatient.therapist.name} ${foundPatient.therapist.surname}`

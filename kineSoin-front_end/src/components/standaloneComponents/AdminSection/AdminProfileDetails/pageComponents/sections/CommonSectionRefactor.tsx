@@ -29,6 +29,7 @@ export default function CommonSectionRefactor({
   entityType,
   setUpdateEntityForm,
 }: CommonSectionRefactorProps) {
+  
   const entityDetails: ICommonEntityDetails = entity
     ? {
         status: 'status' in entity ? entity.status || undefined : undefined,

@@ -128,4 +128,13 @@ export interface IParticularEntityDetails {
   prefix?: string;
   full_phone_number?: string;
   description?: string;
+  age?: number;
+  city?: string;
+  postal_code?: string;
+  street_name?: string;
+  street_number?: string;
+  body_region?: IBodyRegion;
+  is_operated?: boolean;
+  birth_date?: string;
+  gender?: string;
 }

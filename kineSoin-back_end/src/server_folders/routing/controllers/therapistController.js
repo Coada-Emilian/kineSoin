@@ -133,23 +133,17 @@ const therapistController = {
         checkIsValidNumber(therapistId);
 
         const foundTherapist = await Therapist.findByPk(therapistId, {
-          attributes: [
-            'id',
-            'name',
-            'surname',
-            'email',
-            'description',
-            'diploma',
-            'experience',
-            'specialty',
-            'phone_number',
-            'picture_url',
-            'status',
-            'licence_code',
-            'prefix',
-            'full_phone_number',
-            'phone_number',
-          ],
+          attributes: {
+            exclude: [
+              'password',
+              'old_password',
+              'new_password',
+              'repeated_password',
+              'created_at',
+              'updated_at',
+              'picture_id',
+            ],
+          },
         });
 
         if (!foundTherapist) {
