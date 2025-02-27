@@ -11,6 +11,7 @@ import EmailOutputRefactor from '../generalComponents/common/Outputs/EmailOutput
 import IdOutputRefactor from '../generalComponents/common/Outputs/IdOutputRefactor';
 import NameOutputRefactor from '../generalComponents/common/Outputs/NameOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/Outputs/StatusOutputRefactor';
+import EmailInputRefactor from '../generalComponents/common/Inputs/EmailInputRefactor';
 
 interface CommonSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -46,6 +47,7 @@ export default function CommonSectionRefactor({
 
   const [entityName, setEntityName] = useState(entityDetails.name);
   const [entitySurname, setEntitySurname] = useState(entityDetails.surname);
+  const [entityEmail, setEntityEmail] = useState(entityDetails.email);
 
   return (
     <section className="md:text-2xl">
@@ -54,22 +56,32 @@ export default function CommonSectionRefactor({
       <IdOutputRefactor id={entityDetails.id} />
 
       {isProfileEditing ? (
-        <div className="w-full flex gap-4 mb-2 ">
-          <NameInputRefactor
-            entityType={entityType}
-            setFunction={setEntityName}
-            value={entityName}
-            type="name"
-          />
-          {entityDetails.surname && (
+        <>
+          <div className="w-full flex gap-4 mb-2 ">
             <NameInputRefactor
               entityType={entityType}
-              setFunction={setEntitySurname}
-              value={entitySurname}
-              type="surname"
+              setFunction={setEntityName}
+              value={entityName}
+              type="name"
+            />
+            {entityDetails.surname && (
+              <NameInputRefactor
+                entityType={entityType}
+                setFunction={setEntitySurname}
+                value={entitySurname}
+                type="surname"
+              />
+            )}
+          </div>
+          {entityDetails.email && (
+            <EmailInputRefactor
+              entityType={entityType}
+              setFunction={setEntityEmail}
+              value={entityEmail}
+              type="email"
             />
           )}
-        </div>
+        </>
       ) : (
         <>
           <NameOutputRefactor
