@@ -7,11 +7,9 @@ import {
   ITherapist,
 } from '../../../../../../@types/standardTypes';
 import NameInputRefactor from '../generalComponents/common/Inputs/NameInputRefactor';
-import EmailOutputRefactor from '../generalComponents/common/Outputs/EmailOutputRefactor';
 import IdOutputRefactor from '../generalComponents/common/Outputs/IdOutputRefactor';
 import NameOutputRefactor from '../generalComponents/common/Outputs/NameOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/Outputs/StatusOutputRefactor';
-import EmailInputRefactor from '../generalComponents/common/Inputs/EmailInputRefactor';
 import { ICommonEntityDetails } from '../../../../../../@types/customTypes';
 
 interface CommonSectionRefactorProps {
@@ -29,7 +27,6 @@ export default function CommonSectionRefactor({
   entityType,
   setUpdateEntityForm,
 }: CommonSectionRefactorProps) {
-  
   const entityDetails: ICommonEntityDetails = entity
     ? {
         status: 'status' in entity ? entity.status || undefined : undefined,
@@ -38,7 +35,6 @@ export default function CommonSectionRefactor({
         surname: 'surname' in entity ? entity.surname || undefined : undefined,
         fullName:
           'fullName' in entity ? entity.fullName || undefined : undefined,
-        email: 'email' in entity ? entity.email || undefined : undefined,
       }
     : {};
 
@@ -49,7 +45,6 @@ export default function CommonSectionRefactor({
 
   const [entityName, setEntityName] = useState(entityDetails.name);
   const [entitySurname, setEntitySurname] = useState(entityDetails.surname);
-  const [entityEmail, setEntityEmail] = useState(entityDetails.email);
 
   return (
     <section className="md:text-2xl">
@@ -76,15 +71,6 @@ export default function CommonSectionRefactor({
               />
             )}
           </div>
-
-          {entityDetails.email && (
-            <EmailInputRefactor
-              entityType={entityType}
-              setFunction={setEntityEmail}
-              value={entityEmail}
-              type="email"
-            />
-          )}
         </>
       ) : (
         <>
@@ -92,8 +78,6 @@ export default function CommonSectionRefactor({
             name={entityDetails.name}
             surname={entityDetails.surname}
           />
-
-          <EmailOutputRefactor email={entityDetails.email} />
         </>
       )}
     </section>

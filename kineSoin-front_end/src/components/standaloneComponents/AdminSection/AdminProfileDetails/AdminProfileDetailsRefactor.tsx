@@ -26,6 +26,8 @@ import TitleOutputRefactor from './pageComponents/generalComponents/common/Gener
 import CommonSectionRefactor from './pageComponents/sections/CommonSectionRefactor.tsx';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
 import ProfileSectionRefactor from './pageComponents/generalComponents/common/ProfileSectionRefactor.tsx';
+import ImageOutputRefactor from './pageComponents/generalComponents/common/Outputs/ImageOutputRefactor.tsx';
+import mainLogo from '/logos/Main-Logo.png';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -83,6 +85,15 @@ export default function AdminProfileDetailsRefactor({
     (entityDetail) => entityDetail.entityType === entityType
   );
 
+  const [picture_url, setPictureUrl] = useState<string>('');
+
+  useEffect(() => {
+    activeEntity &&
+      activeEntity.entity &&
+      'picture_url' in activeEntity.entity &&
+      setPictureUrl(activeEntity.entity.picture_url);
+  }, [activeEntity]);
+
   return (
     <>
       <form
@@ -96,9 +107,20 @@ export default function AdminProfileDetailsRefactor({
         // }
         className="flex justify-center"
       >
-        <div className="flex flex-col p-8 md:space-x-6  md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl md:w-5/6 items-center md:items-start">
-          <TitleOutputRefactor entityType={entityType} />
-          <div className="w-full">
+        <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-5/6 items-center md:items-start">
+          <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center">
+            <TitleOutputRefactor entityType={entityType} />
+          </div>
+
+          <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
+            <div className="absolute top-3 left-0 w-full h-full rounded-xl">
+              <ImageOutputRefactor
+                picture_url={picture_url ? picture_url : mainLogo}
+              />
+            </div>
+          </div>
+
+          <div className="w-full p-4">
             {activeEntity && (
               <>
                 <CommonSectionRefactor
@@ -115,34 +137,6 @@ export default function AdminProfileDetailsRefactor({
                 />
               </>
             )}
-
-            {/* {patient && (
-                <ProfileSection patient={patient} isPatientProfileSection />
-              )} */}
-
-            {/* {affliction && (
-                <ProfileSection
-                  isAfflictionProfileSection
-                  affliction={affliction}
-                  isProfileEditing={isProfileEditing}
-                />
-              )} */}
-            {/* 
-              {medic && (
-                <ProfileSection
-                  isMedicProfileSection
-                  medic={medic}
-                  isProfileEditing={isProfileEditing}
-                />
-              )} */}
-
-            {/* {insurance && (
-                <ProfileSection
-                  isInsuranceProfileSection
-                  insurance={insurance}
-                  isProfileEditing={isProfileEditing}
-                />
-              )} */}
           </div>
         </div>
 

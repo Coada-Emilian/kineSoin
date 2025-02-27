@@ -113,11 +113,11 @@ export interface ICommonEntityDetails {
   name?: string | undefined;
   surname?: string | undefined;
   fullName?: string | undefined;
-  email?: string | undefined;
   status?: string | undefined;
 }
 
 export interface IParticularEntityDetails {
+  email?: string | undefined;
   licence_code?: string;
   amc_code?: string;
   insurance_code?: string;
@@ -137,4 +137,9 @@ export interface IParticularEntityDetails {
   is_operated?: boolean;
   birth_date?: string;
   gender?: string;
+  picture_url?: string;
+}
+
+export interface IChosenEntityDetails {
+  picture_url?: string;
 }

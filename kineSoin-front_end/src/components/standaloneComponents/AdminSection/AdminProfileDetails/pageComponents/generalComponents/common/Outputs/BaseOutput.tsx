@@ -24,7 +24,7 @@ export default function BaseOutput({
         <span className="italic font-normal">{value}</span>
       ) : (
         <textarea
-          className="w-full h-32 p-2 rounded-lg bg-gray-200 italic"
+          className="w-full h-32 p-2 rounded-lg bg-gray-200 italic focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal "
           value={value}
           readOnly
         ></textarea>

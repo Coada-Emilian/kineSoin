@@ -7,6 +7,8 @@ interface GenderOutputRefactorProps {
 export default function GenderOutputRefactor({
   gender,
 }: GenderOutputRefactorProps) {
+  if (!gender) return null;
+
   const getFrenchGender = (gender: string | undefined): string => {
     if (gender === 'male') return 'Masculin';
     if (gender === 'female') return 'Féminin';

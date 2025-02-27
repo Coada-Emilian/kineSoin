@@ -1,4 +1,3 @@
-import { Description } from '@headlessui/react';
 import { IParticularEntityDetails } from '../../../../../../../@types/customTypes';
 import {
   IAffliction,
@@ -7,8 +6,6 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../../@types/standardTypes';
-import GeneralInput from './GeneralInput';
-import GeneralOutput from './GeneralOutput';
 import DiplomaOutputRefactor from './Outputs/DiplomaOutputRefactor';
 import ExperienceOutputRefactor from './Outputs/ExperienceOutputRefactor';
 import LicenceCodeOutputRefactor from './Outputs/LicenceCodeOutputRefactor';
@@ -19,6 +16,10 @@ import AMCCodeOutputRefactor from './Outputs/AMCCodeOutputRefactor';
 import InsuranceCodeOutputRefactor from './Outputs/InsuranceCodeOutputRefactor';
 import AddressOutputRefactor from './Outputs/AddressOutputRefactor';
 import AgeAndGenderOutputRefactor from './Outputs/AgeAndGenderOutputRefactor';
+import EmailInputRefactor from './Inputs/EmailInputRefactor';
+import EmailOutputRefactor from './Outputs/EmailOutputRefactor';
+import BodyRegionAndOperatedStatusOutputRefactor from './Outputs/BodyRegionAndOperatedStatusOutputRefactor';
+import ImageOutputRefactor from './Outputs/ImageOutputRefactor';
 
 interface ProfileSectionRefactorProps {
   isProfileEditing?: boolean;
@@ -40,6 +41,7 @@ export default function ProfileSectionRefactor({
 }: ProfileSectionRefactorProps) {
   const entityDetails: IParticularEntityDetails = entity
     ? {
+        email: 'email' in entity ? entity.email || undefined : undefined,
         licence_code:
           'licence_code' in entity
             ? entity.licence_code || undefined
@@ -82,23 +84,21 @@ export default function ProfileSectionRefactor({
           'body_region' in entity ? entity.body_region || undefined : undefined,
         is_operated:
           'is_operated' in entity ? entity.is_operated || undefined : undefined,
+        picture_url:
+          'picture_url' in entity ? entity.picture_url || undefined : undefined,
       }
     : {};
 
   return (
-    <section className="mb-2 md:text-2xl">
-      <LicenceCodeOutputRefactor licence_code={entityDetails.licence_code} />
-      <DiplomaOutputRefactor diploma={entityDetails.diploma} />
-      <ExperienceOutputRefactor experience={entityDetails.experience} />
-      <SpecialtyOutputRefactor specialty={entityDetails.specialty} />
-      <DescriptionOutputRefactor description={entityDetails.description} />
+    <section className="mb-2 md:text-2xl w-full">
+      <AgeAndGenderOutputRefactor
+        age={entityDetails.age}
+        gender={entityDetails.gender}
+      />
+      <EmailOutputRefactor email={entityDetails.email} />
       <PhoneNumberOutputRefactor
         prefix={entityDetails.prefix}
         phone_number={entityDetails.phone_number}
-      />
-      <AMCCodeOutputRefactor amc_code={entityDetails.amc_code} />
-      <InsuranceCodeOutputRefactor
-        insurance_code={entityDetails.insurance_code}
       />
       <AddressOutputRefactor
         city={entityDetails.city}
@@ -106,105 +106,24 @@ export default function ProfileSectionRefactor({
         street_number={entityDetails.street_number}
         street_name={entityDetails.street_name}
       />
-      <AgeAndGenderOutputRefactor
-        age={entityDetails.age}
-        gender={entityDetails.gender}
+
+      <AMCCodeOutputRefactor amc_code={entityDetails.amc_code} />
+      <InsuranceCodeOutputRefactor
+        insurance_code={entityDetails.insurance_code}
+      />
+      <LicenceCodeOutputRefactor licence_code={entityDetails.licence_code} />
+      <BodyRegionAndOperatedStatusOutputRefactor
+        body_region={entityDetails.body_region}
+        is_operated={entityDetails.is_operated}
       />
 
-      {/* {isTherapistProfileSection &&
-        (isProfileEditing ? (
-          <>
-            <GeneralInput therapist={therapist} isTherapistLicenceCodeInput />
-            <GeneralInput therapist={therapist} isTherapistDiplomaInput />
-            <GeneralInput therapist={therapist} isTherapistExperienceInput />
-            <GeneralInput therapist={therapist} isTherapistSpecialtyInput />
-            <GeneralInput therapist={therapist} isTherapistPhoneNumberInput />
-            <GeneralInput therapist={therapist} isTherapistDescriptionInput />
-          </>
-        ) : (
-          <>
-            <GeneralOutput therapist={therapist} isProfileLicenceCodeOutput />
-            <GeneralOutput therapist={therapist} isTherapistDiplomaOutput />
-            <GeneralOutput therapist={therapist} isTherapistExperienceOutput />
-            <GeneralOutput therapist={therapist} isTherapistSpecialtyOutput />
-            <GeneralOutput therapist={therapist} isTherapistPhoneNumberOutput />
-            <GeneralOutput therapist={therapist} isTherapistDescriptionOutput />
-          </>
-        ))}
+      <DiplomaOutputRefactor diploma={entityDetails.diploma} />
+      <SpecialtyOutputRefactor specialty={entityDetails.specialty} />
+      <ExperienceOutputRefactor experience={entityDetails.experience} />
 
-      {isPatientProfileSection && (
-        <>
-          <GeneralOutput patient={patient} isPatientAgeGenderOutput />
-          <GeneralOutput patient={patient} isPatientAddressOutput />
-          <GeneralOutput patient={patient} isPatientPhoneNumberOutput />
-          <GeneralOutput patient={patient} isPatientTherapistOutput />
-        </>
-      )}
+      <DescriptionOutputRefactor description={entityDetails.description} />
 
-      {isAfflictionProfileSection &&
-        (isProfileEditing ? (
-          <>
-            <GeneralInput affliction={affliction} isAfflictionRegionInput />
-            <GeneralInput
-              affliction={affliction}
-              isAfflictionInsuranceCodeInput
-            />
-            <GeneralInput affliction={affliction} isAfflictionOperatedInput />
-            <GeneralInput
-              affliction={affliction}
-              isAfflictionDescriptionInput
-            />
-          </>
-        ) : (
-          <>
-            <GeneralOutput affliction={affliction} isAfflictionRegionOutput />
-            <GeneralOutput
-              affliction={affliction}
-              isAfflictionInsuranceCodeOutput
-            />
-            <GeneralOutput affliction={affliction} isAfflictionOperatedOutput />
-            <GeneralOutput
-              affliction={affliction}
-              isAfflictionDescriptionOutput
-            />
-          </>
-        ))}
-
-      {isMedicProfileSection &&
-        (isProfileEditing ? (
-          <>
-            <GeneralInput medic={medic} isMedicAddressInput />
-            <GeneralInput medic={medic} isMedicPhoneNumberInput />
-            <GeneralInput medic={medic} isMedicLicenceCodeInput />
-          </>
-        ) : (
-          <>
-            <GeneralOutput medic={medic} isMedicAddressOutput />
-            <GeneralOutput medic={medic} isMedicPhoneNumberOutput />
-            <GeneralOutput medic={medic} isMedicLicenceCodeOutput />
-          </>
-        ))}
-
-      {isInsuranceProfileSection && (
-        <>
-          {isProfileEditing ? (
-            <>
-              <GeneralInput insurance={insurance} isInsuranceAddressInput />
-              <GeneralInput insurance={insurance} isInsurancePhoneNumberInput />
-              <GeneralInput insurance={insurance} isInsuranceAMCCodeInput />
-            </>
-          ) : (
-            <>
-              <GeneralOutput insurance={insurance} isInsuranceAddressOutput />
-              <GeneralOutput
-                insurance={insurance}
-                isInsurancePhoneNumberOutput
-              />
-              <GeneralOutput insurance={insurance} isInsuranceAMCCodeOutput />
-            </>
-          )}
-        </>
-      )} */}
+      {/* <ImageOutputRefactor picture_url={entityDetails.picture_url} /> */}
     </section>
   );
 }
