@@ -108,4 +108,24 @@ export interface IUserProfile {
   token: string | null;
 }
 
+export interface ICommonEntityDetails {
+  id?: number | undefined;
+  name?: string | undefined;
+  surname?: string | undefined;
+  fullName?: string | undefined;
+  email?: string | undefined;
+  status?: string | undefined;
+}
 
+export interface IParticularEntityDetails {
+  licence_code?: string;
+  amc_code?: string;
+  insurance_code?: string;
+  diploma?: string;
+  experience?: string;
+  specialty?: string;
+  phone_number?: string;
+  prefix?: string;
+  full_phone_number?: string;
+  description?: string;
+}

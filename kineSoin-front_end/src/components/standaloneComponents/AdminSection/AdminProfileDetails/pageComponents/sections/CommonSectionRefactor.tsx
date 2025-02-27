@@ -12,6 +12,7 @@ import IdOutputRefactor from '../generalComponents/common/Outputs/IdOutputRefact
 import NameOutputRefactor from '../generalComponents/common/Outputs/NameOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/Outputs/StatusOutputRefactor';
 import EmailInputRefactor from '../generalComponents/common/Inputs/EmailInputRefactor';
+import { ICommonEntityDetails } from '../../../../../../@types/customTypes';
 
 interface CommonSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -28,17 +29,17 @@ export default function CommonSectionRefactor({
   entityType,
   setUpdateEntityForm,
 }: CommonSectionRefactorProps) {
-  const entityDetails = {
-    status:
-      entity && 'status' in entity ? entity.status || undefined : undefined,
-    id: entity && entity.id,
-    name: entity && 'name' in entity ? entity.name || undefined : undefined,
-    surname:
-      entity && 'surname' in entity ? entity.surname || undefined : undefined,
-    fullName:
-      entity && 'fullName' in entity ? entity.fullName || undefined : undefined,
-    email: entity && 'email' in entity ? entity.email || undefined : undefined,
-  };
+  const entityDetails: ICommonEntityDetails = entity
+    ? {
+        status: 'status' in entity ? entity.status || undefined : undefined,
+        id: entity ? entity.id : 0,
+        name: 'name' in entity ? entity.name || undefined : undefined,
+        surname: 'surname' in entity ? entity.surname || undefined : undefined,
+        fullName:
+          'fullName' in entity ? entity.fullName || undefined : undefined,
+        email: 'email' in entity ? entity.email || undefined : undefined,
+      }
+    : {};
 
   useEffect(() => {
     setEntityName(entityDetails.name);
@@ -64,6 +65,7 @@ export default function CommonSectionRefactor({
               value={entityName}
               type="name"
             />
+
             {entityDetails.surname && (
               <NameInputRefactor
                 entityType={entityType}
@@ -73,6 +75,7 @@ export default function CommonSectionRefactor({
               />
             )}
           </div>
+
           {entityDetails.email && (
             <EmailInputRefactor
               entityType={entityType}
@@ -92,49 +95,6 @@ export default function CommonSectionRefactor({
           <EmailOutputRefactor email={entityDetails.email} />
         </>
       )}
-
-      {/* {isProfileEditing ? (
-        <div className="flex flex-col gap-2 mb-2 ">
-          {(therapist || affliction || medic || insurance) && (
-            <GeneralInput
-              isProfileNameInput
-              therapist={therapist}
-              affliction={affliction}
-              medic={medic}
-              insurance={insurance}
-            />
-          )}
-
-          {(therapist || medic) && (
-            <GeneralInput
-              isProfileSurnameInput
-              therapist={therapist}
-              medic={medic}
-            />
-          )}
-        </div>
-      ) : (
-        <>
-          {(therapist || affliction || medic || insurance || patient) && (
-            <GeneralOutput
-              isProfileNameOutput
-              therapist={therapist}
-              patient={patient}
-              affliction={affliction}
-              medic={medic}
-              insurance={insurance}
-            />
-          )}
-
-          {(patient || therapist) && (
-            <GeneralOutput
-              isProfileEmailOutput
-              patient={patient}
-              therapist={therapist}
-            />
-          )}
-        </>
-      )}  */}
     </section>
   );
 }

@@ -25,6 +25,7 @@ import GeneralOutputRefactor from './pageComponents/generalComponents/common/Gen
 import TitleOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
 import CommonSectionRefactor from './pageComponents/sections/CommonSectionRefactor.tsx';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
+import ProfileSectionRefactor from './pageComponents/generalComponents/common/ProfileSectionRefactor.tsx';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -99,21 +100,21 @@ export default function AdminProfileDetailsRefactor({
           <TitleOutputRefactor entityType={entityType} />
           <div className="w-full">
             {activeEntity && (
-              <CommonSectionRefactor
-                entity={activeEntity.entity}
-                isProfileEditing={isProfileEditing}
-                entityType={activeEntity.entityType}
-                setUpdateEntityForm={setUpdateEntityForm}
-              />
-            )}
+              <>
+                <CommonSectionRefactor
+                  entity={activeEntity.entity}
+                  isProfileEditing={isProfileEditing}
+                  entityType={activeEntity.entityType}
+                  setUpdateEntityForm={setUpdateEntityForm}
+                />
 
-            {/* {therapist && (
-            <ProfileSection
-              isTherapistProfileSection
-              isProfileEditing={isProfileEditing}
-              therapist={therapist}
-            />
-          )} */}
+                <ProfileSectionRefactor
+                  isProfileEditing={isProfileEditing}
+                  entityType={activeEntity.entityType}
+                  entity={activeEntity.entity}
+                />
+              </>
+            )}
 
             {/* {patient && (
                 <ProfileSection patient={patient} isPatientProfileSection />

@@ -113,9 +113,6 @@ export default function AdminPage({
     (group) => group.isActive
   );
 
-  //   useEffect(() => {
-  //     console.log('Active Entity Group:', activeEntityGroup);
-  //   }, [activeEntityGroup]);
 
   return activeEntityGroup ? (
     <AdminMain2
