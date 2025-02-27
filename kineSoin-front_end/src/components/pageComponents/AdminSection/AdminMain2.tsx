@@ -90,7 +90,7 @@ export default function AdminMain2({
   }, [entityId]);
 
   console.log('entity', entity);
-  console.log(entities.length);
+  console.log('entities', entities);
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
       {/* <div className=" md:flex-row md:justify-normal"> */}
@@ -99,7 +99,7 @@ export default function AdminMain2({
       </div>
 
       <div className="w-full md:border-l-2 md:border-solid ">
-        {entities.length > 0 && (
+        {entities.length > 0 && !id && (
           <AdminTableRefactor
             entities={entities}
             entityType={entityType}
@@ -107,7 +107,7 @@ export default function AdminMain2({
           />
         )}
 
-        {entity && (
+        {id && (
           <AdminProfileDetailsRefactor
             entityType={entityType}
             entity={entity}

@@ -213,10 +213,6 @@ export default function AdminTableRefactor({
     (group) => entityType === group.entityType
   );
 
-  useEffect(() => {
-    console.log(selectedEntity);
-  }, [selectedEntity]);
-
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   return (

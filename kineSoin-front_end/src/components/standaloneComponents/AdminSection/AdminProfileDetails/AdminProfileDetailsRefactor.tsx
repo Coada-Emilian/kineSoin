@@ -21,9 +21,12 @@ import {
 } from '../../../../utils/apiUtils/adminApiUtils.tsx';
 import { handleFormSubmit } from './pageComponents/utils/handleFormSubmit.ts';
 import { handlePatientStatusChanges } from './pageComponents/utils/handlePatientStatusChange.ts';
+import GeneralOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
+import TitleOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
+import CommonSectionRefactor from './pageComponents/sections/CommonSectionRefactor.tsx';
 
 interface AdminProfileDetailsRefactorProps {
-  entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance;
+  entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
   entityType: string;
 }
 
@@ -43,9 +46,9 @@ export default function AdminProfileDetailsRefactor({
 
   const [buttonMessage, setButtonMessage] = useState('Changer le statut');
   const [backgroundColor, setBackgroundColor] = useState('bg-white');
-  //   const [therapistStatus, setTherapistStatus] = useState(
-  //     therapist?.status || 'inactive'
-  //   );
+  const [entityStatus, setEntityStatus] = useState(
+    entity && 'status' in entity ? entity.status : 'inactive'
+  );
 
   //   const getUpdateFunction = () => {
   //     if (therapist)
@@ -65,6 +68,18 @@ export default function AdminProfileDetailsRefactor({
 
   //   const updateFunction = getUpdateFunction();
 
+  const entityDetails = [
+    { entityType: 'therapist', entity: entity as ITherapist },
+    { entityType: 'patient', entity: entity as IPatient },
+    { entityType: 'affliction', entity: entity as IAffliction },
+    { entityType: 'medic', entity: entity as IMedic },
+    { entityType: 'insurance', entity: entity as IInsurance },
+  ];
+
+  const activeEntity = entityDetails.find(
+    (entityDetail) => entityDetail.entityType === entityType
+  );
+
   return (
     <>
       <form
@@ -78,72 +93,54 @@ export default function AdminProfileDetailsRefactor({
         // }
         className="flex justify-center"
       >
-        <div
-          className={`flex flex-col md:space-x-6 md:m-20 border border-gray-400 rounded-xl shadow-2xl md:w-5/6  items-center `}
-        >
-          <div
-          // className={`flex flex-col p-8 w-full
-          //     ${therapist || patient ? 'md:flex-row items-center justify-around' : ''}
-          //     `}
-          >
-            <div className="flex-1 p-4 rounded-md">
-              <h1>{entity.id}</h1>
-              {/* <GeneralOutput
-                isPageTitleOutput
-                patient={patient}
-                therapist={therapist}
-                affliction={affliction}
-                medic={medic}
-                insurance={insurance}
-              />
+        <div className="flex flex-col p-8 md:space-x-6  md:m-2 border border-gray-300 rounded-xl shadow-2xl md:w-5/6 items-center md:items-start">
+          <TitleOutputRefactor entityType={entityType} />
 
-              <CommonSection
-                patient={patient}
-                therapist={therapist}
-                affliction={affliction}
-                medic={medic}
-                insurance={insurance}
-                isProfileEditing={isProfileEditing}
-              />
+          {activeEntity && (
+            <CommonSectionRefactor
+              entity={activeEntity.entity}
+              isProfileEditing={isProfileEditing}
+            />
+          )}
 
-              {therapist && (
+          {/* {therapist && (
                 <ProfileSection
                   isTherapistProfileSection
                   isProfileEditing={isProfileEditing}
                   therapist={therapist}
                 />
-              )}
+              )} */}
 
-              {patient && (
+          {/* {patient && (
                 <ProfileSection patient={patient} isPatientProfileSection />
-              )}
+              )} */}
 
-              {affliction && (
+          {/* {affliction && (
                 <ProfileSection
                   isAfflictionProfileSection
                   affliction={affliction}
                   isProfileEditing={isProfileEditing}
                 />
-              )}
-
+              )} */}
+          {/* 
               {medic && (
                 <ProfileSection
                   isMedicProfileSection
                   medic={medic}
                   isProfileEditing={isProfileEditing}
                 />
-              )}
+              )} */}
 
-              {insurance && (
+          {/* {insurance && (
                 <ProfileSection
                   isInsuranceProfileSection
                   insurance={insurance}
                   isProfileEditing={isProfileEditing}
                 />
               )} */}
-            </div>
+        </div>
 
-            {/* {(therapist || patient) && (
+        {/* {(therapist || patient) && (
               <ImageSection
                 therapist={therapist}
                 patient={patient}
@@ -151,9 +148,8 @@ export default function AdminProfileDetailsRefactor({
                 setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
               />
             )} */}
-          </div>
 
-          {/* <ButtonsSection
+        {/* <ButtonsSection
             isProfileEditing={isProfileEditing}
             buttonMessage={buttonMessage}
             backgroundColor={backgroundColor}
@@ -169,7 +165,6 @@ export default function AdminProfileDetailsRefactor({
             medic={medic}
             insurance={insurance}
           /> */}
-        </div>
       </form>
 
       {/* {isDeleteModalOpen && (
