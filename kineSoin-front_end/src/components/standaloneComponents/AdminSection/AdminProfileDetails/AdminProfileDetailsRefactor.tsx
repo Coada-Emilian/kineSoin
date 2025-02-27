@@ -33,6 +33,10 @@ import instagramIcon from '/icons/insta.png';
 import linkedInIcon from '/icons/linkedIn.png';
 import phoneIcon from '/icons/phone-call.png';
 import messageIcon from '/icons/message3.png';
+import { Menu, MenuButton, MenuItems } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import TherapistStatusButtons from './pageComponents/generalComponents/therapist/TherapistStatusButtons.tsx';
+import StatusButtonsRefactor from './pageComponents/generalComponents/therapist/StatusButtonRefactor.tsx';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -53,8 +57,6 @@ export default function AdminProfileDetailsRefactor({
   // Form state variables
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const [buttonMessage, setButtonMessage] = useState('Changer le statut');
-  const [backgroundColor, setBackgroundColor] = useState('bg-white');
   const [entityStatus, setEntityStatus] = useState(
     entity && 'status' in entity ? entity.status : 'inactive'
   );
@@ -95,6 +97,35 @@ export default function AdminProfileDetailsRefactor({
   const [phone_number, setPhoneNumber] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [surname, setSurname] = useState<string>('');
+  const [backgroundColor, setBackgroundColor] = useState('bg-white');
+  const [buttonMessage, setButtonMessage] = useState('Changer le statut');
+  const [id, setId] = useState<number | null>(null);
+
+  const StatusMenu = ({
+    buttonMessage,
+    backgroundColor,
+    children,
+  }: {
+    buttonMessage: string;
+    backgroundColor: string;
+    children: React.ReactNode;
+  }) => (
+    <Menu as="div" className="relative inline-block text-left">
+      <MenuButton
+        className={`inline-flex w-full justify-center items-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-xxs md:text-base md:py-3 font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
+      >
+        {buttonMessage}
+        <ChevronDownIcon
+          aria-hidden="true"
+          className="-mr-1 h-5 w-5 text-gray-400"
+        />
+      </MenuButton>
+
+      <MenuItems className="absolute left-0 z-10 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-gray-200 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none">
+        {children}
+      </MenuItems>
+    </Menu>
+  );
 
   useEffect(() => {
     activeEntity &&
@@ -124,6 +155,11 @@ export default function AdminProfileDetailsRefactor({
       activeEntity.entity &&
       'surname' in activeEntity.entity &&
       setSurname(activeEntity.entity.surname);
+
+    activeEntity &&
+      activeEntity.entity &&
+      'id' in activeEntity.entity &&
+      setId(activeEntity.entity.id);
   }, [activeEntity]);
 
   return (
@@ -139,7 +175,7 @@ export default function AdminProfileDetailsRefactor({
         // }
         className="flex justify-center"
       >
-        <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-5/6 items-center md:items-start">
+        <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-4/6 items-center md:items-start">
           <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center">
             <TitleOutputRefactor entityType={entityType} />
           </div>
@@ -152,7 +188,7 @@ export default function AdminProfileDetailsRefactor({
             </div>
           </div>
 
-          <div className="w-full p-4 md:py-10 md:px-32">
+          <div className="w-full p-4 md:py-10 md:px-24">
             {activeEntity && (
               <>
                 <CommonSectionRefactor
@@ -200,7 +236,35 @@ export default function AdminProfileDetailsRefactor({
               <p className="text-white italic">{`/ ${name.toLowerCase()}${surname && `.${surname.toLowerCase()}`}`}</p>
             </div>
           </div>
-          <div className="bg-primaryTeal p-12 w-full"></div>
+          <div className="bg-primaryTeal p-6 w-full">
+            {entityType === 'therapist' && (
+              <StatusMenu
+                buttonMessage={buttonMessage}
+                backgroundColor={backgroundColor}
+              >
+                <StatusButtonsRefactor
+                  setButtonMessage={setButtonMessage}
+                  setBackgroundColor={setBackgroundColor}
+                  setEntityStatus={setEntityStatus}
+                  entityType={entityType}
+                />
+              </StatusMenu>
+            )}
+            {entityType === 'patient' && (
+              <StatusMenu
+                buttonMessage={buttonMessage}
+                backgroundColor={backgroundColor}
+              >
+                <StatusButtonsRefactor
+                  setButtonMessage={setButtonMessage}
+                  setBackgroundColor={setBackgroundColor}
+                  setEntityStatus={setEntityStatus}
+                  entityType={entityType}
+                  id={id}
+                />
+              </StatusMenu>
+            )}
+          </div>
         </div>
 
         {/* {(therapist || patient) && (
