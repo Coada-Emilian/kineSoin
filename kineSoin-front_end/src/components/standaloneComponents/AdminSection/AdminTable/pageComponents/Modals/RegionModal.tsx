@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import AdminTable from '../../AdminTable';
+import AdminTable from '../../old_components/AdminTable';
 import {
   IAffliction,
   IBodyRegion,
@@ -9,7 +9,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardTypes';
-import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils';
+import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import RegionTable from '../../RegionTable';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';

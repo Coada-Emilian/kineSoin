@@ -7,8 +7,8 @@ import {
   ITherapist,
 } from '../../../../@types/standardTypes';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
-import TableHead from './pageComponents/Common/TableHead';
-import RegionTableBody from './pageComponents/Region/RegionTableBody';
+import TableHead from './pageComponents/Common/old_components/TableHead';
+import RegionTableBody from './pageComponents/Regions/RegionTableBody';
 
 interface RegionTableProps {
   setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;

@@ -13,7 +13,7 @@ import {
   fetchDetailsDataRefactor,
   fetchTableDataRefactor,
 } from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtilsRefactor';
-import AdminTableRefactor from '../../standaloneComponents/AdminSection/AdminTable/AdminTableRefactor';
+import AdminTableRefactor from '../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
 import AdminProfileDetailsRefactor from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetailsRefactor';
 
 interface AdminMain2Props {
@@ -89,11 +89,7 @@ export default function AdminMain2({
 
       <div className="w-full md:border-l-2 md:border-solid ">
         {entities.length > 0 && !id && (
-          <AdminTableRefactor
-            entities={entities}
-            entityType={entityType}
-            entity={entity}
-          />
+          <AdminTableRefactor entities={entities} entityType={entityType} />
         )}
 
         {id && (

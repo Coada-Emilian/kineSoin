@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
-import AdminTable from '../../standaloneComponents/AdminSection/AdminTable/AdminTable';
+import AdminTable from '../../standaloneComponents/AdminSection/AdminTable/old_components/AdminTable';
 import AdminProfileDetails from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetails';
 import DNALoader from '../../../utils/DNALoader';
 import {

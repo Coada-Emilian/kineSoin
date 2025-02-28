@@ -7,6 +7,7 @@ import {
   ITherapist,
 } from '../../../@types/standardTypes';
 import AdminMain2 from './AdminMain2';
+import { adminPageEntityStates } from '../../../utils/pageUtils/AdminSection/AdminPAgeUtils/constants/adminPageEntityStates';
 
 interface AdminPageProps {
   isAdminTherapistsMain?: boolean;
@@ -54,65 +55,57 @@ export default function AdminPage({
   const [insurance, setInsurance] = useState<IInsurance | null>(null);
   const [insuranceId, setInsuranceId] = useState<number | null>(null);
 
-  // Mapping object to dynamically group state based on boolean flag
-  const entityStateMap = {
-    therapists: {
-      entityType: 'therapist',
-      isActive: isAdminTherapistsMain || isAdminTherapistMain,
-      entities: allTherapists,
-      setEntities: setAllTherapists,
-      entity: therapist,
-      setEntity: setTherapist,
-      entityId: therapistId,
-      setEntityId: setTherapistId,
-    },
-    patients: {
-      entityType: 'patient',
-      isActive: isAdminPatientsMain || isAdminPatientMain,
-      entities: allPatients,
-      setEntities: setAllPatients,
-      entity: patient,
-      setEntity: setPatient,
-      entityId: patientId,
-      setEntityId: setPatientId,
-    },
-    afflictions: {
-      entityType: 'affliction',
-      isActive: isAdminAfflictionsMain || isAdminAfflictionMain,
-      entities: allAfflictions,
-      setEntities: setAllAfflictions,
-      entity: affliction,
-      setEntity: setAffliction,
-      entityId: afflictionId,
-      setEntityId: setAfflictionId,
-    },
-    medics: {
-      entityType: 'medic',
-      isActive: isAdminMedicsMain || isAdminMedicMain,
-      entities: allMedics,
-      setEntities: setAllMedics,
-      entity: medic,
-      setEntity: setMedic,
-      entityId: medicId,
-      setEntityId: setMedicId,
-    },
-    insurances: {
-      entityType: 'insurance',
-      isActive: isAdminInsurancesMain || isAdminInsuranceMain,
-      entities: allInsurances,
-      setEntities: setAllInsurances,
-      entity: insurance,
-      setEntity: setInsurance,
-      entityId: insuranceId,
-      setEntityId: setInsuranceId,
-    },
-  };
+  const entityStates = adminPageEntityStates({
+    isAdminTherapistsMain,
+    isAdminTherapistMain,
+    allTherapists,
+    setAllTherapists,
+    therapist,
+    setTherapist,
+    therapistId,
+    setTherapistId,
+
+    isAdminPatientsMain,
+    isAdminPatientMain,
+    allPatients,
+    setAllPatients,
+    patient,
+    setPatient,
+    patientId,
+    setPatientId,
+
+    isAdminAfflictionsMain,
+    isAdminAfflictionMain,
+    allAfflictions,
+    setAllAfflictions,
+    affliction,
+    setAffliction,
+    afflictionId,
+    setAfflictionId,
+
+    isAdminMedicsMain,
+    isAdminMedicMain,
+    allMedics,
+    setAllMedics,
+    medic,
+    setMedic,
+    medicId,
+    setMedicId,
+
+    isAdminInsurancesMain,
+    isAdminInsuranceMain,
+    allInsurances,
+    setAllInsurances,
+    insurance,
+    setInsurance,
+    insuranceId,
+    setInsuranceId,
+  });
 
   // Determine the active entity group
-  const activeEntityGroup = Object.values(entityStateMap).find(
+  const activeEntityGroup = Object.values(entityStates).find(
     (group) => group.isActive
   );
-
 
   return activeEntityGroup ? (
     <AdminMain2

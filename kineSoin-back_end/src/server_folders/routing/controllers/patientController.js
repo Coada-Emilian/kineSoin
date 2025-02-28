@@ -206,7 +206,7 @@ const patientController = {
   },
 
   // Function to toggle the patient's status
-  togglePatientStatus: async (req, res) => {
+  changePatientStatus: async (req, res) => {
     const admin_id = parseInt(req.admin_id, 10);
     checkIsValidNumber(admin_id);
     if (!admin_id) {

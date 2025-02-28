@@ -183,6 +183,13 @@ adminRouter.put(
 
 // Route to toggle therapist status change
 adminRouter.put(
+  '/therapists/:therapist_id/changeStatus',
+  authenticateAdmin,
+  wrapper(therapistController.changeTherapistStatus)
+);
+
+// Route to toggle therapist status
+adminRouter.patch(
   '/therapists/:therapist_id/toggleStatus',
   authenticateAdmin,
   wrapper(therapistController.toggleTherapistStatus)
@@ -209,11 +216,11 @@ adminRouter.get(
   wrapper(patientController.getOnePatient)
 );
 
-// Route to toggle patient status change
+// Route to change patient status
 adminRouter.put(
-  '/patients/:patient_id/toggleStatus',
+  '/patients/:patient_id/changeStatus',
   authenticateAdmin,
-  wrapper(patientController.togglePatientStatus)
+  wrapper(patientController.changePatientStatus)
 );
 
 // Route to delete a patient

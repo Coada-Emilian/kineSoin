@@ -18,7 +18,7 @@ import {
   handleInsuranceOrganismUpdateAsAdmin,
   handleMedicUpdateAsAdmin,
   handleTherapistUpdateAsAdmin,
-} from '../../../../utils/apiUtils/adminApiUtils.tsx';
+} from '../../../../utils/apiUtils/adminApiUtils/adminApiUtils.tsx';
 import { handleFormSubmit } from './pageComponents/utils/handleFormSubmit.ts';
 import { handlePatientStatusChanges } from './pageComponents/utils/handlePatientStatusChange.ts';
 import GeneralOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';

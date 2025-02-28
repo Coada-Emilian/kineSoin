@@ -434,7 +434,7 @@ const therapistController = {
   },
 
   // Function to toggle therapist status
-  toggleTherapistStatus: async (req, res) => {
+  changeTherapistStatus: async (req, res) => {
     const admin_id = parseInt(req.admin_id, 10);
     checkIsValidNumber(admin_id);
     if (!admin_id) {
@@ -467,6 +467,40 @@ const therapistController = {
         } else {
           await foundTherapist.update({ status });
         }
+
+        return res
+          .status(200)
+          .json({ message: 'Therapist status updated successfully!' });
+      } catch (error) {
+        console.error('Error toggling therapist status:', error);
+      }
+    }
+  },
+
+  // Function to toggle therapist status
+  toggleTherapistStatus: async (req, res) => {
+    const admin_id = parseInt(req.admin_id, 10);
+    checkIsValidNumber(admin_id);
+    if (!admin_id) {
+      return res.status(400).json({ message: 'Admin not found' });
+    } else {
+      try {
+        const therapistId = parseInt(req.params.therapist_id, 10);
+        checkIsValidNumber(therapistId);
+
+        const foundTherapist = await Therapist.findByPk(therapistId);
+
+        if (!foundTherapist) {
+          return res.status(400).json({ message: 'Therapist not found' });
+        }
+
+        if (foundTherapist.status === 'active') {
+          foundTherapist.status = 'inactive';
+        } else {
+          foundTherapist.status = 'active';
+        }
+
+        await foundTherapist.save();
 
         return res
           .status(200)

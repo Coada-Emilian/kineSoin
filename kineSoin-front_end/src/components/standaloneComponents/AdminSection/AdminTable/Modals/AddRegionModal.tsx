@@ -3,7 +3,7 @@
 import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
-import { handleBodyRegionCreationAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils';
+import { handleBodyRegionCreationAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
 
 interface AddRegionModalProps {
   isAddRegionModalOpen: boolean;

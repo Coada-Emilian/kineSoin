@@ -1,7 +1,3 @@
-// Purpose: Provide the ConfirmDeleteModal component which displays a modal to confirm the deletion of a profile.
-
-import ReactModal from 'react-modal';
-
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
@@ -14,15 +10,13 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/standardTypes';
-import {
-  handleAfflictionDeleteAsAdmin,
-  handleInsuranceOrganismDeleteAsAdmin,
-  handleMedicDeleteAsAdmin,
-  handlePatientDeleteAsAdmin,
-  handleRegionDeleteAsAdmin,
-  handleTherapistDeleteAsAdmin,
-} from '../../../../utils/apiUtils/adminApiUtils';
 import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
+import { handleTherapistDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
+import { handlePatientDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminPatientApiUtils';
+import { handleAfflictionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminAfflictionApiUtils';
+import { handleMedicDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils';
+import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils';
+import { handleBodyRegionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
@@ -87,7 +81,7 @@ export default function ConfirmDeleteModal({
     },
     {
       entityType: 'region',
-      function: handleRegionDeleteAsAdmin,
+      function: handleBodyRegionDeleteAsAdmin,
       redirect: '/admin/regions',
       name: 'entity.name',
     },

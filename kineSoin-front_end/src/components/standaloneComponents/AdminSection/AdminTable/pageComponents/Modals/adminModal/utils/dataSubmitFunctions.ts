@@ -2,7 +2,7 @@ import {
   handleAfflictionCreationAsAdmin,
   handleInsuranceOrganismCreationAsAdmin,
   handleMedicCreationAsAdmin,
-} from '../../../../../../../../utils/apiUtils/adminApiUtils';
+} from '../../../../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
 
 interface DataSubmitFunctionsProps {
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;

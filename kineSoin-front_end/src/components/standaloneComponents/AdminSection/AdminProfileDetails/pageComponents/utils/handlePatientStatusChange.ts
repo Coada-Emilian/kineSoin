@@ -1,4 +1,4 @@
-import { handlePatientStatusChangeAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils';
+import { handlePatientStatusChangeAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
 
 export const handlePatientStatusChanges = async (
   id: number,

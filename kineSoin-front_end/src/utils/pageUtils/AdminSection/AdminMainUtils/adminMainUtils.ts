@@ -16,7 +16,7 @@ import {
   fetchPatientsAsAdmin,
   fetchTherapistAsAdmin,
   fetchTherapistsAsAdmin,
-} from '../../../apiUtils/adminApiUtils';
+} from '../../../apiUtils/adminApiUtils/adminApiUtils';
 
 interface AdminMainUtilsProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;

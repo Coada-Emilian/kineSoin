@@ -143,3 +143,46 @@ export interface IParticularEntityDetails {
 export interface IChosenEntityDetails {
   picture_url?: string;
 }
+
+export interface IEntityStates {
+  isAdminTherapistsMain?: boolean;
+  isAdminTherapistMain?: boolean;
+  isAdminPatientsMain?: boolean;
+  isAdminPatientMain?: boolean;
+  isAdminAfflictionsMain?: boolean;
+  isAdminAfflictionMain?: boolean;
+  isAdminMedicsMain?: boolean;
+  isAdminMedicMain?: boolean;
+  isAdminInsurancesMain?: boolean;
+  isAdminInsuranceMain?: boolean;
+  allTherapists: ITherapist[];
+  setAllTherapists: React.Dispatch<React.SetStateAction<ITherapist[]>>;
+  therapist: ITherapist | null;
+  setTherapist: React.Dispatch<React.SetStateAction<ITherapist | null>>;
+  therapistId: number | null;
+  setTherapistId: React.Dispatch<React.SetStateAction<number | null>>;
+  allPatients: IPatient[];
+  setAllPatients: React.Dispatch<React.SetStateAction<IPatient[]>>;
+  patient: IPatient | null;
+  setPatient: React.Dispatch<React.SetStateAction<IPatient | null>>;
+  patientId: number | null;
+  setPatientId: React.Dispatch<React.SetStateAction<number | null>>;
+  allAfflictions: IAffliction[];
+  setAllAfflictions: React.Dispatch<React.SetStateAction<IAffliction[]>>;
+  affliction: IAffliction | null;
+  setAffliction: React.Dispatch<React.SetStateAction<IAffliction | null>>;
+  afflictionId: number | null;
+  setAfflictionId: React.Dispatch<React.SetStateAction<number | null>>;
+  allMedics: IMedic[];
+  setAllMedics: React.Dispatch<React.SetStateAction<IMedic[]>>;
+  medic: IMedic | null;
+  setMedic: React.Dispatch<React.SetStateAction<IMedic | null>>;
+  medicId: number | null;
+  setMedicId: React.Dispatch<React.SetStateAction<number | null>>;
+  allInsurances: IInsurance[];
+  setAllInsurances: React.Dispatch<React.SetStateAction<IInsurance[]>>;
+  insurance: IInsurance | null;
+  setInsurance: React.Dispatch<React.SetStateAction<IInsurance | null>>;
+  insuranceId: number | null;
+  setInsuranceId: React.Dispatch<React.SetStateAction<number | null>>;
+}
