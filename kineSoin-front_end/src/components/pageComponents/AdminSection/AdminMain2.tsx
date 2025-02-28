@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
-import AdminTable from '../../standaloneComponents/AdminSection/AdminTable/AdminTable';
-import AdminProfileDetails from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetails';
 import DNALoader from '../../../utils/DNALoader';
 import {
   ITherapist,
@@ -11,10 +9,6 @@ import {
   IMedic,
   IInsurance,
 } from '../../../@types/standardTypes';
-import {
-  fetchDetailsData,
-  fetchTableData,
-} from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtils';
 import {
   fetchDetailsDataRefactor,
   fetchTableDataRefactor,
@@ -56,8 +50,6 @@ export default function AdminMain2({
   const { id } = useParams();
   const entity_id = id ? parseInt(id, 10) : null;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isTableRendered, setIsTableRendered] = useState<boolean>(false);
-  const [isDetailsRendered, setIsDetailsRendered] = useState<boolean>(false);
 
   // Fetch the data of the entity to be displayed
   useEffect(() => {
@@ -91,7 +83,6 @@ export default function AdminMain2({
 
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
-      {/* <div className=" md:flex-row md:justify-normal"> */}
       <div className="w-1/4 h-screen hidden md:block">
         <SideNav isAdminSideNav />
       </div>

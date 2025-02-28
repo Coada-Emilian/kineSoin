@@ -23,11 +23,12 @@ export default function AdminLoginPage({
   }
 
   return (
-    <main className="flex items-center justify-center min-h-screen w-11/12 mx-auto md:w-full bg-gray-100">
-      <section className="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
-        <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue">
+    <main className="flex items-center justify-center min-h-screen w-11/12 mx-auto md:w-full bg-gradient-to-r from-white to-gray-200 ">
+      <section className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-sm">
+        <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue italic">
           Connexion administrateur
         </h1>
+
         <Link to="/">
           <img
             src={logo}
@@ -41,6 +42,7 @@ export default function AdminLoginPage({
             {errorMessage}
           </p>
         )}
+
         <form
           onSubmit={(e) =>
             checkAdminCredentials(e, {
