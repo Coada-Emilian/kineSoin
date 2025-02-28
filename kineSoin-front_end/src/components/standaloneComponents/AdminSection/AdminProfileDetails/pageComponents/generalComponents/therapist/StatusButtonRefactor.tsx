@@ -1,6 +1,7 @@
 import { Button, MenuItem } from '@headlessui/react';
 import { toggleStatusRefactor } from '../../utils/toggleStatusRefactor';
 import { handlePatientStatusChanges } from '../../utils/handlePatientStatusChange';
+import { handleTherapistStatusChanges } from '../../utils/handleTherapistStatusChanges';
 
 interface StatusButtonsRefactorProps {
   setButtonMessage: React.Dispatch<React.SetStateAction<string>>;
@@ -24,30 +25,36 @@ export default function StatusButtonsRefactor({
           <MenuItem>
             <Button
               className="block px-4 w-full py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
-              onClick={() =>
+              onClick={() => {
                 toggleStatusRefactor('active', {
                   setButtonMessage,
                   setEntityStatus,
                   setBackgroundColor,
-                })
-              }
+                });
+                if (id) {
+                  handleTherapistStatusChanges(id, 'active');
+                }
+              }}
             >
-              Active
+              Actif
             </Button>
           </MenuItem>
 
           <MenuItem>
             <Button
               className="block px-4 w-full py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
-              onClick={() =>
+              onClick={() => {
                 toggleStatusRefactor('inactive', {
                   setButtonMessage,
                   setEntityStatus,
                   setBackgroundColor,
-                })
-              }
+                });
+                if (id) {
+                  handleTherapistStatusChanges(id, 'inactive');
+                }
+              }}
             >
-              Inactive
+              Inactif
             </Button>
           </MenuItem>
         </>
@@ -66,11 +73,11 @@ export default function StatusButtonsRefactor({
                   setBackgroundColor,
                 });
                 if (id) {
-                  handlePatientStatusChanges(id, 'banned');
+                  handlePatientStatusChanges(id, 'active');
                 }
               }}
             >
-              Active
+              Actif
             </Button>
           </MenuItem>
           <MenuItem>
@@ -87,7 +94,7 @@ export default function StatusButtonsRefactor({
                 }
               }}
             >
-              Inactive
+              Inactif
             </Button>
           </MenuItem>
           <MenuItem>
@@ -104,7 +111,7 @@ export default function StatusButtonsRefactor({
                 }
               }}
             >
-              Pending
+              En attente
             </Button>
           </MenuItem>
           <MenuItem>
@@ -121,7 +128,7 @@ export default function StatusButtonsRefactor({
                 }
               }}
             >
-              Banned
+              Banni
             </Button>
           </MenuItem>
         </>

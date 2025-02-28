@@ -112,7 +112,7 @@ export default function AdminProfileDetailsRefactor({
   }) => (
     <Menu as="div" className="relative inline-block text-left">
       <MenuButton
-        className={`inline-flex w-full justify-center items-center gap-x-1.5 rounded-lg ${backgroundColor} p-4 px-3 py-2 my-0 text-xxs md:text-base md:py-3 font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
+        className={`inline-flex w-full justify-center items-center gap-x-1.5 rounded-lg ${backgroundColor} px-2 py-2 my-0 text-xs md:text-sm md:py-2 font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
       >
         {buttonMessage}
         <ChevronDownIcon
@@ -212,7 +212,7 @@ export default function AdminProfileDetailsRefactor({
               {email && (
                 <a
                   href={`mailto:${email}`}
-                  className="hover:animate-pulse hover:ease-in-out hover:delay-200"
+                  className="hover:animate-pulse hover:ease-in-out hover:delay-200 hover:scale-110"
                 >
                   <img
                     src={messageIcon}
@@ -227,7 +227,7 @@ export default function AdminProfileDetailsRefactor({
                   <img
                     src={phoneIcon}
                     alt="send mail"
-                    className="w-8 md:w-10"
+                    className="w-8 md:w-10 hover:animate-pulse hover:ease-in-out hover:delay-200 hover:scale-110"
                   />
                 </a>
               )}
@@ -236,7 +236,7 @@ export default function AdminProfileDetailsRefactor({
               <p className="text-white italic">{`/ ${name.toLowerCase()}${surname && `.${surname.toLowerCase()}`}`}</p>
             </div>
           </div>
-          <div className="bg-primaryTeal p-6 w-full">
+          <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center">
             {entityType === 'therapist' && (
               <StatusMenu
                 buttonMessage={buttonMessage}
@@ -247,6 +247,7 @@ export default function AdminProfileDetailsRefactor({
                   setBackgroundColor={setBackgroundColor}
                   setEntityStatus={setEntityStatus}
                   entityType={entityType}
+                  id={id}
                 />
               </StatusMenu>
             )}
@@ -264,48 +265,34 @@ export default function AdminProfileDetailsRefactor({
                 />
               </StatusMenu>
             )}
+            <div className="flex gap-1">
+              {' '}
+              {entityType !== 'patient' && (
+                <CustomButton
+                  btnText={`Modifier`}
+                  btnType="button"
+                  modifyButton
+                  onClick={() => setIsProfileEditing(true)}
+                />
+              )}
+              <>
+                <CustomButton
+                  btnText="Supprimer"
+                  btnType="button"
+                  deleteButton
+                  onClick={() => setIsDeleteModalOpen(true)}
+                />
+                <CustomButton
+                  btnText="Retour"
+                  btnType="button"
+                  cancelButton
+                  onClick={() => window.history.back()}
+                />
+              </>
+            </div>
           </div>
         </div>
-
-        {/* {(therapist || patient) && (
-              <ImageSection
-                therapist={therapist}
-                patient={patient}
-                isProfileEditing={isProfileEditing}
-                setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
-              />
-            )} */}
-
-        {/* <ButtonsSection
-            isProfileEditing={isProfileEditing}
-            buttonMessage={buttonMessage}
-            backgroundColor={backgroundColor}
-            setButtonMessage={setButtonMessage}
-            setBackgroundColor={setBackgroundColor}
-            setTherapistStatus={setTherapistStatus}
-            setIsProfileEditing={setIsProfileEditing}
-            handlePatientStatusChanges={handlePatientStatusChanges}
-            setIsDeleteModalOpen={setIsDeleteModalOpen}
-            patient={patient}
-            therapist={therapist}
-            affliction={affliction}
-            medic={medic}
-            insurance={insurance}
-          /> */}
       </form>
-      {isProfileEditing ? (
-        <CustomButton
-          btnText="Annuler"
-          cancelButton
-          onClick={() => setIsProfileEditing(false)}
-        />
-      ) : (
-        <CustomButton
-          btnText="Modifier"
-          normalButton
-          onClick={() => setIsProfileEditing(true)}
-        />
-      )}
 
       {/* {isDeleteModalOpen && (
         <ConfirmDeleteModal

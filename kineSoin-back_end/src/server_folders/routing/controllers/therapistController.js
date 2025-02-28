@@ -444,17 +444,29 @@ const therapistController = {
         const therapistId = parseInt(req.params.therapist_id, 10);
         checkIsValidNumber(therapistId);
 
+        const updateTherapistStatusSchema = Joi.object({
+          status: Joi.string().valid('active', 'inactive'),
+        });
+        if (!req.body) {
+          return res.status(400).json({
+            message: 'Please provide the status to update the therapist',
+          });
+        }
+
+        const { error } = updateTherapistStatusSchema.validate(req.body);
+
+        if (error) {
+          return res.status(400).json({ message: error.message });
+        }
+
+        const { status } = req.body;
+
         const foundTherapist = await Therapist.findByPk(therapistId);
         if (!foundTherapist) {
           return res.status(400).json({ message: 'Therapist not found' });
+        } else {
+          await foundTherapist.update({ status });
         }
-
-        const newStatus =
-          foundTherapist.status === 'active' ? 'inactive' : 'active';
-
-        foundTherapist.status = newStatus;
-
-        await foundTherapist.save();
 
         return res
           .status(200)

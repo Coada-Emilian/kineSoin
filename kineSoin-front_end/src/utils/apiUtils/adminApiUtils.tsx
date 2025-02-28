@@ -78,18 +78,28 @@ export const handleTherapistUpdateAsAdmin = async (
 };
 
 // Function to handle therapist status change as admin
-export const handleTherapistStatusChangeAsAdmin = async (id: number) => {
-  try {
-    const response = await axios.put(`/admin/therapists/${id}/toggleStatus`);
-    if (response.status === 200) {
-      console.log('Therapist status updated successfully');
-      return true;
-    } else {
-      console.error('Failed to update therapist status', response.data);
+export const handleTherapistStatusChangeAsAdmin = async (
+  id: number,
+  status: string
+) => {
+  if (id && status) {
+    try {
+      const response = await axios.put(`/admin/therapists/${id}/toggleStatus`, {
+        status,
+      });
+      if (response.status === 200) {
+        console.log('Therapist status updated successfully');
+        return true;
+      } else {
+        console.error('Failed to update therapist status', response.data);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error updating therapist status:', error);
       return false;
     }
-  } catch (error) {
-    console.error('Error updating therapist status:', error);
+  } else {
+    console.error('Therapist ID or status is missing or invalid');
     return false;
   }
 };
@@ -150,7 +160,9 @@ export const handlePatientStatusChangeAsAdmin = async (
 ) => {
   if (id && status) {
     try {
-      const response = await axios.put(`/admin/patients/${id}`, { status });
+      const response = await axios.put(`/admin/patients/${id}/toggleStatus`, {
+        status,
+      });
       if (response.status === 200) {
         console.log('Patient status updated successfully');
         return true;

@@ -72,11 +72,11 @@ export default function CustomButton({
     if (normalButton || navBarButton || mobileButton || allButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal hidden md:block';
     } else if (cancelButton || mobileCancelButton) {
-      return 'bg-gray-300 hover:bg-gray-300';
+      return 'bg-gray-300 hover:bg-gray-300 border border-2 border-white';
     } else if (modifyButton) {
-      return 'bg-blue-300 hover:bg-blue-500';
+      return 'bg-blue-300 hover:bg-blue-500 border border-2 border-white';
     } else if (deleteButton || mobileDeleteButton) {
-      return 'bg-red-300 hover:bg-red-500';
+      return 'bg-red-300 hover:bg-red-500 border border-2 border-white';
     } else if (activeButton) {
       return 'bg-green-300 hover:bg-green-500';
     } else if (inactiveButton) {
@@ -107,7 +107,7 @@ export default function CustomButton({
       modifyButton ||
       deleteButton
     ) {
-      return 'text-xs md:text-md xl:text-xl p-2 py-2 min-w-24 my-0 mx-auto shadow-2xl';
+      return 'text-xs md:text-md xl:text-xl py-2 px-1 min-w-16 md:min-w-24 my-0 mx-auto shadow-2xl';
     } else if (
       activeButton ||
       inactiveButton ||

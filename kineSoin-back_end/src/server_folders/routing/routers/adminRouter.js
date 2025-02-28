@@ -211,7 +211,7 @@ adminRouter.get(
 
 // Route to toggle patient status change
 adminRouter.put(
-  '/patients/:patient_id',
+  '/patients/:patient_id/toggleStatus',
   authenticateAdmin,
   wrapper(patientController.togglePatientStatus)
 );
