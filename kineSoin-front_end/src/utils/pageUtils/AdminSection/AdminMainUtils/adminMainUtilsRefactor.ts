@@ -8,15 +8,23 @@ import {
 import {
   fetchAfflictionAsAdmin,
   fetchAfflictionsAsAdmin,
+} from '../../../apiUtils/adminApiUtils/adminAfflictionApiUtils';
+import {
   fetchInsuranceOrganismAsAdmin,
   fetchInsuranceOrganismsAsAdmin,
+} from '../../../apiUtils/adminApiUtils/adminInsuranceApiUtils';
+import {
   fetchMedicAsAdmin,
   fetchMedicsAsAdmin,
+} from '../../../apiUtils/adminApiUtils/adminMedicApiUtils';
+import {
   fetchPatientAsAdmin,
   fetchPatientsAsAdmin,
+} from '../../../apiUtils/adminApiUtils/adminPatientApiUtils';
+import {
   fetchTherapistAsAdmin,
   fetchTherapistsAsAdmin,
-} from '../../../apiUtils/adminApiUtils/adminApiUtils';
+} from '../../../apiUtils/adminApiUtils/adminTherapistApiUtils';
 
 interface AdminMainUtilsRefactorProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;

@@ -3,9 +3,9 @@
 import ReactModal from 'react-modal';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import StandardTextInput from '../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
-import { handleBodyRegionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { on } from 'events';
+import { handleBodyRegionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
 interface AddRegionModalProps {
   isOpen: boolean;

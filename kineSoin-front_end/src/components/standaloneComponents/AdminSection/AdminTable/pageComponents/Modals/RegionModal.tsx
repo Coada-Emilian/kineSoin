@@ -9,10 +9,10 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardTypes';
-import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import RegionTable from '../../RegionTable';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
 interface RegionModalProps {
   isOpen: boolean;

@@ -1,8 +1,7 @@
-import {
-  handleAfflictionCreationAsAdmin,
-  handleInsuranceOrganismCreationAsAdmin,
-  handleMedicCreationAsAdmin,
-} from '../../../../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
+import { handleAfflictionCreationAsAdmin } from "../../../../../../../../utils/apiUtils/adminApiUtils/adminAfflictionApiUtils";
+import { handleInsuranceOrganismCreationAsAdmin } from "../../../../../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils";
+import { handleMedicCreationAsAdmin } from "../../../../../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils";
+
 
 interface DataSubmitFunctionsProps {
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;

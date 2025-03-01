@@ -1,5 +1,5 @@
 import { IAddForm } from '../../../../../../../../@types/formTypes';
-import { handleTherapistCreationAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
+import { handleTherapistCreationAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
 
 interface FunctionProps {
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;

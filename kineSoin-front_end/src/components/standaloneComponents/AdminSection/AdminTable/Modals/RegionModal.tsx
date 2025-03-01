@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import AdminTable from '../old_components/AdminTable';
 import { IBodyRegion } from '../../../../../@types/standardTypes';
-import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminApiUtils';
+import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
 interface RegionModalProps {
   isRegionModalOpen: boolean;

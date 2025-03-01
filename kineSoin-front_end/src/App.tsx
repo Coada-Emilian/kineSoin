@@ -16,6 +16,7 @@ import {
 } from './utils/AppUtils/authentificationFunctions/appAuthentificationFunctions';
 import PublicMain from './components/pageComponents/PublicSection/PublicMain';
 import AdminPage from './components/pageComponents/AdminSection/AdminPage';
+import path from 'path';
 
 function App() {
   // Authentication states
@@ -169,6 +170,7 @@ function App() {
     { path: 'medics/:id', boolean: 'isAdminMedicMain' },
     { path: 'insurances', boolean: 'isAdminInsurancesMain' },
     { path: 'insurances/:id', boolean: 'isAdminInsuranceMain' },
+    { path: 'regions', boolean: 'isAdminRegionsMain' },
   ];
 
   const patientRoutes = [

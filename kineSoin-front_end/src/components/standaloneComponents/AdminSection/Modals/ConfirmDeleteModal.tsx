@@ -17,6 +17,7 @@ import { handleAfflictionDeleteAsAdmin } from '../../../../utils/apiUtils/adminA
 import { handleMedicDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils';
 import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
+import { getDeleteModalEntityDetails } from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getDeleteModalEntityDetails';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
@@ -44,52 +45,15 @@ export default function ConfirmDeleteModal({
     return DNALoader();
   }
 
+  const modalEntityDetails = getDeleteModalEntityDetails({ entity });
+
+  const activeEntity = modalEntityDetails.find(
+    (entityDetails) => entityDetails.entityType === entityType
+  );
+
   useEffect(() => {
     console.log(entity);
   }, [entity]);
-
-  const entityDeleteDetails = [
-    {
-      entityType: 'therapist',
-      function: handleTherapistDeleteAsAdmin,
-      redirect: '/admin/therapists',
-      full_name: (entity as ITherapist | IPatient | IMedic).fullName,
-    },
-    {
-      entityType: 'patient',
-      function: handlePatientDeleteAsAdmin,
-      redirect: '/admin/patients',
-      full_name: (entity as ITherapist | IPatient | IMedic).fullName,
-    },
-    {
-      entityType: 'affliction',
-      function: handleAfflictionDeleteAsAdmin,
-      redirect: '/admin/afflictions',
-      name: entity.name,
-    },
-    {
-      entityType: 'medic',
-      function: handleMedicDeleteAsAdmin,
-      redirect: '/admin/medics',
-      full_name: (entity as ITherapist | IPatient | IMedic).fullName,
-    },
-    {
-      entityType: 'insurance',
-      function: handleInsuranceOrganismDeleteAsAdmin,
-      redirect: '/admin/insurances',
-      name: (entity as IAffliction | IInsurance | IBodyRegion).name,
-    },
-    {
-      entityType: 'region',
-      function: handleBodyRegionDeleteAsAdmin,
-      redirect: '/admin/regions',
-      name: 'entity.name',
-    },
-  ];
-
-  const activeEntity = entityDeleteDetails.find(
-    (entityDetails) => entityDetails.entityType === entityType
-  );
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

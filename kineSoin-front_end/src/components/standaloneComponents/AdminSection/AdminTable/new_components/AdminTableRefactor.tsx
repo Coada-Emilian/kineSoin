@@ -1,5 +1,3 @@
-// Purpose: The purpose of this component is to render the admin table.
-
 import { useEffect, useState } from 'react';
 import ConfirmDeleteModal from '../../Modals/ConfirmDeleteModal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
