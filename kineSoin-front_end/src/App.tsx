@@ -5,7 +5,6 @@ import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapi
 import { Route, Routes } from 'react-router-dom';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
-import AdminMain from './components/pageComponents/AdminSection/AdminMain';
 import PatientMain from './components/pageComponents/PatientSection/PatientMain';
 import TherapistMain from './components/pageComponents/TherapistSection/TherapistMain';
 import { Layout } from './utils/AppUtils/appLayouts/Layout';
@@ -16,7 +15,6 @@ import {
 } from './utils/AppUtils/authentificationFunctions/appAuthentificationFunctions';
 import PublicMain from './components/pageComponents/PublicSection/PublicMain';
 import AdminPage from './components/pageComponents/AdminSection/AdminPage';
-import path from 'path';
 
 function App() {
   // Authentication states

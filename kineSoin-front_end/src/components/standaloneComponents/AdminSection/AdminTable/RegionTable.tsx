@@ -21,7 +21,8 @@ interface RegionTableProps {
       | IAffliction
       | IMedic
       | IInsurance
-      | IBodyRegion
+      | IBodyRegion,
+    isRegionModal?: boolean
   ) => void;
 }
 
@@ -63,11 +64,12 @@ export default function RegionTable({
             </>
           </tr>
         </thead>
-
-        <RegionTableBody
-          allBodyRegions={allBodyRegions}
-          openDeleteModal={openDeleteModal}
-        />
+        <tbody>
+          <RegionTableBody
+            allBodyRegions={allBodyRegions}
+            openDeleteModal={openDeleteModal}
+          />
+        </tbody>
       </table>
       {/* </div> */}
     </div>

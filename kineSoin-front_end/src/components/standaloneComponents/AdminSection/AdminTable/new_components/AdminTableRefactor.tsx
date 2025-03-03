@@ -128,6 +128,8 @@ export default function AdminTableRefactor({
     }
   }, [entityType, therapistStatus, patientStatus, afflictionStatus]);
 
+  const [regionDeleteModal, setRegionDeleteModal] = useState(false);
+
   // Function to open delete modal
   const openDeleteModal = (
     entity:
@@ -136,9 +138,11 @@ export default function AdminTableRefactor({
       | IAffliction
       | IMedic
       | IInsurance
-      | IBodyRegion
+      | IBodyRegion,
+    isRegionModal?: boolean
   ) => {
     setSelectedEntity(entity);
+    isRegionModal && setRegionDeleteModal(true);
     setIsDeleteModalOpen(true);
   };
 
@@ -225,6 +229,7 @@ export default function AdminTableRefactor({
                 | IBodyRegion
             }
             entityType={entityType}
+            regionDeleteModal={regionDeleteModal}
           />
         )}
 

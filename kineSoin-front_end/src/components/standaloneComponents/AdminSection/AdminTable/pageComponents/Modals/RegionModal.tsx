@@ -27,7 +27,8 @@ interface RegionModalProps {
       | IAffliction
       | IMedic
       | IInsurance
-      | IBodyRegion
+      | IBodyRegion,
+    isRegionModal?: boolean
   ) => void;
 }
 
@@ -66,6 +67,7 @@ export default function RegionModal({
           openDeleteModal={openDeleteModal}
         />
       </div>
+
       <div className="flex gap-2 mt-6 w-fit mx-auto mb-4">
         <CustomButton
           btnText="Annuler"

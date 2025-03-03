@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   IAffliction,
+  IBodyRegion,
   IInsurance,
   IMedic,
   IPatient,
@@ -20,6 +21,7 @@ interface AdminPageProps {
   isAdminMedicMain?: boolean;
   isAdminInsurancesMain?: boolean;
   isAdminInsuranceMain?: boolean;
+  isAdminRegionsMain?: boolean;
 }
 
 export default function AdminPage({
@@ -33,6 +35,7 @@ export default function AdminPage({
   isAdminMedicMain,
   isAdminInsurancesMain,
   isAdminInsuranceMain,
+  isAdminRegionsMain,
 }: AdminPageProps) {
   // Define state groups for different entity types
   const [allTherapists, setAllTherapists] = useState<ITherapist[]>([]);

@@ -54,10 +54,4 @@ export const getDeleteModalEntityDetails = ({ entity }: FunctionProps) => [
     redirect: '/admin/insurances',
     name: (entity as IInsurance).name,
   },
-  {
-    entityType: 'region',
-    function: handleBodyRegionDeleteAsAdmin,
-    redirect: '/admin/regions',
-    name: (entity as IBodyRegion).name,
-  },
 ];

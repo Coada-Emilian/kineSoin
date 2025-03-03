@@ -43,10 +43,10 @@ export const checkAdminCredentials = async (
         response.id
       );
       setAdminProfileToken(response.token);
+      navigate('/admin/therapists');
     } else {
       setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     }
-    navigate('/admin/therapists');
   } catch (error) {
     setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
   } finally {

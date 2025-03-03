@@ -18,7 +18,8 @@ interface RegionTableBodyProps {
       | IAffliction
       | IMedic
       | IInsurance
-      | IBodyRegion
+      | IBodyRegion,
+    isRegionModal?: boolean
   ) => void;
   allBodyRegions: IBodyRegion[];
 }
@@ -56,7 +57,9 @@ export default function RegionTableBody({
               src={deleteIcon}
               alt="delete"
               className="w-4 h-4 mx-auto md:w-6 md:h-6"
-              onClick={() => openDeleteModal(region)}
+              onClick={() => {
+                openDeleteModal(region, true);
+              }}
             />
           </Button>
         </td>
