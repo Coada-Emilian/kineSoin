@@ -3,68 +3,43 @@ import { useParams } from 'react-router-dom';
 import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
 import DNALoader from '../../../utils/DNALoader';
 import {
-  ITherapist,
-  IPatient,
-  IAffliction,
-  IMedic,
-  IInsurance,
-} from '../../../@types/standardTypes';
-import {
   fetchDetailsDataRefactor,
   fetchTableDataRefactor,
 } from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtilsRefactor';
 import AdminTableRefactor from '../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
 import AdminProfileDetailsRefactor from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetailsRefactor';
+import {
+  IEntitiesType,
+  IEntitiesTypes,
+  IEntityTypes,
+} from '../../../@types/componentTypes';
 
 interface AdminMain2Props {
-  entityType: string;
-  entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
-  setEntities:
-    | React.Dispatch<React.SetStateAction<ITherapist[]>>
-    | React.Dispatch<React.SetStateAction<IPatient[]>>
-    | React.Dispatch<React.SetStateAction<IAffliction[]>>
-    | React.Dispatch<React.SetStateAction<IMedic[]>>
-    | React.Dispatch<React.SetStateAction<IInsurance[]>>;
-  entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
-  setEntity:
-    | React.Dispatch<React.SetStateAction<ITherapist>>
-    | React.Dispatch<React.SetStateAction<IPatient>>
-    | React.Dispatch<React.SetStateAction<IAffliction>>
-    | React.Dispatch<React.SetStateAction<IMedic>>
-    | React.Dispatch<React.SetStateAction<IInsurance>>
-    | React.Dispatch<React.SetStateAction<any | null>>;
-  entityId: number | undefined | null;
-  setEntityId: React.Dispatch<React.SetStateAction<number | null>>;
+  entityType: IEntityTypes;
 }
 
-export default function AdminMain2({
-  entityType,
-  entities,
-  setEntities,
-  entity,
-  setEntity,
-  entityId,
-  setEntityId,
-}: AdminMain2Props) {
+export default function AdminMain2({ entityType }: AdminMain2Props) {
   //  Get the id from the URL
   const { id } = useParams();
   const entity_id = id ? parseInt(id, 10) : null;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  // Fetch the data of the entity to be displayed
-  useEffect(() => {
-    {
-      setEntityId(id ? entity_id : null);
-    }
-  }, [id]);
+  const [entity, setEntity] = useState<IEntitiesType | null>(null);
+  const [entities, setEntities] = useState<IEntitiesTypes>([]);
 
   // Fetch all the data to be displayed in the table
   useEffect(() => {
-    fetchTableDataRefactor({
-      setIsLoading,
+    setIsLoading(true);
+    fetchTableDataRefactor<IEntitiesTypes>({
       entityType,
-      setEntities,
-    });
+    })
+      .then((data) => {
+        if (data) {
+          setEntities(data);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [entityType]);
 
   if (isLoading) {
@@ -73,13 +48,15 @@ export default function AdminMain2({
 
   //   Fetch the data of the entity to be displayed
   useEffect(() => {
-    fetchDetailsDataRefactor({
-      setIsLoading,
+    fetchDetailsDataRefactor<IEntitiesType | null>({
       entityType,
-      entityId,
-      setEntity,
+      entityId: entity_id,
+    }).then((data) => {
+      if (data) {
+        setEntity(data);
+      }
     });
-  }, [entityId]);
+  }, []);
 
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">

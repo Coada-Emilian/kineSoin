@@ -1,11 +1,4 @@
 import { useEffect, useState } from 'react';
-import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal.tsx';
-import EditPhotoModal from '../Modals/EditPhotoModal.tsx';
-import ImageSection from './pageComponents/sections/ImageSection.tsx';
-import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
-import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
-import CommonSection from './pageComponents/sections/CommonSection.tsx';
-import ProfileSection from './pageComponents/generalComponents/common/ProfileSection..tsx';
 import {
   IAffliction,
   IInsurance,
@@ -13,29 +6,16 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/standardTypes';
-import {
-  handleAfflictionUpdateAsAdmin,
-  handleInsuranceOrganismUpdateAsAdmin,
-  handleMedicUpdateAsAdmin,
-  handleTherapistUpdateAsAdmin,
-} from '../../../../utils/apiUtils/adminApiUtils/adminApiUtils.tsx';
-import { handleFormSubmit } from './pageComponents/utils/handleFormSubmit.ts';
-import { handlePatientStatusChanges } from './pageComponents/utils/handlePatientStatusChange.ts';
-import GeneralOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
 import TitleOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
 import CommonSectionRefactor from './pageComponents/sections/CommonSectionRefactor.tsx';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
 import ProfileSectionRefactor from './pageComponents/generalComponents/common/ProfileSectionRefactor.tsx';
 import ImageOutputRefactor from './pageComponents/generalComponents/common/Outputs/ImageOutputRefactor.tsx';
 import mainLogo from '/logos/Main-Logo.png';
-import facebookIcon from '/icons/facebook.png';
-import instagramIcon from '/icons/insta.png';
-import linkedInIcon from '/icons/linkedIn.png';
 import phoneIcon from '/icons/phone-call.png';
 import messageIcon from '/icons/message3.png';
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import TherapistStatusButtons from './pageComponents/generalComponents/therapist/TherapistStatusButtons.tsx';
 import StatusButtonsRefactor from './pageComponents/generalComponents/therapist/StatusButtonRefactor.tsx';
 
 interface AdminProfileDetailsRefactorProps {
@@ -266,7 +246,6 @@ export default function AdminProfileDetailsRefactor({
               </StatusMenu>
             )}
             <div className="flex gap-1">
-              {' '}
               {entityType !== 'patient' && (
                 <CustomButton
                   btnText={`Modifier`}

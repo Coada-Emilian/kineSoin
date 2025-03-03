@@ -6,12 +6,6 @@ interface FunctionProps {
   setTherapistStatus: React.Dispatch<React.SetStateAction<string>>;
   setPatientStatus: React.Dispatch<React.SetStateAction<string>>;
   setAfflictionStatus: React.Dispatch<React.SetStateAction<string>>;
-  setIsAddTherapistModalP1Open: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsAddAfflictionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsAddMedicModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsAddInsuranceModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsAddRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   therapistStatus: string;
   patientStatus: string;
   afflictionStatus: string;
@@ -21,12 +15,6 @@ export const getAdminTableElements = ({
   setTherapistStatus,
   setPatientStatus,
   setAfflictionStatus,
-  setIsAddTherapistModalP1Open,
-  setIsAddAfflictionModalOpen,
-  setIsAddMedicModalOpen,
-  setIsAddInsuranceModalOpen,
-  setIsAddRegionModalOpen,
-  setIsRegionModalOpen,
   therapistStatus,
   patientStatus,
   afflictionStatus,
@@ -35,7 +23,7 @@ export const getAdminTableElements = ({
     entityType: 'therapist',
     statusButtons: <TherapistsStatusButtons setStatus={setTherapistStatus} />,
     customBtnText: 'Ajouter un kiné',
-    setModalOpen: setIsAddTherapistModalP1Open,
+    modalName: 'addTherapistP1',
     tableTitle: 'Tous les kinésithérapeutes',
     entityStatus: therapistStatus,
     secondTableHeadContent: 'Nom kiné',
@@ -53,9 +41,8 @@ export const getAdminTableElements = ({
     entityType: 'affliction',
     statusButtons: <AfflictionsStatusButtons setStatus={setAfflictionStatus} />,
     customBtnText: 'Ajouter une affliction',
-    setModalOpen: setIsAddAfflictionModalOpen,
+    BaseModalName: 'region',
     regionButton: true,
-    setRegionModalOpen: setIsRegionModalOpen,
     tableTitle: 'Toutes les afflictions',
     entityStatus: afflictionStatus,
     secondTableHeadContent: 'Nom affliction',
@@ -65,7 +52,7 @@ export const getAdminTableElements = ({
   {
     entityType: 'medic',
     customBtnText: 'Ajouter un médecin',
-    setModalOpen: setIsAddMedicModalOpen,
+    modalName: 'addMedic',
     tableTitle: 'Tous les médecins',
     secondTableHeadContent: 'Nom médecin',
     thirdTableHeadContent: 'Code ADELI',
@@ -73,7 +60,7 @@ export const getAdminTableElements = ({
   {
     entityType: 'insurance',
     customBtnText: 'Ajouter une assurance',
-    setModalOpen: setIsAddInsuranceModalOpen,
+    modalName: 'addInsurance',
     tableTitle: 'Toutes les assurances',
     secondTableHeadContent: 'Nom organisme',
     thirdTableHeadContent: 'Code AMC',
@@ -81,7 +68,7 @@ export const getAdminTableElements = ({
   {
     entityType: 'region',
     customBtnText: 'Ajouter une region',
-    setModalOpen: setIsAddRegionModalOpen,
+    modalName: 'addRegion',
     tableTitle: 'Toutes les regions',
     secondTableHeadContent: 'Nom region',
   },

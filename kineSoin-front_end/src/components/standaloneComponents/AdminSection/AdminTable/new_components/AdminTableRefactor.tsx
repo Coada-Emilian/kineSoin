@@ -17,9 +17,6 @@ import {
   renderAfflictions,
 } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
 import { IAddForm } from '../../../../../@types/formTypes';
-import TherapistsStatusButtons from '../pageComponents/Therapists/new_components/TherapistsStatusButtons';
-import PatientsStatusButtons from '../pageComponents/Patients/new_components/PatientsStatusButtons';
-import AfflictionsStatusButtons from '../pageComponents/Affliction/new_components/AfflictionsStatusButtons';
 import TableTitleRefactor from '../pageComponents/Common/new_components/TableTitleRefactor';
 import TableHeadRefactor from '../pageComponents/Common/new_components/TableHeadRefactor';
 import TableBodyRefactor from '../pageComponents/Common/new_components/TableBodyRefactor';
@@ -36,24 +33,25 @@ interface AdminTableRefactorProps {
   entityType: string;
 }
 
+type ModalType =
+  | 'delete'
+  | 'addAffliction'
+  | 'region'
+  | 'addTherapistP1'
+  | 'addTherapistP2'
+  | 'addTherapistP3'
+  | 'addMedic'
+  | 'addInsurance'
+  | 'addRegion';
+
 export default function AdminTableRefactor({
   entities,
   entityType,
 }: AdminTableRefactorProps) {
-  // States for modal opening
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isAddAfflictionModalOpen, setIsAddAfflictionModalOpen] =
-    useState(false);
-  const [isRegionModalOpen, setIsRegionModalOpen] = useState(false);
-  const [isAddTherapistModalP1Open, setIsAddTherapistModalP1Open] =
-    useState(false);
-  const [isAddTherapistModalP2Open, setIsAddTherapistModalP2Open] =
-    useState(false);
-  const [isAddTherapistModalP3Open, setIsAddTherapistModalP3Open] =
-    useState(false);
-  const [isAddMedicModalOpen, setIsAddMedicModalOpen] = useState(false);
-  const [isAddInsuranceModalOpen, setIsAddInsuranceModalOpen] = useState(false);
-  const [isAddRegionModalOpen, setIsAddRegionModalOpen] = useState(false);
+  const [openModal, setOpenModal] = useState<ModalType | null>(null); // State for modal opening
+  const closeModal = () => {
+    setOpenModal(null);
+  };
 
   // States for status changes
   const [therapistStatus, setTherapistStatus] = useState<string>('all');
@@ -139,23 +137,16 @@ export default function AdminTableRefactor({
       | IMedic
       | IInsurance
       | IBodyRegion,
-    isRegionModal?: boolean
   ) => {
     setSelectedEntity(entity);
-    isRegionModal && setRegionDeleteModal(true);
-    setIsDeleteModalOpen(true);
+    // isRegionModal && setRegionDeleteModal(true);
+    closeModal();
   };
 
   const tableElements = getAdminTableElements({
     setTherapistStatus,
     setPatientStatus,
     setAfflictionStatus,
-    setIsAddTherapistModalP1Open,
-    setIsAddAfflictionModalOpen,
-    setIsAddMedicModalOpen,
-    setIsAddInsuranceModalOpen,
-    setIsAddRegionModalOpen,
-    setIsRegionModalOpen,
     therapistStatus,
     patientStatus,
     afflictionStatus,
@@ -179,7 +170,7 @@ export default function AdminTableRefactor({
                 <CustomButton
                   btnText="Voir les regions"
                   addButton
-                  onClick={() => activeEntity.setRegionModalOpen(true)}
+                  onClick={() => setOpenModal('region')}
                 />
               )}
 
@@ -187,7 +178,8 @@ export default function AdminTableRefactor({
                 <CustomButton
                   btnText={activeEntity.customBtnText}
                   addButton
-                  onClick={() => activeEntity.setModalOpen(true)}
+                  // FIXME: le as ModalType est à éviter car il casse le typage
+                  onClick={() => setOpenModal(activeEntity.modalName as ModalType ?? null)}
                 />
               )}
             </div>
@@ -215,103 +207,85 @@ export default function AdminTableRefactor({
           />
         </table>
 
-        {isDeleteModalOpen && (
-          <ConfirmDeleteModal
-            isOpen={isDeleteModalOpen}
-            onClose={() => setIsDeleteModalOpen(false)}
-            entity={
-              selectedEntity as
-                | ITherapist
-                | IPatient
-                | IAffliction
-                | IMedic
-                | IInsurance
-                | IBodyRegion
-            }
-            entityType={entityType}
-            regionDeleteModal={regionDeleteModal}
-          />
-        )}
+        <ConfirmDeleteModal
+          isOpen={openModal === 'delete'}
+          onClose={closeModal}
+          entity={
+            selectedEntity as
+              | ITherapist
+              | IPatient
+              | IAffliction
+              | IMedic
+              | IInsurance
+              | IBodyRegion
+          }
+          entityType={entityType}
+          regionDeleteModal={regionDeleteModal}
+        />
 
-        {isAddTherapistModalP1Open && (
-          <FirstAddTherapistModal
-            setAddForm={setAddForm}
-            onClose={() => setIsAddTherapistModalP1Open(false)}
-            isOpen={isAddTherapistModalP1Open}
-            setIsAddTherapistModalP2Open={setIsAddTherapistModalP2Open}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-          />
-        )}
+        <FirstAddTherapistModal
+          setAddForm={setAddForm}
+          onClose={closeModal}
+          isOpen={openModal === 'addTherapistP1'}
+          setIsAddTherapistModalP2Open={() => setOpenModal('addTherapistP2')}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+        />
 
-        {isAddTherapistModalP2Open && (
-          <SecondAddTherapistModal
-            setAddForm={setAddForm}
-            isOpen={isAddTherapistModalP2Open}
-            onClose={() => setIsAddTherapistModalP2Open(false)}
-            setIsAddTherapistModalP3Open={setIsAddTherapistModalP3Open}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-          />
-        )}
+        <SecondAddTherapistModal
+          setAddForm={setAddForm}
+          isOpen={openModal === 'addTherapistP2'}
+          onClose={closeModal}
+          setIsAddTherapistModalP3Open={() => setOpenModal('addTherapistP3')}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+        />
 
-        {isAddTherapistModalP3Open && (
-          <ThirdAddTherapistModal
-            addForm={addForm}
-            setAddForm={setAddForm}
-            isOpen={isAddTherapistModalP3Open}
-            onClose={() => setIsAddTherapistModalP3Open(false)}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-          />
-        )}
+        <ThirdAddTherapistModal
+          addForm={addForm}
+          setAddForm={setAddForm}
+          isOpen={openModal === 'addTherapistP3'}
+          onClose={closeModal}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+        />
 
-        {isAddAfflictionModalOpen && (
-          <AddAfflictionModal
-            isOpen={isAddAfflictionModalOpen}
-            onClose={() => setIsAddAfflictionModalOpen(false)}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-          />
-        )}
+        <AddAfflictionModal
+          isOpen={openModal === 'addAffliction'}
+          onClose={closeModal}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+        />
 
-        {isAddMedicModalOpen && (
-          <AddMedicModal
-            isOpen={isAddMedicModalOpen}
-            onClose={() => setIsAddMedicModalOpen(false)}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-          />
-        )}
+        <AddMedicModal
+          isOpen={openModal === 'addMedic'}
+          onClose={closeModal}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+        />
 
-        {isAddInsuranceModalOpen && (
-          <AddInsuranceModal
-            isOpen={isAddInsuranceModalOpen}
-            onClose={() => setIsAddInsuranceModalOpen(false)}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-          />
-        )}
+        <AddInsuranceModal
+          isOpen={openModal === 'addInsurance'}
+          onClose={closeModal}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+        />
 
-        {isRegionModalOpen && (
-          <RegionModal
-            isOpen={isRegionModalOpen}
-            onClose={() => setIsRegionModalOpen(false)}
-            setIsAddRegionModalOpen={setIsAddRegionModalOpen}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-            openDeleteModal={openDeleteModal}
-          />
-        )}
+        <RegionModal
+          isOpen={openModal === 'region'}
+          onClose={closeModal}
+          setIsAddRegionModalOpen={() => setOpenModal('addRegion')}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+          openDeleteModal={openDeleteModal}
+        />
 
-        {isAddRegionModalOpen && (
-          <AddRegionModal
-            isOpen={isAddRegionModalOpen}
-            onClose={() => setIsAddRegionModalOpen(false)}
-            setErrorMessage={setErrorMessage}
-            errorMessage={errorMessage}
-          />
-        )}
+        <AddRegionModal
+          isOpen={openModal === 'addRegion'}
+          onClose={closeModal}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
+        />
       </div>
     </>
   );

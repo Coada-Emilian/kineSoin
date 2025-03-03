@@ -107,7 +107,7 @@ export default function CustomButton({
       modifyButton ||
       deleteButton
     ) {
-      return 'text-xs md:text-md xl:text-xl py-2 px-1 min-w-16 md:min-w-24 my-0 mx-auto shadow-2xl';
+      return 'text-xs md:text-md xl:text-lg py-2 px-1 min-w-16 md:min-w-24 my-0 mx-auto shadow-2xl';
     } else if (
       activeButton ||
       inactiveButton ||

@@ -154,21 +154,20 @@ function App() {
     };
   }, [therapistProfileToken, isTherapistAuthenticated]);
 
-  const adminRoutes = [
+  const adminRoutes: { path: string; entityType: 'therapist' | 'patient' | 'affliction' | 'medic' | 'insurance' }[] = [
     {
       path: 'therapists',
-      boolean: 'isAdminTherapistsMain',
+      entityType: 'therapist',
     },
-    { path: 'therapists/:id', boolean: 'isAdminTherapistMain' },
-    { path: 'patients', boolean: 'isAdminPatientsMain' },
-    { path: 'patients/:id', boolean: 'isAdminPatientMain' },
-    { path: 'afflictions', boolean: 'isAdminAfflictionsMain' },
-    { path: 'afflictions/:id', boolean: 'isAdminAfflictionMain' },
-    { path: 'medics', boolean: 'isAdminMedicsMain' },
-    { path: 'medics/:id', boolean: 'isAdminMedicMain' },
-    { path: 'insurances', boolean: 'isAdminInsurancesMain' },
-    { path: 'insurances/:id', boolean: 'isAdminInsuranceMain' },
-    { path: 'regions', boolean: 'isAdminRegionsMain' },
+    { path: 'therapists/:id', entityType: 'therapist' },
+    { path: 'patients', entityType: 'patient' },
+    { path: 'patients/:id', entityType: 'patient' },
+    { path: 'afflictions', entityType: 'affliction' },
+    { path: 'afflictions/:id', entityType: 'affliction' },
+    { path: 'medics', entityType: 'medic' },
+    { path: 'medics/:id', entityType: 'medic' },
+    { path: 'insurances', entityType: 'insurance' },
+    { path: 'insurances/:id', entityType: 'insurance' },
   ];
 
   const patientRoutes = [
@@ -267,7 +266,7 @@ function App() {
             <Route
               path={route.path}
               key={route.path}
-              element={<AdminPage {...{ [route.boolean]: true }} />}
+              element={<AdminPage entityType={route.entityType} />}
             />
           ))}
 
