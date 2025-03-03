@@ -46,17 +46,21 @@ export default function AdminMain2({ entityType }: AdminMain2Props) {
     return DNALoader();
   }
 
-  //   Fetch the data of the entity to be displayed
-  useEffect(() => {
-    fetchDetailsDataRefactor<IEntitiesType | null>({
-      entityType,
-      entityId: entity_id,
-    }).then((data) => {
-      if (data) {
-        setEntity(data);
-      }
-    });
-  }, []);
+  // Fetch the data of the entity to be displayed
+  // useEffect(() => {
+  //   if (entity_id) {
+  //     fetchDetailsDataRefactor<IEntitiesType | null>({
+  //       entityType,
+  //       entityId: entity_id,
+  //     }).then((data) => {
+  //       if (data) {
+  //         setEntity(data);
+  //       }
+  //     });
+  //   } else {
+  //     setEntity(null);
+  //   }
+  // }, []);
 
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">

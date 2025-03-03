@@ -136,7 +136,7 @@ export default function AdminTableRefactor({
       | IAffliction
       | IMedic
       | IInsurance
-      | IBodyRegion,
+      | IBodyRegion
   ) => {
     setSelectedEntity(entity);
     // isRegionModal && setRegionDeleteModal(true);
@@ -156,6 +156,9 @@ export default function AdminTableRefactor({
     (group) => entityType === group.entityType
   );
 
+  useEffect(() => {
+    console.log;
+  }, [activeEntity]);
   return (
     <>
       <div className="min-h-screen">
@@ -179,7 +182,9 @@ export default function AdminTableRefactor({
                   btnText={activeEntity.customBtnText}
                   addButton
                   // FIXME: le as ModalType est à éviter car il casse le typage
-                  onClick={() => setOpenModal(activeEntity.modalName as ModalType ?? null)}
+                  onClick={() =>
+                    setOpenModal((activeEntity.modalName as ModalType) ?? null)
+                  }
                 />
               )}
             </div>
@@ -207,7 +212,7 @@ export default function AdminTableRefactor({
           />
         </table>
 
-        <ConfirmDeleteModal
+        {/* <ConfirmDeleteModal
           isOpen={openModal === 'delete'}
           onClose={closeModal}
           entity={
@@ -221,7 +226,7 @@ export default function AdminTableRefactor({
           }
           entityType={entityType}
           regionDeleteModal={regionDeleteModal}
-        />
+        /> */}
 
         <FirstAddTherapistModal
           setAddForm={setAddForm}

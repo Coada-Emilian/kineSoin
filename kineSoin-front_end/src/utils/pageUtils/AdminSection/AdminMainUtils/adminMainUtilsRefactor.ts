@@ -65,6 +65,7 @@ export const fetchDetailsDataRefactor = async <T>({
   entityId: number | null;
 }): Promise<T | undefined> => {
   try {
+    console.log('entityType', entityType);
     const entityFetchEntityDetailsFunctions = [
       { entityType: 'therapist', fetchFunction: fetchTherapistAsAdmin },
       { entityType: 'patient', fetchFunction: fetchPatientAsAdmin },
@@ -78,14 +79,16 @@ export const fetchDetailsDataRefactor = async <T>({
         return entityType === entityFetchFunction.entityType;
       }
     )[0].fetchFunction;
+    console.log(entityId);
 
     if (fetchFunction && entityId) {
       const data = await fetchFunction(entityId);
       return data;
     } else {
       console.error('No fetch function found for entity type', entityType);
+      console.error('entityId', entityId);
+      console.error('fetchFunction', fetchFunction);
     }
-
   } catch (error) {
     console.error(error);
   }
