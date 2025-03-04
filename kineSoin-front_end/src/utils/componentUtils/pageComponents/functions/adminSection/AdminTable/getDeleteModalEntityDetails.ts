@@ -1,3 +1,4 @@
+import { IEntityInterface } from '../../../../../../@types/componentTypes';
 import {
   IAffliction,
   IBodyRegion,
@@ -13,17 +14,7 @@ import { handleMedicDeleteAsAdmin } from '../../../../../apiUtils/adminApiUtils/
 import { handlePatientDeleteAsAdmin } from '../../../../../apiUtils/adminApiUtils/adminPatientApiUtils';
 import { handleTherapistDeleteAsAdmin } from '../../../../../apiUtils/adminApiUtils/adminTherapistApiUtils';
 
-interface FunctionProps {
-  entity:
-    | ITherapist
-    | IPatient
-    | IAffliction
-    | IMedic
-    | IInsurance
-    | IBodyRegion;
-}
-
-export const getDeleteModalEntityDetails = ({ entity }: FunctionProps) => [
+export const getDeleteModalEntityDetails = (entity: IEntityInterface) => [
   {
     entityType: 'therapist',
     function: handleTherapistDeleteAsAdmin,

@@ -92,7 +92,7 @@ export default function AdminTableRefactor({
       patient: renderPatients,
     };
 
-    const statusMap: Record<string, any> = {
+    const statusMap: Record<string, string> = {
       therapist: therapistStatus,
       affliction: afflictionStatus,
       patient: patientStatus,
@@ -109,9 +109,14 @@ export default function AdminTableRefactor({
   // Function to open delete modal
   const openDeleteModal = (entity: IEntityInterface) => {
     setSelectedEntity(entity);
-    // isRegionModal && setRegionDeleteModal(true);
-    closeModal();
   };
+
+  // Watch for `selectedEntity` updates and open the modal when it's set
+  useEffect(() => {
+    if (selectedEntity) {
+      setOpenModal('delete');
+    }
+  }, [selectedEntity]);
 
   const tableElements = getAdminTableElements({
     setTherapistStatus,
@@ -179,21 +184,15 @@ export default function AdminTableRefactor({
           />
         </table>
 
-        {/* <ConfirmDeleteModal
+        <ConfirmDeleteModal
           isOpen={openModal === 'delete'}
           onClose={closeModal}
           entity={
-            selectedEntity as
-              | ITherapist
-              | IPatient
-              | IAffliction
-              | IMedic
-              | IInsurance
-              | IBodyRegion
+            selectedEntity ? (selectedEntity as IEntityInterface) : undefined
           }
           entityType={entityType}
           regionDeleteModal={regionDeleteModal}
-        /> */}
+        />
 
         <FirstAddTherapistModal
           setAddForm={setAddForm}

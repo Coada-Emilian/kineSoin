@@ -1,34 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
-import { useEffect, useState } from 'react';
-import {
-  IAffliction,
-  IBodyRegion,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../@types/standardInterfaces';
 import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { handleTherapistDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
-import { handlePatientDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminPatientApiUtils';
-import { handleAfflictionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminAfflictionApiUtils';
-import { handleMedicDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils';
-import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { getDeleteModalEntityDetails } from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getDeleteModalEntityDetails';
+import { IEntityInterface } from '../../../../@types/componentTypes';
+import { useGlobalAdminContext } from '../../../pageComponents/AdminSection/GlobalAdminContext';
+import { useEffect, useState } from 'react';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
-  entity:
-    | ITherapist
-    | IPatient
-    | IAffliction
-    | IMedic
-    | IInsurance
-    | IBodyRegion;
+  entity: IEntityInterface;
   entityType: string;
   regionDeleteModal?: boolean;
 }
@@ -41,17 +24,23 @@ export default function ConfirmDeleteModal({
   regionDeleteModal,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, setLoading } = useGlobalAdminContext();
 
-  if (isLoading) {
-    return DNALoader();
-  }
+  const [activeEntity, setActiveEntity] = useState<IEntityInterface>(null);
 
-  const modalEntityDetails = getDeleteModalEntityDetails({ entity });
+  useEffect(() => {
+    if (entity) {
+      const modalEntityDetails = getDeleteModalEntityDetails(entity);
+      const activeEntity = modalEntityDetails.find(
+        (entityDetails) => entityDetails.entityType === entityType
+      );
+      if (activeEntity) {
+        setActiveEntity(activeEntity);
+      }
+    }
+  }, [entity]);
 
-  const activeEntity = modalEntityDetails.find(
-    (entityDetails) => entityDetails.entityType === entityType
-  );
+  if (isLoading) return DNALoader();
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -72,9 +61,9 @@ export default function ConfirmDeleteModal({
                 deleteButton
                 onClick={() => {
                   onClose && onClose();
-                  setIsLoading(true);
+                  setLoading(true);
                   handleBodyRegionDeleteAsAdmin(entity.id);
-                  setIsLoading(false);
+                  setLoading(false);
                   window.location.reload();
                 }}
               />
@@ -127,11 +116,11 @@ export default function ConfirmDeleteModal({
                 deleteButton
                 onClick={() => {
                   onClose && onClose();
-                  setIsLoading(true);
+                  setLoading(true);
                   {
                     activeEntity?.function(entity.id);
                   }
-                  setIsLoading(false);
+                  setLoading(false);
                   navigate(
                     activeEntity?.redirect ? activeEntity.redirect : '/admin'
                   );

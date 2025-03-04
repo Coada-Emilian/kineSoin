@@ -12,18 +12,11 @@ import {
 } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
 import { handleTherapistStatus } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/toggleTherapistStatus';
+import { IEntityInterface } from '../../../../../../../@types/componentTypes';
 
 interface TherapistTableBodyRefactorProps {
   renderedTherapists: ITherapist[];
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion
-  ) => void;
+  openDeleteModal: (entity: IEntityInterface) => void;
 }
 
 export default function TherapistTableBodyRefactor({
