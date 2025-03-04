@@ -1,18 +1,18 @@
-import { IAddForm } from '../../../../../../../../@types/formTypes';
+import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addSecondFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
+import { useState } from 'react';
+import { useGlobalAdminContext } from '../../../../../../../pageComponents/AdminSection/GlobalAdminContext';
 
 interface SecondAddTherapistModalProps {
   isOpen: boolean;
   onClose: () => void;
   setAddForm: React.Dispatch<React.SetStateAction<IAddForm>>;
   setIsAddTherapistModalP3Open: React.Dispatch<React.SetStateAction<boolean>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  errorMessage: string;
 }
 
 export default function SecondAddTherapistModal({
@@ -20,9 +20,8 @@ export default function SecondAddTherapistModal({
   onClose,
   setAddForm,
   setIsAddTherapistModalP3Open,
-  setErrorMessage,
-  errorMessage,
 }: SecondAddTherapistModalProps) {
+  const { errorMessage, setError } = useGlobalAdminContext();
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -38,7 +37,7 @@ export default function SecondAddTherapistModal({
           className="space-y-4 "
           onSubmit={(e) =>
             addSecondFormDetails(e, {
-              setErrorMessage: setErrorMessage,
+              setError,
               setAddForm: setAddForm,
               setIsAddTherapistModalP2Open: onClose,
               setIsAddTherapistModalP3Open: setIsAddTherapistModalP3Open,

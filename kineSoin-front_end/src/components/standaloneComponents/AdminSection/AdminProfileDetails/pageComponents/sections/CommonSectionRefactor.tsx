@@ -5,12 +5,12 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardTypes';
+} from '../../../../../../@types/standardInterfaces';
 import NameInputRefactor from '../generalComponents/common/Inputs/NameInputRefactor';
 import IdOutputRefactor from '../generalComponents/common/Outputs/IdOutputRefactor';
 import NameOutputRefactor from '../generalComponents/common/Outputs/NameOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/Outputs/StatusOutputRefactor';
-import { ICommonEntityDetails } from '../../../../../../@types/customTypes';
+import { ICommonEntityDetails } from '../../../../../../@types/customInterfaces';
 
 interface CommonSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;

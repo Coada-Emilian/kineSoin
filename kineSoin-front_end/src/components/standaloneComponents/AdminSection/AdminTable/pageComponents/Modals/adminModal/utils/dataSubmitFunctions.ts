@@ -4,7 +4,7 @@ import { handleMedicCreationAsAdmin } from "../../../../../../../../utils/apiUti
 
 
 interface DataSubmitFunctionsProps {
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  setError: (message: string | null) => void;
   setIsAddAfflictionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddMedicModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddInsuranceModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,7 +12,7 @@ interface DataSubmitFunctionsProps {
 
 export const handleAfflictionSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  { setErrorMessage, setIsAddAfflictionModalOpen }: DataSubmitFunctionsProps
+  { setError, setIsAddAfflictionModalOpen }: DataSubmitFunctionsProps
 ) => {
   e.preventDefault();
   try {
@@ -30,31 +30,27 @@ export const handleAfflictionSubmit = async (
       !afflictionBodyRegionId ||
       !afflictionOperatedStatus
     ) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setError('Veuillez remplir tous les champs.');
       return;
     } else if (afflictionName.length > 50) {
-      setErrorMessage('Le nom ne doit pas dépasser 50 caractères.');
+      setError('Le nom ne doit pas dépasser 50 caractères.');
       return;
     } else if (afflictionDescription.length > 500) {
-      setErrorMessage('La description ne doit pas dépasser 500 caractères.');
+      setError('La description ne doit pas dépasser 500 caractères.');
       return;
     } else if (afflictionInsuranceCode.length > 10) {
-      setErrorMessage(
-        "Le code d'assurance ne doit pas dépasser 10 caractères."
-      );
+      setError("Le code d'assurance ne doit pas dépasser 10 caractères.");
       return;
     } else if (!/^\d+$/.test(afflictionBodyRegionId)) {
-      setErrorMessage(
-        "L'ID de la région corporelle doit être un nombre valide."
-      );
+      setError("L'ID de la région corporelle doit être un nombre valide.");
       return;
     } else if (!/^[0-9A-Za-z]{1,10}$/.test(afflictionInsuranceCode)) {
-      setErrorMessage(
+      setError(
         "Le code d'assurance doit être un code valide (chiffres et/ou lettres)."
       );
       return;
     } else if (!['true', 'false'].includes(afflictionOperatedStatus)) {
-      setErrorMessage("Le statut opéré doit être 'true' ou 'false'.");
+      setError("Le statut opéré doit être 'true' ou 'false'.");
       return;
     }
 
@@ -63,7 +59,7 @@ export const handleAfflictionSubmit = async (
       setIsAddAfflictionModalOpen && setIsAddAfflictionModalOpen(false);
       window.location.reload();
     } else {
-      setErrorMessage(
+      setError(
         "Une erreur est survenue lors de la création de l'affliction."
       );
     }
@@ -74,7 +70,7 @@ export const handleAfflictionSubmit = async (
 
 export const handleMedicSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  { setErrorMessage, setIsAddMedicModalOpen }: DataSubmitFunctionsProps
+  { setError, setIsAddMedicModalOpen }: DataSubmitFunctionsProps
 ) => {
   e.preventDefault();
   try {
@@ -101,39 +97,39 @@ export const handleMedicSubmit = async (
       !medicPrefix ||
       !medicTelephone
     ) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setError('Veuillez remplir tous les champs.');
       return;
     } else if (medicName.length > 50) {
-      setErrorMessage('Le nom ne doit pas dépasser 50 caractères.');
+      setError('Le nom ne doit pas dépasser 50 caractères.');
       return;
     } else if (medicSurname.length > 50) {
-      setErrorMessage('Le prénom ne doit pas dépasser 50 caractères.');
+      setError('Le prénom ne doit pas dépasser 50 caractères.');
       return;
     } else if (medicLicenceCode.length > 9) {
-      setErrorMessage('Le code ADELI ne doit pas dépasser 9 caractères.');
+      setError('Le code ADELI ne doit pas dépasser 9 caractères.');
       return;
     } else if (medicStreetNumber.length > 10) {
-      setErrorMessage('Le numéro de rue ne doit pas dépasser 10 caractères.');
+      setError('Le numéro de rue ne doit pas dépasser 10 caractères.');
       return;
     } else if (medicStreetName.length > 50) {
-      setErrorMessage('Le nom de rue ne doit pas dépasser 50 caractères.');
+      setError('Le nom de rue ne doit pas dépasser 50 caractères.');
       return;
     } else if (medicPostalCode.length > 10) {
-      setErrorMessage('Le code postal ne doit pas dépasser 10 caractères.');
+      setError('Le code postal ne doit pas dépasser 10 caractères.');
       return;
     } else if (medicCity.length > 100) {
-      setErrorMessage('La ville ne doit pas dépasser 100 caractères.');
+      setError('La ville ne doit pas dépasser 100 caractères.');
       return;
     } else if (medicPrefix.length > 10) {
-      setErrorMessage('Le préfixe ne doit pas dépasser 10 caractères.');
+      setError('Le préfixe ne doit pas dépasser 10 caractères.');
       return;
     } else if (medicTelephone.length > 15) {
-      setErrorMessage(
+      setError(
         'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
       );
       return;
     } else if (!/^\d+$/.test(medicTelephone)) {
-      setErrorMessage(
+      setError(
         'Le numéro de téléphone ne doit contenir que des chiffres.'
       );
       return;
@@ -145,7 +141,7 @@ export const handleMedicSubmit = async (
         setIsAddMedicModalOpen && setIsAddMedicModalOpen(false);
         window.location.reload();
       } else {
-        setErrorMessage(
+        setError(
           'Une erreur est survenue lors de la création du compte.'
         );
       }
@@ -157,7 +153,7 @@ export const handleMedicSubmit = async (
 
 export const handleInsuranceSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  { setErrorMessage, setIsAddInsuranceModalOpen }: DataSubmitFunctionsProps
+  { setError, setIsAddInsuranceModalOpen }: DataSubmitFunctionsProps
 ) => {
   e.preventDefault();
   try {
@@ -185,38 +181,38 @@ export const handleInsuranceSubmit = async (
       !insurancePrefix ||
       !insuranceTelephone
     ) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setError('Veuillez remplir tous les champs.');
       return;
     } else if (insuranceName.length > 50) {
-      setErrorMessage('Le nom ne doit pas dépasser 50 caractères.');
+      setError('Le nom ne doit pas dépasser 50 caractères.');
       return;
     } else if (insuranceLicenceCode.length > 10) {
-      setErrorMessage(
+      setError(
         "Le code d'assurance ne doit pas dépasser 10 caractères."
       );
       return;
     } else if (insuranceStreetNumber.length > 10) {
-      setErrorMessage('Le numéro de rue ne doit pas dépasser 10 caractères.');
+      setError('Le numéro de rue ne doit pas dépasser 10 caractères.');
       return;
     } else if (insuranceStreetName.length > 50) {
-      setErrorMessage('Le nom de rue ne doit pas dépasser 50 caractères.');
+      setError('Le nom de rue ne doit pas dépasser 50 caractères.');
       return;
     } else if (insurancePostalCode.length > 10) {
-      setErrorMessage('Le code postal ne doit pas dépasser 10 caractères.');
+      setError('Le code postal ne doit pas dépasser 10 caractères.');
       return;
     } else if (insuranceCity.length > 100) {
-      setErrorMessage('La ville ne doit pas dépasser 100 caractères.');
+      setError('La ville ne doit pas dépasser 100 caractères.');
       return;
     } else if (insurancePrefix.length > 10) {
-      setErrorMessage('Le préfixe ne doit pas dépasser 10 caractères.');
+      setError('Le préfixe ne doit pas dépasser 10 caractères.');
       return;
     } else if (insuranceTelephone.length > 15) {
-      setErrorMessage(
+      setError(
         'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
       );
       return;
     } else if (!/^\d+$/.test(insuranceTelephone)) {
-      setErrorMessage(
+      setError(
         'Le numéro de téléphone ne doit contenir que des chiffres.'
       );
       return;
@@ -228,7 +224,7 @@ export const handleInsuranceSubmit = async (
         setIsAddInsuranceModalOpen && setIsAddInsuranceModalOpen(false);
         window.location.reload();
       } else {
-        setErrorMessage(
+        setError(
           'Une erreur est survenue lors de la création du compte.'
         );
       }

@@ -3,7 +3,7 @@
 import {
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardTypes';
+} from '../../../../../../../@types/standardInterfaces';
 
 interface ProfileImageProps {
   therapist?: ITherapist;

@@ -1,6 +1,9 @@
 // Purpose: Provide the ImageSection component which displays the therapist's profile image.
 
-import { IPatient, ITherapist } from '../../../../../../@types/standardTypes';
+import {
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/standardInterfaces';
 import ProfileImage from '../generalComponents/common/ProfileImage';
 import EditTherapistImage from '../generalComponents/therapist/EditTherapistImage';
 

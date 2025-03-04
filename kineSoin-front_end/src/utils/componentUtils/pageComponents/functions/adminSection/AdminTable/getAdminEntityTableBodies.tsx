@@ -5,7 +5,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardTypes';
+} from '../../../../../../@types/standardInterfaces';
 import AfflictionTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Affliction/new_components/AfflictionTableBodyRefactor';
 import InsuranceTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Insurances/new_components/InsuranceTableBodyRefactor';
 import MedicTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Medics/new_components/MedicTableBodyRefactor';

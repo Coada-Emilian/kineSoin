@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ICountry } from '../../../../../../@types/standardTypes';
+import { ICountry } from '../../../../../../@types/standardInterfaces';
 
 interface FunctionProps {
   setCountries: React.Dispatch<React.SetStateAction<ICountry[]>>;

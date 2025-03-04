@@ -18,13 +18,13 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../@types/standardTypes';
+} from '../../../../../@types/standardInterfaces';
 import {
   renderTherapists,
   renderPatients,
   renderAfflictions,
 } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
-import { IAddForm } from '../../../../../@types/formTypes';
+import { IAddForm } from '../../../../../@types/formInterfaces';
 
 interface AdminTableProps {
   allPatients?: IPatient[];

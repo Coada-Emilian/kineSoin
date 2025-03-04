@@ -6,12 +6,12 @@ import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNa
 import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
 import AppointmentsCalendar from '../../standaloneComponents/generalComponents/AppointmentCalendar/AppointmentsCalendar';
 import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';
-import { IAppointment } from '../../../@types/standardTypes';
+import { IAppointment } from '../../../@types/standardInterfaces';
 import AppointmentCard from '../../standaloneComponents/generalComponents/AppointmentCard/AppointmentCard';
 import MessagesField from '../../standaloneComponents/generalComponents/MessagesField/MessagesField';
 import ProfileCard from '../../standaloneComponents/generalComponents/ProfileCard/ProfileCard';
 import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils';
-import { IUserProfile } from '../../../@types/customTypes';
+import { IUserProfile } from '../../../@types/customInterfaces';
 
 interface PatientMainProps {
   isPatientDashboardMain?: boolean;

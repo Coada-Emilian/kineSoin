@@ -6,7 +6,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../@types/standardTypes';
+} from '../../../../../@types/standardInterfaces';
 import { useEffect, useState } from 'react';
 import DNALoader from '../../../../../utils/DNALoader';
 import { handleTherapistDeleteAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';

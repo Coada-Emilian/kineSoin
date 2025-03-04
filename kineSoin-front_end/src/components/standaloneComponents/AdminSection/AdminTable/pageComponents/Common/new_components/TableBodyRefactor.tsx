@@ -5,7 +5,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardTypes';
+} from '../../../../../../../@types/standardInterfaces';
 import { getAdminEntityTableBodies } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminEntityTableBodies';
 
 interface TableBodyRefactorProps {

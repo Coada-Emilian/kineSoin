@@ -5,7 +5,7 @@ import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/st
 import StandardFileInput from '../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
 import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import { useNavigate } from 'react-router-dom';
-import { IAffliction, IMedic } from '../../../../../@types/standardTypes';
+import { IAffliction, IMedic } from '../../../../../@types/standardInterfaces';
 import {
   fetchAfflictionNamesAsPatient,
   fetchAllMedicNamesAsPatient,

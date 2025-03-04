@@ -3,7 +3,7 @@ import BaseModal from './BaseModal';
 import { sendMessageToPatient } from '../../../../../utils/apiUtils/therapistApiUtils';
 import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import { ISameDayAppointment } from '../../../../../@types/customTypes';
+import { ISameDayAppointment } from '../../../../../@types/customInterfaces';
 
 interface SendMessageModalProps {
   isOpen: boolean;

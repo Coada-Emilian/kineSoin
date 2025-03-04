@@ -11,7 +11,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardTypes';
+} from '../../../../../../@types/standardInterfaces';
 import { handleTherapistStatusChange } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/handleStatusChange';
 import { Button } from '@headlessui/react';
 

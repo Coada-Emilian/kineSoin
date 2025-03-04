@@ -8,17 +8,16 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardTypes';
+} from '../../../../../../@types/standardInterfaces';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import RegionTable from '../../RegionTable';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
+import { useGlobalAdminContext } from '../../../../../pageComponents/AdminSection/GlobalAdminContext';
 
 interface RegionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  errorMessage: string;
   setIsAddRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   openDeleteModal: (
     entity:
@@ -35,19 +34,19 @@ interface RegionModalProps {
 export default function RegionModal({
   isOpen,
   onClose,
-  setErrorMessage,
   setIsAddRegionModalOpen,
-  errorMessage,
   openDeleteModal,
 }: RegionModalProps) {
   // State to store all body regions fetched
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
+  const { errorMessage, setError } = useGlobalAdminContext();
+
   useEffect(() => {
     fetchBodyRegionsAsAdmin().then((bodyRegions) => {
       setBodyRegions(bodyRegions);
     });
-  }, []);
+  }, [isOpen]);
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

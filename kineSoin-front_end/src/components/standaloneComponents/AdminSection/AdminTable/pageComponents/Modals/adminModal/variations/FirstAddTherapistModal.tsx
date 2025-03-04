@@ -1,32 +1,31 @@
 import { useState } from 'react';
-import { IAddForm } from '../../../../../../../../@types/formTypes';
+import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 import StandardFileInput from '../../../../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
+import { useGlobalAdminContext } from '../../../../../../../pageComponents/AdminSection/GlobalAdminContext';
 
 interface FirstAddTherapistModalProps {
   isOpen: boolean;
   onClose: () => void;
   setAddForm: React.Dispatch<React.SetStateAction<IAddForm>>;
   setIsAddTherapistModalP2Open: React.Dispatch<React.SetStateAction<boolean>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  errorMessage: string;
 }
 export default function FirstAddTherapistModal({
   isOpen,
   onClose,
   setAddForm,
   setIsAddTherapistModalP2Open,
-  setErrorMessage,
-  errorMessage,
 }: FirstAddTherapistModalProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const [therapistImageFile, setTherapistImageFile] = useState<File | null>(
     null
   );
+
+  const { errorMessage, setError } = useGlobalAdminContext();
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -44,7 +43,7 @@ export default function FirstAddTherapistModal({
           onSubmit={(e) =>
             addFirstFormDetails(e, {
               therapistImageFile: therapistImageFile,
-              setErrorMessage: setErrorMessage,
+              setError,
               setAddForm: setAddForm,
               setIsAddTherapistModalP1Open: onClose,
               setIsAddTherapistModalP2Open: setIsAddTherapistModalP2Open,

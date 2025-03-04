@@ -1,23 +1,20 @@
-import { IAddForm } from '../../../../../../../../@types/formTypes';
+import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 import { handleTherapistCreationAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
 
 interface FunctionProps {
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  setError: (message: string | null) => void;
   setIsAddTherapistModalP3Open:
     | React.Dispatch<React.SetStateAction<boolean>>
     | undefined;
   addForm: IAddForm | undefined;
-  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const createTherapist = async ({
-  setErrorMessage,
+  setError,
   setIsAddTherapistModalP3Open,
   addForm,
-  setIsLoading,
 }: FunctionProps) => {
   try {
-    setIsLoading && setIsLoading(true);
     const newFormData = new FormData();
 
     newFormData.append('name', addForm?.name as string);
@@ -44,16 +41,13 @@ export const createTherapist = async ({
 
     const response = await handleTherapistCreationAsAdmin(newFormData);
     if (response) {
-      setIsLoading && setIsLoading(false);
       setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(false);
       window.location.reload();
     } else {
-      setIsLoading && setIsLoading(false);
-      setErrorMessage('Une erreur est survenue lors de la création du compte.');
+      setError('Une erreur est survenue lors de la création du compte.');
     }
   } catch (error) {
-    setIsLoading && setIsLoading(false);
-    setErrorMessage('Une erreur est survenue lors de la création du compte.');
+    setError('Une erreur est survenue lors de la création du compte.');
     console.error(error);
   }
 };

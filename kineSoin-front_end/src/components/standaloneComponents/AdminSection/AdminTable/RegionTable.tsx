@@ -5,7 +5,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../@types/standardTypes';
+} from '../../../../@types/standardInterfaces';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import TableHead from './pageComponents/Common/old_components/TableHead';
 import RegionTableBody from './pageComponents/Regions/RegionTableBody';

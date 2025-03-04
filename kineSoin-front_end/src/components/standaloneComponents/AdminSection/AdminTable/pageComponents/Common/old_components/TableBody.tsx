@@ -13,7 +13,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardTypes';
+} from '../../../../../../../@types/standardInterfaces';
 
 interface TableBodyProps {
   allTherapists?: ITherapist[];

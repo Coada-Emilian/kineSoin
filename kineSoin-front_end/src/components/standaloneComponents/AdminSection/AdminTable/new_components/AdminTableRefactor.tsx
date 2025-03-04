@@ -10,13 +10,13 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../@types/standardTypes';
+} from '../../../../../@types/standardInterfaces';
 import {
   renderTherapists,
   renderPatients,
   renderAfflictions,
 } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
-import { IAddForm } from '../../../../../@types/formTypes';
+import { IAddForm } from '../../../../../@types/formInterfaces';
 import TableTitleRefactor from '../pageComponents/Common/new_components/TableTitleRefactor';
 import TableHeadRefactor from '../pageComponents/Common/new_components/TableHeadRefactor';
 import TableBodyRefactor from '../pageComponents/Common/new_components/TableBodyRefactor';
@@ -27,28 +27,23 @@ import AddAfflictionModal from '../pageComponents/Modals/adminModal/variations/A
 import AddMedicModal from '../pageComponents/Modals/adminModal/variations/AddMedicModal';
 import AddInsuranceModal from '../pageComponents/Modals/adminModal/variations/AddInsuranceModal';
 import { getAdminTableElements } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminTableElements';
+import {
+  IEntitiesInterfaces,
+  IEntityInterface,
+  IEntityTypes,
+  IModalTypes,
+} from '../../../../../@types/componentTypes';
 
 interface AdminTableRefactorProps {
-  entities: ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[];
-  entityType: string;
+  entities: IEntitiesInterfaces;
+  entityType: IEntityTypes;
 }
-
-type ModalType =
-  | 'delete'
-  | 'addAffliction'
-  | 'region'
-  | 'addTherapistP1'
-  | 'addTherapistP2'
-  | 'addTherapistP3'
-  | 'addMedic'
-  | 'addInsurance'
-  | 'addRegion';
 
 export default function AdminTableRefactor({
   entities,
   entityType,
 }: AdminTableRefactorProps) {
-  const [openModal, setOpenModal] = useState<ModalType | null>(null); // State for modal opening
+  const [openModal, setOpenModal] = useState<IModalTypes | null>(null); // State for modal opening
   const closeModal = () => {
     setOpenModal(null);
   };
@@ -59,19 +54,11 @@ export default function AdminTableRefactor({
   const [afflictionStatus, setAfflictionStatus] = useState<string>('all');
 
   // States for rendered entities
-  const [renderedEntities, setRenderedEntities] = useState<
-    ITherapist[] | IPatient[] | IAffliction[] | IMedic[] | IInsurance[]
-  >(entities || []);
+  const [renderedEntities, setRenderedEntities] = useState<IEntitiesInterfaces>(
+    entities || []
+  );
 
-  const [selectedEntity, setSelectedEntity] = useState<
-    | ITherapist
-    | IPatient
-    | IAffliction
-    | IMedic
-    | IInsurance
-    | null
-    | IBodyRegion
-  >(null);
+  const [selectedEntity, setSelectedEntity] = useState<IEntityInterface>(null);
 
   //   // State for the add form
   const [addForm, setAddForm] = useState<IAddForm>({
@@ -92,8 +79,6 @@ export default function AdminTableRefactor({
     full_phone_number: '',
   });
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
-
   // useEffects to set rendered therapists, patients, afflictions
   useEffect(() => {
     setRenderedEntities(entities);
@@ -101,43 +86,28 @@ export default function AdminTableRefactor({
 
   // useEffects to render therapists, patients, afflictions
   useEffect(() => {
-    if (entityType === 'therapist') {
-      renderTherapists(
-        entities as ITherapist[],
-        setRenderedEntities as React.Dispatch<
-          React.SetStateAction<ITherapist[]>
-        >,
-        therapistStatus
-      );
-    } else if (entityType === 'affliction') {
-      renderAfflictions(
-        entities as IAffliction[],
-        setRenderedEntities as React.Dispatch<
-          React.SetStateAction<IAffliction[]>
-        >,
-        afflictionStatus
-      );
-    } else if (entityType === 'patient') {
-      renderPatients(
-        entities as IPatient[],
-        setRenderedEntities as React.Dispatch<React.SetStateAction<IPatient[]>>,
-        patientStatus
-      );
+    const renderFunctions: Record<string, Function> = {
+      therapist: renderTherapists,
+      affliction: renderAfflictions,
+      patient: renderPatients,
+    };
+
+    const statusMap: Record<string, any> = {
+      therapist: therapistStatus,
+      affliction: afflictionStatus,
+      patient: patientStatus,
+    };
+
+    const renderFunction = renderFunctions[entityType];
+    if (renderFunction) {
+      renderFunction(entities, setRenderedEntities, statusMap[entityType]);
     }
   }, [entityType, therapistStatus, patientStatus, afflictionStatus]);
 
   const [regionDeleteModal, setRegionDeleteModal] = useState(false);
 
   // Function to open delete modal
-  const openDeleteModal = (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion
-  ) => {
+  const openDeleteModal = (entity: IEntityInterface) => {
     setSelectedEntity(entity);
     // isRegionModal && setRegionDeleteModal(true);
     closeModal();
@@ -156,9 +126,6 @@ export default function AdminTableRefactor({
     (group) => entityType === group.entityType
   );
 
-  useEffect(() => {
-    console.log;
-  }, [activeEntity]);
   return (
     <>
       <div className="min-h-screen">
@@ -183,7 +150,7 @@ export default function AdminTableRefactor({
                   addButton
                   // FIXME: le as ModalType est à éviter car il casse le typage
                   onClick={() =>
-                    setOpenModal((activeEntity.modalName as ModalType) ?? null)
+                    setOpenModal(activeEntity.modalName as IModalTypes)
                   }
                 />
               )}
@@ -233,8 +200,6 @@ export default function AdminTableRefactor({
           onClose={closeModal}
           isOpen={openModal === 'addTherapistP1'}
           setIsAddTherapistModalP2Open={() => setOpenModal('addTherapistP2')}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
         />
 
         <SecondAddTherapistModal
@@ -242,8 +207,6 @@ export default function AdminTableRefactor({
           isOpen={openModal === 'addTherapistP2'}
           onClose={closeModal}
           setIsAddTherapistModalP3Open={() => setOpenModal('addTherapistP3')}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
         />
 
         <ThirdAddTherapistModal
@@ -251,45 +214,30 @@ export default function AdminTableRefactor({
           setAddForm={setAddForm}
           isOpen={openModal === 'addTherapistP3'}
           onClose={closeModal}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
         />
 
         <AddAfflictionModal
           isOpen={openModal === 'addAffliction'}
           onClose={closeModal}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
         />
 
-        <AddMedicModal
-          isOpen={openModal === 'addMedic'}
-          onClose={closeModal}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
-        />
+        <AddMedicModal isOpen={openModal === 'addMedic'} onClose={closeModal} />
 
         <AddInsuranceModal
           isOpen={openModal === 'addInsurance'}
           onClose={closeModal}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
         />
 
         <RegionModal
           isOpen={openModal === 'region'}
           onClose={closeModal}
           setIsAddRegionModalOpen={() => setOpenModal('addRegion')}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
           openDeleteModal={openDeleteModal}
         />
 
         <AddRegionModal
           isOpen={openModal === 'addRegion'}
           onClose={closeModal}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
         />
       </div>
     </>

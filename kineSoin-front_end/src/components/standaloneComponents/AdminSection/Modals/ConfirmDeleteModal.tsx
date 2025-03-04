@@ -9,7 +9,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../@types/standardTypes';
+} from '../../../../@types/standardInterfaces';
 import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleTherapistDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
 import { handlePatientDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminPatientApiUtils';

@@ -5,7 +5,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../@types/standardTypes';
+} from '../../../../@types/standardInterfaces';
 import TitleOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
 import CommonSectionRefactor from './pageComponents/sections/CommonSectionRefactor.tsx';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';

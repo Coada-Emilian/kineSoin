@@ -1,8 +1,8 @@
-import { IAddForm } from '../../../../../../../../@types/standardTypes';
+import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 
 interface addFormDetailsProps {
   therapistImageFile?: File | null;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  setError: (message: string | null) => void;
   setAddForm?: React.Dispatch<React.SetStateAction<IAddForm>>;
   setIsAddTherapistModalP1Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddTherapistModalP2Open?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +14,7 @@ export const addFirstFormDetails = async (
   e: React.FormEvent<HTMLFormElement>,
   {
     therapistImageFile,
-    setErrorMessage,
+    setError,
     setAddForm,
     setIsAddTherapistModalP1Open,
     setIsAddTherapistModalP2Open,
@@ -30,29 +30,25 @@ export const addFirstFormDetails = async (
 
     // Field Validation
     if (!therapistName || !therapistSurname || !therapistLicenceCode) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setError('Veuillez remplir tous les champs.');
       return;
     }
     if (!file) {
-      setErrorMessage('Veuillez ajouter une photo.');
+      setError('Veuillez ajouter une photo.');
       return;
     }
     if (!/^[0-9]{9}$/.test(therapistLicenceCode)) {
-      setErrorMessage('Le code ADELI doit être composé de 9 chiffres.');
+      setError('Le code ADELI doit être composé de 9 chiffres.');
       return;
     }
     if (!/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$/.test(therapistName)) {
-      setErrorMessage(
-        'Le nom ne doit contenir que des lettres et des espaces.'
-      );
+      setError('Le nom ne doit contenir que des lettres et des espaces.');
       return;
     }
     if (
       !/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$/.test(therapistSurname)
     ) {
-      setErrorMessage(
-        'Le prénom ne doit contenir que des lettres et des espaces.'
-      );
+      setError('Le prénom ne doit contenir que des lettres et des espaces.');
       return;
     }
 
@@ -78,7 +74,7 @@ export const addFirstFormDetails = async (
     setIsAddTherapistModalP1Open && setIsAddTherapistModalP1Open(false);
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(true);
   } catch (error) {
-    setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+    setError('Une erreur est survenue. Veuillez réessayer.');
     return;
   }
 };
@@ -86,7 +82,7 @@ export const addFirstFormDetails = async (
 export const addSecondFormDetails = (
   e: React.FormEvent<HTMLFormElement>,
   {
-    setErrorMessage,
+    setError,
     setAddForm,
     setIsAddTherapistModalP2Open,
     setIsAddTherapistModalP3Open,
@@ -110,32 +106,28 @@ export const addSecondFormDetails = (
       !therapistPrefix ||
       !therapistTelephone
     ) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setError('Veuillez remplir tous les champs.');
       return;
     } else if (therapistDiploma.length > 100) {
-      setErrorMessage('Le diplôme ne doit pas dépasser 100 caractères.');
+      setError('Le diplôme ne doit pas dépasser 100 caractères.');
       return;
     } else if (therapistExperience.length > 100) {
-      setErrorMessage("L'expérience ne doit pas dépasser 100 caractères.");
+      setError("L'expérience ne doit pas dépasser 100 caractères.");
       return;
     } else if (therapistSpecialty.length > 100) {
-      setErrorMessage('La spécialité ne doit pas dépasser 100 caractères.');
+      setError('La spécialité ne doit pas dépasser 100 caractères.');
       return;
     } else if (therapistDescription.length > 500) {
-      setErrorMessage('La description ne doit pas dépasser 500 caractères.');
+      setError('La description ne doit pas dépasser 500 caractères.');
       return;
     } else if (therapistPrefix.length > 10) {
-      setErrorMessage('Le préfixe ne doit pas dépasser 10 caractères.');
+      setError('Le préfixe ne doit pas dépasser 10 caractères.');
       return;
     } else if (therapistTelephone.length > 15) {
-      setErrorMessage(
-        'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
-      );
+      setError('Le numéro de téléphone ne doit pas dépasser 15 caractères.');
       return;
     } else if (!/^\d+$/.test(therapistTelephone)) {
-      setErrorMessage(
-        'Le numéro de téléphone ne doit contenir que des chiffres.'
-      );
+      setError('Le numéro de téléphone ne doit contenir que des chiffres.');
       return;
     }
 
@@ -155,18 +147,14 @@ export const addSecondFormDetails = (
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
     setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
   } catch (error) {
-    setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+    setError('Une erreur est survenue. Veuillez réessayer.');
     return;
   }
 };
 
 export const addThirdFormDetails = async (
   e: React.FormEvent<HTMLFormElement>,
-  {
-    setErrorMessage,
-    setAddForm,
-    setIsAdminTherapistFormValid,
-  }: addFormDetailsProps
+  { setError, setAddForm, setIsAdminTherapistFormValid }: addFormDetailsProps
 ) => {
   try {
     e.preventDefault();
@@ -184,32 +172,30 @@ export const addThirdFormDetails = async (
       !therapistRepeatedPassword ||
       !therapistStatus
     ) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setError('Veuillez remplir tous les champs.');
       return;
     } else if (therapistPassword.length < 12) {
-      setErrorMessage('Le mot de passe doit contenir au moins 12 caractères.');
+      setError('Le mot de passe doit contenir au moins 12 caractères.');
       return;
     } else if (!/(?=.*[a-z])/.test(therapistPassword)) {
-      setErrorMessage('Le mot de passe doit contenir au moins une minuscule.');
+      setError('Le mot de passe doit contenir au moins une minuscule.');
       return;
     } else if (!/(?=.*[A-Z])/.test(therapistPassword)) {
-      setErrorMessage('Le mot de passe doit contenir au moins une majuscule.');
+      setError('Le mot de passe doit contenir au moins une majuscule.');
       return;
     } else if (!/(?=.*\d)/.test(therapistPassword)) {
-      setErrorMessage('Le mot de passe doit contenir au moins un chiffre.');
+      setError('Le mot de passe doit contenir au moins un chiffre.');
       return;
     } else if (!/(?=.*\W)/.test(therapistPassword)) {
-      setErrorMessage(
-        'Le mot de passe doit contenir au moins un caractère spécial.'
-      );
+      setError('Le mot de passe doit contenir au moins un caractère spécial.');
       return;
     } else if (therapistPassword !== therapistRepeatedPassword) {
-      setErrorMessage('Les mots de passe ne correspondent pas.');
+      setError('Les mots de passe ne correspondent pas.');
       return;
     } else if (
       !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(therapistEmail)
     ) {
-      setErrorMessage("L'email n'est pas valide.");
+      setError("L'email n'est pas valide.");
       return;
     }
 
@@ -224,7 +210,7 @@ export const addThirdFormDetails = async (
 
     setIsAdminTherapistFormValid && setIsAdminTherapistFormValid(true);
   } catch (error) {
-    setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+    setError('Une erreur est survenue. Veuillez réessayer.');
     return;
   }
 };

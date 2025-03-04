@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IAddForm } from '../../../../../../../../@types/formTypes';
+import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardEmailInput from '../../../../../../generalComponents/StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../../../generalComponents/StandardInputs/StandardPasswordInput';
@@ -7,13 +7,13 @@ import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/
 import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
 import { createTherapist } from '../utils/createTherapist';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
+import { useGlobalAdminContext } from '../../../../../../../pageComponents/AdminSection/GlobalAdminContext';
 
 interface ThirdAddTherapistModalProps {
   isOpen: boolean;
   onClose: () => void;
   setAddForm: React.Dispatch<React.SetStateAction<IAddForm>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  errorMessage: string;
+
   addForm: IAddForm;
 }
 
@@ -21,8 +21,7 @@ export default function ThirdAddTherapistModal({
   isOpen,
   onClose,
   setAddForm,
-  setErrorMessage,
-  errorMessage,
+
   addForm,
 }: ThirdAddTherapistModalProps) {
   const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
@@ -30,14 +29,17 @@ export default function ThirdAddTherapistModal({
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const { errorMessage, setError } = useGlobalAdminContext();
+
   useEffect(() => {
     if (isAdminTherapistFormValid) {
+      setIsLoading(true);
       createTherapist({
-        setErrorMessage,
+        setError,
         setIsAddTherapistModalP3Open: onClose,
         addForm,
-        setIsLoading,
       });
+      setIsLoading(false);
     }
   }, [isAdminTherapistFormValid]);
 
@@ -51,11 +53,12 @@ export default function ThirdAddTherapistModal({
         {errorMessage && (
           <p className="text-red-500 text-xs text-center">{errorMessage}</p>
         )}
+
         <form
           className="space-y-4 "
           onSubmit={(e) =>
             addThirdFormDetails(e, {
-              setErrorMessage: setErrorMessage,
+              setError,
               setAddForm: setAddForm,
               setIsAdminTherapistFormValid: setIsAdminTherapistFormValid,
             })

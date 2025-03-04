@@ -1,5 +1,5 @@
 import { Button, MenuItem, MenuItems } from '@headlessui/react';
-import { IPatient } from '../../../../../../../@types/standardTypes';
+import { IPatient } from '../../../../../../../@types/standardInterfaces';
 import { toggleStatus } from '../../utils/toggleStatus';
 
 interface PatientStatusButtons {

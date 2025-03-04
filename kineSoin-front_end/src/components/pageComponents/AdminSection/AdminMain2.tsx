@@ -9,10 +9,11 @@ import {
 import AdminTableRefactor from '../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
 import AdminProfileDetailsRefactor from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetailsRefactor';
 import {
-  IEntitiesType,
-  IEntitiesTypes,
+  IEntitiesInterfaces,
+  IEntityInterface,
   IEntityTypes,
 } from '../../../@types/componentTypes';
+import { useGlobalAdminContext } from './GlobalAdminContext';
 
 interface AdminMain2Props {
   entityType: IEntityTypes;
@@ -22,14 +23,14 @@ export default function AdminMain2({ entityType }: AdminMain2Props) {
   //  Get the id from the URL
   const { id } = useParams();
   const entity_id = id ? parseInt(id, 10) : null;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [entity, setEntity] = useState<IEntitiesType | null>(null);
-  const [entities, setEntities] = useState<IEntitiesTypes>([]);
+  const [entity, setEntity] = useState<IEntityInterface | null>(null);
+  const [entities, setEntities] = useState<IEntitiesInterfaces>([]);
+  const { isLoading, setLoading } = useGlobalAdminContext();
 
   // Fetch all the data to be displayed in the table
   useEffect(() => {
-    setIsLoading(true);
-    fetchTableDataRefactor<IEntitiesTypes>({
+    setLoading(true);
+    fetchTableDataRefactor<IEntitiesInterfaces>({
       entityType,
     })
       .then((data) => {
@@ -38,29 +39,34 @@ export default function AdminMain2({ entityType }: AdminMain2Props) {
         }
       })
       .finally(() => {
-        setIsLoading(false);
+        setLoading(false);
       });
-  }, [entityType]);
+  }, [entityType, id]);
+
+  // Fetch the data of the entity to be displayed
+  useEffect(() => {
+    setLoading(true);
+    if (entity_id) {
+      fetchDetailsDataRefactor<IEntityInterface | null>({
+        entityType,
+        entityId: entity_id,
+      })
+        .then((data) => {
+          if (data) {
+            setEntity(data);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setEntity(null);
+    }
+  }, [entity_id]);
 
   if (isLoading) {
     return DNALoader();
   }
-
-  // Fetch the data of the entity to be displayed
-  // useEffect(() => {
-  //   if (entity_id) {
-  //     fetchDetailsDataRefactor<IEntitiesType | null>({
-  //       entityType,
-  //       entityId: entity_id,
-  //     }).then((data) => {
-  //       if (data) {
-  //         setEntity(data);
-  //       }
-  //     });
-  //   } else {
-  //     setEntity(null);
-  //   }
-  // }, []);
 
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">

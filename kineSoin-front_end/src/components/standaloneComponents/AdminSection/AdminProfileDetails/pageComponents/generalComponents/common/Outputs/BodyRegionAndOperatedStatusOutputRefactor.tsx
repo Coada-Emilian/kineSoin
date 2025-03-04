@@ -1,4 +1,4 @@
-import { IBodyRegion } from '../../../../../../../../@types/standardTypes';
+import { IBodyRegion } from '../../../../../../../../@types/standardInterfaces';
 import BodyRegionOutputRefactor from './BodyRegionOutputRefactor';
 import IsOperatedOutputRefactor from './IsOperatedOutputRefactor';
 

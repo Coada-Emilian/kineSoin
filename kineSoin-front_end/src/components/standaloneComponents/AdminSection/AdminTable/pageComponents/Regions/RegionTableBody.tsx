@@ -7,7 +7,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardTypes';
+} from '../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
 
 interface RegionTableBodyProps {

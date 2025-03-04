@@ -7,7 +7,7 @@ import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/st
 import {
   IInsurance,
   IPatient_Insurance,
-} from '../../../../../@types/standardTypes';
+} from '../../../../../@types/standardInterfaces';
 import {
   checkPatientCredentials,
   fetchInsurancesAsPatient,

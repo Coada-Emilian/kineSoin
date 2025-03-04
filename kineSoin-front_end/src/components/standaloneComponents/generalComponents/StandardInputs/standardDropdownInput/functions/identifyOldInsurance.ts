@@ -1,4 +1,4 @@
-import { IInsurance } from '../../../../../../@types/standardTypes';
+import { IInsurance } from '../../../../../../@types/standardInterfaces';
 
 interface FunctionProps {
   setActualInsurance: React.Dispatch<React.SetStateAction<IInsurance | null>>;

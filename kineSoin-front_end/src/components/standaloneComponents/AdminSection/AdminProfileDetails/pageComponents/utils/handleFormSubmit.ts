@@ -1,4 +1,4 @@
-import { ITherapist } from '../../../../../../@types/standardTypes';
+import { ITherapist } from '../../../../../../@types/standardInterfaces';
 
 interface FunctionProps {
   therapist: ITherapist | undefined;

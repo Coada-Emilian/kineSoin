@@ -5,7 +5,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardTypes';
+} from '../../../../../../@types/standardInterfaces';
 import { handleAfflictionDeleteAsAdmin } from '../../../../../apiUtils/adminApiUtils/adminAfflictionApiUtils';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../../apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../../apiUtils/adminApiUtils/adminInsuranceApiUtils';

@@ -13,7 +13,7 @@ import {
   IFullPatient,
   ISameDayAppointment,
   ITherapistPatient,
-} from '../../../../../@types/customTypes';
+} from '../../../../../@types/customInterfaces';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;

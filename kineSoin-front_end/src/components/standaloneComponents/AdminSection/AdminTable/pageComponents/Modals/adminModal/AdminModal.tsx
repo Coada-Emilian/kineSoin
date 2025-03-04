@@ -21,7 +21,7 @@ import ThirdAddTherapistModal from './variations/ThirdAddTherapistModal';
 import AddAfflictionModal from './variations/AddAfflictionModal';
 import AddMedicModal from './variations/AddMedicModal';
 import AddInsuranceModal from './variations/AddInsuranceModal';
-import { IAddForm } from '../../../../../../../@types/formTypes';
+import { IAddForm } from '../../../../../../../@types/formInterfaces';
 
 interface AdminModalProps {
   setAddForm?: React.Dispatch<React.SetStateAction<IAddForm>>;

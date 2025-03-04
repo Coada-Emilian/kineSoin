@@ -12,7 +12,7 @@ import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/thera
 import { generateTimeSlots } from '../../../../../utils/AppUtils/time';
 import SendMessageModal from '../Modals/SendMessageModal';
 import { Button } from '@headlessui/react';
-import { ISameDayAppointment } from '../../../../../@types/customTypes';
+import { ISameDayAppointment } from '../../../../../@types/customInterfaces';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();

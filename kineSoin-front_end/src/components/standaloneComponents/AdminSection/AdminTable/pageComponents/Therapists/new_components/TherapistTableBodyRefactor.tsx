@@ -9,7 +9,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardTypes';
+} from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
 import { handleTherapistStatus } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/toggleTherapistStatus';
 

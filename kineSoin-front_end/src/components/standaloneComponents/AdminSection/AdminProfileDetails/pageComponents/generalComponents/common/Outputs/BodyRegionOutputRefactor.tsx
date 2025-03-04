@@ -1,4 +1,4 @@
-import { IBodyRegion } from '../../../../../../../../@types/standardTypes';
+import { IBodyRegion } from '../../../../../../../../@types/standardInterfaces';
 import BaseOutput from './BaseOutput';
 
 interface BodyRegionOutputRefactorProps {

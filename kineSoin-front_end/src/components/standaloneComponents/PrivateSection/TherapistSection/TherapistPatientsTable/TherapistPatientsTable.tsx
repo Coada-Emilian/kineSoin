@@ -9,7 +9,7 @@ import {
   fetchTherapistPatients,
   togglePatientStatusAsTherapist,
 } from '../../../../../utils/apiUtils/therapistApiUtils';
-import { ITherapistPatient } from '../../../../../@types/customTypes';
+import { ITherapistPatient } from '../../../../../@types/customInterfaces';
 import { Button } from '@headlessui/react';
 
 export default function TherapistPatientsTable() {

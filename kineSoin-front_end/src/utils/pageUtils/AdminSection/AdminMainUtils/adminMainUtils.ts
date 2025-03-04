@@ -4,7 +4,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../@types/standardTypes';
+} from '../../../../@types/standardInterfaces';
 import {
   fetchAfflictionAsAdmin,
   fetchAfflictionsAsAdmin,

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { IUserProfile } from '../../../../@types/customTypes';
+import { IUserProfile } from '../../../../@types/customInterfaces';
 
 interface UserHeadbandProps {
   userProfile?: IUserProfile;

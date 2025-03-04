@@ -6,7 +6,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardTypes';
+} from '../../../../../../@types/standardInterfaces';
 import GeneralInput from '../generalComponents/common/GeneralInput';
 import GeneralOutput from '../generalComponents/common/GeneralOutput';
 

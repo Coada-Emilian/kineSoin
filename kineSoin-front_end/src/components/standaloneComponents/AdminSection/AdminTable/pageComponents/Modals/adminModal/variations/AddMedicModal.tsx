@@ -1,23 +1,20 @@
+import { useState } from 'react';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleMedicSubmit } from '../utils/dataSubmitFunctions';
+import { useGlobalAdminContext } from '../../../../../../../pageComponents/AdminSection/GlobalAdminContext';
 
 interface AddMedicModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  errorMessage: string;
 }
 
-export default function AddMedicModal({
-  isOpen,
-  onClose,
-  setErrorMessage,
-  errorMessage,
-}: AddMedicModalProps) {
+export default function AddMedicModal({ isOpen, onClose }: AddMedicModalProps) {
+  const { errorMessage, setError } = useGlobalAdminContext();
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -33,7 +30,7 @@ export default function AddMedicModal({
           className="space-y-4 "
           onSubmit={(e) =>
             handleMedicSubmit(e, {
-              setErrorMessage: setErrorMessage,
+              setError,
               setIsAddMedicModalOpen: onClose,
             })
           }

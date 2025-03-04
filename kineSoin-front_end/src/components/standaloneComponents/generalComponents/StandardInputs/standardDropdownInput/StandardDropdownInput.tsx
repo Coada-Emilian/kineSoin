@@ -7,12 +7,12 @@ import {
   IInsurance,
   IMedic,
   IPrescription,
-} from '../../../../../@types/standardTypes';
+} from '../../../../../@types/standardInterfaces';
 
 import { fetchAppointmentsByPrescription } from './functions/fetchAppointmentsByPrescription';
 import { identifyOldInsurance } from './functions/identifyOldInsurance';
 import { fetchCountriesData } from './functions/fetchCountriesData';
-import { ICountry } from '../../../../../@types/customTypes';
+import { ICountry } from '../../../../../@types/customInterfaces';
 import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
 interface StandardChoiceDropdownProps {

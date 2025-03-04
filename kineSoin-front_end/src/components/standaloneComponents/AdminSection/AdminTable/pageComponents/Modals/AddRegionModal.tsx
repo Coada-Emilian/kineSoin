@@ -6,19 +6,17 @@ import StandardTextInput from '../../../../generalComponents/StandardInputs/stan
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { on } from 'events';
 import { handleBodyRegionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
+import { useState } from 'react';
+import { useGlobalAdminContext } from '../../../../../pageComponents/AdminSection/GlobalAdminContext';
 
 interface AddRegionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  errorMessage: string;
 }
 
 export default function AddRegionModal({
   isOpen,
   onClose,
-  setErrorMessage,
-  errorMessage,
 }: AddRegionModalProps) {
   const createRegion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +30,8 @@ export default function AddRegionModal({
       console.error('Failed to create region');
     }
   };
+
+  const { errorMessage, setError } = useGlobalAdminContext();
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

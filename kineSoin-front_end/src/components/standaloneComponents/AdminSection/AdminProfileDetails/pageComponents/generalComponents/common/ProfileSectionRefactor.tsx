@@ -1,11 +1,11 @@
-import { IParticularEntityDetails } from '../../../../../../../@types/customTypes';
+import { IParticularEntityDetails } from '../../../../../../../@types/customInterfaces';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardTypes';
+} from '../../../../../../../@types/standardInterfaces';
 import DiplomaOutputRefactor from './Outputs/DiplomaOutputRefactor';
 import ExperienceOutputRefactor from './Outputs/ExperienceOutputRefactor';
 import LicenceCodeOutputRefactor from './Outputs/LicenceCodeOutputRefactor';

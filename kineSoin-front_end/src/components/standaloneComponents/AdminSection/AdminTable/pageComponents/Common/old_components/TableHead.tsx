@@ -5,7 +5,7 @@ import {
   IInsurance,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardTypes';
+} from '../../../../../../../@types/standardInterfaces';
 
 interface TableHeadProps {
   allTherapists?: ITherapist[];

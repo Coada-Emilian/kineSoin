@@ -41,7 +41,7 @@ export const getAdminTableElements = ({
     entityType: 'affliction',
     statusButtons: <AfflictionsStatusButtons setStatus={setAfflictionStatus} />,
     customBtnText: 'Ajouter une affliction',
-    BaseModalName: 'region',
+    modalName: 'addAffliction',
     regionButton: true,
     tableTitle: 'Toutes les afflictions',
     entityStatus: afflictionStatus,
