@@ -107,11 +107,14 @@ export default function AdminTableRefactor({
   const [regionDeleteModal, setRegionDeleteModal] = useState(false);
 
   // Function to open delete modal
-  const openDeleteModal = (entity: IEntityInterface) => {
+  const openDeleteModal = (
+    entity: IEntityInterface,
+    isRegionModal?: boolean
+  ) => {
     setSelectedEntity(entity);
+    isRegionModal && setRegionDeleteModal(true);
   };
 
-  // Watch for `selectedEntity` updates and open the modal when it's set
   useEffect(() => {
     if (selectedEntity) {
       setOpenModal('delete');
