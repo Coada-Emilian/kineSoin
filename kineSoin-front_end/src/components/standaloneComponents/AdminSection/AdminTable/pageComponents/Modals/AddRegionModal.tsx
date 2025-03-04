@@ -7,7 +7,7 @@ import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseMo
 import { on } from 'events';
 import { handleBodyRegionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { useState } from 'react';
-import { useGlobalAdminContext } from '../../../../../pageComponents/AdminSection/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../../../contexts/GlobalAdminContext';
 
 interface AddRegionModalProps {
   isOpen: boolean;

@@ -4,14 +4,6 @@ import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import RegionModal from '../pageComponents/Modals/RegionModal';
 import AddRegionModal from '../pageComponents/Modals/AddRegionModal';
 import {
-  IAffliction,
-  IBodyRegion,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../../@types/standardInterfaces';
-import {
   renderTherapists,
   renderPatients,
   renderAfflictions,
@@ -33,6 +25,7 @@ import {
   IEntityTypes,
   IModalTypes,
 } from '../../../../../@types/componentTypes';
+import { useAdminTableGlobalContext } from '../../../../../contexts/AdminTableGlobalContext';
 
 interface AdminTableRefactorProps {
   entities: IEntitiesInterfaces;
@@ -43,10 +36,19 @@ export default function AdminTableRefactor({
   entities,
   entityType,
 }: AdminTableRefactorProps) {
-  const [openModal, setOpenModal] = useState<IModalTypes | null>(null); // State for modal opening
-  const closeModal = () => {
-    setOpenModal(null);
-  };
+  // const [openModal, setOpenModal] = useState<IModalTypes | null>(null); // State for modal opening
+  // const closeModal = () => {
+  //   setOpenModal(null);
+  // };
+
+  const {
+    openModal,
+    setOpenModal,
+    selectedEntity,
+    setSelectedEntity,
+    setRegionDeleteModal,
+    closeModal,
+  } = useAdminTableGlobalContext();
 
   // States for status changes
   const [therapistStatus, setTherapistStatus] = useState<string>('all');
@@ -58,7 +60,7 @@ export default function AdminTableRefactor({
     entities || []
   );
 
-  const [selectedEntity, setSelectedEntity] = useState<IEntityInterface>(null);
+  // const [selectedEntity, setSelectedEntity] = useState<IEntityInterface>(null);
 
   //   // State for the add form
   const [addForm, setAddForm] = useState<IAddForm>({
@@ -104,7 +106,7 @@ export default function AdminTableRefactor({
     }
   }, [entityType, therapistStatus, patientStatus, afflictionStatus]);
 
-  const [regionDeleteModal, setRegionDeleteModal] = useState(false);
+  // const [regionDeleteModal, setRegionDeleteModal] = useState(false);
 
   // Function to open delete modal
   const openDeleteModal = (
@@ -183,7 +185,6 @@ export default function AdminTableRefactor({
           <TableBodyRefactor
             renderedEntities={renderedEntities}
             entityType={entityType}
-            openDeleteModal={openDeleteModal}
           />
         </table>
 
@@ -194,7 +195,6 @@ export default function AdminTableRefactor({
             selectedEntity ? (selectedEntity as IEntityInterface) : undefined
           }
           entityType={entityType}
-          regionDeleteModal={regionDeleteModal}
         />
 
         <FirstAddTherapistModal
@@ -234,7 +234,6 @@ export default function AdminTableRefactor({
           isOpen={openModal === 'region'}
           onClose={closeModal}
           setIsAddRegionModalOpen={() => setOpenModal('addRegion')}
-          openDeleteModal={openDeleteModal}
         />
 
         <AddRegionModal

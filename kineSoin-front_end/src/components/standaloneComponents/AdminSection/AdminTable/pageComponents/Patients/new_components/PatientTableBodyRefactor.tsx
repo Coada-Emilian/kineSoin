@@ -10,24 +10,17 @@ import {
   ITherapist,
 } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
+import { useAdminTableGlobalContext } from '../../../../../../../contexts/AdminTableGlobalContext';
 
 interface PatientTableBodyRefactorProps {
   renderedPatients: IPatient[];
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion
-  ) => void;
 }
 
 export default function PatientTableBodyRefactor({
   renderedPatients,
-  openDeleteModal,
 }: PatientTableBodyRefactorProps) {
+  const { openDeleteModal } = useAdminTableGlobalContext();
+
   return renderedPatients.map((patient: IPatient, index: number) => {
     const isLastRow = index === renderedPatients.length - 1;
     return (

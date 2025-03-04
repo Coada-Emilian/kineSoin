@@ -10,24 +10,16 @@ import {
   ITherapist,
 } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
+import { useAdminTableGlobalContext } from '../../../../../../../contexts/AdminTableGlobalContext';
 
 interface AfflictionTableBodyRefactorProps {
   renderedAfflictions: IAffliction[];
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion
-  ) => void;
 }
 
 export default function AfflictionTableBodyRefactor({
   renderedAfflictions,
-  openDeleteModal,
 }: AfflictionTableBodyRefactorProps) {
+  const { openDeleteModal } = useAdminTableGlobalContext();
   return renderedAfflictions.map((affliction: IAffliction, index: number) => {
     const isLastRow = index === renderedAfflictions.length - 1;
     return (

@@ -13,7 +13,8 @@ import {
   IEntityInterface,
   IEntityTypes,
 } from '../../../@types/componentTypes';
-import { useGlobalAdminContext } from './GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../contexts/GlobalAdminContext';
+import { AdminTableGlobalProvider } from '../../../contexts/AdminTableGlobalContext';
 
 interface AdminMain2Props {
   entityType: IEntityTypes;
@@ -23,6 +24,7 @@ export default function AdminMain2({ entityType }: AdminMain2Props) {
   //  Get the id from the URL
   const { id } = useParams();
   const entity_id = id ? parseInt(id, 10) : null;
+
   const [entity, setEntity] = useState<IEntityInterface | null>(null);
   const [entities, setEntities] = useState<IEntitiesInterfaces>([]);
   const { isLoading, setLoading } = useGlobalAdminContext();
@@ -76,7 +78,9 @@ export default function AdminMain2({ entityType }: AdminMain2Props) {
 
       <div className="w-full md:border-l-2 md:border-solid ">
         {entities.length > 0 && !id && (
-          <AdminTableRefactor entities={entities} entityType={entityType} />
+          <AdminTableGlobalProvider>
+            <AdminTableRefactor entities={entities} entityType={entityType} />
+          </AdminTableGlobalProvider>
         )}
 
         {id && (

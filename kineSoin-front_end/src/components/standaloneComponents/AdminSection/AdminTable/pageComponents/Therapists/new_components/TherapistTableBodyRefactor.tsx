@@ -13,16 +13,17 @@ import {
 import { Button } from '@headlessui/react';
 import { handleTherapistStatus } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/toggleTherapistStatus';
 import { IEntityInterface } from '../../../../../../../@types/componentTypes';
+import { useAdminTableGlobalContext } from '../../../../../../../contexts/AdminTableGlobalContext';
 
 interface TherapistTableBodyRefactorProps {
   renderedTherapists: ITherapist[];
-  openDeleteModal: (entity: IEntityInterface) => void;
 }
 
 export default function TherapistTableBodyRefactor({
   renderedTherapists,
-  openDeleteModal,
 }: TherapistTableBodyRefactorProps) {
+  const { openDeleteModal } = useAdminTableGlobalContext();
+
   return renderedTherapists.map((therapist: ITherapist, index: number) => {
     const isLastRow = index === renderedTherapists.length - 1;
     return (

@@ -13,29 +13,18 @@ import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseMo
 import RegionTable from '../../RegionTable';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { useGlobalAdminContext } from '../../../../../pageComponents/AdminSection/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../../../contexts/GlobalAdminContext';
 
 interface RegionModalProps {
   isOpen: boolean;
   onClose: () => void;
   setIsAddRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion,
-    isRegionModal?: boolean
-  ) => void;
 }
 
 export default function RegionModal({
   isOpen,
   onClose,
   setIsAddRegionModalOpen,
-  openDeleteModal,
 }: RegionModalProps) {
   // State to store all body regions fetched
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
@@ -63,7 +52,6 @@ export default function RegionModal({
           allBodyRegions={bodyRegions}
           setIsRegionModalOpen={onClose}
           setIsAddRegionModalOpen={setIsAddRegionModalOpen}
-          openDeleteModal={openDeleteModal}
         />
       </div>
 

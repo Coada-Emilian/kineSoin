@@ -5,7 +5,7 @@ import StandardTextInput from '../../../../../../generalComponents/StandardInput
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import { useGlobalAdminContext } from '../../../../../../../pageComponents/AdminSection/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
 
 interface FirstAddTherapistModalProps {
   isOpen: boolean;

@@ -16,25 +16,14 @@ interface TableBodyRefactorProps {
     | IMedic[]
     | IInsurance[];
   entityType: string;
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion
-  ) => void;
 }
 
 export default function TableBodyRefactor({
   renderedEntities,
   entityType,
-  openDeleteModal,
 }: TableBodyRefactorProps) {
   const entityTableBodies = getAdminEntityTableBodies({
     renderedEntities,
-    openDeleteModal,
   });
 
   const currentEntity = entityTableBodies.find(

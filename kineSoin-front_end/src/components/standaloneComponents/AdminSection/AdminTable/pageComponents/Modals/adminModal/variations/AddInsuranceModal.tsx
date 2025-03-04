@@ -5,7 +5,7 @@ import StandardTelephoneInput from '../../../../../../generalComponents/Standard
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleInsuranceSubmit } from '../utils/dataSubmitFunctions';
-import { useGlobalAdminContext } from '../../../../../../../pageComponents/AdminSection/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
 
 interface AddInsuranceModalProps {
   isOpen: boolean;

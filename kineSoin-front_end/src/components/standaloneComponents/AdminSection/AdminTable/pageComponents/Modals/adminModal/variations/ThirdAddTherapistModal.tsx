@@ -7,7 +7,7 @@ import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/
 import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
 import { createTherapist } from '../utils/createTherapist';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import { useGlobalAdminContext } from '../../../../../../../pageComponents/AdminSection/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
 
 interface ThirdAddTherapistModalProps {
   isOpen: boolean;

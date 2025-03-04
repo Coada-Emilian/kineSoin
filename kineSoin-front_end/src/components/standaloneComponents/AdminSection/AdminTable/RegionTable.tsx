@@ -14,23 +14,12 @@ interface RegionTableProps {
   setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   allBodyRegions: IBodyRegion[];
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion,
-    isRegionModal?: boolean
-  ) => void;
 }
 
 export default function RegionTable({
   setIsRegionModalOpen,
   setIsAddRegionModalOpen,
   allBodyRegions,
-  openDeleteModal,
 }: RegionTableProps) {
   return (
     <div className=" flex flex-col gap-2 items-end  md:mx-5 overflow-x-auto mx-auto max-h-[450px] md:max-h-[600px]">
@@ -65,13 +54,9 @@ export default function RegionTable({
           </tr>
         </thead>
         <tbody>
-          <RegionTableBody
-            allBodyRegions={allBodyRegions}
-            openDeleteModal={openDeleteModal}
-          />
+          <RegionTableBody allBodyRegions={allBodyRegions} />
         </tbody>
       </table>
-      {/* </div> */}
     </div>
   );
 }

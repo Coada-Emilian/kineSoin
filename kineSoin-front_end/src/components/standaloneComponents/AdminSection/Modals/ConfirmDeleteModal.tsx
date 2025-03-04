@@ -5,15 +5,17 @@ import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { getDeleteModalEntityDetails } from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getDeleteModalEntityDetails';
 import { IEntityInterface } from '../../../../@types/componentTypes';
-import { useGlobalAdminContext } from '../../../pageComponents/AdminSection/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../contexts/GlobalAdminContext';
 import { useEffect, useState } from 'react';
+import { useAdminTableGlobalContext } from '../../../../contexts/AdminTableGlobalContext';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
   entity: IEntityInterface;
   entityType: string;
-  regionDeleteModal?: boolean;
+  // regionDeleteModal?: boolean;
+  // setRegionDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ConfirmDeleteModal({
@@ -21,12 +23,16 @@ export default function ConfirmDeleteModal({
   onClose,
   entity,
   entityType,
-  regionDeleteModal,
+  // regionDeleteModal,
+  // setRegionDeleteModal,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   const { isLoading, setLoading } = useGlobalAdminContext();
 
   const [activeEntity, setActiveEntity] = useState<IEntityInterface>(null);
+
+  const { regionDeleteModal, setRegionDeleteModal } =
+    useAdminTableGlobalContext();
 
   useEffect(() => {
     if (entity) {
@@ -44,7 +50,7 @@ export default function ConfirmDeleteModal({
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col text-center items-center gap-3 w-fit p-6 text:xxs xs:text-xs md:text-sm lg:text-base xl:text-lg">
+      <div className="flex flex-col justify-center items-center text-center gap-3 w-fit p-6 text:xxs xs:text-xs md:text-sm lg:text-base xl:text-lg">
         {regionDeleteModal ? (
           <>
             <p>
@@ -63,6 +69,7 @@ export default function ConfirmDeleteModal({
                   onClose && onClose();
                   setLoading(true);
                   handleBodyRegionDeleteAsAdmin(entity.id);
+                  setRegionDeleteModal(false);
                   setLoading(false);
                   window.location.reload();
                 }}
@@ -71,7 +78,10 @@ export default function ConfirmDeleteModal({
               <CustomButton
                 btnText="Annuler"
                 cancelButton
-                onClick={() => onClose && onClose()}
+                onClick={() => {
+                  onClose && onClose();
+                  setRegionDeleteModal(false);
+                }}
               />
             </div>
           </>

@@ -19,26 +19,16 @@ interface FunctionProps {
     | IAffliction[]
     | IMedic[]
     | IInsurance[];
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion
-  ) => void;
 }
 export const getAdminEntityTableBodies = ({
   renderedEntities,
-  openDeleteModal,
+  // openDeleteModal,
 }: FunctionProps) => [
   {
     entityType: 'therapist',
     component: (
       <TherapistTableBodyRefactor
         renderedTherapists={renderedEntities as ITherapist[]}
-        openDeleteModal={openDeleteModal}
       />
     ),
   },
@@ -47,7 +37,6 @@ export const getAdminEntityTableBodies = ({
     component: (
       <PatientTableBodyRefactor
         renderedPatients={renderedEntities as IPatient[]}
-        openDeleteModal={openDeleteModal}
       />
     ),
   },
@@ -56,17 +45,13 @@ export const getAdminEntityTableBodies = ({
     component: (
       <AfflictionTableBodyRefactor
         renderedAfflictions={renderedEntities as IAffliction[]}
-        openDeleteModal={openDeleteModal}
       />
     ),
   },
   {
     entityType: 'medic',
     component: (
-      <MedicTableBodyRefactor
-        renderedMedics={renderedEntities as IMedic[]}
-        openDeleteModal={openDeleteModal}
-      />
+      <MedicTableBodyRefactor renderedMedics={renderedEntities as IMedic[]} />
     ),
   },
   {
@@ -74,7 +59,6 @@ export const getAdminEntityTableBodies = ({
     component: (
       <InsuranceTableBodyRefactor
         renderedInsurances={renderedEntities as IInsurance[]}
-        openDeleteModal={openDeleteModal}
       />
     ),
   },

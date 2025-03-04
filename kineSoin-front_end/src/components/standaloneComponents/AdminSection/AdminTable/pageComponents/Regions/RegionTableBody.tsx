@@ -9,25 +9,17 @@ import {
   ITherapist,
 } from '../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
+import { useAdminTableGlobalContext } from '../../../../../../contexts/AdminTableGlobalContext';
 
 interface RegionTableBodyProps {
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion,
-    isRegionModal?: boolean
-  ) => void;
   allBodyRegions: IBodyRegion[];
 }
 
 export default function RegionTableBody({
   allBodyRegions,
-  openDeleteModal,
 }: RegionTableBodyProps) {
+  const { openDeleteModal } = useAdminTableGlobalContext();
+  
   return allBodyRegions.map((region: IBodyRegion, index: number) => {
     const isLastRow = index === allBodyRegions.length - 1;
     return (

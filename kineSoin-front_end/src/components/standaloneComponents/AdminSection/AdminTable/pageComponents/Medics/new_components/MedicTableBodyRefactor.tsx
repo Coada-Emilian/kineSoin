@@ -10,24 +10,16 @@ import {
   ITherapist,
 } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
+import { useAdminTableGlobalContext } from '../../../../../../../contexts/AdminTableGlobalContext';
 
 interface MedicTableBodyRefactorProps {
-  openDeleteModal: (
-    entity:
-      | ITherapist
-      | IPatient
-      | IAffliction
-      | IMedic
-      | IInsurance
-      | IBodyRegion
-  ) => void;
   renderedMedics: IMedic[];
 }
 
 export default function MedicTableBodyRefactor({
-  openDeleteModal,
   renderedMedics,
 }: MedicTableBodyRefactorProps) {
+  const { openDeleteModal } = useAdminTableGlobalContext();
   return renderedMedics.map((medic: IMedic, index: number) => {
     const isLastRow = index === renderedMedics.length - 1;
     return (
