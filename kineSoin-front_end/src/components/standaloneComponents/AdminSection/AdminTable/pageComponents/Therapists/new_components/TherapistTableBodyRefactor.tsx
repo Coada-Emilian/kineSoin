@@ -13,7 +13,7 @@ import {
 import { Button } from '@headlessui/react';
 import { handleTherapistStatus } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/toggleTherapistStatus';
 import { IEntityInterface } from '../../../../../../../@types/componentTypes';
-import { useAdminTableGlobalContext } from '../../../../../../../contexts/AdminTableGlobalContext';
+import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 
 interface TherapistTableBodyRefactorProps {
   renderedTherapists: ITherapist[];

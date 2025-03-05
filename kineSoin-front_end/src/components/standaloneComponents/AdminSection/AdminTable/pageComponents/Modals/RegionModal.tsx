@@ -13,7 +13,7 @@ import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseMo
 import RegionTable from '../../RegionTable';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { useGlobalAdminContext } from '../../../../../../contexts/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../../../utils/contexts/GlobalAdminContext';
 
 interface RegionModalProps {
   isOpen: boolean;

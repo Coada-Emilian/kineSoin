@@ -25,8 +25,8 @@ import {
   IEntityTypes,
   IModalTypes,
 } from '../../../../../@types/componentTypes';
-import { useAdminTableGlobalContext } from '../../../../../contexts/AdminTableGlobalContext';
-import { AdminAddTherapistFormGlobalProvider } from '../../../../../contexts/AdminAddTherapistFormGlobalContext';
+import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
+import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 
 interface AdminTableRefactorProps {
   entities: IEntitiesInterfaces;

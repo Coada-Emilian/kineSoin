@@ -69,8 +69,10 @@ export default function CustomButton({
   therapistLogoutButton,
 }: CustomButtonProps) {
   const getBtnBackground = () => {
-    if (normalButton || navBarButton || mobileButton || allButton) {
+    if (navBarButton || mobileButton || allButton) {
       return 'bg-primaryTeal hover:bg-secondaryTeal hidden md:block';
+    } else if (normalButton) {
+      return 'bg-primaryTeal hover:bg-secondaryTeal';
     } else if (cancelButton || mobileCancelButton) {
       return 'bg-gray-300 hover:bg-gray-300 border border-2 border-white';
     } else if (modifyButton) {

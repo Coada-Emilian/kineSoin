@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { IAddForm } from '../@types/formInterfaces';
+import { IAddForm } from '../../@types/formInterfaces';
 
 // Define the type for the context
 interface AdminAddTherapistFormGlobalContextType {

@@ -10,7 +10,7 @@ import {
   ITherapist,
 } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
-import { useAdminTableGlobalContext } from '../../../../../../../contexts/AdminTableGlobalContext';
+import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 
 interface MedicTableBodyRefactorProps {
   renderedMedics: IMedic[];

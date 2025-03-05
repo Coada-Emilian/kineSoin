@@ -13,8 +13,8 @@ import {
   IEntityInterface,
   IEntityTypes,
 } from '../../../@types/componentTypes';
-import { useGlobalAdminContext } from '../../../contexts/GlobalAdminContext';
-import { AdminTableGlobalProvider } from '../../../contexts/AdminTableGlobalContext';
+import { useGlobalAdminContext } from '../../../utils/contexts/GlobalAdminContext';
+import { AdminTableGlobalProvider } from '../../../utils/contexts/AdminTableGlobalContext';
 
 interface AdminMain2Props {
   entityType: IEntityTypes;

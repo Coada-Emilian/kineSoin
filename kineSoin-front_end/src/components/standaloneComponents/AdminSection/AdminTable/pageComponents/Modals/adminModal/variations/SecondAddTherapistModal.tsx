@@ -6,8 +6,8 @@ import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/
 import { addSecondFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useState } from 'react';
-import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
-import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../contexts/AdminAddTherapistFormGlobalContext';
+import { useGlobalAdminContext } from '../../../../../../../../utils/contexts/GlobalAdminContext';
+import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 
 interface SecondAddTherapistModalProps {
   isOpen: boolean;

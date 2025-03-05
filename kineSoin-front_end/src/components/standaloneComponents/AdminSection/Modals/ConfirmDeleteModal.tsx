@@ -5,9 +5,9 @@ import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { getDeleteModalEntityDetails } from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getDeleteModalEntityDetails';
 import { IEntityInterface } from '../../../../@types/componentTypes';
-import { useGlobalAdminContext } from '../../../../contexts/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../utils/contexts/GlobalAdminContext';
 import { useEffect, useState } from 'react';
-import { useAdminTableGlobalContext } from '../../../../contexts/AdminTableGlobalContext';
+import { useAdminTableGlobalContext } from '../../../../utils/contexts/AdminTableGlobalContext';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;

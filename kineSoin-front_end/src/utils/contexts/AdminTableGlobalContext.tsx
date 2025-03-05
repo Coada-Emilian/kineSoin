@@ -5,7 +5,7 @@ import {
   useEffect, // Hook to perform side effects when dependencies change
   ReactNode, // Type for defining children components
 } from 'react';
-import { IEntityInterface } from '../@types/componentTypes'; // Importing the entity interface type
+import { IEntityInterface } from '../../@types/componentTypes'; // Importing the entity interface type
 
 // Define the shape of the context
 interface AdminTableGlobalContextType {

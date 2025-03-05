@@ -9,7 +9,7 @@ import {
   ITherapist,
 } from '../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
-import { useAdminTableGlobalContext } from '../../../../../../contexts/AdminTableGlobalContext';
+import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
 
 interface RegionTableBodyProps {
   allBodyRegions: IBodyRegion[];
@@ -19,7 +19,7 @@ export default function RegionTableBody({
   allBodyRegions,
 }: RegionTableBodyProps) {
   const { openDeleteModal } = useAdminTableGlobalContext();
-  
+
   return allBodyRegions.map((region: IBodyRegion, index: number) => {
     const isLastRow = index === allBodyRegions.length - 1;
     return (

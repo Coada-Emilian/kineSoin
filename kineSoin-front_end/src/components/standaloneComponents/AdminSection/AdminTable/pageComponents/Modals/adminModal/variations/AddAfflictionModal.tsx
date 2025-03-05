@@ -4,7 +4,7 @@ import StandardChoiceDropdown from '../../../../../../generalComponents/Standard
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleAfflictionSubmit } from '../utils/dataSubmitFunctions';
-import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
+import { useGlobalAdminContext } from '../../../../../../../../utils/contexts/GlobalAdminContext';
 
 interface AddAfflictionModalProps {
   isOpen: boolean;
