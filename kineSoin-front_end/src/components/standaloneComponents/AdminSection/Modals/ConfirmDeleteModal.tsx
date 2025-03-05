@@ -5,7 +5,7 @@ import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { getDeleteModalEntityDetails } from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getDeleteModalEntityDetails';
 import { IEntityInterface } from '../../../../@types/componentTypes';
-import { useGlobalAdminContext } from '../../../../utils/contexts/GlobalAdminContext';
+import { useGlobalContext } from '../../../../utils/contexts/GlobalContext';
 import { useEffect, useState } from 'react';
 import { useAdminTableGlobalContext } from '../../../../utils/contexts/AdminTableGlobalContext';
 
@@ -27,7 +27,7 @@ export default function ConfirmDeleteModal({
   // setRegionDeleteModal,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
-  const { isLoading, setLoading } = useGlobalAdminContext();
+  const { isLoading, setLoading } = useGlobalContext();
 
   const [activeEntity, setActiveEntity] = useState<IEntityInterface>(null);
 

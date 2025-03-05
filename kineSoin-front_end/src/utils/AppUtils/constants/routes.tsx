@@ -1,3 +1,7 @@
+import HomePageMain from '../../../components/pageComponents/PublicSection/HomePageMain';
+import PatientLoginMain from '../../../components/pageComponents/PublicSection/PatientLoginMain';
+import TherapistLoginMain from '../../../components/pageComponents/PublicSection/TherapistLoginMain';
+
 export const adminRoutes: {
   path: string;
   entityType: 'therapist' | 'patient' | 'affliction' | 'medic' | 'insurance';
@@ -15,6 +19,25 @@ export const adminRoutes: {
   { path: 'medics/:id', entityType: 'medic' },
   { path: 'insurances', entityType: 'insurance' },
   { path: 'insurances/:id', entityType: 'insurance' },
+];
+
+export const publicRoutes: {
+  path?: string;
+  element: JSX.Element;
+  index?: boolean;
+}[] = [
+  {
+    index: true,
+    element: <HomePageMain />,
+  }
+  {
+    path: 'loginPatient',
+    element: <PatientLoginMain />,
+  },
+  {
+    path: 'loginTherapist',
+    element: <TherapistLoginMain />,
+  },
 ];
 
 export const patientRoutes = [

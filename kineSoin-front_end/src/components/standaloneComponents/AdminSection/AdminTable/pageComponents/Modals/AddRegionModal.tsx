@@ -1,13 +1,9 @@
 // Purpose: The purpose of this component is to render the add region modal.
-
-import ReactModal from 'react-modal';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import StandardTextInput from '../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { on } from 'events';
 import { handleBodyRegionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { useState } from 'react';
-import { useGlobalAdminContext } from '../../../../../../utils/contexts/GlobalAdminContext';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 
 interface AddRegionModalProps {
   isOpen: boolean;
@@ -31,7 +27,7 @@ export default function AddRegionModal({
     }
   };
 
-  const { errorMessage, setError } = useGlobalAdminContext();
+  const { errorMessage } = useGlobalContext();
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

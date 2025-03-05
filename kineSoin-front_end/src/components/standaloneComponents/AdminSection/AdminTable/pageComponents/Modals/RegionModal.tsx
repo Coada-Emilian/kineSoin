@@ -1,19 +1,10 @@
 import { useEffect, useState } from 'react';
-import ReactModal from 'react-modal';
-import AdminTable from '../../old_components/AdminTable';
-import {
-  IAffliction,
-  IBodyRegion,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+import { IBodyRegion } from '../../../../../../@types/standardInterfaces';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import RegionTable from '../../RegionTable';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { useGlobalAdminContext } from '../../../../../../utils/contexts/GlobalAdminContext';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 
 interface RegionModalProps {
   isOpen: boolean;
@@ -29,7 +20,7 @@ export default function RegionModal({
   // State to store all body regions fetched
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
-  const { errorMessage, setError } = useGlobalAdminContext();
+  const { errorMessage } = useGlobalContext();
 
   useEffect(() => {
     fetchBodyRegionsAsAdmin().then((bodyRegions) => {

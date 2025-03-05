@@ -13,8 +13,8 @@ import {
   IEntityInterface,
   IEntityTypes,
 } from '../../../@types/componentTypes';
-import { useGlobalAdminContext } from '../../../utils/contexts/GlobalAdminContext';
 import { AdminTableGlobalProvider } from '../../../utils/contexts/AdminTableGlobalContext';
+import { useGlobalContext } from '../../../utils/contexts/GlobalContext';
 
 interface AdminMain2Props {
   entityType: IEntityTypes;
@@ -27,7 +27,7 @@ export default function AdminMain2({ entityType }: AdminMain2Props) {
 
   const [entity, setEntity] = useState<IEntityInterface | null>(null);
   const [entities, setEntities] = useState<IEntitiesInterfaces>([]);
-  const { isLoading, setLoading } = useGlobalAdminContext();
+  const { isLoading, setLoading } = useGlobalContext();
 
   // Fetch all the data to be displayed in the table
   useEffect(() => {

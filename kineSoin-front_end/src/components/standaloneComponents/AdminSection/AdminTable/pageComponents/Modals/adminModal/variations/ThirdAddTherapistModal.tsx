@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardEmailInput from '../../../../../../generalComponents/StandardInputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../../../generalComponents/StandardInputs/StandardPasswordInput';
@@ -7,7 +6,7 @@ import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/
 import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
 import { createTherapist } from '../utils/createTherapist';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import { useGlobalAdminContext } from '../../../../../../../../utils/contexts/GlobalAdminContext';
+import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 
 interface ThirdAddTherapistModalProps {
@@ -24,7 +23,7 @@ export default function ThirdAddTherapistModal({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { errorMessage, setError } = useGlobalAdminContext();
+  const { errorMessage, setError } = useGlobalContext();
 
   const { setAddForm, addForm } = useAdminAddTherapistFormGlobalContext();
 

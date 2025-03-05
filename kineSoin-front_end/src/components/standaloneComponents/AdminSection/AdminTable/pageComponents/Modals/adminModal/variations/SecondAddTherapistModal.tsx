@@ -1,12 +1,11 @@
-import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addSecondFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import { useState } from 'react';
-import { useGlobalAdminContext } from '../../../../../../../../utils/contexts/GlobalAdminContext';
+
+import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 
 interface SecondAddTherapistModalProps {
@@ -22,7 +21,7 @@ export default function SecondAddTherapistModal({
 
   setIsAddTherapistModalP3Open,
 }: SecondAddTherapistModalProps) {
-  const { errorMessage, setError } = useGlobalAdminContext();
+  const { errorMessage, setError } = useGlobalContext();
   const { setAddForm } = useAdminAddTherapistFormGlobalContext();
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

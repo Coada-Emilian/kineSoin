@@ -8,7 +8,6 @@ import {
   renderPatients,
   renderAfflictions,
 } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
-import { IAddForm } from '../../../../../@types/formInterfaces';
 import TableTitleRefactor from '../pageComponents/Common/new_components/TableTitleRefactor';
 import TableHeadRefactor from '../pageComponents/Common/new_components/TableHeadRefactor';
 import TableBodyRefactor from '../pageComponents/Common/new_components/TableBodyRefactor';
@@ -55,25 +54,6 @@ export default function AdminTableRefactor({
   const [renderedEntities, setRenderedEntities] = useState<IEntitiesInterfaces>(
     entities || []
   );
-
-  // //   // State for the add form
-  // const [addForm, setAddForm] = useState<IAddForm>({
-  //   name: '',
-  //   surname: '',
-  //   email: '',
-  //   password: '',
-  //   repeated_password: '',
-  //   description: '',
-  //   diploma: '',
-  //   experience: '',
-  //   specialty: '',
-  //   licence_code: '',
-  //   status: '',
-  //   photo: undefined,
-  //   prefix: '',
-  //   phone_number: '',
-  //   full_phone_number: '',
-  // });
 
   // useEffects to set rendered therapists, patients, afflictions
   useEffect(() => {

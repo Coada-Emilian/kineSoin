@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleAfflictionSubmit } from '../utils/dataSubmitFunctions';
-import { useGlobalAdminContext } from '../../../../../../../../utils/contexts/GlobalAdminContext';
+import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 
 interface AddAfflictionModalProps {
   isOpen: boolean;
@@ -15,7 +14,7 @@ export default function AddAfflictionModal({
   isOpen,
   onClose,
 }: AddAfflictionModalProps) {
-  const { errorMessage, setError } = useGlobalAdminContext();
+  const { errorMessage, setError } = useGlobalContext();
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">

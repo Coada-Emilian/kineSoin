@@ -3,19 +3,19 @@ import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/pa
 import { checkPatientAuthentication } from '../../AppUtils/authentificationFunctions/appAuthentificationFunctions';
 
 // Define the context type
-interface PatientAuthentificationGlobalContextType {
+interface PatientAuthentificationContextType {
   isPatientAuthenticated: boolean;
   patientProfileToken: string | null;
   setPatientProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 // Create the context with default values
-export const PatientAuthentificationGlobalContext = createContext<
-  PatientAuthentificationGlobalContextType | undefined
+export const PatientAuthentificationContext = createContext<
+  PatientAuthentificationContextType | undefined
 >(undefined);
 
 // Provider component to manage and provide authentication state
-export const PatientAuthentificationGlobalContextProvider: React.FC<{
+export const PatientAuthentificationContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
   const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
@@ -53,7 +53,7 @@ export const PatientAuthentificationGlobalContextProvider: React.FC<{
   }, [patientProfileToken]);
 
   return (
-    <PatientAuthentificationGlobalContext.Provider
+    <PatientAuthentificationContext.Provider
       value={{
         isPatientAuthenticated,
         patientProfileToken,
@@ -61,6 +61,20 @@ export const PatientAuthentificationGlobalContextProvider: React.FC<{
       }}
     >
       {children}
-    </PatientAuthentificationGlobalContext.Provider>
+    </PatientAuthentificationContext.Provider>
   );
 };
+
+export const usePatientAuthentificationContext = () => {
+  const context = React.useContext(PatientAuthentificationContext);
+
+  if (!context) {
+    throw new Error(
+      'usePatientAuthentificationContext must be used within a PatientAuthentificationContext'
+    );
+  }
+
+  return context;
+};
+
+export default PatientAuthentificationContext;

@@ -5,7 +5,7 @@ import StandardTextInput from '../../../../../../generalComponents/StandardInput
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import { useGlobalAdminContext } from '../../../../../../../../utils/contexts/GlobalAdminContext';
+import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 
 interface FirstAddTherapistModalProps {
@@ -24,7 +24,7 @@ export default function FirstAddTherapistModal({
     null
   );
 
-  const { errorMessage, setError } = useGlobalAdminContext();
+  const { errorMessage, setError } = useGlobalContext();
 
   const { setAddForm } = useAdminAddTherapistFormGlobalContext();
 

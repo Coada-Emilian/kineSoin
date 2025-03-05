@@ -14,7 +14,7 @@ export default function ArticleRow({
   articleAlt,
 }: ArticleRowProps) {
   return (
-    <article className="mx-4 flex flex-col md:flex-row md:gap-4 md:justify-between md:items-center px-6 md:px-60">
+    <article className="mx-4 flex flex-col md:flex-row md:gap-4 md:justify-between md:items-center px-6 md:px-20">
       {isReversed ? (
         <>
           <img

@@ -4,19 +4,19 @@ import { checkTherapistAuthentication } from '../../AppUtils/authentificationFun
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
 
 // Define the context type
-interface TherapistAuthentificationGlobalContextType {
+interface TherapistAuthentificationContextType {
   isTherapistAuthenticated: boolean;
   therapistProfileToken: string | null;
   setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 // Create the context with default values
-export const TherapistAuthentificationGlobalContext = createContext<
-  TherapistAuthentificationGlobalContextType | undefined
+export const TherapistAuthentificationContext = createContext<
+  TherapistAuthentificationContextType | undefined
 >(undefined);
 
 // Provider component to manage and provide authentication state
-export const TherapistAuthentificationGlobalContextProvider: React.FC<{
+export const TherapistAuthentificationContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
@@ -55,7 +55,7 @@ export const TherapistAuthentificationGlobalContextProvider: React.FC<{
   }, [therapistProfileToken]);
 
   return (
-    <TherapistAuthentificationGlobalContext.Provider
+    <TherapistAuthentificationContext.Provider
       value={{
         isTherapistAuthenticated,
         therapistProfileToken,
@@ -63,6 +63,20 @@ export const TherapistAuthentificationGlobalContextProvider: React.FC<{
       }}
     >
       {children}
-    </TherapistAuthentificationGlobalContext.Provider>
+    </TherapistAuthentificationContext.Provider>
   );
 };
+
+export const useTherapistAuthentificationContext = () => {
+  const context = React.useContext(TherapistAuthentificationContext);
+
+  if (!context) {
+    throw new Error(
+      'useTherapistAuthentificationContext must be used within a TherapistAuthentificationContext'
+    );
+  }
+
+  return context;
+};
+
+export default TherapistAuthentificationContext;

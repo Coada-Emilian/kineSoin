@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
 import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleInsuranceSubmit } from '../utils/dataSubmitFunctions';
-import { useGlobalAdminContext } from '../../../../../../../../utils/contexts/GlobalAdminContext';
+import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 
 interface AddInsuranceModalProps {
   isOpen: boolean;
@@ -16,7 +15,7 @@ export default function AddInsuranceModal({
   isOpen,
   onClose,
 }: AddInsuranceModalProps) {
-  const { errorMessage, setError } = useGlobalAdminContext();
+  const { errorMessage, setError } = useGlobalContext();
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
