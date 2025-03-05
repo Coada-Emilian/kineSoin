@@ -15,12 +15,13 @@ import { removeTherapistTokenFromLocalStorage } from '../../../../localStorage/t
 interface NavBarProps {
   isAdminNavBar?: boolean;
   isAdminAuthenticated?: boolean;
+  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAdminProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
 
   isPublicNavBar?: boolean;
 
   isPatientNavBar?: boolean;
   isPatientAuthenticated?: boolean;
-  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRegisterPageRendered?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,6 +36,7 @@ interface NavBarProps {
 export default function NavBar({
   isAdminNavBar,
   isAdminAuthenticated,
+  setAdminProfileToken,
 
   isPublicNavBar,
 
@@ -57,6 +59,9 @@ export default function NavBar({
     removeAdminTokenFromLocalStorage();
     if (setIsAdminAuthenticated) {
       setIsAdminAuthenticated(false);
+    }
+    if (setAdminProfileToken) {
+      setAdminProfileToken(null);
     }
     navigate('/loginAdmin');
   };

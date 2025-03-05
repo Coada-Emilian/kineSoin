@@ -25,7 +25,7 @@ export default function AdminLoginPage({
     if (adminProfileToken) {
       navigate('/admin/therapists');
     }
-  }, [adminProfileToken, navigate]);
+  }, [adminProfileToken]);
 
   if (isLoading) {
     return DNALoader();
@@ -58,7 +58,6 @@ export default function AdminLoginPage({
             checkAdminCredentials(e, {
               setAdminProfileToken,
               setErrorMessage,
-              navigate,
             }).finally(() => setIsLoading(false));
           }}
           className="space-y-4"

@@ -267,6 +267,7 @@ function App() {
               isAdminLayout
               isAdminAuthenticated={isAdminAuthenticated}
               setIsAdminAuthenticated={setIsAdminAuthenticated}
+              setAdminProfileToken={setAdminProfileToken}
             />
           }
         >

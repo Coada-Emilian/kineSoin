@@ -16,6 +16,7 @@ interface LayoutProps {
 
   isAdminAuthenticated?: boolean;
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAdminProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
 
   isPatientAuthenticated?: boolean;
   setIsPatientAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,6 +38,7 @@ export function Layout({
 
   isAdminAuthenticated,
   setIsAdminAuthenticated,
+  setAdminProfileToken,
 
   setIsPatientAuthenticated,
   isPatientAuthenticated,
@@ -56,6 +58,7 @@ export function Layout({
       isAdminNavBar: true,
       isAdminAuthenticated,
       setIsAdminAuthenticated,
+      setAdminProfileToken,
     }),
     ...(isPatientLayout && {
       isPatientNavBar: true,
@@ -87,7 +90,7 @@ export function Layout({
       <Outlet />
 
       <Footer {...footerProps} />
-      
+
       <MobileNav {...mobileNavProps} />
     </div>
   );

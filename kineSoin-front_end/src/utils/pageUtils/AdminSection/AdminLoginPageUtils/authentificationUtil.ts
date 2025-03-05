@@ -5,7 +5,6 @@ import { handleAdminLogin } from '../../../apiUtils/publicApiUtils';
 interface AuthentificationUtilsProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  navigate: NavigateFunction;
 }
 
 export const checkAdminCredentials = async (
@@ -13,7 +12,6 @@ export const checkAdminCredentials = async (
   {
     setAdminProfileToken,
     setErrorMessage,
-    navigate,
   }: AuthentificationUtilsProps
 ) => {
   e.preventDefault();
