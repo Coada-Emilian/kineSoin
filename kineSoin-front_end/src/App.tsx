@@ -22,6 +22,7 @@ import {
 } from './utils/AppUtils/constants/routes';
 import { PublicLayout } from './utils/AppUtils/appLayouts/PublicLayout';
 import { GlobalContextProvider } from './utils/contexts/GlobalContext';
+import PublicMain from './components/pageComponents/PublicSection/PublicMain';
 
 function App() {
   // Authentication states
@@ -168,28 +169,11 @@ function App() {
           {publicRoutes.map((route) => (
             <Route
               path={route.path}
-              key={route.path}
+              key={route.id}
               element={route.element}
               index={route.index}
             />
           ))}
-
-          {/* <Route
-            path="registerPatient"
-            element={
-              <PublicMain
-                isPatientRegisterPageMain
-                isFirstFormValidated={isFirstFormValidated}
-                isSecondFormValidated={isSecondFormValidated}
-                isThirdFormValidated={isThirdFormValidated}
-                setIsFirstFormValidated={setIsFirstFormValidated}
-                setIsSecondFormValidated={setIsSecondFormValidated}
-                setIsThirdFormValidated={setIsThirdFormValidated}
-                isGlobalFormSubmitted={isGlobalFormSubmitted}
-                setIsGlobalFormSubmitted={setIsGlobalFormSubmitted}
-              />
-            }
-          /> */}
 
           <Route path="*" element={<ErrorPage isPublicErrorPage />} />
         </Route>

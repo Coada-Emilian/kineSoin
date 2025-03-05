@@ -16,6 +16,7 @@ interface RegisterFormUtilsProps {
   sentPatientData?: Record<string, string | Blob>;
   isThirdFormValidated?: boolean;
   setIsGlobalFormSubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
+  setError: (message: string | null) => void;
 }
 
 // Patient registration function for the first form
@@ -290,14 +291,13 @@ export const handleThirdPatientRegisterForm = async (
 };
 
 export const registerPatient = async ({
+  setError,
   isThirdFormValidated,
-  setIsLoading,
   sentPatientData,
   setIsGlobalFormSubmitted,
 }: RegisterFormUtilsProps) => {
   if (isThirdFormValidated) {
     try {
-      setIsLoading && setIsLoading(true);
       const formData = new FormData();
       Object.entries(sentPatientData || {}).forEach(([key, value]) => {
         formData.append(key, value as string | Blob);
@@ -305,12 +305,10 @@ export const registerPatient = async ({
       const response = await handlePatientRegistration(formData);
       if (response) {
         if (setIsGlobalFormSubmitted) {
-          setIsLoading && setIsLoading(false);
           setIsGlobalFormSubmitted(true);
         }
       }
     } catch (error) {
-      setIsLoading && setIsLoading(false);
       console.error(error);
     }
   }

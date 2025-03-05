@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 // Define the shape of the context state
-interface PatientRegisterGlobalContextType {
+interface PatientRegisterContextType {
   isRegisterPageRendered: boolean;
   setIsRegisterPageRendered: React.Dispatch<React.SetStateAction<boolean>>;
   isFirstFormValidated: boolean;
@@ -15,12 +15,12 @@ interface PatientRegisterGlobalContextType {
 }
 
 // Create a context with an empty default value
-const PatientRegisterGlobalContext = createContext<
-  PatientRegisterGlobalContextType | undefined
+const PatientRegisterContext = createContext<
+  PatientRegisterContextType | undefined
 >(undefined);
 
 // Provider component
-export const PatientRegisterGlobalContextProvider: React.FC<{
+export const PatientRegisterContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
   // Form state hooks
@@ -36,7 +36,7 @@ export const PatientRegisterGlobalContextProvider: React.FC<{
     useState<boolean>(false);
 
   return (
-    <PatientRegisterGlobalContext.Provider
+    <PatientRegisterContext.Provider
       value={{
         isRegisterPageRendered,
         setIsRegisterPageRendered,
@@ -51,18 +51,17 @@ export const PatientRegisterGlobalContextProvider: React.FC<{
       }}
     >
       {children}
-    </PatientRegisterGlobalContext.Provider>
+    </PatientRegisterContext.Provider>
   );
 };
 
 // Custom hook to use the context in any component
-export const usePatientRegisterGlobalContext =
-  (): PatientRegisterGlobalContextType => {
-    const context = useContext(PatientRegisterGlobalContext);
-    if (!context) {
-      throw new Error(
-        'useRegisterForm must be used within a RegisterFormProvider'
-      );
-    }
-    return context;
-  };
+export const usePatientRegisterContext = (): PatientRegisterContextType => {
+  const context = useContext(PatientRegisterContext);
+  if (!context) {
+    throw new Error(
+      'useRegisterForm must be used within a RegisterFormProvider'
+    );
+  }
+  return context;
+};

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
 import CustomButton from '../CustomButton/CustomButton';
-import { usePatientRegisterGlobalContext } from '../../../../utils/contexts/PatientRegisterGlobalContext';
+import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext';
 
 export default function PublicNavBar() {
   const {
@@ -14,7 +14,7 @@ export default function PublicNavBar() {
     setIsSecondFormValidated,
     setIsThirdFormValidated,
     setIsRegisterPageRendered,
-  } = usePatientRegisterGlobalContext();
+  } = usePatientRegisterContext();
 
   const onClickFunction = () => {
     isFirstFormValidated

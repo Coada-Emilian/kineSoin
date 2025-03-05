@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { publicLinks } from './constants/links';
-import { usePatientRegisterGlobalContext } from '../../../../utils/contexts/PatientRegisterGlobalContext';
+import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext';
 import { useEffect } from 'react';
 
 export default function PublicMobileNav() {
@@ -13,7 +13,7 @@ export default function PublicMobileNav() {
     setIsThirdFormValidated,
     isGlobalFormSubmitted,
     setIsGlobalFormSubmitted,
-  } = usePatientRegisterGlobalContext();
+  } = usePatientRegisterContext();
 
   const onClickBehavior = () => {
     if (isFirstFormValidated) {

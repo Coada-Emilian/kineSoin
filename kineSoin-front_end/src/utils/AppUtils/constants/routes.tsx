@@ -1,5 +1,6 @@
 import HomePageMain from '../../../components/pageComponents/PublicSection/HomePageMain';
 import PatientLoginMain from '../../../components/pageComponents/PublicSection/PatientLoginMain';
+import PatientRegisterMain from '../../../components/pageComponents/PublicSection/PatientRegisterMain';
 import TherapistLoginMain from '../../../components/pageComponents/PublicSection/TherapistLoginMain';
 
 export const adminRoutes: {
@@ -25,19 +26,24 @@ export const publicRoutes: {
   path?: string;
   element: JSX.Element;
   index?: boolean;
+  id: number;
 }[] = [
   {
     index: true,
     element: <HomePageMain />,
-  }
+    id: 1,
+  },
   {
     path: 'loginPatient',
     element: <PatientLoginMain />,
+    id: 2,
   },
   {
     path: 'loginTherapist',
     element: <TherapistLoginMain />,
+    id: 3,
   },
+  { path: 'registerPatient', element: <PatientRegisterMain />, id: 4 },
 ];
 
 export const patientRoutes = [
