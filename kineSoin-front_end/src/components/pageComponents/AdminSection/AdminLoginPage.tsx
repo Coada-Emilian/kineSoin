@@ -1,6 +1,6 @@
-import CustomButton from '../../standaloneComponents/generalComponents/CustomButton/CustomButton.tsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import CustomButton from '../../standaloneComponents/generalComponents/CustomButton/CustomButton.tsx';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
 import { checkAdminCredentials } from '../../../utils/pageUtils/AdminSection/AdminLoginPageUtils/authentificationUtil.ts';
@@ -9,14 +9,23 @@ import StandardPasswordInput from '../../standaloneComponents/generalComponents/
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
+  adminProfileToken: string | null;
 }
 
 export default function AdminLoginPage({
   setAdminProfileToken,
+  adminProfileToken,
 }: AdminLoginPageProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  // Ensure navigation happens only when adminProfileToken is set
+  useEffect(() => {
+    if (adminProfileToken) {
+      navigate('/admin/therapists');
+    }
+  }, [adminProfileToken, navigate]);
 
   if (isLoading) {
     return DNALoader();
@@ -44,14 +53,14 @@ export default function AdminLoginPage({
         )}
 
         <form
-          onSubmit={(e) =>
+          onSubmit={(e) => {
+            setIsLoading(true);
             checkAdminCredentials(e, {
               setAdminProfileToken,
               setErrorMessage,
-              setIsLoading,
               navigate,
-            })
-          }
+            }).finally(() => setIsLoading(false));
+          }}
           className="space-y-4"
         >
           <StandardEmailInput

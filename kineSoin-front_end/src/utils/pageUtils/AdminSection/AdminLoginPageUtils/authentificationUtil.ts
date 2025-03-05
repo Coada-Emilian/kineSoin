@@ -5,7 +5,6 @@ import { handleAdminLogin } from '../../../apiUtils/publicApiUtils';
 interface AuthentificationUtilsProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   navigate: NavigateFunction;
 }
 
@@ -14,23 +13,19 @@ export const checkAdminCredentials = async (
   {
     setAdminProfileToken,
     setErrorMessage,
-    setIsLoading,
     navigate,
   }: AuthentificationUtilsProps
 ) => {
   e.preventDefault();
-  setIsLoading(true);
   try {
     const formData = new FormData(e.currentTarget);
     const adminEmail = formData.get('email') as string;
     const adminPassword = formData.get('password') as string;
 
     if (!adminEmail || !adminPassword) {
-      setIsLoading(false);
       setErrorMessage('Veuillez remplir tous les champs');
       return;
     } else if (!adminEmail.includes('@')) {
-      setIsLoading(false);
       setErrorMessage('Veuillez entrer une adresse email valide');
       return;
     }
@@ -43,13 +38,10 @@ export const checkAdminCredentials = async (
         response.id
       );
       setAdminProfileToken(response.token);
-      navigate('/admin/therapists');
     } else {
       setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     }
   } catch (error) {
     setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
-  } finally {
-    setIsLoading(false);
   }
 };

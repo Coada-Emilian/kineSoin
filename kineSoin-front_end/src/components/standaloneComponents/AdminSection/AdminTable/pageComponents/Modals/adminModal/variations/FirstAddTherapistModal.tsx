@@ -6,17 +6,16 @@ import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/
 import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
+import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../contexts/AdminAddTherapistFormGlobalContext';
 
 interface FirstAddTherapistModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setAddForm: React.Dispatch<React.SetStateAction<IAddForm>>;
   setIsAddTherapistModalP2Open: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function FirstAddTherapistModal({
   isOpen,
   onClose,
-  setAddForm,
   setIsAddTherapistModalP2Open,
 }: FirstAddTherapistModalProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -26,6 +25,8 @@ export default function FirstAddTherapistModal({
   );
 
   const { errorMessage, setError } = useGlobalAdminContext();
+
+  const { setAddForm } = useAdminAddTherapistFormGlobalContext();
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -44,7 +45,7 @@ export default function FirstAddTherapistModal({
             addFirstFormDetails(e, {
               therapistImageFile: therapistImageFile,
               setError,
-              setAddForm: setAddForm,
+              setAddForm,
               setIsAddTherapistModalP1Open: onClose,
               setIsAddTherapistModalP2Open: setIsAddTherapistModalP2Open,
             })

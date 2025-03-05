@@ -26,6 +26,7 @@ import {
   IModalTypes,
 } from '../../../../../@types/componentTypes';
 import { useAdminTableGlobalContext } from '../../../../../contexts/AdminTableGlobalContext';
+import { AdminAddTherapistFormGlobalProvider } from '../../../../../contexts/AdminAddTherapistFormGlobalContext';
 
 interface AdminTableRefactorProps {
   entities: IEntitiesInterfaces;
@@ -36,11 +37,6 @@ export default function AdminTableRefactor({
   entities,
   entityType,
 }: AdminTableRefactorProps) {
-  // const [openModal, setOpenModal] = useState<IModalTypes | null>(null); // State for modal opening
-  // const closeModal = () => {
-  //   setOpenModal(null);
-  // };
-
   const {
     openModal,
     setOpenModal,
@@ -60,26 +56,24 @@ export default function AdminTableRefactor({
     entities || []
   );
 
-  // const [selectedEntity, setSelectedEntity] = useState<IEntityInterface>(null);
-
-  //   // State for the add form
-  const [addForm, setAddForm] = useState<IAddForm>({
-    name: '',
-    surname: '',
-    email: '',
-    password: '',
-    repeated_password: '',
-    description: '',
-    diploma: '',
-    experience: '',
-    specialty: '',
-    licence_code: '',
-    status: '',
-    photo: undefined,
-    prefix: '',
-    phone_number: '',
-    full_phone_number: '',
-  });
+  // //   // State for the add form
+  // const [addForm, setAddForm] = useState<IAddForm>({
+  //   name: '',
+  //   surname: '',
+  //   email: '',
+  //   password: '',
+  //   repeated_password: '',
+  //   description: '',
+  //   diploma: '',
+  //   experience: '',
+  //   specialty: '',
+  //   licence_code: '',
+  //   status: '',
+  //   photo: undefined,
+  //   prefix: '',
+  //   phone_number: '',
+  //   full_phone_number: '',
+  // });
 
   // useEffects to set rendered therapists, patients, afflictions
   useEffect(() => {
@@ -105,23 +99,6 @@ export default function AdminTableRefactor({
       renderFunction(entities, setRenderedEntities, statusMap[entityType]);
     }
   }, [entityType, therapistStatus, patientStatus, afflictionStatus]);
-
-  // const [regionDeleteModal, setRegionDeleteModal] = useState(false);
-
-  // Function to open delete modal
-  const openDeleteModal = (
-    entity: IEntityInterface,
-    isRegionModal?: boolean
-  ) => {
-    setSelectedEntity(entity);
-    isRegionModal && setRegionDeleteModal(true);
-  };
-
-  useEffect(() => {
-    if (selectedEntity) {
-      setOpenModal('delete');
-    }
-  }, [selectedEntity]);
 
   const tableElements = getAdminTableElements({
     setTherapistStatus,
@@ -197,26 +174,24 @@ export default function AdminTableRefactor({
           entityType={entityType}
         />
 
-        <FirstAddTherapistModal
-          setAddForm={setAddForm}
-          onClose={closeModal}
-          isOpen={openModal === 'addTherapistP1'}
-          setIsAddTherapistModalP2Open={() => setOpenModal('addTherapistP2')}
-        />
+        <AdminAddTherapistFormGlobalProvider>
+          <FirstAddTherapistModal
+            onClose={closeModal}
+            isOpen={openModal === 'addTherapistP1'}
+            setIsAddTherapistModalP2Open={() => setOpenModal('addTherapistP2')}
+          />
 
-        <SecondAddTherapistModal
-          setAddForm={setAddForm}
-          isOpen={openModal === 'addTherapistP2'}
-          onClose={closeModal}
-          setIsAddTherapistModalP3Open={() => setOpenModal('addTherapistP3')}
-        />
+          <SecondAddTherapistModal
+            isOpen={openModal === 'addTherapistP2'}
+            onClose={closeModal}
+            setIsAddTherapistModalP3Open={() => setOpenModal('addTherapistP3')}
+          />
 
-        <ThirdAddTherapistModal
-          addForm={addForm}
-          setAddForm={setAddForm}
-          isOpen={openModal === 'addTherapistP3'}
-          onClose={closeModal}
-        />
+          <ThirdAddTherapistModal
+            isOpen={openModal === 'addTherapistP3'}
+            onClose={closeModal}
+          />
+        </AdminAddTherapistFormGlobalProvider>
 
         <AddAfflictionModal
           isOpen={openModal === 'addAffliction'}

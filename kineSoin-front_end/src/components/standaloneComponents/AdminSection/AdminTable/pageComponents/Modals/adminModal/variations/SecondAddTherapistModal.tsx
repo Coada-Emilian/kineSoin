@@ -7,21 +7,23 @@ import { addSecondFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useState } from 'react';
 import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
+import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../contexts/AdminAddTherapistFormGlobalContext';
 
 interface SecondAddTherapistModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setAddForm: React.Dispatch<React.SetStateAction<IAddForm>>;
+
   setIsAddTherapistModalP3Open: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SecondAddTherapistModal({
   isOpen,
   onClose,
-  setAddForm,
+
   setIsAddTherapistModalP3Open,
 }: SecondAddTherapistModalProps) {
   const { errorMessage, setError } = useGlobalAdminContext();
+  const { setAddForm } = useAdminAddTherapistFormGlobalContext();
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -38,7 +40,7 @@ export default function SecondAddTherapistModal({
           onSubmit={(e) =>
             addSecondFormDetails(e, {
               setError,
-              setAddForm: setAddForm,
+              setAddForm,
               setIsAddTherapistModalP2Open: onClose,
               setIsAddTherapistModalP3Open: setIsAddTherapistModalP3Open,
             })

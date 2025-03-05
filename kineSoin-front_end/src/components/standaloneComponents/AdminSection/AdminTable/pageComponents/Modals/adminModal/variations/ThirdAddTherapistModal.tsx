@@ -8,21 +8,16 @@ import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
 import { createTherapist } from '../utils/createTherapist';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useGlobalAdminContext } from '../../../../../../../../contexts/GlobalAdminContext';
+import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../contexts/AdminAddTherapistFormGlobalContext';
 
 interface ThirdAddTherapistModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setAddForm: React.Dispatch<React.SetStateAction<IAddForm>>;
-
-  addForm: IAddForm;
 }
 
 export default function ThirdAddTherapistModal({
   isOpen,
   onClose,
-  setAddForm,
-
-  addForm,
 }: ThirdAddTherapistModalProps) {
   const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
     useState(false);
@@ -31,13 +26,15 @@ export default function ThirdAddTherapistModal({
 
   const { errorMessage, setError } = useGlobalAdminContext();
 
+  const { setAddForm, addForm } = useAdminAddTherapistFormGlobalContext();
+
   useEffect(() => {
     if (isAdminTherapistFormValid) {
       setIsLoading(true);
       createTherapist({
         setError,
-        setIsAddTherapistModalP3Open: onClose,
         addForm,
+        setIsAddTherapistModalP3Open: onClose,
       });
       setIsLoading(false);
     }
@@ -59,7 +56,7 @@ export default function ThirdAddTherapistModal({
           onSubmit={(e) =>
             addThirdFormDetails(e, {
               setError,
-              setAddForm: setAddForm,
+              setAddForm,
               setIsAdminTherapistFormValid: setIsAdminTherapistFormValid,
             })
           }

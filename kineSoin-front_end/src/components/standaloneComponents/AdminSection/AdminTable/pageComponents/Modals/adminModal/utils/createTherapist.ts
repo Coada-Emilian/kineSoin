@@ -1,4 +1,5 @@
 import { IAddForm } from '../../../../../../../../@types/formInterfaces';
+import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../contexts/AdminAddTherapistFormGlobalContext';
 import { handleTherapistCreationAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
 
 interface FunctionProps {
@@ -6,7 +7,7 @@ interface FunctionProps {
   setIsAddTherapistModalP3Open:
     | React.Dispatch<React.SetStateAction<boolean>>
     | undefined;
-  addForm: IAddForm | undefined;
+  addForm: IAddForm;
 }
 
 export const createTherapist = async ({

@@ -154,7 +154,10 @@ function App() {
     };
   }, [therapistProfileToken, isTherapistAuthenticated]);
 
-  const adminRoutes: { path: string; entityType: 'therapist' | 'patient' | 'affliction' | 'medic' | 'insurance' }[] = [
+  const adminRoutes: {
+    path: string;
+    entityType: 'therapist' | 'patient' | 'affliction' | 'medic' | 'insurance';
+  }[] = [
     {
       path: 'therapists',
       entityType: 'therapist',
@@ -247,7 +250,12 @@ function App() {
 
       <Route
         path="/loginAdmin"
-        element={<AdminLoginPage setAdminProfileToken={setAdminProfileToken} />}
+        element={
+          <AdminLoginPage
+            setAdminProfileToken={setAdminProfileToken}
+            adminProfileToken={adminProfileToken}
+          />
+        }
       />
 
       {/* Admin routes */}

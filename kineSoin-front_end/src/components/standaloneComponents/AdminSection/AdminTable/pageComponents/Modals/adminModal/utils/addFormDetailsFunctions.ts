@@ -3,11 +3,11 @@ import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 interface addFormDetailsProps {
   therapistImageFile?: File | null;
   setError: (message: string | null) => void;
-  setAddForm?: React.Dispatch<React.SetStateAction<IAddForm>>;
   setIsAddTherapistModalP1Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddTherapistModalP2Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddTherapistModalP3Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAdminTherapistFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddForm: (form: IAddForm) => void;
 }
 
 export const addFirstFormDetails = async (
@@ -15,9 +15,9 @@ export const addFirstFormDetails = async (
   {
     therapistImageFile,
     setError,
-    setAddForm,
     setIsAddTherapistModalP1Open,
     setIsAddTherapistModalP2Open,
+    setAddForm,
   }: addFormDetailsProps
 ) => {
   e.preventDefault();
@@ -52,24 +52,23 @@ export const addFirstFormDetails = async (
       return;
     }
 
-    setAddForm &&
-      setAddForm({
-        name: therapistName,
-        surname: therapistSurname,
-        email: '',
-        password: '',
-        repeated_password: '',
-        description: '',
-        diploma: '',
-        experience: '',
-        specialty: '',
-        licence_code: therapistLicenceCode,
-        status: '',
-        photo: file,
-        prefix: '',
-        phone_number: '',
-        full_phone_number: '',
-      });
+    setAddForm({
+      name: therapistName,
+      surname: therapistSurname,
+      email: '',
+      password: '',
+      repeated_password: '',
+      description: '',
+      diploma: '',
+      experience: '',
+      specialty: '',
+      licence_code: therapistLicenceCode,
+      status: '',
+      photo: file,
+      prefix: '',
+      phone_number: '',
+      full_phone_number: '',
+    });
 
     setIsAddTherapistModalP1Open && setIsAddTherapistModalP1Open(false);
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(true);
@@ -83,9 +82,9 @@ export const addSecondFormDetails = (
   e: React.FormEvent<HTMLFormElement>,
   {
     setError,
-    setAddForm,
     setIsAddTherapistModalP2Open,
     setIsAddTherapistModalP3Open,
+    setAddForm,
   }: addFormDetailsProps
 ) => {
   try {
@@ -133,17 +132,16 @@ export const addSecondFormDetails = (
 
     const fullPhoneNUmber = `${therapistPrefix}${therapistTelephone}`;
 
-    setAddForm &&
-      setAddForm((prev) => ({
-        ...prev,
-        description: therapistDescription,
-        diploma: therapistDiploma,
-        experience: therapistExperience,
-        specialty: therapistSpecialty,
-        prefix: therapistPrefix,
-        phone_number: therapistTelephone,
-        full_phone_number: fullPhoneNUmber,
-      }));
+    setAddForm((prev) => ({
+      ...prev,
+      description: therapistDescription,
+      diploma: therapistDiploma,
+      experience: therapistExperience,
+      specialty: therapistSpecialty,
+      prefix: therapistPrefix,
+      phone_number: therapistTelephone,
+      full_phone_number: fullPhoneNUmber,
+    }));
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
     setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
   } catch (error) {
@@ -154,7 +152,7 @@ export const addSecondFormDetails = (
 
 export const addThirdFormDetails = async (
   e: React.FormEvent<HTMLFormElement>,
-  { setError, setAddForm, setIsAdminTherapistFormValid }: addFormDetailsProps
+  { setError, setIsAdminTherapistFormValid, setAddForm }: addFormDetailsProps
 ) => {
   try {
     e.preventDefault();
