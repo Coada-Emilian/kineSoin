@@ -4,7 +4,7 @@ export interface IEmailInput {
   inputPlaceholder: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
-  oldEmail?: string;
+  inputValue?: string;
   isFlexRow?: boolean;
   autoComplete?: string;
 }
@@ -16,7 +16,21 @@ export interface IPasswordInput {
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
   oldPassword?: string;
-  isFlexRow?: boolean;
+  inputValue?: boolean;
   autoComplete?: string;
   hasInfoIcon?: boolean;
+}
+
+export interface ITextInput {
+  inputId: string;
+  labelName: string;
+  inputName: string;
+  inputPlaceholder: string;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  inputValue?: string;
+  isFlexRow?: boolean;
+  autoComplete?: string;
+  isTextArea?: boolean;
+  isRequired?: boolean;
 }

@@ -8,7 +8,7 @@ interface StandardEmailInputProps {
 export default function StandardEmailInput({
   emailInput,
 }: StandardEmailInputProps) {
-  const [email, setEmail] = useState(emailInput.oldEmail || '');
+  const [email, setEmail] = useState(emailInput.inputValue || '');
 
   return (
     <div

@@ -12,7 +12,7 @@ export default function StandardPasswordInput({
   passwordInput,
 }: StandardPasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState(passwordInput.oldPassword || '');
+  const [password, setPassword] = useState(passwordInput.inputValue || '');
 
   return (
     <div
