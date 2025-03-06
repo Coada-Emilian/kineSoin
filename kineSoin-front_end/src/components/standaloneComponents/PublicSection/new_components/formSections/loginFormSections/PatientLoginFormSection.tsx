@@ -47,6 +47,7 @@ export default function PatientLoginFormSection() {
           <StandardEmailInput
             emailInput={{
               inputId: 'patient-login-email_input',
+              inputPlaceholder: 'Entrez votre adresse e-mail',
             }}
           />
 

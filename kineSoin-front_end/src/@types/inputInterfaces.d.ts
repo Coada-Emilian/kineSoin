@@ -1,8 +1,9 @@
 export interface IEmailInput {
   inputId: string;
-  inputPlaceholder?: string;
+  inputPlaceholder: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
+  isFlexRow?: boolean;
   old_email?: string;
 }
 
