@@ -5,26 +5,31 @@ import { useEffect, useState } from 'react';
 import DNALoader from '../../../../utils/DNALoader.tsx';
 import {
   handleFirstPatientRegisterForm,
+  handleSecondPatientRegisterForm,
+  handleThirdPatientRegisterForm,
   registerPatient,
 } from './utils/registerFormUtils.ts';
 import { useGlobalContext } from '../../../../utils/contexts/GlobalContext.tsx';
 import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext.tsx';
-import StandardTextInput from '../../generalComponents/StandardInputs/standardTextFields/StandardTextInput.tsx';
-import StandardDateInput from '../../generalComponents/StandardInputs/StandardDateInput.tsx';
-import StandardDropdownInput from '../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput.tsx';
+import { IFormOrders } from '../../../../@types/componentTypes';
+import FirstPatientRegisterFormSection from './sections/RegisterForms/FirstPatientRegisterFormSection.tsx';
+import SecondPatientRegisterFormSection from './sections/RegisterForms/SecondPatientRegisterFormSection.tsx';
+import ThirdPatientRegisterFormSection from './sections/RegisterForms/ThirdPatientRegisterFormSection.tsx';
+import ConfirmationFormSection from './sections/RegisterForms/ConfirmationFormSection.tsx';
 
-export default function PatientRegisterFormSection() {
+interface PatientRegisterFormProps {
+  setFormOrder: React.Dispatch<React.SetStateAction<IFormOrders>>;
+  formOrder: IFormOrders;
+}
+
+export default function PatientRegisterFormSection({
+  setFormOrder,
+  formOrder,
+}: PatientRegisterFormProps) {
   const { errorMessage, setError, isLoading, setLoading, location, navigate } =
     useGlobalContext();
 
-  const {
-    isSecondFormValidated,
-    isThirdFormValidated,
-    setIsGlobalFormSubmitted,
-    setIsFirstFormValidated,
-    setIsSecondFormValidated,
-    setIsThirdFormValidated,
-  } = usePatientRegisterContext();
+  const { setIsGlobalFormSubmitted } = usePatientRegisterContext();
 
   useEffect(() => {
     setError('');
@@ -39,14 +44,10 @@ export default function PatientRegisterFormSection() {
   useEffect(() => {
     setLoading(true);
     registerPatient({
-      isThirdFormValidated,
+      formOrder,
       sentPatientData,
       setIsGlobalFormSubmitted,
       setError,
-      setIsFirstFormValidated,
-      setIsSecondFormValidated,
-      setIsThirdFormValidated,
-      setSentPatientData,
     }).finally(() => setLoading(false));
   }, [sentPatientData]);
 
@@ -54,21 +55,90 @@ export default function PatientRegisterFormSection() {
     return DNALoader();
   }
 
+  const getSectionBackground = () => {
+    switch (formOrder) {
+      case 'first':
+        return 'bg-patientFirstRegisterPage';
+      case 'second':
+        return 'bg-patientSecondRegisterPage';
+      case 'third':
+        return 'bg-patientThirdRegisterPage';
+      default:
+        return 'bg-confirmationPage';
+    }
+  };
+
+  const getFormOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    switch (formOrder) {
+      case 'first':
+        return handleFirstPatientRegisterForm(e, {
+          setError,
+          setFormOrder,
+          setSentPatientData,
+        });
+      case 'second':
+        return handleSecondPatientRegisterForm(e, {
+          setError,
+          setFormOrder,
+          setSentPatientData,
+          sentPatientData,
+        });
+      case 'third':
+        return handleThirdPatientRegisterForm(e, {
+          setError,
+          setFormOrder,
+          setSentPatientData,
+          patientImage,
+          sentPatientData,
+        });
+      case 'last':
+        return undefined;
+    }
+  };
+
+  const getFormElement = () => {
+    switch (formOrder) {
+      case 'first':
+        return <FirstPatientRegisterFormSection />;
+      case 'second':
+        return <SecondPatientRegisterFormSection />;
+      case 'third':
+        return (
+          <ThirdPatientRegisterFormSection setPatientImage={setPatientImage} />
+        );
+      case 'last':
+        return <ConfirmationFormSection />;
+    }
+  };
+
+  const getStepParagraph = () => {
+    switch (formOrder) {
+      case 'first':
+        return 'Etape 1/3: Informations personnelles';
+      case 'second':
+        return 'Etape 2/3: Informations de connexion';
+      case 'third':
+        return 'Etape 3/3: Photo de profil';
+      case 'last':
+        return '';
+    }
+  };
+
   return (
     // Render the form section with the corresponding background image and form content
-    <section className="md:p-48 xl:p-56 2xl:p-72 bg-patientFirstRegisterPage bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative">
+    <section
+      className={`${getSectionBackground()} md:p-48 xl:p-56 2xl:p-72  bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
+    >
       <div className="opacity-90 max-w-80 font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-gradient-to-r from-white to-gray-200 p-6 rounded-3xl italic">
         <form
-          encType={isSecondFormValidated ? 'multipart/form-data' : undefined}
           onSubmit={(e) => {
             setLoading(true);
-            handleFirstPatientRegisterForm(e, {
-              setError,
-              setIsFirstFormValidated,
-              setIsSecondFormValidated,
-              setIsThirdFormValidated,
-              setSentPatientData,
-            }).finally(() => setLoading(false));
+            const formSubmitResult = getFormOnSubmit(e);
+            if (formSubmitResult) {
+              formSubmitResult.finally(() => setLoading(false));
+            } else {
+              setLoading(false);
+            }
           }}
         >
           <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
@@ -83,15 +153,7 @@ export default function PatientRegisterFormSection() {
             </p>
           )}
 
-          <StandardTextInput patientRegister={{ isNameInput: true }} />
-
-          <StandardTextInput patientRegister={{ isBirthNameInput: true }} />
-
-          <StandardTextInput patientRegister={{ isSurnameInput: true }} />
-
-          <StandardDateInput isPatientRegisterBirthdateInput />
-
-          <StandardDropdownInput isGenderDropdownInput />
+          {getFormElement()}
 
           <div className="flex items-center">
             <CustomButton btnText="Valider" btnType="submit" normalButton />
@@ -105,8 +167,7 @@ export default function PatientRegisterFormSection() {
                   to="/loginPatient"
                   className="text-primaryRed"
                   onClick={() => {
-                    setIsFirstFormValidated(false),
-                      setIsSecondFormValidated(false);
+                    setFormOrder('first');
                   }}
                 >
                   Connectez-vous ici
@@ -115,7 +176,7 @@ export default function PatientRegisterFormSection() {
             </div>
 
             <div className="text-sm mb-4 text-center mt-4">
-              Etape 1/3: Informations personnelles
+              {getStepParagraph()}
             </div>
           </>
         </form>

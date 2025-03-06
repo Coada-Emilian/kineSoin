@@ -1,28 +1,22 @@
+import { IFormOrders } from '../../../../../@types/componentTypes';
 import { handlePatientRegistration } from '../../../../../utils/apiUtils/publicApiUtils';
 
 interface RegisterFormUtilsProps {
   setError: (message: string | null) => void;
-  setIsFirstFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSecondFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsThirdFormValidated?: React.Dispatch<React.SetStateAction<boolean>>;
-
-  setSentPatientData: React.Dispatch<
+  setFormOrder?: React.Dispatch<React.SetStateAction<IFormOrders>>;
+  formOrder?: IFormOrders;
+  setSentPatientData?: React.Dispatch<
     React.SetStateAction<Record<string, string | Blob>>
   >;
   patientImage?: Blob | null;
   sentPatientData?: Record<string, string | Blob>;
-  isThirdFormValidated?: boolean;
   setIsGlobalFormSubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Patient registration function for the first form
 export const handleFirstPatientRegisterForm = async (
   e: React.FormEvent<HTMLFormElement>,
-  {
-    setError,
-    setIsFirstFormValidated,
-    setSentPatientData,
-  }: RegisterFormUtilsProps
+  { setError, setFormOrder, setSentPatientData }: RegisterFormUtilsProps
 ) => {
   try {
     e.preventDefault();
@@ -88,9 +82,12 @@ export const handleFirstPatientRegisterForm = async (
     // Set the patient error message to an empty string
     setError('');
     // Set the sent patient data with the form data
-    setSentPatientData(sentData);
-    // Set the first form as validated and the second form as not validated
-    setIsFirstFormValidated && setIsFirstFormValidated(true);
+    if (setSentPatientData) {
+      setSentPatientData(sentData);
+    }
+    if (setFormOrder) {
+      setFormOrder('second');
+    }
   } catch (error) {
     setError('Une erreur est survenue. Veuillez réessayer.');
     console.error(error);
@@ -102,8 +99,7 @@ export const handleSecondPatientRegisterForm = async (
   e: React.FormEvent<HTMLFormElement>,
   {
     setError,
-    setIsFirstFormValidated,
-    setIsSecondFormValidated,
+    setFormOrder,
     setSentPatientData,
     sentPatientData,
   }: RegisterFormUtilsProps
@@ -166,9 +162,10 @@ export const handleSecondPatientRegisterForm = async (
       // Set the sent patient data with the form data
       setSentPatientData &&
         setSentPatientData({ ...sentPatientData, ...sentData });
-      // Set the second form as validated and the third form as not validated
-      setIsFirstFormValidated && setIsFirstFormValidated(false);
-      setIsSecondFormValidated && setIsSecondFormValidated(true);
+
+      if (setFormOrder) {
+        setFormOrder('third');
+      }
     }
   } catch (error) {
     console.error(error);
@@ -181,8 +178,7 @@ export const handleThirdPatientRegisterForm = async (
   e: React.FormEvent<HTMLFormElement>,
   {
     setError,
-    setIsSecondFormValidated,
-    setIsThirdFormValidated,
+    setFormOrder,
     setSentPatientData,
     patientImage,
     sentPatientData,
@@ -234,8 +230,10 @@ export const handleThirdPatientRegisterForm = async (
       };
       setSentPatientData &&
         setSentPatientData({ ...sentPatientData, ...sentData });
-      setIsSecondFormValidated && setIsSecondFormValidated(false);
-      setIsThirdFormValidated && setIsThirdFormValidated(true);
+      setError('');
+      if (setFormOrder) {
+        setFormOrder('last');
+      }
     }
   } catch (error) {
     console.error(error);
@@ -245,11 +243,11 @@ export const handleThirdPatientRegisterForm = async (
 
 export const registerPatient = async ({
   setError,
-  isThirdFormValidated,
+  formOrder,
   sentPatientData,
   setIsGlobalFormSubmitted,
 }: RegisterFormUtilsProps) => {
-  if (isThirdFormValidated) {
+  if (formOrder === 'last') {
     try {
       const formData = new FormData();
       Object.entries(sentPatientData || {}).forEach(([key, value]) => {

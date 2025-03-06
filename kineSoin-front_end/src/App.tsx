@@ -51,17 +51,6 @@ function App() {
     return response ? response.token : null;
   });
 
-  const [isRegisterPageRendered, setIsRegisterPageRendered] =
-    useState<boolean>(false);
-  const [isFirstFormValidated, setIsFirstFormValidated] =
-    useState<boolean>(false);
-  const [isSecondFormValidated, setIsSecondFormValidated] =
-    useState<boolean>(false);
-  const [isThirdFormValidated, setIsThirdFormValidated] =
-    useState<boolean>(false);
-  const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
-    useState<boolean>(false);
-
   // useEffect to check if the admin is authenticated
   useEffect(() => {
     checkAdminAuthentication({ setIsAdminAuthenticated, setAdminProfileToken });
