@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { SideNavLinks as links } from '../constants/SideNavLinks';
+import { SideNavLinks as links } from '../../constants/SideNav/SideNavLinks';
 
 export const renderSideNavLinks = (type: 'admin' | 'patient' | 'therapist') => {
   const currentLinks = links[type];

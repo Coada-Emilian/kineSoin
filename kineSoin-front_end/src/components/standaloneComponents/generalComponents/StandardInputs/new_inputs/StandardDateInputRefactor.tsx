@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IDateInput } from '../../../../@types/inputInterfaces';
+import { IDateInput } from '../../../../../@types/inputInterfaces';
 
 interface StandardDateInputProps {
   dateInput: IDateInput;

@@ -1,6 +1,6 @@
-import StandardDateInputRefactor from '../../../../generalComponents/StandardInputs/StandardDateInputRefactor';
-import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInputRefactor';
-import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/standardTextFields/standardTextInputRefactor';
+import StandardDateInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDateInputRefactor';
+import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 
 export default function FirstPatientRegisterFormSection() {
   return (

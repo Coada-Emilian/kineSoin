@@ -4,8 +4,8 @@ import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext
 import { usePatientAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/PatientAuthentificationContent';
 import DNALoader from '../../../../../../utils/DNALoader';
 import { checkPatientCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
-import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
-import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
+import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
+import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 
 export default function PatientLoginFormSection() {

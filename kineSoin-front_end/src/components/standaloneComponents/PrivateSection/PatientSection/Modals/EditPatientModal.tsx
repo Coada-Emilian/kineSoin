@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
 import UserPhotoIcon from '/icons/user-photo.png';
-import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
+import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
 
 import {
   IInsurance,
@@ -13,7 +13,7 @@ import {
   fetchInsurancesAsPatient,
   handlePatientInsuranceAdd,
 } from '../../../../../utils/apiUtils/patientApiUtils';
-import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
+import StandardPasswordInput from '../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 
 interface EditPatientModalProps {
   setIsPhoneNumberEditModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;

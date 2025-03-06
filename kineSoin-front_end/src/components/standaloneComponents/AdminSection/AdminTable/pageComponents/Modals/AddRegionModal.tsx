@@ -1,6 +1,6 @@
 // Purpose: The purpose of this component is to render the add region modal.
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
-import StandardTextInput from '../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
+import StandardTextInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleBodyRegionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';

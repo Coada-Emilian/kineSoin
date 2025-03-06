@@ -3,8 +3,8 @@ import { useTherapistAuthentificationContext } from '../../../../../../utils/con
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
-import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
-import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
+import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
+import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 import mainLogo from '/logos/Main-Logo.png';
 import { useEffect } from 'react';
 
@@ -52,7 +52,7 @@ export default function TherapistLoginFormSection() {
             emailInput={{
               inputId: 'therapist-login-email_input',
               inputName: 'email',
-              inputPlaceholder: 'Entrez votre adresse email',
+              inputPlaceholder: 'Entrez votre adresse e-mail',
               autoComplete: 'current-email',
             }}
           />

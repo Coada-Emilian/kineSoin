@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
-import StandardEmailInput from '../../../../../../generalComponents/StandardInputs/StandardEmailInput';
-import StandardPasswordInput from '../../../../../../generalComponents/StandardInputs/StandardPasswordInput';
+import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import StandardEmailInput from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
+import StandardPasswordInput from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
 import { createTherapist } from '../utils/createTherapist';

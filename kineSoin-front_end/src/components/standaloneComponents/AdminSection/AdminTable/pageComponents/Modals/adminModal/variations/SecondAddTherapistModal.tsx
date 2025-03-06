@@ -1,6 +1,6 @@
-import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
-import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/StandardTelephoneInput';
-import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
+import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTelephoneInput';
+import StandardTextInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addSecondFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';

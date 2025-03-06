@@ -11,10 +11,10 @@ import instagramIcon from '/icons/insta.png';
 import linkedInIcon from '/icons/linkedIn.png';
 import phoneIcon from '/icons/phone-call.png';
 import { Link, useNavigate } from 'react-router-dom';
-import StandardTextInput from '../StandardInputs/standardTextFields/StandardTextInput';
-import StandardDateInput from '../StandardInputs/StandardDateInput';
-import StandardChoiceDropdown from '../StandardInputs/standardDropdownInput/StandardDropdownInput';
-import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
+import StandardTextInput from '../StandardInputs/old_inputs/StandardTextInput';
+import StandardDateInput from '../StandardInputs/old_inputs/StandardDateInput';
+import StandardChoiceDropdown from '../StandardInputs/old_inputs/StandardDropdownInput';
+import StandardTelephoneInput from '../StandardInputs/old_inputs/StandardTelephoneInput';
 import EditIcon from '../EditIcon/EditIcon';
 import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
 import checkIcon from '/icons/check.png';
@@ -27,7 +27,7 @@ import {
   handlePatientPhotoUpdate,
   handlePatientUpdate,
 } from '../../../../utils/apiUtils/patientApiUtils';
-import StandardEmailInput from '../StandardInputs/StandardEmailInput';
+import StandardEmailInput from '../StandardInputs/new_inputs/StandardEmailInput';
 import { Button } from '@headlessui/react';
 
 interface ProfileCardProps {

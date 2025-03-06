@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IAddForm } from '../../../../../../../../@types/formInterfaces';
-import StandardFileInput from '../../../../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
-import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
+import StandardFileInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardFileInput';
+import StandardTextInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';

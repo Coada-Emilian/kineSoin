@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import StandardDateInput from '../../../generalComponents/StandardInputs/StandardDateInput';
-import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
-import StandardFileInput from '../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
-import StandardTextInput from '../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
+import StandardDateInput from '../../../generalComponents/StandardInputs/old_inputs/StandardDateInput';
+import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import StandardFileInput from '../../../generalComponents/StandardInputs/old_inputs/StandardFileInput';
+import StandardTextInput from '../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import { useNavigate } from 'react-router-dom';
 import { IAffliction, IMedic } from '../../../../../@types/standardInterfaces';
 import {

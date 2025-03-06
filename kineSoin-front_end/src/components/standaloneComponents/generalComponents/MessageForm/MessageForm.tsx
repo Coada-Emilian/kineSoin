@@ -1,6 +1,6 @@
 import { handlePatientMessageCreation } from '../../../../utils/apiUtils/patientApiUtils';
 import CustomButton from '../CustomButton/CustomButton';
-import StandardTextInput from '../StandardInputs/standardTextFields/StandardTextInput';
+import StandardTextInput from '../StandardInputs/old_inputs/StandardTextInput';
 
 interface MessageFormProps {
   isPatientMessageForm?: boolean;

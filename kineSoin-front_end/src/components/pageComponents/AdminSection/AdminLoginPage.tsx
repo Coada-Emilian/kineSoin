@@ -4,8 +4,8 @@ import CustomButton from '../../standaloneComponents/generalComponents/CustomBut
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
 import { checkAdminCredentials } from '../../../utils/pageUtils/AdminSection/AdminLoginPageUtils/authentificationUtil.ts';
-import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/StandardPasswordInput.tsx';
+import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInput.tsx';
+import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInput.tsx';
 
 interface AdminLoginPageProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;

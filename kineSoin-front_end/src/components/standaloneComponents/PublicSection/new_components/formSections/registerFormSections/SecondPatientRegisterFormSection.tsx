@@ -1,11 +1,11 @@
-import StandardDropdownInput from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
-import StandardTelephoneInput from '../../../../generalComponents/StandardInputs/StandardTelephoneInput';
-import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInputRefactor';
-import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/standardTextFields/standardTextInputRefactor';
+import StandardDropdownInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import StandardTelephoneInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardTelephoneInput';
+import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 import { useEffect, useState } from 'react';
 import { ICountry } from '../../../../../../@types/customInterfaces';
-import { fetchCountriesData } from '../../../../generalComponents/StandardInputs/standardDropdownInput/functions/fetchCountriesData';
-import StandardTelephoneInputRefactor from '../../../../generalComponents/StandardInputs/StandardTelephoneInputRefactor';
+import { fetchCountriesData } from '../../../../../../utils/componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
+import StandardTelephoneInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
 
 export default function SecondPatientRegisterFormSection() {
   const [countries, setCountries] = useState<ICountry[]>([]);

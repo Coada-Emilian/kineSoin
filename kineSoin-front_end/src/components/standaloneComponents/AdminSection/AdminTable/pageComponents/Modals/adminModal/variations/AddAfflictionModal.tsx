@@ -1,6 +1,6 @@
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
-import StandardTextInput from '../../../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
+import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import StandardTextInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleAfflictionSubmit } from '../utils/dataSubmitFunctions';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
