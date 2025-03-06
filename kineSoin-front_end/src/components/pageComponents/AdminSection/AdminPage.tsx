@@ -1,7 +1,8 @@
+import { IEntityTypes } from '../../../@types/componentTypes';
 import AdminMain2 from './AdminMain2';
 
 interface AdminPageProps {
-  entityType: 'therapist' | 'patient' | 'affliction' | 'medic' | 'insurance';
+  entityType: IEntityTypes;
 }
 
 export default function AdminPage({ entityType }: AdminPageProps) {

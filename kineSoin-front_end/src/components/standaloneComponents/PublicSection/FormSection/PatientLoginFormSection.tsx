@@ -15,10 +15,6 @@ export default function PatientLoginFormSection() {
 
   const { setPatientProfileToken } = usePatientAuthentificationContext();
 
-  useEffect(() => {
-    setError('');
-  }, [location.pathname]);
-
   if (isLoading) {
     return DNALoader();
   }

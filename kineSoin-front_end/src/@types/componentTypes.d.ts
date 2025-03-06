@@ -32,4 +32,12 @@ export type IModalTypes =
   | 'addInsurance'
   | 'addRegion';
 
+export type IFormOrders = 'first' | 'second' | 'third' | 'last';
 
+export interface IDescriptionArticle {
+  formOrder: IFormOrders;
+  image: string;
+  alt: string;
+  paragraph: string;
+  title: string;
+}
