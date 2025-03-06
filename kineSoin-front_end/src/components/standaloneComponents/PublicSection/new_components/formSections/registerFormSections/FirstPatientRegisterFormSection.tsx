@@ -1,6 +1,6 @@
-import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/standardTextFields/standardTextInputRefactor';
 import StandardDateInputRefactor from '../../../../generalComponents/StandardInputs/StandardDateInputRefactor';
 import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInputRefactor';
+import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/standardTextFields/standardTextInputRefactor';
 
 export default function FirstPatientRegisterFormSection() {
   return (
@@ -44,6 +44,7 @@ export default function FirstPatientRegisterFormSection() {
           labelName: 'Date de naissance',
           inputName: 'birth_date',
           isRequired: true,
+          autoComplete: 'birth-date',
         }}
       />
 
@@ -53,6 +54,7 @@ export default function FirstPatientRegisterFormSection() {
           labelName: 'Genre',
           inputName: 'gender',
           isRequired: true,
+          autoComplete: 'gender',
           allOptions: {
             startingOption: {
               value: '',
@@ -60,14 +62,17 @@ export default function FirstPatientRegisterFormSection() {
             },
             options: [
               {
+                key: '1',
                 value: 'male',
                 text: 'Homme',
               },
               {
+                key: '2',
                 value: 'female',
                 text: 'Femme',
               },
               {
+                key: '3',
                 value: 'other',
                 text: 'Autre',
               },

@@ -78,10 +78,12 @@ export default function PatientRegisterFormSection() {
             </p>
           )}
 
-          {getFormElement({
-            formOrder,
-            setPatientImage,
-          })}
+          <div className="mb-6">
+            {getFormElement({
+              formOrder,
+              setPatientImage,
+            })}
+          </div>
 
           <div className="flex items-center">
             {formOrder !== 'last' && (

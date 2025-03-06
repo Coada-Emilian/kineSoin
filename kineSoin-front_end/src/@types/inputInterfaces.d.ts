@@ -32,7 +32,7 @@ export interface ITextInput {
   isFlexRow?: boolean;
   autoComplete?: string;
   isTextArea?: boolean;
-  isRequired: boolean;
+  isRequired?: boolean;
 }
 
 export interface IDateInput {
@@ -45,6 +45,7 @@ export interface IDateInput {
   inputName: string;
   inputValue?: string;
   isRequired?: boolean;
+  autoComplete?: string;
 }
 
 export interface IDropdownInput {
@@ -56,14 +57,26 @@ export interface IDropdownInput {
   additionalLabelClassName?: string;
   inputValue?: string;
   isRequired?: boolean;
+  autoComplete?: string;
   allOptions: {
     startingOption?: {
       value: string;
       text: string;
     };
     options: {
+      key?: string;
       value: string;
       text: string;
     }[];
   };
+}
+
+export interface ITelephoneInput {
+  inputId: string;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  inputValue?: string;
+  isFlexRow?: boolean;
+  isRequired?: boolean;
+  autoComplete?: string;
 }

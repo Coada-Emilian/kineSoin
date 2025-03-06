@@ -12,7 +12,7 @@ export default function StandardTextInputRefactor({
   return (
     <>
       <div
-        className={`${textInput.additionalDivClassName && textInput.additionalDivClassName} w-full flex flex-col mb-4 gap-2 italic`}
+        className={`${textInput.additionalDivClassName ? textInput.additionalDivClassName : 'w-full'} flex flex-col mb-4 gap-2 italic`}
       >
         <label
           htmlFor={textInput.inputId}

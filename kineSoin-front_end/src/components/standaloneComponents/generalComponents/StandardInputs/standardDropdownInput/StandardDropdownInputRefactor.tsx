@@ -28,7 +28,9 @@ export default function StandardDropdownInputRefactor({
   );
 
   return (
-    <div className={`mb-4 italic flex flex-col gap-2`}>
+    <div
+      className={`${dropdownInput.additionalDivClassName && dropdownInput.additionalDivClassName} mb-2 italic flex flex-col gap-2`}
+    >
       <label
         htmlFor={dropdownInput.inputId}
         className={`text-primaryBlue font-medium`}
@@ -46,12 +48,12 @@ export default function StandardDropdownInputRefactor({
         name={dropdownInput.inputName}
         required={dropdownInput.isRequired}
       >
-        <option value={dropdownInput.allOptions.startingOption?.value}>
-          {dropdownInput.allOptions.startingOption?.text}
+        <option value={dropdownInput.allOptions?.startingOption?.value}>
+          {dropdownInput.allOptions?.startingOption?.text}
         </option>
 
-        {dropdownInput.allOptions.options.map((option) => (
-          <option key={option.value} value={option.value}>
+        {dropdownInput.allOptions?.options?.map((option) => (
+          <option key={option.key} value={option.value}>
             {option.text}
           </option>
         ))}
