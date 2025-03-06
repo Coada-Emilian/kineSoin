@@ -12,14 +12,16 @@ export default function StandardPasswordInput({
   passwordInput,
 }: StandardPasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState(passwordInput.inputValue || '');
+  const [password, setPassword] = useState(
+    typeof passwordInput.inputValue === 'string' ? passwordInput.inputValue : ''
+  );
 
   return (
     <div
       className={`${
         passwordInput.additionalDivClassName &&
         passwordInput.additionalDivClassName
-      } ${passwordInput.isFlexRow ? 'flex-row' : 'flex-col'} mb-2 flex gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg`}
+      } ${passwordInput.isFlexRow ? 'flex-row' : 'flex-col'} flex gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg mb-4`}
     >
       <label
         htmlFor={passwordInput.inputId}
@@ -28,7 +30,7 @@ export default function StandardPasswordInput({
           passwordInput.additionalLabelClassName
         } ${passwordInput.hasInfoIcon && 'flex-row items-center'} text-primaryBlue font-medium flex gap-1`}
       >
-        Mot de passe
+        {passwordInput.labelName}
         {passwordInput.hasInfoIcon && (
           <p
             className="text-sm text-center ml-4"

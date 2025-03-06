@@ -57,6 +57,7 @@ export default function PatientLoginFormSection() {
             passwordInput={{
               inputId: 'patient-login-password_input',
               inputName: 'password',
+              labelName: 'Mot de passe',
               inputPlaceholder: 'Entrez votre mot de passe',
               autoComplete: 'current-password',
             }}

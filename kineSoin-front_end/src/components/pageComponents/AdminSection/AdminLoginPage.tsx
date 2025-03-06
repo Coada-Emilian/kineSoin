@@ -77,6 +77,7 @@ export default function AdminLoginPage({
               inputName: 'password',
               inputPlaceholder: 'Entrez votre mot de passe',
               autoComplete: 'current-password',
+              labelName: 'Mot de passe',
             }}
           />
 

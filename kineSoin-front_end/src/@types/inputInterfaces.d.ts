@@ -12,6 +12,7 @@ export interface IEmailInput {
 export interface IPasswordInput {
   inputId: string;
   inputName: string;
+  labelName: string;
   inputPlaceholder: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
@@ -19,6 +20,7 @@ export interface IPasswordInput {
   inputValue?: boolean;
   autoComplete?: string;
   hasInfoIcon?: boolean;
+  isFlexRow?: boolean;
 }
 
 export interface ITextInput {
@@ -77,6 +79,18 @@ export interface ITelephoneInput {
   additionalLabelClassName?: string;
   inputValue?: string;
   isFlexRow?: boolean;
+  isRequired?: boolean;
+  autoComplete?: string;
+}
+
+export interface IFileInput {
+  inputId: string;
+  labelName: string;
+  inputName: string;
+  isFlexRow?: boolean;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  inputValue?: string;
   isRequired?: boolean;
   autoComplete?: string;
 }

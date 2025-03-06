@@ -34,12 +34,12 @@ export const handleFileChange = (
     if (setPatientImage) {
       setPatientImage(file);
     }
-    if (setPrescriptionScan) {
-      setPrescriptionScan(file);
-    }
-    if (setTherapistImageFile) {
-      setTherapistImageFile(file);
-    }
+    // if (setPrescriptionScan) {
+    //   setPrescriptionScan(file);
+    // }
+    // if (setTherapistImageFile) {
+    //   setTherapistImageFile(file);
+    // }
   } else {
     if (setFileName) {
       setFileName('Aucun fichier sélectionné');

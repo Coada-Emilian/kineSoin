@@ -61,6 +61,7 @@ export default function TherapistLoginFormSection() {
             passwordInput={{
               inputId: 'therapist-login-password_input',
               inputName: 'password',
+              labelName: 'Mot de passe',
               inputPlaceholder: 'Entrez votre mot de passe',
               autoComplete: 'current-password',
             }}
