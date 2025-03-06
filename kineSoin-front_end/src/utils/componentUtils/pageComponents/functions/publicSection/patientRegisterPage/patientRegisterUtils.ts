@@ -30,7 +30,7 @@ export const handleFirstPatientRegisterForm = async (
     const patientName = formData.get('name') as string;
     const patientBirthName = formData.get('birth_name') as string;
     const patientSurname = formData.get('surname') as string;
-    const patientBirthDate = formData.get('birth-date') as string;
+    const patientBirthDate = formData.get('birth_date') as string;
     const patientGender = formData.get('gender') as string;
 
     // Check if the name, birth name and surname fields are empty

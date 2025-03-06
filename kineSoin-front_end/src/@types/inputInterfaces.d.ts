@@ -32,5 +32,38 @@ export interface ITextInput {
   isFlexRow?: boolean;
   autoComplete?: string;
   isTextArea?: boolean;
+  isRequired: boolean;
+}
+
+export interface IDateInput {
+  inputId: string;
+  labelName: string;
+  isFlexRow?: boolean;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  labelName?: string;
+  inputName: string;
+  inputValue?: string;
   isRequired?: boolean;
+}
+
+export interface IDropdownInput {
+  inputId: string;
+  labelName: string;
+  inputName: string;
+  isFlexRow?: boolean;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  inputValue?: string;
+  isRequired?: boolean;
+  allOptions: {
+    startingOption?: {
+      value: string;
+      text: string;
+    };
+    options: {
+      value: string;
+      text: string;
+    }[];
+  };
 }

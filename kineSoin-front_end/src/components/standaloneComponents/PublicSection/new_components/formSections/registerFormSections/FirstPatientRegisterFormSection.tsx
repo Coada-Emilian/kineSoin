@@ -1,7 +1,6 @@
-import StandardDateInput from '../../../../generalComponents/StandardInputs/StandardDateInput';
-import StandardTextInput from '../../../../generalComponents/StandardInputs/standardTextFields/StandardTextInput';
-import StandardDropdownInput from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInput';
 import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/standardTextFields/standardTextInputRefactor';
+import StandardDateInputRefactor from '../../../../generalComponents/StandardInputs/StandardDateInputRefactor';
+import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/standardDropdownInput/StandardDropdownInputRefactor';
 
 export default function FirstPatientRegisterFormSection() {
   return (
@@ -39,9 +38,43 @@ export default function FirstPatientRegisterFormSection() {
         }}
       />
 
-      <StandardDateInput isPatientRegisterBirthdateInput />
+      <StandardDateInputRefactor
+        dateInput={{
+          inputId: 'patient-register-birthdate_input',
+          labelName: 'Date de naissance',
+          inputName: 'birth_date',
+          isRequired: true,
+        }}
+      />
 
-      <StandardDropdownInput isGenderDropdownInput />
+      <StandardDropdownInputRefactor
+        dropdownInput={{
+          inputId: 'patient-register-gender_input',
+          labelName: 'Genre',
+          inputName: 'gender',
+          isRequired: true,
+          allOptions: {
+            startingOption: {
+              value: '',
+              text: 'Sélectionnez votre genre',
+            },
+            options: [
+              {
+                value: 'male',
+                text: 'Homme',
+              },
+              {
+                value: 'female',
+                text: 'Femme',
+              },
+              {
+                value: 'other',
+                text: 'Autre',
+              },
+            ],
+          },
+        }}
+      />
     </>
   );
 }
