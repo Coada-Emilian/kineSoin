@@ -48,6 +48,8 @@ export default function PatientLoginFormSection() {
             emailInput={{
               inputId: 'patient-login-email_input',
               inputPlaceholder: 'Entrez votre adresse e-mail',
+              inputName: 'email',
+              autoComplete: 'current-email',
             }}
           />
 
@@ -56,7 +58,6 @@ export default function PatientLoginFormSection() {
               inputId: 'patient-login-password_input',
               inputName: 'password',
               inputPlaceholder: 'Entrez votre mot de passe',
-              labelContent: 'Mot de passe',
               autoComplete: 'current-password',
             }}
           />

@@ -12,18 +12,23 @@ export default function StandardPasswordInput({
   passwordInput,
 }: StandardPasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState(passwordInput.oldPassword || '');
 
   return (
-    <div className="mb-2 flex flex-col gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg">
+    <div
+      className={`${
+        passwordInput.additionalDivClassName &&
+        passwordInput.additionalDivClassName
+      } ${passwordInput.isFlexRow ? 'flex-row' : 'flex-col'} mb-2 flex gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg`}
+    >
       <label
         htmlFor={passwordInput.inputId}
         className={`${
+          passwordInput.additionalLabelClassName &&
           passwordInput.additionalLabelClassName
-            ? passwordInput.additionalLabelClassName
-            : ''
-        } text-primaryBlue font-medium`}
+        } ${passwordInput.hasInfoIcon && 'flex-row items-center'} text-primaryBlue font-medium flex gap-1`}
       >
-        {passwordInput.labelContent}
+        Mot de passe
         {passwordInput.hasInfoIcon && (
           <p
             className="text-sm text-center ml-4"
@@ -47,6 +52,9 @@ export default function StandardPasswordInput({
           className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md "
           placeholder={passwordInput.inputPlaceholder}
           autoComplete={passwordInput.autoComplete}
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <button

@@ -49,7 +49,12 @@ export default function TherapistLoginFormSection() {
           )}
 
           <StandardEmailInput
-            emailInput={{ inputId: 'therapist-login-email_input' }}
+            emailInput={{
+              inputId: 'therapist-login-email_input',
+              inputName: 'email',
+              inputPlaceholder: 'Entrez votre adresse email',
+              autoComplete: 'current-email',
+            }}
           />
 
           <StandardPasswordInput
@@ -57,7 +62,6 @@ export default function TherapistLoginFormSection() {
               inputId: 'therapist-login-password_input',
               inputName: 'password',
               inputPlaceholder: 'Entrez votre mot de passe',
-              labelContent: 'Mot de passe',
               autoComplete: 'current-password',
             }}
           />

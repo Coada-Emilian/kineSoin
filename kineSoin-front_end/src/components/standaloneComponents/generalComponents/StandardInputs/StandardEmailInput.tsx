@@ -8,11 +8,14 @@ interface StandardEmailInputProps {
 export default function StandardEmailInput({
   emailInput,
 }: StandardEmailInputProps) {
-  const [email, setEmail] = useState(emailInput.old_email || '');
+  const [email, setEmail] = useState(emailInput.oldEmail || '');
 
   return (
     <div
-      className={`${emailInput.additionalDivClassName && emailInput.additionalDivClassName} ${emailInput.isFlexRow ? 'flex flex-row gap-1' : ' flex flex-col gap-1'}   w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-2`}
+      className={`${
+        emailInput.additionalDivClassName && emailInput.additionalDivClassName
+      } 
+        ${emailInput.isFlexRow ? 'flex-row' : 'flex-col'}  flex gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-4`}
     >
       <label
         htmlFor={emailInput.inputId}
@@ -23,14 +26,14 @@ export default function StandardEmailInput({
 
       <input
         type="email"
-        name="email"
+        name={emailInput.inputName}
         id={emailInput.inputId}
         className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md w-full"
-        placeholder={emailInput.inputPlaceholder && emailInput.inputPlaceholder}
+        placeholder={emailInput.inputPlaceholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        autoComplete="email"
+        autoComplete={emailInput.autoComplete}
       />
     </div>
   );
