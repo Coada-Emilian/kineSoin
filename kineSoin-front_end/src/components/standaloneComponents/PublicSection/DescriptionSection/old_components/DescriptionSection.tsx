@@ -1,10 +1,10 @@
-import HomePageArticle from './HomePageArticle';
-import ArticleRow from './ArticleRow';
+import HomePageArticle from '../new_components/descriptionSections/articles/HomePageArticle';
+import ArticleRow from '../new_components/descriptionSections/articles/ArticleRow';
 
 import {
   homePageFirstArticles,
   homePageSecondArticles,
-} from './utils/homePageArticles';
+} from '../../../../../utils/componentUtils/pageComponents/constants/publicSection/DescriptionSectionArticles/homePageArticles';
 import { articleElements } from './utils/articleElements';
 import { useEffect } from 'react';
 

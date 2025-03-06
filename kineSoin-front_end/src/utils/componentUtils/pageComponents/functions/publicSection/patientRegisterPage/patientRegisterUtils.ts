@@ -1,5 +1,5 @@
-import { IFormOrders } from '../../../../../@types/componentTypes';
-import { handlePatientRegistration } from '../../../../../utils/apiUtils/publicApiUtils';
+import { IFormOrders } from '../../../../../../@types/componentTypes';
+import { handlePatientRegistration } from '../../../../../apiUtils/publicApiUtils';
 
 interface RegisterFormUtilsProps {
   setError: (message: string | null) => void;
@@ -10,7 +10,6 @@ interface RegisterFormUtilsProps {
   >;
   patientImage?: Blob | null;
   sentPatientData?: Record<string, string | Blob>;
-  setIsGlobalFormSubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Patient registration function for the first form
@@ -245,7 +244,6 @@ export const registerPatient = async ({
   setError,
   formOrder,
   sentPatientData,
-  setIsGlobalFormSubmitted,
 }: RegisterFormUtilsProps) => {
   if (formOrder === 'last') {
     try {
@@ -255,9 +253,7 @@ export const registerPatient = async ({
       });
       const response = await handlePatientRegistration(formData);
       if (response) {
-        if (setIsGlobalFormSubmitted) {
-          setIsGlobalFormSubmitted(true);
-        }
+        console.log('Patient registered successfully');
       } else {
         setError('Une erreur est survenue. Veuillez réessayer.');
       }

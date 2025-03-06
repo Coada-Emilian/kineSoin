@@ -22,7 +22,7 @@ import {
 } from './utils/AppUtils/constants/routes';
 import { PublicLayout } from './utils/AppUtils/appLayouts/PublicLayout';
 import { GlobalContextProvider } from './utils/contexts/GlobalContext';
-import PublicMain from './components/pageComponents/PublicSection/PublicMain';
+import PublicMain from './components/pageComponents/PublicSection/old_components/PublicMain';
 
 function App() {
   // Authentication states

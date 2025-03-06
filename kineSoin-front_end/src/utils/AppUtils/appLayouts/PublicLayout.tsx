@@ -10,7 +10,11 @@ export function PublicLayout() {
       <PatientRegisterContextProvider>
         <PublicNavBar />
 
-        <Outlet />
+        <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
+          <div className="flex flex-col w-full h-full">
+            <Outlet />
+          </div>
+        </main>
 
         <Footer />
 

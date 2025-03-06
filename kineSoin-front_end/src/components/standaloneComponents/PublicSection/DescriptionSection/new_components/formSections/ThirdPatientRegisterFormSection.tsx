@@ -3,7 +3,9 @@ import StandardFileInput from '../../../../generalComponents/StandardInputs/stan
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
 
 interface ThirdPatientRegisterFormSectionProps {
-  setPatientImage: React.Dispatch<React.SetStateAction<File | null>>;
+  setPatientImage:
+    | React.Dispatch<React.SetStateAction<File | null>>
+    | undefined;
 }
 
 export default function ThirdPatientRegisterFormSection({

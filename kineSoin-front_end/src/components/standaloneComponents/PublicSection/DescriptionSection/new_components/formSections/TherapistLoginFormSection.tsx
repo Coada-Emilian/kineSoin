@@ -1,12 +1,12 @@
 import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect } from 'react';
-import DNALoader from '../../../../utils/DNALoader.tsx';
-import { checkTherapistCredentials } from './utils/authentificationUtils.ts';
-import { useGlobalContext } from '../../../../utils/contexts/GlobalContext.tsx';
-import { useTherapistAuthentificationContext } from '../../../../utils/contexts/authentificationContexts/TherapistAuthentificationContext.tsx';
-import StandardEmailInput from '../../generalComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardPasswordInput from '../../generalComponents/StandardInputs/StandardPasswordInput.tsx';
+import DNALoader from '../../../../../../utils/DNALoader.tsx';
+import { checkTherapistCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils.ts';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext.tsx';
+import { useTherapistAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/TherapistAuthentificationContext.tsx';
+import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput.tsx';
+import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput.tsx';
 
 export default function TherapistLoginFormSection() {
   const { errorMessage, setError, isLoading, setLoading, location, navigate } =

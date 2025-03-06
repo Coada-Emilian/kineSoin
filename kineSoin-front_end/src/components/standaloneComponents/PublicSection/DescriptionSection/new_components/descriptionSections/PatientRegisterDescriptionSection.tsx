@@ -1,19 +1,14 @@
-import ArticleRow from './ArticleRow';
-import firstPatientLoginPhoto from '/images/patientConnexionPage_right.webp';
-import secondPatientLoginPhoto from '/images/patientConnexionPage_left.webp';
-import { IFormOrders } from '../../../../@types/componentTypes';
+import ArticleRow from './articles/ArticleRow';
+import { IFormOrders } from '../../../../../../@types/componentTypes';
 import {
   registerFormArticles,
   registerFormReverseArticles,
-} from './utils/registerFormArticles';
+} from '../../../../../../utils/componentUtils/pageComponents/constants/publicSection/DescriptionSectionArticles/registerFormArticles';
+import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
 
-interface PatientRegisterProps {
-  formOrder: IFormOrders;
-}
+export default function PatientRegisterDescriptionSection() {
+  const { formOrder } = usePatientRegisterContext();
 
-export default function PatientRegisterDescriptionSection({
-  formOrder,
-}: PatientRegisterProps) {
   const article = registerFormArticles.find(
     (article) => article.formOrder === formOrder
   );

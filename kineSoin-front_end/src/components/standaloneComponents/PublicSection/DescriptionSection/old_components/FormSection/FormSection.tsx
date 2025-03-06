@@ -1,26 +1,26 @@
 import { Link, useLocation } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DNALoader from '../../../../utils/DNALoader.tsx';
-import { handlePatientRegistration } from '../../../../utils/apiUtils/publicApiUtils.tsx';
+import DNALoader from '../../../../../../utils/DNALoader.tsx';
+import { handlePatientRegistration } from '../../../../../../utils/apiUtils/publicApiUtils.tsx';
 import {
   checkPatientCredentials,
   checkTherapistCredentials,
-} from './utils/authentificationUtils.ts';
+} from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils.ts';
 import {
   handleFirstPatientRegisterForm,
   handleSecondPatientRegisterForm,
   handleThirdPatientRegisterForm,
   registerPatient,
-} from './utils/registerFormUtils.ts';
+} from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterUtils.ts';
 import HomePageFormSection from './sections/HomePageFormSection.tsx';
 import PatientLoginFormSection from './sections/PatientLoginFormSection.tsx';
 import TherapistLoginFormSection from './sections/TherapistLoginFormSection.tsx';
-import ThirdPatientRegisterFormSection from './sections/RegisterForms/ThirdPatientRegisterFormSection.tsx';
-import SecondPatientRegisterFormSection from './sections/RegisterForms/SecondPatientRegisterFormSection.tsx';
-import FirstPatientRegisterFormSection from './sections/RegisterForms/FirstPatientRegisterFormSection.tsx';
+import ThirdPatientRegisterFormSection from '../../new_components/formSections/ThirdPatientRegisterFormSection.tsx';
+import SecondPatientRegisterFormSection from '../../new_components/formSections/SecondPatientRegisterFormSection.tsx';
+import FirstPatientRegisterFormSection from '../../new_components/formSections/FirstPatientRegisterFormSection.tsx';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;

@@ -1,4 +1,4 @@
-import { IDescriptionArticle } from '../../../../../@types/componentTypes';
+import { IDescriptionArticle } from '../../../../../../@types/componentTypes';
 import firstPatientRegisterFirstFormPhoto from '/images/patientRegisterFirstForm_right.webp';
 import secondPatientRegisterFirstFormPhoto from '/images/patientRegisterFirstForm_left.webp';
 import firstPatientRegisterSecondFormPhoto from '/images/patientRegisterSecondForm_right.webp';

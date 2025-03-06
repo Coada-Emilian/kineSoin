@@ -1,6 +1,6 @@
 import { NavigateFunction } from 'react-router-dom';
-import { handleTherapistConnection } from '../../../../../utils/apiUtils/patientApiUtils';
-import { handlePatientLogin } from '../../../../../utils/apiUtils/publicApiUtils';
+import { handleTherapistConnection } from '../../../../../apiUtils/patientApiUtils';
+import { handlePatientLogin } from '../../../../../apiUtils/publicApiUtils';
 
 interface AuthentificationUtilsProps {
   setError: (message: string | null) => void;

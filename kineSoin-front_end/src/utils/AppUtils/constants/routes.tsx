@@ -1,7 +1,7 @@
-import HomePageMain from '../../../components/pageComponents/PublicSection/HomePageMain';
-import PatientLoginMain from '../../../components/pageComponents/PublicSection/PatientLoginMain';
-import PatientRegisterMain from '../../../components/pageComponents/PublicSection/PatientRegisterMain';
-import TherapistLoginMain from '../../../components/pageComponents/PublicSection/TherapistLoginMain';
+import HomePageMain from '../../../components/pageComponents/PublicSection/new_components/HomePageMain';
+import PatientLoginMain from '../../../components/pageComponents/PublicSection/new_components/PatientLoginMain';
+import PatientRegisterMain from '../../../components/pageComponents/PublicSection/new_components/PatientRegisterMain';
+import TherapistLoginMain from '../../../components/pageComponents/PublicSection/new_components/TherapistLoginMain';
 
 export const adminRoutes: {
   path: string;

@@ -1,4 +1,4 @@
-import ArticleRow from './ArticleRow';
+import ArticleRow from './articles/ArticleRow';
 import firstPatientLoginPhoto from '/images/patientConnexionPage_right.webp';
 import secondPatientLoginPhoto from '/images/patientConnexionPage_left.webp';
 

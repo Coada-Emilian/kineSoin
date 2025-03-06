@@ -1,17 +1,10 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { IFormOrders } from '../../@types/componentTypes';
 
 // Define the shape of the context state
 interface PatientRegisterContextType {
-  isRegisterPageRendered: boolean;
-  setIsRegisterPageRendered: React.Dispatch<React.SetStateAction<boolean>>;
-  isFirstFormValidated: boolean;
-  setIsFirstFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  isSecondFormValidated: boolean;
-  setIsSecondFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  isThirdFormValidated: boolean;
-  setIsThirdFormValidated: React.Dispatch<React.SetStateAction<boolean>>;
-  isGlobalFormSubmitted: boolean;
-  setIsGlobalFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+  formOrder: IFormOrders;
+  setFormOrder: React.Dispatch<React.SetStateAction<IFormOrders>>;
 }
 
 // Create a context with an empty default value
@@ -23,31 +16,13 @@ const PatientRegisterContext = createContext<
 export const PatientRegisterContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
-  // Form state hooks
-  const [isRegisterPageRendered, setIsRegisterPageRendered] =
-    useState<boolean>(false);
-  const [isFirstFormValidated, setIsFirstFormValidated] =
-    useState<boolean>(false);
-  const [isSecondFormValidated, setIsSecondFormValidated] =
-    useState<boolean>(false);
-  const [isThirdFormValidated, setIsThirdFormValidated] =
-    useState<boolean>(false);
-  const [isGlobalFormSubmitted, setIsGlobalFormSubmitted] =
-    useState<boolean>(false);
+  const [formOrder, setFormOrder] = useState<IFormOrders>('first');
 
   return (
     <PatientRegisterContext.Provider
       value={{
-        isRegisterPageRendered,
-        setIsRegisterPageRendered,
-        isFirstFormValidated,
-        setIsFirstFormValidated,
-        isSecondFormValidated,
-        setIsSecondFormValidated,
-        isThirdFormValidated,
-        setIsThirdFormValidated,
-        isGlobalFormSubmitted,
-        setIsGlobalFormSubmitted,
+        formOrder,
+        setFormOrder,
       }}
     >
       {children}

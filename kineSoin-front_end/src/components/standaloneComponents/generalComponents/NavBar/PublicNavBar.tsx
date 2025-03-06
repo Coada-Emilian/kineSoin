@@ -6,30 +6,10 @@ import CustomButton from '../CustomButton/CustomButton';
 import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext';
 
 export default function PublicNavBar() {
-  const {
-    isFirstFormValidated,
-    isSecondFormValidated,
-    isThirdFormValidated,
-    setIsFirstFormValidated,
-    setIsSecondFormValidated,
-    setIsThirdFormValidated,
-    setIsRegisterPageRendered,
-  } = usePatientRegisterContext();
+  const { setFormOrder } = usePatientRegisterContext();
 
   const onClickFunction = () => {
-    isFirstFormValidated
-      ? (setIsFirstFormValidated(false),
-        console.log('first form set to false'),
-        setIsRegisterPageRendered(false))
-      : isSecondFormValidated
-        ? (setIsSecondFormValidated(false),
-          console.log('second form set to false'),
-          setIsRegisterPageRendered(false))
-        : isThirdFormValidated
-          ? (setIsThirdFormValidated(false),
-            console.log('third form set to false'),
-            setIsRegisterPageRendered(false))
-          : undefined;
+    setFormOrder('first');
   };
 
   return (
