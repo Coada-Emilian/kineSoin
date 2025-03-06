@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
 import { useEffect, useState } from 'react';
-import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext';
-import { usePatientRegisterContext } from '../../../../../utils/contexts/PatientRegisterContext';
-import { registerPatient } from '../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterUtils';
-import DNALoader from '../../../../../utils/DNALoader';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
+import { registerPatient } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterUtils';
+import DNALoader from '../../../../../../utils/DNALoader';
 import {
   getFormElement,
   getFormOnSubmit,
   getSectionBackground,
   getStepParagraph,
-} from '../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterFormSectionFunctions';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
+} from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterFormSectionFunctions';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 
 export default function PatientRegisterFormSection() {
   const { errorMessage, setError, isLoading, setLoading, location } =

@@ -18,9 +18,9 @@ import {
 import HomePageFormSection from './sections/HomePageFormSection.tsx';
 import PatientLoginFormSection from './sections/PatientLoginFormSection.tsx';
 import TherapistLoginFormSection from './sections/TherapistLoginFormSection.tsx';
-import ThirdPatientRegisterFormSection from '../../new_components/formSections/ThirdPatientRegisterFormSection.tsx';
-import SecondPatientRegisterFormSection from '../../new_components/formSections/SecondPatientRegisterFormSection.tsx';
-import FirstPatientRegisterFormSection from '../../new_components/formSections/FirstPatientRegisterFormSection.tsx';
+import ThirdPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/ThirdPatientRegisterFormSection.tsx';
+import SecondPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/SecondPatientRegisterFormSection.tsx';
+import FirstPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/FirstPatientRegisterFormSection.tsx';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;

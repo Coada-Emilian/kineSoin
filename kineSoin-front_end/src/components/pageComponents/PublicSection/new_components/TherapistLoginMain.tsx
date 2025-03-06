@@ -1,7 +1,7 @@
 import PublicHeadBand from '../../../standaloneComponents/PublicSection/PublicHeadBand';
 import { TherapistAuthentificationContextProvider } from '../../../../utils/contexts/authentificationContexts/TherapistAuthentificationContext';
-import TherapistLoginFormSection from '../../../standaloneComponents/PublicSection/DescriptionSection/new_components/formSections/TherapistLoginFormSection';
-import TherapistLoginDescriptionSection from '../../../standaloneComponents/PublicSection/DescriptionSection/new_components/descriptionSections/TherapistLoginDescriptionSection';
+import TherapistLoginFormSection from '../../../standaloneComponents/PublicSection/new_components/formSections/loginFormSections/TherapistLoginFormSection';
+import TherapistLoginDescriptionSection from '../../../standaloneComponents/PublicSection/new_components/descriptionSections/loginDescriptionSections/TherapistLoginDescriptionSection';
 
 export default function TherapistLoginMain() {
   return (

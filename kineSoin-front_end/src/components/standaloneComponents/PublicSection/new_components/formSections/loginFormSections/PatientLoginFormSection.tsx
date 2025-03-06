@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
-import { useEffect, useState } from 'react';
-import DNALoader from '../../../../../../utils/DNALoader.tsx';
-import { checkPatientCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils.ts';
-import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput.tsx';
-import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput.tsx';
-import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext.tsx';
-import { usePatientAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/PatientAuthentificationContent.tsx';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton.tsx';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import { usePatientAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/PatientAuthentificationContent';
+import DNALoader from '../../../../../../utils/DNALoader';
+import { checkPatientCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
+import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
+import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 
 export default function PatientLoginFormSection() {
-  const { errorMessage, setError, isLoading, setLoading, location, navigate } =
+  const { errorMessage, setError, isLoading, setLoading, navigate } =
     useGlobalContext();
 
   const { setPatientProfileToken } = usePatientAuthentificationContext();

@@ -1,10 +1,10 @@
-import { checkTherapistCredentials } from '../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
-import { useTherapistAuthentificationContext } from '../../../../../utils/contexts/authentificationContexts/TherapistAuthentificationContext';
-import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext';
-import DNALoader from '../../../../../utils/DNALoader';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import StandardEmailInput from '../../../generalComponents/StandardInputs/StandardEmailInput';
-import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
+import { checkTherapistCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
+import { useTherapistAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/TherapistAuthentificationContext';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import DNALoader from '../../../../../../utils/DNALoader';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
+import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
 import mainLogo from '/logos/Main-Logo.png';
 import { useEffect } from 'react';
 

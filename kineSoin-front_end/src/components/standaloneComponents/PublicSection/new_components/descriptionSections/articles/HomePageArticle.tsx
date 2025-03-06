@@ -1,4 +1,4 @@
-import { IHomePageArticle } from '../../../../../../../@types/customInterfaces';
+import { IHomePageArticle } from '../../../../../../@types/customInterfaces';
 
 interface HomePageArticleProps {
   article: IHomePageArticle;

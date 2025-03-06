@@ -1,4 +1,4 @@
-import ArticleRow from './articles/ArticleRow';
+import ArticleRow from '../articles/ArticleRow';
 import firstTherapistLoginPhoto from '/images/therapistConnexionPage_right.webp';
 import secondTherapistLoginPhoto from '/images/therapistConnexionPage_left.webp';
 

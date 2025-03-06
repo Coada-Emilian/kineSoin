@@ -1,6 +1,6 @@
-import StandardEmailInput from '../../../generalComponents/StandardInputs/StandardEmailInput';
-import StandardFileInput from '../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
-import StandardPasswordInput from '../../../generalComponents/StandardInputs/StandardPasswordInput';
+import StandardEmailInput from '../../../../generalComponents/StandardInputs/StandardEmailInput';
+import StandardFileInput from '../../../../generalComponents/StandardInputs/standardFileInput/StandardFileInput';
+import StandardPasswordInput from '../../../../generalComponents/StandardInputs/StandardPasswordInput';
 
 interface ThirdPatientRegisterFormSectionProps {
   setPatientImage:

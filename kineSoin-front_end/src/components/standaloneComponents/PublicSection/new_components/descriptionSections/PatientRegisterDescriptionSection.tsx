@@ -1,10 +1,9 @@
-import ArticleRow from './articles/ArticleRow';
-import { IFormOrders } from '../../../../../../@types/componentTypes';
 import {
   registerFormArticles,
   registerFormReverseArticles,
-} from '../../../../../../utils/componentUtils/pageComponents/constants/publicSection/DescriptionSectionArticles/registerFormArticles';
-import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
+} from '../../../../../utils/componentUtils/pageComponents/constants/publicSection/DescriptionSectionArticles/registerFormArticles';
+import { usePatientRegisterContext } from '../../../../../utils/contexts/PatientRegisterContext';
+import ArticleRow from './articles/ArticleRow';
 
 export default function PatientRegisterDescriptionSection() {
   const { formOrder } = usePatientRegisterContext();
