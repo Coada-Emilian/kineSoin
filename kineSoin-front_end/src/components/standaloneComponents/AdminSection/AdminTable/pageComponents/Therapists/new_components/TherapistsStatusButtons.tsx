@@ -1,4 +1,3 @@
-import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
 import CustomBtn from '../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 
 interface TherapistsStatusButtonsProps {

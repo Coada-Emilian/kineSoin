@@ -12,10 +12,10 @@ export default function CustomBtn({ btn }: CustomButtonProps) {
     (button) => button.btnType === btn.btnType
   )?.background;
 
-  const btnClasses = `rounded-lg shadow-2xl ${background} 
+  const btnClasses = `rounded-lg shadow-2xl text-primaryBlue hover:text-white ${background} 
   ${
     btn.isNormalBtn
-      ? 'py-2 px-1 min-w-16 md:min-w-24 my-0 mx-auto text-xs md:text-md xl:text-lg font-semibold'
+      ? 'p-1 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg font-semibold'
       : btn.isNavBtn
         ? 'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm font-medium'
         : btn.isStatusBtn
@@ -61,7 +61,9 @@ export default function CustomBtn({ btn }: CustomButtonProps) {
       className={btnClasses}
     >
       {renderIcon()}
-      <span className={`hidden md:inline`}>{btn.btnText}</span>
+      <span className={`${btn.isLogoutBtn && 'hidden md:inline'}`}>
+        {btn.btnText}
+      </span>
     </button>
   );
 }

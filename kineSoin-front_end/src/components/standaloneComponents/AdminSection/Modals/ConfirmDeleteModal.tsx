@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import CustomButton from '../../generalComponents/CustomButton/CustomButton';
 import DNALoader from '../../../../utils/DNALoader';
 import BaseModal from '../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
@@ -8,14 +7,13 @@ import { IEntityInterface } from '../../../../@types/componentTypes';
 import { useGlobalContext } from '../../../../utils/contexts/GlobalContext';
 import { useEffect, useState } from 'react';
 import { useAdminTableGlobalContext } from '../../../../utils/contexts/AdminTableGlobalContext';
+import CustomBtn from '../../generalComponents/CustomButton/CustomButtonRefactor';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
   entity: IEntityInterface;
   entityType: string;
-  // regionDeleteModal?: boolean;
-  // setRegionDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ConfirmDeleteModal({
@@ -23,8 +21,6 @@ export default function ConfirmDeleteModal({
   onClose,
   entity,
   entityType,
-  // regionDeleteModal,
-  // setRegionDeleteModal,
 }: ConfirmDeleteModalProps) {
   const navigate = useNavigate();
   const { isLoading, setLoading } = useGlobalContext();
@@ -50,7 +46,7 @@ export default function ConfirmDeleteModal({
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col justify-center items-center text-center gap-3 w-fit p-6 text:xxs xs:text-xs md:text-sm lg:text-base xl:text-lg">
+      <div className="flex flex-col justify-center mx-auto text-center gap-3 w-fit p-6 text:xxs xs:text-xs md:text-sm lg:text-base xl:text-lg">
         {regionDeleteModal ? (
           <>
             <p>
@@ -62,25 +58,31 @@ export default function ConfirmDeleteModal({
             </span>
 
             <div className="flex justify-center mt-4 gap-4">
-              <CustomButton
-                btnText="Confirmer"
-                deleteButton
-                onClick={() => {
-                  onClose && onClose();
-                  setLoading(true);
-                  handleBodyRegionDeleteAsAdmin(entity.id);
-                  setRegionDeleteModal(false);
-                  setLoading(false);
-                  window.location.reload();
+              <CustomBtn
+                btn={{
+                  btnType: 'deleteBtn',
+                  btnText: 'Confirmer',
+                  isNormalBtn: true,
+                  onClick: () => {
+                    onClose && onClose();
+                    setLoading(true);
+                    handleBodyRegionDeleteAsAdmin(entity.id);
+                    setRegionDeleteModal(false);
+                    setLoading(false);
+                    window.location.reload();
+                  },
                 }}
               />
 
-              <CustomButton
-                btnText="Annuler"
-                cancelButton
-                onClick={() => {
-                  onClose && onClose();
-                  setRegionDeleteModal(false);
+              <CustomBtn
+                btn={{
+                  btnType: 'cancelBtn',
+                  btnText: 'Annuler',
+                  isNormalBtn: true,
+                  onClick: () => {
+                    onClose && onClose();
+                    setRegionDeleteModal(false);
+                  },
                 }}
               />
             </div>
@@ -121,28 +123,38 @@ export default function ConfirmDeleteModal({
             </span>
 
             <div className="flex justify-center mt-4 gap-4">
-              <CustomButton
-                btnText="Confirmer"
-                deleteButton
-                onClick={() => {
-                  onClose && onClose();
-                  setLoading(true);
-                  {
-                    activeEntity?.function(entity.id);
-                  }
-                  setLoading(false);
-                  navigate(
-                    activeEntity?.redirect ? activeEntity.redirect : '/admin'
-                  );
-                  window.location.reload();
-                }}
-              />
+              <>
+                <CustomBtn
+                  btn={{
+                    btnType: 'deleteBtn',
+                    btnText: 'Confirmer',
+                    isNormalBtn: true,
+                    onClick: () => {
+                      onClose && onClose();
+                      setLoading(true);
+                      {
+                        activeEntity?.function(entity.id);
+                      }
+                      setLoading(false);
+                      navigate(
+                        activeEntity?.redirect
+                          ? activeEntity.redirect
+                          : '/admin'
+                      );
+                      window.location.reload();
+                    },
+                  }}
+                />
 
-              <CustomButton
-                btnText="Annuler"
-                cancelButton
-                onClick={() => onClose && onClose()}
-              />
+                <CustomBtn
+                  btn={{
+                    btnType: 'cancelBtn',
+                    btnText: 'Annuler',
+                    isNormalBtn: true,
+                    onClick: () => onClose && onClose(),
+                  }}
+                />
+              </>
             </div>
           </>
         )}

@@ -14,7 +14,7 @@ export const getAdminTableElements = ({
   {
     entityType: 'therapist',
     statusButtons: <TherapistsStatusButtons setStatus={setEntityStatus} />,
-    customBtnText: 'Ajouter un kiné',
+    customBtnText: 'Ajouter kiné',
     modalName: 'addTherapistP1',
     tableTitle: 'Tous les kinésithérapeutes',
     entityStatus: entityStatus,
@@ -32,7 +32,7 @@ export const getAdminTableElements = ({
   {
     entityType: 'affliction',
     statusButtons: <AfflictionsStatusButtons setStatus={setEntityStatus} />,
-    customBtnText: 'Ajouter une affliction',
+    customBtnText: 'Ajouter affliction',
     modalName: 'addAffliction',
     regionButton: true,
     tableTitle: 'Toutes les afflictions',
@@ -43,7 +43,7 @@ export const getAdminTableElements = ({
   },
   {
     entityType: 'medic',
-    customBtnText: 'Ajouter un médecin',
+    customBtnText: 'Ajouter médecin',
     modalName: 'addMedic',
     tableTitle: 'Tous les médecins',
     secondTableHeadContent: 'Nom médecin',
@@ -51,7 +51,7 @@ export const getAdminTableElements = ({
   },
   {
     entityType: 'insurance',
-    customBtnText: 'Ajouter une assurance',
+    customBtnText: 'Ajouter assurance',
     modalName: 'addInsurance',
     tableTitle: 'Toutes les assurances',
     secondTableHeadContent: 'Nom organisme',
@@ -59,7 +59,7 @@ export const getAdminTableElements = ({
   },
   {
     entityType: 'region',
-    customBtnText: 'Ajouter une region',
+    customBtnText: 'Ajouter region',
     modalName: 'addRegion',
     tableTitle: 'Toutes les regions',
     secondTableHeadContent: 'Nom region',

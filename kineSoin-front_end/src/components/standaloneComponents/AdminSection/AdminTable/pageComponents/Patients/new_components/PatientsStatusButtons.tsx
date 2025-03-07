@@ -1,4 +1,4 @@
-import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
+import CustomBtn from '../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 
 interface PatientsStatusButtonsProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -9,43 +9,58 @@ export default function PatientsStatusButtons({
 }: PatientsStatusButtonsProps) {
   return (
     <div className="flex gap-2 ">
-      <CustomButton
-        btnText="Tous"
-        allButton
-        onClick={() => {
-          setStatus('all');
+      <CustomBtn
+        btn={{
+          btnType: 'basicBtn',
+          btnText: 'Tous',
+          isStatusBtn: true,
+          onClick: () => {
+            setStatus('all');
+          },
         }}
       />
 
-      <CustomButton
-        btnText="Actifs"
-        activeButton
-        onClick={() => {
-          setStatus('active');
+      <CustomBtn
+        btn={{
+          btnType: 'activeBtn',
+          btnText: 'Actifs',
+          isStatusBtn: true,
+          onClick: () => {
+            setStatus('active');
+          },
         }}
       />
 
-      <CustomButton
-        btnText="Inactifs"
-        inactiveButton
-        onClick={() => {
-          setStatus('inactive');
+      <CustomBtn
+        btn={{
+          btnType: 'inactiveBtn',
+          btnText: 'Inactifs',
+          isStatusBtn: true,
+          onClick: () => {
+            setStatus('inactive');
+          },
         }}
       />
 
-      <CustomButton
-        btnText="En attente"
-        pendingButton
-        onClick={() => {
-          setStatus('pending');
+      <CustomBtn
+        btn={{
+          btnType: 'pendingBtn',
+          btnText: 'En attente',
+          isStatusBtn: true,
+          onClick: () => {
+            setStatus('pending');
+          },
         }}
       />
 
-      <CustomButton
-        btnText="Bannis"
-        bannedButton
-        onClick={() => {
-          setStatus('banned');
+      <CustomBtn
+        btn={{
+          btnType: 'bannedBtn',
+          btnText: 'Bannis',
+          isStatusBtn: true,
+          onClick: () => {
+            setStatus('banned')
+          },
         }}
       />
     </div>

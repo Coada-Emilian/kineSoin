@@ -26,6 +26,7 @@ import {
 } from '../../../../../@types/componentTypes';
 import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
 import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
+import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor';
 
 interface AdminTableRefactorProps {
   entities: IEntitiesInterfaces;
@@ -92,22 +93,31 @@ export default function AdminTableRefactor({
 
             <div className="flex gap-2">
               {activeEntity?.regionButton && (
-                <CustomButton
-                  btnText="Voir les regions"
-                  addButton
-                  onClick={() => setOpenModal('region')}
+                <CustomBtn
+                  btn={{
+                    btnType: 'addBtn',
+                    btnText: 'Voir les regions',
+                    isStatusBtn: true,
+                    onClick: () => {
+                      setOpenModal('region');
+                    },
+                  }}
                 />
               )}
 
               {activeEntity?.customBtnText && (
-                <CustomButton
-                  btnText={activeEntity.customBtnText}
-                  addButton
-                  // FIXME: le as ModalType est à éviter car il casse le typage
-                  onClick={() =>
-                    setOpenModal(activeEntity.modalName as IModalTypes)
-                  }
-                />
+                <>
+                  <CustomBtn
+                    btn={{
+                      btnType: 'addBtn',
+                      btnText: activeEntity.customBtnText,
+                      isStatusBtn: true,
+                      onClick: () => {
+                        setOpenModal(activeEntity.modalName);
+                      },
+                    }}
+                  />
+                </>
               )}
             </div>
           </>

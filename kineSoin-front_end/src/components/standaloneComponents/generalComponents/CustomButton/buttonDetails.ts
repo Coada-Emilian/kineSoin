@@ -1,11 +1,11 @@
 export const buttonDetails = [
   {
     btnType: 'basicBtn',
-    background: 'bg-primaryTeal hover:bg-secondaryTeal hover:text-white',
+    background: 'bg-primaryTeal hover:bg-secondaryTeal',
   },
   {
     btnType: 'cancelBtn',
-    background: 'bg-gray-300 hover:bg-gray-300 border border-2 border-white',
+    background: 'bg-gray-200 hover:bg-gray-400 border border-2 border-white',
   },
   {
     btnType: 'modifyBtn',

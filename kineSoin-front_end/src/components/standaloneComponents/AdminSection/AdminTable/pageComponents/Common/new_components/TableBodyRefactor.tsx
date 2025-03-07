@@ -1,6 +1,5 @@
 import {
   IAffliction,
-  IBodyRegion,
   IInsurance,
   IMedic,
   IPatient,

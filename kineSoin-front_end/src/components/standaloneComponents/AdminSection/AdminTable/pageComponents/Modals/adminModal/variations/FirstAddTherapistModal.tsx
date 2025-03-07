@@ -7,6 +7,7 @@ import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
 import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
+import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 
 interface FirstAddTherapistModalProps {
   isOpen: boolean;
@@ -88,14 +89,23 @@ export default function FirstAddTherapistModal({
           </p>
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Suivant" btnType="submit" normalButton />
+            <CustomBtn
+              btn={{
+                btnType: 'basicBtn',
+                btnText: 'Suivant',
+                isNormalBtn: true,
+                isFormBtn: true,
+              }}
+            />
 
-            <CustomButton
-              btnText="Annuler"
-              btnType="button"
-              cancelButton
-              onClick={() => {
-                onClose && onClose();
+            <CustomBtn
+              btn={{
+                btnType: 'cancelBtn',
+                btnText: 'Annuler',
+                isNormalBtn: true,
+                onClick: () => {
+                  onClose && onClose();
+                },
               }}
             />
           </div>
