@@ -79,7 +79,7 @@ export default function AdminLoginPage() {
 
           <div className="flex justify-center">
             <CustomBtn
-              details={{
+              btn={{
                 btnType: 'basicBtn',
                 btnText: 'Connexion',
                 isNormalBtn: true,

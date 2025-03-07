@@ -16,31 +16,26 @@ export const adminLinks = [
     name: 'Patients',
     path: '/admin/patients',
     icon: patientIcon,
-    onChange: () => {},
   },
   {
     name: 'Afflictions',
     path: '/admin/afflictions',
     icon: afflictionIcon,
-    onChange: () => {},
   },
   {
     name: 'Kinés',
     path: '/admin/therapists',
     icon: therapistIcon,
-    onChange: () => {},
   },
   {
     name: 'Médecins',
     path: '/admin/medics',
     icon: doctorIcon,
-    onChange: () => {},
   },
   {
     name: 'Assurances',
     path: '/admin/insurances',
     icon: insuranceIcon,
-    onChange: () => {},
   },
 ];
 

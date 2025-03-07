@@ -74,7 +74,7 @@ export default function PatientLoginFormSection() {
 
           <div className="flex items-center">
             <CustomBtn
-              details={{
+              btn={{
                 btnType: 'basicBtn',
                 btnText: 'Connexion',
                 isNormalBtn: true,

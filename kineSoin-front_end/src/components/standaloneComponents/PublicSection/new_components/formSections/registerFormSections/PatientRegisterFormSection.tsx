@@ -89,7 +89,7 @@ export default function PatientRegisterFormSection() {
           <div className="flex items-center">
             {formOrder !== 'last' && (
               <CustomBtn
-                details={{
+                btn={{
                   btnType: 'basicBtn',
                   btnText: formOrder === 'third' ? 'Inscription' : 'Valider',
                   isNormalBtn: true,

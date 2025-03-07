@@ -3,18 +3,15 @@
 // The navigation bar is used in the public pages, the admin pages and the patient pages.
 // The navigation bar is used to navigate between the different pages of the website. The navigation bar is also used to log in and log out of the website.
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
-import CustomButton from '../CustomButton/CustomButton';
-import { useState } from 'react';
-import { removePatientTokenFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
-import { removeTherapistTokenFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
 import { useGlobalContext } from '../../../../utils/contexts/GlobalContext';
 import { useAuthentificationContext } from '../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
+import CustomBtn from '../CustomButton/CustomButtonRefactor';
 
-export default function NavBar() {
+export default function AdminNavBar() {
   const { navigate } = useGlobalContext();
   const {
     isAdminAuthenticated,
@@ -39,6 +36,7 @@ export default function NavBar() {
             alt="Retour a l'accueil"
             className="max-w-32 lg:max-w-40 block md:hidden"
           />
+
           <img
             src={Logo1}
             alt="Retour a l'accueil"
@@ -48,62 +46,18 @@ export default function NavBar() {
 
         <div className={`flex items-center`}>
           {isAdminAuthenticated && (
-            <>
-              <CustomButton adminLogoutButton onClick={handleAdminLogout} />
-
-              <CustomButton
-                btnText="Se déconnecter"
-                navBarButton
-                onClick={handleAdminLogout}
-              />
-            </>
+            <CustomBtn
+              btn={{
+                btnType: 'basicBtn',
+                btnText: 'Déconnexion',
+                isNavBtn: true,
+                isLogoutBtn: true,
+                onClick: () => {
+                  handleAdminLogout();
+                },
+              }}
+            />
           )}
-
-          {/* Patient navbar portion */}
-          {(isPatientNavBar && isPatientAuthenticated) ||
-          (isTherapistNavBar && isTherapistAuthenticated) ? (
-            <div className="flex gap-2">
-              {isPatientNavBar && isPatientAuthenticated && (
-                <>
-                  <CustomButton
-                    btnText="Notifications"
-                    patientNotificationButton
-                    patientNotificationQuantity={patientNotificationQuantity}
-                    setPatientNotificationQuantity={
-                      setPatientNotificationQuantity
-                    }
-                  />
-
-                  <CustomButton
-                    btnText="Déconnexion"
-                    patientLogoutButton
-                    onClick={handlePatientLogout}
-                  />
-                </>
-              )}
-
-              {isTherapistNavBar && isTherapistAuthenticated && (
-                <>
-                  <CustomButton
-                    btnText="Notifications"
-                    therapistNotificationButton
-                    therapistNotificationQuantity={
-                      therapistNotificationQuantity
-                    }
-                    setTherapistNotificationQuantity={
-                      setTherapistNotificationQuantity
-                    }
-                  />
-
-                  <CustomButton
-                    btnText="Déconnexion"
-                    therapistLogoutButton
-                    onClick={handleTherapistLogout}
-                  />
-                </>
-              )}
-            </div>
-          ) : null}
         </div>
       </nav>
     </header>

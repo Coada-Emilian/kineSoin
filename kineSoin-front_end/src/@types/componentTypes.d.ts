@@ -61,5 +61,7 @@ export interface IButtonDetails {
   isStatusBtn?: boolean;
   isMobileBtn?: boolean;
   isFormBtn?: boolean;
+  isLogoutBtn?: boolean;
+  isNotificationBtn?: boolean;
   onClick?: () => void;
 }

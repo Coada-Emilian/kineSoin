@@ -1,9 +1,7 @@
 import { checkTherapistCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
 import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
-import { useTherapistAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/TherapistAuthentificationContext';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
@@ -71,7 +69,7 @@ export default function TherapistLoginFormSection() {
 
           <div className="flex items-center">
             <CustomBtn
-              details={{
+              btn={{
                 btnType: 'basicBtn',
                 btnText: 'Connexion',
                 isNormalBtn: true,

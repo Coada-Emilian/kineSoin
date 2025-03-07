@@ -1,13 +1,12 @@
+// Purpose: Provide a mobile navigation bar for the admin and public pages.
+
 import { NavLink } from 'react-router-dom';
-import { publicLinks } from './constants/links';
-import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext';
+import { adminLinks } from './constants/links';
 
-export default function PublicMobileNav() {
-  const { setFormOrder } = usePatientRegisterContext();
-
+export default function AdminMobileNav() {
   return (
     <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 md:hidden">
-      {publicLinks.map((link, index) => (
+      {adminLinks.map((link, index) => (
         <NavLink
           to={link.path}
           key={index}
@@ -18,11 +17,9 @@ export default function PublicMobileNav() {
                 : 'text-primaryBlue'
             }`
           }
-          onClick={() => {
-            setFormOrder('first');
-          }}
         >
           <img src={link.icon} alt={link.name} className="w-8 mb-1" />
+
           <p className="text-xxs font-medium">{link.name}</p>
         </NavLink>
       ))}

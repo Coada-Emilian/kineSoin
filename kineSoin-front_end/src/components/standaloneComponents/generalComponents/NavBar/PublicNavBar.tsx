@@ -34,7 +34,7 @@ export default function PublicNavBar() {
           <div className="flex gap-2">
             <Link to="/loginTherapist" className="hidden md:block">
               <CustomBtn
-                details={{
+                btn={{
                   btnType: 'basicBtn',
                   btnText: 'Connexion thérapeute',
                   isNavBtn: true,
@@ -47,7 +47,7 @@ export default function PublicNavBar() {
 
             <Link to="/loginPatient" className="hidden md:block">
               <CustomBtn
-                details={{
+                btn={{
                   btnType: 'basicBtn',
                   btnText: 'Connexion patient',
                   isNavBtn: true,
@@ -60,7 +60,7 @@ export default function PublicNavBar() {
 
             <Link to="/loginAdmin" className="hidden md:block">
               <CustomBtn
-                details={{
+                btn={{
                   btnType: 'basicBtn',
                   btnText: 'Connexion admin',
                   isNavBtn: true,

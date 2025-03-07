@@ -22,12 +22,8 @@ import {
 } from './utils/AppUtils/constants/routes';
 import { PublicLayout } from './utils/AppUtils/appLayouts/PublicLayout';
 import { GlobalContextProvider } from './utils/contexts/GlobalContext';
-import PublicMain from './components/pageComponents/PublicSection/old_components/PublicMain';
-import { AdminAuthentificationContextProvider } from './utils/contexts/authentificationContexts/AdminAuthentificationGlobalContext';
-import {
-  AuthentificationGlobalContext,
-  AuthentificationGlobalContextProvider,
-} from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
+import { AuthentificationGlobalContextProvider } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
+import { AdminLayout } from './utils/AppUtils/appLayouts/AdminLayout';
 
 function App() {
   // Authentication states
@@ -177,17 +173,7 @@ function App() {
 
           {/* Admin routes */}
           {isAdminAuthenticated ? (
-            <Route
-              path="/admin"
-              element={
-                <Layout
-                  isAdminLayout
-                  isAdminAuthenticated={isAdminAuthenticated}
-                  setIsAdminAuthenticated={setIsAdminAuthenticated}
-                  setAdminProfileToken={setAdminProfileToken}
-                />
-              }
-            >
+            <Route path="/admin" element={<AdminLayout />}>
               {adminRoutes.map((route) => (
                 <Route
                   path={route.path}
