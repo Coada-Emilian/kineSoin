@@ -5,15 +5,15 @@ export const buttonDetails = [
   },
   {
     btnType: 'cancelBtn',
-    background: 'bg-gray-200 hover:bg-gray-400 border border-2 border-white',
+    background: 'bg-gray-200 hover:bg-gray-400 ',
   },
   {
     btnType: 'modifyBtn',
-    background: 'bg-blue-300 hover:bg-blue-500 border border-2 border-white',
+    background: 'bg-blue-300 hover:bg-blue-500 ',
   },
   {
     btnType: 'deleteBtn',
-    background: 'bg-red-300 hover:bg-red-500 border border-2 border-white',
+    background: 'bg-red-300 hover:bg-red-500 ',
   },
   {
     btnType: 'activeBtn',

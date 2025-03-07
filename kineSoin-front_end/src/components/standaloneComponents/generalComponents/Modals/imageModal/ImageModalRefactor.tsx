@@ -2,10 +2,12 @@ import { useState } from 'react';
 import CustomButton from '../../CustomButton/CustomButton';
 import { handleFileChange } from './functions/handleFileChange';
 import BaseModal from '../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import CustomBtn from '../../CustomButton/CustomButtonRefactor';
 interface ImageModalProps {
   isOpen: boolean;
   onClose: () => void;
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
+  setTherapistImage?: React.Dispatch<React.SetStateAction<File | null>>;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
   inputId: string;
   inputName: string;
@@ -16,6 +18,7 @@ export default function ImageModalRefactor({
   isOpen,
   onClose,
   setPatientImage,
+  setTherapistImage,
   setFileName,
   inputId,
   inputName,
@@ -28,7 +31,7 @@ export default function ImageModalRefactor({
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="m-6">
         <h3 className="text-xl text-center font-semibold text-primaryBlue italic">
-          Chargez votre photo
+          Chargez une photo
         </h3>
         <div className="flex flex-col gap-4 mt-4">
           <input
@@ -42,6 +45,7 @@ export default function ImageModalRefactor({
                 setFileName,
                 setPreview,
                 setPatientImage,
+                setTherapistImage,
               })
             }
           />
@@ -50,11 +54,11 @@ export default function ImageModalRefactor({
             htmlFor={inputId}
             className="w-full flex gap-2 items-center justify-between px-1 py-1 border rounded-md cursor-pointer text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-secondaryTeal"
           >
-            <span className="text-center block md:hidden">
+            <span className="text-center block md:hidden italic">
               {`${(fileName || '').slice(0, 10)}...`}
             </span>
 
-            <span className="text-center hidden md:block">
+            <span className="text-center hidden md:block italic">
               {`${(fileName || '').slice(0, 35)}...`}
             </span>
 
@@ -76,18 +80,26 @@ export default function ImageModalRefactor({
           )}
 
           <div className="flex justify-center mt-4 gap-4">
-            <CustomButton
-              btnText="Valider"
-              normalButton
-              onClick={() => {
-                setIsFileAdded(true);
-                onClose && onClose();
+            <CustomBtn
+              btn={{
+                btnType: 'basicBtn',
+                btnText: 'Valider',
+                isNormalBtn: true,
+                onClick: () => {
+                  setIsFileAdded(true);
+                  onClose && onClose();
+                },
               }}
             />
-            <CustomButton
-              btnText="Annuler"
-              cancelButton
-              onClick={() => onClose && onClose()}
+            <CustomBtn
+              btn={{
+                btnType: 'cancelBtn',
+                btnText: 'Annuler',
+                isNormalBtn: true,
+                onClick: () => {
+                  onClose && onClose();
+                },
+              }}
             />
           </div>
         </div>

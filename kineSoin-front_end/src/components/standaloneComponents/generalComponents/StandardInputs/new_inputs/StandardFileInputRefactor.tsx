@@ -7,11 +7,13 @@ import ImageModalRefactor from '../../Modals/imageModal/ImageModalRefactor';
 
 interface StandardFileInputProps {
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
+  setTherapistImage?: React.Dispatch<React.SetStateAction<File | null>>;
   fileInput: IFileInput;
 }
 
 export default function StandardFileInputRefactor({
   setPatientImage,
+  setTherapistImage,
   fileInput,
 }: StandardFileInputProps) {
   // File name state
@@ -67,6 +69,7 @@ export default function StandardFileInputRefactor({
           }}
           setFileName={setFileName}
           setPatientImage={setPatientImage}
+          setTherapistImage={setTherapistImage}
           inputName={fileInput.inputName}
           inputId={fileInput.inputId}
           fileName={fileName}

@@ -4,7 +4,7 @@ interface FunctionProps {
   setPreviewUrl?: React.Dispatch<React.SetStateAction<string | null>>;
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
   setPrescriptionScan?: React.Dispatch<React.SetStateAction<File | null>>;
-  setTherapistImageFile?: React.Dispatch<React.SetStateAction<File | null>>;
+  setTherapistImage?: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
 export const handleFileChange = (
@@ -15,7 +15,7 @@ export const handleFileChange = (
     setPreviewUrl,
     setPatientImage,
     setPrescriptionScan,
-    setTherapistImageFile,
+    setTherapistImage,
   }: FunctionProps
 ) => {
   const file = e.target.files?.[0];
@@ -37,9 +37,9 @@ export const handleFileChange = (
     // if (setPrescriptionScan) {
     //   setPrescriptionScan(file);
     // }
-    // if (setTherapistImageFile) {
-    //   setTherapistImageFile(file);
-    // }
+    if (setTherapistImage) {
+      setTherapistImage(file);
+    }
   } else {
     if (setFileName) {
       setFileName('Aucun fichier sélectionné');

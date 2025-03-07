@@ -1,7 +1,7 @@
 import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 
 interface addFormDetailsProps {
-  therapistImageFile?: File | null;
+  therapistImage?: File | null;
   setError: (message: string | null) => void;
   setIsAddTherapistModalP1Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddTherapistModalP2Open?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,7 +13,7 @@ interface addFormDetailsProps {
 export const addFirstFormDetails = async (
   e: React.FormEvent<HTMLFormElement>,
   {
-    therapistImageFile,
+    therapistImage,
     setError,
     setIsAddTherapistModalP1Open,
     setIsAddTherapistModalP2Open,
@@ -26,7 +26,7 @@ export const addFirstFormDetails = async (
     const therapistName = formData.get('name') as string;
     const therapistSurname = formData.get('surname') as string;
     const therapistLicenceCode = formData.get('licence_code') as string;
-    const file = therapistImageFile;
+    const file = therapistImage;
 
     // Field Validation
     if (!therapistName || !therapistSurname || !therapistLicenceCode) {

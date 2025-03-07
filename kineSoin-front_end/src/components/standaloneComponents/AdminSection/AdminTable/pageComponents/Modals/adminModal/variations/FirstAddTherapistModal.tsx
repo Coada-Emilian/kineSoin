@@ -8,6 +8,8 @@ import CustomButton from '../../../../../../generalComponents/CustomButton/Custo
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import StandardTextInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import StandardFileInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardFileInputRefactor';
 
 interface FirstAddTherapistModalProps {
   isOpen: boolean;
@@ -19,11 +21,7 @@ export default function FirstAddTherapistModal({
   onClose,
   setIsAddTherapistModalP2Open,
 }: FirstAddTherapistModalProps) {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  const [therapistImageFile, setTherapistImageFile] = useState<File | null>(
-    null
-  );
+  const [therapistImage, setTherapistImage] = useState<File | null>(null);
 
   const { errorMessage, setError } = useGlobalContext();
 
@@ -44,7 +42,7 @@ export default function FirstAddTherapistModal({
           className="space-y-4 "
           onSubmit={(e) =>
             addFirstFormDetails(e, {
-              therapistImageFile: therapistImageFile,
+              therapistImage,
               setError,
               setAddForm,
               setIsAddTherapistModalP1Open: onClose,
@@ -52,37 +50,48 @@ export default function FirstAddTherapistModal({
             })
           }
         >
-          <StandardTextInput
-            adminTherapist={{ isAdminTherapistAddNameInput: true }}
-          />
-
-          <StandardTextInput
-            adminTherapist={{ isAdminTherapistAddSurnameInput: true }}
-          />
-
-          <StandardTextInput
-            adminTherapist={{
-              isAdminTherapistAddLicenceCodeInput: true,
+          <StandardTextInputRefactor
+            textInput={{
+              inputId: 'therapist-register-name_input',
+              labelName: 'Nom',
+              inputName: 'name',
+              inputPlaceholder: 'Entrez le nom du kiné',
+              isRequired: true,
+              autoComplete: 'name',
             }}
           />
 
-          <StandardFileInput
-            isAdminTherapistImageAddInput
-            setPreviewUrl={setPreviewUrl}
-            setTherapistImageFile={setTherapistImageFile}
+          <StandardTextInputRefactor
+            textInput={{
+              inputId: 'therapist-register-surname_input',
+              labelName: 'Prénom',
+              inputName: 'surname',
+              inputPlaceholder: 'Entrez le prénom du kiné',
+              isRequired: true,
+              autoComplete: 'surname',
+            }}
           />
 
-          {previewUrl ? (
-            <img
-              src={previewUrl}
-              alt="Therapist"
-              className="w-32 h-32 rounded-full object-cover mx-auto"
-            />
-          ) : (
-            <p className="text-xs md:text-sm text-center">
-              Aucune image disponible
-            </p>
-          )}
+          <StandardTextInputRefactor
+            textInput={{
+              inputId: 'therapist-register-licenceCode_input',
+              labelName: 'Code ADELI',
+              inputName: 'licence_code',
+              inputPlaceholder: 'Entrez le code ADELI du kiné',
+              isRequired: true,
+              autoComplete: 'licence_code',
+            }}
+          />
+
+          <StandardFileInputRefactor
+            fileInput={{
+              inputId: 'therapist-register-image_input',
+              labelName: 'Ajouter une photo',
+              inputName: 'photo',
+              isRequired: true,
+            }}
+            setTherapistImage={setTherapistImage}
+          />
 
           <p className="text-red-500 text-center text-xs md:text-sm">
             Etape 1 / 3 : Informations personnelles
