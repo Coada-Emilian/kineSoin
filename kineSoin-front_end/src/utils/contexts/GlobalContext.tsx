@@ -12,6 +12,7 @@ interface GlobalContextType {
   setError: (message: string | null) => void; // A function to set the 'errorMessage'
   location: any;
   navigate: NavigateFunction;
+  
 }
 
 // Create the context. This will hold our global state and provide access

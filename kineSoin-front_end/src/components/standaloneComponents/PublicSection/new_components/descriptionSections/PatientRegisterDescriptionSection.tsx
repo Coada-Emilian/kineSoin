@@ -18,7 +18,7 @@ export default function PatientRegisterDescriptionSection() {
 
   return (
     <div className="bg-container py-12 rounded-tr-[75px]">
-      <div className="flex flex-col">
+      <div className="flex flex-col md:gap-4">
         {article && reverseArticle && (
           <>
             <ArticleRow

@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
-import { usePatientAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/PatientAuthentificationContent';
 import DNALoader from '../../../../../../utils/DNALoader';
 import { checkPatientCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
 import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 
 export default function PatientLoginFormSection() {
   const { errorMessage, setError, isLoading, setLoading, navigate } =
     useGlobalContext();
 
-  const { setPatientProfileToken } = usePatientAuthentificationContext();
+  const { setPatientProfileToken } = useAuthentificationContext();
 
   if (isLoading) {
     return DNALoader();
@@ -73,7 +73,14 @@ export default function PatientLoginFormSection() {
           </div>
 
           <div className="flex items-center">
-            <CustomButton btnText={'Connexion'} btnType="submit" normalButton />
+            <CustomBtn
+              details={{
+                btnType: 'basicBtn',
+                btnText: 'Connexion',
+                isNormalBtn: true,
+                isFormBtn: true,
+              }}
+            />
           </div>
         </form>
       </div>

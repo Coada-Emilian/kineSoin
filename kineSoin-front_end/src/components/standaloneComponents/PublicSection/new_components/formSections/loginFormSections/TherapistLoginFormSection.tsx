@@ -1,8 +1,10 @@
 import { checkTherapistCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
+import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { useTherapistAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/TherapistAuthentificationContext';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
 import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 import mainLogo from '/logos/Main-Logo.png';
@@ -12,7 +14,7 @@ export default function TherapistLoginFormSection() {
   const { errorMessage, setError, isLoading, setLoading, location, navigate } =
     useGlobalContext();
 
-  const { setTherapistProfileToken } = useTherapistAuthentificationContext();
+  const { setTherapistProfileToken } = useAuthentificationContext();
 
   useEffect(() => {
     setError('');
@@ -68,7 +70,14 @@ export default function TherapistLoginFormSection() {
           />
 
           <div className="flex items-center">
-            <CustomButton btnText={'Connexion'} btnType="submit" normalButton />
+            <CustomBtn
+              details={{
+                btnType: 'basicBtn',
+                btnText: 'Connexion',
+                isNormalBtn: true,
+                isFormBtn: true,
+              }}
+            />
           </div>
         </form>
       </div>

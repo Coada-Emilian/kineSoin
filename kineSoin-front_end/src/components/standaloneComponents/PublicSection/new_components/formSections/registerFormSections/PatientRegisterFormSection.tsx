@@ -12,6 +12,7 @@ import {
   getStepParagraph,
 } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterFormSectionFunctions';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 
 export default function PatientRegisterFormSection() {
   const { errorMessage, setError, isLoading, setLoading, location } =
@@ -87,10 +88,13 @@ export default function PatientRegisterFormSection() {
 
           <div className="flex items-center">
             {formOrder !== 'last' && (
-              <CustomButton
-                btnText={formOrder === 'third' ? 'Inscription' : 'Valider'}
-                btnType="submit"
-                normalButton
+              <CustomBtn
+                details={{
+                  btnType: 'basicBtn',
+                  btnText: formOrder === 'third' ? 'Inscription' : 'Valider',
+                  isNormalBtn: true,
+                  isFormBtn: true,
+                }}
               />
             )}
           </div>

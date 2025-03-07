@@ -1,18 +1,14 @@
-import { NavigateFunction } from 'react-router-dom';
 import { setAdminTokenAndDataInLocalStorage } from '../../../../localStorage/adminLocalStorage';
 import { handleAdminLogin } from '../../../apiUtils/publicApiUtils';
 
 interface AuthentificationUtilsProps {
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  setError: (message: string | null) => void;
 }
 
 export const checkAdminCredentials = async (
   e: React.FormEvent<HTMLFormElement>,
-  {
-    setAdminProfileToken,
-    setErrorMessage,
-  }: AuthentificationUtilsProps
+  { setAdminProfileToken, setError }: AuthentificationUtilsProps
 ) => {
   e.preventDefault();
   try {
@@ -21,10 +17,10 @@ export const checkAdminCredentials = async (
     const adminPassword = formData.get('password') as string;
 
     if (!adminEmail || !adminPassword) {
-      setErrorMessage('Veuillez remplir tous les champs');
+      setError('Veuillez remplir tous les champs');
       return;
     } else if (!adminEmail.includes('@')) {
-      setErrorMessage('Veuillez entrer une adresse email valide');
+      setError('Veuillez entrer une adresse email valide');
       return;
     }
 
@@ -37,9 +33,9 @@ export const checkAdminCredentials = async (
       );
       setAdminProfileToken(response.token);
     } else {
-      setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+      setError('Une erreur est survenue. Veuillez réessayer.');
     }
   } catch (error) {
-    setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+    setError('Une erreur est survenue. Veuillez réessayer.');
   }
 };

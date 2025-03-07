@@ -6,13 +6,11 @@ import PatientLoginFormSection from '../../../standaloneComponents/PublicSection
 export default function PatientLoginMain() {
   return (
     <>
-      <PatientAuthentificationContextProvider>
-        <PatientLoginFormSection />
+      <PatientLoginFormSection />
 
-        <PublicHeadBand />
+      <PublicHeadBand />
 
-        <PatientLoginDescriptionSection />
-      </PatientAuthentificationContextProvider>
+      <PatientLoginDescriptionSection />
     </>
   );
 }

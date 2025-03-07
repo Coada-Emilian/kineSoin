@@ -41,3 +41,25 @@ export interface IDescriptionArticle {
   paragraph: string;
   title: string;
 }
+
+export type IButtonTypes =
+  | 'basicBtn'
+  | 'cancelBtn'
+  | 'modifyBtn'
+  | 'deleteBtn'
+  | 'activeBtn'
+  | 'inactiveBtn'
+  | 'addBtn'
+  | 'pendingBtn'
+  | 'bannedBtn';
+
+export interface IButtonDetails {
+  btnType: IButtonTypes;
+  btnText: string | JSX.Element;
+  isNormalBtn?: boolean;
+  isNavBtn?: boolean;
+  isStatusBtn?: boolean;
+  isMobileBtn?: boolean;
+  isFormBtn?: boolean;
+  onClick?: () => void;
+}

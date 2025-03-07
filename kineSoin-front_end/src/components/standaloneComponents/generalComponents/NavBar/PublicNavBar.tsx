@@ -4,13 +4,10 @@ import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
 import CustomButton from '../CustomButton/CustomButton';
 import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext';
+import CustomBtn from '../CustomButton/CustomButtonRefactor';
 
 export default function PublicNavBar() {
   const { setFormOrder } = usePatientRegisterContext();
-
-  const onClickFunction = () => {
-    setFormOrder('first');
-  };
 
   return (
     <header className="bg-gradient-to-r from-white to-gray-200 bg-opacity-70 sticky top-0 w-full py-1 z-10">
@@ -18,7 +15,7 @@ export default function PublicNavBar() {
         <Link
           to="/"
           onClick={() => {
-            onClickFunction();
+            setFormOrder('first');
           }}
         >
           <img
@@ -35,34 +32,43 @@ export default function PublicNavBar() {
 
         <div className="hidden md:flex md:items-center">
           <div className="flex gap-2">
-            <Link
-              to="/loginTherapist"
-              className="hidden md:block"
-              onClick={() => {
-                onClickFunction();
-              }}
-            >
-              <CustomButton btnText="Connexion thérapeute" navBarButton />
+            <Link to="/loginTherapist" className="hidden md:block">
+              <CustomBtn
+                details={{
+                  btnType: 'basicBtn',
+                  btnText: 'Connexion thérapeute',
+                  isNavBtn: true,
+                  onClick: () => {
+                    setFormOrder('first');
+                  },
+                }}
+              />
             </Link>
 
-            <Link
-              to="/loginPatient"
-              className="hidden md:block"
-              onClick={() => {
-                onClickFunction();
-              }}
-            >
-              <CustomButton btnText="Connexion patient" navBarButton />
+            <Link to="/loginPatient" className="hidden md:block">
+              <CustomBtn
+                details={{
+                  btnType: 'basicBtn',
+                  btnText: 'Connexion patient',
+                  isNavBtn: true,
+                  onClick: () => {
+                    setFormOrder('first');
+                  },
+                }}
+              />
             </Link>
 
-            <Link
-              to="/loginAdmin"
-              className="hidden md:block"
-              onClick={() => {
-                onClickFunction();
-              }}
-            >
-              <CustomButton btnText="Connexion admin" navBarButton />
+            <Link to="/loginAdmin" className="hidden md:block">
+              <CustomBtn
+                details={{
+                  btnType: 'basicBtn',
+                  btnText: 'Connexion admin',
+                  isNavBtn: true,
+                  onClick: () => {
+                    setFormOrder('first');
+                  },
+                }}
+              />
             </Link>
           </div>
         </div>

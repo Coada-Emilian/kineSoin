@@ -21,7 +21,7 @@ export default function PatientLoginDescriptionSection() {
 
   return (
     <div className="bg-container py-12 rounded-tr-[75px]">
-      <div className="flex flex-col">
+      <div className="flex flex-col md:gap-4">
         <ArticleRow
           articleImage={article.image}
           articleAlt={article.alt}

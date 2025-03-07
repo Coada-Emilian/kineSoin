@@ -1,28 +1,24 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import CustomButton from '../../standaloneComponents/generalComponents/CustomButton/CustomButton.tsx';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
 import { checkAdminCredentials } from '../../../utils/pageUtils/AdminSection/AdminLoginPageUtils/authentificationUtil.ts';
 import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInput.tsx';
 import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInput.tsx';
+import { useGlobalContext } from '../../../utils/contexts/GlobalContext.tsx';
+import { useAuthentificationContext } from '../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
+import CustomBtn from '../../standaloneComponents/generalComponents/CustomButton/CustomButtonRefactor.tsx';
 
-interface AdminLoginPageProps {
-  setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-  adminProfileToken: string | null;
-}
+export default function AdminLoginPage() {
+  const { errorMessage, setError, isLoading, setLoading, navigate } =
+    useGlobalContext();
 
-export default function AdminLoginPage({
-  setAdminProfileToken,
-  adminProfileToken,
-}: AdminLoginPageProps) {
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const { adminProfileToken, setAdminProfileToken } =
+    useAuthentificationContext();
 
-  // Ensure navigation happens only when adminProfileToken is set
+  // // Ensure navigation happens only when adminProfileToken is set
   useEffect(() => {
-    if (adminProfileToken) {
+    if (adminProfileToken && adminProfileToken !== null) {
       navigate('/admin/therapists');
     }
   }, [adminProfileToken]);
@@ -36,11 +32,11 @@ export default function AdminLoginPage({
       <section className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-sm">
         <form
           onSubmit={(e) => {
-            setIsLoading(true);
+            setLoading(true);
             checkAdminCredentials(e, {
               setAdminProfileToken,
-              setErrorMessage,
-            }).finally(() => setIsLoading(false));
+              setError,
+            }).finally(() => setLoading(false));
           }}
           className="space-y-4"
         >
@@ -82,10 +78,13 @@ export default function AdminLoginPage({
           />
 
           <div className="flex justify-center">
-            <CustomButton
-              btnText="Se connecter"
-              normalButton
-              btnType="submit"
+            <CustomBtn
+              details={{
+                btnType: 'basicBtn',
+                btnText: 'Connexion',
+                isNormalBtn: true,
+                isFormBtn: true,
+              }}
             />
           </div>
         </form>

@@ -3,19 +3,19 @@ import { getAdminTokenAndDataFromLocalStorage } from '../../../localStorage/admi
 import { checkAdminAuthentication } from '../../AppUtils/authentificationFunctions/appAuthentificationFunctions';
 
 // Define the context type
-interface AdminAuthentificationGlobalContextType {
+interface AdminAuthentificationContextType {
   isAdminAuthenticated: boolean;
   adminProfileToken: string | null;
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 // Create the context with default values
-export const AdminAuthentificationGlobalContext = createContext<
-  AdminAuthentificationGlobalContextType | undefined
+export const AdminAuthentificationContext = createContext<
+  AdminAuthentificationContextType | undefined
 >(undefined);
 
 // Provider component to manage and provide authentication state
-export const AdminAuthentificationGlobalContextProvider: React.FC<{
+export const AdminAuthentificationContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
@@ -50,7 +50,7 @@ export const AdminAuthentificationGlobalContextProvider: React.FC<{
   }, [adminProfileToken]);
 
   return (
-    <AdminAuthentificationGlobalContext.Provider
+    <AdminAuthentificationContext.Provider
       value={{
         isAdminAuthenticated,
 
@@ -60,6 +60,20 @@ export const AdminAuthentificationGlobalContextProvider: React.FC<{
       }}
     >
       {children}
-    </AdminAuthentificationGlobalContext.Provider>
+    </AdminAuthentificationContext.Provider>
   );
 };
+
+export const useAdminAuthentificationContext = () => {
+  const context = React.useContext(AdminAuthentificationContext);
+
+  if (!context) {
+    throw new Error(
+      'usePatientAuthentificationContext must be used within a PatientAuthentificationContext'
+    );
+  }
+
+  return context;
+};
+
+export default AdminAuthentificationContext;

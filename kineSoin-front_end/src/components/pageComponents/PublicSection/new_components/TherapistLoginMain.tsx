@@ -6,13 +6,11 @@ import TherapistLoginDescriptionSection from '../../../standaloneComponents/Publ
 export default function TherapistLoginMain() {
   return (
     <>
-      <TherapistAuthentificationContextProvider>
-        <TherapistLoginFormSection />
+      <TherapistLoginFormSection />
 
-        <PublicHeadBand />
+      <PublicHeadBand />
 
-        <TherapistLoginDescriptionSection />
-      </TherapistAuthentificationContextProvider>
+      <TherapistLoginDescriptionSection />
     </>
   );
 }
