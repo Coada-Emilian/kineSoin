@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
 import { Link } from 'react-router-dom';
-import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
+import SideNav from '../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
 import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
 import AppointmentsCalendar from '../../standaloneComponents/generalComponents/AppointmentCalendar/AppointmentsCalendar';
 import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';

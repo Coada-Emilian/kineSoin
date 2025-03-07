@@ -5,7 +5,10 @@ import {
   useEffect, // Hook to perform side effects when dependencies change
   ReactNode, // Type for defining children components
 } from 'react';
-import { IEntityInterface } from '../../@types/componentTypes'; // Importing the entity interface type
+import {
+  IEntitiesInterfaces,
+  IEntityInterface,
+} from '../../@types/componentTypes'; // Importing the entity interface type
 
 // Define the shape of the context
 interface AdminTableGlobalContextType {
@@ -17,6 +20,10 @@ interface AdminTableGlobalContextType {
   regionDeleteModal: boolean; // Boolean flag to indicate if the region delete modal is open
   openDeleteModal: (entity: IEntityInterface, isRegionModal?: boolean) => void; // Function to open delete modal
   closeModal: () => void; // Function to close modals
+  entityStatus: string; // Status filter for entities
+  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+  renderedEntities: IEntityInterface[]; // Array of entities to be rendered
+  setRenderedEntities: (entities: IEntityInterface[]) => void; // Function to set the rendered entities
 }
 
 // Create the context with an undefined initial value (to be provided later)
@@ -38,6 +45,13 @@ export const AdminTableGlobalProvider = ({
   const [openModal, setOpenModal] = useState<string | null>(null);
   // State to track if the region delete modal is open
   const [regionDeleteModal, setRegionDeleteModal] = useState(false);
+
+  const [entityStatus, setEntityStatus] = useState<string>('all');
+
+  // States for rendered entities
+  const [renderedEntities, setRenderedEntities] = useState<IEntitiesInterfaces>(
+    []
+  );
 
   // Function to open the delete modal
   const openDeleteModal = (
@@ -75,6 +89,10 @@ export const AdminTableGlobalProvider = ({
         regionDeleteModal,
         openDeleteModal,
         closeModal,
+        entityStatus,
+        setEntityStatus,
+        renderedEntities,
+        setRenderedEntities,
       }}
     >
       {children} {/* Render children components inside the provider */}

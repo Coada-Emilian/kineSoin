@@ -3,48 +3,40 @@ import PatientsStatusButtons from '../../../../../../components/standaloneCompon
 import TherapistsStatusButtons from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Therapists/new_components/TherapistsStatusButtons';
 
 interface FunctionProps {
-  setTherapistStatus: React.Dispatch<React.SetStateAction<string>>;
-  setPatientStatus: React.Dispatch<React.SetStateAction<string>>;
-  setAfflictionStatus: React.Dispatch<React.SetStateAction<string>>;
-  therapistStatus: string;
-  patientStatus: string;
-  afflictionStatus: string;
+  entityStatus: string;
+  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const getAdminTableElements = ({
-  setTherapistStatus,
-  setPatientStatus,
-  setAfflictionStatus,
-  therapistStatus,
-  patientStatus,
-  afflictionStatus,
+  entityStatus,
+  setEntityStatus,
 }: FunctionProps) => [
   {
     entityType: 'therapist',
-    statusButtons: <TherapistsStatusButtons setStatus={setTherapistStatus} />,
+    statusButtons: <TherapistsStatusButtons setStatus={setEntityStatus} />,
     customBtnText: 'Ajouter un kiné',
     modalName: 'addTherapistP1',
     tableTitle: 'Tous les kinésithérapeutes',
-    entityStatus: therapistStatus,
+    entityStatus: entityStatus,
     secondTableHeadContent: 'Nom kiné',
     thirdTableHeadContent: 'Statut',
   },
   {
     entityType: 'patient',
-    statusButtons: <PatientsStatusButtons setStatus={setPatientStatus} />,
+    statusButtons: <PatientsStatusButtons setStatus={setEntityStatus} />,
     tableTitle: 'Tous les patients',
-    entityStatus: patientStatus,
+    entityStatus: entityStatus,
     secondTableHeadContent: 'Nom patient',
     thirdTableHeadContent: 'Statut',
   },
   {
     entityType: 'affliction',
-    statusButtons: <AfflictionsStatusButtons setStatus={setAfflictionStatus} />,
+    statusButtons: <AfflictionsStatusButtons setStatus={setEntityStatus} />,
     customBtnText: 'Ajouter une affliction',
     modalName: 'addAffliction',
     regionButton: true,
     tableTitle: 'Toutes les afflictions',
-    entityStatus: afflictionStatus,
+    entityStatus: entityStatus,
     secondTableHeadContent: 'Nom affliction',
     thirdTableHeadContent: 'Region concernée',
     fourthTableHeadContent: 'Cotation',

@@ -40,20 +40,12 @@ export default function AdminTableRefactor({
     openModal,
     setOpenModal,
     selectedEntity,
-    setSelectedEntity,
-    setRegionDeleteModal,
     closeModal,
+    entityStatus,
+    setEntityStatus,
+    renderedEntities,
+    setRenderedEntities,
   } = useAdminTableGlobalContext();
-
-  // States for status changes
-  const [therapistStatus, setTherapistStatus] = useState<string>('all');
-  const [patientStatus, setPatientStatus] = useState<string>('all');
-  const [afflictionStatus, setAfflictionStatus] = useState<string>('all');
-
-  // States for rendered entities
-  const [renderedEntities, setRenderedEntities] = useState<IEntitiesInterfaces>(
-    entities || []
-  );
 
   // useEffects to set rendered therapists, patients, afflictions
   useEffect(() => {
@@ -69,24 +61,20 @@ export default function AdminTableRefactor({
     };
 
     const statusMap: Record<string, string> = {
-      therapist: therapistStatus,
-      affliction: afflictionStatus,
-      patient: patientStatus,
+      therapist: entityStatus,
+      affliction: entityStatus,
+      patient: entityStatus,
     };
 
     const renderFunction = renderFunctions[entityType];
     if (renderFunction) {
       renderFunction(entities, setRenderedEntities, statusMap[entityType]);
     }
-  }, [entityType, therapistStatus, patientStatus, afflictionStatus]);
+  }, [entityType, entityStatus]);
 
   const tableElements = getAdminTableElements({
-    setTherapistStatus,
-    setPatientStatus,
-    setAfflictionStatus,
-    therapistStatus,
-    patientStatus,
-    afflictionStatus,
+    entityStatus,
+    setEntityStatus,
   });
 
   const activeEntity = Object.values(tableElements).find(
@@ -97,7 +85,7 @@ export default function AdminTableRefactor({
     <>
       <div className="min-h-screen">
         <div
-          className={`${activeEntity && !activeEntity.statusButtons ? 'justify-end' : 'justify-between'} mb-6 flex flex-row md:ml-10 md:mr-10`}
+          className={`${!activeEntity?.statusButtons ? 'justify-end' : 'justify-between'} mb-6 flex flex-row md:ml-10 md:mr-10`}
         >
           <>
             {activeEntity?.statusButtons}

@@ -19,7 +19,7 @@ export default function CustomBtn({ btn }: CustomButtonProps) {
       : btn.isNavBtn
         ? 'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm font-medium'
         : btn.isStatusBtn
-          ? 'p-1 px-2 max-w-52 my-0 mx-0 text-xxs md:text-sm xl:text-base'
+          ? 'p-1 px-2 max-w-52 my-0 mx-0 text-xxs md:text-sm xl:text-base font-medium'
           : btn.isMobileBtn
             ? 'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm'
             : ''

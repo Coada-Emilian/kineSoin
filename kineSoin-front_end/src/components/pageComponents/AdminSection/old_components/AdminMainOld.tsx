@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
-import AdminTable from '../../standaloneComponents/AdminSection/AdminTable/old_components/AdminTable';
-import AdminProfileDetails from '../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetails';
-import DNALoader from '../../../utils/DNALoader';
 import {
-  ITherapist,
-  IPatient,
   IAffliction,
-  IMedic,
   IInsurance,
-} from '../../../@types/standardTypes';
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../@types/standardInterfaces';
 import {
   fetchDetailsData,
   fetchTableData,
-} from '../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtils';
+} from '../../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtils';
+import DNALoader from '../../../../utils/DNALoader';
+import SideNav from '../../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
+import AdminTable from '../../../standaloneComponents/AdminSection/AdminTable/old_components/AdminTable';
+import AdminProfileDetails from '../../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetails';
 
 interface AdminMainProps {
   isAdminTherapistsMain?: boolean;
@@ -29,7 +29,7 @@ interface AdminMainProps {
   isAdminInsuranceMain?: boolean;
 }
 
-export default function AdminMain({
+export default function AdminMainOld({
   isAdminTherapistsMain,
   isAdminTherapistMain,
   isAdminPatientsMain,

@@ -13,7 +13,6 @@ import {
   checkPatientAuthentication,
   checkTherapistAuthentication,
 } from './utils/AppUtils/authentificationFunctions/appAuthentificationFunctions';
-import AdminPage from './components/pageComponents/AdminSection/AdminPage';
 import {
   adminRoutes,
   patientRoutes,
@@ -22,190 +21,63 @@ import {
 } from './utils/AppUtils/constants/routes';
 import { PublicLayout } from './utils/AppUtils/appLayouts/PublicLayout';
 import { GlobalContextProvider } from './utils/contexts/GlobalContext';
-import { AuthentificationGlobalContextProvider } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
+import {
+  AuthentificationGlobalContextProvider,
+  useAuthentificationContext,
+} from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { AdminLayout } from './utils/AppUtils/appLayouts/AdminLayout';
+import AdminMain from './components/pageComponents/AdminSection/new_components/AdminMain';
 
 function App() {
-  // Authentication states
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
-  const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
-  const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
-    useState(false);
-
-  // Tokens
-  const [patientProfileToken, setPatientProfileToken] = useState<string | null>(
-    () => {
-      const response = getPatientTokenAndDataFromLocalStorage();
-      return response ? response.token : null;
-    }
-  );
-  const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
-    () => {
-      const response = getAdminTokenAndDataFromLocalStorage();
-      return response ? response.token : null;
-    }
-  );
-  const [therapistProfileToken, setTherapistProfileToken] = useState<
-    string | null
-  >(() => {
-    const response = getTherapistTokenAndDataFromLocalStorage();
-    return response ? response.token : null;
-  });
-
-  // useEffect to check if the admin is authenticated
-  useEffect(() => {
-    checkAdminAuthentication({ setIsAdminAuthenticated, setAdminProfileToken });
-    // Listen for changes in the local storage
-    const handleAdminStorageChange = (event: StorageEvent) => {
-      if (event.key === 'token') {
-        checkAdminAuthentication({
-          setIsAdminAuthenticated,
-          setAdminProfileToken,
-        });
-      }
-    };
-
-    // Add event listener for storage change
-    window.addEventListener('storage', handleAdminStorageChange);
-
-    // Check every 5 seconds if the admin is authenticated
-    const intervalId = setInterval(() => {
-      checkAdminAuthentication({
-        setIsAdminAuthenticated,
-        setAdminProfileToken,
-      });
-    }, 30000);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('storage', handleAdminStorageChange);
-      clearInterval(intervalId);
-    };
-  }, [adminProfileToken, isAdminAuthenticated]);
-
-  // useEffect to check if the patient is authenticated
-  useEffect(() => {
-    checkPatientAuthentication({
-      setIsPatientAuthenticated,
-      setPatientProfileToken,
-    });
-
-    // Listen for changes in localStorage
-    const handlePatientStorageChange = (event: StorageEvent) => {
-      if (event.key === 'token') {
-        checkPatientAuthentication({
-          setIsPatientAuthenticated,
-          setPatientProfileToken,
-        });
-      }
-    };
-
-    // Add event listener for storage change
-    window.addEventListener('storage', handlePatientStorageChange);
-
-    // Check every 30 seconds if the patient is authenticated
-    const intervalId = setInterval(() => {
-      checkPatientAuthentication({
-        setIsPatientAuthenticated,
-        setPatientProfileToken,
-      });
-    }, 30000);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('storage', handlePatientStorageChange);
-      clearInterval(intervalId);
-    };
-  }, [patientProfileToken, isPatientAuthenticated]);
-
-  // useEffect to check if the therapist is authenticated
-  useEffect(() => {
-    checkTherapistAuthentication({
-      setIsTherapistAuthenticated,
-      setTherapistProfileToken,
-    });
-    // Listen for changes in the local storage
-    const handleTherapistStorageChange = (event: StorageEvent) => {
-      if (event.key === 'token') {
-        checkTherapistAuthentication({
-          setIsTherapistAuthenticated,
-          setTherapistProfileToken,
-        });
-      }
-    };
-
-    // Add event listener for storage change
-    window.addEventListener('storage', handleTherapistStorageChange);
-
-    // Check every 5 seconds if the therapist is authenticated
-    const intervalId = setInterval(() => {
-      checkTherapistAuthentication({
-        setIsTherapistAuthenticated,
-        setTherapistProfileToken,
-      });
-    }, 30000);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('storage', handleTherapistStorageChange);
-      clearInterval(intervalId);
-    };
-  }, [therapistProfileToken, isTherapistAuthenticated]);
+  const { isAdminAuthenticated, setIsAdminAuthenticated } =
+    useAuthentificationContext();
 
   return (
-    <GlobalContextProvider>
-      <AuthentificationGlobalContextProvider>
-        <Routes>
-          <Route element={<PublicLayout />}>
-            {publicRoutes.map((route) => (
-              <Route
-                path={route.path}
-                key={route.id}
-                element={route.element}
-                index={route.index}
-              />
-            ))}
+    <Routes>
+      <Route element={<PublicLayout />}>
+        {publicRoutes.map((route) => (
+          <Route
+            path={route.path}
+            key={route.id}
+            element={route.element}
+            index={route.index}
+          />
+        ))}
 
-            <Route path="*" element={<ErrorPage isPublicErrorPage />} />
-          </Route>
+        <Route path="*" element={<ErrorPage isPublicErrorPage />} />
+      </Route>
 
-          <Route path="/loginAdmin" element={<AdminLoginPage />} />
+      <Route path="/loginAdmin" element={<AdminLoginPage />} />
 
-          {/* Admin routes */}
-          {isAdminAuthenticated ? (
-            <Route path="/admin" element={<AdminLayout />}>
-              {adminRoutes.map((route) => (
-                <Route
-                  path={route.path}
-                  key={route.path}
-                  element={<AdminPage entityType={route.entityType} />}
-                />
-              ))}
-
-              <Route
-                path="*"
-                element={<ErrorPage isConnectedAdminErrorPage />}
-              />
-            </Route>
-          ) : (
+      {/* Admin routes */}
+      {isAdminAuthenticated ? (
+        <Route path="/admin" element={<AdminLayout />}>
+          {adminRoutes.map((route) => (
             <Route
-              path="/admin"
-              element={
-                <Layout
-                  isAdminLayout
-                  isAdminAuthenticated={isAdminAuthenticated}
-                  setIsAdminAuthenticated={setIsAdminAuthenticated}
-                />
-              }
-            >
-              <Route
-                path="*"
-                element={<ErrorPage isUnconnectedAdminErrorPage />}
-              />
-            </Route>
-          )}
+              path={route.path}
+              key={route.path}
+              element={<AdminMain entityType={route.entityType} />}
+            />
+          ))}
 
-          {/* Patient routes */}
+          <Route path="*" element={<ErrorPage isConnectedAdminErrorPage />} />
+        </Route>
+      ) : (
+        <Route
+          path="/admin"
+          element={
+            <Layout
+              isAdminLayout
+              isAdminAuthenticated={isAdminAuthenticated}
+              setIsAdminAuthenticated={setIsAdminAuthenticated}
+            />
+          }
+        >
+          <Route path="*" element={<ErrorPage isUnconnectedAdminErrorPage />} />
+        </Route>
+      )}
+
+      {/* Patient routes
           {isPatientAuthenticated ? (
             <Route
               path="/patient"
@@ -288,10 +160,8 @@ function App() {
                 element={<ErrorPage isUnconnectedTherapistErrorPage />}
               />
             </Route>
-          )}
-        </Routes>
-      </AuthentificationGlobalContextProvider>
-    </GlobalContextProvider>
+          )} */}
+    </Routes>
   );
 }
 

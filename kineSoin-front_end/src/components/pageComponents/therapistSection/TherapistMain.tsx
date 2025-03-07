@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
-import SideNav from '../../standaloneComponents/generalComponents/SideNav/SideNav';
+import SideNav from '../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
 import TherapistDayTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistDayTable/TherapistDayTable';
 import TherapistPatientsTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistPatientsTable/TherapistPatientsTable';
