@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import StandardChoiceDropdown from '../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
-import StandardTelephoneInput from '../../../../../generalComponents/StandardInputs/old_inputs/StandardTelephoneInput';
-import StandardTextInput from '../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
+import StandardChoiceDropdown from '../../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import StandardTelephoneInput from '../../../../../../../generalComponents/StandardInputs/old_inputs/StandardTelephoneInput';
+import StandardTextInput from '../../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
+} from '../../../../../../../../../@types/standardInterfaces';
 
 interface GeneralInputProps {
   therapist?: ITherapist;

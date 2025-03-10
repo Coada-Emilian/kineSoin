@@ -6,17 +6,22 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../@types/standardInterfaces';
-import TitleOutputRefactor from './pageComponents/generalComponents/common/GeneralOutputRefactor.tsx';
+import TitleOutputRefactor from './pageComponents/generalComponents/common/Outputs/new_conponents/GeneralOutputRefactor.tsx';
 import CommonSectionRefactor from './pageComponents/sections/CommonSectionRefactor.tsx';
 import CustomButton from '../../generalComponents/CustomButton/CustomButton.tsx';
 import ProfileSectionRefactor from './pageComponents/generalComponents/common/ProfileSectionRefactor.tsx';
-import ImageOutputRefactor from './pageComponents/generalComponents/common/Outputs/ImageOutputRefactor.tsx';
+import ImageOutputRefactor from './pageComponents/generalComponents/common/Outputs/new_conponents/ImageOutputRefactor.tsx';
 import mainLogo from '/logos/Main-Logo.png';
 import phoneIcon from '/icons/phone-call.png';
 import messageIcon from '/icons/message3.png';
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import StatusButtonsRefactor from './pageComponents/generalComponents/therapist/StatusButtonRefactor.tsx';
+import { handleTherapistUpdateAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils.ts';
+import { handlePatientUpdate } from '../../../../utils/apiUtils/patientApiUtils.tsx';
+import { handleAfflictionUpdateAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminAfflictionApiUtils.ts';
+import { handleMedicUpdateAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils.ts';
+import { handleInsuranceOrganismUpdateAsAdmin } from '../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils.ts';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -61,11 +66,27 @@ export default function AdminProfileDetailsRefactor({
   //   const updateFunction = getUpdateFunction();
 
   const entityDetails = [
-    { entityType: 'therapist', entity: entity as ITherapist },
+    {
+      entityType: 'therapist',
+      entity: entity as ITherapist,
+      updateFunction: handleTherapistUpdateAsAdmin,
+    },
     { entityType: 'patient', entity: entity as IPatient },
-    { entityType: 'affliction', entity: entity as IAffliction },
-    { entityType: 'medic', entity: entity as IMedic },
-    { entityType: 'insurance', entity: entity as IInsurance },
+    {
+      entityType: 'affliction',
+      entity: entity as IAffliction,
+      updateFunction: handleAfflictionUpdateAsAdmin,
+    },
+    {
+      entityType: 'medic',
+      entity: entity as IMedic,
+      updateFunction: handleMedicUpdateAsAdmin,
+    },
+    {
+      entityType: 'insurance',
+      entity: entity as IInsurance,
+      updateFunction: handleInsuranceOrganismUpdateAsAdmin,
+    },
   ];
 
   const activeEntity = entityDetails.find(
@@ -108,38 +129,25 @@ export default function AdminProfileDetailsRefactor({
   );
 
   useEffect(() => {
-    activeEntity &&
-      activeEntity.entity &&
+    if (activeEntity && activeEntity.entity) {
       'picture_url' in activeEntity.entity &&
-      setPictureUrl(activeEntity.entity.picture_url);
+        setPictureUrl(activeEntity.entity.picture_url);
 
-    activeEntity &&
-      activeEntity.entity &&
-      'email' in activeEntity.entity &&
-      setEmail(activeEntity.entity.email);
+      'email' in activeEntity.entity && setEmail(activeEntity.entity.email);
 
-    activeEntity &&
-      activeEntity.entity &&
       'prefix' in activeEntity.entity &&
-      'phone_number' in activeEntity.entity &&
-      setPhoneNumber(
-        activeEntity.entity.prefix + activeEntity.entity.phone_number
-      );
+        'phone_number' in activeEntity.entity &&
+        setPhoneNumber(
+          activeEntity.entity.prefix + activeEntity.entity.phone_number
+        );
 
-    activeEntity &&
-      activeEntity.entity &&
-      'name' in activeEntity.entity &&
-      setName(activeEntity.entity.name);
+      'name' in activeEntity.entity && setName(activeEntity.entity.name);
 
-    activeEntity &&
-      activeEntity.entity &&
       'surname' in activeEntity.entity &&
-      setSurname(activeEntity.entity.surname);
+        setSurname(activeEntity.entity.surname);
 
-    activeEntity &&
-      activeEntity.entity &&
-      'id' in activeEntity.entity &&
-      setId(activeEntity.entity.id);
+      'id' in activeEntity.entity && setId(activeEntity.entity.id);
+    }
   }, [activeEntity]);
 
   return (

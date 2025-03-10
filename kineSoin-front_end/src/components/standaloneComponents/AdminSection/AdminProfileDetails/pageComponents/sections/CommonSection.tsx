@@ -7,8 +7,8 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardInterfaces';
-import GeneralInput from '../generalComponents/common/GeneralInput';
-import GeneralOutput from '../generalComponents/common/GeneralOutput';
+import GeneralInput from '../generalComponents/common/Inputs/old_components/GeneralInput';
+import GeneralOutput from '../generalComponents/common/Outputs/old_components/GeneralOutput';
 
 interface CommonSectionProps {
   patient?: IPatient;

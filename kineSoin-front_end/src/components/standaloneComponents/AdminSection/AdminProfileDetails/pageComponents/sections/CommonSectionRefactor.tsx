@@ -6,10 +6,10 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardInterfaces';
-import NameInputRefactor from '../generalComponents/common/Inputs/NameInputRefactor';
-import IdOutputRefactor from '../generalComponents/common/Outputs/IdOutputRefactor';
-import NameOutputRefactor from '../generalComponents/common/Outputs/NameOutputRefactor';
-import StatusOutputRefactor from '../generalComponents/common/Outputs/StatusOutputRefactor';
+import NameInputRefactor from '../generalComponents/common/Inputs/new_components/NameInputRefactor';
+import IdOutputRefactor from '../generalComponents/common/Outputs/new_conponents/IdOutputRefactor';
+import NameOutputRefactor from '../generalComponents/common/Outputs/new_conponents/NameOutputRefactor';
+import StatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/StatusOutputRefactor';
 import { ICommonEntityDetails } from '../../../../../../@types/customInterfaces';
 
 interface CommonSectionRefactorProps {

@@ -5,8 +5,8 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../../@types/standardInterfaces';
-import GeneralInput from './GeneralInput';
-import GeneralOutput from './GeneralOutput';
+import GeneralInput from './Inputs/old_components/GeneralInput';
+import GeneralOutput from './Outputs/old_components/GeneralOutput';
 
 interface ProfileSectionProps {
   isProfileEditing?: boolean;

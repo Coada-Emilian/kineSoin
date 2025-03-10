@@ -3,7 +3,7 @@ import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal.tsx';
 import EditPhotoModal from '../Modals/EditPhotoModal.tsx';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
-import GeneralOutput from './pageComponents/generalComponents/common/GeneralOutput.tsx';
+import GeneralOutput from './pageComponents/generalComponents/common/Outputs/old_components/GeneralOutput.tsx';
 import CommonSection from './pageComponents/sections/CommonSection.tsx';
 import ProfileSection from './pageComponents/generalComponents/common/ProfileSection..tsx';
 import {

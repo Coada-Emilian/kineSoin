@@ -6,20 +6,20 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../../@types/standardInterfaces';
-import DiplomaOutputRefactor from './Outputs/DiplomaOutputRefactor';
-import ExperienceOutputRefactor from './Outputs/ExperienceOutputRefactor';
-import LicenceCodeOutputRefactor from './Outputs/LicenceCodeOutputRefactor';
-import SpecialtyOutputRefactor from './Outputs/SpecialtyOutputRefactor';
-import DescriptionOutputRefactor from './Outputs/DescriptionOutputRefactor';
-import PhoneNumberOutputRefactor from './Outputs/PhoneNumberOutputRefactor';
-import AMCCodeOutputRefactor from './Outputs/AMCCodeOutputRefactor';
-import InsuranceCodeOutputRefactor from './Outputs/InsuranceCodeOutputRefactor';
-import AddressOutputRefactor from './Outputs/AddressOutputRefactor';
-import AgeAndGenderOutputRefactor from './Outputs/AgeAndGenderOutputRefactor';
-import EmailInputRefactor from './Inputs/EmailInputRefactor';
-import EmailOutputRefactor from './Outputs/EmailOutputRefactor';
-import BodyRegionAndOperatedStatusOutputRefactor from './Outputs/BodyRegionAndOperatedStatusOutputRefactor';
-import ImageOutputRefactor from './Outputs/ImageOutputRefactor';
+import DiplomaOutputRefactor from './Outputs/new_conponents/DiplomaOutputRefactor';
+import ExperienceOutputRefactor from './Outputs/new_conponents/ExperienceOutputRefactor';
+import LicenceCodeOutputRefactor from './Outputs/new_conponents/LicenceCodeOutputRefactor';
+import SpecialtyOutputRefactor from './Outputs/new_conponents/SpecialtyOutputRefactor';
+import DescriptionOutputRefactor from './Outputs/new_conponents/DescriptionOutputRefactor';
+import PhoneNumberOutputRefactor from './Outputs/new_conponents/PhoneNumberOutputRefactor';
+import AMCCodeOutputRefactor from './Outputs/new_conponents/AMCCodeOutputRefactor';
+import InsuranceCodeOutputRefactor from './Outputs/new_conponents/InsuranceCodeOutputRefactor';
+import AddressOutputRefactor from './Outputs/new_conponents/AddressOutputRefactor';
+import AgeAndGenderOutputRefactor from './Outputs/new_conponents/AgeAndGenderOutputRefactor';
+import EmailInputRefactor from './Inputs/new_components/EmailInputRefactor';
+import EmailOutputRefactor from './Outputs/new_conponents/EmailOutputRefactor';
+import BodyRegionAndOperatedStatusOutputRefactor from './Outputs/new_conponents/BodyRegionAndOperatedStatusOutputRefactor';
+import ImageOutputRefactor from './Outputs/new_conponents/ImageOutputRefactor';
 
 interface ProfileSectionRefactorProps {
   isProfileEditing?: boolean;
