@@ -1,19 +1,4 @@
 import { useState } from 'react';
-
-import {
-  IAffliction,
-  IAppointment,
-  IBodyRegion,
-  IInsurance,
-  IMedic,
-  IPrescription,
-} from '../../../../../@types/standardInterfaces';
-
-import { fetchAppointmentsByPrescription } from '../standardDropdownInput/functions/fetchAppointmentsByPrescription';
-import { identifyOldInsurance } from '../standardDropdownInput/functions/identifyOldInsurance';
-import { fetchCountriesData } from '../../../../../utils/componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
-import { ICountry } from '../../../../../@types/customInterfaces';
-import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { IDropdownInput } from '../../../../../@types/inputInterfaces';
 
 interface StandardChoiceDropdownProps {

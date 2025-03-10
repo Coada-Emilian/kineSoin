@@ -3,10 +3,10 @@ import { useAuthentificationContext } from '../../../../../../utils/contexts/aut
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
-import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 import mainLogo from '/logos/Main-Logo.png';
 import { useEffect } from 'react';
+import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
+import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 
 export default function TherapistLoginFormSection() {
   const { errorMessage, setError, isLoading, setLoading, location, navigate } =
@@ -48,7 +48,7 @@ export default function TherapistLoginFormSection() {
             </p>
           )}
 
-          <StandardEmailInput
+          <StandardEmailInputRefactor
             emailInput={{
               inputId: 'therapist-login-email_input',
               inputName: 'email',
@@ -57,7 +57,7 @@ export default function TherapistLoginFormSection() {
             }}
           />
 
-          <StandardPasswordInput
+          <StandardPasswordInputRefactor
             passwordInput={{
               inputId: 'therapist-login-password_input',
               inputName: 'password',

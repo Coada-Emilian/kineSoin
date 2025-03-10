@@ -1,10 +1,6 @@
 import { useState } from 'react';
-import { IAddForm } from '../../../../../../../../@types/formInterfaces';
-import StandardFileInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardFileInput';
-import StandardTextInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
-import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
@@ -16,6 +12,7 @@ interface FirstAddTherapistModalProps {
   onClose: () => void;
   setIsAddTherapistModalP2Open: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 export default function FirstAddTherapistModal({
   isOpen,
   onClose,
@@ -93,7 +90,7 @@ export default function FirstAddTherapistModal({
             setTherapistImage={setTherapistImage}
           />
 
-          <p className="text-red-500 text-center text-xs md:text-sm">
+          <p className="text-red-500 text-center text-xs md:text-sm italic">
             Etape 1 / 3 : Informations personnelles
           </p>
 

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
 import { checkAdminCredentials } from '../../../utils/pageUtils/AdminSection/AdminLoginPageUtils/authentificationUtil.ts';
-import StandardEmailInput from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInput.tsx';
-import StandardPasswordInput from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInput.tsx';
 import { useGlobalContext } from '../../../utils/contexts/GlobalContext.tsx';
 import { useAuthentificationContext } from '../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
 import CustomBtn from '../../standaloneComponents/generalComponents/CustomButton/CustomButtonRefactor.tsx';
+import StandardEmailInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor.tsx';
+import StandardPasswordInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor.tsx';
 
 export default function AdminLoginPage() {
   const { errorMessage, setError, isLoading, setLoading, navigate } =
@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
             </p>
           )}
 
-          <StandardEmailInput
+          <StandardEmailInputRefactor
             emailInput={{
               inputId: 'admin-login-email_input',
               inputName: 'email',
@@ -67,7 +67,7 @@ export default function AdminLoginPage() {
             }}
           />
 
-          <StandardPasswordInput
+          <StandardPasswordInputRefactor
             passwordInput={{
               inputId: 'admin-login-password_input',
               inputName: 'password',

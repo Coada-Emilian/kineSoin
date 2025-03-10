@@ -27,7 +27,7 @@ import {
   handlePatientPhotoUpdate,
   handlePatientUpdate,
 } from '../../../../utils/apiUtils/patientApiUtils';
-import StandardEmailInput from '../StandardInputs/new_inputs/StandardEmailInput';
+import StandardEmailInput from '../StandardInputs/old_inputs/StandardEmailInput';
 import { Button } from '@headlessui/react';
 
 interface ProfileCardProps {

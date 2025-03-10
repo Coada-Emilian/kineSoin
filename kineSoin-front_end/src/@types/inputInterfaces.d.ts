@@ -80,6 +80,7 @@ export interface ITelephoneInput {
   inputValue?: string;
   isFlexRow?: boolean;
   isRequired?: boolean;
+  inputPlaceholder?: string;
   autoComplete?: string;
 }
 

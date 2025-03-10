@@ -1,5 +1,3 @@
-import StandardDropdownInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
-import StandardTelephoneInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardTelephoneInput';
 import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 import { useEffect, useState } from 'react';

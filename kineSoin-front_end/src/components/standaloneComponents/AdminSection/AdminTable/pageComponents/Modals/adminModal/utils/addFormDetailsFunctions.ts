@@ -7,7 +7,7 @@ interface addFormDetailsProps {
   setIsAddTherapistModalP2Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddTherapistModalP3Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAdminTherapistFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
-  setAddForm: (form: IAddForm) => void;
+  setAddForm: (form: IAddForm | any) => void;
 }
 
 export const addFirstFormDetails = async (
@@ -132,8 +132,17 @@ export const addSecondFormDetails = (
 
     const fullPhoneNUmber = `${therapistPrefix}${therapistTelephone}`;
 
-    setAddForm((prev) => ({
-      ...prev,
+    interface ISecondFormDetails {
+      description: string;
+      diploma: string;
+      experience: string;
+      specialty: string;
+      prefix: string;
+      phone_number: string;
+      full_phone_number: string;
+    }
+
+    const secondFormDetails: ISecondFormDetails = {
       description: therapistDescription,
       diploma: therapistDiploma,
       experience: therapistExperience,
@@ -141,7 +150,13 @@ export const addSecondFormDetails = (
       prefix: therapistPrefix,
       phone_number: therapistTelephone,
       full_phone_number: fullPhoneNUmber,
+    };
+
+    setAddForm((prev: IAddForm) => ({
+      ...prev,
+      ...secondFormDetails,
     }));
+
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
     setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
   } catch (error) {
@@ -197,8 +212,15 @@ export const addThirdFormDetails = async (
       return;
     }
 
+    interface IThirdFormDetails {
+      email: string;
+      password: string;
+      repeated_password: string;
+      status: string;
+    }
+
     setAddForm &&
-      setAddForm((prev) => ({
+      setAddForm((prev: IAddForm) => ({
         ...prev,
         email: therapistEmail,
         password: therapistPassword,

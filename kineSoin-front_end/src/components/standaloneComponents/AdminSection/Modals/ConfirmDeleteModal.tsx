@@ -118,6 +118,7 @@ export default function ConfirmDeleteModal({
                 ?
               </p>
             )}
+
             <span className="text-red-500 font-medium">
               Cette action est irréversible.
             </span>

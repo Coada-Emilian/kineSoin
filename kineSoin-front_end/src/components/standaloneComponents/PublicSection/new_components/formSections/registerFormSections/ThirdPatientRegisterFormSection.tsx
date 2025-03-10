@@ -1,7 +1,6 @@
-import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
-import StandardFileInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardFileInput';
 import StandardFileInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardFileInputRefactor';
-import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
+import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
+import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 
 interface ThirdPatientRegisterFormSectionProps {
   setPatientImage:
@@ -24,7 +23,7 @@ export default function ThirdPatientRegisterFormSection({
         setPatientImage={setPatientImage}
       />
 
-      <StandardEmailInput
+      <StandardEmailInputRefactor
         emailInput={{
           inputId: 'patient-register-email_input',
           inputPlaceholder: 'Entrez votre adresse e-mail',
@@ -33,7 +32,7 @@ export default function ThirdPatientRegisterFormSection({
         }}
       />
 
-      <StandardPasswordInput
+      <StandardPasswordInputRefactor
         passwordInput={{
           inputId: 'patient-register-password_input',
           inputName: 'password',
@@ -43,9 +42,9 @@ export default function ThirdPatientRegisterFormSection({
         }}
       />
 
-      <StandardPasswordInput
+      <StandardPasswordInputRefactor
         passwordInput={{
-          inputId: 'patient-login-password_input',
+          inputId: 'patient-register-confirmPassword_input',
           inputName: 'confirm-password',
           labelName: 'Confirmez votre mot de passe',
           inputPlaceholder: 'Confirmez votre mot de passe',

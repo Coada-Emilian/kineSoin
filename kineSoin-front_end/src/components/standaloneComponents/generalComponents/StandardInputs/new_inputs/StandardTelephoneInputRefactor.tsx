@@ -26,7 +26,7 @@ export default function StandardTelephoneInputRefactor({
         name="phone_number"
         id={telephoneInput.inputId}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal text-xxs md:text-xs xl:text-sm 2xl:text-md"
-        placeholder="N° de téléphone"
+        placeholder={telephoneInput.inputPlaceholder || 'N° de téléphone'}
         value={phoneNumber}
         onChange={(e) => {
           setPhoneNumber(e.target.value);

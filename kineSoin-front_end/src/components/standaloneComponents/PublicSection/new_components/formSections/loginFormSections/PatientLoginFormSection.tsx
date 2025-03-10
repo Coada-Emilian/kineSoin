@@ -3,10 +3,10 @@ import mainLogo from '/logos/Main-Logo.png';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 import { checkPatientCredentials } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/authentificationUtils';
-import StandardEmailInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInput';
-import StandardPasswordInput from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
+import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
+import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 
 export default function PatientLoginFormSection() {
   const { errorMessage, setError, isLoading, setLoading, navigate } =
@@ -44,7 +44,7 @@ export default function PatientLoginFormSection() {
             </p>
           )}
 
-          <StandardEmailInput
+          <StandardEmailInputRefactor
             emailInput={{
               inputId: 'patient-login-email_input',
               inputPlaceholder: 'Entrez votre adresse e-mail',
@@ -53,7 +53,7 @@ export default function PatientLoginFormSection() {
             }}
           />
 
-          <StandardPasswordInput
+          <StandardPasswordInputRefactor
             passwordInput={{
               inputId: 'patient-login-password_input',
               inputName: 'password',

@@ -1,0 +1,40 @@
+import { useState } from 'react';
+import { IEmailInput } from '../../../../../@types/inputInterfaces';
+
+interface StandardEmailInputProps {
+  emailInput: IEmailInput;
+}
+
+export default function StandardEmailInputRefactor({
+  emailInput,
+}: StandardEmailInputProps) {
+  const [email, setEmail] = useState(emailInput.inputValue || '');
+
+  return (
+    <div
+      className={`${
+        emailInput.additionalDivClassName && emailInput.additionalDivClassName
+      } 
+        ${emailInput.isFlexRow ? 'flex-row' : 'flex-col'}  flex gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-4`}
+    >
+      <label
+        htmlFor={emailInput.inputId}
+        className={`${emailInput.additionalLabelClassName && emailInput.additionalLabelClassName} text-primaryBlue font-medium italic `}
+      >
+        E-mail
+      </label>
+
+      <input
+        type="email"
+        name={emailInput.inputName}
+        id={emailInput.inputId}
+        className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md w-full"
+        placeholder={emailInput.inputPlaceholder}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        autoComplete={emailInput.autoComplete}
+      />
+    </div>
+  );
+}
