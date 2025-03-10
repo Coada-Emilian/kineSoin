@@ -1,9 +1,13 @@
-import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
-import StandardTextInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleAfflictionSubmit } from '../utils/dataSubmitFunctions';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
+import StandardTextInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import { useEffect, useState } from 'react';
+import { IBodyRegion } from '../../../../../../../../@types/standardInterfaces';
+import { fetchBodyRegionsAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
+import StandardDropdownInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import CreateButtonsSection from '../../../../new_components/CreateButtonsSection';
 
 interface AddAfflictionModalProps {
   isOpen: boolean;
@@ -15,6 +19,15 @@ export default function AddAfflictionModal({
   onClose,
 }: AddAfflictionModalProps) {
   const { errorMessage, setError } = useGlobalContext();
+
+  const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+
+  useEffect(() => {
+    fetchBodyRegionsAsAdmin().then((bodyRegions) => {
+      setBodyRegions(bodyRegions);
+    });
+  }, []);
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -35,38 +48,94 @@ export default function AddAfflictionModal({
             })
           }
         >
-          <StandardTextInput
-            adminAffliction={{ isAdminAfflictionAddNameInput: true }}
+          <StandardTextInputRefactor
+            textInput={{
+              inputId: 'affliction-register-name_input',
+              labelName: 'Nom',
+              inputName: 'name',
+              inputPlaceholder: "Entrez le nom de l'affliction",
+              isRequired: true,
+              autoComplete: 'name',
+            }}
           />
 
-          <StandardChoiceDropdown isAdminAfflictionAddRegionInput />
+          <StandardDropdownInputRefactor
+            dropdownInput={{
+              inputId: 'affliction-register-bodyRegion_input',
+              labelName: 'Region concernée',
+              inputName: 'body_region_id',
+              autoComplete: 'body region',
+              isRequired: true,
+              allOptions: {
+                startingOption: {
+                  value: '',
+                  text: 'Choisissez une région',
+                },
+                options: [
+                  ...bodyRegions.map((region) => ({
+                    key: region.id.toString(),
+                    value: region.id.toString(),
+                    text: `${region.name}`,
+                  })),
+                ],
+              },
+            }}
+          />
 
           <div className="flex gap-1">
-            <StandardTextInput
-              adminAffliction={{
-                isAdminAfflictionAddLicenceCodeInput: true,
+            <StandardTextInputRefactor
+              textInput={{
+                inputId: 'affliction-register-licenceCode_input',
+                labelName: 'Cotation',
+                inputName: 'insurance_code',
+                inputPlaceholder: "Entrez la cotation de l'affliction",
+                isRequired: true,
+                autoComplete: 'insurance-code',
               }}
             />
 
-            <StandardChoiceDropdown isAdminAfflictionAddOperatedStatusInput />
+            <StandardDropdownInputRefactor
+              dropdownInput={{
+                inputId: 'affliction-register-operatedStatus_input',
+                labelName: 'Est opéré ?',
+                inputName: 'is_operated',
+                autoComplete: 'is operated',
+                isRequired: true,
+                allOptions: {
+                  startingOption: {
+                    value: '',
+                    text: "Choisissez le statut de l'affliction",
+                  },
+                  options: [
+                    {
+                      key: '1',
+                      value: 'true',
+                      text: 'Oui',
+                    },
+                    {
+                      key: '2',
+                      value: 'false',
+                      text: 'Non',
+                    },
+                  ],
+                },
+              }}
+            />
           </div>
 
-          <StandardTextInput
-            adminAffliction={{ isAdminAfflictionAddDescriptionInput: true }}
+          <StandardTextInputRefactor
+            textInput={{
+              inputId: 'affliction-register-description_input',
+              labelName: 'Description',
+              inputName: 'description',
+              inputPlaceholder: "Entrez la description de l'affliction",
+              isRequired: true,
+              isTextArea: true,
+              autoComplete: 'description',
+            }}
           />
 
-          <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Valider" btnType="submit" normalButton />
-
-            <CustomButton
-              btnText="Annuler"
-              btnType="button"
-              cancelButton
-              onClick={() => {
-                onClose && onClose();
-              }}
-            />
-          </div>
+          <CreateButtonsSection onClose={onClose} />
         </form>
       </div>
     </BaseModal>

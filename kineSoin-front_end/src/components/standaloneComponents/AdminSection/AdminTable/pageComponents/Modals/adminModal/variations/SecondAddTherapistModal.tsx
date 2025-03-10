@@ -1,9 +1,5 @@
-import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
-import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTelephoneInput';
-import StandardTextInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addSecondFormDetails } from '../utils/addFormDetailsFunctions';
-import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import StandardTextInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
@@ -12,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { fetchCountriesData } from '../../../../../../../../utils/componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
 import { ICountry } from '../../../../../../../../@types/customInterfaces';
 import StandardTelephoneInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
+import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import { usePrefixesContext } from '../../../../../../../../utils/contexts/PrefixesContext';
 
 interface SecondAddTherapistModalProps {
   isOpen: boolean;
@@ -24,11 +22,7 @@ export default function SecondAddTherapistModal({
   onClose,
   setIsAddTherapistModalP3Open,
 }: SecondAddTherapistModalProps) {
-  const [countries, setCountries] = useState<ICountry[]>([]);
-
-  useEffect(() => {
-    fetchCountriesData({ setCountries });
-  }, []);
+  const { countries } = usePrefixesContext();
 
   const { errorMessage, setError } = useGlobalContext();
 
@@ -141,14 +135,23 @@ export default function SecondAddTherapistModal({
           </p>
 
           <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Suivant" btnType="submit" normalButton />
+            <CustomBtn
+              btn={{
+                btnType: 'basicBtn',
+                btnText: 'Suivant',
+                isNormalBtn: true,
+                isFormBtn: true,
+              }}
+            />
 
-            <CustomButton
-              btnText="Annuler"
-              btnType="button"
-              cancelButton
-              onClick={() => {
-                onClose && onClose();
+            <CustomBtn
+              btn={{
+                btnType: 'cancelBtn',
+                btnText: 'Annuler',
+                isNormalBtn: true,
+                onClick: () => {
+                  onClose && onClose();
+                },
               }}
             />
           </div>

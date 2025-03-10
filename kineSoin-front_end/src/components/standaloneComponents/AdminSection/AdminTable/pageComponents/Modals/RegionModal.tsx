@@ -5,6 +5,7 @@ import RegionTable from '../../RegionTable';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 
 interface RegionModalProps {
   isOpen: boolean;
@@ -47,12 +48,14 @@ export default function RegionModal({
       </div>
 
       <div className="flex gap-2 mt-6 w-fit mx-auto mb-4">
-        <CustomButton
-          btnText="Annuler"
-          btnType="button"
-          mobileCancelButton
-          onClick={() => {
-            onClose && onClose();
+        <CustomBtn
+          btn={{
+            btnType: 'cancelBtn',
+            btnText: 'Annuler',
+            isNormalBtn: true,
+            onClick: () => {
+              onClose && onClose();
+            },
           }}
         />
       </div>

@@ -2,8 +2,12 @@
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import StandardTextInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { handleBodyRegionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import { createRegion } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/createRegion';
+import DNALoader from '../../../../../../utils/DNALoader';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import CreateButtonsSection from '../../new_components/CreateButtonsSection';
+import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 
 interface AddRegionModalProps {
   isOpen: boolean;
@@ -14,20 +18,11 @@ export default function AddRegionModal({
   isOpen,
   onClose,
 }: AddRegionModalProps) {
-  const createRegion = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
-    const response = await handleBodyRegionCreationAsAdmin(formData);
-    if (response) {
-      onClose && onClose();
-      window.location.reload();
-    } else {
-      console.error('Failed to create region');
-    }
-  };
+  const { errorMessage, isLoading, setLoading } = useGlobalContext();
 
-  const { errorMessage } = useGlobalContext();
+  if (isLoading) {
+    return DNALoader();
+  }
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -40,21 +35,26 @@ export default function AddRegionModal({
           <p className="text-red-500 text-xs text-center">{errorMessage}</p>
         )}
 
-        <form className="space-y-4" onSubmit={createRegion}>
-          <StandardTextInput
-            adminRegion={{ isAdminRegionAddNameInput: true }}
+        <form
+          className="space-y-4"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setLoading(true);
+            await createRegion(e, { onClose }).finally(() => setLoading(false));
+          }}
+        >
+          <StandardTextInputRefactor
+            textInput={{
+              inputId: 'region-register-name_input',
+              labelName: 'Nom',
+              inputName: 'name',
+              inputPlaceholder: 'Entrez le nom de la région du corps',
+              isRequired: true,
+              autoComplete: 'name',
+            }}
           />
 
-          <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Valider" btnType="submit" normalButton />
-
-            <CustomButton
-              btnText="Annuler"
-              btnType="button"
-              cancelButton
-              onClick={() => onClose && onClose()}
-            />
-          </div>
+          <CreateButtonsSection onClose={onClose} />
         </form>
       </div>
     </BaseModal>

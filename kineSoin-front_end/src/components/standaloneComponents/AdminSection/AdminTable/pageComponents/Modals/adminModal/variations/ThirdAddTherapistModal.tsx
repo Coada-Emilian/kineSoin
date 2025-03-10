@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
 import { createTherapist } from '../utils/createTherapist';
-import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import StandardEmailInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 import StandardDropdownInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import CreateButtonsSection from '../../../../new_components/CreateButtonsSection';
 
 interface ThirdAddTherapistModalProps {
   isOpen: boolean;
@@ -121,18 +121,7 @@ export default function ThirdAddTherapistModal({
             Etape 3 / 3 : Informations compte
           </p>
 
-          <div className="flex gap-2 mt-6 w-fit mx-auto">
-            <CustomButton btnText="Valider" btnType="submit" normalButton />
-
-            <CustomButton
-              btnText="Annuler"
-              btnType="button"
-              cancelButton
-              onClick={() => {
-                onClose && onClose();
-              }}
-            />
-          </div>
+          <CreateButtonsSection onClose={onClose} />
         </form>
       </div>
     </BaseModal>
