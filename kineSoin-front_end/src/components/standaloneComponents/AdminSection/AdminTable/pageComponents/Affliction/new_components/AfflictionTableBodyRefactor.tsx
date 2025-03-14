@@ -1,14 +1,29 @@
+/**
+ * @function AfflictionTableBodyRefactor
+ *
+ * This component renders the table body for a list of affliction entities.
+ * It maps over an array of affliction data and displays each entry in a table row with details
+ * such as `id`, `name`, `body_region`, and `insurance_code`. Each row includes options for inspecting and deleting the affliction.
+ * The delete option triggers a modal via context to confirm the action, while the edit option navigates to the affliction details page.
+ *
+ * @param {Object} props - The component props.
+ * @param {IAffliction[]} props.renderedAfflictions - An array of affliction entities to be rendered as table rows.
+ *
+ * @returns {JSX.Element} - Returns a table body with rows representing each affliction entity.
+ *
+ * @example
+ * <AfflictionTableBodyRefactor renderedAfflictions={afflictionList} />
+ *
+ * @remarks
+ * The component utilizes the `openDeleteModal` function from the `AdminTableGlobalContext` context
+ * to handle the delete action. It also uses `Link` components to navigate to the affliction's details page.
+ * The table rows adapt to different screen sizes using responsive Tailwind CSS classes.
+ */
+
 import { Link } from 'react-router-dom';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import {
-  IAffliction,
-  IBodyRegion,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
+import { IAffliction } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
 import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 
@@ -19,9 +34,13 @@ interface AfflictionTableBodyRefactorProps {
 export default function AfflictionTableBodyRefactor({
   renderedAfflictions,
 }: AfflictionTableBodyRefactorProps) {
+  // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminTableGlobalContext();
+
   return renderedAfflictions.map((affliction: IAffliction, index: number) => {
+    // Check if the current row is the last row
     const isLastRow = index === renderedAfflictions.length - 1;
+
     return (
       <tr
         key={affliction.id}

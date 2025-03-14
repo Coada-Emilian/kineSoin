@@ -67,11 +67,14 @@ export const handlePatientDeleteAsAdmin = async (id: number) => {
       console.log('Patient profile deleted successfully');
       return true;
     } else {
-      console.error('Failed to delete patient profile', response.data);
-      return false;
+      throw new Error('Failed to delete patient profile');
     }
   } catch (error) {
-    console.error('Error deleting patient profile:', error);
-    return false;
+    // Log the actual error message
+    console.error('Error deleting patient:', error);
+    // Throw the error with additional information
+    throw new Error(
+      `Error deleting patient: ${error instanceof Error ? error.message : error}`
+    );
   }
 };

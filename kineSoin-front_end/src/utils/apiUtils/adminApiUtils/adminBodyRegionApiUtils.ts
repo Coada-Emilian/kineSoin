@@ -37,7 +37,6 @@ export const handleBodyRegionCreationAsAdmin = async (formData: FormData) => {
   }
 };
 
-// Function to handle body region deletion as admin
 export const handleBodyRegionDeleteAsAdmin = async (id: number) => {
   try {
     const response = await axios.delete(`/admin/bodyRegions/${id}`);
@@ -45,11 +44,14 @@ export const handleBodyRegionDeleteAsAdmin = async (id: number) => {
       console.log('Region deleted successfully');
       return true;
     } else {
-      console.error('Failed to delete region', response.data);
-      return false;
+      throw new Error('Failed to delete region');
     }
   } catch (error) {
+    // Log the actual error message
     console.error('Error deleting region:', error);
-    return false;
+    // Throw the error with additional information
+    throw new Error(
+      `Error deleting region: ${error instanceof Error ? error.message : error}`
+    );
   }
 };

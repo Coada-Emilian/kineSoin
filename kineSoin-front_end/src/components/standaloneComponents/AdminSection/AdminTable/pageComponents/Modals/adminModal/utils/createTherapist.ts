@@ -3,16 +3,16 @@ import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../u
 import { handleTherapistCreationAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
 
 interface FunctionProps {
-  setError: (message: string | null) => void;
-  setIsAddTherapistModalP3Open:
-    | React.Dispatch<React.SetStateAction<boolean>>
-    | undefined;
+  // setError: (message: string | null) => void;
+  // setIsAddTherapistModalP3Open:
+  //   | React.Dispatch<React.SetStateAction<boolean>>
+  //   | undefined;
   addForm: IAddForm;
 }
 
 export const createTherapist = async ({
-  setError,
-  setIsAddTherapistModalP3Open,
+  // setError,
+  // setIsAddTherapistModalP3Open,
   addForm,
 }: FunctionProps) => {
   try {
@@ -42,13 +42,15 @@ export const createTherapist = async ({
 
     const response = await handleTherapistCreationAsAdmin(newFormData);
     if (response) {
-      setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(false);
       window.location.reload();
     } else {
-      setError('Une erreur est survenue lors de la création du compte.');
+      throw new Error('Une erreur est survenue lors de la création du compte.');
     }
   } catch (error) {
-    setError('Une erreur est survenue lors de la création du compte.');
-    console.error(error);
+    console.error('Error creating therapist profile', error);
+    // Throw the error with additional information
+    throw new Error(
+      `Error creating therapist profile: ${error instanceof Error ? error.message : error}`
+    );
   }
 };

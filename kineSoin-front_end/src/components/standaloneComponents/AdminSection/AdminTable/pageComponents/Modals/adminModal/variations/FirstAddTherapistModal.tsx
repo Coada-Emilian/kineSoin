@@ -1,3 +1,26 @@
+/**
+ * @component FirstAddTherapistModal
+ *
+ * This modal component is used for the first step in adding a new therapist.
+ * It collects the therapist's personal information and an image.
+ *
+ * @param {boolean} isOpen - Controls whether the modal is visible.
+ * @param {() => void} onClose - Function to close the modal.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP2Open - Function to open the second step modal.
+ *
+ * @returns {JSX.Element} - The first step modal component for adding a therapist.
+ *
+ * @example
+ * <FirstAddTherapistModal isOpen={isOpen} onClose={onClose} setIsAddTherapistModalP2Open={setStep2Open} />
+ *
+ * @remarks
+ * - Uses `useState` to handle the therapist's image file.
+ * - Uses global contexts for managing error messages and form state.
+ * - Calls `addFirstFormDetails` on form submission to validate and proceed.
+ * - Includes input fields for name, surname, and ADELI code.
+ * - Uses `StandardTextInputRefactor` and `StandardFileInputRefactor` for inputs.
+ */
+
 import { useState } from 'react';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addFirstFormDetails } from '../utils/addFormDetailsFunctions';
@@ -18,10 +41,13 @@ export default function FirstAddTherapistModal({
   onClose,
   setIsAddTherapistModalP2Open,
 }: FirstAddTherapistModalProps) {
+  // State to store the therapist image
   const [therapistImage, setTherapistImage] = useState<File | null>(null);
 
+  // Destructure the necessary variables from the global context
   const { errorMessage, setError } = useGlobalContext();
 
+  // Destructure the necessary functions from the admin add therapist form context
   const { setAddForm } = useAdminAddTherapistFormGlobalContext();
 
   return (
@@ -49,10 +75,10 @@ export default function FirstAddTherapistModal({
         >
           <StandardTextInputRefactor
             textInput={{
-              inputId: 'therapist-register-name_input',
+              id: 'therapist-register-name_input',
               labelName: 'Nom',
-              inputName: 'name',
-              inputPlaceholder: 'Entrez le nom du kiné',
+              name: 'name',
+              placeholder: 'Entrez le nom du kiné',
               isRequired: true,
               autoComplete: 'name',
             }}
@@ -60,10 +86,10 @@ export default function FirstAddTherapistModal({
 
           <StandardTextInputRefactor
             textInput={{
-              inputId: 'therapist-register-surname_input',
+              id: 'therapist-register-surname_input',
               labelName: 'Prénom',
-              inputName: 'surname',
-              inputPlaceholder: 'Entrez le prénom du kiné',
+              name: 'surname',
+              placeholder: 'Entrez le prénom du kiné',
               isRequired: true,
               autoComplete: 'surname',
             }}
@@ -71,10 +97,10 @@ export default function FirstAddTherapistModal({
 
           <StandardTextInputRefactor
             textInput={{
-              inputId: 'therapist-register-licenceCode_input',
+              id: 'therapist-register-licenceCode_input',
               labelName: 'Code ADELI',
-              inputName: 'licence_code',
-              inputPlaceholder: 'Entrez le code ADELI du kiné',
+              name: 'licence_code',
+              placeholder: 'Entrez le code ADELI du kiné',
               isRequired: true,
               autoComplete: 'licence_code',
             }}
@@ -82,9 +108,9 @@ export default function FirstAddTherapistModal({
 
           <StandardFileInputRefactor
             fileInput={{
-              inputId: 'therapist-register-image_input',
+              id: 'therapist-register-image_input',
               labelName: 'Ajouter une photo',
-              inputName: 'photo',
+              name: 'photo',
               isRequired: true,
             }}
             setTherapistImage={setTherapistImage}
@@ -97,7 +123,7 @@ export default function FirstAddTherapistModal({
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomBtn
               btn={{
-                type: 'basicBtn',
+                type: 'basic',
                 text: 'Suivant',
                 style: 'normal',
               }}
@@ -106,7 +132,7 @@ export default function FirstAddTherapistModal({
 
             <CustomBtn
               btn={{
-                type: 'cancelBtn',
+                type: 'cancel',
                 text: 'Annuler',
                 style: 'normal',
                 onClick: () => {

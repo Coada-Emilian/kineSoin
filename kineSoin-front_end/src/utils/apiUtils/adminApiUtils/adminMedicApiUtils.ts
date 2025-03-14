@@ -85,11 +85,14 @@ export const handleMedicDeleteAsAdmin = async (id: number) => {
       console.log('Medic profile deleted successfully');
       return true;
     } else {
-      console.error('Failed to delete medic profile', response.data);
-      return false;
+      throw new Error('Failed to delete medic profile');
     }
   } catch (error) {
-    console.error('Error deleting medic profile:', error);
-    return false;
+    // Log the actual error message
+    console.error('Error deleting medic:', error);
+    // Throw the error with additional information
+    throw new Error(
+      `Error deleting medic: ${error instanceof Error ? error.message : error}`
+    );
   }
 };

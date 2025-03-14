@@ -61,12 +61,15 @@ export const handleAfflictionDeleteAsAdmin = async (id: number) => {
       console.log('Affliction deleted successfully');
       return true;
     } else {
-      console.error('Failed to delete affliction', response.data);
-      return false;
+      throw new Error('Failed to delete affliction');
     }
   } catch (error) {
+    // Log the actual error message
     console.error('Error deleting affliction:', error);
-    return false;
+    // Throw the error with additional information
+    throw new Error(
+      `Error deleting affliction: ${error instanceof Error ? error.message : error}`
+    );
   }
 };
 

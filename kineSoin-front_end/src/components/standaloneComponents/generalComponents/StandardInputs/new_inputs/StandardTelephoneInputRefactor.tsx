@@ -1,3 +1,29 @@
+/**
+ * @component StandardTelephoneInputRefactor
+ *
+ * A refactored telephone input component that allows users to enter a phone number.
+ * It supports dynamic properties like placeholder, validation, and automatic population.
+ *
+ * @param {ITelephoneInput} telephoneInput - The configuration object that defines the telephone input properties.
+ *
+ * @returns {JSX.Element} - The rendered telephone input field.
+ *
+ * @example
+ * <StandardTelephoneInputRefactor
+ *   telephoneInput={{
+ *     id: 'phone-number-input',
+ *     value: '',
+ *     placeholder: 'Enter your phone number',
+ *     isRequired: true,
+ *     autoComplete: 'tel',
+ *   }}
+ * />
+ *
+ * @remarks
+ * - The component includes validation for required fields, placeholder support, and auto-completion for better UX.
+ * - It tracks the phone number in the state and updates it as the user types.
+ */
+
 import { useState } from 'react';
 import { ITelephoneInput } from '../../../../../@types/inputInterfaces';
 
@@ -9,13 +35,13 @@ export default function StandardTelephoneInputRefactor({
   telephoneInput,
 }: StandardTelephoneInputProps) {
   const [phoneNumber, setPhoneNumber] = useState<string | undefined>(
-    telephoneInput.inputValue || ''
+    telephoneInput.value || ''
   );
 
   return (
     <div className={`flex gap-2 mb-2 w-full flex-col items-start italic`}>
       <label
-        htmlFor={telephoneInput.inputId}
+        htmlFor={telephoneInput.id}
         className={`text-primaryBlue font-medium`}
       >
         N° de téléphone
@@ -24,9 +50,9 @@ export default function StandardTelephoneInputRefactor({
       <input
         type="tel"
         name="phone_number"
-        id={telephoneInput.inputId}
+        id={telephoneInput.id}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal text-xxs md:text-xs xl:text-sm 2xl:text-md"
-        placeholder={telephoneInput.inputPlaceholder || 'N° de téléphone'}
+        placeholder={telephoneInput.placeholder || 'N° de téléphone'}
         value={phoneNumber}
         onChange={(e) => {
           setPhoneNumber(e.target.value);

@@ -1,3 +1,26 @@
+/**
+ * @component ThirdAddTherapistModal
+ *
+ * A modal for adding a therapist, which allows input of email, password, status, and other required fields.
+ * It triggers the therapist creation process and handles submission, including form validation and error messages.
+ *
+ * @param {boolean} isOpen - Flag indicating whether the modal is open or not.
+ * @param {() => void} onClose - Function to close the modal.
+ *
+ * @returns {JSX.Element} - The rendered modal with the therapist creation form.
+ *
+ * @example
+ * <ThirdAddTherapistModal
+ *   isOpen={isModalOpen}
+ *   onClose={() => setIsModalOpen(false)}
+ * />
+ *
+ * @remarks
+ * - The form includes email, password fields, and status selection.
+ * - The therapist creation is handled via a mutation, and on success, the form closes and the page reloads.
+ * - Error handling is built-in for validation and server responses.
+ */
+
 import { useEffect, useState } from 'react';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addThirdFormDetails } from '../utils/addFormDetailsFunctions';
@@ -8,6 +31,8 @@ import StandardEmailInputRefactor from '../../../../../../generalComponents/Stan
 import StandardPasswordInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 import StandardDropdownInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import CreateButtonsSection from '../../../../new_components/CreateButtonsSection';
+import { useMutation } from '@tanstack/react-query';
+import { IAddForm } from '../../../../../../../../@types/formInterfaces';
 
 interface ThirdAddTherapistModalProps {
   isOpen: boolean;
@@ -18,22 +43,33 @@ export default function ThirdAddTherapistModal({
   isOpen,
   onClose,
 }: ThirdAddTherapistModalProps) {
+  // State to manage form validation
   const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
     useState(false);
 
-  const { errorMessage, setError, setLoading } = useGlobalContext();
+  // Destructure the necessary variables from the global context
+  const { errorMessage, setError } = useGlobalContext();
 
+  // Destructure the necessary variables from the therapist form context
   const { setAddForm, addForm } = useAdminAddTherapistFormGlobalContext();
 
+  // Create a mutation to handle the therapist creation
+  const handleTherapistCreation = useMutation({
+    mutationKey: ['therapistCreation'],
+    mutationFn: ({ addForm }: { addForm: IAddForm }) =>
+      createTherapist({ addForm }),
+    onSuccess: () => {
+      onClose();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    },
+  });
+
+  // Handle the therapist creation on form validation
   useEffect(() => {
     if (isAdminTherapistFormValid) {
-      setLoading(true);
-      createTherapist({
-        setError,
-        addForm,
-        setIsAddTherapistModalP3Open: onClose,
-      });
-      setLoading(false);
+      handleTherapistCreation.mutate({ addForm });
     }
   }, [isAdminTherapistFormValid]);
 
@@ -44,8 +80,10 @@ export default function ThirdAddTherapistModal({
           Ajouter un thérapeute
         </h2>
 
-        {errorMessage && (
-          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        {(handleTherapistCreation.error || errorMessage) && (
+          <p className="text-red-500 text-xs text-center">
+            {handleTherapistCreation.error?.message || errorMessage}
+          </p>
         )}
 
         <form
@@ -69,9 +107,9 @@ export default function ThirdAddTherapistModal({
 
           <StandardPasswordInputRefactor
             passwordInput={{
-              inputId: 'therapist-register-password_input',
-              inputName: 'password',
-              inputPlaceholder: 'Entrez le mot de passe du kiné',
+              id: 'therapist-register-password_input',
+              name: 'password',
+              placeholder: 'Entrez le mot de passe du kiné',
               labelName: 'Mot de passe',
               autoComplete: 'current-password',
               hasInfoIcon: true,
@@ -80,9 +118,9 @@ export default function ThirdAddTherapistModal({
 
           <StandardPasswordInputRefactor
             passwordInput={{
-              inputId: 'therapist-register-confirmPassword_input',
-              inputName: 'repeated_password',
-              inputPlaceholder: 'Confirmez le mot de passe',
+              id: 'therapist-register-confirmPassword_input',
+              name: 'repeated_password',
+              placeholder: 'Confirmez le mot de passe',
               labelName: 'Confirmation mot de passe',
               autoComplete: 'repeated-password',
             }}
@@ -90,9 +128,9 @@ export default function ThirdAddTherapistModal({
 
           <StandardDropdownInputRefactor
             dropdownInput={{
-              inputId: 'therapist-register-status_input',
+              id: 'therapist-register-status_input',
               labelName: 'Statut',
-              inputName: 'status',
+              name: 'status',
               autoComplete: 'status',
               isRequired: true,
               allOptions: {

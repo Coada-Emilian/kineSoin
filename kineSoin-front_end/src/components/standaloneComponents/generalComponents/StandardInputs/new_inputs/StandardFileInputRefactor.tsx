@@ -1,7 +1,36 @@
+/**
+ * @component StandardFileInputRefactor
+ *
+ * A refactored file input component that allows users to select an image file and preview it. It also provides the ability
+ * to open a modal for selecting the file. The file input renders a non-editable text box to show the file name, with an option to
+ * trigger the modal to select a file.
+ *
+ * @param {IFileInput} fileInput - The configuration object that defines the file input properties.
+ * @param {React.Dispatch<React.SetStateAction<File | null>>} [setPatientImage] - Optional callback to update the patient's image.
+ * @param {React.Dispatch<React.SetStateAction<File | null>>} [setTherapistImage] - Optional callback to update the therapist's image.
+ *
+ * @returns {JSX.Element} - The rendered file input with file selection functionality.
+ *
+ * @example
+ * <StandardFileInputRefactor
+ *   fileInput={{
+ *     id: 'image-input',
+ *     labelName: 'Upload Image',
+ *     name: 'image',
+ *   }}
+ *   setTherapistImage={setTherapistImage}
+ * />
+ *
+ * @remarks
+ * - The component features an input field that only displays the file name and a button to open a modal for selecting a file.
+ * - It uses a modal (`ImageModalRefactor`) for file selection, which updates the displayed file name and calls the appropriate callback
+ *   to update the state with the selected file.
+ * - The file input supports custom handling for both patient and therapist images.
+ */
+
 import { useState } from 'react';
 import addIcon from '/icons/plus.png';
 import checkIcon from '/icons/check.png';
-import ImageModal from '../../Modals/imageModal/ImageModal';
 import { IFileInput } from '../../../../../@types/inputInterfaces';
 import ImageModalRefactor from '../../Modals/imageModal/ImageModalRefactor';
 
@@ -70,8 +99,8 @@ export default function StandardFileInputRefactor({
           setFileName={setFileName}
           setPatientImage={setPatientImage}
           setTherapistImage={setTherapistImage}
-          inputName={fileInput.inputName}
-          inputId={fileInput.inputId}
+          inputName={fileInput.name}
+          inputId={fileInput.id}
           fileName={fileName}
           setIsFileAdded={setIsFileAdded}
         />

@@ -32,7 +32,7 @@ export default function AdminMain({ entityType }: AdminMainProps) {
     queryFn: () => fetchTableDataRefactor<IEntitiesInterfaces>({ entityType }),
   });
 
-  // Use the useQuery hook to fetch the details data
+  // Use the useQuery hook to fetch the details data, only if entity_id is present
   const { isPending: isEntityLoading, data: entity } = useQuery({
     queryKey: ['fetchDetailsDataRefactor', { entityType, entityId: entity_id }],
     queryFn: () =>
@@ -40,10 +40,11 @@ export default function AdminMain({ entityType }: AdminMainProps) {
         entityType,
         entityId: entity_id,
       }),
+    enabled: !!entity_id, // Only run if entity_id is truthy
   });
 
   // If the entities or entity is loading, display the loader
-  if (isEntitiesLoading || isEntityLoading) {
+  if (isEntitiesLoading || (isEntityLoading && entity_id)) {
     return DNALoader();
   }
 
@@ -60,7 +61,7 @@ export default function AdminMain({ entityType }: AdminMainProps) {
           </AdminTableGlobalProvider>
         )}
 
-        {id && (
+        {id && entity && (
           <AdminProfileDetailsRefactor
             entityType={entityType}
             entity={entity}

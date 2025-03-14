@@ -133,11 +133,14 @@ export const handleTherapistDeleteAsAdmin = async (id: number) => {
       console.log('Therapist profile deleted successfully');
       return true;
     } else {
-      console.error('Failed to delete therapist profile', response.data);
-      return false;
+      throw new Error('Failed to delete therapist profile');
     }
   } catch (error) {
-    console.error('Error deleting therapist profile:', error);
-    return false;
+    // Log the actual error message
+    console.error('Error deleting therapist:', error);
+    // Throw the error with additional information
+    throw new Error(
+      `Error deleting therapist: ${error instanceof Error ? error.message : error}`
+    );
   }
 };

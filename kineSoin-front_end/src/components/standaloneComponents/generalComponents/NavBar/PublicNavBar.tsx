@@ -35,7 +35,7 @@ export default function PublicNavBar() {
             <Link to="/loginTherapist" className="hidden md:block">
               <CustomBtn
                 btn={{
-                  type: 'basicBtn',
+                  type: 'basic',
                   text: 'Connexion thérapeute',
                   style: 'nav',
                   onClick: () => {
@@ -48,7 +48,7 @@ export default function PublicNavBar() {
             <Link to="/loginPatient" className="hidden md:block">
               <CustomBtn
                 btn={{
-                  type: 'basicBtn',
+                  type: 'basic',
                   text: 'Connexion patient',
                   style: 'nav',
                   onClick: () => {
@@ -61,7 +61,7 @@ export default function PublicNavBar() {
             <Link to="/loginAdmin" className="hidden md:block">
               <CustomBtn
                 btn={{
-                  type: 'basicBtn',
+                  type: 'basic',
                   text: 'Connexion admin',
                   style: 'nav',
                   onClick: () => {

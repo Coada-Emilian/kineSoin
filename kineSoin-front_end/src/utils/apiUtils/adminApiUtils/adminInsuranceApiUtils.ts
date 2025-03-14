@@ -63,12 +63,15 @@ export const handleInsuranceOrganismDeleteAsAdmin = async (id: number) => {
       console.log('Insurance organism deleted successfully');
       return true;
     } else {
-      console.error('Failed to delete insurance organism', response.data);
-      return false;
+      throw new Error('Failed to delete insurance organism');
     }
   } catch (error) {
+    // Log the actual error message
     console.error('Error deleting insurance organism:', error);
-    return false;
+    // Throw the error with additional information
+    throw new Error(
+      `Error deleting insurance organism: ${error instanceof Error ? error.message : error}`
+    );
   }
 };
 

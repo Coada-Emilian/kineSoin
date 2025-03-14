@@ -1,14 +1,30 @@
+/**
+ * @function PatientTableBodyRefactor
+ *
+ * This component renders the table body for a list of patient entities.
+ * It maps over an array of patient data and displays each entry in a table row with details
+ * such as `id`, `fullName`, and `status`. The status is color-coded based on the patient's current state (active, inactive, banned, or pending).
+ * Each row includes options for inspecting and deleting the patient.
+ * The delete option triggers a modal via context to confirm the action, while the edit option navigates to the patient's details page.
+ *
+ * @param {Object} props - The component props.
+ * @param {IPatient[]} props.renderedPatients - An array of patient entities to be rendered as table rows.
+ *
+ * @returns {JSX.Element} - Returns a table body with rows representing each patient entity.
+ *
+ * @example
+ * <PatientTableBodyRefactor renderedPatients={patientList} />
+ *
+ * @remarks
+ * The component utilizes the `openDeleteModal` function from the `AdminTableGlobalContext` context
+ * to handle the delete action. It also uses `Link` components to navigate to the patient's details page.
+ * The table rows adapt to different screen sizes using responsive Tailwind CSS classes, with different background colors for the status.
+ */
+
 import { Link } from 'react-router-dom';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import {
-  IAffliction,
-  IBodyRegion,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
+import { IPatient } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
 import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 
@@ -19,10 +35,13 @@ interface PatientTableBodyRefactorProps {
 export default function PatientTableBodyRefactor({
   renderedPatients,
 }: PatientTableBodyRefactorProps) {
+  // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminTableGlobalContext();
 
   return renderedPatients.map((patient: IPatient, index: number) => {
+    // Check if the current row is the last row
     const isLastRow = index === renderedPatients.length - 1;
+
     return (
       <tr key={patient.id} className="odd:bg-white even:bg-gray-50">
         <td

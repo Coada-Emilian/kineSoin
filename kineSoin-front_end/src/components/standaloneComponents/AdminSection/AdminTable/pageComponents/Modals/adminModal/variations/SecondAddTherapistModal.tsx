@@ -1,12 +1,33 @@
+/**
+ * @component SecondAddTherapistModal
+ *
+ * This modal component handles the second step in adding a new therapist.
+ * It collects details about the therapist's education, experience, and contact information.
+ *
+ * @param {boolean} isOpen - Controls whether the modal is visible.
+ * @param {() => void} onClose - Function to close the modal.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP3Open - Function to open the third step modal.
+ *
+ * @returns {JSX.Element} - The second step modal component for adding a therapist.
+ *
+ * @example
+ * <SecondAddTherapistModal isOpen={isOpen} onClose={onClose} setIsAddTherapistModalP3Open={setStep3Open} />
+ *
+ * @remarks
+ * - Uses `useGlobalContext` to manage error messages.
+ * - Uses `useAdminAddTherapistFormGlobalContext` to update form state.
+ * - Calls `addSecondFormDetails` on form submission to validate and proceed.
+ * - Includes input fields for diploma, experience, specialty, and description.
+ * - Uses `StandardDropdownInputRefactor` for country prefix selection.
+ * - Uses `StandardTelephoneInputRefactor` for phone number input.
+ */
+
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addSecondFormDetails } from '../utils/addFormDetailsFunctions';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import StandardTextInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 import StandardDropdownInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
-import { useEffect, useState } from 'react';
-import { fetchCountriesData } from '../../../../../../../../utils/componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
-import { ICountry } from '../../../../../../../../@types/customInterfaces';
 import StandardTelephoneInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
 import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import { usePrefixesContext } from '../../../../../../../../utils/contexts/PrefixesContext';
@@ -22,10 +43,13 @@ export default function SecondAddTherapistModal({
   onClose,
   setIsAddTherapistModalP3Open,
 }: SecondAddTherapistModalProps) {
+  // Get the country prefixes
   const { countries } = usePrefixesContext();
 
+  // Get the global context values
   const { errorMessage, setError } = useGlobalContext();
 
+  // Get the admin add therapist form
   const { setAddForm } = useAdminAddTherapistFormGlobalContext();
 
   return (
@@ -52,10 +76,10 @@ export default function SecondAddTherapistModal({
         >
           <StandardTextInputRefactor
             textInput={{
-              inputId: 'therapist-register-diploma_input',
+              id: 'therapist-register-diploma_input',
               labelName: 'Diplôme',
-              inputName: 'diploma',
-              inputPlaceholder: 'Entrez le diplôme du kiné',
+              name: 'diploma',
+              placeholder: 'Entrez le diplôme du kiné',
               isRequired: true,
               autoComplete: 'diploma',
             }}
@@ -63,10 +87,10 @@ export default function SecondAddTherapistModal({
 
           <StandardTextInputRefactor
             textInput={{
-              inputId: 'therapist-register-experience_input',
+              id: 'therapist-register-experience_input',
               labelName: 'Expérience',
-              inputName: 'experience',
-              inputPlaceholder: "Entrez l'expérience du kiné",
+              name: 'experience',
+              placeholder: "Entrez l'expérience du kiné",
               isRequired: true,
               autoComplete: 'experience',
             }}
@@ -74,10 +98,10 @@ export default function SecondAddTherapistModal({
 
           <StandardTextInputRefactor
             textInput={{
-              inputId: 'therapist-register-specialty_input',
+              id: 'therapist-register-specialty_input',
               labelName: 'Spécialité',
-              inputName: 'specialty',
-              inputPlaceholder: 'Entrez la spécialité du kiné',
+              name: 'specialty',
+              placeholder: 'Entrez la spécialité du kiné',
               isRequired: true,
               autoComplete: 'specialty',
             }}
@@ -86,10 +110,10 @@ export default function SecondAddTherapistModal({
           <div className="flex gap-2 items-center justify-between">
             <StandardDropdownInputRefactor
               dropdownInput={{
-                inputId: 'therapist-register-prefix_input',
+                id: 'therapist-register-prefix_input',
                 labelName: 'Préfixe',
                 additionalDivClassName: 'w-4/12',
-                inputName: 'prefix',
+                name: 'prefix',
                 autoComplete: 'prefix',
                 isRequired: true,
                 allOptions: {
@@ -110,20 +134,20 @@ export default function SecondAddTherapistModal({
 
             <StandardTelephoneInputRefactor
               telephoneInput={{
-                inputId: 'therapist-register-phoneNumber_input',
+                id: 'therapist-register-phoneNumber_input',
                 isRequired: true,
                 autoComplete: 'phone-number',
-                inputPlaceholder: 'Entrez le numéro de téléphone du kiné',
+                placeholder: 'Entrez le numéro de téléphone du kiné',
               }}
             />
           </div>
 
           <StandardTextInputRefactor
             textInput={{
-              inputId: 'therapist-register-description_input',
+              id: 'therapist-register-description_input',
               labelName: 'Description',
-              inputName: 'description',
-              inputPlaceholder: 'Entrez la description du kiné',
+              name: 'description',
+              placeholder: 'Entrez la description du kiné',
               isRequired: true,
               autoComplete: 'description',
               isTextArea: true,
@@ -137,7 +161,7 @@ export default function SecondAddTherapistModal({
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomBtn
               btn={{
-                type: 'basicBtn',
+                type: 'basic',
                 text: 'Suivant',
                 style: 'normal',
               }}
@@ -146,7 +170,7 @@ export default function SecondAddTherapistModal({
 
             <CustomBtn
               btn={{
-                type: 'cancelBtn',
+                type: 'cancel',
                 text: 'Annuler',
                 style: 'normal',
                 onClick: () => {

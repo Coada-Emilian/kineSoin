@@ -48,12 +48,12 @@ export default function AdminTableRefactor({
     setRenderedEntities,
   } = useAdminTableGlobalContext();
 
-  // useEffects to set rendered therapists, patients, afflictions
+  // useEffect to set rendered therapists, patients, afflictions
   useEffect(() => {
     setRenderedEntities(entities);
   }, [entityType]);
 
-  // useEffects to render therapists, patients, afflictions
+  // useEffect to render therapists, patients, afflictions
   useEffect(() => {
     // Render functions for therapists, patients, afflictions
     const renderFunctions: Record<string, Function> = {
@@ -84,6 +84,7 @@ export default function AdminTableRefactor({
     setEntityStatus,
   });
 
+  // Get the active entity
   const activeEntity = Object.values(tableElements).find(
     (group) => entityType === group.entityType
   );
@@ -157,6 +158,7 @@ export default function AdminTableRefactor({
           }
           entityType={entityType}
         />
+
         <PrefixesContextProvider>
           <AdminAddTherapistFormGlobalProvider>
             <FirstAddTherapistModal
