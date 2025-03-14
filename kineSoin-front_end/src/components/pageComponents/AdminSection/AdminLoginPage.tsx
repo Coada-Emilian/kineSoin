@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
@@ -8,13 +8,22 @@ import { useAuthentificationContext } from '../../../utils/contexts/authentifica
 import CustomBtn from '../../standaloneComponents/generalComponents/CustomButton/CustomButtonRefactor.tsx';
 import StandardEmailInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor.tsx';
 import StandardPasswordInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor.tsx';
+import { useMutation } from '@tanstack/react-query';
 
 export default function AdminLoginPage() {
-  const { errorMessage, setError, isLoading, setLoading, navigate } =
-    useGlobalContext();
+  const { navigate } = useGlobalContext();
 
   const { adminProfileToken, setAdminProfileToken } =
     useAuthentificationContext();
+
+  const handleAdminLogin = useMutation({
+    mutationKey: ['adminLogin'],
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      checkAdminCredentials(email, password),
+    onSuccess: (data) => {
+      setAdminProfileToken(data);
+    },
+  });
 
   // // Ensure navigation happens only when adminProfileToken is set
   useEffect(() => {
@@ -23,7 +32,7 @@ export default function AdminLoginPage() {
     }
   }, [adminProfileToken]);
 
-  if (isLoading) {
+  if (handleAdminLogin.isPending) {
     return DNALoader();
   }
 
@@ -32,11 +41,16 @@ export default function AdminLoginPage() {
       <section className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-sm">
         <form
           onSubmit={(e) => {
-            setLoading(true);
-            checkAdminCredentials(e, {
-              setAdminProfileToken,
-              setError,
-            }).finally(() => setLoading(false));
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            const adminEmail = formData.get('email') as string;
+            const adminPassword = formData.get('password') as string;
+            // setLoading(true);
+            // checkAdminCredentials(e).finally(() => setLoading(false));
+            handleAdminLogin.mutate({
+              email: adminEmail,
+              password: adminPassword,
+            });
           }}
           className="space-y-4"
         >
@@ -52,9 +66,9 @@ export default function AdminLoginPage() {
             />
           </Link>
 
-          {errorMessage && (
+          {handleAdminLogin.error && (
             <p className="text-center text-red-600 font-semibold">
-              {errorMessage}
+              {handleAdminLogin.error.message}
             </p>
           )}
 
@@ -80,11 +94,11 @@ export default function AdminLoginPage() {
           <div className="flex justify-center">
             <CustomBtn
               btn={{
-                btnType: 'basicBtn',
-                btnText: 'Connexion',
-                isNormalBtn: true,
-                isFormBtn: true,
+                type: 'basicBtn',
+                text: 'Connexion',
+                style: 'normal',
               }}
+              type="submit"
             />
           </div>
         </form>

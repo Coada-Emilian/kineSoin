@@ -50,9 +50,9 @@ export default function RegionModal({
       <div className="flex gap-2 mt-6 w-fit mx-auto mb-4">
         <CustomBtn
           btn={{
-            btnType: 'cancelBtn',
-            btnText: 'Annuler',
-            isNormalBtn: true,
+            type: 'cancelBtn',
+            text: 'Annuler',
+            style: 'normal',
             onClick: () => {
               onClose && onClose();
             },

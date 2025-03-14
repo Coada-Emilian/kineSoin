@@ -1,12 +1,6 @@
-import { useEffect, useState } from 'react';
-import { getAdminTokenAndDataFromLocalStorage } from './localStorage/adminLocalStorage';
-import { getPatientTokenAndDataFromLocalStorage } from './localStorage/patientLocalStorage';
-import { getTherapistTokenAndDataFromLocalStorage } from './localStorage/therapistLocalStorage';
 import { Route, Routes } from 'react-router-dom';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
-import PatientMain from './components/pageComponents/PatientSection/PatientMain';
-import TherapistMain from './components/pageComponents/TherapistSection/TherapistMain';
 import { Layout } from './utils/AppUtils/appLayouts/Layout';
 import {
   checkAdminAuthentication,
@@ -38,12 +32,11 @@ function App() {
         {publicRoutes.map((route) => (
           <Route
             path={route.path}
-            key={route.id}
+            key={route.path ?? "/"}
             element={route.element}
             index={route.index}
           />
         ))}
-
         <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
 

@@ -2,31 +2,32 @@ import { IButtonDetails } from '../../../../@types/componentTypes';
 import { buttonDetails } from './buttonDetails';
 import NotificationIcon from '/icons/notification.png';
 import LogoutIcon from '/icons/logout.png';
+import clsx from 'clsx';
 
-interface CustomButtonProps {
+interface CustomButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btn: IButtonDetails;
 }
 
-export default function CustomBtn({ btn }: CustomButtonProps) {
+export default function CustomBtn({ btn, type }: CustomButtonProps) {
   const background = buttonDetails.find(
-    (button) => button.btnType === btn.btnType
+    (button) => button.btnType === btn.type
   )?.background;
 
-  const btnClasses = `rounded-lg shadow-2xl text-primaryBlue hover:text-white ${background} 
-  ${
-    btn.isNormalBtn
-      ? 'p-2 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg font-semibold'
-      : btn.isNavBtn
-        ? 'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm font-medium'
-        : btn.isStatusBtn
-          ? 'p-1 px-2 max-w-52 my-0 mx-0 text-xxs md:text-sm xl:text-base font-medium'
-          : btn.isMobileBtn
-            ? 'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm'
-            : ''
-  }  `;
+  const btnClasses = clsx(
+    `rounded-lg shadow-2xl text-primaryBlue hover:text-white ${background} `,
+    btn.style === 'normal' &&
+      'p-2 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg font-semibold',
+    btn.style === 'nav' &&
+      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm font-medium',
+    btn.style === 'status' &&
+      'p-1 px-2 max-w-52 my-0 mx-0 text-xxs md:text-sm xl:text-base font-medium',
+    btn.style === 'mobile' &&
+      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm'
+  );
 
   const renderIcon = () => {
-    if (btn.isNotificationBtn) {
+    if (btn.icon === 'notification') {
       return (
         <>
           <img src={NotificationIcon} alt="Notification" className="max-w-6" />
@@ -43,7 +44,8 @@ export default function CustomBtn({ btn }: CustomButtonProps) {
           )} */}
         </>
       );
-    } else if (btn.isLogoutBtn) {
+    }
+    if (btn.icon === 'logout') {
       return (
         <img
           src={LogoutIcon}
@@ -56,13 +58,13 @@ export default function CustomBtn({ btn }: CustomButtonProps) {
 
   return (
     <button
-      type={`${btn.isFormBtn ? 'submit' : 'button'}`}
+      type={type ?? 'button'}
       onClick={btn.onClick ? btn.onClick : () => {}}
       className={btnClasses}
     >
       {renderIcon()}
-      <span className={`${btn.isLogoutBtn && 'hidden md:inline'}`}>
-        {btn.btnText}
+      <span className={`${btn.icon === 'logout' && 'hidden md:inline'}`}>
+        {btn.text}
       </span>
     </button>
   );

@@ -60,9 +60,9 @@ export default function ConfirmDeleteModal({
             <div className="flex justify-center mt-4 gap-4">
               <CustomBtn
                 btn={{
-                  btnType: 'deleteBtn',
-                  btnText: 'Confirmer',
-                  isNormalBtn: true,
+                  type: 'deleteBtn',
+                  text: 'Confirmer',
+                  style: 'normal',
                   onClick: () => {
                     onClose && onClose();
                     setLoading(true);
@@ -76,9 +76,9 @@ export default function ConfirmDeleteModal({
 
               <CustomBtn
                 btn={{
-                  btnType: 'cancelBtn',
-                  btnText: 'Annuler',
-                  isNormalBtn: true,
+                  type: 'cancelBtn',
+                  text: 'Annuler',
+                  style: 'normal',
                   onClick: () => {
                     onClose && onClose();
                     setRegionDeleteModal(false);
@@ -127,9 +127,9 @@ export default function ConfirmDeleteModal({
               <>
                 <CustomBtn
                   btn={{
-                    btnType: 'deleteBtn',
-                    btnText: 'Confirmer',
-                    isNormalBtn: true,
+                    type: 'deleteBtn',
+                    text: 'Confirmer',
+                    style: 'normal',
                     onClick: () => {
                       onClose && onClose();
                       setLoading(true);
@@ -149,9 +149,9 @@ export default function ConfirmDeleteModal({
 
                 <CustomBtn
                   btn={{
-                    btnType: 'cancelBtn',
-                    btnText: 'Annuler',
-                    isNormalBtn: true,
+                    type: 'cancelBtn',
+                    text: 'Annuler',
+                    style: 'normal',
                     onClick: () => onClose && onClose(),
                   }}
                 />

@@ -11,9 +11,9 @@ export default function PatientsStatusButtons({
     <div className="flex gap-2 ">
       <CustomBtn
         btn={{
-          btnType: 'basicBtn',
-          btnText: 'Tous',
-          isStatusBtn: true,
+          type: 'basicBtn',
+          text: 'Tous',
+          style: 'status',
           onClick: () => {
             setStatus('all');
           },
@@ -22,9 +22,9 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          btnType: 'activeBtn',
-          btnText: 'Actifs',
-          isStatusBtn: true,
+          type: 'activeBtn',
+          text: 'Actifs',
+          style: 'status',
           onClick: () => {
             setStatus('active');
           },
@@ -33,9 +33,9 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          btnType: 'inactiveBtn',
-          btnText: 'Inactifs',
-          isStatusBtn: true,
+          type: 'inactiveBtn',
+          text: 'Inactifs',
+          style: 'status',
           onClick: () => {
             setStatus('inactive');
           },
@@ -44,9 +44,9 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          btnType: 'pendingBtn',
-          btnText: 'En attente',
-          isStatusBtn: true,
+          type: 'pendingBtn',
+          text: 'En attente',
+          style: 'status',
           onClick: () => {
             setStatus('pending');
           },
@@ -55,11 +55,11 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          btnType: 'bannedBtn',
-          btnText: 'Bannis',
-          isStatusBtn: true,
+          type: 'bannedBtn',
+          text: 'Bannis',
+          style: 'status',
           onClick: () => {
-            setStatus('banned')
+            setStatus('banned');
           },
         }}
       />

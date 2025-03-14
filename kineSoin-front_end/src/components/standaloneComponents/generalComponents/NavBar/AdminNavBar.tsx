@@ -48,10 +48,10 @@ export default function AdminNavBar() {
           {isAdminAuthenticated && (
             <CustomBtn
               btn={{
-                btnType: 'basicBtn',
-                btnText: 'Déconnexion',
-                isNavBtn: true,
-                isLogoutBtn: true,
+                type: 'basicBtn',
+                text: 'Déconnexion',
+                style: 'nav',
+                icon: 'logout',
                 onClick: () => {
                   handleAdminLogout();
                 },

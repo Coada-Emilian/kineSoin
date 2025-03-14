@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../../../@types/standardInterfaces';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import StandardDropdownInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
-import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import CreateButtonsSection from '../../../../new_components/CreateButtonsSection';
 
 interface AddAfflictionModalProps {

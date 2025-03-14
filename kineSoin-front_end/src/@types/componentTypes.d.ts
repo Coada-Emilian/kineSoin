@@ -53,15 +53,14 @@ export type IButtonTypes =
   | 'pendingBtn'
   | 'bannedBtn';
 
+export type IButtonStyles = 'normal' | 'nav' | 'status' | 'mobile' | 'form';
+
+export type IButtonIcon = 'notification' | 'logout';
+
 export interface IButtonDetails {
-  btnType: IButtonTypes;
-  btnText: string | JSX.Element;
-  isNormalBtn?: boolean;
-  isNavBtn?: boolean;
-  isStatusBtn?: boolean;
-  isMobileBtn?: boolean;
-  isFormBtn?: boolean;
-  isLogoutBtn?: boolean;
-  isNotificationBtn?: boolean;
+  type: IButtonTypes;
+  text: string | JSX.Element;
+  style: IButtonStyles;
+  icon?: IButtonIcon;
   onClick?: () => void;
 }

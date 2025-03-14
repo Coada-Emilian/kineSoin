@@ -137,18 +137,18 @@ export default function SecondAddTherapistModal({
           <div className="flex gap-2 mt-6 w-fit mx-auto">
             <CustomBtn
               btn={{
-                btnType: 'basicBtn',
-                btnText: 'Suivant',
-                isNormalBtn: true,
-                isFormBtn: true,
+                type: 'basicBtn',
+                text: 'Suivant',
+                style: 'normal',
               }}
+              type="submit"
             />
 
             <CustomBtn
               btn={{
-                btnType: 'cancelBtn',
-                btnText: 'Annuler',
-                isNormalBtn: true,
+                type: 'cancelBtn',
+                text: 'Annuler',
+                style: 'normal',
                 onClick: () => {
                   onClose && onClose();
                 },

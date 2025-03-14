@@ -82,9 +82,9 @@ export default function ImageModalRefactor({
           <div className="flex justify-center mt-4 gap-4">
             <CustomBtn
               btn={{
-                btnType: 'basicBtn',
-                btnText: 'Valider',
-                isNormalBtn: true,
+                type: 'basicBtn',
+                text: 'Valider',
+                style: 'normal',
                 onClick: () => {
                   setIsFileAdded(true);
                   onClose && onClose();
@@ -93,9 +93,9 @@ export default function ImageModalRefactor({
             />
             <CustomBtn
               btn={{
-                btnType: 'cancelBtn',
-                btnText: 'Annuler',
-                isNormalBtn: true,
+                type: 'cancelBtn',
+                text: 'Annuler',
+                style: 'normal',
                 onClick: () => {
                   onClose && onClose();
                 },

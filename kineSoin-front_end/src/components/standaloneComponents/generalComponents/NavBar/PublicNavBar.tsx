@@ -35,9 +35,9 @@ export default function PublicNavBar() {
             <Link to="/loginTherapist" className="hidden md:block">
               <CustomBtn
                 btn={{
-                  btnType: 'basicBtn',
-                  btnText: 'Connexion thérapeute',
-                  isNavBtn: true,
+                  type: 'basicBtn',
+                  text: 'Connexion thérapeute',
+                  style: 'nav',
                   onClick: () => {
                     setFormOrder('first');
                   },
@@ -48,9 +48,9 @@ export default function PublicNavBar() {
             <Link to="/loginPatient" className="hidden md:block">
               <CustomBtn
                 btn={{
-                  btnType: 'basicBtn',
-                  btnText: 'Connexion patient',
-                  isNavBtn: true,
+                  type: 'basicBtn',
+                  text: 'Connexion patient',
+                  style: 'nav',
                   onClick: () => {
                     setFormOrder('first');
                   },
@@ -61,9 +61,9 @@ export default function PublicNavBar() {
             <Link to="/loginAdmin" className="hidden md:block">
               <CustomBtn
                 btn={{
-                  btnType: 'basicBtn',
-                  btnText: 'Connexion admin',
-                  isNavBtn: true,
+                  type: 'basicBtn',
+                  text: 'Connexion admin',
+                  style: 'nav',
                   onClick: () => {
                     setFormOrder('first');
                   },

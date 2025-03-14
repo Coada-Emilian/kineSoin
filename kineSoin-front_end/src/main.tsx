@@ -5,18 +5,25 @@ import App from './App.tsx';
 import './index.css';
 import { AuthentificationGlobalContextProvider } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
 import { GlobalContextProvider } from './utils/contexts/GlobalContext.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 Modal.setAppElement('#root');
 
+const queryClient = new QueryClient();
+
 export default function Root() {
   return (
-    <BrowserRouter>
-      <GlobalContextProvider>
-        <AuthentificationGlobalContextProvider>
-          <App />
-        </AuthentificationGlobalContextProvider>
-      </GlobalContextProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <GlobalContextProvider>
+          <AuthentificationGlobalContextProvider>
+            <App />
+          </AuthentificationGlobalContextProvider>
+        </GlobalContextProvider>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

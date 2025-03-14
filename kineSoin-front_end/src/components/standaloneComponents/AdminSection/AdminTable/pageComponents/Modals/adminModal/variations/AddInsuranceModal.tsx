@@ -1,7 +1,3 @@
-import CustomButton from '../../../../../../generalComponents/CustomButton/CustomButton';
-import StandardChoiceDropdown from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
-import StandardTelephoneInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTelephoneInput';
-import StandardTextInput from '../../../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { handleInsuranceSubmit } from '../utils/dataSubmitFunctions';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
@@ -9,7 +5,6 @@ import StandardTextInputRefactor from '../../../../../../generalComponents/Stand
 import StandardDropdownInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
 import { usePrefixesContext } from '../../../../../../../../utils/contexts/PrefixesContext';
-import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import CreateButtonsSection from '../../../../new_components/CreateButtonsSection';
 
 interface AddInsuranceModalProps {

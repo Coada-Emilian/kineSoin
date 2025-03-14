@@ -75,11 +75,11 @@ export default function PatientLoginFormSection() {
           <div className="flex items-center">
             <CustomBtn
               btn={{
-                btnType: 'basicBtn',
-                btnText: 'Connexion',
-                isNormalBtn: true,
-                isFormBtn: true,
+                type: 'basicBtn',
+                text: 'Connexion',
+                style: 'normal',
               }}
+              type="submit"
             />
           </div>
         </form>

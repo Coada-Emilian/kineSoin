@@ -90,11 +90,11 @@ export default function PatientRegisterFormSection() {
             {formOrder !== 'last' && (
               <CustomBtn
                 btn={{
-                  btnType: 'basicBtn',
-                  btnText: formOrder === 'third' ? 'Inscription' : 'Valider',
-                  isNormalBtn: true,
-                  isFormBtn: true,
+                  type: 'basicBtn',
+                  text: formOrder === 'third' ? 'Inscription' : 'Valider',
+                  style: 'normal',
                 }}
+                type="submit"
               />
             )}
           </div>

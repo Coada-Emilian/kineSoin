@@ -22,7 +22,7 @@ export default function RegionTable({
   allBodyRegions,
 }: RegionTableProps) {
   return (
-    <div className=" flex flex-col gap-2 items-end  md:mx-5 overflow-x-auto mx-auto max-h-[450px] md:max-h-[600px]">
+    <div className=" flex flex-col gap-6 items-end  md:mx-5 overflow-x-auto mx-auto max-h-[450px] md:max-h-[600px">
       <CustomButton
         btnText="Ajouter une region"
         addButton
@@ -31,7 +31,7 @@ export default function RegionTable({
           setIsAddRegionModalOpen(true);
         }}
       />
-      {/* <div className="overflow-x-auto mx-auto max-h-[450px]"> */}
+
       <table className="border-separate border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
         <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base">
           <tr>

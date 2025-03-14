@@ -1,11 +1,8 @@
 // Purpose: The purpose of this component is to render the add region modal.
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
-import StandardTextInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import { createRegion } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/createRegion';
 import DNALoader from '../../../../../../utils/DNALoader';
-import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import CreateButtonsSection from '../../new_components/CreateButtonsSection';
 import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 

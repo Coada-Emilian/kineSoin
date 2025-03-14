@@ -11,9 +11,9 @@ export default function AfflictionsStatusButtons({
     <div className="flex gap-2 ">
       <CustomBtn
         btn={{
-          btnType: 'basicBtn',
-          btnText: 'Tous',
-          isStatusBtn: true,
+          type: 'basicBtn',
+          text: 'Tous',
+          style: 'status',
           onClick: () => {
             setStatus('all');
           },
@@ -22,9 +22,9 @@ export default function AfflictionsStatusButtons({
 
       <CustomBtn
         btn={{
-          btnType: 'activeBtn',
-          btnText: 'Opérées',
-          isStatusBtn: true,
+          type: 'activeBtn',
+          text: 'Opérées',
+          style: 'status',
           onClick: () => {
             setStatus('operated');
           },
@@ -33,9 +33,9 @@ export default function AfflictionsStatusButtons({
 
       <CustomBtn
         btn={{
-          btnType: 'inactiveBtn',
-          btnText: 'Non-opérées',
-          isStatusBtn: true,
+          type: 'inactiveBtn',
+          text: 'Non-opérées',
+          style: 'status',
           onClick: () => {
             setStatus('non-operated');
           },

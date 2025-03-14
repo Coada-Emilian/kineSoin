@@ -98,9 +98,9 @@ export default function AdminTableRefactor({
               {activeEntity?.regionButton && (
                 <CustomBtn
                   btn={{
-                    btnType: 'addBtn',
-                    btnText: 'Voir les regions',
-                    isStatusBtn: true,
+                    type: 'addBtn',
+                    text: 'Voir les regions',
+                    style: 'nav',
                     onClick: () => {
                       setOpenModal('region');
                     },
@@ -112,9 +112,9 @@ export default function AdminTableRefactor({
                 <>
                   <CustomBtn
                     btn={{
-                      btnType: 'addBtn',
-                      btnText: activeEntity.customBtnText,
-                      isStatusBtn: true,
+                      type: 'addBtn',
+                      text: activeEntity.customBtnText,
+                      style: 'nav',
                       onClick: () => {
                         setOpenModal(activeEntity.modalName);
                       },
@@ -193,7 +193,7 @@ export default function AdminTableRefactor({
             onClose={closeModal}
           />
         </PrefixesContextProvider>
-        
+
         <RegionModal
           isOpen={openModal === 'region'}
           onClose={closeModal}

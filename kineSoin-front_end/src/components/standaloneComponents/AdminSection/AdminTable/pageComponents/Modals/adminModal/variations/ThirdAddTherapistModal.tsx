@@ -7,7 +7,6 @@ import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../u
 import StandardEmailInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 import StandardDropdownInputRefactor from '../../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
-import CustomBtn from '../../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import CreateButtonsSection from '../../../../new_components/CreateButtonsSection';
 
 interface ThirdAddTherapistModalProps {

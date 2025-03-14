@@ -26,24 +26,20 @@ export const publicRoutes: {
   path?: string;
   element: JSX.Element;
   index?: boolean;
-  id: number;
 }[] = [
   {
     index: true,
     element: <HomePageMain />,
-    id: 1,
   },
   {
     path: 'loginPatient',
     element: <PatientLoginMain />,
-    id: 2,
   },
   {
     path: 'loginTherapist',
     element: <TherapistLoginMain />,
-    id: 3,
   },
-  { path: 'registerPatient', element: <PatientRegisterMain />, id: 4 },
+  { path: 'registerPatient', element: <PatientRegisterMain /> },
 ];
 
 export const patientRoutes = [

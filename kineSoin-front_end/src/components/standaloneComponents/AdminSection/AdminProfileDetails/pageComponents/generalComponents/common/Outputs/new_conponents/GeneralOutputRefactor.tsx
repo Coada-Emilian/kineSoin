@@ -1,3 +1,5 @@
+import { tableTitleEntityDetails } from '../../../../../../../../../utils/componentUtils/pageComponents/constants/adminSection/AdminProfileDetails/TitleOutput/TableTitleEntityDetails';
+
 interface TitleOutputRefactorProps {
   entityType: string;
 }
@@ -5,23 +7,7 @@ interface TitleOutputRefactorProps {
 export default function TitleOutputRefactor({
   entityType,
 }: TitleOutputRefactorProps) {
-  const entityDetails = [
-    {
-      entityType: 'therapist',
-      title: 'Thérapeute',
-    },
-    { entityType: 'patient', title: 'Patient' },
-    {
-      entityType: 'affliction',
-      title: 'Affliction',
-    },
-    { entityType: 'medic', title: 'Médecin' },
-    {
-      entityType: 'insurance',
-      title: 'Assurance',
-    },
-  ];
-
+  const entityDetails = tableTitleEntityDetails;
   const activeEntity = entityDetails.find(
     (entityDetail) => entityDetail.entityType === entityType
   );
