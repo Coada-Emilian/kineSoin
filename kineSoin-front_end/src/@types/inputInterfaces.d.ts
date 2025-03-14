@@ -1,36 +1,36 @@
 export interface IEmailInput {
-  inputId: string;
-  inputName: string;
-  inputPlaceholder: string;
+  id: string;
+  name: string;
+  placeholder: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
-  inputValue?: string;
+  value?: string;
   isFlexRow?: boolean;
   autoComplete?: string;
 }
 
 export interface IPasswordInput {
-  inputId: string;
-  inputName: string;
+  id: string;
+  name: string;
   labelName: string;
-  inputPlaceholder: string;
+  placeholder: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
   oldPassword?: string;
-  inputValue?: boolean;
+  value?: boolean;
   autoComplete?: string;
   hasInfoIcon?: boolean;
   isFlexRow?: boolean;
 }
 
 export interface ITextInput {
-  inputId: string;
+  id: string;
   labelName: string;
-  inputName: string;
-  inputPlaceholder: string;
+  name: string;
+  placeholder: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
-  inputValue?: string;
+  value?: string;
   isFlexRow?: boolean;
   autoComplete?: string;
   isTextArea?: boolean;
@@ -38,26 +38,26 @@ export interface ITextInput {
 }
 
 export interface IDateInput {
-  inputId: string;
+  id: string;
   labelName: string;
   isFlexRow?: boolean;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
   labelName?: string;
-  inputName: string;
-  inputValue?: string;
+  name: string;
+  value?: string;
   isRequired?: boolean;
   autoComplete?: string;
 }
 
 export interface IDropdownInput {
-  inputId: string;
+  id: string;
   labelName: string;
-  inputName: string;
+  name: string;
   isFlexRow?: boolean;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
-  inputValue?: string;
+  value?: string;
   isRequired?: boolean;
   autoComplete?: string;
   allOptions: {
@@ -74,24 +74,24 @@ export interface IDropdownInput {
 }
 
 export interface ITelephoneInput {
-  inputId: string;
+  id: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
-  inputValue?: string;
+  value?: string;
   isFlexRow?: boolean;
   isRequired?: boolean;
-  inputPlaceholder?: string;
+  placeholder?: string;
   autoComplete?: string;
 }
 
 export interface IFileInput {
-  inputId: string;
+  id: string;
   labelName: string;
-  inputName: string;
+  name: string;
   isFlexRow?: boolean;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
-  inputValue?: string;
+  value?: string;
   isRequired?: boolean;
   autoComplete?: string;
 }

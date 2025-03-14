@@ -1,38 +1,38 @@
 export const buttonDetails = [
   {
-    btnType: 'basicBtn',
+    btnType: 'basic',
     background: 'bg-primaryTeal hover:bg-secondaryTeal',
   },
   {
-    btnType: 'cancelBtn',
+    btnType: 'cancel',
     background: 'bg-gray-200 hover:bg-gray-400 ',
   },
   {
-    btnType: 'modifyBtn',
+    btnType: 'modify',
     background: 'bg-blue-300 hover:bg-blue-500 ',
   },
   {
-    btnType: 'deleteBtn',
+    btnType: 'delete',
     background: 'bg-red-300 hover:bg-red-500 ',
   },
   {
-    btnType: 'activeBtn',
+    btnType: 'active',
     background: 'bg-green-300 hover:bg-green-500',
   },
   {
-    btnType: 'inactiveBtn',
+    btnType: 'inactive',
     background: 'bg-gray-200 hover:bg-gray-400',
   },
   {
-    btnType: 'addBtn',
+    btnType: 'add',
     background: 'bg-blue-200 hover:bg-blue-400',
   },
   {
-    btnType: 'pendingBtn',
+    btnType: 'pending',
     background: 'bg-yellow-300 hover:bg-yellow-500',
   },
   {
-    btnType: 'bannedBtn',
+    btnType: 'banned',
     background: 'bg-red-300 hover:bg-red-500',
   },
 ];

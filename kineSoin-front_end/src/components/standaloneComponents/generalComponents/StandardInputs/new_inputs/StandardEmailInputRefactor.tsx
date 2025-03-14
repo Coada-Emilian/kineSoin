@@ -8,7 +8,7 @@ interface StandardEmailInputProps {
 export default function StandardEmailInputRefactor({
   emailInput,
 }: StandardEmailInputProps) {
-  const [email, setEmail] = useState(emailInput.inputValue || '');
+  const [email, setEmail] = useState(emailInput.value || '');
 
   return (
     <div
@@ -18,7 +18,7 @@ export default function StandardEmailInputRefactor({
         ${emailInput.isFlexRow ? 'flex-row' : 'flex-col'}  flex gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-4`}
     >
       <label
-        htmlFor={emailInput.inputId}
+        htmlFor={emailInput.id}
         className={`${emailInput.additionalLabelClassName && emailInput.additionalLabelClassName} text-primaryBlue font-medium italic `}
       >
         E-mail
@@ -26,10 +26,10 @@ export default function StandardEmailInputRefactor({
 
       <input
         type="email"
-        name={emailInput.inputName}
-        id={emailInput.inputId}
+        name={emailInput.name}
+        id={emailInput.id}
         className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md w-full"
-        placeholder={emailInput.inputPlaceholder}
+        placeholder={emailInput.placeholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required

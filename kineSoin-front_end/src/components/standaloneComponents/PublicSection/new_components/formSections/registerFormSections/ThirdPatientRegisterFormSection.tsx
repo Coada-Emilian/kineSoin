@@ -25,9 +25,9 @@ export default function ThirdPatientRegisterFormSection({
 
       <StandardEmailInputRefactor
         emailInput={{
-          inputId: 'patient-register-email_input',
-          inputPlaceholder: 'Entrez votre adresse e-mail',
-          inputName: 'email',
+          id: 'patient-register-email_input',
+          placeholder: 'Entrez votre adresse e-mail',
+          name: 'email',
           autoComplete: 'email',
         }}
       />

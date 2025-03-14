@@ -20,17 +20,19 @@ interface AdminMainProps {
 }
 
 export default function AdminMain({ entityType }: AdminMainProps) {
+  // Get the id from the URL
   const { id } = useParams();
+
+  // Parse the id to an integer
   const entity_id = id ? parseInt(id, 10) : null;
 
-  const {
-    isPending: isEntitiesLoading,
-    data: entities,
-  } = useQuery({
+  // Use the useQuery hook to fetch the table data
+  const { isPending: isEntitiesLoading, data: entities } = useQuery({
     queryKey: ['fetchTableDataRefactor', { entityType }],
     queryFn: () => fetchTableDataRefactor<IEntitiesInterfaces>({ entityType }),
   });
 
+  // Use the useQuery hook to fetch the details data
   const { isPending: isEntityLoading, data: entity } = useQuery({
     queryKey: ['fetchDetailsDataRefactor', { entityType, entityId: entity_id }],
     queryFn: () =>
@@ -40,43 +42,7 @@ export default function AdminMain({ entityType }: AdminMainProps) {
       }),
   });
 
-  // Fetch all the data to be displayed in the table
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetchTableDataRefactor<IEntitiesInterfaces>({
-  //     entityType,
-  //   })
-  //     .then((data) => {
-  //       if (data) {
-  //         setEntities(data);
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // }, [entityType, id]);
-
-  // Fetch the data of the entity to be displayed
-  // useEffect(() => {
-  //   setLoading(true);
-  //   if (entity_id) {
-  //     fetchDetailsDataRefactor<IEntityInterface | null>({
-  //       entityType,
-  //       entityId: entity_id,
-  //     })
-  //       .then((data) => {
-  //         if (data) {
-  //           setEntity(data);
-  //         }
-  //       })
-  //       .finally(() => {
-  //         setLoading(false);
-  //       });
-  //   } else {
-  //     setEntity(null);
-  //   }
-  // }, [entity_id]);
-
+  // If the entities or entity is loading, display the loader
   if (isEntitiesLoading || isEntityLoading) {
     return DNALoader();
   }

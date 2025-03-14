@@ -46,9 +46,9 @@ export default function PatientLoginFormSection() {
 
           <StandardEmailInputRefactor
             emailInput={{
-              inputId: 'patient-login-email_input',
-              inputPlaceholder: 'Entrez votre adresse e-mail',
-              inputName: 'email',
+              id: 'patient-login-email_input',
+              placeholder: 'Entrez votre adresse e-mail',
+              name: 'email',
               autoComplete: 'current-email',
             }}
           />
@@ -72,7 +72,7 @@ export default function PatientLoginFormSection() {
             </p>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             <CustomBtn
               btn={{
                 type: 'basicBtn',

@@ -50,9 +50,9 @@ export default function TherapistLoginFormSection() {
 
           <StandardEmailInputRefactor
             emailInput={{
-              inputId: 'therapist-login-email_input',
-              inputName: 'email',
-              inputPlaceholder: 'Entrez votre adresse e-mail',
+              id: 'therapist-login-email_input',
+              name: 'email',
+              placeholder: 'Entrez votre adresse e-mail',
               autoComplete: 'current-email',
             }}
           />

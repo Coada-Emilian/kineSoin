@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import ConfirmDeleteModal from '../../Modals/ConfirmDeleteModal';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import RegionModal from '../pageComponents/Modals/RegionModal';
 import AddRegionModal from '../pageComponents/Modals/AddRegionModal';
 import {
@@ -22,14 +21,11 @@ import {
   IEntitiesInterfaces,
   IEntityInterface,
   IEntityTypes,
-  IModalTypes,
 } from '../../../../../@types/componentTypes';
 import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
 import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor';
-import PrefixesContext, {
-  PrefixesContextProvider,
-} from '../../../../../utils/contexts/PrefixesContext';
+import { PrefixesContextProvider } from '../../../../../utils/contexts/PrefixesContext';
 
 interface AdminTableRefactorProps {
   entities: IEntitiesInterfaces;
@@ -40,6 +36,7 @@ export default function AdminTableRefactor({
   entities,
   entityType,
 }: AdminTableRefactorProps) {
+  // Get required context values
   const {
     openModal,
     setOpenModal,
@@ -58,24 +55,30 @@ export default function AdminTableRefactor({
 
   // useEffects to render therapists, patients, afflictions
   useEffect(() => {
+    // Render functions for therapists, patients, afflictions
     const renderFunctions: Record<string, Function> = {
       therapist: renderTherapists,
       affliction: renderAfflictions,
       patient: renderPatients,
     };
 
+    // Status map for therapists, patients, afflictions
     const statusMap: Record<string, string> = {
       therapist: entityStatus,
       affliction: entityStatus,
       patient: entityStatus,
     };
 
+    // Get the render function for the entity type
     const renderFunction = renderFunctions[entityType];
+
+    // If the render function exists, render the entities
     if (renderFunction) {
       renderFunction(entities, setRenderedEntities, statusMap[entityType]);
     }
   }, [entityType, entityStatus]);
 
+  // Get the table elements for therapists, patients, afflictions
   const tableElements = getAdminTableElements({
     entityStatus,
     setEntityStatus,
@@ -98,7 +101,7 @@ export default function AdminTableRefactor({
               {activeEntity?.regionButton && (
                 <CustomBtn
                   btn={{
-                    type: 'addBtn',
+                    type: 'add',
                     text: 'Voir les regions',
                     style: 'nav',
                     onClick: () => {
@@ -112,7 +115,7 @@ export default function AdminTableRefactor({
                 <>
                   <CustomBtn
                     btn={{
-                      type: 'addBtn',
+                      type: 'add',
                       text: activeEntity.customBtnText,
                       style: 'nav',
                       onClick: () => {

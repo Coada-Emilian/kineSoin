@@ -13,7 +13,7 @@ export default function StandardPasswordInputRefactor({
 }: StandardPasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState(
-    typeof passwordInput.inputValue === 'string' ? passwordInput.inputValue : ''
+    typeof passwordInput.value === 'string' ? passwordInput.value : ''
   );
 
   return (
@@ -24,7 +24,7 @@ export default function StandardPasswordInputRefactor({
       } ${passwordInput.isFlexRow ? 'flex-row' : 'flex-col'} flex gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg mb-4`}
     >
       <label
-        htmlFor={passwordInput.inputId}
+        htmlFor={passwordInput.id}
         className={`${
           passwordInput.additionalLabelClassName &&
           passwordInput.additionalLabelClassName
@@ -49,10 +49,10 @@ export default function StandardPasswordInputRefactor({
       <div className="flex rounded-md shadow-sm border">
         <input
           type={showPassword ? 'text' : 'password'}
-          name={passwordInput.inputName}
-          id={passwordInput.inputId}
+          name={passwordInput.name}
+          id={passwordInput.id}
           className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md "
-          placeholder={passwordInput.inputPlaceholder}
+          placeholder={passwordInput.placeholder}
           autoComplete={passwordInput.autoComplete}
           required
           value={password}

@@ -11,7 +11,7 @@ export default function PatientsStatusButtons({
     <div className="flex gap-2 ">
       <CustomBtn
         btn={{
-          type: 'basicBtn',
+          type: 'basic',
           text: 'Tous',
           style: 'status',
           onClick: () => {
@@ -22,7 +22,7 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          type: 'activeBtn',
+          type: 'active',
           text: 'Actifs',
           style: 'status',
           onClick: () => {
@@ -33,7 +33,7 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          type: 'inactiveBtn',
+          type: 'inactive',
           text: 'Inactifs',
           style: 'status',
           onClick: () => {
@@ -44,7 +44,7 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          type: 'pendingBtn',
+          type: 'pending',
           text: 'En attente',
           style: 'status',
           onClick: () => {
@@ -55,7 +55,7 @@ export default function PatientsStatusButtons({
 
       <CustomBtn
         btn={{
-          type: 'bannedBtn',
+          type: 'banned',
           text: 'Bannis',
           style: 'status',
           onClick: () => {

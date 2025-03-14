@@ -60,9 +60,9 @@ export default function ThirdAddTherapistModal({
         >
           <StandardEmailInputRefactor
             emailInput={{
-              inputId: 'therapist-register-email_input',
-              inputPlaceholder: "Entrez l'email du kiné",
-              inputName: 'email',
+              id: 'therapist-register-email_input',
+              placeholder: "Entrez l'email du kiné",
+              name: 'email',
               autoComplete: 'email',
             }}
           />

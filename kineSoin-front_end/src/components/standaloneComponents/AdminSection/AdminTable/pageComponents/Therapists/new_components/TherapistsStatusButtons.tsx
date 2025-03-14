@@ -10,7 +10,7 @@ export default function TherapistsStatusButtons({
     <div className="flex gap-2 ">
       <CustomBtn
         btn={{
-          type: 'basicBtn',
+          type: 'basic',
           text: 'Tous',
           style: 'status',
           onClick: () => {
@@ -21,7 +21,7 @@ export default function TherapistsStatusButtons({
 
       <CustomBtn
         btn={{
-          type: 'activeBtn',
+          type: 'active',
           text: 'Actifs',
           style: 'status',
           onClick: () => {
@@ -32,7 +32,7 @@ export default function TherapistsStatusButtons({
 
       <CustomBtn
         btn={{
-          type: 'inactiveBtn',
+          type: 'inactive',
           text: 'Inactifs',
           style: 'status',
           onClick: () => {

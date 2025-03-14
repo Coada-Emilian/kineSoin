@@ -43,15 +43,15 @@ export interface IDescriptionArticle {
 }
 
 export type IButtonTypes =
-  | 'basicBtn'
-  | 'cancelBtn'
-  | 'modifyBtn'
-  | 'deleteBtn'
-  | 'activeBtn'
-  | 'inactiveBtn'
-  | 'addBtn'
-  | 'pendingBtn'
-  | 'bannedBtn';
+  | 'basic'
+  | 'cancel'
+  | 'modify'
+  | 'delete'
+  | 'active'
+  | 'inactive'
+  | 'add'
+  | 'pending'
+  | 'banned';
 
 export type IButtonStyles = 'normal' | 'nav' | 'status' | 'mobile' | 'form';
 

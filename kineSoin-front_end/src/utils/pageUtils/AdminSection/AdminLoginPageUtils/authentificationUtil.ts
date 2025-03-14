@@ -6,13 +6,10 @@ export const checkAdminCredentials = async (
   adminPassword: string
 ) => {
   try {
-
     if (!adminEmail || !adminPassword) {
-      throw ('Veuillez remplir tous les champs');
-      return;
+      throw 'Veuillez remplir tous les champs';
     } else if (!adminEmail.includes('@')) {
-      throw ('Veuillez entrer une adresse email valide');
-      return;
+      throw 'Veuillez entrer une adresse email valide';
     }
 
     const response = await handleAdminLogin(adminEmail, adminPassword);
