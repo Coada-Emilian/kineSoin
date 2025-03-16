@@ -1,67 +1,20 @@
 /**
- * StandardPasswordInputRefactor Component
+ * @function StandardPasswordInputRefactor
  *
- * This component represents a standard password input field, with the added feature of toggling the visibility
- * of the password. It provides an enhanced user experience by allowing users to toggle between the visible
- * and hidden states of their entered password.
+ * A reusable password input component that renders a password field with a show/hide password toggle button.
+ * It handles the internal state for the password value and the visibility of the password.
  *
- * **Main Features:**
- * - Allows users to toggle between showing and hiding the password via an eye icon button.
- * - Displays a password input field with a label, optional help icon, and custom styling.
- * - Manages the password value and visibility state internally using React's `useState`.
- * 
- * **Props:**
- * - `passwordInput`: An object containing the following properties:
- *   - `id` (string): The `id` of the input field, used for the label's `htmlFor` attribute and the input's `id`.
- *   - `name` (string): The `name` of the input field.
- *   - `placeholder` (string): The placeholder text for the input field.
- *   - `value` (string): The default value for the password input field (optional).
- *   - `autoComplete` (string): The auto-completion type for the input field (optional).
- *   - `labelName` (string): The label text for the input field.
- *   - `hasInfoIcon` (boolean): If `true`, displays a help icon with a tooltip on the password input field.
- *   - `additionalDivClassName` (string): Optional additional class names for the container div for extra customization.
- *   - `additionalLabelClassName` (string): Optional additional class names for the label for extra customization.
- *   - `isFlexRow` (boolean): Determines whether the container should use `flex-row` or `flex-col` layout. Defaults to column layout (`flex-col`).
+ * @param passwordInput - An object containing configuration for the password input. Includes attributes such as `id`, `name`, `placeholder`, `value`, `labelName`, and other optional styles and icons.
  *
- * **State Management:**
- * - The component uses the `useState` hook to manage the password input value (`password`) and the visibility of the password (`showPassword`).
- * - The `showPassword` state controls whether the password is shown as plain text or masked as `*` (password type).
- * - The password state is updated whenever the user types in the password input field.
-
- * **Toggle Functionality:**
- * - The "eye" button toggles the `showPassword` state when clicked. If the password is hidden, clicking the eye button will show the password as plain text, and vice versa.
- * - The button's label and icon change based on the state of the `showPassword` (open or closed eye icon).
-
- * **Styling:**
- * - The component uses Tailwind CSS for styling, providing flexibility and responsiveness across various devices.
- * - It allows additional custom classes to be passed via the `additionalDivClassName` and `additionalLabelClassName` props to further customize the appearance.
- * - The focus ring effect is applied to the input field when it is in focus, ensuring an accessible and visually distinct interaction.
-
- * **Help Icon:**
- * - When the `hasInfoIcon` prop is set to `true`, a help icon (question mark) is displayed next to the label. The icon provides a tooltip explaining the password requirements (e.g., minimum 12 characters with a mix of uppercase, lowercase, numbers, and special characters).
-
- * **Validation:**
- * - The password input field is marked as `required`, ensuring that the form cannot be submitted without providing a password.
- * - The password field type is set to `password`, ensuring the text is masked unless toggled by the user.
-
- * **Usage Example:**
- * ```tsx
- * <StandardPasswordInputRefactor
- *   passwordInput={{
- *     id: 'user-password',
- *     name: 'password',
- *     placeholder: 'Enter your password',
- *     value: '',
- *     autoComplete: 'current-password',
- *     labelName: 'Password',
- *     hasInfoIcon: true,
- *     additionalDivClassName: 'custom-class',
- *     isFlexRow: true,
- *   }}
- * />
- * ```
+ * @returns {JSX.Element} - A `div` element containing a label, password input field, and a toggle button for showing/hiding the password.
  *
- * @component
+ * @example
+ * <StandardPasswordInputRefactor passwordInput={passwordInputData} />
+ *
+ * @remarks
+ * - The component uses `useState` to manage the password value and the visibility state.
+ * - It supports custom class names, flexbox layout, and an info icon for additional help on password requirements.
+ * - The toggle button switches between showing the password in plain text and hiding it.
  */
 
 import openedEyeIcon from '/icons/eye.svg';

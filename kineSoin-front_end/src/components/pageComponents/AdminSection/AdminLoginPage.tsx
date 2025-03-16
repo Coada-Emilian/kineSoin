@@ -1,42 +1,18 @@
 /**
- * AdminLoginPage Component
+ * @component AdminLoginPage
  *
- * This component represents the login page for the admin section of the application.
- * It allows administrators to log in by providing their email and password.
+ * A component that renders the admin login page where an administrator can enter their credentials
+ * (email and password) to authenticate and access the admin section of the application.
  *
- * The component uses the following:
- * - **useMutation** from TanStack Query to handle the login process by calling `checkAdminCredentials` function.
- * - **useGlobalContext** and **useAuthentificationContext** to manage global navigation and authentication states.
- * - A form with input fields for the admin's email and password, and a custom button to submit the form.
+ * @returns JSX.Element - The rendered admin login page with email, password input fields, and a login button.
  *
- * **Main Functionality:**
- * - On successful login, the admin is redirected to the '/admin/therapists' page.
- * - The login form is submitted via the `onSubmit` handler, which extracts email and password values, and triggers the mutation to authenticate the admin.
- * - A loading state is displayed (using the `DNALoader` component) while the login request is pending.
- * - If the login attempt fails, an error message is shown to the user.
+ * @example
+ * <AdminLoginPage />
  *
- * **Detailed Flow:**
- * 1. When the form is submitted, the entered email and password are sent to the `checkAdminCredentials` function via the `handleAdminLogin` mutation.
- * 2. If the login is successful, the admin's profile token (`adminProfileToken`) is set in the `AuthentificationContext`.
- * 3. The `useEffect` hook listens for changes to `adminProfileToken`. Once it is set, the user is redirected to the `/admin/therapists` page.
- * 4. If the login is in progress, a loader is displayed. If an error occurs, the error message is shown on the page.
- *
- * **UI/UX Notes:**
- * - The form is styled using Tailwind CSS, ensuring responsiveness across devices.
- * - The page layout is centered, with a gradient background and a clean form container.
- * - The logo is clickable and links to the home page.
- *
- * **Context and State Management:**
- * - **useGlobalContext:** Used to manage navigation and redirection after successful login.
- * - **useAuthentificationContext:** Used to store and manage the admin profile token.
- *
- * **Key Dependencies:**
- * - `useMutation` from `@tanstack/react-query` for handling the login mutation.
- * - `StandardEmailInputRefactor` and `StandardPasswordInputRefactor` for the email and password input fields.
- * - `CustomBtn` for the login button.
- * - `DNALoader` for displaying the loading state.
- *
- * @component
+ * @remarks
+ * - Uses React Query's `useMutation` hook to handle admin login.
+ * - Upon successful login, stores the admin profile token and redirects to the therapists' section.
+ * - If login fails, an error message is displayed.
  */
 
 import { useEffect } from 'react';

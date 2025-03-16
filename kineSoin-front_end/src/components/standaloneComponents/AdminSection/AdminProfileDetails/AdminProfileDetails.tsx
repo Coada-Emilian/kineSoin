@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ConfirmDeleteModal from '../Modals/ConfirmDeleteModal.tsx';
-import EditPhotoModal from '../Modals/EditPhotoModal.tsx';
+import ConfirmDeleteModal from '../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
+import EditPhotoModal from '../AdminTable/new_components/modals/EditPhotoModal.tsx';
 import ImageSection from './pageComponents/sections/ImageSection.tsx';
 import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
 import GeneralOutput from './pageComponents/generalComponents/common/Outputs/old_components/GeneralOutput.tsx';

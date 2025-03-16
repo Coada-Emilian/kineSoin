@@ -38,11 +38,11 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../@types/standardInterfaces';
-import AfflictionTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Affliction/new_components/AfflictionTableBodyRefactor';
-import InsuranceTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Insurances/new_components/InsuranceTableBodyRefactor';
-import MedicTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Medics/new_components/MedicTableBodyRefactor';
-import PatientTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Patients/new_components/PatientTableBodyRefactor';
-import TherapistTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/pageComponents/Therapists/new_components/TherapistTableBodyRefactor';
+import AfflictionTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/affliction/AfflictionTableBodyRefactor';
+import InsuranceTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/insurance/InsuranceTableBodyRefactor';
+import MedicTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/medic/MedicTableBodyRefactor';
+import PatientTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/patient/PatientTableBodyRefactor';
+import TherapistTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/therapist/TherapistTableBodyRefactor';
 
 interface FunctionProps {
   renderedEntities:

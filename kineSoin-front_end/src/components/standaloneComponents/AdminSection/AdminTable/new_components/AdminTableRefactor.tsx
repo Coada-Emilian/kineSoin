@@ -1,21 +1,42 @@
+/**
+ * @function AdminTableRefactor
+ *
+ * A refactored admin table component that dynamically displays entities (therapists, patients, afflictions)
+ * based on the selected entity type. It handles the rendering of a table, modals for entity actions,
+ * and buttons for specific entity functionalities like region viewing and adding new items.
+ *
+ * @param entities - A list of entities to render in the table (therapists, patients, or afflictions).
+ * @param entityType - The type of entity to be displayed ('therapist', 'patient', 'affliction').
+ *
+ * @returns JSX.Element - The component that renders the table, modals, and entity actions.
+ *
+ * @example
+ * <AdminTableRefactor entities={entities} entityType="therapist" />
+ *
+ * @remarks
+ * - Handles dynamic rendering of rows based on entity type.
+ * - Includes modal management for creating, updating, and deleting entities.
+ * - The component uses context to manage the state and actions like opening modals and setting selected entities.
+ */
+
 import { useEffect } from 'react';
-import ConfirmDeleteModal from '../../Modals/ConfirmDeleteModal';
-import RegionModal from '../pageComponents/Modals/RegionModal';
-import AddRegionModal from '../pageComponents/Modals/AddRegionModal';
+import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
+import RegionModal from './modals/RegionModal';
+import AddRegionModal from './modals/add_modals/AddRegionModal';
 import {
   renderTherapists,
   renderPatients,
   renderAfflictions,
 } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
-import TableTitleRefactor from '../pageComponents/Common/new_components/TableTitleRefactor';
-import TableHeadRefactor from '../pageComponents/Common/new_components/TableHeadRefactor';
-import TableBodyRefactor from '../pageComponents/Common/new_components/TableBodyRefactor';
-import FirstAddTherapistModal from '../pageComponents/Modals/adminModal/variations/FirstAddTherapistModal';
-import SecondAddTherapistModal from '../pageComponents/Modals/adminModal/variations/SecondAddTherapistModal';
-import ThirdAddTherapistModal from '../pageComponents/Modals/adminModal/variations/ThirdAddTherapistModal';
-import AddAfflictionModal from '../pageComponents/Modals/adminModal/variations/AddAfflictionModal';
-import AddMedicModal from '../pageComponents/Modals/adminModal/variations/AddMedicModal';
-import AddInsuranceModal from '../pageComponents/Modals/adminModal/variations/AddInsuranceModal';
+import TableTitleRefactor from './page_components/common/TableTitleRefactor';
+import TableHeadRefactor from './page_components/common/TableHeadRefactor';
+import TableBodyRefactor from './page_components/common/TableBodyRefactor';
+import FirstAddTherapistModal from './modals/add_modals/FirstAddTherapistModal';
+import SecondAddTherapistModal from './modals/add_modals/SecondAddTherapistModal';
+import ThirdAddTherapistModal from './modals/add_modals/ThirdAddTherapistModal';
+import AddAfflictionModal from './modals/add_modals/AddAfflictionModal';
+import AddMedicModal from './modals/add_modals/AddMedicModal';
+import AddInsuranceModal from './modals/add_modals/AddInsuranceModal';
 import { getAdminTableElements } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminTableElements';
 import {
   IEntitiesInterfaces,

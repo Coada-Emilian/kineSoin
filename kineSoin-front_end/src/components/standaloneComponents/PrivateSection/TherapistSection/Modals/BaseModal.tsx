@@ -1,3 +1,26 @@
+/**
+ * @function BaseModal
+ *
+ * A modal component built on top of `ReactModal` for displaying content in a dialog box.
+ * It includes a customizable overlay, a close handler, and customizable modal styles.
+ *
+ * @param isOpen - A boolean that determines whether the modal is open or closed.
+ * @param onClose - A callback function that is triggered when the modal is closed.
+ * @param children - The content to be rendered inside the modal.
+ * @param props - Additional props passed to `ReactModal`.
+ *
+ * @returns {JSX.Element} - A `ReactModal` component with custom styling and close functionality.
+ *
+ * @example
+ * <BaseModal isOpen={isModalOpen} onClose={handleCloseModal}>
+ *   <div>Your modal content here</div>
+ * </BaseModal>
+ *
+ * @remarks
+ * - The `BaseModal` uses default styling but can be customized further with additional props.
+ * - The modal will close when the overlay or close button is clicked (if `onClose` is provided).
+ */
+
 import ReactModal from 'react-modal';
 
 interface BaseModalProps extends ReactModal.Props {

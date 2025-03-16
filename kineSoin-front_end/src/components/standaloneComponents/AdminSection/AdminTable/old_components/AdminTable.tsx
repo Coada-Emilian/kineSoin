@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import AfflictionUtilityButtons from '../pageComponents/Affliction/AfflictionUtilityButtons';
-import ConfirmDeleteModal from '../../Modals/ConfirmDeleteModal';
+import ConfirmDeleteModal from '../new_components/modals/ConfirmDeleteModal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import TableTitle from '../pageComponents/Common/old_components/TableTitle';
-import TableHead from '../pageComponents/Common/old_components/TableHead';
-import TableBody from '../pageComponents/Common/old_components/TableBody';
-import StatusButtons from '../pageComponents/Common/old_components/StatusButtons';
-import AdminModal from '../pageComponents/Modals/adminModal/AdminModal';
-import RegionModal from '../pageComponents/Modals/RegionModal';
-import AddRegionModal from '../pageComponents/Modals/AddRegionModal';
+import TableTitle from './page_components/common/TableTitle';
+import TableHead from './page_components/common/TableHead';
+import TableBody from './page_components/common/TableBody';
+import StatusButtons from './page_components/common/StatusButtons';
+import AdminModal from './modals/AdminModal';
+import RegionModal from '../new_components/modals/RegionModal';
+import AddRegionModal from '../new_components/modals/add_modals/AddRegionModal';
 import {
   IAffliction,
   IBodyRegion,

@@ -1,42 +1,21 @@
 /**
- * getAdminTableTitleContent Function
+ * @function getAdminTableTitleContent
  *
- * This function dynamically generates a table title based on the provided `tableTitle` and `entityStatus` values.
- * It appends a status suffix to the `tableTitle` to indicate the current state or condition of the entities being displayed.
- * The status suffixes are predefined for common entity statuses such as active, inactive, banned, pending, operated, and non-operated.
- * 
- * **Main Features:**
- * - Appends a status suffix to the base table title, such as "active", "inactive", "banned", etc.
- * - If no matching status is found, it returns just the `tableTitle` without any suffix.
- * - Ensures that the title is formatted correctly by trimming any unnecessary spaces.
-
- * **Parameters:**
- * - `tableTitle` (`string`): The base title for the table (e.g., "All therapists", "All patients").
- * - `entityStatus` (`string`): The current status of the entity (e.g., 'active', 'inactive', 'pending'). This determines the suffix that will be added to the table title.
- * 
- * **Returns:**
- * - A string containing the full table title with the appropriate status suffix (if any).
- * - If no status is provided, it returns the original `tableTitle` without modification.
- * 
- * **Usage Example:**
- * ```ts
- * getAdminTableTitleContent({ tableTitle: 'All therapists', entityStatus: 'active' });
- * ```
- * This would return: `"All therapists actifs"`.
+ * A utility function that generates the title for an admin table, appending the status suffix
+ * (e.g., "actifs", "inactifs") to the table title based on the current entity status.
  *
- * **Status Suffixes:**
- * - `active` => 'actifs'
- * - `inactive` => 'inactifs'
- * - `banned` => 'bannis'
- * - `pending` => 'en attente'
- * - `operated` => 'opérées'
- * - `non-operated` => 'non-opérées'
- * 
- * If the `entityStatus` does not match one of the predefined statuses, the function simply returns the original `tableTitle`.
-
- * **Important Notes:**
- * - The function trims extra spaces using `.trim()` to ensure that no unwanted spaces are included in the title.
- * - This function is useful for generating dynamic titles in an admin interface, where the displayed content varies based on the status of entities.
+ * @param tableTitle - The title to be displayed for the table.
+ * @param entityStatus - The current status of the entities (e.g., active, inactive) to modify the title content accordingly.
+ *
+ * @returns {string} - The formatted title with the status suffix, or just the table title if no status is provided.
+ *
+ * @example
+ * getAdminTableTitleContent({ tableTitle: 'Tous les kinésithérapeutes', entityStatus: 'active' });
+ * // Returns: 'Tous les kinésithérapeutes actifs'
+ *
+ * @remarks
+ * - If the `entityStatus` is not found in the `statusSuffixes` mapping, it returns just the `tableTitle`.
+ * - This function is used to create dynamic table titles in the admin dashboard depending on the entity's current status.
  */
 
 interface FunctionProps {

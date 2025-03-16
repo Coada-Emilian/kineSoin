@@ -1,3 +1,22 @@
+/**
+ * @component AdminMain
+ *
+ * A component that renders the main admin section page, showing either a table of entities or the
+ * details of a specific entity depending on the route.
+ *
+ * @param {IEntityTypes} entityType - The type of entity (e.g., therapist, patient, etc.) to display.
+ *
+ * @returns JSX.Element - The rendered admin main page with either a table or entity details based on the route.
+ *
+ * @example
+ * <AdminMain entityType="therapists" />
+ *
+ * @remarks
+ * - Uses React Query's `useQuery` hook to fetch the list of entities and entity details.
+ * - Displays a loader while fetching data and shows the appropriate content once loading is complete.
+ * - The layout consists of a side navigation bar and a content section displaying either the table or profile details.
+ */
+
 import { useParams } from 'react-router-dom';
 import DNALoader from '../../../../utils/DNALoader';
 import {
