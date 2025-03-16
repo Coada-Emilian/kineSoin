@@ -55,10 +55,10 @@ export default function PatientLoginFormSection() {
 
           <StandardPasswordInputRefactor
             passwordInput={{
-              inputId: 'patient-login-password_input',
-              inputName: 'password',
+              id: 'patient-login-password_input',
+              name: 'password',
               labelName: 'Mot de passe',
-              inputPlaceholder: 'Entrez votre mot de passe',
+              placeholder: 'Entrez votre mot de passe',
               autoComplete: 'current-password',
             }}
           />
@@ -75,7 +75,7 @@ export default function PatientLoginFormSection() {
           <div className="flex items-center justify-center">
             <CustomBtn
               btn={{
-                type: 'basicBtn',
+                type: 'basic',
                 text: 'Connexion',
                 style: 'normal',
               }}

@@ -1,3 +1,17 @@
+/**
+ * @function PublicHeadBand
+ *
+ * A header section that includes a tagline and the platform's logo.
+ * The section displays:
+ * - A tagline: "Votre santé, nos soins experts" which means "Your health, our expert care".
+ * - The platform's logo (imported from `/logos/Main-Logo.png`), adjusting its size based on the screen size.
+ *
+ * @returns {JSX.Element} - A header section with a tagline and logo, used across various public-facing pages.
+ *
+ * @example
+ * <PublicHeadBand />
+ */
+
 import logo from '/logos/Main-Logo.png';
 
 export default function PublicHeadBand() {

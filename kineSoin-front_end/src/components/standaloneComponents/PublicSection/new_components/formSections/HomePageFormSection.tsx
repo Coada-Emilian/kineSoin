@@ -1,3 +1,18 @@
+/**
+ * @function HomePageFormSection
+ *
+ * A section of the home page that introduces the platform and encourages user registration.
+ * The section includes:
+ * - A welcome message about the platform (kineSoin).
+ * - Information on how users can schedule their sessions and access services.
+ * - A link (`/registerPatient`) that redirects users to the registration page to sign up for services.
+ *
+ * @returns {JSX.Element} - The main content section of the home page, including text and a call-to-action for registration.
+ *
+ * @example
+ * <HomePageFormSection />
+ */
+
 import { Link } from 'react-router-dom';
 
 export default function HomePageFormSection() {

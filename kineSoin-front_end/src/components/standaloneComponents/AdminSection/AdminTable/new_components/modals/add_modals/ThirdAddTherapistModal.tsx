@@ -24,15 +24,12 @@
 import { useEffect, useState } from 'react';
 import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { addThirdFormDetails } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/addFormDetailsFunctions';
-import { createTherapist } from '../../../old_components/modals/createTherapist';
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import StandardEmailInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
-import { useMutation } from '@tanstack/react-query';
-import { IAddForm } from '../../../../../../../@types/formInterfaces';
 import { useTherapistCreation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useTherapistCreation';
 
 interface ThirdAddTherapistModalProps {
