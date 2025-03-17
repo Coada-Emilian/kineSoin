@@ -1,3 +1,18 @@
+/**
+ * @function PatientLoginDescriptionSection
+ *
+ * A description section for the patient login page, providing welcoming messages and informative content.
+ * This section includes:
+ * - Two `ArticleRow` components displaying images and text to introduce the platform.
+ * - A welcoming message about the kineSoin community.
+ * - An emphasis on patient well-being and the benefits of using the platform.
+ *
+ * @returns {JSX.Element} - A structured section with informative articles to enhance user experience.
+ *
+ * @example
+ * <PatientLoginDescriptionSection />
+ */
+
 import ArticleRow from '../articles/ArticleRow';
 import firstPatientLoginPhoto from '/images/patientConnexionPage_right.webp';
 import secondPatientLoginPhoto from '/images/patientConnexionPage_left.webp';

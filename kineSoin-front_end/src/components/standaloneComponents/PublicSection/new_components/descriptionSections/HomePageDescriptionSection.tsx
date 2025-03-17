@@ -26,6 +26,7 @@ export default function HomePageDescriptionSection() {
           <HomePageArticle key={index} article={article} />
         ))}
       </div>
+
       <div className="flex flex-wrap justify-around">
         {homePageSecondArticles.map((article, index) => (
           <HomePageArticle key={index} article={article} />

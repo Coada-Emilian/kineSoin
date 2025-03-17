@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { handleInsuranceOrganismCreationAsAdmin } from '../../../../../../../apiUtils/adminApiUtils/adminInsuranceApiUtils';
 
-export const useSubmitInsurance = (
+export const useSubmitInsuranceMutation = (
   onClose: () => void,
   setError: (msg: string) => void
 ) => {

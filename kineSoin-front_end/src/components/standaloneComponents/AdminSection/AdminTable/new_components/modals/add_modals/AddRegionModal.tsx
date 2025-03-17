@@ -26,7 +26,7 @@ import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalCont
 import DNALoader from '../../../../../../../utils/DNALoader';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
 import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
-import { useSubmitRegion } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useRegionSubmit';
+import { useSubmitRegionMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useRegionSubmitMutation';
 
 interface AddRegionModalProps {
   isOpen: boolean;
@@ -39,7 +39,7 @@ export default function AddRegionModal({
 }: AddRegionModalProps) {
   const { errorMessage, setError } = useGlobalContext();
 
-  const handleRegionCreation = useSubmitRegion(onClose, setError);
+  const handleRegionCreation = useSubmitRegionMutation(onClose, setError);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

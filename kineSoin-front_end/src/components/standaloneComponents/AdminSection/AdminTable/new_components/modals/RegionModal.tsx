@@ -27,8 +27,8 @@ import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseMo
 import RegionTable from './RegionTable';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import { useFetchBodyRegions } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useFetchBodyRegions';
 import DNALoader from '../../../../../../utils/DNALoader';
+import { useFetchBodyRegionsMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useFetchBodyRegionsMutation';
 
 interface RegionModalProps {
   isOpen: boolean;
@@ -45,7 +45,10 @@ export default function RegionModal({
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
   const { errorMessage, setError } = useGlobalContext();
 
-  const regionFetchMutation = useFetchBodyRegions(setBodyRegions, setError);
+  const regionFetchMutation = useFetchBodyRegionsMutation(
+    setBodyRegions,
+    setError
+  );
 
   useEffect(() => {
     regionFetchMutation.mutate();

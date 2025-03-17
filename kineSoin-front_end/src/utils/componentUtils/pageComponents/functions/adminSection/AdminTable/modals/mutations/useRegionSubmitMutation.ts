@@ -26,7 +26,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { handleBodyRegionCreationAsAdmin } from '../../../../../../../apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
-export const useSubmitRegion = (
+export const useSubmitRegionMutation = (
   onClose: () => void,
   setError: (msg: string) => void
 ) => {

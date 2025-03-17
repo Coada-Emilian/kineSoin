@@ -1,3 +1,24 @@
+/**
+ * @function HomePageArticle
+ *
+ * A presentational component that renders an individual article card for the home page.
+ * Each article consists of an image, a title, and a brief description.
+ *
+ * @param {Object} props - The component props.
+ * @param {IHomePageArticle} props.article - The article object containing the image source, title, and description.
+ *
+ * @returns {JSX.Element} - A styled article card with an image, title, and description.
+ *
+ * @example
+ * const article = {
+ *   imgSrc: "/path/to/image.png",
+ *   title: "Discover Our Services",
+ *   description: "We provide top-notch physiotherapy services tailored to your needs."
+ * };
+ *
+ * <HomePageArticle article={article} />
+ */
+
 import { IHomePageArticle } from '../../../../../../@types/customInterfaces';
 
 interface HomePageArticleProps {

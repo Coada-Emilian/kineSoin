@@ -21,7 +21,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { fetchBodyRegionsAsAdmin } from '../../../../../../../apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
-export const useFetchBodyRegions = (
+export const useFetchBodyRegionsMutation = (
   setBodyRegions: (data: any) => void,
   setError: (msg: string) => void
 ) => {

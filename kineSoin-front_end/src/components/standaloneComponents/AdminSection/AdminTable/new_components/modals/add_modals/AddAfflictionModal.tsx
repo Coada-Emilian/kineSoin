@@ -25,10 +25,9 @@ import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../../@types/standardInterfaces';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
-import { useSubmitAffliction } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useAfflictionSubmit';
-import { useFetchBodyRegions } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useFetchBodyRegions';
-import { DNA } from 'react-loader-spinner';
 import DNALoader from '../../../../../../../utils/DNALoader';
+import { useSubmitAfflictionMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useAfflictionSubmitMutation';
+import { useFetchBodyRegionsMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useFetchBodyRegionsMutation';
 
 interface AddAfflictionModalProps {
   isOpen: boolean;
@@ -41,7 +40,10 @@ export default function AddAfflictionModal({
 }: AddAfflictionModalProps) {
   const { errorMessage, setError } = useGlobalContext();
 
-  const submitAfflictionMutation = useSubmitAffliction(onClose, setError);
+  const submitAfflictionMutation = useSubmitAfflictionMutation(
+    onClose,
+    setError
+  );
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +52,10 @@ export default function AddAfflictionModal({
 
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
-  const regionFetchMutation = useFetchBodyRegions(setBodyRegions, setError);
+  const regionFetchMutation = useFetchBodyRegionsMutation(
+    setBodyRegions,
+    setError
+  );
 
   useEffect(() => {
     regionFetchMutation.mutate();

@@ -23,7 +23,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { handleAfflictionCreationAsAdmin } from '../../../../../../../apiUtils/adminApiUtils/adminAfflictionApiUtils';
 
-export const useSubmitAffliction = (
+export const useSubmitAfflictionMutation = (
   onClose: () => void,
   setError: (msg: string) => void
 ) => {

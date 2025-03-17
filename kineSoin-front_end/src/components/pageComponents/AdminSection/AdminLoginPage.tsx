@@ -19,14 +19,12 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
-import { checkAdminCredentials } from '../../../utils/componentUtils/pageComponents/functions/adminSection/AdminLoginPageUtils/authentificationUtil.ts';
 import { useGlobalContext } from '../../../utils/contexts/GlobalContext.tsx';
 import { useAuthentificationContext } from '../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
 import CustomBtn from '../../standaloneComponents/generalComponents/CustomButton/CustomButtonRefactor.tsx';
 import StandardEmailInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor.tsx';
 import StandardPasswordInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor.tsx';
-import { useMutation } from '@tanstack/react-query';
-import { useAdminLogin } from '../../../utils/componentUtils/pageComponents/functions/adminSection/mutations/useAdminLogin.ts';
+import { useAdminLoginMutation } from '../../../utils/componentUtils/pageComponents/functions/adminSection/mutations/useAdminLoginMutation.ts';
 
 export default function AdminLoginPage() {
   // Destructure the necessary variables from the global context
@@ -37,7 +35,7 @@ export default function AdminLoginPage() {
     useAuthentificationContext();
 
   // Create a mutation to handle the admin login
-  const handleAdminLogin = useAdminLogin(setAdminProfileToken);
+  const handleAdminLogin = useAdminLoginMutation(setAdminProfileToken);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

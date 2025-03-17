@@ -25,8 +25,8 @@ import StandardDropdownInputRefactor from '../../../../../generalComponents/Stan
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
-import { useSubmitInsurance } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useInsuranceSubmit';
 import DNALoader from '../../../../../../../utils/DNALoader';
+import { useSubmitInsuranceMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useInsuranceSubmitMutation';
 
 interface AddInsuranceModalProps {
   isOpen: boolean;
@@ -40,7 +40,7 @@ export default function AddInsuranceModal({
   const { errorMessage, setError } = useGlobalContext();
   const { countries } = usePrefixesContext();
 
-  const handleInsuranceSubmit = useSubmitInsurance(onClose, setError);
+  const handleInsuranceSubmit = useSubmitInsuranceMutation(onClose, setError);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

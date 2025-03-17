@@ -30,7 +30,7 @@ import StandardEmailInputRefactor from '../../../../../generalComponents/Standar
 import StandardPasswordInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
-import { useTherapistCreation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useTherapistCreation';
+import { useTherapistCreationMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useTherapistCreationMutation';
 
 interface ThirdAddTherapistModalProps {
   isOpen: boolean;
@@ -51,7 +51,10 @@ export default function ThirdAddTherapistModal({
   // Destructure the necessary variables from the therapist form context
   const { setAddForm, addForm } = useAdminAddTherapistFormGlobalContext();
 
-  const handleTherapistCreation = useTherapistCreation(addForm, onClose);
+  const handleTherapistCreation = useTherapistCreationMutation(
+    addForm,
+    onClose
+  );
 
   // Handle the therapist creation on form validation
   useEffect(() => {

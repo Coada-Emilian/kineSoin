@@ -1,3 +1,26 @@
+/**
+ * @function ArticleRow
+ *
+ * A reusable component that displays an article section with an image and descriptive text.
+ * This component supports an optional reversed layout for alternating content alignment.
+ *
+ * @param {boolean} [isReversed] - If `true`, the image appears on the left and text on the right (default is text first).
+ * @param {string} articleImage - The source path of the article image.
+ * @param {string} articleTitle - The title of the article.
+ * @param {string} articleParagraph - The main text content of the article.
+ * @param {string} articleAlt - The alt text for the article image.
+ *
+ * @returns {JSX.Element} - A flexible article section that enhances readability with alternating layouts.
+ *
+ * @example
+ * <ArticleRow
+ *   articleImage="/path/to/image.jpg"
+ *   articleTitle="Discover our services"
+ *   articleParagraph="Our platform offers easy access to healthcare professionals..."
+ *   articleAlt="A person receiving therapy"
+ * />
+ */
+
 interface ArticleRowProps {
   isReversed?: boolean;
   articleImage: string;

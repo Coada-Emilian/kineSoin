@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { handleMedicCreationAsAdmin } from '../../../../../../../apiUtils/adminApiUtils/adminMedicApiUtils';
 
-export const useSubmitMedic = (
+export const useSubmitMedicMutation = (
   onClose: () => void,
   setError: (msg: string) => void
 ) => {

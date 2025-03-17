@@ -25,8 +25,8 @@ import StandardDropdownInputRefactor from '../../../../../generalComponents/Stan
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
-import { useSubmitMedic } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useMedicSubmit';
 import DNALoader from '../../../../../../../utils/DNALoader';
+import { useSubmitMedicMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useMedicSubmitMutation';
 
 interface AddMedicModalProps {
   isOpen: boolean;
@@ -38,7 +38,7 @@ export default function AddMedicModal({ isOpen, onClose }: AddMedicModalProps) {
 
   const { errorMessage, setError } = useGlobalContext();
 
-  const handleMedicSubmit = useSubmitMedic(onClose, setError);
+  const handleMedicSubmit = useSubmitMedicMutation(onClose, setError);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
