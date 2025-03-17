@@ -1,3 +1,18 @@
+/**
+ * @function TherapistLoginDescriptionSection
+ *
+ * This component displays an informative section for therapists logging into the platform.
+ * It consists of two `ArticleRow` components that introduce KineSoin's benefits, such as:
+ * - Expanding professional practice.
+ * - Enhancing communication with clients.
+ * - Providing tools for better appointment management and patient follow-ups.
+ *
+ * @returns {JSX.Element} - A description section containing informative articles for therapists.
+ *
+ * @example
+ * <TherapistLoginDescriptionSection />
+ */
+
 import ArticleRow from '../articles/ArticleRow';
 import firstTherapistLoginPhoto from '/images/therapistConnexionPage_right.webp';
 import secondTherapistLoginPhoto from '/images/therapistConnexionPage_left.webp';

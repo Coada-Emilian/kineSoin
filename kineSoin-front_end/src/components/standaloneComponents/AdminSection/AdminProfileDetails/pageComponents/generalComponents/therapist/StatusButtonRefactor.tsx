@@ -1,136 +1,61 @@
 import { Button, MenuItem } from '@headlessui/react';
-import { toggleStatusRefactor } from '../../utils/toggleStatusRefactor';
-import { handlePatientStatusChanges } from '../../utils/handlePatientStatusChange';
-import { handleTherapistStatusChanges } from '../../utils/handleTherapistStatusChanges';
+import { useTherapistStatusChangeMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/adminProfileDetails/mutations/useTherapistStatusChangeMutation';
+import { usePatientStatusChangeMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/adminProfileDetails/mutations/usePatientStatusChangeMutation';
+import DNALoader from '../../../../../../../utils/DNALoader';
+import { getStatusButtonsItemDetails } from './getStatusButtonsItemDetails';
 
 interface StatusButtonsRefactorProps {
-  setButtonMessage: React.Dispatch<React.SetStateAction<string>>;
-  setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
-  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
   entityType: string;
   id?: number | null | undefined;
+  entityStatus: string;
 }
 
 export default function StatusButtonsRefactor({
-  setButtonMessage,
-  setBackgroundColor,
-  setEntityStatus,
   entityType,
   id,
+  entityStatus,
 }: StatusButtonsRefactorProps) {
+  const handleTherapistStatusChange = useTherapistStatusChangeMutation();
+  const handlePatientStatusChange = usePatientStatusChangeMutation();
+
+  if (
+    handleTherapistStatusChange.isPending ||
+    handlePatientStatusChange.isPending
+  ) {
+    return DNALoader();
+  }
+
+  const itemDetails = getStatusButtonsItemDetails({
+    handlePatientStatusChange,
+    handleTherapistStatusChange,
+  });
+
+  // Filter out items based on entityType and current status
+  const activeEntityDetails = itemDetails.filter(
+    (item) => entityType === item.entityType && entityStatus !== item.status
+  );
+
   return (
-    <div className=" w-full">
-      {entityType === 'therapist' && (
+    <div className="w-full">
+      {(entityType === 'therapist' || entityType === 'patient') && (
         <>
-          <MenuItem>
-            <Button
-              className="block px-4 w-full py-2 text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
-              onClick={() => {
-                toggleStatusRefactor('active', {
-                  setButtonMessage,
-                  setEntityStatus,
-                  setBackgroundColor,
-                });
-                if (id) {
-                  handleTherapistStatusChanges(id, 'active');
-                }
-              }}
-            >
-              Actif
-            </Button>
-          </MenuItem>
-
-          <MenuItem>
-            <Button
-              className="block px-4 w-full py-2 text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
-              onClick={() => {
-                toggleStatusRefactor('inactive', {
-                  setButtonMessage,
-                  setEntityStatus,
-                  setBackgroundColor,
-                });
-                if (id) {
-                  handleTherapistStatusChanges(id, 'inactive');
-                }
-              }}
-            >
-              Inactif
-            </Button>
-          </MenuItem>
-        </>
-      )}
-
-      {entityType === 'patient' && (
-        <>
-          {' '}
-          <MenuItem>
-            <Button
-              className="block px-4 py-2 w-full text-sm text-gray-700 bg-green-300 font-medium data-[focus]:bg-green-500 data-[focus]:text-gray-900"
-              onClick={() => {
-                toggleStatusRefactor('active', {
-                  setButtonMessage,
-                  setEntityStatus,
-                  setBackgroundColor,
-                });
-                if (id) {
-                  handlePatientStatusChanges(id, 'active');
-                }
-              }}
-            >
-              Actif
-            </Button>
-          </MenuItem>
-          <MenuItem>
-            <Button
-              className="block px-4 py-2 w-full text-sm text-gray-700 bg-gray-200 font-medium data-[focus]:bg-gray-400 data-[focus]:text-gray-900"
-              onClick={() => {
-                toggleStatusRefactor('inactive', {
-                  setButtonMessage,
-                  setEntityStatus,
-                  setBackgroundColor,
-                });
-                if (id) {
-                  handlePatientStatusChanges(id, 'inactive');
-                }
-              }}
-            >
-              Inactif
-            </Button>
-          </MenuItem>
-          <MenuItem>
-            <Button
-              className="block px-4 py-2 w-full text-sm text-gray-700 bg-yellow-300 font-medium data-[focus]:bg-yellow-500 data-[focus]:text-gray-900"
-              onClick={() => {
-                toggleStatusRefactor('pending', {
-                  setButtonMessage,
-                  setEntityStatus,
-                  setBackgroundColor,
-                });
-                if (id) {
-                  handlePatientStatusChanges(id, 'pending');
-                }
-              }}
-            >
-              En attente
-            </Button>
-          </MenuItem>
-          <MenuItem>
-            <Button
-              className="block px-4 py-2 w-full text-sm text-gray-700 bg-red-300 font-medium data-[focus]:bg-red-500 data-[focus]:text-gray-900"
-              onClick={() => {
-                toggleStatusRefactor('banned', {
-                  setButtonMessage,
-                  setEntityStatus,
-                  setBackgroundColor,
-                });
-                if (id) {
-                  handlePatientStatusChanges(id, 'banned');
-                }
-              }}
-            >
-              Banni
-            </Button>
-          </MenuItem>
+          {activeEntityDetails.map((item) => (
+            <MenuItem key={item.status}>
+              <Button
+                className={`block px-4 py-2 w-full text-sm text-gray-700 ${item.background} font-medium data-[focus]:${item.hoverBackground} data-[focus]:text-gray-900`}
+                onClick={() => {
+                  if (id) {
+                    item.function.mutate({
+                      id,
+                      status: item.status,
+                    });
+                  }
+                }}
+              >
+                {item.text}
+              </Button>
+            </MenuItem>
+          ))}
         </>
       )}
     </div>

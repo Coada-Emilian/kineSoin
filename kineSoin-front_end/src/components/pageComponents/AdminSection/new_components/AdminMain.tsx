@@ -24,7 +24,7 @@ import {
   fetchTableDataRefactor,
 } from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminMainUtils/adminMainUtilsRefactor';
 import AdminTableRefactor from '../../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
-import AdminProfileDetailsRefactor from '../../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetailsRefactor';
+import AdminProfileDetailsRefactor from '../../../standaloneComponents/AdminSection/AdminProfileDetails/new_components/AdminProfileDetailsRefactor';
 import {
   IEntitiesInterfaces,
   IEntityInterface,

@@ -7,5 +7,5 @@ interface EmailOutputRefactorProps {
 export default function EmailOutputRefactor({
   email,
 }: EmailOutputRefactorProps) {
-  return <BaseOutput value={email} label="E-mail" />;
+  return <BaseOutput label="Email" value={email} />;
 }

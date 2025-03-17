@@ -1,9 +1,23 @@
+/**
+ * @function PatientRegisterFormSection
+ *
+ * This component renders the patient registration form, guiding users through multiple steps
+ * and handling form submission. It includes:
+ * - Dynamic background changes based on the current registration step.
+ * - State management for form progression and data collection.
+ * - A mutation hook (`usePatientRegisterMutation`) to register patients upon form completion.
+ *
+ * @returns {JSX.Element} - A multi-step registration form section for patients.
+ *
+ * @example
+ * <PatientRegisterFormSection />
+ */
+
 import { Link } from 'react-router-dom';
 import mainLogo from '/logos/Main-Logo.png';
 import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
-import { registerPatient } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterUtils';
 import DNALoader from '../../../../../../utils/DNALoader';
 import {
   getFormElement,
@@ -11,8 +25,8 @@ import {
   getSectionBackground,
   getStepParagraph,
 } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterFormSectionFunctions';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import { usePatientRegisterMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/mutations/usePatientRegisterMutation';
 
 export default function PatientRegisterFormSection() {
   const { errorMessage, setError, isLoading, setLoading, location } =
@@ -29,17 +43,16 @@ export default function PatientRegisterFormSection() {
 
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
+  const registerPatient = usePatientRegisterMutation();
+
   // useEffect hook to register the patient
   useEffect(() => {
-    setLoading(true);
-    registerPatient({
-      formOrder,
-      sentPatientData,
-      setError,
-    }).finally(() => setLoading(false));
+    if (formOrder === 'last') {
+      registerPatient.mutate(sentPatientData);
+    }
   }, [sentPatientData]);
 
-  if (isLoading) {
+  if (registerPatient.isPending || isLoading) {
     return DNALoader();
   }
 
@@ -73,9 +86,9 @@ export default function PatientRegisterFormSection() {
 
           <img src={mainLogo} alt="Kinesoin" className="w-14 mx-auto mb-4" />
 
-          {errorMessage && (
+          {(errorMessage || registerPatient.error) && (
             <p className="text-center text-red-600 font-medium mb-2">
-              {errorMessage}
+              {errorMessage} {registerPatient.error?.message}
             </p>
           )}
 
@@ -90,7 +103,7 @@ export default function PatientRegisterFormSection() {
             {formOrder !== 'last' && (
               <CustomBtn
                 btn={{
-                  type: 'basicBtn',
+                  type: 'basic',
                   text: formOrder === 'third' ? 'Inscription' : 'Valider',
                   style: 'normal',
                 }}

@@ -1,3 +1,19 @@
+/**
+ * @function PatientRegisterDescriptionSection
+ *
+ * This component renders the description section of the patient registration page. It
+ * dynamically displays articles based on the current form order (`formOrder`) in the
+ * registration process. It retrieves the relevant articles from the `registerFormArticles`
+ * and `registerFormReverseArticles` arrays and uses the `ArticleRow` component to display
+ * the content.
+ *
+ * @returns {JSX.Element} - The JSX structure containing the articles for the patient
+ * registration description section.
+ *
+ * @example
+ * <PatientRegisterDescriptionSection />
+ */
+
 import {
   registerFormArticles,
   registerFormReverseArticles,

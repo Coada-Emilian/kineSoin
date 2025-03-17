@@ -1,3 +1,16 @@
+/**
+ * @function ImageOutputRefactor
+ * @param {ImageOutputRefactorProps} props
+ * @returns {JSX.Element | null}
+ *
+ * This component renders an image with a circular shape and shadow, based on the provided `picture_url` prop.
+ * If the `picture_url` is undefined or falsy, the component will return `null` and nothing will be rendered.
+ * The image will be displayed inside a container with specific width and height for different screen sizes.
+ *
+ * @example
+ * <ImageOutputRefactor picture_url="https://example.com/image.jpg" />
+ */
+
 interface ImageOutputRefactorProps {
   picture_url: string | undefined;
 }

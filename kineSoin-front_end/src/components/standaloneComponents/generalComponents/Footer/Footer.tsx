@@ -1,3 +1,19 @@
+/**
+ * @component Footer
+ *
+ * This component renders the footer for the public-facing pages. It includes:
+ * - Assistance contact details, such as email and phone number for users to reach out for support.
+ * - A copyright notice displaying the current year and the company name.
+ * - A list of footer links to important pages such as privacy policy, terms and conditions, and guidelines.
+ *
+ * The component is styled with responsive design in mind, ensuring proper layout on both mobile and desktop views.
+ *
+ * @returns {JSX.Element} The footer section of the page containing contact details, copyright notice, and useful links.
+ *
+ * @example
+ * <Footer />
+ */
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 

@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import ConfirmDeleteModal from '../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
-import EditPhotoModal from './old_components/modals/EditPhotoModal.tsx';
-import ImageSection from './pageComponents/sections/ImageSection.tsx';
-import ButtonsSection from './pageComponents/sections/ButtonsSection.tsx';
-import GeneralOutput from './pageComponents/generalComponents/common/Outputs/old_components/GeneralOutput.tsx';
-import CommonSection from './pageComponents/sections/CommonSection.tsx';
-import ProfileSection from './pageComponents/generalComponents/common/ProfileSection..tsx';
+import ConfirmDeleteModal from '../../../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
+import EditPhotoModal from './EditPhotoModal.tsx';
+import ImageSection from '../../pageComponents/sections/ImageSection.tsx';
+import ButtonsSection from '../../pageComponents/sections/ButtonsSection.tsx';
+import GeneralOutput from '../../pageComponents/generalComponents/common/Outputs/old_components/GeneralOutput.tsx';
+import CommonSection from '../../pageComponents/sections/CommonSection.tsx';
+import ProfileSection from '../../pageComponents/sections/ProfileSection..tsx';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../@types/standardInterfaces';
+} from '../../../../../../@types/standardInterfaces';
 import {
   handleAfflictionUpdateAsAdmin,
   handleInsuranceOrganismUpdateAsAdmin,
   handleMedicUpdateAsAdmin,
   handleTherapistUpdateAsAdmin,
 } from '../../../../utils/apiUtils/adminApiUtils/adminApiUtils.tsx';
-import { handleFormSubmit } from './pageComponents/utils/handleFormSubmit.ts';
-import { handlePatientStatusChanges } from './pageComponents/utils/handlePatientStatusChange.ts';
+import { handleFormSubmit } from '../../pageComponents/utils/handleFormSubmit.ts';
+import { handlePatientStatusChanges } from '../../pageComponents/utils/handlePatientStatusChange.ts';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;

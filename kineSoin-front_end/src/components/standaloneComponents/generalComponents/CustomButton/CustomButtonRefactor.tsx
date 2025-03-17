@@ -14,8 +14,10 @@ export default function CustomBtn({ btn, type }: CustomButtonProps) {
     (button) => button.btnType === btn.type
   )?.background;
 
+  const hasBorder = btn.hasBorder ?? false;
+
   const btnClasses = clsx(
-    `rounded-lg shadow-2xl text-primaryBlue hover:text-white ${background} `,
+    `rounded-lg shadow-2xl text-primaryBlue hover:text-white ${background} ${hasBorder && 'border border-2 border-white'} `,
     btn.style === 'normal' &&
       'p-2 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg font-semibold',
     btn.style === 'nav' &&

@@ -1,12 +1,27 @@
-import { Link } from 'react-router-dom';
+/**
+ * @component PublicNavBar
+ *
+ * This component renders the navigation bar for the public-facing pages. It contains:
+ * - The logo that navigates back to the homepage. Two logos are used for mobile and desktop views.
+ * - Links for therapist, patient, and admin logins, each rendered with a custom button (`CustomBtn`).
+ * - The `setFormOrder` function from the `PatientRegisterContext` is used to reset the form order whenever any of the navigation links is clicked.
+ *
+ * The layout adapts for mobile and desktop views, with the mobile version showing a simplified navigation and the desktop version showing additional options.
+ *
+ * @returns {JSX.Element} The public navigation bar with logo and login options.
+ *
+ * @example
+ * <PublicNavBar />
+ */
 
+import { Link } from 'react-router-dom';
 import Logo1 from '/logos/kinesoin-logo.webp';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
-import CustomButton from '../CustomButton/CustomButton';
 import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext';
 import CustomBtn from '../CustomButton/CustomButtonRefactor';
 
 export default function PublicNavBar() {
+  // Get the setFormOrder function from the PatientRegisterContext
   const { setFormOrder } = usePatientRegisterContext();
 
   return (

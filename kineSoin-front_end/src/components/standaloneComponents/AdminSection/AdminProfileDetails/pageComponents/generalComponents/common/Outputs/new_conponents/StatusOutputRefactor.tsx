@@ -6,6 +6,7 @@ interface StatusOutputRefactorProps {
 export default function StatusOutputRefactor({
   status,
 }: StatusOutputRefactorProps) {
+  // Function to get the status class name
   const getStatusClassName = (status: string | undefined) => {
     switch (status) {
       case 'ACTIF':
@@ -21,8 +22,10 @@ export default function StatusOutputRefactor({
     }
   };
 
+  // State variables
   const [entityStatus, setEntityStatus] = useState(status ? status : '');
 
+  // Set the entity status
   useEffect(() => {
     if (status) {
       if (status === 'active') {

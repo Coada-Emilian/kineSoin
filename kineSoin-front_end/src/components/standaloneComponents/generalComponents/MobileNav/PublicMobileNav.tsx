@@ -1,3 +1,18 @@
+/**
+ * @component PublicMobileNav
+ *
+ * This component renders the mobile navigation for the public section of the app. It is intended to be displayed on smaller screens, ensuring responsive behavior with Tailwind CSS utilities.
+ *
+ * It consists of navigation links defined in the `publicLinks` constant, each of which is an object containing the path, name, and icon for the link. When clicked, each `NavLink` triggers the `setFormOrder('first')` function from the `PatientRegisterContext` to reset the form order.
+ *
+ * @returns {JSX.Element} The mobile navigation bar with dynamically styled links.
+ *
+ * @example
+ * <PublicMobileNav />
+ *
+ * @see {@link https://reactrouter.com/web/api/NavLink} for more information about the `NavLink` component.
+ */
+
 import { NavLink } from 'react-router-dom';
 import { publicLinks } from './constants/links';
 import { usePatientRegisterContext } from '../../../../utils/contexts/PatientRegisterContext';

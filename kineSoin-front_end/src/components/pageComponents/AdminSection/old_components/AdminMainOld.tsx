@@ -14,7 +14,7 @@ import {
 import DNALoader from '../../../../utils/DNALoader';
 import SideNav from '../../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
 import AdminTable from '../../../standaloneComponents/AdminSection/AdminTable/old_components/AdminTable';
-import AdminProfileDetails from '../../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetails';
+import AdminProfileDetails from '../../../standaloneComponents/AdminSection/AdminProfileDetails/old_components/modals/AdminProfileDetails';
 
 interface AdminMainProps {
   isAdminTherapistsMain?: boolean;

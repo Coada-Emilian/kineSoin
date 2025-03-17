@@ -62,5 +62,6 @@ export interface IButtonDetails {
   text: string | JSX.Element;
   style: IButtonStyles;
   icon?: IButtonIcon;
+  hasBorder?: boolean;
   onClick?: () => void;
 }

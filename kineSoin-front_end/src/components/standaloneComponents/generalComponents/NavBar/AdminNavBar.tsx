@@ -1,7 +1,17 @@
-// Purpose: The purpose of this component is to render the navigation bar of the website.
-// The navigation bar is responsive and changes its layout depending on the screen size.
-// The navigation bar is used in the public pages, the admin pages and the patient pages.
-// The navigation bar is used to navigate between the different pages of the website. The navigation bar is also used to log in and log out of the website.
+/**
+ * @component AdminNavBar
+ *
+ * This component represents the navigation bar for the admin section. It includes:
+ * - The logo that links to the homepage (`Logo1` for larger screens and `Logo2` for smaller screens).
+ * - A logout button (`CustomBtn`), which allows the admin to log out. The button is only visible when the admin is authenticated.
+ *
+ * The `AdminNavBar` is sticky at the top of the screen, providing a consistent navigation experience for the admin across all pages.
+ *
+ * @returns {JSX.Element} The navigation bar structure for the admin, including logo and logout button.
+ *
+ * @example
+ * <AdminNavBar />
+ */
 
 import { Link } from 'react-router-dom';
 import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';

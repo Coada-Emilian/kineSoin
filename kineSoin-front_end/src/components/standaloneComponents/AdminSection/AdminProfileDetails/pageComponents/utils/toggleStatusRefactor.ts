@@ -6,7 +6,7 @@ interface FunctionProps {
 
 export const toggleStatusRefactor = (
   status: string,
-  { setButtonMessage, setEntityStatus, setBackgroundColor }: FunctionProps
+  { setEntityStatus }: FunctionProps
 ) => {
   if (status === 'active' || status === 'opérée') {
     if (status === 'active') {

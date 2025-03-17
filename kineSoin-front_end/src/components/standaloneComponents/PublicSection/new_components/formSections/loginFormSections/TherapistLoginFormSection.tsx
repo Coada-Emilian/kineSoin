@@ -1,3 +1,24 @@
+/**
+ * @function TherapistLoginFormSection
+ *
+ * A login form component for therapists to access their accounts on the platform.
+ * It includes:
+ * - Email and password input fields.
+ * - A submit button for authentication.
+ * - Error handling for incorrect credentials.
+ * - A loading state during authentication.
+ *
+ * This component leverages:
+ * - `useTherapistLoginMutation` to handle authentication logic via React Query.
+ * - `useAuthentificationContext` to update the therapist's authentication token.
+ * - `useGlobalContext` for navigation after a successful login.
+ *
+ * @returns {JSX.Element} - A section containing the therapist login form.
+ *
+ * @example
+ * <TherapistLoginFormSection />
+ */
+
 import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';

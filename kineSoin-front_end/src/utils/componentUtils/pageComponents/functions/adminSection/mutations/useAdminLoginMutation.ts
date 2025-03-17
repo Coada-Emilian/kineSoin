@@ -18,7 +18,7 @@
  */
 
 import { useMutation } from '@tanstack/react-query';
-import { handleAdminLogin } from '../../../../../apiUtils/publicApiUtils';
+import { checkAdminCredentials } from '../AdminLoginPageUtils/authentificationUtil';
 
 export const useAdminLoginMutation = (
   setAdminProfileToken: (token: string) => void
@@ -35,10 +35,10 @@ export const useAdminLoginMutation = (
         throw new Error('Veuillez entrer une adresse email valide');
       }
 
-      return handleAdminLogin(adminEmail, adminPassword);
+      return checkAdminCredentials(adminEmail, adminPassword);
     },
-    onSuccess: (data) => {
-      setAdminProfileToken(data);
+    onSuccess: (token) => {
+      setAdminProfileToken(token);
     },
   });
 };

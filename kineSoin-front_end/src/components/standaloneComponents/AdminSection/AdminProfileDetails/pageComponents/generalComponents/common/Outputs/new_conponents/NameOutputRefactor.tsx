@@ -9,6 +9,7 @@ export default function NameOutputRefactor({
   name,
   surname,
 }: NameOutputRefactorProps) {
+  // Full name logic
   const fullName = name && surname ? `${name} ${surname}` : name;
 
   return <BaseOutput label="Nom" value={fullName} />;

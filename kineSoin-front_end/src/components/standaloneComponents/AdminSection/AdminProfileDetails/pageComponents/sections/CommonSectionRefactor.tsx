@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   IAffliction,
   IInsurance,
@@ -10,39 +10,20 @@ import NameInputRefactor from '../generalComponents/common/Inputs/new_components
 import IdOutputRefactor from '../generalComponents/common/Outputs/new_conponents/IdOutputRefactor';
 import NameOutputRefactor from '../generalComponents/common/Outputs/new_conponents/NameOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/StatusOutputRefactor';
-import { ICommonEntityDetails } from '../../../../../../@types/customInterfaces';
+import { getCommonSectionEntityDetails } from './getCommonSectionEntityDetails';
 
 interface CommonSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
   isProfileEditing: boolean;
-  entityType: string;
-  setUpdateEntityForm: React.Dispatch<
-    React.SetStateAction<FormData | null | undefined>
-  >;
 }
 
 export default function CommonSectionRefactor({
   entity,
   isProfileEditing,
-  entityType,
-  setUpdateEntityForm,
 }: CommonSectionRefactorProps) {
-  const entityDetails: ICommonEntityDetails = entity
-    ? {
-        status: 'status' in entity ? entity.status || undefined : undefined,
-        id: entity ? entity.id : 0,
-        name: 'name' in entity ? entity.name || undefined : undefined,
-        surname: 'surname' in entity ? entity.surname || undefined : undefined,
-        fullName:
-          'fullName' in entity ? entity.fullName || undefined : undefined,
-      }
-    : {};
+  const entityDetails = getCommonSectionEntityDetails(entity);
 
-  useEffect(() => {
-    setEntityName(entityDetails.name);
-    setEntitySurname(entityDetails.surname);
-  }, [entity]);
-
+  // State variables
   const [entityName, setEntityName] = useState(entityDetails.name);
   const [entitySurname, setEntitySurname] = useState(entityDetails.surname);
 
@@ -54,7 +35,7 @@ export default function CommonSectionRefactor({
 
       {isProfileEditing ? (
         <>
-          <div className="w-full flex gap-4 mb-2 ">
+          {/* <div className="w-full flex gap-4 mb-2 ">
             <NameInputRefactor
               entityType={entityType}
               setFunction={setEntityName}
@@ -70,7 +51,7 @@ export default function CommonSectionRefactor({
                 type="surname"
               />
             )}
-          </div>
+          </div> */}
         </>
       ) : (
         <>

@@ -1,4 +1,21 @@
-// Purpose: Provide a mobile navigation bar for the admin and public pages.
+/**
+ * @component AdminMobileNav
+ *
+ * This component represents the mobile navigation bar in the admin interface. It is displayed on small screen sizes (below the `md` breakpoint).
+ *
+ * It dynamically generates navigation links based on the `adminLinks` array. Each link consists of:
+ * - An icon (represented by an image).
+ * - A text label for the link.
+ *
+ * The component utilizes the `NavLink` component from `react-router-dom` to manage active and inactive states. Active links receive additional styling such as a bold font, italic text, and a visual ring effect.
+ *
+ * The `adminLinks` array contains the paths and names of the links to be displayed in the navigation, as well as the corresponding icons.
+ *
+ * @returns {JSX.Element} The mobile navigation bar for the admin interface, consisting of clickable navigation items.
+ *
+ * @example
+ * <AdminMobileNav />
+ */
 
 import { NavLink } from 'react-router-dom';
 import { adminLinks } from './constants/links';
