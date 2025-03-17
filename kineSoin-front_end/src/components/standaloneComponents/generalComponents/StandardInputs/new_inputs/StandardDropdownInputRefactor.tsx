@@ -46,11 +46,11 @@ export default function StandardDropdownInputRefactor({
 
   return (
     <div
-      className={`${dropdownInput.additionalDivClassName && dropdownInput.additionalDivClassName} mb-2 italic flex flex-col gap-2`}
+      className={`${dropdownInput.additionalDivClassName && dropdownInput.additionalDivClassName} mb-2 italic flex ${dropdownInput.isFlexRow ? 'flex-row items-center' : 'flex-col'} gap-2`}
     >
       <label
         htmlFor={dropdownInput.id}
-        className={`text-primaryBlue font-medium`}
+        className={`${dropdownInput.additionalLabelClassName && dropdownInput.additionalLabelClassName} text-primaryBlue font-medium`}
       >
         {dropdownInput.labelName}
       </label>

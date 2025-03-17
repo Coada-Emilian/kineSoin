@@ -67,6 +67,7 @@ export default function PatientLoginFormSection() {
               placeholder: 'Entrez votre adresse e-mail',
               name: 'email',
               autoComplete: 'current-email',
+              labelName: 'E-mail',
             }}
           />
 

@@ -63,6 +63,8 @@ export default function ThirdAddTherapistModal({
     }
   }, [isAdminTherapistFormValid]);
 
+  
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -92,6 +94,7 @@ export default function ThirdAddTherapistModal({
               placeholder: "Entrez l'email du kiné",
               name: 'email',
               autoComplete: 'email',
+              labelName: 'E-mail',
             }}
           />
 

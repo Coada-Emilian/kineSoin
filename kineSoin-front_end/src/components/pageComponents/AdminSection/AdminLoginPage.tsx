@@ -83,6 +83,7 @@ export default function AdminLoginPage() {
               name: 'email',
               placeholder: 'Entrez votre adresse e-mail',
               autoComplete: 'current-email',
+              labelName: 'E-mail',
             }}
           />
 

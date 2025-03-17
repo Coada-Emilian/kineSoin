@@ -15,9 +15,9 @@ export default function ThirdPatientRegisterFormSection({
     <>
       <StandardFileInputRefactor
         fileInput={{
-          inputId: 'patient-register-image_input',
+          id: 'patient-register-image_input',
           labelName: 'Chargez votre photo',
-          inputName: 'photo',
+          name: 'photo',
           isRequired: true,
         }}
         setPatientImage={setPatientImage}
@@ -29,25 +29,26 @@ export default function ThirdPatientRegisterFormSection({
           placeholder: 'Entrez votre adresse e-mail',
           name: 'email',
           autoComplete: 'email',
+          labelName: 'E-mail',
         }}
       />
 
       <StandardPasswordInputRefactor
         passwordInput={{
-          inputId: 'patient-register-password_input',
-          inputName: 'password',
+          id: 'patient-register-password_input',
+          name: 'password',
           labelName: 'Mot de passe',
-          inputPlaceholder: 'Entrez votre mot de passe',
+          placeholder: 'Entrez votre mot de passe',
           autoComplete: 'password',
         }}
       />
 
       <StandardPasswordInputRefactor
         passwordInput={{
-          inputId: 'patient-register-confirmPassword_input',
-          inputName: 'confirm-password',
+          id: 'patient-register-confirmPassword_input',
+          name: 'confirm-password',
           labelName: 'Confirmez votre mot de passe',
-          inputPlaceholder: 'Confirmez votre mot de passe',
+          placeholder: 'Confirmez votre mot de passe',
           autoComplete: 'confirm-password',
         }}
       />

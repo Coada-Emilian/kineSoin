@@ -22,7 +22,7 @@ export default function RegionTable({
   allBodyRegions,
 }: RegionTableProps) {
   return (
-    <div className=" flex flex-col gap-6 items-end  md:mx-5 overflow-x-auto mx-auto max-h-[450px] md:max-h-[600px">
+    <div className=" flex flex-col gap-6 items-end md:mx-2 md:py-5 overflow-x-auto mx-auto max-h-[450px] md:max-h-[600px">
       <CustomButton
         btnText="Ajouter une region"
         addButton

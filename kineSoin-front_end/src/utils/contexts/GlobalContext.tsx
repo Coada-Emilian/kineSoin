@@ -1,5 +1,5 @@
 // Import necessary React hooks and types
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 
 // Define the type for our context. This will ensure that
@@ -12,7 +12,6 @@ interface GlobalContextType {
   setError: (message: string | null) => void; // A function to set the 'errorMessage'
   location: any;
   navigate: NavigateFunction;
-  
 }
 
 // Create the context. This will hold our global state and provide access
@@ -46,6 +45,10 @@ export const GlobalContextProvider = ({
   const location = useLocation();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setError('');
+  }, [location.pathname]);
 
   return (
     // Here we wrap our app's children (the components that will use this provider)

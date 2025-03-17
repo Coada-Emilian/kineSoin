@@ -71,6 +71,7 @@ export default function TherapistLoginFormSection() {
               name: 'email',
               placeholder: 'Entrez votre adresse e-mail',
               autoComplete: 'current-email',
+              labelName: 'E-mail',
             }}
           />
 

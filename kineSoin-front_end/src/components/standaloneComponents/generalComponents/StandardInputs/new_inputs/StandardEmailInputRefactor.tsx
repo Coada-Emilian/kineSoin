@@ -34,13 +34,13 @@ export default function StandardEmailInputRefactor({
       className={`${
         emailInput.additionalDivClassName && emailInput.additionalDivClassName
       } 
-        ${emailInput.isFlexRow ? 'flex-row' : 'flex-col'}  flex gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-4`}
+        ${emailInput.isFlexRow ? 'flex-row items-center' : 'flex-col'}  whitespace-nowrap flex gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-4`}
     >
       <label
         htmlFor={emailInput.id}
-        className={`${emailInput.additionalLabelClassName && emailInput.additionalLabelClassName} text-primaryBlue font-medium italic `}
+        className={`${emailInput.additionalLabelClassName && emailInput.additionalLabelClassName} text-primaryBlue font-medium italic w-fit `}
       >
-        E-mail
+        {emailInput.labelName}
       </label>
 
       <input

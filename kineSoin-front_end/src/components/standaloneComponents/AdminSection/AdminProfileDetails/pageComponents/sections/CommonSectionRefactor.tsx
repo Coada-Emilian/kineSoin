@@ -11,7 +11,6 @@ import NameOutputRefactor from '../generalComponents/common/Outputs/new_conponen
 import StatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/StatusOutputRefactor';
 import { getCommonSectionEntityDetails } from './getCommonSectionEntityDetails';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
-import StandardTextInput from '../../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 
 interface CommonSectionRefactorProps {
@@ -55,6 +54,7 @@ export default function CommonSectionRefactor({
                 additionalLabelClassName: 'text-sm',
               }}
             />
+
             {entitySurname && (
               <StandardTextInputRefactor
                 textInput={{

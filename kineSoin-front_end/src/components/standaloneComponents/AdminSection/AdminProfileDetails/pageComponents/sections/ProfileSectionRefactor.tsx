@@ -20,59 +20,146 @@ import EmailOutputRefactor from '../generalComponents/common/Outputs/new_conpone
 import BodyRegionAndOperatedStatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/BodyRegionAndOperatedStatusOutputRefactor';
 import { getProfileSectionEntityDetails } from './getProfileSectionEntityDetails';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
+import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
+import { useEffect, useState } from 'react';
+import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import StandardTelephoneInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
+import { usePrefixesContext } from '../../../../../../utils/contexts/PrefixesContext';
 
 interface ProfileSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | undefined;
+  entityType: string;
 }
 
 export default function ProfileSectionRefactor({
   entity,
+  entityType,
 }: ProfileSectionRefactorProps) {
   const entityDetails = getProfileSectionEntityDetails(entity);
 
   const { isProfileEditing } = useAdminProfileDetailsGlobalContext();
 
+  const { countries } = usePrefixesContext();
+
+  const [entityEmail, setEntityEmail] = useState(entityDetails.email);
+  const [entityPrefix, setEntityPrefix] = useState(entityDetails.prefix);
+  const [entityPhoneNumber, setEntityPhoneNumber] = useState(
+    entityDetails.phone_number
+  );
+  const existingCountry = countries.find(
+    (country) => country.prefix === entityDetails.prefix
+  );
+  const remainingCountries = countries.filter(
+    (country) => country.prefix !== entityDetails.prefix
+  );
+
   return (
     <section className="mb-2 md:text-2xl w-full">
-      <AgeAndGenderOutputRefactor
-        age={entityDetails.age}
-        gender={entityDetails.gender}
-      />
+      {isProfileEditing ? (
+        <>
+          <StandardEmailInputRefactor
+            emailInput={{
+              id: `admin-${entityType}-edit-name_input`,
+              value: entityEmail,
+              name: 'email',
+              autoComplete: 'email',
+              labelName: 'E-mail:',
+              isFlexRow: true,
+              additionalLabelClassName: 'text-sm',
+              onChange: (e) => {
+                setEntityEmail(e.target.value);
+              },
+            }}
+          />
 
-      <EmailOutputRefactor email={entityDetails.email} />
+          <div className="flex flex-row gap-2 justify-between">
+            <StandardDropdownInputRefactor
+              dropdownInput={{
+                id: `admin-${entityType}-prefix_input`,
+                labelName: 'Préfixe',
+                additionalDivClassName: 'w-1/12',
+                additionalLabelClassName: 'text-sm',
+                isFlexRow: true,
+                name: 'prefix',
+                autoComplete: 'prefix',
+                isRequired: true,
+                allOptions: {
+                  startingOption: {
+                    value: `${existingCountry.prefix}`,
+                    text: `${existingCountry?.name} ${existingCountry?.prefix}`,
+                  },
+                  options: [
+                    ...remainingCountries.map((country) => ({
+                      key: country.name,
+                      value: country.prefix,
+                      text: `${country.name} ${country.prefix}`,
+                    })),
+                  ],
+                },
+              }}
+            />
 
-      <PhoneNumberOutputRefactor
-        prefix={entityDetails.prefix}
-        phone_number={entityDetails.phone_number}
-      />
+            <StandardTelephoneInputRefactor
+              telephoneInput={{
+                id: `admin-${entityType}-phoneNumber_input`,
+                isRequired: true,
+                autoComplete: 'phone-number',
+                value: entityPhoneNumber,
 
-      <AddressOutputRefactor
-        city={entityDetails.city}
-        postal_code={entityDetails.postal_code}
-        street_number={entityDetails.street_number}
-        street_name={entityDetails.street_name}
-      />
+                additionalLabelClassName: 'text-sm',
+                isFlexRow: true,
+                onChange: (e) => {
+                  setEntityPhoneNumber(e.target.value);
+                },
+              }}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <AgeAndGenderOutputRefactor
+            age={entityDetails.age}
+            gender={entityDetails.gender}
+          />
 
-      <AMCCodeOutputRefactor amc_code={entityDetails.amc_code} />
+          <EmailOutputRefactor email={entityDetails.email} />
 
-      <InsuranceCodeOutputRefactor
-        insurance_code={entityDetails.insurance_code}
-      />
+          <PhoneNumberOutputRefactor
+            prefix={entityDetails.prefix}
+            phone_number={entityDetails.phone_number}
+          />
 
-      <LicenceCodeOutputRefactor licence_code={entityDetails.licence_code} />
+          <AddressOutputRefactor
+            city={entityDetails.city}
+            postal_code={entityDetails.postal_code}
+            street_number={entityDetails.street_number}
+            street_name={entityDetails.street_name}
+          />
 
-      <BodyRegionAndOperatedStatusOutputRefactor
-        body_region={entityDetails.body_region}
-        is_operated={entityDetails.is_operated}
-      />
+          <AMCCodeOutputRefactor amc_code={entityDetails.amc_code} />
 
-      <DiplomaOutputRefactor diploma={entityDetails.diploma} />
+          <InsuranceCodeOutputRefactor
+            insurance_code={entityDetails.insurance_code}
+          />
 
-      <SpecialtyOutputRefactor specialty={entityDetails.specialty} />
+          <LicenceCodeOutputRefactor
+            licence_code={entityDetails.licence_code}
+          />
 
-      <ExperienceOutputRefactor experience={entityDetails.experience} />
+          <BodyRegionAndOperatedStatusOutputRefactor
+            body_region={entityDetails.body_region}
+            is_operated={entityDetails.is_operated}
+          />
 
-      <DescriptionOutputRefactor description={entityDetails.description} />
+          <DiplomaOutputRefactor diploma={entityDetails.diploma} />
+
+          <SpecialtyOutputRefactor specialty={entityDetails.specialty} />
+
+          <ExperienceOutputRefactor experience={entityDetails.experience} />
+
+          <DescriptionOutputRefactor description={entityDetails.description} />
+        </>
+      )}
     </section>
   );
 }

@@ -1,12 +1,14 @@
 export interface IEmailInput {
   id: string;
   name: string;
-  placeholder: string;
+  labelName: string;
+  placeholder?: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
   value?: string;
   isFlexRow?: boolean;
   autoComplete?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IPasswordInput {
@@ -83,6 +85,7 @@ export interface ITelephoneInput {
   isRequired?: boolean;
   placeholder?: string;
   autoComplete?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IFileInput {

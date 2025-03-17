@@ -39,10 +39,12 @@ export default function StandardTelephoneInputRefactor({
   );
 
   return (
-    <div className={`flex gap-2 mb-2 w-full flex-col items-start italic`}>
+    <div
+      className={`${telephoneInput.additionalDivClassName && telephoneInput.additionalDivClassName}flex gap-2 mb-2 ${telephoneInput.isFlexRow ? 'flex-row items-center' : 'flex-col'} whitespace-nowrap items-start italic`}
+    >
       <label
         htmlFor={telephoneInput.id}
-        className={`text-primaryBlue font-medium`}
+        className={`${telephoneInput.additionalLabelClassName && telephoneInput.additionalLabelClassName} text-primaryBlue font-medium`}
       >
         N° de téléphone
       </label>

@@ -8,9 +8,7 @@ import {
 } from '../../../../../@types/standardInterfaces';
 import TitleOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_conponents/GeneralOutputRefactor.tsx';
 import CommonSectionRefactor from '../pageComponents/sections/CommonSectionRefactor.tsx';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton.tsx';
 import ProfileSectionRefactor from '../pageComponents/sections/ProfileSectionRefactor.tsx';
-import ImageOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_conponents/ImageOutputRefactor.tsx';
 import mainLogo from '/logos/Main-Logo.png';
 import phoneIcon from '/icons/phone-call.png';
 import messageIcon from '/icons/message3.png';
@@ -103,7 +101,10 @@ export default function AdminProfileDetailsRefactor({
                   entityType={entityType}
                 />
 
-                <ProfileSectionRefactor entity={entity} />
+                <ProfileSectionRefactor
+                  entity={entity}
+                  entityType={entityType}
+                />
               </>
             )}
           </div>
