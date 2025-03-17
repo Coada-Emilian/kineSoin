@@ -33,6 +33,7 @@ import {
 import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableGlobalContext';
 import AdminSideNav from '../../../standaloneComponents/generalComponents/SideNav/new_components/AdminSideNav';
 import { useQuery } from '@tanstack/react-query';
+import { AdminProfileDetailsGlobalProvider } from '../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 
 interface AdminMainProps {
   entityType: IEntityTypes;
@@ -81,10 +82,12 @@ export default function AdminMain({ entityType }: AdminMainProps) {
         )}
 
         {id && entity && (
-          <AdminProfileDetailsRefactor
-            entityType={entityType}
-            entity={entity}
-          />
+          <AdminProfileDetailsGlobalProvider>
+            <AdminProfileDetailsRefactor
+              entityType={entityType}
+              entity={entity}
+            />
+          </AdminProfileDetailsGlobalProvider>
         )}
       </div>
     </main>

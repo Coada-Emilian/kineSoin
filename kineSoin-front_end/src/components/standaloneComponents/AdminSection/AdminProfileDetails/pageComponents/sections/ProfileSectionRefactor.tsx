@@ -19,17 +19,18 @@ import AgeAndGenderOutputRefactor from '../generalComponents/common/Outputs/new_
 import EmailOutputRefactor from '../generalComponents/common/Outputs/new_conponents/EmailOutputRefactor';
 import BodyRegionAndOperatedStatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/BodyRegionAndOperatedStatusOutputRefactor';
 import { getProfileSectionEntityDetails } from './getProfileSectionEntityDetails';
+import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 
 interface ProfileSectionRefactorProps {
-  isProfileEditing?: boolean;
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | undefined;
 }
 
 export default function ProfileSectionRefactor({
-  isProfileEditing,
   entity,
 }: ProfileSectionRefactorProps) {
   const entityDetails = getProfileSectionEntityDetails(entity);
+
+  const { isProfileEditing } = useAdminProfileDetailsGlobalContext();
 
   return (
     <section className="mb-2 md:text-2xl w-full">

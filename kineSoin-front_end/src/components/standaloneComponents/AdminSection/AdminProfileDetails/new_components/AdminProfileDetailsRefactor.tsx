@@ -18,6 +18,8 @@ import StatusButtonsRefactor from '../pageComponents/generalComponents/therapist
 import { StatusMenu } from '../../../../../utils/componentUtils/pageComponents/constants/adminSection/AdminProfileDetails/StatusMenu.tsx';
 import { entityUpdateFunctions } from '../../../../../utils/componentUtils/pageComponents/constants/adminSection/AdminProfileDetails/entityUpdateFunctions.tsx';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
+import ImageSectionRefactor from '../pageComponents/sections/ImageSectionRefactor.tsx';
+import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -28,9 +30,6 @@ export default function AdminProfileDetailsRefactor({
   entity,
   entityType,
 }: AdminProfileDetailsRefactorProps) {
-  // State variables
-  const [isProfileEditing, setIsProfileEditing] = useState(false);
-
   // Modal state variables
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditPhotoModalOpen, setIsEditPhotoModalOpen] = useState(false);
@@ -54,9 +53,6 @@ export default function AdminProfileDetailsRefactor({
     entity && 'status' in entity ? entity.status : 'inactive'
   );
 
-  const [backgroundColor, setBackgroundColor] = useState('bg-white');
-  const [buttonMessage, setButtonMessage] = useState('Changer le statut');
-
   useEffect(() => {
     if (entity) {
       'picture_url' in entity && setPictureUrl(entity.picture_url);
@@ -69,6 +65,8 @@ export default function AdminProfileDetailsRefactor({
       'id' in entity && setId(entity.id);
     }
   }, [entity]);
+
+  const { setIsProfileEditing } = useAdminProfileDetailsGlobalContext();
 
   return (
     <>
@@ -90,8 +88,9 @@ export default function AdminProfileDetailsRefactor({
 
           <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
             <div className="absolute top-3 md:top-8 left-0 w-full h-full rounded-xl">
-              <ImageOutputRefactor
+              <ImageSectionRefactor
                 picture_url={picture_url ? picture_url : mainLogo}
+                entityType={entityType}
               />
             </div>
           </div>
@@ -101,13 +100,10 @@ export default function AdminProfileDetailsRefactor({
               <>
                 <CommonSectionRefactor
                   entity={entity}
-                  isProfileEditing={isProfileEditing}
+                  entityType={entityType}
                 />
 
-                <ProfileSectionRefactor
-                  isProfileEditing={isProfileEditing}
-                  entity={entity}
-                />
+                <ProfileSectionRefactor entity={entity} />
               </>
             )}
           </div>

@@ -17,13 +17,13 @@ export default function CustomBtn({ btn, type }: CustomButtonProps) {
   const hasBorder = btn.hasBorder ?? false;
 
   const btnClasses = clsx(
-    `rounded-lg shadow-2xl text-primaryBlue hover:text-white ${background} ${hasBorder && 'border border-2 border-white'} `,
+    `rounded-lg shadow-2xl text-primaryBlue hover:text-white font-semibold ${background} ${hasBorder && 'border border-2 border-white'} `,
     btn.style === 'normal' &&
-      'p-2 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg font-semibold',
+      'p-2 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg',
     btn.style === 'nav' &&
-      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm font-medium',
+      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm',
     btn.style === 'status' &&
-      'p-1 px-2 max-w-52 my-0 mx-0 text-xxs md:text-sm xl:text-base font-medium',
+      'p-1 px-2 max-w-52 my-0 mx-0 text-xxs md:text-sm xl:text-base',
     btn.style === 'mobile' &&
       'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm'
   );

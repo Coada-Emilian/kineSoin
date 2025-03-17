@@ -27,7 +27,7 @@ export interface ITextInput {
   id: string;
   labelName: string;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   additionalDivClassName?: string;
   additionalLabelClassName?: string;
   value?: string;
@@ -35,6 +35,7 @@ export interface ITextInput {
   autoComplete?: string;
   isTextArea?: boolean;
   isRequired?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IDateInput {
