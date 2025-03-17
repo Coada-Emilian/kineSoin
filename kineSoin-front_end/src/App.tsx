@@ -25,7 +25,9 @@ function App() {
         ))}
         <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
+
       <Route path="/loginAdmin" element={<AdminLoginPage />} />
+
       {/* Admin routes */}
       {isAdminAuthenticated ? (
         <Route path="/admin" element={<AdminLayout />}>

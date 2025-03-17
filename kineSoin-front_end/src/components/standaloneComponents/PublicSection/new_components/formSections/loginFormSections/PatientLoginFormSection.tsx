@@ -7,14 +7,22 @@ import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRe
 import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
+import { usePatientLogin } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/mutations/usePatientLogin';
 
 export default function PatientLoginFormSection() {
-  const { errorMessage, setError, isLoading, setLoading, navigate } =
-    useGlobalContext();
+  const { navigate } = useGlobalContext();
 
   const { setPatientProfileToken } = useAuthentificationContext();
 
-  if (isLoading) {
+  const handlePatientLogin = usePatientLogin(setPatientProfileToken, navigate);
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    handlePatientLogin.mutate(formData);
+  };
+
+  if (handlePatientLogin.isPending) {
     return DNALoader();
   }
 
@@ -22,25 +30,16 @@ export default function PatientLoginFormSection() {
     // Render the form section with the corresponding background image and form content
     <section className="md:p-48 xl:p-56 2xl:p-72 bg-patientConnectionPage bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative">
       <div className="opacity-90 max-w-80 font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-gradient-to-r from-white to-gray-200 p-6 rounded-3xl italic">
-        <form
-          onSubmit={(e) => {
-            setLoading(true);
-            checkPatientCredentials(e, {
-              setError,
-              setPatientProfileToken,
-              navigate,
-            }).finally(() => setLoading(false));
-          }}
-        >
+        <form onSubmit={handleFormSubmit}>
           <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
             Connexion Patient
           </h2>
 
           <img src={mainLogo} alt="Kinesoin" className="w-14 mx-auto mb-4" />
 
-          {errorMessage && (
+          {handlePatientLogin.error && (
             <p className="text-center text-red-600 font-medium mb-2">
-              {errorMessage}
+              {handlePatientLogin.error.message}
             </p>
           )}
 

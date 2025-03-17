@@ -19,13 +19,14 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
 import logo from '/logos/Main-Logo.png';
-import { checkAdminCredentials } from '../../../utils/pageUtils/AdminSection/AdminLoginPageUtils/authentificationUtil.ts';
+import { checkAdminCredentials } from '../../../utils/componentUtils/pageComponents/functions/adminSection/AdminLoginPageUtils/authentificationUtil.ts';
 import { useGlobalContext } from '../../../utils/contexts/GlobalContext.tsx';
 import { useAuthentificationContext } from '../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
 import CustomBtn from '../../standaloneComponents/generalComponents/CustomButton/CustomButtonRefactor.tsx';
 import StandardEmailInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor.tsx';
 import StandardPasswordInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor.tsx';
 import { useMutation } from '@tanstack/react-query';
+import { useAdminLogin } from '../../../utils/componentUtils/pageComponents/functions/adminSection/mutations/useAdminLogin.ts';
 
 export default function AdminLoginPage() {
   // Destructure the necessary variables from the global context
@@ -36,14 +37,13 @@ export default function AdminLoginPage() {
     useAuthentificationContext();
 
   // Create a mutation to handle the admin login
-  const handleAdminLogin = useMutation({
-    mutationKey: ['adminLogin'],
-    mutationFn: ({ email, password }: { email: string; password: string }) =>
-      checkAdminCredentials(email, password),
-    onSuccess: (data) => {
-      setAdminProfileToken(data);
-    },
-  });
+  const handleAdminLogin = useAdminLogin(setAdminProfileToken);
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    handleAdminLogin.mutate(formData);
+  };
 
   // // Ensure navigation happens only when adminProfileToken is set
   useEffect(() => {
@@ -60,20 +60,7 @@ export default function AdminLoginPage() {
   return (
     <main className="flex items-center justify-center min-h-screen w-11/12 mx-auto md:w-full bg-gradient-to-r from-white to-gray-200 ">
       <section className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-sm">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            const adminEmail = formData.get('email') as string;
-            const adminPassword = formData.get('password') as string;
-
-            handleAdminLogin.mutate({
-              email: adminEmail,
-              password: adminPassword,
-            });
-          }}
-          className="space-y-4"
-        >
+        <form onSubmit={handleFormSubmit} className="space-y-4">
           <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue italic">
             Connexion administrateur
           </h1>

@@ -1,25 +1,25 @@
-import { IEntityTypes } from '../../../../@types/componentTypes';
+import { IEntityTypes } from '../../../../../../@types/componentTypes';
 
 import {
   fetchAfflictionAsAdmin,
   fetchAfflictionsAsAdmin,
-} from '../../../apiUtils/adminApiUtils/adminAfflictionApiUtils';
+} from '../../../../../apiUtils/adminApiUtils/adminAfflictionApiUtils';
 import {
   fetchInsuranceOrganismAsAdmin,
   fetchInsuranceOrganismsAsAdmin,
-} from '../../../apiUtils/adminApiUtils/adminInsuranceApiUtils';
+} from '../../../../../apiUtils/adminApiUtils/adminInsuranceApiUtils';
 import {
   fetchMedicAsAdmin,
   fetchMedicsAsAdmin,
-} from '../../../apiUtils/adminApiUtils/adminMedicApiUtils';
+} from '../../../../../apiUtils/adminApiUtils/adminMedicApiUtils';
 import {
   fetchPatientAsAdmin,
   fetchPatientsAsAdmin,
-} from '../../../apiUtils/adminApiUtils/adminPatientApiUtils';
+} from '../../../../../apiUtils/adminApiUtils/adminPatientApiUtils';
 import {
   fetchTherapistAsAdmin,
   fetchTherapistsAsAdmin,
-} from '../../../apiUtils/adminApiUtils/adminTherapistApiUtils';
+} from '../../../../../apiUtils/adminApiUtils/adminTherapistApiUtils';
 
 interface AdminMainUtilsRefactorProps {
   entityType: IEntityTypes;

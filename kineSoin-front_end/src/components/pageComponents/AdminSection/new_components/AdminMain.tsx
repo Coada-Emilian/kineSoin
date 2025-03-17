@@ -22,7 +22,7 @@ import DNALoader from '../../../../utils/DNALoader';
 import {
   fetchDetailsDataRefactor,
   fetchTableDataRefactor,
-} from '../../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtilsRefactor';
+} from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminMainUtils/adminMainUtilsRefactor';
 import AdminTableRefactor from '../../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
 import AdminProfileDetailsRefactor from '../../../standaloneComponents/AdminSection/AdminProfileDetails/AdminProfileDetailsRefactor';
 import {

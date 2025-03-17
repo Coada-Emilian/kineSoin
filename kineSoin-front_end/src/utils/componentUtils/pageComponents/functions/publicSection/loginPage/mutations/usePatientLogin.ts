@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import { handlePatientLogin } from '../../../../../../apiUtils/publicApiUtils';
 
 export const usePatientLogin = (
-  setError: (error: string) => void,
   setPatientProfileToken: (token: string) => void,
   navigate: (path: string) => void
 ) => {
@@ -22,19 +21,10 @@ export const usePatientLogin = (
         throw new Error('Veuillez entrer une adresse email valide');
       }
 
-      const response = await handlePatientLogin(
-        patientLoginEmail,
-        patientLoginPassword
-      );
-
-      if (response) {
-        setPatientProfileToken(response);
-        navigate('/patient/dashboard');
-      } else {
-        setError('Email et/ou Mot de passe invalide');
-      }
+      return handlePatientLogin(patientLoginEmail, patientLoginPassword);
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      setPatientProfileToken(response);
       navigate('/patient/dashboard');
     },
   });

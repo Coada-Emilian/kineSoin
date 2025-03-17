@@ -1,5 +1,5 @@
-import { setAdminTokenAndDataInLocalStorage } from '../../../../localStorage/adminLocalStorage';
-import { handleAdminLogin } from '../../../apiUtils/publicApiUtils';
+import { setAdminTokenAndDataInLocalStorage } from '../../../../../../localStorage/adminLocalStorage';
+import { handleAdminLogin } from '../../../../../apiUtils/publicApiUtils';
 
 export const checkAdminCredentials = async (
   adminEmail: string,
