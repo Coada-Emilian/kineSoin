@@ -17,23 +17,23 @@
  * - The layout consists of a side navigation bar and a content section displaying either the table or profile details.
  */
 
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import DNALoader from '../../../../utils/DNALoader';
-import {
-  fetchDetailsDataRefactor,
-  fetchTableDataRefactor,
-} from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminMainUtils/adminMainUtilsRefactor';
-import AdminTableRefactor from '../../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
-import AdminProfileDetailsRefactor from '../../../standaloneComponents/AdminSection/AdminProfileDetails/new_components/AdminProfileDetailsRefactor';
 import {
   IEntitiesInterfaces,
   IEntityInterface,
   IEntityTypes,
 } from '../../../../@types/componentTypes';
-import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableGlobalContext';
-import AdminSideNav from '../../../standaloneComponents/generalComponents/SideNav/new_components/AdminSideNav';
-import { useQuery } from '@tanstack/react-query';
+import DNALoader from '../../../../utils/DNALoader';
+import {
+  fetchDetailsDataRefactor,
+  fetchTableDataRefactor,
+} from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminMainUtils/adminMainUtilsRefactor';
 import { AdminProfileDetailsGlobalProvider } from '../../../../utils/contexts/AdminProfileDetailsGlobalContext';
+import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableGlobalContext';
+import AdminProfileDetailsRefactor from '../../../standaloneComponents/AdminSection/AdminProfileDetails/new_components/AdminProfileDetailsRefactor';
+import AdminTableRefactor from '../../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
+import AdminSideNav from '../../../standaloneComponents/generalComponents/SideNav/new_components/AdminSideNav';
 import { PrefixesContextProvider } from '../../../../utils/contexts/PrefixesContext';
 
 interface AdminMainProps {

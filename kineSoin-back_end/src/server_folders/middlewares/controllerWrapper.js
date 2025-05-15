@@ -12,6 +12,7 @@
  *
  * This middleware helps to centralize error handling, ensuring consistent responses and preventing unhandled exceptions.
  */
+
 export function controllerWrapper(
   callback,
   errorMessage = 'An error occurred. Please try again later.'
@@ -24,6 +25,7 @@ export function controllerWrapper(
         console.error('Controller error:', error);
       }
       res.status(500).json({ message: errorMessage });
+
       next(error);
     }
   };

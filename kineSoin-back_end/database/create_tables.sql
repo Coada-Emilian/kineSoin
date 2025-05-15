@@ -1,15 +1,33 @@
-/*
-    @description This script creates the tables for the KineSoin application.
-    It defines the database schema, sets constraints, and establishes relationships.
-    Key features:
-    - Uses UTF8 encoding.
-    - Drops existing tables to prevent conflicts.
-    - Defines tables for administrators, therapists, patients, prescriptions, etc.
-    - Implements foreign key constraints for data integrity.
-    - Includes timestamps for tracking changes.
-
-    Run this script in a PostgreSQL database to initialize the required structure.
-*/
+/**
+ * @description Initializes the database schema for a physiotherapy management system.
+ *
+ * This script:
+ * - Sets the client encoding to UTF-8 to ensure proper handling of multilingual characters.
+ * - Begins a transaction to apply changes atomically.
+ * - Drops all existing application-related tables if they exist, to reset the database schema.
+ *
+ * - Creates the following tables with necessary fields and constraints:
+ *   - administrators: Manages system administrators.
+ *   - insurance_organisms: Stores information about insurance providers.
+ *   - therapists: Stores therapist profiles and credentials.
+ *   - patients: Stores patient records and personal data.
+ *   - medics: Stores referring medical professionals.
+ *   - body_regions: Lists body regions used in diagnoses.
+ *   - afflictions: Stores health conditions and their associated metadata.
+ *   - prescriptions: Contains prescriptions issued by medics.
+ *   - appointments: Tracks scheduled therapy sessions.
+ *   - patient_messages: Messages sent from patients to therapists.
+ *   - therapist_messages: Messages sent from therapists to patients.
+ *   - patient_insurances: Associates patients with their insurance coverage.
+ *
+ * - Applies referential integrity using foreign keys, with cascading rules where needed.
+ * - Adds timestamp fields (created_at and updated_at) to track record history.
+ *
+ * WARNING:
+ * - This script **drops existing tables** — it should be used with caution in production environments.
+ *
+ * @returns {void} - This is a SQL script; it does not return a value but alters the database structure.
+ */
 
 -- Set the encoding to UTF8
 SET client_encoding = 'UTF8';

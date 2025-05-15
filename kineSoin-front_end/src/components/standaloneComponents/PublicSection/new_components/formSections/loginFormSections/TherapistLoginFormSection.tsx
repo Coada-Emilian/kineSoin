@@ -19,14 +19,14 @@
  * <TherapistLoginFormSection />
  */
 
+import { useTherapistLoginMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/mutations/useTherapistLoginMutation';
 import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import mainLogo from '/logos/Main-Logo.png';
 import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
-import { useTherapistLoginMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/mutations/useTherapistLoginMutation';
+import mainLogo from '/logos/Main-Logo.png';
 
 export default function TherapistLoginFormSection() {
   const { navigate } = useGlobalContext();
@@ -85,7 +85,7 @@ export default function TherapistLoginFormSection() {
             }}
           />
 
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             <CustomBtn
               btn={{
                 type: 'basic',

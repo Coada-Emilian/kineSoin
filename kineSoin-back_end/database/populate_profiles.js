@@ -11,12 +11,12 @@
  * Ensure that the profile data JSON files are correctly formatted and available before running this module.
  */
 
-import { pgClient } from './pgClient.js';
 import { Scrypt } from '../src/server_folders/authentification/Scrypt.js';
-import patients from './data/patient_data.json' with { type: 'json' };
-import medics from './data/medic_data.json' with { type: 'json' };
-import therapists from './data/therapist_data.json' with { type: 'json' };
 import admins from './data/admin_data.json' with { type: 'json' };
+import medics from './data/medic_data.json' with { type: 'json' };
+import patients from './data/patient_data.json' with { type: 'json' };
+import therapists from './data/therapist_data.json' with { type: 'json' };
+import { pgClient } from './pgClient.js';
 
 await pgClient.connect();
 
