@@ -37,15 +37,14 @@ export default async function createInsuranceOrganismAsAdmin(req, res) {
         });
       } else {
         const createdInsuranceSchema = Joi.object({
-          admin_id: Joi.number(),
-          name: Joi.string(),
-          amc_code: Joi.string(),
-          street_number: Joi.string(),
-          street_name: Joi.string(),
-          postal_code: Joi.string(),
-          city: Joi.string(),
-          phone_number: Joi.string(),
-          prefix: Joi.string(),
+          name: Joi.string().required(),
+          amc_code: Joi.string().required(),
+          street_number: Joi.string().required(),
+          street_name: Joi.string().required(),
+          postal_code: Joi.string().required(),
+          city: Joi.string().required(),
+          phone_number: Joi.string().required(),
+          prefix: Joi.string().required(),
         });
 
         const { error } = createdInsuranceSchema.validate(req.body);
