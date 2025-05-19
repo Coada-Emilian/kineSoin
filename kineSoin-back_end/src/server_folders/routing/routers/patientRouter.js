@@ -181,7 +181,7 @@ patientRouter.post(
 patientRouter.post(
   '/me/insurance',
   authenticatePatient,
-  wrapper(insuranceController.addInsurance)
+  wrapper(insuranceController.addInsuranceAsPatient)
 );
 
 // Route to update the connected patient data
@@ -195,7 +195,7 @@ patientRouter.patch(
 patientRouter.patch(
   '/me/insurance',
   authenticatePatient,
-  wrapper(insuranceController.updateInsurance)
+  wrapper(insuranceController.updateInsuranceAsPatient)
 );
 
 // Route to post a photo of a patient

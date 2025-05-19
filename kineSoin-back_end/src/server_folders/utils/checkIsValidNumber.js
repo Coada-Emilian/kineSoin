@@ -15,6 +15,8 @@
  * checkIsValidNumber('abc'); // returns false
  * checkIsValidNumber('123'); // returns true
  */
-export function checkIsValidNumber(id) {
-  return !isNaN(id);
+export function checkIsValidNumber(number) {
+  if (typeof number !== 'number' || isNaN(number) || number <= 0) {
+    throw new Error('Invalid ID: must be a positive number');
+  }
 }

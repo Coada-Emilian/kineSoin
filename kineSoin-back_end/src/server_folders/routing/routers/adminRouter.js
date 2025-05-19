@@ -133,16 +133,16 @@
  */
 
 import { Router } from 'express';
-import { authenticateAdmin } from '../../middlewares/userAuthentication.js';
+import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
-import multer from 'multer';
+import { authenticateAdmin } from '../../middlewares/userAuthentication.js';
+import afflictionController from '../controllers/afflictionController.js';
+import authentificationController from '../controllers/authentificationController.js';
+import insuranceController from '../controllers/insuranceController.js';
+import medicController from '../controllers/medicController.js';
 import patientController from '../controllers/patientController.js';
 import therapistController from '../controllers/therapistController.js';
-import authentificationController from '../controllers/authentificationController.js';
-import afflictionController from '../controllers/afflictionController.js';
-import medicController from '../controllers/medicController.js';
-import insuranceController from '../controllers/insuranceController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -325,33 +325,33 @@ adminRouter.delete(
 adminRouter.get(
   '/insuranceOrganisms',
   authenticateAdmin,
-  wrapper(insuranceController.getAllInsuranceOrganisms)
+  wrapper(insuranceController.getAllInsuranceOrganismsAsAdmin)
 );
 
 // Route to get one insurance organism
 adminRouter.get(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
-  wrapper(insuranceController.getOneInsuranceOrganism)
+  wrapper(insuranceController.getOneInsuranceOrganismAsAdmin)
 );
 
 // Route to create a new insurance organism
 adminRouter.post(
   '/insuranceOrganisms',
   authenticateAdmin,
-  wrapper(insuranceController.createInsuranceOrganism)
+  wrapper(insuranceController.createInsuranceOrganismAsAdmin)
 );
 
 // Route to delete an insurance organism
 adminRouter.delete(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
-  wrapper(insuranceController.deleteInsuranceOrganism)
+  wrapper(insuranceController.deleteInsuranceOrganismAsAdmin)
 );
 
 // Route to update an insurance organism
 adminRouter.put(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
-  wrapper(insuranceController.updateInsuranceOrganism)
+  wrapper(insuranceController.updateInsuranceOrganismAsAdmin)
 );
