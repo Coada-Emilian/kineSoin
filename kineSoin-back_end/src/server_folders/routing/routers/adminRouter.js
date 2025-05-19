@@ -269,35 +269,35 @@ adminRouter.put(
 adminRouter.get(
   '/medics',
   authenticateAdmin,
-  wrapper(medicController.getAllMedics)
+  wrapper(medicController.getAllMedicsAsAdmin)
 );
 
 // Route to get one medic
 adminRouter.get(
   '/medics/:medic_id',
   authenticateAdmin,
-  wrapper(medicController.getOneMedic)
+  wrapper(medicController.getOneMedicAsAdmin)
 );
 
 // Route to create a new medic
 adminRouter.post(
   '/medics',
   authenticateAdmin,
-  wrapper(medicController.createMedic)
+  wrapper(medicController.createMedicAsAdmin)
 );
 
 // Route to update a medic
 adminRouter.put(
   '/medics/:medic_id',
   authenticateAdmin,
-  wrapper(medicController.updateMedic)
+  wrapper(medicController.updateMedicAsAdmin)
 );
 
 // Route to delete a medic
 adminRouter.delete(
   '/medics/:medic_id',
   authenticateAdmin,
-  wrapper(medicController.deleteMedic)
+  wrapper(medicController.deleteMedicAsAdmin)
 );
 
 // Route to get all body regions
