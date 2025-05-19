@@ -24,7 +24,7 @@
  * @requires checkIsValidNumber - Utility function for validating numeric inputs.
  */
 
-import { Body_region } from '../../../models/associations.js';
+import { Body_region } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function deleteBodyRegion(req, res) {

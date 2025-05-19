@@ -22,7 +22,7 @@
  * @returns {object[]} JSON array of proposed appointments grouped by prescription
  */
 
-import { Patient } from '../../../models/associations.js';
+import { Patient } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
 

@@ -19,7 +19,7 @@
  * @returns {object} JSON with a success or error message based on the operation outcome
  */
 
-import { Prescription } from '../../../models/associations.js';
+import { Prescription } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function incrementPrescriptionAppointmentQuantityAsTherapist(

@@ -20,7 +20,7 @@
  * @returns {object} JSON response with status and arrays of future and past appointments.
  */
 
-import { Appointment } from '../../../models/associations.js';
+import { Appointment } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function getAllAppointmentsAsPatient(req, res) {

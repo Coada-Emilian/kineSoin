@@ -19,7 +19,7 @@
  * @returns {object} JSON of the proposed appointment or error message
  */
 
-import { Appointment } from '../../../models/associations.js';
+import { Appointment } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function getOneProposedAppointmentAsPatient(req, res) {

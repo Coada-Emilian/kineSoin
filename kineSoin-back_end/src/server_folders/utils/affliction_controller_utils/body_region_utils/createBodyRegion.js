@@ -24,7 +24,7 @@
  */
 
 import Joi from 'joi';
-import { Body_region } from '../../../models/associations.js';
+import { Body_region } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function createBodyRegion(req, res) {

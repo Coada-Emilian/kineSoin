@@ -25,7 +25,7 @@
  * @requires checkIsValidNumber - Utility function to validate numeric IDs.
  */
 
-import { Affliction } from '../../models/associations.js';
+import { Affliction } from '../../models/index.js';
 import { checkIsValidNumber } from '../checkIsValidNumber.js';
 
 export default async function getOneAffliction(req, res) {

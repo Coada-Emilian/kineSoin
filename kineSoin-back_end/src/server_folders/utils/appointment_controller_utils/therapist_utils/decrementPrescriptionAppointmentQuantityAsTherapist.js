@@ -18,7 +18,7 @@
  */
 
 import Joi from 'joi';
-import { Prescription } from '../../../models/associations.js';
+import { Prescription } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function decrementPrescriptionAppointmentQuantityAsTherapist(

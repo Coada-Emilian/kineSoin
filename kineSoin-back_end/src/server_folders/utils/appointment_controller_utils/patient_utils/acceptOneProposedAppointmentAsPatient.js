@@ -22,7 +22,7 @@
  * @returns {object} JSON response with status and message.
  */
 
-import { Appointment } from '../../../models/associations.js';
+import { Appointment } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function acceptOneProposedAppointmentAsPatient(req, res) {

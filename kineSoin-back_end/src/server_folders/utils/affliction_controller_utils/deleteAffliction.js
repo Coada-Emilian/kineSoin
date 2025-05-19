@@ -23,7 +23,7 @@
  * @requires checkIsValidNumber - Utility function to ensure numeric ID inputs are valid.
  */
 
-import { Affliction } from '../../models/associations.js';
+import { Affliction } from '../../models/index.js';
 import { checkIsValidNumber } from '../checkIsValidNumber.js';
 
 export default async function deleteAffliction(req, res) {

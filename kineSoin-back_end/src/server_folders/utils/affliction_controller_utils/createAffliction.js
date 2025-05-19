@@ -29,7 +29,7 @@
  */
 
 import Joi from 'joi';
-import { Affliction } from '../../models/associations.js';
+import { Affliction } from '../../models/index.js';
 import { checkIsValidNumber } from '../checkIsValidNumber.js';
 
 export default async function createAffliction(req, res) {
