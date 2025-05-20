@@ -2,6 +2,7 @@
 
 import getAllMessagesAsPatient from '../../utils/message_controller_utils/patient_utils/getAllMesagesAsPatient.js';
 import sendMessageToTherapist from '../../utils/message_controller_utils/patient_utils/sendMessageToTherapist.js';
+import sendMessageToPatientAsTherapist from '../../utils/message_controller_utils/therapist_utils/sendMessageToPatientAsTherapist.js';
 
 const messageController = {
   // Function to get all messages for a patient
@@ -9,6 +10,8 @@ const messageController = {
 
   // Function to send a message to the therapist
   sendMessageToTherapist,
+
+  sendMessageToPatientAsTherapist,
 };
 
 export default messageController;

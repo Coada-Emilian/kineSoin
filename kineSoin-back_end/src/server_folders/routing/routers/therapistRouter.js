@@ -4,10 +4,11 @@ import { Router } from 'express';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
-import patientController from '../controllers/patientController.js';
-import appointmentController from '../controllers/appointmentController.js';
-import therapistController from '../controllers/therapistController.js';
 import { authenticateTherapist } from '../../middlewares/userAuthentication.js';
+import appointmentController from '../controllers/appointmentController.js';
+import messageController from '../controllers/messageController.js';
+import patientController from '../controllers/patientController.js';
+import therapistController from '../controllers/therapistController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -16,37 +17,41 @@ export const therapistRouter = Router();
 therapistRouter.get(
   '/me/dashboard',
   authenticateTherapist,
-  wrapper(therapistController.getTherapistDashboardData)
+  wrapper(appointmentController.getTherapistDashboardData)
 );
 
 therapistRouter.post(
   '/me/patients/:patient_id/messages',
   authenticateTherapist,
-  wrapper(therapistController.sendMessageToPatient)
+  wrapper(messageController.sendMessageToPatientAsTherapist)
 );
 
 therapistRouter.delete(
   '/me/appointments/:appointment_id',
   authenticateTherapist,
-  wrapper(appointmentController.deleteAppointment)
+  wrapper(appointmentController.deleteAppointmentAsTherapist)
 );
 
 therapistRouter.patch(
   '/me/prescriptions/:prescription_id/addQuantity',
   authenticateTherapist,
-  wrapper(appointmentController.addToPrescriptionAppointmentQuantity)
+  wrapper(
+    appointmentController.incrementPrescriptionAppointmentQuantityAsTherapist
+  )
 );
 
 therapistRouter.patch(
   '/me/prescriptions/:prescription_id/reduceQuantity',
   authenticateTherapist,
-  wrapper(appointmentController.reduceFromPrescriptionAppointmentQuantity)
+  wrapper(
+    appointmentController.decrementPrescriptionAppointmentQuantityAsTherapist
+  )
 );
 
 therapistRouter.get(
   '/me/allMyPatients',
   authenticateTherapist,
-  wrapper(patientController.getAllMyPatients)
+  wrapper(patientController.getAllAppointedPatientsAsTherapist)
 );
 
 therapistRouter.patch(
@@ -61,7 +66,10 @@ therapistRouter.get(
   wrapper(patientController.getOnePatientAsTherapist)
 );
 
-therapistRouter.get('/me', wrapper(therapistController.getConnectedTherapist));
+therapistRouter.get(
+  '/me',
+  wrapper(therapistController.getConnectedTherapistData)
+);
 
 therapistRouter.delete(
   '/me',
@@ -86,12 +94,12 @@ therapistRouter.get(
 
 therapistRouter.post(
   '/me/newAppointment',
-  wrapper(appointmentController.addNewAppointment)
+  wrapper(appointmentController.proposeOneAppointmentAsTherapist)
 );
 
 therapistRouter.get(
   '/me/appointments',
-  wrapper(appointmentController.getAllMyAppointments)
+  wrapper(appointmentController.getAllAppointmentAsTherapist)
 );
 // therapistRouter.get(
 //   '/me/pendingPatients',
