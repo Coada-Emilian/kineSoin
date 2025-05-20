@@ -84,22 +84,22 @@
  */
 
 import { Router } from 'express';
+import multer from 'multer';
 import {
   patientPhotoStorage,
   prescriptionScanStorage,
 } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
-import patientController from '../controllers/patientController.js';
+import { authenticatePatient } from '../../middlewares/userAuthentication.js';
+import afflictionController from '../controllers/afflictionController.js';
 import appointmentController from '../controllers/appointmentController.js';
+import authentificationController from '../controllers/authentificationController.js';
+import insuranceController from '../controllers/insuranceController.js';
+import medicController from '../controllers/medicController.js';
 import messageController from '../controllers/messageController.js';
+import patientController from '../controllers/patientController.js';
 import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
-import insuranceController from '../controllers/insuranceController.js';
-import multer from 'multer';
-import authentificationController from '../controllers/authentificationController.js';
-import { authenticatePatient } from '../../middlewares/userAuthentication.js';
-import medicController from '../controllers/medicController.js';
-import afflictionController from '../controllers/afflictionController.js';
 
 const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 const uploadPrescriptionScan = multer({ storage: prescriptionScanStorage });
