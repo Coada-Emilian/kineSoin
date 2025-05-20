@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
-import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
 import { Link } from 'react-router-dom';
-import SideNav from '../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
-import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
+import { IUserProfile } from '../../../@types/interfaces/customInterfaces';
+import { IAppointment } from '../../../@types/interfaces/modelInterfaces';
+import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
+import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils';
 import AppointmentsCalendar from '../../standaloneComponents/generalComponents/AppointmentCalendar/AppointmentsCalendar';
-import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';
-import { IAppointment } from '../../../@types/standardInterfaces';
 import AppointmentCard from '../../standaloneComponents/generalComponents/AppointmentCard/AppointmentCard';
+import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';
 import MessagesField from '../../standaloneComponents/generalComponents/MessagesField/MessagesField';
 import ProfileCard from '../../standaloneComponents/generalComponents/ProfileCard/ProfileCard';
-import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils';
-import { IUserProfile } from '../../../@types/customInterfaces';
+import SideNav from '../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
+import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
+import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
 
 interface PatientMainProps {
   isPatientDashboardMain?: boolean;

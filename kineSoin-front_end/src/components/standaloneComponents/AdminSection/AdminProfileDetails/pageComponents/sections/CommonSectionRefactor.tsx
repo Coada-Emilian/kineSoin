@@ -5,13 +5,13 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
+import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
+import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 import IdOutputRefactor from '../generalComponents/common/Outputs/new_conponents/IdOutputRefactor';
 import NameOutputRefactor from '../generalComponents/common/Outputs/new_conponents/NameOutputRefactor';
 import StatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/StatusOutputRefactor';
 import { getCommonSectionEntityDetails } from './getCommonSectionEntityDetails';
-import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
-import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 
 interface CommonSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;

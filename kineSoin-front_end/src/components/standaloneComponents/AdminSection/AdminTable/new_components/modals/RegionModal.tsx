@@ -22,13 +22,13 @@
  */
 
 import { useEffect, useState } from 'react';
-import { IBodyRegion } from '../../../../../../@types/standardInterfaces';
-import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import RegionTable from './RegionTable';
-import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
-import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../utils/DNALoader';
 import { useFetchBodyRegionsMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useFetchBodyRegionsMutation';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import RegionTable from './RegionTable';
 
 interface RegionModalProps {
   isOpen: boolean;

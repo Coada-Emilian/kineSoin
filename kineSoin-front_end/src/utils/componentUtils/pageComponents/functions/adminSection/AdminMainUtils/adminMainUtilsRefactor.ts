@@ -1,4 +1,4 @@
-import { IEntityTypes } from '../../../../../../@types/componentTypes';
+import { IEntityTypes } from '../../../../../../@types/types/componentTypes';
 
 import {
   fetchAfflictionAsAdmin,

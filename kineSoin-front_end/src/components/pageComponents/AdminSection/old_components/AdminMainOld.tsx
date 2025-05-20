@@ -6,15 +6,15 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../@types/standardInterfaces';
+} from '../../../../@types/interfaces/modelInterfaces';
+import DNALoader from '../../../../utils/DNALoader';
 import {
   fetchDetailsData,
   fetchTableData,
 } from '../../../../utils/pageUtils/AdminSection/AdminMainUtils/adminMainUtils';
-import DNALoader from '../../../../utils/DNALoader';
-import SideNav from '../../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
-import AdminTable from '../../../standaloneComponents/AdminSection/AdminTable/old_components/AdminTable';
 import AdminProfileDetails from '../../../standaloneComponents/AdminSection/AdminProfileDetails/old_components/modals/AdminProfileDetails';
+import AdminTable from '../../../standaloneComponents/AdminSection/AdminTable/old_components/AdminTable';
+import SideNav from '../../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
 
 interface AdminMainProps {
   isAdminTherapistsMain?: boolean;

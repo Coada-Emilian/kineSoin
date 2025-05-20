@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import ConfirmDeleteModal from '../../../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
-import EditPhotoModal from './EditPhotoModal.tsx';
-import ImageSection from '../../pageComponents/sections/ImageSection.tsx';
-import ButtonsSection from '../../pageComponents/sections/ButtonsSection.tsx';
-import GeneralOutput from '../../pageComponents/generalComponents/common/Outputs/old_components/GeneralOutput.tsx';
-import CommonSection from '../../pageComponents/sections/CommonSection.tsx';
-import ProfileSection from '../../pageComponents/sections/ProfileSection..tsx';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
 import {
   handleAfflictionUpdateAsAdmin,
   handleInsuranceOrganismUpdateAsAdmin,
   handleMedicUpdateAsAdmin,
   handleTherapistUpdateAsAdmin,
 } from '../../../../utils/apiUtils/adminApiUtils/adminApiUtils.tsx';
+import ConfirmDeleteModal from '../../../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
+import GeneralOutput from '../../pageComponents/generalComponents/common/Outputs/old_components/GeneralOutput.tsx';
+import ButtonsSection from '../../pageComponents/sections/ButtonsSection.tsx';
+import CommonSection from '../../pageComponents/sections/CommonSection.tsx';
+import ImageSection from '../../pageComponents/sections/ImageSection.tsx';
+import ProfileSection from '../../pageComponents/sections/ProfileSection..tsx';
 import { handleFormSubmit } from '../../pageComponents/utils/handleFormSubmit.ts';
 import { handlePatientStatusChanges } from '../../pageComponents/utils/handlePatientStatusChange.ts';
+import EditPhotoModal from './EditPhotoModal.tsx';
 
 interface AdminProfileDetailsProps {
   therapist?: ITherapist;

@@ -57,11 +57,4 @@ export type IButtonStyles = 'normal' | 'nav' | 'status' | 'mobile' | 'form';
 
 export type IButtonIcon = 'notification' | 'logout';
 
-export interface IButtonDetails {
-  type: IButtonTypes;
-  text: string | JSX.Element;
-  style: IButtonStyles;
-  icon?: IButtonIcon;
-  hasBorder?: boolean;
-  onClick?: () => void;
-}
+

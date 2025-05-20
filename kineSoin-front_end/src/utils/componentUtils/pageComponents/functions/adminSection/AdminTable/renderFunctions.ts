@@ -4,7 +4,7 @@ import {
   IAffliction,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
 
 // Function to render therapists based on status
 export const renderTherapists = (

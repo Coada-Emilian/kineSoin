@@ -1,30 +1,29 @@
-import { IParticularEntityDetails } from '../../../../../../@types/customInterfaces';
+import { useState } from 'react';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
-import DiplomaOutputRefactor from '../generalComponents/common/Outputs/new_conponents/DiplomaOutputRefactor';
-import ExperienceOutputRefactor from '../generalComponents/common/Outputs/new_conponents/ExperienceOutputRefactor';
-import LicenceCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/LicenceCodeOutputRefactor';
-import SpecialtyOutputRefactor from '../generalComponents/common/Outputs/new_conponents/SpecialtyOutputRefactor';
-import DescriptionOutputRefactor from '../generalComponents/common/Outputs/new_conponents/DescriptionOutputRefactor';
-import PhoneNumberOutputRefactor from '../generalComponents/common/Outputs/new_conponents/PhoneNumberOutputRefactor';
-import AMCCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/AMCCodeOutputRefactor';
-import InsuranceCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/InsuranceCodeOutputRefactor';
+} from '../../../../../../@types/interfaces/modelInterfaces';
+import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
+import { usePrefixesContext } from '../../../../../../utils/contexts/PrefixesContext';
+import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
+import StandardTelephoneInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
 import AddressOutputRefactor from '../generalComponents/common/Outputs/new_conponents/AddressOutputRefactor';
 import AgeAndGenderOutputRefactor from '../generalComponents/common/Outputs/new_conponents/AgeAndGenderOutputRefactor';
-import EmailOutputRefactor from '../generalComponents/common/Outputs/new_conponents/EmailOutputRefactor';
+import AMCCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/AMCCodeOutputRefactor';
 import BodyRegionAndOperatedStatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/BodyRegionAndOperatedStatusOutputRefactor';
+import DescriptionOutputRefactor from '../generalComponents/common/Outputs/new_conponents/DescriptionOutputRefactor';
+import DiplomaOutputRefactor from '../generalComponents/common/Outputs/new_conponents/DiplomaOutputRefactor';
+import EmailOutputRefactor from '../generalComponents/common/Outputs/new_conponents/EmailOutputRefactor';
+import ExperienceOutputRefactor from '../generalComponents/common/Outputs/new_conponents/ExperienceOutputRefactor';
+import InsuranceCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/InsuranceCodeOutputRefactor';
+import LicenceCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/LicenceCodeOutputRefactor';
+import PhoneNumberOutputRefactor from '../generalComponents/common/Outputs/new_conponents/PhoneNumberOutputRefactor';
+import SpecialtyOutputRefactor from '../generalComponents/common/Outputs/new_conponents/SpecialtyOutputRefactor';
 import { getProfileSectionEntityDetails } from './getProfileSectionEntityDetails';
-import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
-import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
-import { useEffect, useState } from 'react';
-import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
-import StandardTelephoneInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
-import { usePrefixesContext } from '../../../../../../utils/contexts/PrefixesContext';
 
 interface ProfileSectionRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | undefined;

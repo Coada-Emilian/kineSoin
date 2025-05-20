@@ -1,9 +1,9 @@
 // Purpose: Provide a modal to edit the therapist's photo.
 
-import ReactModal from 'react-modal';
 import { useState } from 'react';
+import ReactModal from 'react-modal';
+import { ITherapist } from '../../../../../../@types/interfaces/modelInterfaces';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
-import { ITherapist } from '../../../../../../@types/standardInterfaces';
 
 interface EditPhotoModalProps {
   isEditPhotoModalOpen: boolean;

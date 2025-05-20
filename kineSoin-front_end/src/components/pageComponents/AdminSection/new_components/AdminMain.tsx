@@ -23,7 +23,7 @@ import {
   IEntitiesInterfaces,
   IEntityInterface,
   IEntityTypes,
-} from '../../../../@types/componentTypes';
+} from '../../../../@types/types/componentTypes';
 import DNALoader from '../../../../utils/DNALoader';
 import {
   fetchDetailsDataRefactor,
@@ -31,10 +31,10 @@ import {
 } from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminMainUtils/adminMainUtilsRefactor';
 import { AdminProfileDetailsGlobalProvider } from '../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableGlobalContext';
+import { PrefixesContextProvider } from '../../../../utils/contexts/PrefixesContext';
 import AdminProfileDetailsRefactor from '../../../standaloneComponents/AdminSection/AdminProfileDetails/new_components/AdminProfileDetailsRefactor';
 import AdminTableRefactor from '../../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
 import AdminSideNav from '../../../standaloneComponents/generalComponents/SideNav/new_components/AdminSideNav';
-import { PrefixesContextProvider } from '../../../../utils/contexts/PrefixesContext';
 
 interface AdminMainProps {
   entityType: IEntityTypes;

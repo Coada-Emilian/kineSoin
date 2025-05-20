@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { IAppointment } from '../../../../@types/interfaces/modelInterfaces';
 import CalendarIcon from '/icons/calendar.png';
 import TimeIcon from '/icons/clock.png';
-import { IAppointment } from '../../../../@types/standardInterfaces';
 
 interface AppointmentCardProps {
   appointment: IAppointment;

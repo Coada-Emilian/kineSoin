@@ -1,8 +1,8 @@
-import { IButtonDetails } from '../../../../@types/componentTypes';
-import { buttonDetails } from './buttonDetails';
-import NotificationIcon from '/icons/notification.png';
-import LogoutIcon from '/icons/logout.png';
 import clsx from 'clsx';
+import { IButtonDetails } from '../../../../@types/interfaces/customInterfaces';
+import { buttonDetails } from './buttonDetails';
+import LogoutIcon from '/icons/logout.png';
+import NotificationIcon from '/icons/notification.png';
 
 interface CustomButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -47,6 +47,7 @@ export default function CustomBtn({ btn, type }: CustomButtonProps) {
         </>
       );
     }
+
     if (btn.icon === 'logout') {
       return (
         <img

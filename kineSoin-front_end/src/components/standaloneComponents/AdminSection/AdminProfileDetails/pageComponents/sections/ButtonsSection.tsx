@@ -1,15 +1,15 @@
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
-import TherapistStatusButtons from '../generalComponents/therapist/TherapistStatusButtons';
-import PatientStatusButtons from '../generalComponents/patient/PatientStatusButtons';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import PatientStatusButtons from '../generalComponents/patient/PatientStatusButtons';
+import TherapistStatusButtons from '../generalComponents/therapist/TherapistStatusButtons';
 
 interface ButtonsSectionProps {
   isProfileEditing: boolean;

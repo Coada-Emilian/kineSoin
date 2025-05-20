@@ -21,14 +21,14 @@
  * - Intended for use in deletion confirmation modals.
  */
 
-import { IEntityInterface } from '../../../../../../@types/componentTypes';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
+import { IEntityInterface } from '../../../../../../@types/types/componentTypes';
 
 export const getDeleteModalEntityDetails = (entity: IEntityInterface) => [
   {

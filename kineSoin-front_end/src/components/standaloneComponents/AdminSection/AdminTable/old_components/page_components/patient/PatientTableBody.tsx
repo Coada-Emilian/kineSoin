@@ -1,6 +1,5 @@
+import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import deleteIcon from '/icons/delete.png';
-import editIcon from '/icons/edit.png';
 import {
   IAffliction,
   IBodyRegion,
@@ -8,8 +7,9 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
-import { Button } from '@headlessui/react';
+} from '../../../../../../../@types/interfaces/modelInterfaces';
+import deleteIcon from '/icons/delete.png';
+import editIcon from '/icons/edit.png';
 
 interface PatientTableBodyProps {
   renderedPatients: IPatient[];

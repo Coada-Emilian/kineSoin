@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
-import SideNav from '../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
+import { IUserProfile } from '../../../@types/interfaces/customInterfaces';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
+import SideNav from '../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
+import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
 import TherapistDayTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistDayTable/TherapistDayTable';
 import TherapistPatientsTable from '../../standaloneComponents/PrivateSection/TherapistSection/TherapistPatientsTable/TherapistPatientsTable';
-import { IUserProfile } from '../../../@types/customInterfaces';
 
 interface TherapistMainProps {
   isTherapistDashboardMain?: boolean;

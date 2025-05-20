@@ -3,7 +3,7 @@
 import {
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
 import ProfileImage from '../generalComponents/common/ProfileImage';
 import EditTherapistImage from '../generalComponents/therapist/EditTherapistImage';
 

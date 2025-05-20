@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IEmailInput } from '../../../../../@types/inputInterfaces';
+import { IEmailInput } from '../../../../../@types/interfaces/inputInterfaces';
 
 interface StandardEmailInputProps {
   emailInput: IEmailInput;

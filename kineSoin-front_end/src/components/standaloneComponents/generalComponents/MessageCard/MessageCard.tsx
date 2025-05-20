@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr'; // Import French locale for Day.js
-import { IPatient, ITherapist } from '../../../../@types/standardInterfaces';
+import { useEffect, useState } from 'react';
+import {
+  IPatient,
+  ITherapist,
+} from '../../../../@types/interfaces/modelInterfaces';
 
 interface MessageCardProps {
   isSentMessage?: boolean;

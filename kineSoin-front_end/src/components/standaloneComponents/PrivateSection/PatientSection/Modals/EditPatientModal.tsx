@@ -1,13 +1,13 @@
+import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import { useEffect, useState } from 'react';
-import UserPhotoIcon from '/icons/user-photo.png';
 import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import UserPhotoIcon from '/icons/user-photo.png';
 
 import {
   IInsurance,
   IPatient_Insurance,
-} from '../../../../../@types/standardInterfaces';
+} from '../../../../../@types/interfaces/modelInterfaces';
 import {
   checkPatientCredentials,
   fetchInsurancesAsPatient,

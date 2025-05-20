@@ -3,14 +3,14 @@
 // The navigation bar is used in the public pages, the admin pages and the patient pages.
 // The navigation bar is used to navigate between the different pages of the website. The navigation bar is also used to log in and log out of the website.
 
-import { Link, useNavigate } from 'react-router-dom';
-import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
-import Logo1 from '/logos/kinesoin-logo.webp';
-import Logo2 from '/logos/kinesoin-logo-2.webp';
-import CustomButton from '../CustomButton/CustomButton';
 import { useState } from 'react';
-import { removePatientTokenFromLocalStorage } from '../../../../localStorage/patientLocalStorage';
-import { removeTherapistTokenFromLocalStorage } from '../../../../localStorage/therapistLocalStorage';
+import { Link, useNavigate } from 'react-router-dom';
+import { removeAdminTokenFromLocalStorage } from '../../../../../localStorage/adminLocalStorage';
+import { removePatientTokenFromLocalStorage } from '../../../../../localStorage/patientLocalStorage';
+import { removeTherapistTokenFromLocalStorage } from '../../../../../localStorage/therapistLocalStorage';
+import CustomButton from '../../CustomButton/CustomButton';
+import Logo2 from '/logos/kinesoin-logo-2.webp';
+import Logo1 from '/logos/kinesoin-logo.webp';
 
 interface NavBarProps {
   isAdminNavBar?: boolean;

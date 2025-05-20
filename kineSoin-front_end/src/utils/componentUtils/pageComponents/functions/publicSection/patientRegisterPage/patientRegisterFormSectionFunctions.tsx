@@ -1,4 +1,4 @@
-import { IFormOrders } from '../../../../../../@types/componentTypes';
+import { IFormOrders } from '../../../../../../@types/types/componentTypes';
 import ConfirmationFormSection from '../../../../../../components/standaloneComponents/PublicSection/new_components/formSections/registerFormSections/ConfirmationFormSection';
 import FirstPatientRegisterFormSection from '../../../../../../components/standaloneComponents/PublicSection/new_components/formSections/registerFormSections/FirstPatientRegisterFormSection';
 import SecondPatientRegisterFormSection from '../../../../../../components/standaloneComponents/PublicSection/new_components/formSections/registerFormSections/SecondPatientRegisterFormSection';

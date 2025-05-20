@@ -1,9 +1,7 @@
 // Purpose: Display the body of the table with therapist data.
 
+import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import deleteIcon from '/icons/delete.png';
-import editIcon from '/icons/edit.png';
-import refreshIcon from '/icons/refresh.png';
 import {
   IAffliction,
   IBodyRegion,
@@ -11,9 +9,11 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
+} from '../../../../../../../@types/interfaces/modelInterfaces';
 import { handleTherapistStatusChange } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/handleStatusChange';
-import { Button } from '@headlessui/react';
+import deleteIcon from '/icons/delete.png';
+import editIcon from '/icons/edit.png';
+import refreshIcon from '/icons/refresh.png';
 
 interface TherapistTableBodyProps {
   renderedTherapists: ITherapist[];

@@ -1,14 +1,14 @@
 import {
-  createContext, // Function to create a new context
-  useContext, // Hook to access context values
+  createContext, // Hook to perform side effects when dependencies change
+  ReactNode, // Function to create a new context
+  useContext, // Hook to manage state inside the provider
+  useEffect, // Hook to access context values
   useState, // Hook to manage state inside the provider
-  useEffect, // Hook to perform side effects when dependencies change
-  ReactNode, // Type for defining children components
 } from 'react';
 import {
   IEntitiesInterfaces,
   IEntityInterface,
-} from '../../@types/componentTypes'; // Importing the entity interface type
+} from '../../@types/types/componentTypes'; // Importing the entity interface type
 
 // Define the shape of the context
 interface AdminTableGlobalContextType {

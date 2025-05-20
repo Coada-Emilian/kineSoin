@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
-import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
-import { Layout } from './utils/AppUtils/appLayouts/Layout';
-import { adminRoutes, publicRoutes } from './utils/AppUtils/constants/routes';
-import { PublicLayout } from './utils/AppUtils/appLayouts/PublicLayout';
-import { useAuthentificationContext } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
-import { AdminLayout } from './utils/AppUtils/appLayouts/AdminLayout';
 import AdminMain from './components/pageComponents/AdminSection/new_components/AdminMain';
+import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
+import { adminRoutes } from './utils/AppUtils/constants/routes';
+import { AdminLayout } from './utils/AppUtils/layouts/new_layouts/AdminLayout';
+import { PublicLayout } from './utils/AppUtils/layouts/new_layouts/PublicLayout';
+import { Layout } from './utils/AppUtils/layouts/old_layouts/Layout';
+import { publicRoutes } from './utils/constants/public_section/routes/publicRoutes';
+import { useAuthentificationContext } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 
 function App() {
   const { isAdminAuthenticated, setIsAdminAuthenticated } =
@@ -23,6 +24,7 @@ function App() {
             index={route.index}
           />
         ))}
+
         <Route path="*" element={<ErrorPage isPublicErrorPage />} />
       </Route>
 

@@ -20,10 +20,10 @@
  * - The table rows alternate background colors for better readability.
  */
 
-import deleteIcon from '/icons/delete.png';
-import { IBodyRegion } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
+import { IBodyRegion } from '../../../../../../../@types/interfaces/modelInterfaces';
 import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
+import deleteIcon from '/icons/delete.png';
 
 interface RegionTableBodyProps {
   allBodyRegions: IBodyRegion[];

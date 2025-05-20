@@ -5,19 +5,19 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../@types/standardInterfaces';
-import TitleOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_conponents/GeneralOutputRefactor.tsx';
-import CommonSectionRefactor from '../pageComponents/sections/CommonSectionRefactor.tsx';
-import ProfileSectionRefactor from '../pageComponents/sections/ProfileSectionRefactor.tsx';
-import mainLogo from '/logos/Main-Logo.png';
-import phoneIcon from '/icons/phone-call.png';
-import messageIcon from '/icons/message3.png';
-import StatusButtonsRefactor from '../pageComponents/generalComponents/therapist/StatusButtonRefactor.tsx';
+} from '../../../../../@types/interfaces/modelInterfaces';
 import { StatusMenu } from '../../../../../utils/componentUtils/pageComponents/constants/adminSection/AdminProfileDetails/StatusMenu.tsx';
 import { entityUpdateFunctions } from '../../../../../utils/componentUtils/pageComponents/constants/adminSection/AdminProfileDetails/entityUpdateFunctions.tsx';
-import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
-import ImageSectionRefactor from '../pageComponents/sections/ImageSectionRefactor.tsx';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
+import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
+import TitleOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_conponents/GeneralOutputRefactor.tsx';
+import StatusButtonsRefactor from '../pageComponents/generalComponents/therapist/StatusButtonRefactor.tsx';
+import CommonSectionRefactor from '../pageComponents/sections/CommonSectionRefactor.tsx';
+import ImageSectionRefactor from '../pageComponents/sections/ImageSectionRefactor.tsx';
+import ProfileSectionRefactor from '../pageComponents/sections/ProfileSectionRefactor.tsx';
+import messageIcon from '/icons/message3.png';
+import phoneIcon from '/icons/phone-call.png';
+import mainLogo from '/logos/Main-Logo.png';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;

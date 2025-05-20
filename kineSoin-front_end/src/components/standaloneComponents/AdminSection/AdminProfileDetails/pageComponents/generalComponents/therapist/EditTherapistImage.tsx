@@ -1,8 +1,8 @@
 // Purpose: Provide the EditTherapistImage component which displays the therapist's profile image with an edit icon.
 
-import editIcon from '/icons/edit.svg';
-import { ITherapist } from '../../../../../../../@types/standardInterfaces';
 import { Button } from '@headlessui/react';
+import { ITherapist } from '../../../../../../../@types/interfaces/modelInterfaces';
+import editIcon from '/icons/edit.svg';
 
 interface EditTherapistImageProps {
   therapist: ITherapist;

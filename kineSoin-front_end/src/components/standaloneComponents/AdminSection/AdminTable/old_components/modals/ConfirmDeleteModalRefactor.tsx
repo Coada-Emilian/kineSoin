@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   IAffliction,
@@ -6,15 +7,14 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
-import { useEffect, useState } from 'react';
+} from '../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../utils/DNALoader';
-import { handleTherapistDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
-import { handlePatientDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminPatientApiUtils';
 import { handleAfflictionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminAfflictionApiUtils';
-import { handleMedicDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils';
-import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils';
 import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
+import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils';
+import { handleMedicDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils';
+import { handlePatientDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminPatientApiUtils';
+import { handleTherapistDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 

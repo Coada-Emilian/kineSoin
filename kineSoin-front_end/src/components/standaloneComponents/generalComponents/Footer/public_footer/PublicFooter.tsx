@@ -1,44 +1,9 @@
-/**
- * @component Footer
- *
- * This component renders the footer for the public-facing pages. It includes:
- * - Assistance contact details, such as email and phone number for users to reach out for support.
- * - A copyright notice displaying the current year and the company name.
- * - A list of footer links to important pages such as privacy policy, terms and conditions, and guidelines.
- *
- * The component is styled with responsive design in mind, ensuring proper layout on both mobile and desktop views.
- *
- * @returns {JSX.Element} The footer section of the page containing contact details, copyright notice, and useful links.
- *
- * @example
- * <Footer />
- */
+import { publicFooterLinks } from '../../../../../utils/constants/public_section/standalone_components/publicFooterLinks';
 
-export default function Footer() {
+export default function PublicFooter() {
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = [
-    {
-      text: 'Signaler une problème',
-      href: '/signal',
-    },
-    {
-      text: 'Politique de confidentialité',
-      href: '/confidentiality',
-    },
-    {
-      text: 'Conditions générales',
-      href: '/conditions',
-    },
-    {
-      text: 'Règles de communauté',
-      href: '/guidelines',
-    },
-    {
-      text: 'Charte d’utilisation des cookies',
-      href: '/cookies',
-    },
-  ];
+  const links = publicFooterLinks;
 
   return (
     <footer className=" p-4 flex flex-col font-semibold lg:justify-between items-center rounded-lg w-full mx-auto text-secondaryBlue text-xs md:text-sm lg:text-base mb-4 md:pb-4 static bottom-0">
@@ -57,7 +22,7 @@ export default function Footer() {
 
       <div className="footer-links_container flex justify-center w-full">
         <ul className="flex flex-wrap justify-center gap-2 md:gap-4">
-          {footerLinks.map((link) => (
+          {links.map((link) => (
             <li key={link.text} className="list-none text-center">
               <a
                 href={link.href}

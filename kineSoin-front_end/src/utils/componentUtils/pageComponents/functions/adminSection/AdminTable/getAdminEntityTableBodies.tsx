@@ -37,7 +37,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
 import AfflictionTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/affliction/AfflictionTableBodyRefactor';
 import InsuranceTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/insurance/InsuranceTableBodyRefactor';
 import MedicTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/medic/MedicTableBodyRefactor';

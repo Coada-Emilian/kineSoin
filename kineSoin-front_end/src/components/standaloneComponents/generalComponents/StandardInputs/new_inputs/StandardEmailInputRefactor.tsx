@@ -1,24 +1,5 @@
-/**
- * @function StandardEmailInputRefactor
- *
- * A reusable input component that renders an email input field with label and specific styles based on the provided props.
- * It handles the internal state for the email value and updates it when the user types.
- *
- * @param emailInput - An object containing configuration for the email input. Includes attributes such as `id`, `name`, `placeholder`, `value`, and CSS class names.
- *
- * @returns {JSX.Element} - A `div` element containing a label and email input field.
- *
- * @example
- * <StandardEmailInputRefactor emailInput={emailInputData} />
- *
- * @remarks
- * - The component uses `useState` to manage the email input value.
- * - It supports custom class names and styles, and adapts to flexbox layout based on the provided `isFlexRow` prop.
- * - The input is required and has an `autoComplete` attribute to manage form behavior.
- */
-
 import { useState } from 'react';
-import { IEmailInput } from '../../../../../@types/inputInterfaces';
+import { IEmailInput } from '../../../../../@types/interfaces/inputInterfaces';
 
 interface StandardEmailInputProps {
   emailInput: IEmailInput;

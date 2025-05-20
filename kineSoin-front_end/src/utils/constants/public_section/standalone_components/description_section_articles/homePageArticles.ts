@@ -1,5 +1,5 @@
-import graphIcon from '/icons/health-graph.png';
 import appointmentIcon from '/icons/appointment.png';
+import graphIcon from '/icons/health-graph.png';
 import healthcareIcon from '/icons/healthcare.png';
 import priorityIcon from '/icons/priority.png';
 import therapistIcon from '/icons/therapist.png';

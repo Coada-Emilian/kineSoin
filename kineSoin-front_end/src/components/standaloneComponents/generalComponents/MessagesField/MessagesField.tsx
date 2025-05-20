@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import MessageCard from '../MessageCard/MessageCard';
-import { IPatientMessage } from '../../../../@types/standardInterfaces';
+import { IPatientMessage } from '../../../../@types/interfaces/modelInterfaces';
 import { fetchPatientMessages } from '../../../../utils/apiUtils/patientApiUtils';
+import MessageCard from '../MessageCard/MessageCard';
 
 interface MessagesFieldProps {
   patientId?: number;

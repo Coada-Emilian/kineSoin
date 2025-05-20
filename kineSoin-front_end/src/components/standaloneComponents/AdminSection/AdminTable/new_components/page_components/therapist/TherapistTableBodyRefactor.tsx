@@ -23,14 +23,14 @@
  * The refresh button triggers the `handleTherapistStatus` function to toggle the therapist's status between active and inactive.
  */
 
+import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { ITherapist } from '../../../../../../../@types/interfaces/modelInterfaces';
+import { handleTherapistStatus } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/toggleTherapistStatus';
+import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
-import { ITherapist } from '../../../../../../../@types/standardInterfaces';
-import { Button } from '@headlessui/react';
-import { handleTherapistStatus } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/toggleTherapistStatus';
-import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 
 interface TherapistTableBodyRefactorProps {
   renderedTherapists: ITherapist[];

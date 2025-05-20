@@ -1,18 +1,18 @@
+import { Button } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import messageIcon from '/icons/message.png';
-import messageIcon2 from '/icons/message2.png';
-import cancelIcon from '/icons/cancel.png';
-import cancelIcon2 from '/icons/cancel2.png';
-import TherapistModal from '../Modals/TherapistModal';
-import DNALoader from '../../../../../utils/DNALoader';
-import dynamicIcon from '/icons/dynamic.png';
-import dynamicIcon2 from '/icons/dynamic2.png';
+import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
 import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils';
 import { generateTimeSlots } from '../../../../../utils/AppUtils/time';
+import DNALoader from '../../../../../utils/DNALoader';
 import SendMessageModal from '../Modals/SendMessageModal';
-import { Button } from '@headlessui/react';
-import { ISameDayAppointment } from '../../../../../@types/customInterfaces';
+import TherapistModal from '../Modals/TherapistModal';
+import cancelIcon from '/icons/cancel.png';
+import cancelIcon2 from '/icons/cancel2.png';
+import dynamicIcon from '/icons/dynamic.png';
+import dynamicIcon2 from '/icons/dynamic2.png';
+import messageIcon from '/icons/message.png';
+import messageIcon2 from '/icons/message2.png';
 
 export default function TherapistDayTable() {
   const currentDate = new Date();

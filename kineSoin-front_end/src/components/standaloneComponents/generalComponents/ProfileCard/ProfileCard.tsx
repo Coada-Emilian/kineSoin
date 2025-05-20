@@ -1,23 +1,12 @@
+import { Button } from '@headlessui/react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   IInsurance,
   IPatient,
   IPatient_Insurance,
   ITherapist,
-} from '../../../../@types/standardInterfaces';
-import CustomButton from '../CustomButton/CustomButton';
-import facebookIcon from '/icons/facebook.png';
-import instagramIcon from '/icons/insta.png';
-import linkedInIcon from '/icons/linkedIn.png';
-import phoneIcon from '/icons/phone-call.png';
-import { Link, useNavigate } from 'react-router-dom';
-import StandardTextInput from '../StandardInputs/old_inputs/StandardTextInput';
-import StandardDateInput from '../StandardInputs/old_inputs/StandardDateInput';
-import StandardChoiceDropdown from '../StandardInputs/old_inputs/StandardDropdownInput';
-import StandardTelephoneInput from '../StandardInputs/old_inputs/StandardTelephoneInput';
-import EditIcon from '../EditIcon/EditIcon';
-import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
-import checkIcon from '/icons/check.png';
+} from '../../../../@types/interfaces/modelInterfaces';
 import { updatePatientDataInLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import {
   fetchPatientData,
@@ -27,8 +16,19 @@ import {
   handlePatientPhotoUpdate,
   handlePatientUpdate,
 } from '../../../../utils/apiUtils/patientApiUtils';
+import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
+import CustomButton from '../CustomButton/CustomButton';
+import EditIcon from '../EditIcon/EditIcon';
+import StandardDateInput from '../StandardInputs/old_inputs/StandardDateInput';
+import StandardChoiceDropdown from '../StandardInputs/old_inputs/StandardDropdownInput';
 import StandardEmailInput from '../StandardInputs/old_inputs/StandardEmailInput';
-import { Button } from '@headlessui/react';
+import StandardTelephoneInput from '../StandardInputs/old_inputs/StandardTelephoneInput';
+import StandardTextInput from '../StandardInputs/old_inputs/StandardTextInput';
+import checkIcon from '/icons/check.png';
+import facebookIcon from '/icons/facebook.png';
+import instagramIcon from '/icons/insta.png';
+import linkedInIcon from '/icons/linkedIn.png';
+import phoneIcon from '/icons/phone-call.png';
 
 interface ProfileCardProps {
   patientId?: number;

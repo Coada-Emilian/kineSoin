@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { IFormOrders } from '../../@types/componentTypes';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { IFormOrders } from '../../@types/types/componentTypes';
 
 // Define the shape of the context state
 interface PatientRegisterContextType {

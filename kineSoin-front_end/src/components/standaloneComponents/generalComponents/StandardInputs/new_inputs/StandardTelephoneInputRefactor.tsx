@@ -25,7 +25,7 @@
  */
 
 import { useState } from 'react';
-import { ITelephoneInput } from '../../../../../@types/inputInterfaces';
+import { ITelephoneInput } from '../../../../../@types/interfaces/inputInterfaces';
 
 interface StandardTelephoneInputProps {
   telephoneInput: ITelephoneInput;

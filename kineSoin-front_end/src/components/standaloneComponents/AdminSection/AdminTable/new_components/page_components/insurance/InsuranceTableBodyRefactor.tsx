@@ -20,12 +20,12 @@
  * The table rows adapt to different screen sizes using responsive Tailwind CSS classes.
  */
 
+import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { IInsurance } from '../../../../../../../@types/interfaces/modelInterfaces';
+import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import { IInsurance } from '../../../../../../../@types/standardInterfaces';
-import { Button } from '@headlessui/react';
-import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 
 interface InsuranceTableBodyRefactorProps {
   renderedInsurances: IInsurance[];

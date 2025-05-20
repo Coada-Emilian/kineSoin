@@ -26,7 +26,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
+} from '../../../../../../../@types/interfaces/modelInterfaces';
 import { getAdminEntityTableBodies } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminEntityTableBodies';
 
 interface TableBodyRefactorProps {

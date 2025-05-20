@@ -1,16 +1,7 @@
 // Purpose: The purpose of this component is to render the admin table.
 
 import { useEffect, useState } from 'react';
-import AfflictionUtilityButtons from '../pageComponents/Affliction/AfflictionUtilityButtons';
-import ConfirmDeleteModal from '../new_components/modals/ConfirmDeleteModal';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import TableTitle from './page_components/common/TableTitle';
-import TableHead from './page_components/common/TableHead';
-import TableBody from './page_components/common/TableBody';
-import StatusButtons from './page_components/common/StatusButtons';
-import AdminModal from './modals/AdminModal';
-import RegionModal from '../new_components/modals/RegionModal';
-import AddRegionModal from '../new_components/modals/add_modals/AddRegionModal';
+import { IAddForm } from '../../../../../@types/formInterfaces';
 import {
   IAffliction,
   IBodyRegion,
@@ -18,13 +9,22 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../@types/standardInterfaces';
+} from '../../../../../@types/interfaces/modelInterfaces';
 import {
-  renderTherapists,
-  renderPatients,
   renderAfflictions,
+  renderPatients,
+  renderTherapists,
 } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
-import { IAddForm } from '../../../../../@types/formInterfaces';
+import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
+import ConfirmDeleteModal from '../new_components/modals/ConfirmDeleteModal';
+import RegionModal from '../new_components/modals/RegionModal';
+import AddRegionModal from '../new_components/modals/add_modals/AddRegionModal';
+import AfflictionUtilityButtons from '../pageComponents/Affliction/AfflictionUtilityButtons';
+import AdminModal from './modals/AdminModal';
+import StatusButtons from './page_components/common/StatusButtons';
+import TableBody from './page_components/common/TableBody';
+import TableHead from './page_components/common/TableHead';
+import TableTitle from './page_components/common/TableTitle';
 
 interface AdminTableProps {
   allPatients?: IPatient[];

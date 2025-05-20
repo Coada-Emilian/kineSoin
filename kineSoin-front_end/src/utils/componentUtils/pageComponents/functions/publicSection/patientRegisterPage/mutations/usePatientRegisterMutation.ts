@@ -16,7 +16,6 @@
  */
 
 import { useMutation } from '@tanstack/react-query';
-import { IFormOrders } from '../../../../../../../@types/componentTypes';
 import { handlePatientRegistration } from '../../../../../../apiUtils/publicApiUtils';
 
 export const usePatientRegisterMutation = () => {

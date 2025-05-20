@@ -29,10 +29,10 @@
  */
 
 import { useState } from 'react';
-import addIcon from '/icons/plus.png';
-import checkIcon from '/icons/check.png';
-import { IFileInput } from '../../../../../@types/inputInterfaces';
+import { IFileInput } from '../../../../../@types/interfaces/inputInterfaces';
 import ImageModalRefactor from '../../Modals/imageModal/ImageModalRefactor';
+import checkIcon from '/icons/check.png';
+import addIcon from '/icons/plus.png';
 
 interface StandardFileInputProps {
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;

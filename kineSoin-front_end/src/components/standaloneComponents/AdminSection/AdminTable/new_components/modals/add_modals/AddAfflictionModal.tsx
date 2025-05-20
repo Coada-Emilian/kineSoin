@@ -18,16 +18,16 @@
  * - Form submission is handled via React Query's mutation.
  */
 
-import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
-import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 import { useEffect, useState } from 'react';
-import { IBodyRegion } from '../../../../../../../@types/standardInterfaces';
-import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
-import CreateButtonsSection from '../../page_components/CreateButtonsSection';
+import { IBodyRegion } from '../../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../../utils/DNALoader';
 import { useSubmitAfflictionMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useAfflictionSubmitMutation';
 import { useFetchBodyRegionsMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useFetchBodyRegionsMutation';
+import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
+import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import CreateButtonsSection from '../../page_components/CreateButtonsSection';
 
 interface AddAfflictionModalProps {
   isOpen: boolean;

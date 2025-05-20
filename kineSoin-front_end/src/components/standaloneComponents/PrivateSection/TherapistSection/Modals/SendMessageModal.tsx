@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import BaseModal from './BaseModal';
+import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
 import { sendMessageToPatient } from '../../../../../utils/apiUtils/therapistApiUtils';
-import StandardTextInput from '../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import { ISameDayAppointment } from '../../../../../@types/customInterfaces';
+import StandardTextInput from '../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
+import BaseModal from './BaseModal';
 
 interface SendMessageModalProps {
   isOpen: boolean;

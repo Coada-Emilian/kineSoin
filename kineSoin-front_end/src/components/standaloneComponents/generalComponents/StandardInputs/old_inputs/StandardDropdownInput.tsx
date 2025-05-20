@@ -7,13 +7,13 @@ import {
   IInsurance,
   IMedic,
   IPrescription,
-} from '../../../../../@types/standardInterfaces';
+} from '../../../../../@types/interfaces/modelInterfaces';
 
+import { ICountry } from '../../../../../@types/interfaces/customInterfaces';
+import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
+import { fetchCountriesData } from '../../../../../utils/componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
 import { fetchAppointmentsByPrescription } from '../standardDropdownInput/functions/fetchAppointmentsByPrescription';
 import { identifyOldInsurance } from '../standardDropdownInput/functions/identifyOldInsurance';
-import { fetchCountriesData } from '../../../../../utils/componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
-import { ICountry } from '../../../../../@types/customInterfaces';
-import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 
 interface StandardChoiceDropdownProps {
   isGenderDropdownInput?: boolean;

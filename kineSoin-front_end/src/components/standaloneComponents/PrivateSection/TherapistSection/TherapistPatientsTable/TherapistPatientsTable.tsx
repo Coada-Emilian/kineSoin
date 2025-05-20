@@ -1,16 +1,15 @@
+import { Button } from '@headlessui/react';
 import { useEffect, useState } from 'react';
-import deleteIcon from '/icons/delete.png';
-import editIcon from '/icons/edit.png';
-import refreshIcon from '/icons/refresh.png';
-import { Link } from 'react-router-dom';
-import TherapistModal from '../Modals/TherapistModal';
+import { ITherapistPatient } from '../../../../../@types/interfaces/customInterfaces';
 import DNALoader from '../../../../../utils/DNALoader';
 import {
   fetchTherapistPatients,
   togglePatientStatusAsTherapist,
 } from '../../../../../utils/apiUtils/therapistApiUtils';
-import { ITherapistPatient } from '../../../../../@types/customInterfaces';
-import { Button } from '@headlessui/react';
+import TherapistModal from '../Modals/TherapistModal';
+import deleteIcon from '/icons/delete.png';
+import editIcon from '/icons/edit.png';
+import refreshIcon from '/icons/refresh.png';
 
 export default function TherapistPatientsTable() {
   const [isLoading, setIsLoading] = useState<boolean>(false);

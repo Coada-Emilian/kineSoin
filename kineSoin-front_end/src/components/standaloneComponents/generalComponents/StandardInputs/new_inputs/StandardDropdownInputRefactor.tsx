@@ -31,7 +31,7 @@
  */
 
 import { useState } from 'react';
-import { IDropdownInput } from '../../../../../@types/inputInterfaces';
+import { IDropdownInput } from '../../../../../@types/interfaces/inputInterfaces';
 
 interface StandardChoiceDropdownProps {
   dropdownInput: IDropdownInput;

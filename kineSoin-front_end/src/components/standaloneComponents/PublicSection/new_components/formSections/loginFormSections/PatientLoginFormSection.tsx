@@ -1,28 +1,12 @@
-/**
- * @function PatientLoginFormSection
- *
- * A form section for patient login, allowing users to authenticate and access their account.
- * The form includes:
- * - An email input field.
- * - A password input field.
- * - A submit button to initiate authentication.
- * - A redirection link for users who do not have an account.
- *
- * @returns {JSX.Element} - A styled login form wrapped in a section with a background image.
- *
- * @example
- * <PatientLoginFormSection />
- */
-
 import { Link } from 'react-router-dom';
-import mainLogo from '/logos/Main-Logo.png';
+import { usePatientLoginMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/mutations/usePatientLoginMutation';
+import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
-import { usePatientLoginMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/mutations/usePatientLoginMutation';
+import mainLogo from '/logos/Main-Logo.png';
 
 export default function PatientLoginFormSection() {
   const { navigate } = useGlobalContext();

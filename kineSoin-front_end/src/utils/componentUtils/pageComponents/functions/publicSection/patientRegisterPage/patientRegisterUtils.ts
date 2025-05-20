@@ -1,4 +1,4 @@
-import { IFormOrders } from '../../../../../../@types/componentTypes';
+import { IFormOrders } from '../../../../../../@types/types/componentTypes';
 import { handlePatientRegistration } from '../../../../../apiUtils/publicApiUtils';
 
 interface RegisterFormUtilsProps {

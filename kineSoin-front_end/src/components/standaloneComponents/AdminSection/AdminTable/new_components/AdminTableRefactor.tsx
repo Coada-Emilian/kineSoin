@@ -20,33 +20,33 @@
  */
 
 import { useEffect } from 'react';
-import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
-import RegionModal from './modals/RegionModal';
-import AddRegionModal from './modals/add_modals/AddRegionModal';
-import {
-  renderTherapists,
-  renderPatients,
-  renderAfflictions,
-} from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
-import TableTitleRefactor from './page_components/common/TableTitleRefactor';
-import TableHeadRefactor from './page_components/common/TableHeadRefactor';
-import TableBodyRefactor from './page_components/common/TableBodyRefactor';
-import FirstAddTherapistModal from './modals/add_modals/FirstAddTherapistModal';
-import SecondAddTherapistModal from './modals/add_modals/SecondAddTherapistModal';
-import ThirdAddTherapistModal from './modals/add_modals/ThirdAddTherapistModal';
-import AddAfflictionModal from './modals/add_modals/AddAfflictionModal';
-import AddMedicModal from './modals/add_modals/AddMedicModal';
-import AddInsuranceModal from './modals/add_modals/AddInsuranceModal';
-import { getAdminTableElements } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminTableElements';
 import {
   IEntitiesInterfaces,
   IEntityInterface,
   IEntityTypes,
-} from '../../../../../@types/componentTypes';
-import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
+} from '../../../../../@types/types/componentTypes';
+import {
+  renderAfflictions,
+  renderPatients,
+  renderTherapists,
+} from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
+import { getAdminTableElements } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminTableElements';
 import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
-import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor';
+import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
 import { PrefixesContextProvider } from '../../../../../utils/contexts/PrefixesContext';
+import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor';
+import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
+import RegionModal from './modals/RegionModal';
+import AddAfflictionModal from './modals/add_modals/AddAfflictionModal';
+import AddInsuranceModal from './modals/add_modals/AddInsuranceModal';
+import AddMedicModal from './modals/add_modals/AddMedicModal';
+import AddRegionModal from './modals/add_modals/AddRegionModal';
+import FirstAddTherapistModal from './modals/add_modals/FirstAddTherapistModal';
+import SecondAddTherapistModal from './modals/add_modals/SecondAddTherapistModal';
+import ThirdAddTherapistModal from './modals/add_modals/ThirdAddTherapistModal';
+import TableBodyRefactor from './page_components/common/TableBodyRefactor';
+import TableHeadRefactor from './page_components/common/TableHeadRefactor';
+import TableTitleRefactor from './page_components/common/TableTitleRefactor';
 
 interface AdminTableRefactorProps {
   entities: IEntitiesInterfaces;

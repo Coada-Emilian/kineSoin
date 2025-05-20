@@ -1,9 +1,9 @@
 // renderFunctions.ts
 import {
-  ITherapist,
-  IPatient,
   IAffliction,
-} from '../../../../../../@types/standardInterfaces';
+  IPatient,
+  ITherapist,
+} from '../../../../../../@types/interfaces/modelInterfaces';
 
 // Function to render therapists based on status
 export const renderTherapists = (

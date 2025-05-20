@@ -14,12 +14,12 @@
  */
 
 import { Link } from 'react-router-dom';
-import { removeAdminTokenFromLocalStorage } from '../../../../localStorage/adminLocalStorage';
-import Logo1 from '/logos/kinesoin-logo.webp';
+import { removeAdminTokenFromLocalStorage } from '../../../../../localStorage/adminLocalStorage';
+import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext';
+import { useAuthentificationContext } from '../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
+import CustomBtn from '../../CustomButton/CustomButtonRefactor';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
-import { useGlobalContext } from '../../../../utils/contexts/GlobalContext';
-import { useAuthentificationContext } from '../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
-import CustomBtn from '../CustomButton/CustomButtonRefactor';
+import Logo1 from '/logos/kinesoin-logo.webp';
 
 export default function AdminNavBar() {
   const { navigate } = useGlobalContext();

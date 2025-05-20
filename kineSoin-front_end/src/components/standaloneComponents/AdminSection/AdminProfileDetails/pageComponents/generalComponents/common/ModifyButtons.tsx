@@ -13,7 +13,7 @@
 import {
   IAffliction,
   ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
+} from '../../../../../../../@types/interfaces/modelInterfaces';
 import CustomButton from '../../../../../generalComponents/CustomButton/CustomButton';
 
 interface ModifyButtonsProps {

@@ -4,7 +4,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../@types/standardInterfaces';
+} from '../../../../../@types/interfaces/modelInterfaces';
 import { standardTextFields } from './standardTextField';
 
 interface GeneralInputProps {

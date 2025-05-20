@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { ICountry } from '../../@types/customInterfaces';
+import { ICountry } from '../../@types/interfaces/customInterfaces';
 import { fetchCountriesData } from '../componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
 
 interface PrefixesContextInterface {

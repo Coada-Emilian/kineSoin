@@ -1,11 +1,11 @@
-import { ICommonEntityDetails } from '../../../../../../@types/customInterfaces';
+import { ICommonEntityDetails } from '../../../../../../@types/interfaces/customInterfaces';
 import {
   IAffliction,
   IInsurance,
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
 
 export const getCommonSectionEntityDetails = (
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null

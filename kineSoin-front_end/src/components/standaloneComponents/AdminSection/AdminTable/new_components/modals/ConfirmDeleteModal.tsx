@@ -25,16 +25,16 @@
  * - For body region deletions, a different flow is handled via `handleRegionDelete`.
  */
 
-import DNALoader from '../../../../../../utils/DNALoader';
-import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { IEntityInterface } from '../../../../../../@types/componentTypes';
-import { useEffect, useState } from 'react';
-import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
-import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import { useMutation } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { IEntityInterface } from '../../../../../../@types/types/componentTypes';
+import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
 import { getDeleteModalEntityDetails } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getDeleteModalEntityDetails';
 import getAdminDeleteMutations from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/adminDeleteMutations';
+import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
+import DNALoader from '../../../../../../utils/DNALoader';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;

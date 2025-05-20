@@ -4,7 +4,7 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+} from '../../../../../../@types/interfaces/modelInterfaces';
 
 export const CommonSectionEntityDetails = (
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null

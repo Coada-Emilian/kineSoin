@@ -1,11 +1,11 @@
 import {
   IAffliction,
   IBodyRegion,
-  IMedic,
   IInsurance,
+  IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../../@types/standardInterfaces';
+} from '../../../../../../../@types/interfaces/modelInterfaces';
 
 interface TableHeadProps {
   allTherapists?: ITherapist[];

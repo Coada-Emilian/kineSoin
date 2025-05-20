@@ -1,4 +1,4 @@
-import { IEntityStates } from '../../../../../@types/customInterfaces';
+import { IEntityStates } from '../../../../../@types/interfaces/customInterfaces';
 
 // Mapping object to dynamically group state based on boolean flag
 export const adminPageEntityStates = ({

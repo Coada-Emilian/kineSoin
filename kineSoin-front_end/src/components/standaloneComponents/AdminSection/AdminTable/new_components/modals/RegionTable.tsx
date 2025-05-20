@@ -1,13 +1,5 @@
-import {
-  IAffliction,
-  IBodyRegion,
-  IInsurance,
-  IMedic,
-  IPatient,
-  ITherapist,
-} from '../../../../../../@types/standardInterfaces';
+import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
-import TableHead from '../../old_components/page_components/common/TableHead';
 import RegionTableBody from '../page_components/region/RegionTableBody';
 
 interface RegionTableProps {

@@ -21,12 +21,12 @@
  * The table rows adapt to different screen sizes using responsive Tailwind CSS classes, with different background colors for the status.
  */
 
+import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { IPatient } from '../../../../../../../@types/interfaces/modelInterfaces';
+import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
-import { IPatient } from '../../../../../../../@types/standardInterfaces';
-import { Button } from '@headlessui/react';
-import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
 
 interface PatientTableBodyRefactorProps {
   renderedPatients: IPatient[];

@@ -28,7 +28,7 @@
  */
 
 import { useState } from 'react';
-import { ITextInput } from '../../../../../@types/inputInterfaces';
+import { ITextInput } from '../../../../../@types/interfaces/inputInterfaces';
 
 interface StandardTextInputProps {
   textInput: ITextInput;

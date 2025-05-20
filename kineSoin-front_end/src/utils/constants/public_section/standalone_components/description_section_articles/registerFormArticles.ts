@@ -1,37 +1,12 @@
-/**
- * @constant registerFormArticles
- * @type {IDescriptionArticle[]}
- *
- * This array contains articles used in the patient registration process, each corresponding to
- * a specific form order. These articles provide visual and textual information to guide the user
- * through the steps of registration, such as welcoming the patient, explaining the platform's
- * services, and confirming registration details.
- *
- * @example
- * const firstArticle = registerFormArticles.find(article => article.formOrder === 'first');
- */
-
-/**
- * @constant registerFormReverseArticles
- * @type {IDescriptionArticle[]}
- *
- * This array contains the reverse versions of the patient registration articles. These reverse
- * articles display alternate images and provide complementary information related to the registration
- * process. They are used for alternating visual presentation alongside `registerFormArticles`.
- *
- * @example
- * const firstReverseArticle = registerFormReverseArticles.find(article => article.formOrder === 'first');
- */
-
-import { IDescriptionArticle } from '../../../../../../@types/componentTypes';
-import firstPatientRegisterFirstFormPhoto from '/images/patientRegisterFirstForm_right.webp';
-import secondPatientRegisterFirstFormPhoto from '/images/patientRegisterFirstForm_left.webp';
-import firstPatientRegisterSecondFormPhoto from '/images/patientRegisterSecondForm_right.webp';
-import secondPatientRegisterSecondFormPhoto from '/images/patientRegisterSecondForm_left.webp';
-import firstPatientRegisterThirdFormPhoto from '/images/patientRegisterThirdForm_right.webp';
-import secondPatientRegisterThirdFormPhoto from '/images/patientRegisterThirdForm_left.webp';
-import firstPatientConfirmationPhoto from '/images/patientRegisterConfirmPage_right.webp';
+import { IDescriptionArticle } from '../../../../../@types/types/componentTypes';
 import secondPatientConfirmationPhoto from '/images/patientRegisterConfirmPage_left.webp';
+import firstPatientConfirmationPhoto from '/images/patientRegisterConfirmPage_right.webp';
+import secondPatientRegisterFirstFormPhoto from '/images/patientRegisterFirstForm_left.webp';
+import firstPatientRegisterFirstFormPhoto from '/images/patientRegisterFirstForm_right.webp';
+import secondPatientRegisterSecondFormPhoto from '/images/patientRegisterSecondForm_left.webp';
+import firstPatientRegisterSecondFormPhoto from '/images/patientRegisterSecondForm_right.webp';
+import secondPatientRegisterThirdFormPhoto from '/images/patientRegisterThirdForm_left.webp';
+import firstPatientRegisterThirdFormPhoto from '/images/patientRegisterThirdForm_right.webp';
 
 export const registerFormArticles: IDescriptionArticle[] = [
   {

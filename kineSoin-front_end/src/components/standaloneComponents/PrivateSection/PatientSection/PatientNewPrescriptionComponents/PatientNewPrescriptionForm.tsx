@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import StandardDateInput from '../../../generalComponents/StandardInputs/old_inputs/StandardDateInput';
-import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
-import StandardFileInput from '../../../generalComponents/StandardInputs/old_inputs/StandardFileInput';
-import StandardTextInput from '../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 import { useNavigate } from 'react-router-dom';
-import { IAffliction, IMedic } from '../../../../../@types/standardInterfaces';
+import {
+  IAffliction,
+  IMedic,
+} from '../../../../../@types/interfaces/modelInterfaces';
 import {
   fetchAfflictionNamesAsPatient,
   fetchAllMedicNamesAsPatient,
   handleNewPrescriptionCreation,
 } from '../../../../../utils/apiUtils/patientApiUtils';
+import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
+import StandardDateInput from '../../../generalComponents/StandardInputs/old_inputs/StandardDateInput';
+import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import StandardFileInput from '../../../generalComponents/StandardInputs/old_inputs/StandardFileInput';
+import StandardTextInput from '../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
 
 interface PatientNewPrescriptionFormProps {
   patientId?: number;
