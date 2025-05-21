@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { IButtonDetails } from '../../../../@types/interfaces/customInterfaces';
-import { buttonDetails } from './buttonDetails';
+import { customButtonDetails } from '../../../../utils/constants/public_section/standalone_components/custom_button/customButtonDetails';
 import LogoutIcon from '/icons/logout.png';
 import NotificationIcon from '/icons/notification.png';
 
@@ -10,7 +10,7 @@ interface CustomButtonProps
 }
 
 export default function CustomBtn({ btn, type }: CustomButtonProps) {
-  const background = buttonDetails.find(
+  const background = customButtonDetails.find(
     (button) => button.btnType === btn.type
   )?.background;
 

@@ -1,32 +1,17 @@
-/**
- * @function PatientRegisterFormSection
- *
- * This component renders the patient registration form, guiding users through multiple steps
- * and handling form submission. It includes:
- * - Dynamic background changes based on the current registration step.
- * - State management for form progression and data collection.
- * - A mutation hook (`usePatientRegisterMutation`) to register patients upon form completion.
- *
- * @returns {JSX.Element} - A multi-step registration form section for patients.
- *
- * @example
- * <PatientRegisterFormSection />
- */
-
-import { Link } from 'react-router-dom';
-import mainLogo from '/logos/Main-Logo.png';
 import { useEffect, useState } from 'react';
-import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
-import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
-import DNALoader from '../../../../../../utils/DNALoader';
+import { Link } from 'react-router-dom';
+import { usePatientRegisterMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/mutations/usePatientRegisterMutation';
 import {
   getFormElement,
   getFormOnSubmit,
   getSectionBackground,
   getStepParagraph,
 } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterFormSectionFunctions';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
+import DNALoader from '../../../../../../utils/DNALoader';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import { usePatientRegisterMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/mutations/usePatientRegisterMutation';
+import mainLogo from '/logos/Main-Logo.png';
 
 export default function PatientRegisterFormSection() {
   const { errorMessage, setError, isLoading, setLoading, location } =
@@ -99,7 +84,7 @@ export default function PatientRegisterFormSection() {
             })}
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             {formOrder !== 'last' && (
               <CustomBtn
                 btn={{
@@ -124,7 +109,7 @@ export default function PatientRegisterFormSection() {
                       setFormOrder('first');
                     }}
                   >
-                    Connectez-vous ici
+                    Connectez-vous ici !
                   </Link>
                 </p>
               )}

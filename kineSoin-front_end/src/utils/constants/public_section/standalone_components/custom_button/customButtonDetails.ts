@@ -1,4 +1,4 @@
-export const buttonDetails = [
+export const customButtonDetails = [
   {
     btnType: 'basic',
     background: 'bg-primaryTeal hover:bg-secondaryTeal',

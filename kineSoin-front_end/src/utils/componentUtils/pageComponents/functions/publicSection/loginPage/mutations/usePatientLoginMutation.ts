@@ -9,7 +9,7 @@ export const usePatientLoginMutation = (
     mutationKey: ['patientLogin'],
     mutationFn: async (formData: FormData) => {
       const patientLoginEmail = formData.get('email') as string;
-      
+
       const patientLoginPassword = formData.get('password') as string;
 
       if (!patientLoginEmail || !patientLoginPassword) {
@@ -27,6 +27,9 @@ export const usePatientLoginMutation = (
     onSuccess: (data) => {
       setPatientProfileToken(data);
       navigate('/patient/dashboard');
+    },
+    onError: (error: Error) => {
+      throw new Error(error.message);
     },
   });
 };

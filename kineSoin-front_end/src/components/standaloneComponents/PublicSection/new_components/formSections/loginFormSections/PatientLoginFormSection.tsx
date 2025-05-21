@@ -69,7 +69,7 @@ export default function PatientLoginFormSection() {
             <p>
               Pas encore membre?{' '}
               <Link to="/registerPatient" className="text-primaryRed">
-                Inscrivez-vous ici
+                Inscrivez-vous ici !
               </Link>
             </p>
           </div>

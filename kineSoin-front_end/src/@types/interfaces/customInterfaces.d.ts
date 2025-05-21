@@ -213,3 +213,14 @@ export interface IButtonDetails {
   hasBorder?: boolean;
   onClick?: () => void;
 }
+
+interface IErrorPageFunctionProps {
+  type:
+    | 'public'
+    | 'connectedAdmin'
+    | 'unconnectedAdmin'
+    | 'connectedPatient'
+    | 'unconnectedPatient'
+    | 'connectedTherapist'
+    | 'unconnectedTherapist';
+}

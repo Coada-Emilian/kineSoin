@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
 import AdminMain from './components/pageComponents/AdminSection/new_components/AdminMain';
 import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
+import ErrorPageRefactor from './components/pageComponents/ErrorPage/new_component/ErrorPageRefactor';
 import { adminRoutes } from './utils/AppUtils/constants/routes';
 import { AdminLayout } from './utils/AppUtils/layouts/new_layouts/AdminLayout';
 import { PublicLayout } from './utils/AppUtils/layouts/new_layouts/PublicLayout';
@@ -25,7 +26,7 @@ function App() {
           />
         ))}
 
-        <Route path="*" element={<ErrorPage isPublicErrorPage />} />
+        <Route path="*" element={<ErrorPageRefactor type="public" />} />
       </Route>
 
       <Route path="/loginAdmin" element={<AdminLoginPage />} />
