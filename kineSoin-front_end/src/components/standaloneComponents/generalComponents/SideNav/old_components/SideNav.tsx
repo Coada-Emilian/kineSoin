@@ -1,4 +1,4 @@
-import { renderSideNavLinks } from '../../../../../utils/componentUtils/commonComponents/functions/SideNav/renderSideNavLinks';
+import { renderSideNavLinks } from '../../../../../utils/functions/component_utils/common_components/sideNav/renderSideNavLinks';
 
 interface SideNavProps {
   isAdminSideNav?: boolean;

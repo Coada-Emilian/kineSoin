@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { usePatientRegisterMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/mutations/usePatientRegisterMutation';
+
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
+import DNALoader from '../../../../../../utils/DNALoader';
+import { usePatientRegisterMutation } from '../../../../../../utils/functions/public_section/mutations/usePatientRegisterMutation';
 import {
   getFormElement,
   getFormOnSubmit,
   getSectionBackground,
   getStepParagraph,
-} from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterFormSectionFunctions';
-import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
-import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
-import DNALoader from '../../../../../../utils/DNALoader';
+} from '../../../../../../utils/functions/public_section/other_functions/patientRegisterFormSectionFunctions';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import mainLogo from '/logos/Main-Logo.png';
 

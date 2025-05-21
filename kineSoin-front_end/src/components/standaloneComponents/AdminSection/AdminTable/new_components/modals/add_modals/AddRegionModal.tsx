@@ -21,12 +21,12 @@
  * - The loader (`DNALoader`) is displayed during the creation process.
  */
 
-import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
-import CreateButtonsSection from '../../page_components/CreateButtonsSection';
+import { useSubmitRegionMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useRegionSubmitMutation';
 import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
-import { useSubmitRegionMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useRegionSubmitMutation';
+import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import CreateButtonsSection from '../../page_components/CreateButtonsSection';
 
 interface AddRegionModalProps {
   isOpen: boolean;

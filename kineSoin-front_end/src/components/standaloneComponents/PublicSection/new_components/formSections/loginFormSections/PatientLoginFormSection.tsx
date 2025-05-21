@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { usePatientLoginMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/loginPage/mutations/usePatientLoginMutation';
 import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
+import { usePatientLoginMutation } from '../../../../../../utils/functions/public_section/mutations/usePatientLoginMutation';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';

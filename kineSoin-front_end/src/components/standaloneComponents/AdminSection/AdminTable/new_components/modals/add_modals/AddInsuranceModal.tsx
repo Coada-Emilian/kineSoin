@@ -18,15 +18,15 @@
  * - Form submission triggers a mutation to submit the data for the insurance organization.
  */
 
-import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
-import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
+import DNALoader from '../../../../../../../utils/DNALoader';
+import { useSubmitInsuranceMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useInsuranceSubmitMutation';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
-import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
+import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
-import DNALoader from '../../../../../../../utils/DNALoader';
-import { useSubmitInsuranceMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useInsuranceSubmitMutation';
 
 interface AddInsuranceModalProps {
   isOpen: boolean;

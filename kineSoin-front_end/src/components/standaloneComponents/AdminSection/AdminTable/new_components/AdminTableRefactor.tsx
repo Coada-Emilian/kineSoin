@@ -1,39 +1,18 @@
-/**
- * @function AdminTableRefactor
- *
- * A refactored admin table component that dynamically displays entities (therapists, patients, afflictions)
- * based on the selected entity type. It handles the rendering of a table, modals for entity actions,
- * and buttons for specific entity functionalities like region viewing and adding new items.
- *
- * @param entities - A list of entities to render in the table (therapists, patients, or afflictions).
- * @param entityType - The type of entity to be displayed ('therapist', 'patient', 'affliction').
- *
- * @returns JSX.Element - The component that renders the table, modals, and entity actions.
- *
- * @example
- * <AdminTableRefactor entities={entities} entityType="therapist" />
- *
- * @remarks
- * - Handles dynamic rendering of rows based on entity type.
- * - Includes modal management for creating, updating, and deleting entities.
- * - The component uses context to manage the state and actions like opening modals and setting selected entities.
- */
-
 import { useEffect } from 'react';
 import {
   IEntitiesInterfaces,
   IEntityInterface,
   IEntityTypes,
 } from '../../../../../@types/types/componentTypes';
+import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
+import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
+import { PrefixesContextProvider } from '../../../../../utils/contexts/PrefixesContext';
+import { getAdminTableElements } from '../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getAdminTableElements';
 import {
   renderAfflictions,
   renderPatients,
   renderTherapists,
-} from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
-import { getAdminTableElements } from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminTableElements';
-import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
-import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
-import { PrefixesContextProvider } from '../../../../../utils/contexts/PrefixesContext';
+} from '../../../../../utils/functions/component_utils/page_components/admin_table/render_entities/index';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor';
 import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
 import RegionModal from './modals/RegionModal';

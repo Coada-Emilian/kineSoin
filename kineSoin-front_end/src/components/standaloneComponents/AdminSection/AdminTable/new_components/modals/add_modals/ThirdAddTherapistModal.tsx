@@ -22,15 +22,15 @@
  */
 
 import { useEffect, useState } from 'react';
-import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { addThirdFormDetails } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/addFormDetailsFunctions';
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
+import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
+import { addThirdFormDetails } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/add_therapist_form_details';
+import { useTherapistCreationMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useTherapistCreationMutation';
+import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardEmailInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
-import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
-import { useTherapistCreationMutation } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useTherapistCreationMutation';
 
 interface ThirdAddTherapistModalProps {
   isOpen: boolean;
@@ -62,8 +62,6 @@ export default function ThirdAddTherapistModal({
       handleTherapistCreation.mutate();
     }
   }, [isAdminTherapistFormValid]);
-
-  
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

@@ -28,11 +28,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { IEntityInterface } from '../../../../../../@types/types/componentTypes';
-import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { getDeleteModalEntityDetails } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getDeleteModalEntityDetails';
-import getAdminDeleteMutations from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/adminDeleteMutations';
+import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/body_region_utils/adminBodyRegionApiUtils';
 import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
+import getAdminDeleteMutations from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/adminDeleteMutations';
+import { getDeleteModalEntityDetails } from '../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getDeleteModalEntityDetails';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 

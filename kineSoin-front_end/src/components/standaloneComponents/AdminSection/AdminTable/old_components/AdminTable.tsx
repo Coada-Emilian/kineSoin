@@ -14,7 +14,7 @@ import {
   renderAfflictions,
   renderPatients,
   renderTherapists,
-} from '../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/adminTableRenderFunctions';
+} from '../../../../../utils/functions/component_utils/page_components/admin_table/render_entities/index.js';
 import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import ConfirmDeleteModal from '../new_components/modals/ConfirmDeleteModal';
 import RegionModal from '../new_components/modals/RegionModal';

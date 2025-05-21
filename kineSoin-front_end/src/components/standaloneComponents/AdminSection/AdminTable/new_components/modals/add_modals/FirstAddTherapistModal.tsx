@@ -22,13 +22,13 @@
  */
 
 import { useState } from 'react';
-import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { addFirstFormDetails } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/addFormDetailsFunctions';
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
+import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
+import { addFirstFormDetails } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/add_therapist_form_details';
 import CustomBtn from '../../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 import StandardFileInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardFileInputRefactor';
+import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 
 interface FirstAddTherapistModalProps {
   isOpen: boolean;

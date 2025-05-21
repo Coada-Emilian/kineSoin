@@ -8,10 +8,10 @@ import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/
 
 // Import authentication check functions
 import {
-  checkAdminAuthentication,
-  checkPatientAuthentication,
-  checkTherapistAuthentication,
-} from '../../AppUtils/authentificationFunctions/appAuthentificationFunctions';
+  checkAdminAuthentification,
+  checkPatientAuthentification,
+  checkTherapistAuthentification,
+} from '../../functions/public_section/authentification_functions';
 
 // Define the shape of the global context
 interface AuthentificationGlobalContextType {
@@ -50,11 +50,14 @@ export const AuthentificationGlobalContextProvider: React.FC<{
 
   useEffect(() => {
     // On component mount and every 30 seconds, re-check admin auth
-    checkAdminAuthentication({ setIsAdminAuthenticated, setAdminProfileToken });
+    checkAdminAuthentification({
+      setIsAdminAuthenticated,
+      setAdminProfileToken,
+    });
 
     const handleAdminStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
-        checkAdminAuthentication({
+        checkAdminAuthentification({
           setIsAdminAuthenticated,
           setAdminProfileToken,
         });
@@ -65,7 +68,7 @@ export const AuthentificationGlobalContextProvider: React.FC<{
     window.addEventListener('storage', handleAdminStorageChange);
 
     const adminIntervalId = setInterval(() => {
-      checkAdminAuthentication({
+      checkAdminAuthentification({
         setIsAdminAuthenticated,
         setAdminProfileToken,
       });
@@ -86,14 +89,14 @@ export const AuthentificationGlobalContextProvider: React.FC<{
 
   useEffect(() => {
     // Same logic as admin, for patient
-    checkPatientAuthentication({
+    checkPatientAuthentification({
       setIsPatientAuthenticated,
       setPatientProfileToken,
     });
 
     const handlePatientStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
-        checkPatientAuthentication({
+        checkPatientAuthentification({
           setIsPatientAuthenticated,
           setPatientProfileToken,
         });
@@ -103,7 +106,7 @@ export const AuthentificationGlobalContextProvider: React.FC<{
     window.addEventListener('storage', handlePatientStorageChange);
 
     const patientIntervalId = setInterval(() => {
-      checkPatientAuthentication({
+      checkPatientAuthentification({
         setIsPatientAuthenticated,
         setPatientProfileToken,
       });
@@ -125,14 +128,14 @@ export const AuthentificationGlobalContextProvider: React.FC<{
 
   useEffect(() => {
     // Same logic as admin/patient, for therapist
-    checkTherapistAuthentication({
+    checkTherapistAuthentification({
       setIsTherapistAuthenticated,
       setTherapistProfileToken,
     });
 
     const handleTherapistStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
-        checkTherapistAuthentication({
+        checkTherapistAuthentification({
           setIsTherapistAuthenticated,
           setTherapistProfileToken,
         });
@@ -142,7 +145,7 @@ export const AuthentificationGlobalContextProvider: React.FC<{
     window.addEventListener('storage', handleTherapistStorageChange);
 
     const therapistIntervalId = setInterval(() => {
-      checkTherapistAuthentication({
+      checkTherapistAuthentification({
         setIsTherapistAuthenticated,
         setTherapistProfileToken,
       });

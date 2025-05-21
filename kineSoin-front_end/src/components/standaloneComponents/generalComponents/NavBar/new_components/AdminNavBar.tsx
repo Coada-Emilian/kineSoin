@@ -1,18 +1,3 @@
-/**
- * @component AdminNavBar
- *
- * This component represents the navigation bar for the admin section. It includes:
- * - The logo that links to the homepage (`Logo1` for larger screens and `Logo2` for smaller screens).
- * - A logout button (`CustomBtn`), which allows the admin to log out. The button is only visible when the admin is authenticated.
- *
- * The `AdminNavBar` is sticky at the top of the screen, providing a consistent navigation experience for the admin across all pages.
- *
- * @returns {JSX.Element} The navigation bar structure for the admin, including logo and logout button.
- *
- * @example
- * <AdminNavBar />
- */
-
 import { Link } from 'react-router-dom';
 import { removeAdminTokenFromLocalStorage } from '../../../../../localStorage/adminLocalStorage';
 import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext';
@@ -62,9 +47,7 @@ export default function AdminNavBar() {
                 text: 'Déconnexion',
                 style: 'nav',
                 icon: 'logout',
-                onClick: () => {
-                  handleAdminLogout();
-                },
+                onClick: handleAdminLogout,
               }}
             />
           )}

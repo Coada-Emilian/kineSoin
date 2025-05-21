@@ -1,6 +1,5 @@
 import { IAddForm } from '../../../../../../@types/formInterfaces';
-import { useAdminAddTherapistFormGlobalContext } from '../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
-import { handleTherapistCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
+import { handleTherapistCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/therapist_utils/adminTherapistApiUtils';
 
 interface FunctionProps {
   // setError: (message: string | null) => void;

@@ -10,7 +10,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../../@types/interfaces/modelInterfaces';
-import { handleTherapistStatusChange } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/handleStatusChange';
+import { handleTherapistStatusChange } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/handleTherapistStatusChange';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';

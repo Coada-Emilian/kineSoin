@@ -9,12 +9,12 @@ import {
   ITherapist,
 } from '../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../utils/DNALoader';
-import { handleAfflictionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminAfflictionApiUtils';
-import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils';
-import { handleMedicDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils';
-import { handlePatientDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminPatientApiUtils';
-import { handleTherapistDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminTherapistApiUtils';
+import { handleAfflictionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/affliction_utils/adminAfflictionApiUtils';
+import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/body_region_utils/adminBodyRegionApiUtils';
+import { handleInsuranceOrganismDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/insurance_utils/adminInsuranceApiUtils';
+import { handleMedicDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/medic_utils/adminMedicApiUtils';
+import { handlePatientDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/patient_utils/adminPatientApiUtils';
+import { handleTherapistDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/therapist_utils/adminTherapistApiUtils';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
 

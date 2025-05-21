@@ -1,30 +1,13 @@
-/**
- * @component AdminLoginPage
- *
- * A component that renders the admin login page where an administrator can enter their credentials
- * (email and password) to authenticate and access the admin section of the application.
- *
- * @returns JSX.Element - The rendered admin login page with email, password input fields, and a login button.
- *
- * @example
- * <AdminLoginPage />
- *
- * @remarks
- * - Uses React Query's `useMutation` hook to handle admin login.
- * - Upon successful login, stores the admin profile token and redirects to the therapists' section.
- * - If login fails, an error message is displayed.
- */
-
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DNALoader from '../../../utils/DNALoader.tsx';
-import logo from '/logos/Main-Logo.png';
 import { useGlobalContext } from '../../../utils/contexts/GlobalContext.tsx';
 import { useAuthentificationContext } from '../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
+import { useAdminLoginMutation } from '../../../utils/functions/public_section/mutations/useAdminLoginMutation.ts';
 import CustomBtn from '../../standaloneComponents/generalComponents/CustomButton/CustomButtonRefactor.tsx';
 import StandardEmailInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor.tsx';
 import StandardPasswordInputRefactor from '../../standaloneComponents/generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor.tsx';
-import { useAdminLoginMutation } from '../../../utils/componentUtils/pageComponents/functions/adminSection/mutations/useAdminLoginMutation.ts';
+import logo from '/logos/Main-Logo.png';
 
 export default function AdminLoginPage() {
   // Destructure the necessary variables from the global context

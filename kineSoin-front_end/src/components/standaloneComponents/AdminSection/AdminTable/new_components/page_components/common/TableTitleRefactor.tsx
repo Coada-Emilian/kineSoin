@@ -16,7 +16,7 @@
  * - The title will be adjusted based on the `entityStatus` to ensure it reflects the current state of the data.
  * - Typically used in admin interfaces to provide context-specific titles.
  */
-import { getAdminTableTitleContent } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminTableTitleContent';
+import { getAdminTableTitleContent } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getAdminTableTitleContent';
 
 interface TableTitleRefactorProps {
   tableTitle: string;

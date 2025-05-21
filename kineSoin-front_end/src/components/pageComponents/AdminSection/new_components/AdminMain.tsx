@@ -1,22 +1,3 @@
-/**
- * @component AdminMain
- *
- * A component that renders the main admin section page, showing either a table of entities or the
- * details of a specific entity depending on the route.
- *
- * @param {IEntityTypes} entityType - The type of entity (e.g., therapist, patient, etc.) to display.
- *
- * @returns JSX.Element - The rendered admin main page with either a table or entity details based on the route.
- *
- * @example
- * <AdminMain entityType="therapists" />
- *
- * @remarks
- * - Uses React Query's `useQuery` hook to fetch the list of entities and entity details.
- * - Displays a loader while fetching data and shows the appropriate content once loading is complete.
- * - The layout consists of a side navigation bar and a content section displaying either the table or profile details.
- */
-
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import {
@@ -24,14 +5,12 @@ import {
   IEntityInterface,
   IEntityTypes,
 } from '../../../../@types/types/componentTypes';
-import DNALoader from '../../../../utils/DNALoader';
-import {
-  fetchDetailsDataRefactor,
-  fetchTableDataRefactor,
-} from '../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminMainUtils/adminMainUtilsRefactor';
 import { AdminProfileDetailsGlobalProvider } from '../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableGlobalContext';
 import { PrefixesContextProvider } from '../../../../utils/contexts/PrefixesContext';
+import DNALoader from '../../../../utils/DNALoader';
+import { fetchAdminEntityDetails } from '../../../../utils/functions/admin_section/admin_main/fetchAdminEntityDetails';
+import { fetchAdminTableDetails } from '../../../../utils/functions/admin_section/admin_main/fetchAdminTableDetails';
 import AdminProfileDetailsRefactor from '../../../standaloneComponents/AdminSection/AdminProfileDetails/new_components/AdminProfileDetailsRefactor';
 import AdminTableRefactor from '../../../standaloneComponents/AdminSection/AdminTable/new_components/AdminTableRefactor';
 import AdminSideNav from '../../../standaloneComponents/generalComponents/SideNav/new_components/AdminSideNav';
@@ -50,14 +29,14 @@ export default function AdminMain({ entityType }: AdminMainProps) {
   // Use the useQuery hook to fetch the table data
   const { isPending: isEntitiesLoading, data: entities } = useQuery({
     queryKey: ['fetchTableDataRefactor', { entityType }],
-    queryFn: () => fetchTableDataRefactor<IEntitiesInterfaces>({ entityType }),
+    queryFn: () => fetchAdminTableDetails<IEntitiesInterfaces>({ entityType }),
   });
 
   // Use the useQuery hook to fetch the details data, only if entity_id is present
   const { isPending: isEntityLoading, data: entity } = useQuery({
     queryKey: ['fetchDetailsDataRefactor', { entityType, entityId: entity_id }],
     queryFn: () =>
-      fetchDetailsDataRefactor<IEntityInterface | null>({
+      fetchAdminEntityDetails<IEntityInterface | null>({
         entityType,
         entityId: entity_id,
       }),

@@ -22,15 +22,15 @@
  * - Uses `StandardTelephoneInputRefactor` for phone number input.
  */
 
-import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
-import { addSecondFormDetails } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/addFormDetailsFunctions';
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
-import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
+import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
+import { addSecondFormDetails } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/add_therapist_form_details';
+import CustomBtn from '../../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
-import CustomBtn from '../../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
+import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 
 interface SecondAddTherapistModalProps {
   isOpen: boolean;

@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
 import AdminMain from './components/pageComponents/AdminSection/new_components/AdminMain';
-import ErrorPage from './components/pageComponents/ErrorPage/ErrorPage';
 import ErrorPageRefactor from './components/pageComponents/ErrorPage/new_component/ErrorPageRefactor';
-import { adminRoutes } from './utils/AppUtils/constants/routes';
-import { AdminLayout } from './utils/AppUtils/layouts/new_layouts/AdminLayout';
-import { PublicLayout } from './utils/AppUtils/layouts/new_layouts/PublicLayout';
-import { Layout } from './utils/AppUtils/layouts/old_layouts/Layout';
+
+import { adminRoutes } from './utils/constants/public_section/routes/adminRoutes';
 import { publicRoutes } from './utils/constants/public_section/routes/publicRoutes';
 import { useAuthentificationContext } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
+import { AdminLayout } from './utils/layouts/new_layouts/AdminLayout';
+import { PublicLayout } from './utils/layouts/new_layouts/PublicLayout';
+import { Layout } from './utils/layouts/old_layouts/Layout';
 
 function App() {
   const { isAdminAuthenticated, setIsAdminAuthenticated } =
@@ -42,7 +42,10 @@ function App() {
             />
           ))}
 
-          <Route path="*" element={<ErrorPage isConnectedAdminErrorPage />} />
+          <Route
+            path="*"
+            element={<ErrorPageRefactor type="connectedAdmin" />}
+          />
         </Route>
       ) : (
         <Route
@@ -55,7 +58,10 @@ function App() {
             />
           }
         >
-          <Route path="*" element={<ErrorPage isUnconnectedAdminErrorPage />} />
+          <Route
+            path="*"
+            element={<ErrorPageRefactor type="unconnectedAdmin" />}
+          />
         </Route>
       )}
       {/* Patient routes

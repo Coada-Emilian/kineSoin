@@ -27,7 +27,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../../../@types/interfaces/modelInterfaces';
-import { getAdminEntityTableBodies } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/getAdminEntityTableBodies';
+import { getAdminEntityTableBodies } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getAdminEntityTableBodies';
 
 interface TableBodyRefactorProps {
   renderedEntities:

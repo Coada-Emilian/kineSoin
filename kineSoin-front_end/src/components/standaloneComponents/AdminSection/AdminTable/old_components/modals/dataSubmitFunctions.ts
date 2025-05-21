@@ -1,6 +1,6 @@
-import { handleAfflictionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminAfflictionApiUtils';
-import { handleInsuranceOrganismCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminInsuranceApiUtils';
-import { handleMedicCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/adminMedicApiUtils';
+import { handleAfflictionCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/affliction_utils/adminAfflictionApiUtils';
+import { handleInsuranceOrganismCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/insurance_utils/adminInsuranceApiUtils';
+import { handleMedicCreationAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/medic_utils/adminMedicApiUtils';
 
 interface DataSubmitFunctionsProps {
   setError: (message: string | null) => void;

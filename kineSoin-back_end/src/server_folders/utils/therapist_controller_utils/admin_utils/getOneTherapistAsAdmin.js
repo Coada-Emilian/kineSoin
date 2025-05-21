@@ -33,28 +33,11 @@ export default async function getOneTherapistAsAdmin(req, res) {
 
       const fullPhoneNumber = `${foundTherapist.prefix}${foundTherapist.phone_number}`;
 
-      // const sentTherapist = {
-      //   id: foundTherapist.id,
-      //   name: foundTherapist.name,
-      //   surname: foundTherapist.surname,
-      //   fullName: `${foundTherapist.name} ${foundTherapist.surname}`,
-      //   email: foundTherapist.email,
-      //   picture_url: foundTherapist.picture_url,
-      //   description: foundTherapist.description,
-      //   diploma: foundTherapist.diploma,
-      //   experience: foundTherapist.experience,
-      //   specialty: foundTherapist.specialty,
-      //   phone_number: foundTherapist.phone_number,
-      //   status: foundTherapist.status,
-      //   licence_code: foundTherapist.licence_code,
-      //   prefix: foundTherapist.prefix,
-      //   full_phone_number: fullPhoneNumber,
-      //   phone_number: foundTherapist.phone_number,
-      // };
+      const fullName = `${foundTherapist.name} ${foundTherapist.surname}`;
 
       return res
         .status(200)
-        .json({ ...foundTherapist, fullName, fullPhoneNumber });
+        .json({ ...foundTherapist.dataValues, fullName, fullPhoneNumber });
     } catch (err) {
       console.error('Error fetching therapist:', err);
       return res.status(500).json({ message: 'Internal server error' });

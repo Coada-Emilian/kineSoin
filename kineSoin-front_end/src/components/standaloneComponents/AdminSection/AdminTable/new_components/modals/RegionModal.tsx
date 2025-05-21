@@ -24,8 +24,8 @@
 import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../utils/DNALoader';
-import { useFetchBodyRegionsMutation } from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/modals/mutations/useFetchBodyRegionsMutation';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
+import { useFetchBodyRegionsMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useFetchBodyRegionsMutation';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import RegionTable from './RegionTable';

@@ -2,26 +2,26 @@
 
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import { IAddForm } from '../../../../../../@types/formInterfaces';
+import DNALoader from '../../../../../../utils/DNALoader';
 import {
   addFirstFormDetails,
   addSecondFormDetails,
   addThirdFormDetails,
-} from '../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/addFormDetailsFunctions';
+} from '../../../../../../utils/functions/component_utils/page_components/admin_table/add_therapist_form_details/addFormDetailsFunctions';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import AddAfflictionModal from '../../new_components/modals/add_modals/AddAfflictionModal';
+import AddInsuranceModal from '../../new_components/modals/add_modals/AddInsuranceModal';
+import AddMedicModal from '../../new_components/modals/add_modals/AddMedicModal';
+import FirstAddTherapistModal from '../../new_components/modals/add_modals/FirstAddTherapistModal';
+import SecondAddTherapistModal from '../../new_components/modals/add_modals/SecondAddTherapistModal';
+import ThirdAddTherapistModal from '../../new_components/modals/add_modals/ThirdAddTherapistModal';
+import { createTherapist } from './createTherapist';
 import {
   handleAfflictionSubmit,
   handleInsuranceSubmit,
   handleMedicSubmit,
 } from './dataSubmitFunctions';
-import { createTherapist } from './createTherapist';
-import DNALoader from '../../../../../../utils/DNALoader';
-import FirstAddTherapistModal from '../../new_components/modals/add_modals/FirstAddTherapistModal';
-import SecondAddTherapistModal from '../../new_components/modals/add_modals/SecondAddTherapistModal';
-import ThirdAddTherapistModal from '../../new_components/modals/add_modals/ThirdAddTherapistModal';
-import AddAfflictionModal from '../../new_components/modals/add_modals/AddAfflictionModal';
-import AddMedicModal from '../../new_components/modals/add_modals/AddMedicModal';
-import AddInsuranceModal from '../../new_components/modals/add_modals/AddInsuranceModal';
-import { IAddForm } from '../../../../../../@types/formInterfaces';
 
 interface AdminModalProps {
   setAddForm?: React.Dispatch<React.SetStateAction<IAddForm>>;

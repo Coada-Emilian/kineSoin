@@ -6,8 +6,8 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../@types/interfaces/modelInterfaces';
-import { StatusMenu } from '../../../../../utils/componentUtils/pageComponents/constants/adminSection/AdminProfileDetails/StatusMenu.tsx';
-import { entityUpdateFunctions } from '../../../../../utils/componentUtils/pageComponents/constants/adminSection/AdminProfileDetails/entityUpdateFunctions.tsx';
+import { StatusMenu } from '../../../../../utils/constants/admin_section/admin_profile_details/StatusMenu.tsx';
+import { entityUpdateFunctions } from '../../../../../utils/constants/admin_section/admin_profile_details/entityUpdateFunctions.tsx';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
 import TitleOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_conponents/GeneralOutputRefactor.tsx';

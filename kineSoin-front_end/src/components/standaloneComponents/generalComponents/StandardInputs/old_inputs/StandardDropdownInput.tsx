@@ -10,8 +10,8 @@ import {
 } from '../../../../../@types/interfaces/modelInterfaces';
 
 import { ICountry } from '../../../../../@types/interfaces/customInterfaces';
-import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/adminBodyRegionApiUtils';
-import { fetchCountriesData } from '../../../../../utils/componentUtils/commonComponents/functions/StandardInputs/fetchCountriesData';
+import { fetchBodyRegionsAsAdmin } from '../../../../../utils/apiUtils/adminApiUtils/body_region_utils/adminBodyRegionApiUtils';
+import { fetchCountriesData } from '../../../../../utils/functions/component_utils/common_components/standardInputs/fetchCountriesData';
 import { fetchAppointmentsByPrescription } from '../standardDropdownInput/functions/fetchAppointmentsByPrescription';
 import { identifyOldInsurance } from '../standardDropdownInput/functions/identifyOldInsurance';
 

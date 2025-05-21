@@ -26,8 +26,8 @@
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { ITherapist } from '../../../../../../../@types/interfaces/modelInterfaces';
-import { handleTherapistStatus } from '../../../../../../../utils/componentUtils/pageComponents/functions/adminSection/AdminTable/toggleTherapistStatus';
 import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
+import { handleTherapistStatus } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/toggleTherapistStatus';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
