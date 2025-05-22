@@ -1,25 +1,3 @@
-/**
- * @function AfflictionTableBodyRefactor
- *
- * This component renders the table body for a list of affliction entities.
- * It maps over an array of affliction data and displays each entry in a table row with details
- * such as `id`, `name`, `body_region`, and `insurance_code`. Each row includes options for inspecting and deleting the affliction.
- * The delete option triggers a modal via context to confirm the action, while the edit option navigates to the affliction details page.
- *
- * @param {Object} props - The component props.
- * @param {IAffliction[]} props.renderedAfflictions - An array of affliction entities to be rendered as table rows.
- *
- * @returns {JSX.Element} - Returns a table body with rows representing each affliction entity.
- *
- * @example
- * <AfflictionTableBodyRefactor renderedAfflictions={afflictionList} />
- *
- * @remarks
- * The component utilizes the `openDeleteModal` function from the `AdminTableGlobalContext` context
- * to handle the delete action. It also uses `Link` components to navigate to the affliction's details page.
- * The table rows adapt to different screen sizes using responsive Tailwind CSS classes.
- */
-
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IAffliction } from '../../../../../../../@types/interfaces/modelInterfaces';
@@ -36,6 +14,10 @@ export default function AfflictionTableBodyRefactor({
 }: AfflictionTableBodyRefactorProps) {
   // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminTableGlobalContext();
+
+  const handleAfflictionDeleteClick = (affliction: IAffliction) => {
+    openDeleteModal(affliction);
+  };
 
   return renderedAfflictions.map((affliction: IAffliction, index: number) => {
     // Check if the current row is the last row
@@ -92,7 +74,7 @@ export default function AfflictionTableBodyRefactor({
             <Button
               className="mx-auto block md:hidden"
               onClick={() => {
-                openDeleteModal(affliction);
+                handleAfflictionDeleteClick(affliction);
               }}
             >
               <img src={deleteIcon} alt="delete" className="w-5 mx-1" />
@@ -101,7 +83,7 @@ export default function AfflictionTableBodyRefactor({
             <Button
               className="w-25 mx-auto items-center hidden md:flex hover:scale-110"
               onClick={() => {
-                openDeleteModal(affliction);
+                handleAfflictionDeleteClick(affliction);
               }}
             >
               <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />

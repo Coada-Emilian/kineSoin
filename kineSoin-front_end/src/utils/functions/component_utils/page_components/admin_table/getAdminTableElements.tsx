@@ -1,27 +1,6 @@
-/**
- * @function getAdminTableElements
- *
- * A function that returns an array of objects representing table configuration for different entity types
- * (therapists, patients, afflictions, etc.). Each object contains details about the entity type,
- * the table columns, modal names, and any associated action buttons.
- *
- * @param entityStatus - The current status of the entities (e.g., active, inactive).
- * @param setEntityStatus - A function to update the status of entities.
- *
- * @returns {Array} - An array of configuration objects, one for each entity type.
- *
- * @example
- * const tableElements = getAdminTableElements({ entityStatus, setEntityStatus });
- *
- * @remarks
- * - Each entity has properties for status buttons, table headings, and modal actions.
- * - The configuration supports custom buttons for adding new entities (e.g., "Ajouter kiné" for therapists).
- * - The entity types include therapist, patient, affliction, medic, insurance, and region.
- */
-
-import AfflictionsStatusButtons from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/affliction/AfflictionsStatusButtons';
-import PatientsStatusButtons from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/patient/PatientsStatusButtons';
-import TherapistsStatusButtons from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/therapist/TherapistsStatusButtons';
+import AfflictionsStatusButtons from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/affliction/AfflictionsStatusButtons';
+import PatientsStatusButtons from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/patient/PatientsStatusButtons';
+import TherapistsStatusButtons from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/therapist/TherapistsStatusButtons';
 
 interface FunctionProps {
   entityStatus: string;

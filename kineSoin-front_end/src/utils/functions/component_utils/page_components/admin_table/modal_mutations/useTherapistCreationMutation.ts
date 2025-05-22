@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { IAddForm } from '../../../../../../../../@types/formInterfaces';
+
 import { createTherapist } from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/old_components/modals/createTherapist';
+import { IAddForm } from '../../../../../../@types/interfaces/customInterfaces';
 
 export const useTherapistCreationMutation = (
   addForm: IAddForm,

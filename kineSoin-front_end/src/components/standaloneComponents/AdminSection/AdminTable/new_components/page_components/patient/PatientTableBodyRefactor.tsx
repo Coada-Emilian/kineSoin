@@ -1,30 +1,9 @@
-/**
- * @function PatientTableBodyRefactor
- *
- * This component renders the table body for a list of patient entities.
- * It maps over an array of patient data and displays each entry in a table row with details
- * such as `id`, `fullName`, and `status`. The status is color-coded based on the patient's current state (active, inactive, banned, or pending).
- * Each row includes options for inspecting and deleting the patient.
- * The delete option triggers a modal via context to confirm the action, while the edit option navigates to the patient's details page.
- *
- * @param {Object} props - The component props.
- * @param {IPatient[]} props.renderedPatients - An array of patient entities to be rendered as table rows.
- *
- * @returns {JSX.Element} - Returns a table body with rows representing each patient entity.
- *
- * @example
- * <PatientTableBodyRefactor renderedPatients={patientList} />
- *
- * @remarks
- * The component utilizes the `openDeleteModal` function from the `AdminTableGlobalContext` context
- * to handle the delete action. It also uses `Link` components to navigate to the patient's details page.
- * The table rows adapt to different screen sizes using responsive Tailwind CSS classes, with different background colors for the status.
- */
-
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IPatient } from '../../../../../../../@types/interfaces/modelInterfaces';
 import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
+import { getPatientTableBodyStatusBackgroundColor } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/patient_table_body/getPatientTableBodyStatusBackgroundColor';
+import { getPatientTableBodyStatusText } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/patient_table_body/getPatientTableBodyStatusText';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 
@@ -37,6 +16,10 @@ export default function PatientTableBodyRefactor({
 }: PatientTableBodyRefactorProps) {
   // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminTableGlobalContext();
+
+  const handlePatientDeleteClick = (patient: IPatient) => {
+    openDeleteModal(patient);
+  };
 
   return renderedPatients.map((patient: IPatient, index: number) => {
     // Check if the current row is the last row
@@ -57,25 +40,11 @@ export default function PatientTableBodyRefactor({
         </td>
 
         <td
-          className={`border border-gray-300 ${
-            patient.status === 'active'
-              ? 'bg-green-300'
-              : patient.status === 'pending'
-                ? 'bg-yellow-300'
-                : patient.status === 'banned'
-                  ? 'bg-red-300'
-                  : 'bg-gray-200'
-          } px-4 py-2 text-center flex gap-1 items-center font-medium justify-center`}
+          className={`border border-gray-300 ${getPatientTableBodyStatusBackgroundColor(
+            patient.status
+          )} px-4 py-2 text-center flex gap-1 items-center font-medium justify-center`}
         >
-          <p>
-            {patient.status === 'active'
-              ? 'ACTIF'
-              : patient.status === 'inactive'
-                ? 'INACTIF'
-                : patient.status === 'banned'
-                  ? 'BANNI'
-                  : 'EN ATTENTE'}
-          </p>
+          <p>{`${getPatientTableBodyStatusText(patient.status)}`}</p>
         </td>
 
         <td className="border border-gray-300 px-4 py-2 text-center">
@@ -102,18 +71,14 @@ export default function PatientTableBodyRefactor({
         >
           <Button
             className="mx-auto block md:hidden"
-            onClick={() => {
-              openDeleteModal(patient);
-            }}
+            onClick={() => handlePatientDeleteClick(patient)}
           >
             <img src={deleteIcon} alt="delete" className="w-5 mx-1" />
           </Button>
 
           <Button
             className="w-25 mx-auto items-center hidden md:flex hover:scale-110"
-            onClick={() => {
-              openDeleteModal(patient);
-            }}
+            onClick={() => handlePatientDeleteClick(patient)}
           >
             <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />
             <p className="text-red-600 font-semibold">Supprimer</p>

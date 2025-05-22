@@ -72,6 +72,8 @@ export const addSecondFormDetails = (
       full_phone_number: fullPhoneNUmber,
     }));
 
+    setError('');
+
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(false);
     setIsAddTherapistModalP3Open && setIsAddTherapistModalP3Open(true);
   } catch (error) {

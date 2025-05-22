@@ -1,25 +1,3 @@
-/**
- * @function InsuranceTableBodyRefactor
- *
- * This component renders the table body for a list of insurance entities.
- * It maps over an array of insurance data and displays each entry in a table row with details
- * such as `id`, `name`, and `amc_code`. Each row includes options for inspecting and deleting the insurance.
- * The delete option triggers a modal via context to confirm the action, while the edit option navigates to the insurance details page.
- *
- * @param {Object} props - The component props.
- * @param {IInsurance[]} props.renderedInsurances - An array of insurance entities to be rendered as table rows.
- *
- * @returns {JSX.Element} - Returns a table body with rows representing each insurance entity.
- *
- * @example
- * <InsuranceTableBodyRefactor renderedInsurances={insuranceList} />
- *
- * @remarks
- * The component utilizes the `openDeleteModal` function from the `AdminTableGlobalContext` context
- * to handle the delete action. It also uses `Link` components to navigate to the insurance's details page.
- * The table rows adapt to different screen sizes using responsive Tailwind CSS classes.
- */
-
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IInsurance } from '../../../../../../../@types/interfaces/modelInterfaces';
@@ -36,6 +14,10 @@ export default function InsuranceTableBodyRefactor({
 }: InsuranceTableBodyRefactorProps) {
   // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminTableGlobalContext();
+
+  const handleInsuranceDeleteClick = (insurance: IInsurance) => {
+    openDeleteModal(insurance);
+  };
 
   return renderedInsurances.map((insurance: IInsurance, index: number) => {
     // Check if the current row is the last row
@@ -84,7 +66,7 @@ export default function InsuranceTableBodyRefactor({
           <Button
             className="mx-auto block md:hidden"
             onClick={() => {
-              openDeleteModal(insurance);
+              handleInsuranceDeleteClick(insurance);
             }}
           >
             <img src={deleteIcon} alt="delete" className="w-5 mx-1" />
@@ -93,7 +75,7 @@ export default function InsuranceTableBodyRefactor({
           <Button
             className="w-25 mx-auto items-center hidden md:flex hover:scale-110"
             onClick={() => {
-              openDeleteModal(insurance);
+              handleInsuranceDeleteClick(insurance);
             }}
           >
             <img src={deleteIcon} alt="supprimer" className="w-5 mx-1" />

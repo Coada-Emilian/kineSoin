@@ -1,7 +1,7 @@
 import { Button, MenuItem } from '@headlessui/react';
 import DNALoader from '../../../../../../../utils/DNALoader';
-import { usePatientStatusChangeMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_profile_details/mutations/usePatientStatusChangeMutation';
-import { useTherapistStatusChangeMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_profile_details/mutations/useTherapistStatusChangeMutation';
+import { usePatientStatusChangeMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/mutations/usePatientStatusChangeMutation';
+import { useTherapistStatusChangeMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/mutations/useTherapistStatusChangeMutation';
 import { getStatusButtonsItemDetails } from './getStatusButtonsItemDetails';
 
 interface StatusButtonsRefactorProps {

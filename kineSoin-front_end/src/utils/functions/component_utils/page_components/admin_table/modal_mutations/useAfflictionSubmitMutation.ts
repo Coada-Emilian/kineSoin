@@ -1,25 +1,3 @@
-/**
- * @hook useSubmitAffliction
- *
- * A custom React Query mutation hook to handle the submission of a new affliction. This function performs client-side
- * validation before sending the data to the backend and updates the UI accordingly.
- *
- * @param {() => void} onClose - Callback function to close the modal on success.
- * @param {(msg: string) => void} setError - Function to update the global error message.
- *
- * @returns {Mutation} - Returns a React Query mutation object for handling affliction creation.
- *
- * @example
- * const submitAfflictionMutation = useSubmitAffliction(onClose, setError);
- * submitAfflictionMutation.mutate(formData);
- *
- * @remarks
- * - Ensures that all required fields are filled before submission.
- * - Performs strict validation on field lengths and formats.
- * - On success, closes the modal and reloads the page after 3 seconds.
- * - On error, sets an appropriate error message in the global context.
- */
-
 import { useMutation } from '@tanstack/react-query';
 import { handleAfflictionCreationAsAdmin } from '../../../../../apiUtils/adminApiUtils/affliction_utils/adminAfflictionApiUtils';
 

@@ -62,6 +62,8 @@ export const addThirdFormDetails = async (
         status: therapistStatus,
       }));
 
+    setError('');
+
     setIsAdminTherapistFormValid && setIsAdminTherapistFormValid(true);
   } catch (error) {
     setError('Une erreur est survenue. Veuillez réessayer.');

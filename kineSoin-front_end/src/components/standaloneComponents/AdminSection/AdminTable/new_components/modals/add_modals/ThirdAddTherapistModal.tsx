@@ -1,26 +1,3 @@
-/**
- * @component ThirdAddTherapistModal
- *
- * A modal for adding a therapist, which allows input of email, password, status, and other required fields.
- * It triggers the therapist creation process and handles submission, including form validation and error messages.
- *
- * @param {boolean} isOpen - Flag indicating whether the modal is open or not.
- * @param {() => void} onClose - Function to close the modal.
- *
- * @returns {JSX.Element} - The rendered modal with the therapist creation form.
- *
- * @example
- * <ThirdAddTherapistModal
- *   isOpen={isModalOpen}
- *   onClose={() => setIsModalOpen(false)}
- * />
- *
- * @remarks
- * - The form includes email, password fields, and status selection.
- * - The therapist creation is handled via a mutation, and on success, the form closes and the page reloads.
- * - Error handling is built-in for validation and server responses.
- */
-
 import { useEffect, useState } from 'react';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
@@ -63,6 +40,16 @@ export default function ThirdAddTherapistModal({
     }
   }, [isAdminTherapistFormValid]);
 
+  function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    addThirdFormDetails(e, {
+      setError,
+      setAddForm,
+      setIsAdminTherapistFormValid,
+    });
+  }
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -76,16 +63,7 @@ export default function ThirdAddTherapistModal({
           </p>
         )}
 
-        <form
-          className="space-y-4 "
-          onSubmit={(e) =>
-            addThirdFormDetails(e, {
-              setError,
-              setAddForm,
-              setIsAdminTherapistFormValid: setIsAdminTherapistFormValid,
-            })
-          }
-        >
+        <form className="space-y-4 " onSubmit={handleFormSubmit}>
           <StandardEmailInputRefactor
             emailInput={{
               id: 'therapist-register-email_input',

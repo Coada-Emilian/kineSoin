@@ -1,32 +1,3 @@
-/**
- * @component StandardTextInputRefactor
- *
- * A refactored text input component that handles both standard text input and text area variations.
- * It dynamically renders either an `<input>` or `<textarea>` based on the `isTextArea` prop from the `textInput` object.
- *
- * @param {ITextInput} textInput - The configuration object that provides all necessary properties to customize the input field.
- *
- * @returns {JSX.Element} - The rendered input or text area component.
- *
- * @example
- * <StandardTextInputRefactor
- *   textInput={{
- *     id: 'input-id',
- *     labelName: 'Input Label',
- *     name: 'inputName',
- *     placeholder: 'Enter text',
- *     isRequired: true,
- *     isTextArea: false,
- *   }}
- * />
- *
- * @remarks
- * - It automatically handles the value of the input field via React's `useState`.
- * - Supports placeholder, required validation, and custom styling.
- * - Can render as a `<textarea>` if the `isTextArea` property is set to `true`.
- * - Updates the input value on change using the `onChange` handler.
- */
-
 import { useState } from 'react';
 import { ITextInput } from '../../../../../@types/interfaces/inputInterfaces';
 

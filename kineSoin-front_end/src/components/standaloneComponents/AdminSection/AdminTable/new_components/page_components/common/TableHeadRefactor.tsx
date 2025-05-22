@@ -1,27 +1,3 @@
-/**
- * @function TableHeadRefactor
- *
- * A component that renders the table header with dynamic column names. It accepts 2-3 header content
- * for the table columns and optionally displays a fourth header if provided.
- *
- * @param secondHeaderContent - The content for the second column header (e.g., name).
- * @param thirdHeaderContent - The content for the third column header (e.g., status).
- * @param fourthHeaderContent - The content for the fourth column header (optional, e.g., region).
- *
- * @returns {JSX.Element} - A `thead` element with the appropriate table headers.
- *
- * @example
- * <TableHeadRefactor
- *   secondHeaderContent="Nom kiné"
- *   thirdHeaderContent="Statut"
- *   fourthHeaderContent="Cotation"
- * />
- *
- * @remarks
- * - The `fourthHeaderContent` is conditionally rendered based on its availability, and is only visible on larger screens (`md:table-cell`).
- * - The table will always include headers for the ID, the entity's name (second column), and the entity's status (third column).
- */
-
 interface TableHeadRefactorProps {
   secondHeaderContent: string;
   thirdHeaderContent: string;

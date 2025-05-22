@@ -214,7 +214,7 @@ export interface IButtonDetails {
   onClick?: () => void;
 }
 
-interface IErrorPageFunctionProps {
+export interface IErrorPageFunctionProps {
   type:
     | 'public'
     | 'connectedAdmin'
@@ -223,4 +223,14 @@ interface IErrorPageFunctionProps {
     | 'unconnectedPatient'
     | 'connectedTherapist'
     | 'unconnectedTherapist';
+}
+
+export interface ITableBodyRefactorProps {
+  renderedEntities:
+    | ITherapist[]
+    | IPatient[]
+    | IAffliction[]
+    | IMedic[]
+    | IInsurance[];
+  entityType: string;
 }

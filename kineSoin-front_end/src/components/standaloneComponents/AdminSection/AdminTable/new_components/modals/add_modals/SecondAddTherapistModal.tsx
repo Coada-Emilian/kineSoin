@@ -1,27 +1,3 @@
-/**
- * @component SecondAddTherapistModal
- *
- * This modal component handles the second step in adding a new therapist.
- * It collects details about the therapist's education, experience, and contact information.
- *
- * @param {boolean} isOpen - Controls whether the modal is visible.
- * @param {() => void} onClose - Function to close the modal.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP3Open - Function to open the third step modal.
- *
- * @returns {JSX.Element} - The second step modal component for adding a therapist.
- *
- * @example
- * <SecondAddTherapistModal isOpen={isOpen} onClose={onClose} setIsAddTherapistModalP3Open={setStep3Open} />
- *
- * @remarks
- * - Uses `useGlobalContext` to manage error messages.
- * - Uses `useAdminAddTherapistFormGlobalContext` to update form state.
- * - Calls `addSecondFormDetails` on form submission to validate and proceed.
- * - Includes input fields for diploma, experience, specialty, and description.
- * - Uses `StandardDropdownInputRefactor` for country prefix selection.
- * - Uses `StandardTelephoneInputRefactor` for phone number input.
- */
-
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
@@ -52,6 +28,17 @@ export default function SecondAddTherapistModal({
   // Get the admin add therapist form
   const { setAddForm } = useAdminAddTherapistFormGlobalContext();
 
+  function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    addSecondFormDetails(e, {
+      setError,
+      setAddForm,
+      setIsAddTherapistModalP2Open: onClose,
+      setIsAddTherapistModalP3Open: setIsAddTherapistModalP3Open,
+    });
+  }
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -63,17 +50,7 @@ export default function SecondAddTherapistModal({
           <p className="text-red-500 text-xs text-center">{errorMessage}</p>
         )}
 
-        <form
-          className="space-y-4 "
-          onSubmit={(e) =>
-            addSecondFormDetails(e, {
-              setError,
-              setAddForm,
-              setIsAddTherapistModalP2Open: onClose,
-              setIsAddTherapistModalP3Open: setIsAddTherapistModalP3Open,
-            })
-          }
-        >
+        <form className="space-y-4 " onSubmit={handleFormSubmit}>
           <StandardTextInputRefactor
             textInput={{
               id: 'therapist-register-diploma_input',

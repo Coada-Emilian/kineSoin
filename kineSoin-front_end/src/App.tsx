@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import AdminLoginPage from './components/pageComponents/AdminSection/AdminLoginPage';
 import AdminMain from './components/pageComponents/AdminSection/new_components/AdminMain';
 import ErrorPageRefactor from './components/pageComponents/ErrorPage/new_component/ErrorPageRefactor';
-
 import { adminRoutes } from './utils/constants/public_section/routes/adminRoutes';
 import { publicRoutes } from './utils/constants/public_section/routes/publicRoutes';
 import { useAuthentificationContext } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';

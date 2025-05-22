@@ -1,26 +1,3 @@
-/**
- * @component FirstAddTherapistModal
- *
- * This modal component is used for the first step in adding a new therapist.
- * It collects the therapist's personal information and an image.
- *
- * @param {boolean} isOpen - Controls whether the modal is visible.
- * @param {() => void} onClose - Function to close the modal.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP2Open - Function to open the second step modal.
- *
- * @returns {JSX.Element} - The first step modal component for adding a therapist.
- *
- * @example
- * <FirstAddTherapistModal isOpen={isOpen} onClose={onClose} setIsAddTherapistModalP2Open={setStep2Open} />
- *
- * @remarks
- * - Uses `useState` to handle the therapist's image file.
- * - Uses global contexts for managing error messages and form state.
- * - Calls `addFirstFormDetails` on form submission to validate and proceed.
- * - Includes input fields for name, surname, and ADELI code.
- * - Uses `StandardTextInputRefactor` and `StandardFileInputRefactor` for inputs.
- */
-
 import { useState } from 'react';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
@@ -50,6 +27,18 @@ export default function FirstAddTherapistModal({
   // Destructure the necessary functions from the admin add therapist form context
   const { setAddForm } = useAdminAddTherapistFormGlobalContext();
 
+  function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    addFirstFormDetails(e, {
+      therapistImage,
+      setError,
+      setAddForm,
+      setIsAddTherapistModalP1Open: onClose,
+      setIsAddTherapistModalP2Open: setIsAddTherapistModalP2Open,
+    });
+  }
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div className="space-y-4 p-8">
@@ -61,18 +50,7 @@ export default function FirstAddTherapistModal({
           <p className="text-red-500 text-xs text-center">{errorMessage}</p>
         )}
 
-        <form
-          className="space-y-4 "
-          onSubmit={(e) =>
-            addFirstFormDetails(e, {
-              therapistImage,
-              setError,
-              setAddForm,
-              setIsAddTherapistModalP1Open: onClose,
-              setIsAddTherapistModalP2Open: setIsAddTherapistModalP2Open,
-            })
-          }
-        >
+        <form className="space-y-4 " onSubmit={handleFormSubmit}>
           <StandardTextInputRefactor
             textInput={{
               id: 'therapist-register-name_input',

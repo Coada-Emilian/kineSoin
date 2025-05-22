@@ -7,7 +7,7 @@ import {
 import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
 import { PrefixesContextProvider } from '../../../../../utils/contexts/PrefixesContext';
-import { getAdminTableElements } from '../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getAdminTableElements';
+import { getAdminTableElements } from '../../../../../utils/functions/component_utils/page_components/admin_table/getAdminTableElements';
 import {
   renderAfflictions,
   renderPatients,

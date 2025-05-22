@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary';
+import Joi from 'joi';
 import multer from 'multer';
 import { Scrypt } from '../../../authentification/Scrypt.js';
 import { therapistPhotoStorage } from '../../../cloudinary/index.js';
@@ -82,7 +83,7 @@ export default async function createTherapistAsAdmin(req, res) {
             const fullPhoneNumber = `${prefix}${phone_number}`;
 
             const newTherapist = {
-              admin_id: adminId,
+              admin_id,
               name,
               surname,
               email,

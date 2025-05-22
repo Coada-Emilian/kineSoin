@@ -37,12 +37,12 @@ import {
   IMedic,
   IPatient,
   ITherapist,
-} from '../../../../../../@types/interfaces/modelInterfaces';
-import AfflictionTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/affliction/AfflictionTableBodyRefactor';
-import InsuranceTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/insurance/InsuranceTableBodyRefactor';
-import MedicTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/medic/MedicTableBodyRefactor';
-import PatientTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/patient/PatientTableBodyRefactor';
-import TherapistTableBodyRefactor from '../../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/therapist/TherapistTableBodyRefactor';
+} from '../../../../../@types/interfaces/modelInterfaces';
+import AfflictionTableBodyRefactor from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/affliction/AfflictionTableBodyRefactor';
+import InsuranceTableBodyRefactor from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/insurance/InsuranceTableBodyRefactor';
+import MedicTableBodyRefactor from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/medic/MedicTableBodyRefactor';
+import PatientTableBodyRefactor from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/patient/PatientTableBodyRefactor';
+import TherapistTableBodyRefactor from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/therapist/TherapistTableBodyRefactor';
 
 interface FunctionProps {
   renderedEntities:
@@ -52,7 +52,7 @@ interface FunctionProps {
     | IMedic[]
     | IInsurance[];
 }
-export const getAdminEntityTableBodies = ({
+export const getAdminTableBodyContent = ({
   renderedEntities,
 }: FunctionProps) => [
   {

@@ -68,6 +68,8 @@ export const addFirstFormDetails = async (
       full_phone_number: '',
     });
 
+    setError('');
+
     setIsAddTherapistModalP1Open && setIsAddTherapistModalP1Open(false);
     setIsAddTherapistModalP2Open && setIsAddTherapistModalP2Open(true);
   } catch (error) {
