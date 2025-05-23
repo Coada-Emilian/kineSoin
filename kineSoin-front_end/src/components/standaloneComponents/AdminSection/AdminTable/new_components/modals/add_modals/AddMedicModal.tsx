@@ -1,4 +1,3 @@
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
 import { useSubmitMedicMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/medic_mutations/useMedicSubmitMutation';
@@ -123,12 +122,12 @@ export default function AddMedicModal({ isOpen, onClose }: AddMedicModalProps) {
             />
           </div>
 
-          <div className="flex gap-2 items-center justify-between">
+          <div className="flex gap-2 items-center justify-between w-full">
             <StandardDropdownInputRefactor
               dropdownInput={{
                 id: 'medic-register-prefix_input',
                 labelName: 'Préfixe',
-                additionalDivClassName: 'w-4/12',
+                additionalDivClassName: 'w-1/4',
                 name: 'prefix',
                 autoComplete: 'prefix',
                 isRequired: true,
@@ -154,6 +153,7 @@ export default function AddMedicModal({ isOpen, onClose }: AddMedicModalProps) {
                 isRequired: true,
                 autoComplete: 'phone-number',
                 placeholder: 'Entrez le numéro de téléphone du médecin',
+                additionalDivClassName: 'w-3/4',
               }}
             />
           </div>

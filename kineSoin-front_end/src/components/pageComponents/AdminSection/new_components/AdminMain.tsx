@@ -7,7 +7,6 @@ import {
 } from '../../../../@types/types/componentTypes';
 import { AdminProfileDetailsGlobalProvider } from '../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableGlobalContext';
-import { PrefixesContextProvider } from '../../../../utils/contexts/PrefixesContext';
 import DNALoader from '../../../../utils/DNALoader';
 import { fetchAdminEntityDetails } from '../../../../utils/functions/admin_section/admin_main/fetchAdminEntityDetails';
 import { fetchAdminTableDetails } from '../../../../utils/functions/admin_section/admin_main/fetchAdminTableDetails';
@@ -63,12 +62,10 @@ export default function AdminMain({ entityType }: AdminMainProps) {
 
         {id && entity && (
           <AdminProfileDetailsGlobalProvider>
-            <PrefixesContextProvider>
-              <AdminProfileDetailsRefactor
-                entityType={entityType}
-                entity={entity}
-              />
-            </PrefixesContextProvider>
+            <AdminProfileDetailsRefactor
+              entityType={entityType}
+              entity={entity}
+            />
           </AdminProfileDetailsGlobalProvider>
         )}
       </div>

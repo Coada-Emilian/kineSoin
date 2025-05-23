@@ -84,12 +84,12 @@ export default function SecondAddTherapistModal({
             }}
           />
 
-          <div className="flex gap-2 items-center justify-between">
+          <div className="flex gap-2 items-center justify-between w-full">
             <StandardDropdownInputRefactor
               dropdownInput={{
                 id: 'therapist-register-prefix_input',
                 labelName: 'Préfixe',
-                additionalDivClassName: 'w-4/12',
+                additionalDivClassName: 'w-1/4',
                 name: 'prefix',
                 autoComplete: 'prefix',
                 isRequired: true,
@@ -113,6 +113,7 @@ export default function SecondAddTherapistModal({
               telephoneInput={{
                 id: 'therapist-register-phoneNumber_input',
                 isRequired: true,
+                additionalDivClassName: 'w-3/4',
                 autoComplete: 'phone-number',
                 placeholder: 'Entrez le numéro de téléphone du kiné',
               }}

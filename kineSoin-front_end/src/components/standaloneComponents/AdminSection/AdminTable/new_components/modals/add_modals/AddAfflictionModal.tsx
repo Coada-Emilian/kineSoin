@@ -89,7 +89,7 @@ export default function AddAfflictionModal({
             }}
           />
 
-          <div className="flex gap-1">
+          <div className="flex gap-2 w-full">
             <StandardTextInputRefactor
               textInput={{
                 id: 'affliction-register-licenceCode_input',
@@ -98,12 +98,14 @@ export default function AddAfflictionModal({
                 placeholder: "Entrez la cotation de l'affliction",
                 isRequired: true,
                 autoComplete: 'insurance-code',
+                additionalDivClassName: 'w-1/2',
               }}
             />
 
             <StandardDropdownInputRefactor
               dropdownInput={{
                 id: 'affliction-register-operatedStatus_input',
+                additionalDivClassName: 'w-1/2',
                 labelName: 'Est opéré ?',
                 name: 'is_operated',
                 autoComplete: 'is operated',

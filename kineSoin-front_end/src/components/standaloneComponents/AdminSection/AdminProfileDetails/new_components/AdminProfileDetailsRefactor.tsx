@@ -10,7 +10,7 @@ import { StatusMenu } from '../../../../../utils/constants/admin_section/admin_p
 import { entityUpdateFunctions } from '../../../../../utils/constants/admin_section/admin_profile_details/entityUpdateFunctions.tsx';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
-import TitleOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_conponents/GeneralOutputRefactor.tsx';
+import TitleOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_components/GeneralOutputRefactor.tsx';
 import StatusButtonsRefactor from '../pageComponents/generalComponents/therapist/StatusButtonRefactor.tsx';
 import CommonSectionRefactor from '../pageComponents/sections/CommonSectionRefactor.tsx';
 import ImageSectionRefactor from '../pageComponents/sections/ImageSectionRefactor.tsx';

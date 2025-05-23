@@ -11,18 +11,18 @@ import { usePrefixesContext } from '../../../../../../utils/contexts/PrefixesCon
 import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
-import AddressOutputRefactor from '../generalComponents/common/Outputs/new_conponents/AddressOutputRefactor';
-import AgeAndGenderOutputRefactor from '../generalComponents/common/Outputs/new_conponents/AgeAndGenderOutputRefactor';
-import AMCCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/AMCCodeOutputRefactor';
-import BodyRegionAndOperatedStatusOutputRefactor from '../generalComponents/common/Outputs/new_conponents/BodyRegionAndOperatedStatusOutputRefactor';
-import DescriptionOutputRefactor from '../generalComponents/common/Outputs/new_conponents/DescriptionOutputRefactor';
-import DiplomaOutputRefactor from '../generalComponents/common/Outputs/new_conponents/DiplomaOutputRefactor';
-import EmailOutputRefactor from '../generalComponents/common/Outputs/new_conponents/EmailOutputRefactor';
-import ExperienceOutputRefactor from '../generalComponents/common/Outputs/new_conponents/ExperienceOutputRefactor';
-import InsuranceCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/InsuranceCodeOutputRefactor';
-import LicenceCodeOutputRefactor from '../generalComponents/common/Outputs/new_conponents/LicenceCodeOutputRefactor';
-import PhoneNumberOutputRefactor from '../generalComponents/common/Outputs/new_conponents/PhoneNumberOutputRefactor';
-import SpecialtyOutputRefactor from '../generalComponents/common/Outputs/new_conponents/SpecialtyOutputRefactor';
+import AddressOutputRefactor from '../generalComponents/common/Outputs/new_components/AddressOutputRefactor';
+import AgeAndGenderOutputRefactor from '../generalComponents/common/Outputs/new_components/AgeAndGenderOutputRefactor';
+import AMCCodeOutputRefactor from '../generalComponents/common/Outputs/new_components/AMCCodeOutputRefactor';
+import BodyRegionAndOperatedStatusOutputRefactor from '../generalComponents/common/Outputs/new_components/BodyRegionAndOperatedStatusOutputRefactor';
+import DescriptionOutputRefactor from '../generalComponents/common/Outputs/new_components/DescriptionOutputRefactor';
+import DiplomaOutputRefactor from '../generalComponents/common/Outputs/new_components/DiplomaOutputRefactor';
+import EmailOutputRefactor from '../generalComponents/common/Outputs/new_components/EmailOutputRefactor';
+import ExperienceOutputRefactor from '../generalComponents/common/Outputs/new_components/ExperienceOutputRefactor';
+import InsuranceCodeOutputRefactor from '../generalComponents/common/Outputs/new_components/InsuranceCodeOutputRefactor';
+import LicenceCodeOutputRefactor from '../generalComponents/common/Outputs/new_components/LicenceCodeOutputRefactor';
+import PhoneNumberOutputRefactor from '../generalComponents/common/Outputs/new_components/PhoneNumberOutputRefactor';
+import SpecialtyOutputRefactor from '../generalComponents/common/Outputs/new_components/SpecialtyOutputRefactor';
 import { getProfileSectionEntityDetails } from './getProfileSectionEntityDetails';
 
 interface ProfileSectionRefactorProps {
@@ -71,12 +71,12 @@ export default function ProfileSectionRefactor({
             }}
           />
 
-          <div className="flex flex-row gap-2 justify-between">
+          <div className="flex flex-row gap-2 justify-between w-full">
             <StandardDropdownInputRefactor
               dropdownInput={{
                 id: `admin-${entityType}-prefix_input`,
                 labelName: 'Préfixe',
-                additionalDivClassName: 'w-1/12',
+                additionalDivClassName: 'w-1/4',
                 additionalLabelClassName: 'text-sm',
                 isFlexRow: true,
                 name: 'prefix',
@@ -84,7 +84,7 @@ export default function ProfileSectionRefactor({
                 isRequired: true,
                 allOptions: {
                   startingOption: {
-                    value: `${existingCountry.prefix}`,
+                    value: `${existingCountry?.prefix}`,
                     text: `${existingCountry?.name} ${existingCountry?.prefix}`,
                   },
                   options: [
@@ -104,8 +104,8 @@ export default function ProfileSectionRefactor({
                 isRequired: true,
                 autoComplete: 'phone-number',
                 value: entityPhoneNumber,
-
                 additionalLabelClassName: 'text-sm',
+                additionalDivClassName: 'w-3/4',
                 isFlexRow: true,
                 onChange: (e) => {
                   setEntityPhoneNumber(e.target.value);

@@ -115,12 +115,12 @@ export default function AddInsuranceModal({
             />
           </div>
 
-          <div className="flex gap-2 items-center justify-between">
+          <div className="flex gap-2 items-center justify-between w-full">
             <StandardDropdownInputRefactor
               dropdownInput={{
                 id: 'insurance-register-prefix_input',
                 labelName: 'Préfixe',
-                additionalDivClassName: 'w-4/12',
+                additionalDivClassName: 'w-1/4',
                 name: 'prefix',
                 autoComplete: 'prefix',
                 isRequired: true,
@@ -143,6 +143,7 @@ export default function AddInsuranceModal({
             <StandardTelephoneInputRefactor
               telephoneInput={{
                 id: 'insurance-register-phoneNumber_input',
+                additionalDivClassName: 'w-3/4',
                 isRequired: true,
                 autoComplete: 'phone-number',
                 placeholder:

@@ -14,7 +14,7 @@ export default function StandardTelephoneInputRefactor({
 
   return (
     <div
-      className={`${telephoneInput.additionalDivClassName && telephoneInput.additionalDivClassName} flex gap-2 mb-2 ${telephoneInput.isFlexRow ? 'flex-row items-center' : 'flex-col'} whitespace-nowrap items-start italic w-full`}
+      className={`${telephoneInput.additionalDivClassName && telephoneInput.additionalDivClassName} flex gap-2 mb-2 ${telephoneInput.isFlexRow ? 'flex-row items-center' : 'flex-col'} whitespace-nowrap items-start italic`}
     >
       <label
         htmlFor={telephoneInput.id}
