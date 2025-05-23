@@ -1,29 +1,8 @@
-/**
- * @component AddAfflictionModal
- *
- * A modal component for adding a new affliction. It provides input fields for affliction name, associated body region,
- * insurance code, operation status, and a description. The form submission is handled by `useSubmitAffliction`.
- *
- * @param {boolean} isOpen - Controls the visibility of the modal.
- * @param {() => void} onClose - Function to close the modal.
- *
- * @returns {JSX.Element} - The rendered modal component with input fields and action buttons.
- *
- * @example
- * <AddAfflictionModal isOpen={isModalOpen} onClose={handleClose} />
- *
- * @remarks
- * - Uses `useFetchBodyRegions` to fetch available body regions on mount.
- * - Displays error messages from the global context.
- * - Form submission is handled via React Query's mutation.
- */
-
 import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../../utils/DNALoader';
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
-import { useSubmitAfflictionMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useAfflictionSubmitMutation';
-import { useFetchBodyRegionsMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useFetchBodyRegionsMutation';
+import { useSubmitAfflictionMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/affliction_mutations/useAfflictionSubmitMutation';
+import { useFetchBodyRegionsMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/region_mutations/useFetchBodyRegionsMutation';
 import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
@@ -38,12 +17,7 @@ export default function AddAfflictionModal({
   isOpen,
   onClose,
 }: AddAfflictionModalProps) {
-  const { errorMessage, setError } = useGlobalContext();
-
-  const submitAfflictionMutation = useSubmitAfflictionMutation(
-    onClose,
-    setError
-  );
+  const submitAfflictionMutation = useSubmitAfflictionMutation(onClose);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,14 +26,15 @@ export default function AddAfflictionModal({
 
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
-  const regionFetchMutation = useFetchBodyRegionsMutation(
-    setBodyRegions,
-    setError
-  );
+  const regionFetchMutation = useFetchBodyRegionsMutation(setBodyRegions);
 
   useEffect(() => {
-    regionFetchMutation.mutate();
-  }, []);
+    if (location.pathname.includes('affliction')) {
+      regionFetchMutation.mutate();
+    } else {
+      console.log('Not on affliction page');
+    }
+  }, [isOpen]);
 
   if (regionFetchMutation.isPending || submitAfflictionMutation.isPending) {
     return DNALoader();
@@ -72,8 +47,11 @@ export default function AddAfflictionModal({
           Ajouter une affliction
         </h2>
 
-        {errorMessage && (
-          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        {(regionFetchMutation.error || submitAfflictionMutation.error) && (
+          <p className="text-red-500 text-xs text-center">
+            {regionFetchMutation.error?.message ||
+              submitAfflictionMutation.error?.message}
+          </p>
         )}
 
         <form className="space-y-4 " onSubmit={handleFormSubmit}>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
+import DNALoader from '../../../../../../../utils/DNALoader';
 import { addThirdFormDetails } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/add_therapist_form_details';
-import { useTherapistCreationMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useTherapistCreationMutation';
+import { useTherapistCreationMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/therapist_mutations/useTherapistCreationMutation';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardEmailInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
@@ -48,6 +49,10 @@ export default function ThirdAddTherapistModal({
       setAddForm,
       setIsAdminTherapistFormValid,
     });
+  }
+
+  if (handleTherapistCreation.isPending) {
+    return DNALoader();
   }
 
   return (

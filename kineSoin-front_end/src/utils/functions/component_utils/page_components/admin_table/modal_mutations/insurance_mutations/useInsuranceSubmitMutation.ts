@@ -1,10 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { handleInsuranceOrganismCreationAsAdmin } from '../../../../../apiUtils/adminApiUtils/insurance_utils/adminInsuranceApiUtils';
+import { handleInsuranceOrganismCreationAsAdmin } from '../../../../../../apiUtils/adminApiUtils/insurance_utils/handleInsuranceOrganismCreationAsAdmin';
 
-export const useSubmitInsuranceMutation = (
-  onClose: () => void,
-  setError: (msg: string) => void
-) => {
+export const useSubmitInsuranceMutation = (onClose: () => void) => {
   return useMutation({
     mutationKey: ['insuranceCreation'],
     mutationFn: async (formData: FormData) => {
@@ -16,7 +13,6 @@ export const useSubmitInsuranceMutation = (
       const insuranceCity = formData.get('city') as string;
       const insurancePrefix = formData.get('prefix') as string;
       const insuranceTelephone = formData.get('phone_number') as string;
-      const insuranceFullTelephone = `${insurancePrefix}${insuranceTelephone}`;
 
       if (
         !insuranceName ||
@@ -28,40 +24,32 @@ export const useSubmitInsuranceMutation = (
         !insurancePrefix ||
         !insuranceTelephone
       ) {
-        setError('Veuillez remplir tous les champs.');
-        return;
+        throw new Error('Veuillez remplir tous les champs.');
       } else if (insuranceName.length > 50) {
-        setError('Le nom ne doit pas dépasser 50 caractères.');
-        return;
+        throw new Error('Le nom ne doit pas dépasser 50 caractères.');
       } else if (insuranceLicenceCode.length > 10) {
-        setError("Le code d'assurance ne doit pas dépasser 10 caractères.");
-        return;
+        throw new Error(
+          "Le code d'assurance ne doit pas dépasser 10 caractères."
+        );
       } else if (insuranceStreetNumber.length > 10) {
-        setError('Le numéro de rue ne doit pas dépasser 10 caractères.');
-        return;
+        throw new Error('Le numéro de rue ne doit pas dépasser 10 caractères.');
       } else if (insuranceStreetName.length > 50) {
-        setError('Le nom de rue ne doit pas dépasser 50 caractères.');
-        return;
+        throw new Error('Le nom de rue ne doit pas dépasser 50 caractères.');
       } else if (insurancePostalCode.length > 10) {
-        setError('Le code postal ne doit pas dépasser 10 caractères.');
-        return;
+        throw new Error('Le code postal ne doit pas dépasser 10 caractères.');
       } else if (insuranceCity.length > 100) {
-        setError('La ville ne doit pas dépasser 100 caractères.');
-        return;
+        throw new Error('La ville ne doit pas dépasser 100 caractères.');
       } else if (insurancePrefix.length > 10) {
-        setError('Le préfixe ne doit pas dépasser 10 caractères.');
-        return;
+        throw new Error('Le préfixe ne doit pas dépasser 10 caractères.');
       } else if (insuranceTelephone.length > 15) {
-        setError('Le numéro de téléphone ne doit pas dépasser 15 caractères.');
-        return;
+        throw new Error(
+          'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
+        );
       } else if (!/^\d+$/.test(insuranceTelephone)) {
-        setError('Le numéro de téléphone doit être un nombre valide.');
-        return;
+        throw new Error('Le numéro de téléphone doit être un nombre valide.');
       } else {
-        formData.append('full_phone_number', insuranceFullTelephone);
+        return handleInsuranceOrganismCreationAsAdmin(formData);
       }
-
-      return handleInsuranceOrganismCreationAsAdmin(formData);
     },
     onSuccess: () => {
       onClose();
@@ -73,7 +61,7 @@ export const useSubmitInsuranceMutation = (
       const errorMessage =
         error?.response?.data?.message ||
         "Une erreur est survenue lors de la création de l'organisme d'assurance.";
-      setError(errorMessage);
+      console.error('Error creating insurance:', errorMessage);
     },
   });
 };

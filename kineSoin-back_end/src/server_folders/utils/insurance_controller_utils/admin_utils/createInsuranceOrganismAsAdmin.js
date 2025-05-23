@@ -18,7 +18,8 @@
  * @param {Object} res - Express response object used to return appropriate HTTP responses.
  */
 
-import { Insurance } from '../../../models/index.js';
+import Joi from 'joi';
+import { Insurance } from '../../../models/associations.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function createInsuranceOrganismAsAdmin(req, res) {
@@ -46,9 +47,7 @@ export default async function createInsuranceOrganismAsAdmin(req, res) {
           phone_number: Joi.string().required(),
           prefix: Joi.string().required(),
         });
-
         const { error } = createdInsuranceSchema.validate(req.body);
-
         if (error) {
           return res.status(400).json({ message: error.message });
         } else {
@@ -62,9 +61,7 @@ export default async function createInsuranceOrganismAsAdmin(req, res) {
             phone_number,
             prefix,
           } = req.body;
-
           const full_phone_number = prefix + phone_number;
-
           const sentInsurance = {
             admin_id,
             name,
@@ -79,7 +76,6 @@ export default async function createInsuranceOrganismAsAdmin(req, res) {
           };
 
           const response = await Insurance.create(sentInsurance);
-
           if (response) {
             return res
               .status(200)

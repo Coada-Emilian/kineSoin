@@ -6,7 +6,6 @@ import {
 } from '../../../../../@types/types/componentTypes';
 import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
-import { PrefixesContextProvider } from '../../../../../utils/contexts/PrefixesContext';
 import { getAdminTableElements } from '../../../../../utils/functions/component_utils/page_components/admin_table/getAdminTableElements';
 import {
   renderAfflictions,
@@ -159,45 +158,38 @@ export default function AdminTableRefactor({
           entityType={entityType}
         />
 
-        <PrefixesContextProvider>
-          <AdminAddTherapistFormGlobalProvider>
-            <FirstAddTherapistModal
-              onClose={closeModal}
-              isOpen={openModal === 'addTherapistP1'}
-              setIsAddTherapistModalP2Open={() =>
-                setOpenModal('addTherapistP2')
-              }
-            />
-
-            <SecondAddTherapistModal
-              isOpen={openModal === 'addTherapistP2'}
-              onClose={closeModal}
-              setIsAddTherapistModalP3Open={() =>
-                setOpenModal('addTherapistP3')
-              }
-            />
-
-            <ThirdAddTherapistModal
-              isOpen={openModal === 'addTherapistP3'}
-              onClose={closeModal}
-            />
-          </AdminAddTherapistFormGlobalProvider>
-
-          <AddAfflictionModal
-            isOpen={openModal === 'addAffliction'}
+        {/* <PrefixesContextProvider> */}
+        <AdminAddTherapistFormGlobalProvider>
+          <FirstAddTherapistModal
             onClose={closeModal}
+            isOpen={openModal === 'addTherapistP1'}
+            setIsAddTherapistModalP2Open={() => setOpenModal('addTherapistP2')}
           />
 
-          <AddMedicModal
-            isOpen={openModal === 'addMedic'}
+          <SecondAddTherapistModal
+            isOpen={openModal === 'addTherapistP2'}
             onClose={closeModal}
+            setIsAddTherapistModalP3Open={() => setOpenModal('addTherapistP3')}
           />
 
-          <AddInsuranceModal
-            isOpen={openModal === 'addInsurance'}
+          <ThirdAddTherapistModal
+            isOpen={openModal === 'addTherapistP3'}
             onClose={closeModal}
           />
-        </PrefixesContextProvider>
+        </AdminAddTherapistFormGlobalProvider>
+
+        <AddAfflictionModal
+          isOpen={openModal === 'addAffliction'}
+          onClose={closeModal}
+        />
+
+        <AddMedicModal isOpen={openModal === 'addMedic'} onClose={closeModal} />
+
+        <AddInsuranceModal
+          isOpen={openModal === 'addInsurance'}
+          onClose={closeModal}
+        />
+        {/* </PrefixesContextProvider> */}
 
         <RegionModal
           isOpen={openModal === 'region'}

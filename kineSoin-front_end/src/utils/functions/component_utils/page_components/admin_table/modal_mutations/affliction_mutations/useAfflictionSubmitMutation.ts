@@ -1,10 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { handleAfflictionCreationAsAdmin } from '../../../../../apiUtils/adminApiUtils/affliction_utils/adminAfflictionApiUtils';
+import { handleAfflictionCreationAsAdmin } from '../../../../../../apiUtils/adminApiUtils/affliction_utils/adminAfflictionApiUtils';
 
-export const useSubmitAfflictionMutation = (
-  onClose: () => void,
-  setError: (msg: string) => void
-) => {
+export const useSubmitAfflictionMutation = (onClose: () => void) => {
   return useMutation({
     mutationKey: ['afflictionCreation'],
     mutationFn: async (formData: FormData) => {
@@ -56,7 +53,7 @@ export const useSubmitAfflictionMutation = (
         error?.response?.data?.message ||
         error.message ||
         'Une erreur est survenue.';
-      setError(errorMessage);
+      console.error('Error creating affliction:', errorMessage);
     },
   });
 };

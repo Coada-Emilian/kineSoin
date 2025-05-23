@@ -1,10 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { handleMedicCreationAsAdmin } from '../../../../../apiUtils/adminApiUtils/medic_utils/adminMedicApiUtils';
+import { handleMedicCreationAsAdmin } from '../../../../../../apiUtils/adminApiUtils/medic_utils/adminMedicApiUtils';
 
-export const useSubmitMedicMutation = (
-  onClose: () => void,
-  setError: (msg: string) => void
-) => {
+export const useSubmitMedicMutation = (onClose: () => void) => {
   return useMutation({
     mutationKey: ['medicCreation'],
     mutationFn: async (formData: FormData) => {
@@ -18,7 +15,6 @@ export const useSubmitMedicMutation = (
       const medicCity = formData.get('city') as string;
       const medicPrefix = formData.get('prefix') as string;
       const medicTelephone = formData.get('phone_number') as string;
-      const medicFullTelephone = `${medicPrefix}${medicTelephone}`;
 
       if (
         !medicName ||
@@ -55,10 +51,8 @@ export const useSubmitMedicMutation = (
       } else if (!/^\d+$/.test(medicTelephone)) {
         throw new Error('Le numéro de téléphone doit être un nombre valide.');
       } else {
-        formData.append('full_phone_number', medicFullTelephone);
+        return handleMedicCreationAsAdmin(formData);
       }
-
-      return handleMedicCreationAsAdmin(formData);
     },
     onSuccess: () => {
       onClose();
@@ -71,7 +65,7 @@ export const useSubmitMedicMutation = (
         error?.response?.data?.message ||
         error.message ||
         'Une erreur est survenue lors de la creation du médecin.';
-      setError(errorMessage);
+      console.error('Error creating medic:', errorMessage);
     },
   });
 };

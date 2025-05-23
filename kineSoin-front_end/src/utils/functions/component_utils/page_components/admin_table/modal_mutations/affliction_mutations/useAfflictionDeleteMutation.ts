@@ -12,7 +12,6 @@ export function useAfflictionDeleteMutation() {
     },
     onError: (error) => {
       console.error('Error deleting affliction:', error);
-      alert('Failed to delete the affliction. Please try again.');
     },
   });
 }

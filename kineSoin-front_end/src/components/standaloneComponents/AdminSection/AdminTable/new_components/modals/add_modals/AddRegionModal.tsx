@@ -1,29 +1,5 @@
-/**
- * @function AddRegionModal
- *
- * A modal component that allows users to add a new body region. It includes a text input field
- * for the region name and a "Create" button section for submitting the form.
- *
- * If there is a loading state, a loader (`DNALoader`) is displayed while the region is being created.
- * The region creation logic is managed by `useSubmitRegion`, and the error state is handled by `setError`.
- *
- * @param isOpen - A boolean value that determines if the modal is open.
- * @param onClose - A function to close the modal when called.
- *
- * @returns {JSX.Element} - The AddRegionModal with form elements for adding a new region.
- *
- * @example
- * <AddRegionModal isOpen={isOpen} onClose={onClose} />
- *
- * @remarks
- * - The modal includes error handling and will display an error message if one exists.
- * - The form submission uses the `useSubmitRegion` mutation to create a new region.
- * - The loader (`DNALoader`) is displayed during the creation process.
- */
-
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
-import { useSubmitRegionMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useRegionSubmitMutation';
+import { useSubmitRegionMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/region_mutations/useRegionSubmitMutation';
 import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 import BaseModal from '../../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 import CreateButtonsSection from '../../page_components/CreateButtonsSection';
@@ -37,9 +13,7 @@ export default function AddRegionModal({
   isOpen,
   onClose,
 }: AddRegionModalProps) {
-  const { errorMessage, setError } = useGlobalContext();
-
-  const handleRegionCreation = useSubmitRegionMutation(onClose, setError);
+  const handleRegionCreation = useSubmitRegionMutation(onClose);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,8 +31,10 @@ export default function AddRegionModal({
           Ajouter une region
         </h2>
 
-        {errorMessage && (
-          <p className="text-red-500 text-xs text-center">{errorMessage} ||</p>
+        {handleRegionCreation.error && (
+          <p className="text-red-500 text-xs text-center">
+            {handleRegionCreation.error.message}
+          </p>
         )}
 
         <form className="space-y-4" onSubmit={handleFormSubmit}>

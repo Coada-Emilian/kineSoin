@@ -4,16 +4,15 @@ import { IEntityInterface } from '../../../../../../@types/types/componentTypes'
 import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/body_region_utils/adminBodyRegionApiUtils';
 import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
-import {
-  useAfflictionDeleteMutation,
-  useInsuranceDeleteMutation,
-  useMedicDeleteMutation,
-  usePatientDeleteMutation,
-  useTherapistDeleteMutation,
-} from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/delete_mutations';
+
+import { useTherapistDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/therapist_mutations/useTherapistDeleteMutation';
 import { getDeleteModalEntityDetails } from '../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getDeleteModalEntityDetails';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import { useAfflictionDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/affliction_mutations/useAfflictionDeleteMutation';
+import { useInsuranceDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/insurance_mutations/useInsuranceDeleteMutation';
+import { useMedicDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/medic_mutations/useMedicDeleteMutation';
+import { usePatientDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/patient_mutations/usePatientDeleteMutation';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;

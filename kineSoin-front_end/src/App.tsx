@@ -7,7 +7,6 @@ import { publicRoutes } from './utils/constants/public_section/routes/publicRout
 import { useAuthentificationContext } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { AdminLayout } from './utils/layouts/new_layouts/AdminLayout';
 import { PublicLayout } from './utils/layouts/new_layouts/PublicLayout';
-import { Layout } from './utils/layouts/old_layouts/Layout';
 
 function App() {
   const { isAdminAuthenticated, setIsAdminAuthenticated } =
@@ -47,16 +46,7 @@ function App() {
           />
         </Route>
       ) : (
-        <Route
-          path="/admin"
-          element={
-            <Layout
-              isAdminLayout
-              isAdminAuthenticated={isAdminAuthenticated}
-              setIsAdminAuthenticated={setIsAdminAuthenticated}
-            />
-          }
-        >
+        <Route path="/admin" element={<AdminLayout />}>
           <Route
             path="*"
             element={<ErrorPageRefactor type="unconnectedAdmin" />}

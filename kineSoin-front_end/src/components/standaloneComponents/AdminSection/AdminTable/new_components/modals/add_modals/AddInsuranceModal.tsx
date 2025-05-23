@@ -1,27 +1,6 @@
-/**
- * @function AddInsuranceModal
- *
- * A modal used for adding a new insurance organization to the system.
- * It includes input fields for the insurance's name, license code, address, and contact details,
- * and submits the data using a mutation for creating a new insurance entity.
- *
- * @param isOpen - A boolean indicating whether the modal is open or not.
- * @param onClose - A callback function to close the modal.
- *
- * @returns {JSX.Element} - A modal form for adding an insurance organization.
- *
- * @example
- * <AddInsuranceModal isOpen={isAddInsuranceModalOpen} onClose={handleCloseInsuranceModal} />
- *
- * @remarks
- * - The modal is powered by `BaseModal` and integrates multiple input components for capturing insurance data.
- * - Form submission triggers a mutation to submit the data for the insurance organization.
- */
-
-import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
-import { useSubmitInsuranceMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/useInsuranceSubmitMutation';
+import { useSubmitInsuranceMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/insurance_mutations/useInsuranceSubmitMutation';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTelephoneInputRefactor';
 import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
@@ -37,10 +16,9 @@ export default function AddInsuranceModal({
   isOpen,
   onClose,
 }: AddInsuranceModalProps) {
-  const { errorMessage, setError } = useGlobalContext();
   const { countries } = usePrefixesContext();
 
-  const handleInsuranceSubmit = useSubmitInsuranceMutation(onClose, setError);
+  const handleInsuranceSubmit = useSubmitInsuranceMutation(onClose);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,8 +36,10 @@ export default function AddInsuranceModal({
           Ajouter un organisme d'assurance
         </h2>
 
-        {errorMessage && (
-          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+        {handleInsuranceSubmit.error && (
+          <p className="text-red-500 text-xs text-center">
+            {handleInsuranceSubmit.error.message}
+          </p>
         )}
 
         <form className="space-y-4 " onSubmit={handleFormSubmit}>
@@ -78,7 +58,7 @@ export default function AddInsuranceModal({
             textInput={{
               id: 'insurance-register-licenceCode_input',
               labelName: 'Code AMC',
-              name: 'name',
+              name: 'amc_code',
               placeholder: "Entrez le code AMC de l'organisme d'assurance",
               isRequired: true,
               autoComplete: 'amc-code',
