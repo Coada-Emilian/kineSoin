@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   IAffliction,
   IInsurance,
@@ -6,15 +6,19 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../@types/interfaces/modelInterfaces';
+import { entityUpdateMutations } from '../../../../../utils/constants/admin_section/admin_profile_details/entityUpdateMutations.tsx';
 import { StatusMenu } from '../../../../../utils/constants/admin_section/admin_profile_details/StatusMenu.tsx';
-import { entityUpdateFunctions } from '../../../../../utils/constants/admin_section/admin_profile_details/entityUpdateFunctions.tsx';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
-import TitleOutputRefactor from '../pageComponents/generalComponents/common/Outputs/new_components/GeneralOutputRefactor.tsx';
+import {
+  ImageOutputRefactor,
+  TitleOutputRefactor,
+} from '../pageComponents/generalComponents/common/Outputs/new_components';
 import StatusButtonsRefactor from '../pageComponents/generalComponents/therapist/StatusButtonRefactor.tsx';
-import CommonSectionRefactor from '../pageComponents/sections/CommonSectionRefactor.tsx';
-import ImageSectionRefactor from '../pageComponents/sections/ImageSectionRefactor.tsx';
-import ProfileSectionRefactor from '../pageComponents/sections/ProfileSectionRefactor.tsx';
+import {
+  CommonSectionRefactor,
+  ProfileSectionRefactor,
+} from '../pageComponents/sections/new_components';
 import messageIcon from '/icons/message3.png';
 import phoneIcon from '/icons/phone-call.png';
 import mainLogo from '/logos/Main-Logo.png';
@@ -28,43 +32,26 @@ export default function AdminProfileDetailsRefactor({
   entity,
   entityType,
 }: AdminProfileDetailsRefactorProps) {
-  // Modal state variables
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isEditPhotoModalOpen, setIsEditPhotoModalOpen] = useState(false);
-
-  // Form state variables
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const [updateEntityForm, setUpdateEntityForm] = useState<FormData | null>();
-
-  const activeEntityUpdateFunction = entityUpdateFunctions().find(
+  const activeEntityUpdateMutation = entityUpdateMutations().find(
     (entityUpdateFunction) => entityUpdateFunction.entityType === entityType
   );
 
-  const [picture_url, setPictureUrl] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [phone_number, setPhoneNumber] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [surname, setSurname] = useState<string>('');
-  const [id, setId] = useState<number | null>(null);
-  const [entityStatus, setEntityStatus] = useState(
-    entity && 'status' in entity ? entity.status : 'inactive'
-  );
+  const {
+    setIsProfileEditing,
+    setIsDeleteModalOpen,
+    setEntityStates,
+    entityPictureUrl,
+    entityEmail,
+    entityPhoneNumber,
+    entityName,
+    entitySurname,
+    entityId,
+    entityStatus,
+  } = useAdminProfileDetailsGlobalContext();
 
   useEffect(() => {
-    if (entity) {
-      'picture_url' in entity && setPictureUrl(entity.picture_url);
-      'email' in entity && setEmail(entity.email);
-      'prefix' in entity &&
-        'phone_number' in entity &&
-        setPhoneNumber(entity.prefix + entity.phone_number);
-      'name' in entity && setName(entity.name);
-      'surname' in entity && setSurname(entity.surname);
-      'id' in entity && setId(entity.id);
-    }
+    setEntityStates(entity);
   }, [entity]);
-
-  const { setIsProfileEditing } = useAdminProfileDetailsGlobalContext();
 
   return (
     <>
@@ -86,8 +73,8 @@ export default function AdminProfileDetailsRefactor({
 
           <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
             <div className="absolute top-3 md:top-8 left-0 w-full h-full rounded-xl">
-              <ImageSectionRefactor
-                picture_url={picture_url ? picture_url : mainLogo}
+              <ImageOutputRefactor
+                picture_url={entityPictureUrl ? entityPictureUrl : mainLogo}
                 entityType={entityType}
               />
             </div>
@@ -96,10 +83,7 @@ export default function AdminProfileDetailsRefactor({
           <div className="w-full p-4 md:py-10 md:px-24">
             {entity && (
               <>
-                <CommonSectionRefactor
-                  entity={entity}
-                  entityType={entityType}
-                />
+                <CommonSectionRefactor entityType={entityType} />
 
                 <ProfileSectionRefactor
                   entity={entity}
@@ -111,9 +95,9 @@ export default function AdminProfileDetailsRefactor({
 
           <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
             <div className="flex gap-2">
-              {email && (
+              {entityEmail && (
                 <a
-                  href={`mailto:${email}`}
+                  href={`mailto:${entityEmail}`}
                   className="hover:animate-pulse hover:ease-in-out hover:delay-200 hover:scale-110"
                 >
                   <img
@@ -124,8 +108,8 @@ export default function AdminProfileDetailsRefactor({
                 </a>
               )}
 
-              {phone_number && (
-                <a href={`tel:${phone_number}`}>
+              {entityPhoneNumber && (
+                <a href={`tel:${entityPhoneNumber}`}>
                   <img
                     src={phoneIcon}
                     alt="send mail"
@@ -136,7 +120,7 @@ export default function AdminProfileDetailsRefactor({
             </div>
 
             <div>
-              <p className="text-white italic">{`/ ${name.toLowerCase()}${surname && `.${surname.toLowerCase()}`}`}</p>
+              <p className="text-white italic">{`/ ${entityName.toLowerCase()} ${entitySurname && `.${entitySurname.toLowerCase()}`}`}</p>
             </div>
           </div>
 
@@ -145,7 +129,7 @@ export default function AdminProfileDetailsRefactor({
               <StatusMenu>
                 <StatusButtonsRefactor
                   entityType={entityType}
-                  id={id}
+                  id={entityId}
                   entityStatus={entityStatus}
                 />
               </StatusMenu>

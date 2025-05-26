@@ -1,7 +1,7 @@
 import BaseOutput from './BaseOutput';
 
 interface IdOutputRefactorProps {
-  id: number | undefined;
+  id: number | null;
 }
 
 export default function IdOutputRefactor({ id }: IdOutputRefactorProps) {

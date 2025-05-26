@@ -4,7 +4,7 @@ import IsOperatedOutputRefactor from './IsOperatedOutputRefactor';
 
 interface BodyRegionAndOperatedStatusOutputRefactorProps {
   body_region: IBodyRegion | undefined;
-  is_operated: boolean | undefined;
+  is_operated: string;
 }
 
 export default function BodyRegionAndOperatedStatusOutputRefactor({
@@ -14,6 +14,7 @@ export default function BodyRegionAndOperatedStatusOutputRefactor({
   return (
     <div className="flex flex-row justify-between">
       <BodyRegionOutputRefactor body_region={body_region} />
+
       <IsOperatedOutputRefactor is_operated={is_operated} />
     </div>
   );

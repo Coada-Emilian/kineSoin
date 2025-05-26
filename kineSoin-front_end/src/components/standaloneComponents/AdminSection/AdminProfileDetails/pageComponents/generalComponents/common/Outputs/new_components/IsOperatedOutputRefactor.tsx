@@ -1,18 +1,15 @@
 import BaseOutput from './BaseOutput';
 
 interface IsOperatedOutputRefactorProps {
-  is_operated: boolean | undefined;
+  is_operated: string | undefined;
 }
 
 export default function IsOperatedOutputRefactor({
   is_operated,
 }: IsOperatedOutputRefactorProps) {
-  if (!is_operated) {
+  if (is_operated === undefined) {
     return null;
   }
-  const operatedStatus = is_operated ? 'Oui' : 'Non';
 
-  return (
-    <BaseOutput value={operatedStatus} label="Est opérée?" isOneThirdWidth />
-  );
+  return <BaseOutput value={is_operated} label="Est opérée?" isOneThirdWidth />;
 }

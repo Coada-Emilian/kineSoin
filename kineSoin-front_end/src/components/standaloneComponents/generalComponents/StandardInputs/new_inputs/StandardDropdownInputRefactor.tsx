@@ -8,8 +8,8 @@ interface StandardChoiceDropdownProps {
 export default function StandardDropdownInputRefactor({
   dropdownInput,
 }: StandardChoiceDropdownProps) {
-  const [value, setValue] = useState<string | undefined>(
-    dropdownInput.value || ''
+  const [value, setValue] = useState<string>(
+    dropdownInput.value ?? dropdownInput.allOptions?.startingOption?.value ?? ''
   );
 
   return (

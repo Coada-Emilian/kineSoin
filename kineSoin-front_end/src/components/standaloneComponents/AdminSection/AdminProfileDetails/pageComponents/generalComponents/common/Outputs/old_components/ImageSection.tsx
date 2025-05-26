@@ -3,9 +3,9 @@
 import {
   IPatient,
   ITherapist,
-} from '../../../../../../@types/interfaces/modelInterfaces';
-import ProfileImage from '../generalComponents/common/ProfileImage';
-import EditTherapistImage from '../generalComponents/therapist/EditTherapistImage';
+} from '../../../../../../../../../@types/interfaces/modelInterfaces';
+import EditTherapistImage from '../../../therapist/EditTherapistImage';
+import ProfileImage from '../../ProfileImage';
 
 interface ImageSectionProps {
   therapist?: ITherapist;

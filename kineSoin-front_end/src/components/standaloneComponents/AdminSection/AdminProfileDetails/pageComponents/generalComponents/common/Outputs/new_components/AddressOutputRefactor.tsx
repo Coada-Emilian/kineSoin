@@ -15,6 +15,7 @@ export default function AddressOutputRefactor({
 }: AddressOutputRefactorProps) {
   if (street_number && street_name && postal_code && city) {
     const fullAddress = `${street_number} ${street_name}, ${postal_code} ${city}`;
+
     return <BaseOutput value={fullAddress} label="Adresse" />;
   } else {
     return null;

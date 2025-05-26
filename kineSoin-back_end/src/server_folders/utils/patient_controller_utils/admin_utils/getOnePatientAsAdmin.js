@@ -1,5 +1,6 @@
 import { Patient } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
+import computeAge from '../../computeAge.js';
 
 export default async function getOnePatientAsAdmin(req, res) {
   const admin_id = parseInt(req.admin_id, 10);

@@ -20,7 +20,7 @@ export default function StandardTelephoneInputRefactor({
         htmlFor={telephoneInput.id}
         className={`${telephoneInput.additionalLabelClassName && telephoneInput.additionalLabelClassName} text-primaryBlue font-medium`}
       >
-        N° de téléphone
+        N° téléphone
       </label>
 
       <input

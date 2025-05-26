@@ -1,9 +1,7 @@
-import AgeOutputRefactor from './AgeOutputRefactor';
 import BaseOutput from './BaseOutput';
-import GenderOutputRefactor from './GenderOutputRefactor';
 
 interface AgeAndGenderOutputRefactorProps {
-  age: number | undefined;
+  age: string | undefined;
   gender: string | undefined;
 }
 

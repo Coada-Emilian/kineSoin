@@ -2,8 +2,8 @@ import axios from '../../../../axios.ts';
 
 // Function to handle medic update as admin
 export const handleMedicUpdateAsAdmin = async (
-  formData: FormData,
-  id: number
+  id: number,
+  formData: FormData
 ) => {
   try {
     const response = await axios.put(`/admin/medics/${id}`, formData, {

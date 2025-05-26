@@ -14,9 +14,9 @@ import {
 } from '../../../../utils/apiUtils/adminApiUtils/adminApiUtils.tsx';
 import ConfirmDeleteModal from '../../../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
 import GeneralOutput from '../../pageComponents/generalComponents/common/Outputs/old_components/GeneralOutput.tsx';
+import ImageSection from '../../pageComponents/generalComponents/common/Outputs/old_components/ImageSection.tsx';
 import ButtonsSection from '../../pageComponents/sections/ButtonsSection.tsx';
-import CommonSection from '../../pageComponents/sections/CommonSection.tsx';
-import ImageSection from '../../pageComponents/sections/ImageSection.tsx';
+import CommonSection from '../../pageComponents/sections/old_components/CommonSection.tsx';
 import ProfileSection from '../../pageComponents/sections/ProfileSection..tsx';
 import { handleFormSubmit } from '../../pageComponents/utils/handleFormSubmit.ts';
 import { handlePatientStatusChanges } from '../../pageComponents/utils/handlePatientStatusChange.ts';

@@ -1,29 +1,3 @@
-/**
- * @description Retrieves all afflictions along with associated body region details.
- *
- * This controller method handles:
- *
- * - `getAllAfflictions(req, res)`:
- *   - Parses and validates the `admin_id` from the request.
- *   - Fetches all afflictions with the following attributes:
- *     - `id`, `name`, `description`, `insurance_code`, `is_operated`, `body_region_id`.
- *   - Includes related `body_region` data with `id` and `name`.
- *   - Orders results first by `body_region_id`, then alphabetically by `name`.
- *   - Returns:
- *     - `400` if `admin_id` is missing or invalid.
- *     - `404` if no afflictions are found.
- *     - `500` if a server error occurs.
- *     - `200` with the list of afflictions and their regions if successful.
- *
- * Additional safeguards:
- * - Validates numeric inputs using `checkIsValidNumber`.
- * - Logs server-side errors for easier debugging.
- *
- * @module getAllAfflictions
- * @requires Affliction - Sequelize model representing the `afflictions` table.
- * @requires checkIsValidNumber - Utility function to validate numeric IDs.
- */
-
 import { Affliction } from '../../models/index.js';
 import { checkIsValidNumber } from '../checkIsValidNumber.js';
 

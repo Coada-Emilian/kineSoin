@@ -20,6 +20,7 @@ export default function BaseOutput({
       className={`${isTextArea ? 'flex-col items-start' : 'flex-row items-center'} ${isOneThirdWidth ? 'w-1/3' : 'w-full'} mb-2 flex gap-1 text-xs md:text-sm lg:text-base xl:text-lg`}
     >
       <h4 className="font-bold">{label}: </h4>
+
       {!isTextArea ? (
         <span className="italic font-normal">{value}</span>
       ) : (
