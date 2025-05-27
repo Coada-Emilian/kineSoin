@@ -20,10 +20,14 @@ export default function ImageOutputRefactor({
     setIsEditPhotoModalOpen(true);
   };
 
+  const { previewUrl } = useAdminProfileDetailsGlobalContext();
+
   return (
     <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto flex justify-center items-center">
       <img
-        src={picture_url}
+        src={
+          entityType === 'therapist' ? (previewUrl ?? undefined) : picture_url
+        }
         alt="profile"
         className="rounded-full shadow-xl w-full h-full object-cover border-4 border-white"
       />

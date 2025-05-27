@@ -302,6 +302,8 @@ interface IAdminProfileDetailsGlobalContextProps {
   ) => void;
   inputChangeHandlers: IEntityFieldSetter[];
   bodyRegions: IBodyRegion[];
+  previewUrl: string | null;
+  setPreviewUrl: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface IProfileDetailsOutputsProps {

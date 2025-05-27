@@ -12,7 +12,6 @@ import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contex
 import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext.tsx';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
 import ConfirmDeleteModal from '../../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
-import EditPhotoModal from '../old_components/modals/EditPhotoModal.tsx';
 import {
   ImageOutputRefactor,
   TitleOutputRefactor,
@@ -22,6 +21,7 @@ import {
   CommonSectionRefactor,
   ProfileSectionRefactor,
 } from '../pageComponents/sections/new_components';
+import EditPhotoModalRefactor from './EditPhotoModalRefactor.tsx';
 import messageIcon from '/icons/message3.png';
 import phoneIcon from '/icons/phone-call.png';
 import mainLogo from '/logos/Main-Logo.png';
@@ -57,6 +57,7 @@ export default function AdminProfileDetailsRefactor({
     isEditPhotoModalOpen,
     setSelectedFile,
     setIsEditPhotoModalOpen,
+    setPreviewUrl,
   } = useAdminProfileDetailsGlobalContext();
 
   useEffect(() => {
@@ -73,6 +74,10 @@ export default function AdminProfileDetailsRefactor({
 
   const handleCancelClick = () => {
     setIsProfileEditing(false);
+    setSelectedFile(null);
+    setPreviewUrl(
+      entity && 'picture_url' in entity ? (entity as { picture_url?: string }).picture_url || null : null
+    );
   };
 
   const handleCancelClickToReturn = () => {
@@ -234,9 +239,9 @@ export default function AdminProfileDetailsRefactor({
       )}
 
       {isEditPhotoModalOpen && entityType === 'therapist' && (
-        <EditPhotoModal
-          isEditPhotoModalOpen={isEditPhotoModalOpen}
-          setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
+        <EditPhotoModalRefactor
+          isOpen={isEditPhotoModalOpen}
+          onClose={() => setIsEditPhotoModalOpen(false)}
           therapist={entity as ITherapist}
           setSelectedFile={setSelectedFile}
         />

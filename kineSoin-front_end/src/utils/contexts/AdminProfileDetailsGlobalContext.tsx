@@ -57,6 +57,7 @@ export const AdminProfileDetailsGlobalProvider = ({
     null
   );
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const fetchBodyRegionsMutation = useGetBodyRegionsMutation();
 
@@ -93,6 +94,7 @@ export const AdminProfileDetailsGlobalProvider = ({
       'postal_code' in entity && setEntityPostalCode(entity.postal_code);
       'id' in entity && setEntityId(entity.id);
       'picture_url' in entity && setEntityPictureUrl(entity.picture_url);
+      'picture_url' in entity && setPreviewUrl(entity.picture_url || null);
       'age' in entity &&
         setEntityAge(entity.age !== undefined ? String(entity.age) : '');
       'gender' in entity && setEntityGender(entity.gender);
@@ -230,6 +232,8 @@ export const AdminProfileDetailsGlobalProvider = ({
         setEntityStates, // Function to set entity states based on the provided entity
         inputChangeHandlers,
         bodyRegions,
+        previewUrl,
+        setPreviewUrl, // Function to set the preview URL for the entity's picture
         // Add any other state variables or functions you want to expose
       }}
     >
