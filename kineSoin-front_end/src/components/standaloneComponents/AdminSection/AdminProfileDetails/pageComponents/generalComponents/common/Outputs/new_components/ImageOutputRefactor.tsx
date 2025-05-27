@@ -13,7 +13,12 @@ export default function ImageOutputRefactor({
 }: ImageOutputProps) {
   if (!picture_url) return null;
 
-  const { isProfileEditing } = useAdminProfileDetailsGlobalContext();
+  const { isProfileEditing, setIsEditPhotoModalOpen } =
+    useAdminProfileDetailsGlobalContext();
+
+  const handleClick = () => {
+    setIsEditPhotoModalOpen(true);
+  };
 
   return (
     <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto flex justify-center items-center">
@@ -24,7 +29,10 @@ export default function ImageOutputRefactor({
       />
 
       {isProfileEditing && entityType === 'therapist' && (
-        <Button className="absolute top-0 left-0 md:top-2 bg-white rounded-full p-1 w-8 h-8 shadow-md">
+        <Button
+          className="absolute top-0 left-0 md:top-2 bg-white rounded-full p-1 w-8 h-8 shadow-md"
+          onClick={handleClick}
+        >
           <img src={editIcon} alt="edit profile" className="w-full h-full" />
         </Button>
       )}

@@ -49,26 +49,26 @@ export default function AdminMain({ entityType }: AdminMainProps) {
 
   return (
     <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
-      <div className="w-1/4 h-screen hidden md:block">
-        <AdminSideNav />
-      </div>
+      <AdminTableGlobalProvider>
+        <div className="w-1/4 h-screen hidden md:block">
+          <AdminSideNav />
+        </div>
 
-      <div className="w-full md:border-l-2 md:border-solid ">
-        {entities && entities.length > 0 && !id && (
-          <AdminTableGlobalProvider>
+        <div className="w-full md:border-l-2 md:border-solid ">
+          {entities && entities.length > 0 && !id && (
             <AdminTableRefactor entities={entities} entityType={entityType} />
-          </AdminTableGlobalProvider>
-        )}
+          )}
 
-        {id && entity && (
-          <AdminProfileDetailsGlobalProvider>
-            <AdminProfileDetailsRefactor
-              entityType={entityType}
-              entity={entity}
-            />
-          </AdminProfileDetailsGlobalProvider>
-        )}
-      </div>
+          {id && entity && (
+            <AdminProfileDetailsGlobalProvider>
+              <AdminProfileDetailsRefactor
+                entityType={entityType}
+                entity={entity}
+              />
+            </AdminProfileDetailsGlobalProvider>
+          )}
+        </div>
+      </AdminTableGlobalProvider>
     </main>
   );
 }

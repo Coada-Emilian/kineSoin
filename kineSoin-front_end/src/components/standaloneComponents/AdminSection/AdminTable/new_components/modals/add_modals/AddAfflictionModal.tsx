@@ -31,8 +31,6 @@ export default function AddAfflictionModal({
   useEffect(() => {
     if (location.pathname.includes('affliction')) {
       regionFetchMutation.mutate();
-    } else {
-      console.log('Not on affliction page');
     }
   }, [isOpen]);
 

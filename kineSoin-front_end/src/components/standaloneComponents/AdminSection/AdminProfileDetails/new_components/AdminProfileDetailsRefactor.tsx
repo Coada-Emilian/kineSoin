@@ -9,7 +9,10 @@ import {
 import { entityUpdateMutations } from '../../../../../utils/constants/admin_section/admin_profile_details/entityUpdateMutations.tsx';
 import { StatusMenu } from '../../../../../utils/constants/admin_section/admin_profile_details/StatusMenu.tsx';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
+import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext.tsx';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
+import ConfirmDeleteModal from '../../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
+import EditPhotoModal from '../old_components/modals/EditPhotoModal.tsx';
 import {
   ImageOutputRefactor,
   TitleOutputRefactor,
@@ -36,9 +39,12 @@ export default function AdminProfileDetailsRefactor({
     (entityUpdateFunction) => entityUpdateFunction.entityType === entityType
   );
 
+  const { navigate } = useGlobalContext();
+
   const {
     setIsProfileEditing,
     setIsDeleteModalOpen,
+    isDeleteModalOpen,
     setEntityStates,
     entityPictureUrl,
     entityEmail,
@@ -47,11 +53,41 @@ export default function AdminProfileDetailsRefactor({
     entitySurname,
     entityId,
     entityStatus,
+    isProfileEditing,
+    isEditPhotoModalOpen,
+    setSelectedFile,
+    setIsEditPhotoModalOpen,
   } = useAdminProfileDetailsGlobalContext();
 
   useEffect(() => {
     setEntityStates(entity);
   }, [entity]);
+
+  const handleModifyClick = () => {
+    setIsProfileEditing(true);
+  };
+
+  const handleDeleteClick = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsProfileEditing(false);
+  };
+
+  const handleCancelClickToReturn = () => {
+    if (entityType === 'therapist') {
+      navigate(`/admin/therapists`);
+    } else if (entityType === 'patient') {
+      navigate(`/admin/patients`);
+    } else if (entityType === 'affliction') {
+      navigate(`/admin/afflictions`);
+    } else if (entityType === 'medic') {
+      navigate(`/admin/medics`);
+    } else if (entityType === 'insurance') {
+      navigate(`/admin/insurance`);
+    }
+  };
 
   return (
     <>
@@ -120,12 +156,12 @@ export default function AdminProfileDetailsRefactor({
             </div>
 
             <div>
-              <p className="text-white italic">{`/ ${entityName.toLowerCase()} ${entitySurname && `.${entitySurname.toLowerCase()}`}`}</p>
+              <p className="text-white italic">{`/ ${entityName.toLowerCase()}${entitySurname && `.${entitySurname.toLowerCase()}`}`}</p>
             </div>
           </div>
 
           <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center">
-            {(entityType === 'therapist' || entityType === 'patient') && (
+            {entityStatus && (
               <StatusMenu>
                 <StatusButtonsRefactor
                   entityType={entityType}
@@ -136,19 +172,31 @@ export default function AdminProfileDetailsRefactor({
             )}
 
             <div className="flex gap-1">
-              {entityType !== 'patient' && (
+              {!isProfileEditing ? (
+                <>
+                  {entityType !== 'patient' && (
+                    <CustomBtn
+                      btn={{
+                        type: 'modify',
+                        text: 'Modifier',
+                        style: 'normal',
+                        hasBorder: true,
+                        onClick: handleModifyClick,
+                      }}
+                    />
+                  )}
+                </>
+              ) : (
                 <CustomBtn
                   btn={{
-                    type: 'modify',
-                    text: 'Modifier',
+                    type: 'active',
+                    text: 'Enregistrer',
                     style: 'normal',
                     hasBorder: true,
-                    onClick: () => {
-                      setIsProfileEditing(true);
-                    },
                   }}
                 />
               )}
+
               <>
                 <CustomBtn
                   btn={{
@@ -156,9 +204,7 @@ export default function AdminProfileDetailsRefactor({
                     text: 'Supprimer',
                     style: 'normal',
                     hasBorder: true,
-                    onClick: () => {
-                      setIsDeleteModalOpen(true);
-                    },
+                    onClick: handleDeleteClick,
                   }}
                 />
                 <CustomBtn
@@ -167,9 +213,9 @@ export default function AdminProfileDetailsRefactor({
                     text: 'Annuler',
                     style: 'normal',
                     hasBorder: true,
-                    onClick: () => {
-                      window.history.back();
-                    },
+                    onClick: isProfileEditing
+                      ? handleCancelClick
+                      : handleCancelClickToReturn,
                   }}
                 />
               </>
@@ -178,26 +224,23 @@ export default function AdminProfileDetailsRefactor({
         </div>
       </form>
 
-      {/* {isDeleteModalOpen && (
+      {isDeleteModalOpen && (
         <ConfirmDeleteModal
-          patient={patient}
-          therapist={therapist}
-          isDeleteModalOpen={isDeleteModalOpen}
-          setIsDeleteModalOpen={setIsDeleteModalOpen}
-          affliction={affliction}
-          medic={medic}
-          insurance={insurance}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          entityType={entityType}
+          entity={entity}
         />
       )}
 
-      {isEditPhotoModalOpen && therapist && (
+      {isEditPhotoModalOpen && entityType === 'therapist' && (
         <EditPhotoModal
           isEditPhotoModalOpen={isEditPhotoModalOpen}
           setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
-          therapist={therapist}
+          therapist={entity as ITherapist}
           setSelectedFile={setSelectedFile}
         />
-      )} */}
+      )}
     </>
   );
 }

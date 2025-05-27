@@ -5,14 +5,15 @@ import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/
 import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 
-import { useTherapistDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/therapist_mutations/useTherapistDeleteMutation';
-import { getDeleteModalEntityDetails } from '../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getDeleteModalEntityDetails';
-import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
-import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
+import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import { useAfflictionDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/affliction_mutations/useAfflictionDeleteMutation';
 import { useInsuranceDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/insurance_mutations/useInsuranceDeleteMutation';
 import { useMedicDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/medic_mutations/useMedicDeleteMutation';
 import { usePatientDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/patient_mutations/usePatientDeleteMutation';
+import { useTherapistDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/therapist_mutations/useTherapistDeleteMutation';
+import { getDeleteModalEntityDetails } from '../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getDeleteModalEntityDetails';
+import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
+import BaseModal from '../../../../PrivateSection/TherapistSection/Modals/BaseModal';
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
@@ -33,6 +34,8 @@ export default function ConfirmDeleteModal({
   // Destructure the necessary variables from the admin table global context
   const { regionDeleteModal, setRegionDeleteModal } =
     useAdminTableGlobalContext();
+
+  const { navigate } = useGlobalContext();
 
   // useEffect to set the active entity
   useEffect(() => {
@@ -61,7 +64,7 @@ export default function ConfirmDeleteModal({
   const afflictionDeleteMutation = useAfflictionDeleteMutation();
   const insuranceDeleteMutation = useInsuranceDeleteMutation();
 
-  const handleDelete = () => {
+  const handleEntityDelete = () => {
     if (activeEntity?.entityType === 'therapist') {
       therapistDeleteMutation.mutate({ id: entity.id });
     } else if (activeEntity?.entityType === 'patient') {
@@ -73,6 +76,26 @@ export default function ConfirmDeleteModal({
     } else if (activeEntity?.entityType === 'insurance') {
       insuranceDeleteMutation.mutate({ id: entity.id });
     }
+  };
+
+  const handleConfirmRegionDelete = () => {
+    onClose && onClose();
+    handleRegionDelete.mutate({ id: entity.id });
+    setRegionDeleteModal(false);
+  };
+
+  const handleConfirmEntityDelete = () => {
+    onClose && onClose();
+    handleEntityDelete();
+  };
+
+  const handleCancelRegionDelete = () => {
+    onClose && onClose();
+    setRegionDeleteModal(false);
+  };
+
+  const handleCancelEntityDelete = () => {
+    onClose && onClose();
   };
 
   // If the page is loading, display the loader
@@ -105,11 +128,7 @@ export default function ConfirmDeleteModal({
                   type: 'delete',
                   text: 'Confirmer',
                   style: 'normal',
-                  onClick: () => {
-                    onClose && onClose();
-                    handleRegionDelete.mutate({ id: entity.id });
-                    setRegionDeleteModal(false);
-                  },
+                  onClick: handleConfirmRegionDelete,
                 }}
               />
 
@@ -118,10 +137,7 @@ export default function ConfirmDeleteModal({
                   type: 'cancel',
                   text: 'Annuler',
                   style: 'normal',
-                  onClick: () => {
-                    onClose && onClose();
-                    setRegionDeleteModal(false);
-                  },
+                  onClick: handleCancelRegionDelete,
                 }}
               />
             </div>
@@ -169,10 +185,7 @@ export default function ConfirmDeleteModal({
                     type: 'delete',
                     text: 'Confirmer',
                     style: 'normal',
-                    onClick: () => {
-                      onClose && onClose();
-                      handleDelete();
-                    },
+                    onClick: handleConfirmEntityDelete,
                   }}
                 />
 
@@ -181,7 +194,7 @@ export default function ConfirmDeleteModal({
                     type: 'cancel',
                     text: 'Annuler',
                     style: 'normal',
-                    onClick: () => onClose && onClose(),
+                    onClick: handleCancelEntityDelete,
                   }}
                 />
               </>

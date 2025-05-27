@@ -8,7 +8,7 @@ export const useGetBodyRegionsMutation = () => {
       return await fetchBodyRegionsAsAdmin();
     },
     onSuccess: (data) => {
-      console.log('Body regions fetched successfully:', data);
+      return data;
     },
     onError: (error) => {
       console.error('Error fetching body regions:', error);

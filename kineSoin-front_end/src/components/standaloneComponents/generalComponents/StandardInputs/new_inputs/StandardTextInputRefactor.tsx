@@ -27,7 +27,7 @@ export default function StandardTextInputRefactor({
             placeholder={textInput.placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="mt-1 block text-xs md:text-md xl:text-xl 2xl:text-2xl w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal sm:text-xs lg:text-base font-normal placeholder:text-xs md:placeholder:text-md xl:placeholder:text-lg "
+            className="mt-1 block text-xs text-xxs md:text-xs xl:text-sm 2xl:text-md sm:text-xs lg:text-base w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal font-normal placeholder:text-xs md:placeholder:text-md xl:placeholder:text-lg "
             cols={32}
             rows={5}
           ></textarea>

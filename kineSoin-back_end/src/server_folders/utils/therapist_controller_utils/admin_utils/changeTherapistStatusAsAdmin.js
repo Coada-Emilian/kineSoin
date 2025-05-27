@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import { Therapist } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 

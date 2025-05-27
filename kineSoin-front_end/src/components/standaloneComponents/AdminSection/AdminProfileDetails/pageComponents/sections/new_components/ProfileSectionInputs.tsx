@@ -38,6 +38,13 @@ export default function ProfileSectionInputs({
 
   const { countries } = usePrefixesContext();
 
+  const existingCountry = countries.find(
+    (country) => country.prefix === entityPrefix
+  );
+  const remainingCountries = countries.filter(
+    (country) => country.prefix !== entityPrefix
+  );
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     stateName: string
@@ -52,26 +59,19 @@ export default function ProfileSectionInputs({
     }
   };
 
-  const existingCountry = countries.find(
-    (country) => country.prefix === entityPrefix
-  );
-  const remainingCountries = countries.filter(
-    (country) => country.prefix !== entityPrefix
-  );
-
   const remainingBodyRegions: IBodyRegion[] = bodyRegions.filter(
     (region) => region.id !== entityBodyRegion?.id || !entityBodyRegion.id
   );
 
   const operatedStatus =
     entityOperatedStatus === 'Oui'
-      ? { value: 'Oui', text: 'Oui' }
-      : { value: 'Non', text: 'Non' };
+      ? { value: 'true', text: 'Oui' }
+      : { value: 'false', text: 'Non' };
 
   const otherOperatedStatus =
     entityOperatedStatus === 'Oui'
-      ? { value: 'Non', text: 'Non' }
-      : { value: 'Oui', text: 'Oui' };
+      ? { value: 'false', text: 'Non' }
+      : { value: 'true', text: 'Oui' };
 
   return (
     <>

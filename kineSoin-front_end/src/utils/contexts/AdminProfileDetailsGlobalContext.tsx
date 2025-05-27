@@ -65,8 +65,10 @@ export const AdminProfileDetailsGlobalProvider = ({
       onSuccess: (data) => {
         setBodyRegions(data);
       },
+      onError: (error) => {
+        console.error('Error fetching body regions:', error);
+      },
     });
-    console.log(bodyRegions);
   }, []);
 
   const setEntityStates = (
