@@ -14,9 +14,6 @@ export const useTherapistUpdateMutation = () => {
       if (!id || !formData) {
         throw new Error('ID and formData are required for update');
       } else {
-        for (const [key, value] of formData.entries()) {
-          console.log(`${key}: ${value}`);
-        }
         return await handleTherapistUpdateAsAdmin(id, formData);
       }
     },

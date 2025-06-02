@@ -19,7 +19,8 @@
  * @param {Object} res - Express response object for sending results or errors.
  */
 
-import { Insurance } from '../../../models/index.js';
+import Joi from 'joi';
+import { Insurance } from '../../../models/associations.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function updateInsuranceOrganismAsAdmin(req, res) {
@@ -76,32 +77,32 @@ export default async function updateInsuranceOrganismAsAdmin(req, res) {
 
           if (!foundInsurance) {
             return res.status(400).json({ message: 'Insurance not found' });
-          }
-
-          const sentInsurance = {
-            admin_id,
-            name: name || foundInsurance.name,
-            amc_code: amc_code || foundInsurance.amc_code,
-            street_number: street_number || foundInsurance.street_number,
-            street_name: street_name || foundInsurance.street_name,
-            postal_code: postal_code || foundInsurance.postal_code,
-            city: city || foundInsurance.city,
-            phone_number: phone_number || foundInsurance.phone_number,
-            prefix: prefix || foundInsurance.prefix,
-            full_phone_number:
-              fullPhoneNumber || foundInsurance.full_phone_number,
-          };
-
-          const response = await foundInsurance.update(sentInsurance);
-
-          if (response) {
-            return res
-              .status(200)
-              .json({ message: 'Insurance organism updated', response });
           } else {
-            return res
-              .status(400)
-              .json({ message: 'Insurance organism not updated', response });
+            const sentInsurance = {
+              admin_id,
+              name: name || foundInsurance.name,
+              amc_code: amc_code || foundInsurance.amc_code,
+              street_number: street_number || foundInsurance.street_number,
+              street_name: street_name || foundInsurance.street_name,
+              postal_code: postal_code || foundInsurance.postal_code,
+              city: city || foundInsurance.city,
+              phone_number: phone_number || foundInsurance.phone_number,
+              prefix: prefix || foundInsurance.prefix,
+              full_phone_number:
+                fullPhoneNumber || foundInsurance.full_phone_number,
+            };
+
+            const response = await foundInsurance.update(sentInsurance);
+
+            if (response) {
+              return res
+                .status(200)
+                .json({ message: 'Insurance organism updated', response });
+            } else {
+              return res
+                .status(500)
+                .json({ message: 'Error updating insurance organism.' });
+            }
           }
         }
       }

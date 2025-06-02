@@ -10,6 +10,7 @@ import { entityUpdateMutations } from '../../../../../utils/constants/admin_sect
 import { StatusMenu } from '../../../../../utils/constants/admin_section/admin_profile_details/StatusMenu.tsx';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
 import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext.tsx';
+import DNALoader from '../../../../../utils/DNALoader.tsx';
 import CustomBtn from '../../../generalComponents/CustomButton/CustomButtonRefactor.tsx';
 import ConfirmDeleteModal from '../../AdminTable/new_components/modals/ConfirmDeleteModal.tsx';
 import {
@@ -108,11 +109,11 @@ export default function AdminProfileDetailsRefactor({
       formData.append('file', selectedFile);
     }
 
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
-
     activeMutation.mutate({ id: entityId, formData });
+
+    if (activeMutation.isPending) {
+      return DNALoader();
+    }
   };
 
   return (

@@ -258,7 +258,7 @@ export default function ProfileSectionInputs({
               additionalDivClassName: 'w-1/2',
               additionalLabelClassName: 'text-sm',
               isFlexRow: true,
-              name: 'body_region',
+              name: 'body_region_id',
               autoComplete: 'body-region',
               isRequired: true,
               allOptions: {

@@ -23,14 +23,11 @@ export default function RegionModal({
   const regionFetchMutation = useFetchBodyRegionsMutation(setBodyRegions);
 
   useEffect(() => {
-    if (location.pathname.includes('affliction')) {
+    if (isOpen && location.pathname.includes('afflictions')) {
       regionFetchMutation.mutate();
+      console.log('Fetching body regions...');
     }
-  }, []);
-
-  if (regionFetchMutation.isPending) {
-    return DNALoader();
-  }
+  }, [isOpen]);
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -39,17 +36,19 @@ export default function RegionModal({
           Toutes les regions
         </h2>
 
-        {regionFetchMutation.error && (
+        {regionFetchMutation.isPending ? (
+          DNALoader()
+        ) : regionFetchMutation.error ? (
           <p className="text-red-500 text-xs text-center">
             {regionFetchMutation.error.message}
           </p>
+        ) : (
+          <RegionTable
+            allBodyRegions={bodyRegions}
+            setIsRegionModalOpen={onClose}
+            setIsAddRegionModalOpen={setIsAddRegionModalOpen}
+          />
         )}
-
-        <RegionTable
-          allBodyRegions={bodyRegions}
-          setIsRegionModalOpen={onClose}
-          setIsAddRegionModalOpen={setIsAddRegionModalOpen}
-        />
       </div>
 
       <div className="flex gap-2 mt-6 w-fit mx-auto mb-4">
