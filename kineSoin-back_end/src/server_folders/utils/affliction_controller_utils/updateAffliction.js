@@ -80,6 +80,7 @@ export default async function updateAffliction(req, res) {
 
       // Validate newAffliction object using Joi
       const updatedAfflictionSchema = Joi.object({
+        admin_id: Joi.number().integer().optional(),
         body_region_id: Joi.number().integer().optional(),
         name: Joi.string().max(50).optional(),
         description: Joi.string().optional(),

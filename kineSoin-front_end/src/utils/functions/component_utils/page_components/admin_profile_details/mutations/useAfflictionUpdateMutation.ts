@@ -19,7 +19,9 @@ export const useAfflictionUpdateMutation = () => {
     },
     onSuccess: () => {
       console.log('Affliction profile updated successfully');
-      window.location.reload();
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     },
     onError: (error) => {
       console.error('Failed to update affliction profile', error);

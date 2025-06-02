@@ -14,12 +14,17 @@ export const useTherapistUpdateMutation = () => {
       if (!id || !formData) {
         throw new Error('ID and formData are required for update');
       } else {
+        for (const [key, value] of formData.entries()) {
+          console.log(`${key}: ${value}`);
+        }
         return await handleTherapistUpdateAsAdmin(id, formData);
       }
     },
     onSuccess: () => {
       console.log('Therapist profile updated successfully');
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     },
     onError: (error) => {
       console.error('Failed to update therapist profile', error);

@@ -22,8 +22,11 @@ export default async function updateTherapistAsAdmin(req, res) {
 
       const updatedTherapistSchema = Joi.object({
         status: Joi.string().valid('active', 'inactive').optional(),
+        id: Joi.number().integer().optional(),
         name: Joi.string().max(50).allow('').optional(),
         surname: Joi.string().max(50).allow('').optional(),
+        email: Joi.string().email().max(100).allow('').optional(),
+        password: Joi.string().max(100).allow('').optional(),
         diploma: Joi.string().max(50).allow('').optional(),
         experience: Joi.string().max(50).allow('').optional(),
         specialty: Joi.string().max(50).allow('').optional(),
@@ -51,6 +54,7 @@ export default async function updateTherapistAsAdmin(req, res) {
           const {
             status,
             name,
+            email,
             surname,
             diploma,
             experience,
@@ -68,6 +72,7 @@ export default async function updateTherapistAsAdmin(req, res) {
             name: name || foundTherapist.name,
             surname: surname || foundTherapist.surname,
             diploma: diploma || foundTherapist.diploma,
+            email: email || foundTherapist.email,
             experience: experience || foundTherapist.experience,
             specialty: specialty || foundTherapist.specialty,
             phone_number: phone_number || foundTherapist.phone_number,

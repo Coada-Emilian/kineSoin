@@ -35,9 +35,11 @@ export default function AdminProfileDetailsRefactor({
   entity,
   entityType,
 }: AdminProfileDetailsRefactorProps) {
-  const activeEntityUpdateMutation = entityUpdateMutations().find(
-    (entityUpdateFunction) => entityUpdateFunction.entityType === entityType
+  const mutationEntry = entityUpdateMutations().find(
+    (entry) => entry.entityType === entityType && entry.updateFunction
   );
+
+  const activeMutation = mutationEntry?.updateFunction?.();
 
   const { navigate } = useGlobalContext();
 
@@ -58,6 +60,7 @@ export default function AdminProfileDetailsRefactor({
     setSelectedFile,
     setIsEditPhotoModalOpen,
     setPreviewUrl,
+    selectedFile,
   } = useAdminProfileDetailsGlobalContext();
 
   useEffect(() => {
@@ -76,7 +79,9 @@ export default function AdminProfileDetailsRefactor({
     setIsProfileEditing(false);
     setSelectedFile(null);
     setPreviewUrl(
-      entity && 'picture_url' in entity ? (entity as { picture_url?: string }).picture_url || null : null
+      entity && 'picture_url' in entity
+        ? (entity as { picture_url?: string }).picture_url || null
+        : null
     );
   };
 
@@ -94,19 +99,25 @@ export default function AdminProfileDetailsRefactor({
     }
   };
 
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!activeMutation || !entityId) return;
+
+    const formData = new FormData(e.currentTarget);
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+    }
+
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
+
+    activeMutation.mutate({ id: entityId, formData });
+  };
+
   return (
     <>
-      <form
-        // onSubmit={(e) =>
-        //   updateFunction &&
-        //   handleFormSubmit(
-        //     e,
-        //     { therapist, therapistStatus, selectedFile, setIsProfileEditing },
-        //     updateFunction
-        //   )
-        // }
-        className="flex justify-center"
-      >
+      <form onSubmit={handleFormSubmit} className="flex justify-center">
         <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-4/6 items-center md:items-start">
           <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center">
             <TitleOutputRefactor entityType={entityType} />
@@ -165,7 +176,7 @@ export default function AdminProfileDetailsRefactor({
             </div>
           </div>
 
-          <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center">
+          <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl">
             {entityStatus && (
               <StatusMenu>
                 <StatusButtonsRefactor
@@ -180,15 +191,27 @@ export default function AdminProfileDetailsRefactor({
               {!isProfileEditing ? (
                 <>
                   {entityType !== 'patient' && (
-                    <CustomBtn
-                      btn={{
-                        type: 'modify',
-                        text: 'Modifier',
-                        style: 'normal',
-                        hasBorder: true,
-                        onClick: handleModifyClick,
-                      }}
-                    />
+                    <>
+                      {' '}
+                      <CustomBtn
+                        btn={{
+                          type: 'modify',
+                          text: 'Modifier',
+                          style: 'normal',
+                          hasBorder: true,
+                          onClick: handleModifyClick,
+                        }}
+                      />
+                      <CustomBtn
+                        btn={{
+                          type: 'delete',
+                          text: 'Supprimer',
+                          style: 'normal',
+                          hasBorder: true,
+                          onClick: handleDeleteClick,
+                        }}
+                      />
+                    </>
                   )}
                 </>
               ) : (
@@ -199,19 +222,11 @@ export default function AdminProfileDetailsRefactor({
                     style: 'normal',
                     hasBorder: true,
                   }}
+                  type="submit"
                 />
               )}
 
               <>
-                <CustomBtn
-                  btn={{
-                    type: 'delete',
-                    text: 'Supprimer',
-                    style: 'normal',
-                    hasBorder: true,
-                    onClick: handleDeleteClick,
-                  }}
-                />
                 <CustomBtn
                   btn={{
                     type: 'cancel',
