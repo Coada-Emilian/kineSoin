@@ -328,3 +328,22 @@ export interface IProfileDetailsOutputsProps {
     entityDescription?: string;
   };
 }
+
+export interface IDescriptionArticle {
+  formOrder: IFormOrders;
+  image: string;
+  alt: string;
+  paragraph: string;
+  title: string;
+}
+
+export interface IRegisterFormUtilsProps {
+  setError: (message: string | null) => void;
+  setFormOrder?: React.Dispatch<React.SetStateAction<IFormOrders>>;
+  formOrder?: IFormOrders;
+  setSentPatientData?: React.Dispatch<
+    React.SetStateAction<Record<string, string | Blob>>
+  >;
+  patientImage?: Blob | null;
+  sentPatientData?: Record<string, string | Blob>;
+}

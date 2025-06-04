@@ -1,6 +1,6 @@
-import StandardFileInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardFileInputRefactor';
-import StandardEmailInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
-import StandardPasswordInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
+import StandardEmailInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardEmailInputRefactor';
+import StandardFileInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardFileInputRefactor';
+import StandardPasswordInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInputRefactor';
 
 interface ThirdPatientRegisterFormSectionProps {
   setPatientImage:

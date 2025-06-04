@@ -1,10 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
-import mainLogo from '/logos/Main-Logo.png';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton.tsx';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DNALoader from '../../../../../../utils/DNALoader.tsx';
-import { handlePatientRegistration } from '../../../../../../utils/apiUtils/publicApiUtils.tsx';
 import {
   checkPatientCredentials,
   checkTherapistCredentials,
@@ -15,12 +11,14 @@ import {
   handleThirdPatientRegisterForm,
   registerPatient,
 } from '../../../../../../utils/componentUtils/pageComponents/functions/publicSection/patientRegisterPage/patientRegisterUtils.ts';
+import CustomButton from '../../../../generalComponents/CustomButton/CustomButton.tsx';
+import FirstPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/patient_form_sections/FirstPatientRegisterFormSection.tsx';
+import SecondPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/patient_form_sections/SecondPatientRegisterFormSection.tsx';
+import ThirdPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/patient_form_sections/ThirdPatientRegisterFormSection.tsx';
 import HomePageFormSection from './sections/HomePageFormSection.tsx';
 import PatientLoginFormSection from './sections/PatientLoginFormSection.tsx';
 import TherapistLoginFormSection from './sections/TherapistLoginFormSection.tsx';
-import ThirdPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/ThirdPatientRegisterFormSection.tsx';
-import SecondPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/SecondPatientRegisterFormSection.tsx';
-import FirstPatientRegisterFormSection from '../../new_components/formSections/registerFormSections/FirstPatientRegisterFormSection.tsx';
+import mainLogo from '/logos/Main-Logo.png';
 
 interface FormSectionProps {
   isHomePageFormSection?: boolean;

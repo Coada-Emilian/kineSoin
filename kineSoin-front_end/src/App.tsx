@@ -53,6 +53,7 @@ function App() {
           />
         </Route>
       )}
+
       {/* Patient routes
       {isPatientAuthenticated ? (
         <Route
@@ -92,6 +93,7 @@ function App() {
           />
         </Route>
       )}
+        
       {isTherapistAuthenticated ? (
         <Route
           path="/therapist"

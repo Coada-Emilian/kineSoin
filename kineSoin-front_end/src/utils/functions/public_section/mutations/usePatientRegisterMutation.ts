@@ -6,6 +6,7 @@ export const usePatientRegisterMutation = () => {
     mutationKey: ['patientRegister'],
     mutationFn: async (sentPatientData: {}) => {
       const formData = new FormData();
+      
       if (sentPatientData) {
         Object.entries(sentPatientData).forEach(([key, value]) => {
           formData.append(key, value as string | Blob);

@@ -8,6 +8,7 @@ export const checkAdminCredentials = async (
   try {
     const response = await handleAdminLogin(adminEmail, adminPassword);
     if (response) {
+    
       setAdminTokenAndDataInLocalStorage(
         response.token,
         response.name,

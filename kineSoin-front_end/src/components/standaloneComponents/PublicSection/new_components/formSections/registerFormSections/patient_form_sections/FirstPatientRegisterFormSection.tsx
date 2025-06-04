@@ -1,16 +1,16 @@
-import StandardDateInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDateInputRefactor';
-import StandardDropdownInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
-import StandardTextInputRefactor from '../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
+import StandardDateInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDateInputRefactor';
+import StandardDropdownInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardDropdownInputRefactor';
+import StandardTextInputRefactor from '../../../../../generalComponents/StandardInputs/new_inputs/StandardTextInputRefactor';
 
 export default function FirstPatientRegisterFormSection() {
   return (
     <>
       <StandardTextInputRefactor
         textInput={{
-          inputId: 'patient-register-name_input',
+          id: 'patient-register-name_input',
           labelName: 'Nom',
-          inputName: 'name',
-          inputPlaceholder: 'Entrez votre nom',
+          name: 'name',
+          placeholder: 'Entrez votre nom',
           isRequired: true,
           autoComplete: 'name',
         }}
@@ -18,10 +18,10 @@ export default function FirstPatientRegisterFormSection() {
 
       <StandardTextInputRefactor
         textInput={{
-          inputId: 'patient-register-birthName_input',
+          id: 'patient-register-birthName_input',
           labelName: 'Nom de naissance',
-          inputName: 'birth_name',
-          inputPlaceholder: 'Entrez votre nom de naissance',
+          name: 'birth_name',
+          placeholder: 'Entrez votre nom de naissance',
           isRequired: true,
           autoComplete: 'birth-name',
         }}
@@ -29,10 +29,10 @@ export default function FirstPatientRegisterFormSection() {
 
       <StandardTextInputRefactor
         textInput={{
-          inputId: 'patient-register-surname_input',
+          id: 'patient-register-surname_input',
           labelName: 'Prénom',
-          inputName: 'surname',
-          inputPlaceholder: 'Entrez votre prénom',
+          name: 'surname',
+          placeholder: 'Entrez votre prénom',
           isRequired: true,
           autoComplete: 'surname',
         }}
@@ -40,9 +40,9 @@ export default function FirstPatientRegisterFormSection() {
 
       <StandardDateInputRefactor
         dateInput={{
-          inputId: 'patient-register-birthdate_input',
+          id: 'patient-register-birthdate_input',
           labelName: 'Date de naissance',
-          inputName: 'birth_date',
+          name: 'birth_date',
           isRequired: true,
           autoComplete: 'birth-date',
         }}
@@ -50,9 +50,9 @@ export default function FirstPatientRegisterFormSection() {
 
       <StandardDropdownInputRefactor
         dropdownInput={{
-          inputId: 'patient-register-gender_input',
+          id: 'patient-register-gender_input',
           labelName: 'Genre',
-          inputName: 'gender',
+          name: 'gender',
           isRequired: true,
           autoComplete: 'gender',
           allOptions: {
