@@ -5,7 +5,6 @@ import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/
 import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
 
-import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import { useAfflictionDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/affliction_mutations/useAfflictionDeleteMutation';
 import { useInsuranceDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/insurance_mutations/useInsuranceDeleteMutation';
 import { useMedicDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/medic_mutations/useMedicDeleteMutation';
@@ -34,8 +33,6 @@ export default function ConfirmDeleteModal({
   // Destructure the necessary variables from the admin table global context
   const { regionDeleteModal, setRegionDeleteModal } =
     useAdminTableGlobalContext();
-
-  const { navigate } = useGlobalContext();
 
   // useEffect to set the active entity
   useEffect(() => {

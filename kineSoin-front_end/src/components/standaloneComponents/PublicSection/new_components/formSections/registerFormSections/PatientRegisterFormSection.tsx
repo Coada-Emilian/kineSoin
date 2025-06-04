@@ -16,8 +16,7 @@ import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRe
 import mainLogo from '/logos/Main-Logo.png';
 
 export default function PatientRegisterFormSection() {
-  const { errorMessage, setError, isLoading, setLoading, location } =
-    useGlobalContext();
+  const { errorMessage, setError } = useGlobalContext();
 
   const { formOrder, setFormOrder } = usePatientRegisterContext();
 
@@ -25,10 +24,6 @@ export default function PatientRegisterFormSection() {
   const [sentPatientData, setSentPatientData] = useState({});
 
   const [patientImage, setPatientImage] = useState<File | null>(null);
-
-  useEffect(() => {
-    setError('');
-  }, [location.pathname]);
 
   const registerPatient = usePatientRegisterMutation();
   const patientRegisterMutation = usePatientRegisterFormMutation(
@@ -43,27 +38,9 @@ export default function PatientRegisterFormSection() {
     }
   }, [sentPatientData]);
 
-  if (registerPatient.isPending || isLoading) {
+  if (registerPatient.isPending) {
     return DNALoader();
   }
-
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   const formSubmitResult = getFormOnSubmit(e, {
-  //     setError,
-  //     setFormOrder,
-  //     setSentPatientData,
-  //     patientImage,
-  //     sentPatientData,
-  //     formOrder,
-  //   });
-  //   if (formSubmitResult) {
-  //     formSubmitResult.finally(() => setLoading(false));
-  //   } else {
-  //     setLoading(false);
-  //   }
-  // };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -90,6 +67,8 @@ export default function PatientRegisterFormSection() {
             }
           });
         }
+
+        setError('');
       },
     });
 
@@ -108,9 +87,11 @@ export default function PatientRegisterFormSection() {
   return (
     // Render the form section with the corresponding background image and form content
     <section
-      className={`${getSectionBackground(formOrder)} md:p-48 xl:p-56 2xl:p-72  bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
+      className={`${getSectionBackground(formOrder)} md:p-48 xl:p-56 2xl:p-72 bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
     >
-      <div className="opacity-90 max-w-80 font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-gradient-to-r from-white to-gray-200 p-6 rounded-3xl italic">
+      <div
+        className={`opacity-90 ${formOrder === 'last' ? 'max-w-10/12' : 'max-w-80'} font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 p-6 text-primaryBlue bg-gradient-to-r from-white to-gray-200 rounded-3xl italic`}
+      >
         <form onSubmit={handleSubmit}>
           <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
             Inscription Patient

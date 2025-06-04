@@ -9,8 +9,7 @@ import { AdminLayout } from './utils/layouts/new_layouts/AdminLayout';
 import { PublicLayout } from './utils/layouts/new_layouts/PublicLayout';
 
 function App() {
-  const { isAdminAuthenticated, setIsAdminAuthenticated } =
-    useAuthentificationContext();
+  const { isAdminAuthenticated } = useAuthentificationContext();
 
   return (
     <Routes>
