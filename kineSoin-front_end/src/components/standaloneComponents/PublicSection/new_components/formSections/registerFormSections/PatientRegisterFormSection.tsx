@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
 import DNALoader from '../../../../../../utils/DNALoader';
+
+import { usePatientRegisterFormMutation } from '../../../../../../utils/functions/public_section/mutations/usePatientRegisterFormMutation';
 import { usePatientRegisterMutation } from '../../../../../../utils/functions/public_section/mutations/usePatientRegisterMutation';
 import {
   getFormElement,
   getSectionBackground,
   getStepParagraph,
 } from '../../../../../../utils/functions/public_section/patient_register_functions';
-import { getFormOnSubmit } from '../../../../../../utils/functions/public_section/patient_register_functions/getFormOnSubmit';
 import CustomBtn from '../../../../generalComponents/CustomButton/CustomButtonRefactor';
 import mainLogo from '/logos/Main-Logo.png';
 
@@ -20,16 +21,20 @@ export default function PatientRegisterFormSection() {
 
   const { formOrder, setFormOrder } = usePatientRegisterContext();
 
-  useEffect(() => {
-    setError('');
-  }, [location.pathname]);
-
   // Sent patient data state
   const [sentPatientData, setSentPatientData] = useState({});
 
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
+  useEffect(() => {
+    setError('');
+  }, [location.pathname]);
+
   const registerPatient = usePatientRegisterMutation();
+  const patientRegisterMutation = usePatientRegisterFormMutation(
+    formOrder,
+    patientImage
+  );
 
   // useEffect hook to register the patient
   useEffect(() => {
@@ -42,23 +47,64 @@ export default function PatientRegisterFormSection() {
     return DNALoader();
   }
 
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   const formSubmitResult = getFormOnSubmit(e, {
+  //     setError,
+  //     setFormOrder,
+  //     setSentPatientData,
+  //     patientImage,
+  //     sentPatientData,
+  //     formOrder,
+  //   });
+  //   if (formSubmitResult) {
+  //     formSubmitResult.finally(() => setLoading(false));
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    const formSubmitResult = getFormOnSubmit(e, {
-      setError,
-      setFormOrder,
-      setSentPatientData,
-      patientImage,
-      sentPatientData,
-      formOrder,
+
+    const formData = new FormData(e.currentTarget);
+    patientRegisterMutation.mutate(formData, {
+      onSuccess: (data) => {
+        setSentPatientData((prevData) => ({
+          ...prevData,
+          ...data,
+        }));
+
+        if (formOrder !== 'last') {
+          setFormOrder((prevOrder) => {
+            switch (prevOrder) {
+              case 'first':
+                return 'second';
+              case 'second':
+                return 'third';
+              case 'third':
+                return 'last';
+              default:
+                return prevOrder;
+            }
+          });
+        }
+      },
     });
-    if (formSubmitResult) {
-      formSubmitResult.finally(() => setLoading(false));
+
+    if (patientRegisterMutation.isError) {
+      setError(
+        patientRegisterMutation.error?.message || 'Une erreur est survenue'
+      );
     } else {
-      setLoading(false);
+      setError('');
+    }
+    if (patientRegisterMutation.isPending) {
+      return DNALoader();
     }
   };
+
   return (
     // Render the form section with the corresponding background image and form content
     <section

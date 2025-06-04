@@ -23,15 +23,6 @@ export const handleSecondPatientRegisterForm = async (
     const patientPhoneNumber = formData.get('phone_number') as string;
     const patientPrefix = formData.get('prefix') as string;
 
-    console.log('Patient data:', {
-      patientPostalCode,
-      patientCity,
-      patientStreetNumber,
-      patientStreetName,
-      patientPhoneNumber,
-      patientPrefix,
-    });
-
     // Check if the postal code, city, street number, street name and phone number fields are empty
     if (
       !patientPostalCode ||
