@@ -1,36 +1,34 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { handleTherapistDeletionAsAdmin } from '../../../../../../apiUtils/adminApiUtils/therapist_utils/handleTherapistDeletionAsAdmin';
 
 export function useTherapistDeleteMutation() {
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['therapistDelete'],
     mutationFn: ({ id }: { id: number }) => {
       if (!id) {
         throw new Error('ID is required for deletion');
-      } else {
-        console.log('Deleting therapist with ID:', id);
-        return handleTherapistDeletionAsAdmin(id);
       }
+      return handleTherapistDeletionAsAdmin(id);
     },
-    onSuccess: () => {
-      const isOnPatientDetail = /\/admin\/therapists\/\d+/.test(
+    onSuccess: (_, { id }) => {
+      const isOnTherapistDetail = /\/admin\/therapists\/\d+/.test(
         location.pathname
       );
 
-      if (isOnPatientDetail) {
-        console.log('Navigating back to list');
+      if (isOnTherapistDetail) {
+        // Redirect to list page
         navigate('/admin/therapists');
-        window.location.reload();
-      } else {
-        console.log('Reloading page');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
       }
+
+      // Invalidate table data so it refetches
+      queryClient.invalidateQueries({
+        queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],
+      });
     },
     onError: (error) => {
       console.error('Error deleting therapist:', error);

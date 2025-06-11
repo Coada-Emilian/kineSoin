@@ -23,8 +23,11 @@ await pgClient.connect();
 // Inserting admin profiles into the database
 for (const admin of admins) {
   const { name, email } = admin;
+
   const hashedPassword = Scrypt.hash(admin.password);
+
   const query = `INSERT INTO administrators (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
+  
   await pgClient.query(query, [name, email, hashedPassword]);
 }
 
@@ -88,6 +91,7 @@ for (const medic of medics) {
   } = medic;
 
   const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
+
   await pgClient.query(query, [
     admin_id,
     name,

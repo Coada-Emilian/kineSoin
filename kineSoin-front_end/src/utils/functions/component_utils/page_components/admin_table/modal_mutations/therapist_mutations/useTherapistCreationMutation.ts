@@ -1,20 +1,26 @@
-import { useMutation } from '@tanstack/react-query';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IAddForm } from '../../../../../../../@types/interfaces/customInterfaces';
-import { createTherapist } from '../../../../../../../components/standaloneComponents/AdminSection/AdminTable/old_components/modals/createTherapist';
+import { handleTherapistCreationAsAdmin } from '../../../../../../apiUtils/adminApiUtils/therapist_utils/handleTherapistCreationAsAdmin';
+import { validateTherapistFormAndCreateFormData } from '../validations/validateTherapistFormAndCreateFormData';
 
 export const useTherapistCreationMutation = (
   addForm: IAddForm,
   onClose: () => void
 ) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ['therapistCreation'],
-    mutationFn: () => createTherapist({ addForm }),
+    mutationFn: () => {
+      const newForm = validateTherapistFormAndCreateFormData(addForm);
+      return handleTherapistCreationAsAdmin(newForm);
+    },
+
     onSuccess: () => {
       onClose();
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      queryClient.invalidateQueries({
+        queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],
+      });
     },
     onError: (error: any) => {
       const errorMessage =

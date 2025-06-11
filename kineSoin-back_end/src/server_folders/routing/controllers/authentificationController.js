@@ -40,4 +40,5 @@ const authentificationController = {
   // Function to check patient password
   checkPatientPassword,
 };
+
 export default authentificationController;

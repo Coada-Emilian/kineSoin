@@ -50,7 +50,7 @@ export default function AdminTableRefactor({
   // useEffect to set rendered therapists, patients, afflictions
   useEffect(() => {
     setRenderedEntities(entities);
-  }, [entityType]);
+  }, [entityType, entities]);
 
   // useEffect to render therapists, patients, afflictions
   useEffect(() => {

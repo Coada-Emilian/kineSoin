@@ -29,6 +29,8 @@ export default function AdminMain({ entityType }: AdminMainProps) {
   const { isPending: isEntitiesLoading, data: entities } = useQuery({
     queryKey: ['fetchTableDataRefactor', { entityType }],
     queryFn: () => fetchAdminTableDetails<IEntitiesInterfaces>({ entityType }),
+    refetchOnMount: true, // <--- refetches every time component mounts
+    refetchOnWindowFocus: true,
   });
 
   // Use the useQuery hook to fetch the details data, only if entity_id is present
@@ -40,6 +42,8 @@ export default function AdminMain({ entityType }: AdminMainProps) {
         entityId: entity_id,
       }),
     enabled: !!entity_id, // Only run if entity_id is truthy
+    refetchOnMount: true, // <--- refetches every time component mounts
+    refetchOnWindowFocus: true,
   });
 
   // If the entities or entity is loading, display the loader
@@ -55,7 +59,7 @@ export default function AdminMain({ entityType }: AdminMainProps) {
         </div>
 
         <div className="w-full md:border-l-2 md:border-solid ">
-          {entities && entities.length > 0 && !id && (
+          {entities && !id && (
             <AdminTableRefactor entities={entities} entityType={entityType} />
           )}
 

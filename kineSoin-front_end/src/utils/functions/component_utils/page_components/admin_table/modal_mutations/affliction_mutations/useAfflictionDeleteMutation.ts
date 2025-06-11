@@ -1,29 +1,31 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { handleAfflictionDeletionAsAdmin } from '../../../../../../apiUtils/adminApiUtils/affliction_utils/handleAfflictionDeletionAsAdmin';
+import { validateEntityId } from '../validations/validateEntityId';
 
 export function useAfflictionDeleteMutation() {
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['afflictionDelete'],
-    mutationFn: ({ id }: { id: number }) => handleAfflictionDeletionAsAdmin(id),
+    mutationFn: ({ id }: { id: number }) => {
+      validateEntityId(id);
+      return handleAfflictionDeletionAsAdmin(id);
+    },
     onSuccess: () => {
-      const isOnPatientDetail = /\/admin\/afflictions\/\d+/.test(
+      const isOnAfflictionDetail = /\/admin\/afflictions\/\d+/.test(
         location.pathname
       );
 
-      if (isOnPatientDetail) {
-        console.log('Navigating back to list');
+      if (isOnAfflictionDetail) {
         navigate('/admin/afflictions');
-        window.location.reload();
-      } else {
-        console.log('Reloading page');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
       }
+
+      queryClient.invalidateQueries({
+        queryKey: ['fetchTableDataRefactor', { entityType: 'affliction' }],
+      });
     },
     onError: (error) => {
       console.error('Error deleting affliction:', error);
