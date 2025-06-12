@@ -11,6 +11,7 @@ export const handleTherapistStatusChangeAsAdmin = async (
       });
       if (response.status === 200) {
         console.log('Therapist status updated successfully');
+
         return true;
       } else {
         console.error('Failed to update therapist status', response.data);

@@ -1,20 +1,34 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { handleTherapistStatusChangeAsAdmin } from '../../../../../apiUtils/adminApiUtils/therapist_utils/adminTherapistApiUtils';
+import { validateTherapistStatusChange } from './validation/validateTherapistStatusChange';
 
 export const useTherapistStatusChangeMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ['therapistStatusChange'],
     mutationFn: async ({ id, status }: { id: number; status: string }) => {
-      if (!id || !status) {
-        throw new Error('Missing required fields');
-      } else if (status !== 'active' && status !== 'inactive') {
-        throw new Error('Invalid status');
-      }
+      validateTherapistStatusChange(id, status);
 
       return handleTherapistStatusChangeAsAdmin(id, status);
     },
-    onSuccess: () => {
-      window.location.reload();
+    onSuccess: (_data, variables) => {
+      const isOnTherapistDetail = /\/admin\/therapists\/\d+/.test(
+        location.pathname
+      );
+
+      if (isOnTherapistDetail) {
+        queryClient.invalidateQueries({
+          queryKey: [
+            'fetchDetailsDataRefactor',
+            { entityType: 'therapist', entityId: variables.id },
+          ],
+        });
+      } else {
+        queryClient.invalidateQueries({
+          queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],
+        });
+      }
     },
     onError: (error) => {
       console.error('Failed to update therapist status', error);

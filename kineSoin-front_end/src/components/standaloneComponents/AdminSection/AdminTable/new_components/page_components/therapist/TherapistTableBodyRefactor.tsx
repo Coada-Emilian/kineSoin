@@ -2,7 +2,7 @@ import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { ITherapist } from '../../../../../../../@types/interfaces/modelInterfaces';
 import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
-import { handleTherapistStatus } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/toggleTherapistStatus';
+import { useTherapistStatusChangeMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/mutations/useTherapistStatusChangeMutation';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
@@ -16,12 +16,19 @@ export default function TherapistTableBodyRefactor({
 }: TherapistTableBodyRefactorProps) {
   const { openDeleteModal } = useAdminTableGlobalContext();
 
+  const handleTherapistStatusChange = useTherapistStatusChangeMutation();
+
   return renderedTherapists.map((therapist: ITherapist, index: number) => {
     // Check if the current row is the last row
     const isLastRow = index === renderedTherapists.length - 1;
 
     const handleTherapistStatusClick = () => {
-      handleTherapistStatus(therapist.id);
+      const changedStatus =
+        therapist.status === 'active' ? 'inactive' : 'active';
+      handleTherapistStatusChange.mutate({
+        id: therapist.id,
+        status: changedStatus,
+      });
     };
 
     const handleDeleteTherapistClick = () => {
