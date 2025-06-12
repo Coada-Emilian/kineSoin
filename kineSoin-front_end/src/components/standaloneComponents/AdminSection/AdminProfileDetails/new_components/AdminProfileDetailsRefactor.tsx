@@ -87,17 +87,7 @@ export default function AdminProfileDetailsRefactor({
   };
 
   const handleCancelClickToReturn = () => {
-    if (entityType === 'therapist') {
-      navigate(`/admin/therapists`);
-    } else if (entityType === 'patient') {
-      navigate(`/admin/patients`);
-    } else if (entityType === 'affliction') {
-      navigate(`/admin/afflictions`);
-    } else if (entityType === 'medic') {
-      navigate(`/admin/medics`);
-    } else if (entityType === 'insurance') {
-      navigate(`/admin/insurance`);
-    }
+    navigate(`/admin/${entityType}s`);
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,6 +100,9 @@ export default function AdminProfileDetailsRefactor({
     }
 
     activeMutation.mutate({ id: entityId, formData });
+
+    setIsProfileEditing(false);
+    setSelectedFile(null);
 
     if (activeMutation.isPending) {
       return DNALoader();
