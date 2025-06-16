@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import Footer from '../../../components/standaloneComponents/generalComponents/Footer/PublicFooter';
-import MobileNav from '../../../components/standaloneComponents/generalComponents/MobileNav/MobileNav';
-import NavBar from '../../../components/standaloneComponents/generalComponents/NavBar/old_components/NavBar';
+import Footer from '../../../components/standaloneComponents/generalComponents/layoutComponents/footer/PublicFooter';
+import MobileNav from '../../../components/standaloneComponents/generalComponents/layoutComponents/mobileNav/oldComponents/MobileNav';
+import NavBar from '../../../components/standaloneComponents/generalComponents/layoutComponents/navBar/oldComponents/NavBar';
 
 interface LayoutProps {
   isPublicLayout?: boolean;

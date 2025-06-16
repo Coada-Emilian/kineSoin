@@ -1,6 +1,6 @@
-import AfflictionsStatusButtons from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/affliction/AfflictionsStatusButtons';
-import PatientsStatusButtons from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/patient/PatientsStatusButtons';
-import TherapistsStatusButtons from '../../../../../components/standaloneComponents/AdminSection/AdminTable/new_components/page_components/therapist/TherapistsStatusButtons';
+import AfflictionsStatusButtons from '../../../../../components/standaloneComponents/adminSection/adminTable/newComponents/pageComponents/afflictionComponents/AfflictionsStatusButtons';
+import PatientsStatusButtons from '../../../../../components/standaloneComponents/adminSection/adminTable/newComponents/pageComponents/patientComponents/PatientsStatusButtons';
+import TherapistsStatusButtons from '../../../../../components/standaloneComponents/adminSection/adminTable/newComponents/pageComponents/therapistComponents/TherapistsStatusButtons';
 
 interface FunctionProps {
   entityStatus: string;

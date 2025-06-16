@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
+import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
+import StandardChoiceDropdown from '../../../generalComponents/standardInputs/oldInputs/StandardDropdownInput';
 import UserPhotoIcon from '/icons/user-photo.png';
 
 import {

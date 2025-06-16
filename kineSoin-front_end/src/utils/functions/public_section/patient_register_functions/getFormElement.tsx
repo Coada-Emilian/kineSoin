@@ -1,8 +1,8 @@
 import { IFormOrders } from '../../../../@types/types/componentTypes';
-import ConfirmationFormSection from '../../../../components/standaloneComponents/PublicSection/new_components/formSections/registerFormSections/ConfirmationFormSection';
-import FirstPatientRegisterFormSection from '../../../../components/standaloneComponents/PublicSection/new_components/formSections/registerFormSections/patient_form_sections/FirstPatientRegisterFormSection';
-import SecondPatientRegisterFormSection from '../../../../components/standaloneComponents/PublicSection/new_components/formSections/registerFormSections/patient_form_sections/SecondPatientRegisterFormSection';
-import ThirdPatientRegisterFormSection from '../../../../components/standaloneComponents/PublicSection/new_components/formSections/registerFormSections/patient_form_sections/ThirdPatientRegisterFormSection';
+import ConfirmationFormSection from '../../../../components/standaloneComponents/publicSection/newComponents/formSection/registerFormSection/ConfirmationFormSection';
+import FirstPatientRegisterFormSection from '../../../../components/standaloneComponents/publicSection/newComponents/formSection/registerFormSection/patientRegisterFormSections/FirstPatientRegisterFormSection';
+import SecondPatientRegisterFormSection from '../../../../components/standaloneComponents/publicSection/newComponents/formSection/registerFormSection/patientRegisterFormSections/SecondPatientRegisterFormSection';
+import ThirdPatientRegisterFormSection from '../../../../components/standaloneComponents/publicSection/newComponents/formSection/registerFormSection/patientRegisterFormSections/ThirdPatientRegisterFormSection';
 
 interface FunctionsProps {
   formOrder: IFormOrders;

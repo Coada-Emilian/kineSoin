@@ -16,14 +16,14 @@ import {
   handlePatientPhotoUpdate,
   handlePatientUpdate,
 } from '../../../../utils/apiUtils/patientApiUtils';
-import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
-import CustomButton from '../CustomButton/CustomButton';
-import EditIcon from '../EditIcon/EditIcon';
-import StandardDateInput from '../StandardInputs/old_inputs/StandardDateInput';
-import StandardChoiceDropdown from '../StandardInputs/old_inputs/StandardDropdownInput';
-import StandardEmailInput from '../StandardInputs/old_inputs/StandardEmailInput';
-import StandardTelephoneInput from '../StandardInputs/old_inputs/StandardTelephoneInput';
-import StandardTextInput from '../StandardInputs/old_inputs/StandardTextInput';
+import EditPatientModal from '../../privateSection/patientSection/modals/EditPatientModal';
+import CustomButton from '../customButton/oldComponents/CustomButton';
+import EditIcon from '../editIcon/EditIcon';
+import StandardDateInput from '../standardInputs/oldInputs/StandardDateInput';
+import StandardChoiceDropdown from '../standardInputs/oldInputs/StandardDropdownInput';
+import StandardEmailInput from '../standardInputs/oldInputs/StandardEmailInput';
+import StandardTelephoneInput from '../standardInputs/oldInputs/StandardTelephoneInput';
+import StandardTextInput from '../standardInputs/oldInputs/StandardTextInput';
 import checkIcon from '/icons/check.png';
 import facebookIcon from '/icons/facebook.png';
 import instagramIcon from '/icons/insta.png';

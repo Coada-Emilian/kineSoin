@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import AdminFooter from '../../../components/standaloneComponents/generalComponents/Footer/AdminFooter';
-import AdminMobileNav from '../../../components/standaloneComponents/generalComponents/MobileNav/AdminMobileNav';
-import AdminNavBar from '../../../components/standaloneComponents/generalComponents/NavBar/new_components/AdminNavBar';
+import AdminFooter from '../../../components/standaloneComponents/generalComponents/layoutComponents/footer/AdminFooter';
+import AdminMobileNav from '../../../components/standaloneComponents/generalComponents/layoutComponents/mobileNav/newComponents/AdminMobileNav';
+import AdminNavBar from '../../../components/standaloneComponents/generalComponents/layoutComponents/navBar/newComponents/AdminNavBar';
 
 export function AdminLayout() {
   return (

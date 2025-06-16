@@ -1,11 +1,3 @@
-export interface INewAddress {
-  full_address?: string;
-  street_number?: string;
-  street_name?: string;
-  postal_code?: string;
-  city?: string;
-}
-
 export interface ICountry {
   flag_url?: string;
   prefix: string;

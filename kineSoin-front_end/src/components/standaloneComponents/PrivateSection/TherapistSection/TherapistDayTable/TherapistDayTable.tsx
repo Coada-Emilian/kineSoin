@@ -5,8 +5,8 @@ import { ISameDayAppointment } from '../../../../../@types/interfaces/customInte
 import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils';
 import { generateTimeSlots } from '../../../../../utils/AppUtils/time';
 import DNALoader from '../../../../../utils/DNALoader';
-import SendMessageModal from '../Modals/SendMessageModal';
-import TherapistModal from '../Modals/TherapistModal';
+import SendMessageModal from '../modals/SendMessageModal';
+import TherapistModal from '../modals/TherapistModal';
 import cancelIcon from '/icons/cancel.png';
 import cancelIcon2 from '/icons/cancel2.png';
 import dynamicIcon from '/icons/dynamic.png';

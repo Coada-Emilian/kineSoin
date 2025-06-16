@@ -5,15 +5,15 @@ import {
   ISameDayAppointment,
   ITherapistPatient,
 } from '../../../../../@types/interfaces/customInterfaces';
-import DNALoader from '../../../../../utils/DNALoader';
 import {
   cancelAppointment,
   fetchPatientDataAsTherapist,
   reducePrescriptionQuantity,
   sendMessageToPatient,
 } from '../../../../../utils/apiUtils/therapistApiUtils';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import StandardTextInput from '../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
+import DNALoader from '../../../../../utils/DNALoader';
+import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
+import StandardTextInput from '../../../generalComponents/standardInputs/oldInputs/StandardTextInput';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;

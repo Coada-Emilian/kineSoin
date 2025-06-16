@@ -4,14 +4,14 @@ import { IUserProfile } from '../../../@types/interfaces/customInterfaces';
 import { IAppointment } from '../../../@types/interfaces/modelInterfaces';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
 import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils';
-import AppointmentsCalendar from '../../standaloneComponents/generalComponents/AppointmentCalendar/AppointmentsCalendar';
-import AppointmentCard from '../../standaloneComponents/generalComponents/AppointmentCard/AppointmentCard';
-import MessageForm from '../../standaloneComponents/generalComponents/MessageForm/MessageForm';
-import MessagesField from '../../standaloneComponents/generalComponents/MessagesField/MessagesField';
-import ProfileCard from '../../standaloneComponents/generalComponents/ProfileCard/ProfileCard';
-import SideNav from '../../standaloneComponents/generalComponents/SideNav/old_components/SideNav';
-import UserHeadband from '../../standaloneComponents/generalComponents/UserHeadband/UserHeadband';
-import PatientNewPrescriptionForm from '../../standaloneComponents/PrivateSection/PatientSection/PatientNewPrescriptionComponents/PatientNewPrescriptionForm';
+import AppointmentsCalendar from '../../standaloneComponents/generalComponents/appointmentCalendar/AppointmentsCalendar';
+import AppointmentCard from '../../standaloneComponents/generalComponents/appointmentComponents/appointmentCard/AppointmentCard';
+import SideNav from '../../standaloneComponents/generalComponents/layoutComponents/sideNav/oldComponents/SideNav';
+import UserHeadband from '../../standaloneComponents/generalComponents/layoutComponents/userHeadband/UserHeadband';
+import MessagesField from '../../standaloneComponents/generalComponents/messageComponents/messageField/MessagesField';
+import MessageForm from '../../standaloneComponents/generalComponents/messageComponents/messageForm/MessageForm';
+import ProfileCard from '../../standaloneComponents/generalComponents/profileCard/ProfileCard';
+import PatientNewPrescriptionForm from '../../standaloneComponents/privateSection/patientSection/patientNewPrescriptionComponents/PatientNewPrescriptionForm';
 
 interface PatientMainProps {
   isPatientDashboardMain?: boolean;

@@ -1,0 +1,201 @@
+import { useState } from 'react';
+import {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../../../../../@types/interfaces/modelInterfaces';
+import {
+  handleAfflictionUpdateAsAdmin,
+  handleInsuranceOrganismUpdateAsAdmin,
+  handleMedicUpdateAsAdmin,
+  handleTherapistUpdateAsAdmin,
+} from '../../../../utils/apiUtils/adminApiUtils/adminApiUtils.tsx';
+import ConfirmDeleteModal from '../../adminTable/newComponents/modals/ConfirmDeleteModal.tsx';
+import ProfileSection from '../../pageComponents/sections/ProfileSection..tsx';
+import ButtonsSection from './ButtonsSection.tsx';
+import CommonSection from './CommonSection.tsx';
+import EditPhotoModal from './EditPhotoModal.tsx';
+import GeneralOutput from './GeneralOutput.tsx';
+import { handleFormSubmit } from './handleFormSubmit.ts';
+import { handlePatientStatusChanges } from './handlePatientStatusChange.ts';
+import ImageSection from './ImageSection.tsx';
+
+interface AdminProfileDetailsProps {
+  therapist?: ITherapist;
+  patient?: IPatient;
+  affliction?: IAffliction;
+  medic?: IMedic;
+  insurance?: IInsurance;
+}
+
+export default function AdminProfileDetails({
+  therapist,
+  patient,
+  affliction,
+  medic,
+  insurance,
+}: AdminProfileDetailsProps) {
+  // State variables
+  const [isProfileEditing, setIsProfileEditing] = useState(false);
+
+  // Modal state variables
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditPhotoModalOpen, setIsEditPhotoModalOpen] = useState(false);
+
+  // Form state variables
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const [buttonMessage, setButtonMessage] = useState('Changer le statut');
+  const [backgroundColor, setBackgroundColor] = useState('bg-white');
+  const [therapistStatus, setTherapistStatus] = useState(
+    therapist?.status || 'inactive'
+  );
+
+  const getUpdateFunction = () => {
+    if (therapist)
+      return (formData: FormData) =>
+        handleTherapistUpdateAsAdmin(therapist.id, formData);
+    if (affliction)
+      return (formData: FormData) =>
+        handleAfflictionUpdateAsAdmin(affliction.id, formData);
+    if (medic)
+      return (formData: FormData) =>
+        handleMedicUpdateAsAdmin(formData, medic.id);
+    if (insurance)
+      return (formData: FormData) =>
+        handleInsuranceOrganismUpdateAsAdmin(formData, insurance.id);
+    return null;
+  };
+
+  const updateFunction = getUpdateFunction();
+
+  return (
+    <>
+      <form
+        action="*"
+        onSubmit={(e) =>
+          updateFunction &&
+          handleFormSubmit(
+            e,
+            { therapist, therapistStatus, selectedFile, setIsProfileEditing },
+            updateFunction
+          )
+        }
+        className="flex justify-center"
+      >
+        <div
+          className={`flex flex-col md:space-x-6 md:m-20 border border-gray-400 rounded-xl shadow-2xl ${therapist ? 'md:w-5/6' : 'md:w-2/3'}  items-center `}
+        >
+          <div
+            className={`flex flex-col p-8 w-full ${therapist || patient ? 'md:flex-row items-center justify-around' : ''}`}
+          >
+            <div className="flex-1 p-4 rounded-md">
+              <GeneralOutput
+                isPageTitleOutput
+                patient={patient}
+                therapist={therapist}
+                affliction={affliction}
+                medic={medic}
+                insurance={insurance}
+              />
+
+              <CommonSection
+                patient={patient}
+                therapist={therapist}
+                affliction={affliction}
+                medic={medic}
+                insurance={insurance}
+                isProfileEditing={isProfileEditing}
+              />
+
+              {therapist && (
+                <ProfileSection
+                  isTherapistProfileSection
+                  isProfileEditing={isProfileEditing}
+                  therapist={therapist}
+                />
+              )}
+
+              {patient && (
+                <ProfileSection patient={patient} isPatientProfileSection />
+              )}
+
+              {affliction && (
+                <ProfileSection
+                  isAfflictionProfileSection
+                  affliction={affliction}
+                  isProfileEditing={isProfileEditing}
+                />
+              )}
+
+              {medic && (
+                <ProfileSection
+                  isMedicProfileSection
+                  medic={medic}
+                  isProfileEditing={isProfileEditing}
+                />
+              )}
+
+              {insurance && (
+                <ProfileSection
+                  isInsuranceProfileSection
+                  insurance={insurance}
+                  isProfileEditing={isProfileEditing}
+                />
+              )}
+            </div>
+
+            {(therapist || patient) && (
+              <ImageSection
+                therapist={therapist}
+                patient={patient}
+                isProfileEditing={isProfileEditing}
+                setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
+              />
+            )}
+          </div>
+
+          <ButtonsSection
+            isProfileEditing={isProfileEditing}
+            buttonMessage={buttonMessage}
+            backgroundColor={backgroundColor}
+            setButtonMessage={setButtonMessage}
+            setBackgroundColor={setBackgroundColor}
+            setTherapistStatus={setTherapistStatus}
+            setIsProfileEditing={setIsProfileEditing}
+            handlePatientStatusChanges={handlePatientStatusChanges}
+            setIsDeleteModalOpen={setIsDeleteModalOpen}
+            patient={patient}
+            therapist={therapist}
+            affliction={affliction}
+            medic={medic}
+            insurance={insurance}
+          />
+        </div>
+      </form>
+
+      {isDeleteModalOpen && (
+        <ConfirmDeleteModal
+          patient={patient}
+          therapist={therapist}
+          isDeleteModalOpen={isDeleteModalOpen}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+          affliction={affliction}
+          medic={medic}
+          insurance={insurance}
+        />
+      )}
+
+      {isEditPhotoModalOpen && therapist && (
+        <EditPhotoModal
+          isEditPhotoModalOpen={isEditPhotoModalOpen}
+          setIsEditPhotoModalOpen={setIsEditPhotoModalOpen}
+          therapist={therapist}
+          setSelectedFile={setSelectedFile}
+        />
+      )}
+    </>
+  );
+}

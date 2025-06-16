@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import PublicFooter from '../../../components/standaloneComponents/generalComponents/Footer/PublicFooter';
-import PublicMobileNav from '../../../components/standaloneComponents/generalComponents/MobileNav/public_mobile_nav/PublicMobileNav';
-import PublicNavBar from '../../../components/standaloneComponents/generalComponents/NavBar/new_components/PublicNavBar';
+import PublicFooter from '../../../components/standaloneComponents/generalComponents/layoutComponents/footer/PublicFooter';
+import PublicMobileNav from '../../../components/standaloneComponents/generalComponents/layoutComponents/mobileNav/newComponents/PublicMobileNav';
+import PublicNavBar from '../../../components/standaloneComponents/generalComponents/layoutComponents/navBar/newComponents/PublicNavBar';
 import { PatientRegisterContextProvider } from '../../contexts/PatientRegisterContext';
 
 export function PublicLayout() {

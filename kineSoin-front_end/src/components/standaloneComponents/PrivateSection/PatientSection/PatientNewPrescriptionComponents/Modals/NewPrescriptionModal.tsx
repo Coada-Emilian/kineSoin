@@ -1,6 +1,6 @@
-import ReactModal from 'react-modal';
 import { useState } from 'react';
-import CustomButton from '../../../../generalComponents/CustomButton/CustomButton';
+import ReactModal from 'react-modal';
+import CustomButton from '../../../../generalComponents/customButton/oldComponents/CustomButton';
 
 interface NewPrescriptionModalProps {
   setFileName: React.Dispatch<React.SetStateAction<string>>;

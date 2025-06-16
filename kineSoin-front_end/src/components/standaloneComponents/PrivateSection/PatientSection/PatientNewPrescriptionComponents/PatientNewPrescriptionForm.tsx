@@ -9,11 +9,11 @@ import {
   fetchAllMedicNamesAsPatient,
   handleNewPrescriptionCreation,
 } from '../../../../../utils/apiUtils/patientApiUtils';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
-import StandardDateInput from '../../../generalComponents/StandardInputs/old_inputs/StandardDateInput';
-import StandardChoiceDropdown from '../../../generalComponents/StandardInputs/old_inputs/StandardDropdownInput';
-import StandardFileInput from '../../../generalComponents/StandardInputs/old_inputs/StandardFileInput';
-import StandardTextInput from '../../../generalComponents/StandardInputs/old_inputs/StandardTextInput';
+import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
+import StandardDateInput from '../../../generalComponents/standardInputs/oldInputs/StandardDateInput';
+import StandardChoiceDropdown from '../../../generalComponents/standardInputs/oldInputs/StandardDropdownInput';
+import StandardFileInput from '../../../generalComponents/standardInputs/oldInputs/StandardFileInput';
+import StandardTextInput from '../../../generalComponents/standardInputs/oldInputs/StandardTextInput';
 
 interface PatientNewPrescriptionFormProps {
   patientId?: number;
