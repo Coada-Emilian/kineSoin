@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalContext';
 import { usePatientRegisterContext } from '../../../../../../../utils/contexts/PatientRegisterContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
-
 import { usePatientRegisterFormMutation } from '../../../../../../../utils/functions/publicSection/mutations/usePatientRegisterFormMutation';
 import { usePatientRegisterMutation } from '../../../../../../../utils/functions/publicSection/mutations/usePatientRegisterMutation';
 import {

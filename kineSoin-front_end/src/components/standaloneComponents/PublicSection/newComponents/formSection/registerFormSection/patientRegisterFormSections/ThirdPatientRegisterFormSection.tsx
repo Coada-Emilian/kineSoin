@@ -40,6 +40,7 @@ export default function ThirdPatientRegisterFormSection({
           labelName: 'Mot de passe',
           placeholder: 'Entrez votre mot de passe',
           autoComplete: 'password',
+          hasInfoIcon: true,
         }}
       />
 

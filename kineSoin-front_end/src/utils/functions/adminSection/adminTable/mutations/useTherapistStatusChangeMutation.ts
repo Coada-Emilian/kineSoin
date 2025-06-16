@@ -24,6 +24,10 @@ export const useTherapistStatusChangeMutation = () => {
             { entityType: 'therapist', entityId: variables.id },
           ],
         });
+        
+        queryClient.invalidateQueries({
+          queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],
+        });
       } else {
         queryClient.invalidateQueries({
           queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],

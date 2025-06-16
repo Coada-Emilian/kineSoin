@@ -13,6 +13,8 @@ interface CommonSectionRefactorProps {
 export default function CommonSectionRefactor({
   entityType,
 }: CommonSectionRefactorProps) {
+  const isPatientProfile = entityType === 'patient';
+
   const {
     isProfileEditing,
     entityName,
@@ -37,7 +39,7 @@ export default function CommonSectionRefactor({
 
       <IdOutputRefactor id={entityId} />
 
-      {!isProfileEditing ? (
+      {!isProfileEditing || isPatientProfile ? (
         <NameOutputRefactor name={entityName} surname={entitySurname} />
       ) : (
         <>

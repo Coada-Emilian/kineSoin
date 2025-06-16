@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { handleInsuranceOrganismUpdateAsAdmin } from '../../../../apiUtils/adminApiUtils/insuranceApiUtils/handleInsuranceOrganismUpdateAsAdmin';
 import { validateInsuranceUpdateForm } from './validations/validateInsuranceUpdateForm';
 
@@ -24,9 +25,13 @@ export const useInsuranceUpdateMutation = () => {
           { entityType: 'insurance', entityId: variables.id },
         ],
       });
+      toast.success("Détails de l'assurance mis à jour avec succès !");
     },
     onError: (error) => {
       console.error('Failed to update insurance details', error);
+      toast.error(
+        "Une erreur est survenue lors de la mise à jour des détails de l'assurance."
+      );
     },
   });
 };

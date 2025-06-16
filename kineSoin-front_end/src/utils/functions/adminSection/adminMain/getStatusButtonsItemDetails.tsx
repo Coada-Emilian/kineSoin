@@ -1,34 +1,29 @@
-import { UseMutationResult } from '@tanstack/react-query';
+// interface ItemDetailsProps {
+//   handleTherapistStatusChange: UseMutationResult<
+//     boolean,
+//     Error,
+//     {
+//       id: number;
+//       status: string;
+//     },
+//     unknown
+//   >;
 
-interface ItemDetailsProps {
-  handleTherapistStatusChange: UseMutationResult<
-    boolean,
-    Error,
-    {
-      id: number;
-      status: string;
-    },
-    unknown
-  >;
+//   handlePatientStatusChange: UseMutationResult<
+//     boolean,
+//     Error,
+//     {
+//       id: number;
+//       status: string;
+//     },
+//     unknown
+//   >;
+// }
 
-  handlePatientStatusChange: UseMutationResult<
-    boolean,
-    Error,
-    {
-      id: number;
-      status: string;
-    },
-    unknown
-  >;
-}
-
-export const getStatusButtonsItemDetails = ({
-  handleTherapistStatusChange,
-  handlePatientStatusChange,
-}: ItemDetailsProps) => [
+export const getStatusButtonsItemDetails = () => [
   {
     entityType: 'therapist',
-    function: handleTherapistStatusChange,
+    // function: handleTherapistStatusChange,
     status: 'active',
     background: 'bg-green-300',
     hoverBackground: 'hover:bg-green-500',
@@ -36,7 +31,7 @@ export const getStatusButtonsItemDetails = ({
   },
   {
     entityType: 'therapist',
-    function: handleTherapistStatusChange,
+    // function: handleTherapistStatusChange,
     status: 'inactive',
     background: 'bg-gray-200',
     hoverBackground: 'hover:bg-gray-400',
@@ -44,7 +39,7 @@ export const getStatusButtonsItemDetails = ({
   },
   {
     entityType: 'patient',
-    function: handlePatientStatusChange,
+    // function: handlePatientStatusChange,
     status: 'active',
     background: 'bg-green-300',
     hoverBackground: 'hover:bg-green-500',
@@ -52,7 +47,7 @@ export const getStatusButtonsItemDetails = ({
   },
   {
     entityType: 'patient',
-    function: handlePatientStatusChange,
+    // function: handlePatientStatusChange,
     status: 'inactive',
     background: 'bg-gray-200',
     hoverBackground: 'hover:bg-gray-400',
@@ -60,7 +55,7 @@ export const getStatusButtonsItemDetails = ({
   },
   {
     entityType: 'patient',
-    function: handlePatientStatusChange,
+    // function: handlePatientStatusChange,
     status: 'pending',
     background: 'bg-yellow-300',
     hoverBackground: 'hover:bg-yellow-500',
@@ -68,7 +63,7 @@ export const getStatusButtonsItemDetails = ({
   },
   {
     entityType: 'patient',
-    function: handlePatientStatusChange,
+    // function: handlePatientStatusChange,
     status: 'banned',
     background: 'bg-red-300',
     hoverBackground: 'hover:bg-red-500',

@@ -11,7 +11,8 @@ import { StatusMenu } from '../../../../../utils/constants/adminSection/adminPro
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
 import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext.tsx';
 import DNALoader from '../../../../../utils/DNALoader.tsx';
-
+import { usePatientStatusChangeMutation } from '../../../../../utils/functions/adminSection/adminTable/mutations/usePatientStatusChangeMutation.ts';
+import { useTherapistStatusChangeMutation } from '../../../../../utils/functions/adminSection/adminTable/mutations/useTherapistStatusChangeMutation.ts';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor.tsx';
 import ConfirmDeleteModal from '../../adminTable/newComponents/modals/ConfirmDeleteModal.tsx';
 import EditPhotoModalRefactor from './EditPhotoModalRefactor.tsx';
@@ -24,6 +25,7 @@ import StatusButtonsRefactor from './StatusButtonRefactor.tsx';
 import messageIcon from '/icons/message3.png';
 import phoneIcon from '/icons/phone-call.png';
 import mainLogo from '/logos/Main-Logo.png';
+import { ToastContainer } from 'react-toastify';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -41,6 +43,9 @@ export default function AdminProfileDetailsRefactor({
   const activeMutation = mutationEntry?.updateFunction?.();
 
   const { navigate } = useGlobalContext();
+
+  const handleTherapistStatusChange = useTherapistStatusChangeMutation();
+  const handlePatientStatusChange = usePatientStatusChangeMutation();
 
   const {
     setIsProfileEditing,
@@ -60,11 +65,16 @@ export default function AdminProfileDetailsRefactor({
     setIsEditPhotoModalOpen,
     setPreviewUrl,
     selectedFile,
+    setEntityStatus,
   } = useAdminProfileDetailsGlobalContext();
 
   useEffect(() => {
     setEntityStates(entity);
   }, [entity]);
+
+  useEffect(() => {
+    console.log(entityStatus);
+  }, [entityStatus]);
 
   const handleModifyClick = () => {
     setIsProfileEditing(true);
@@ -82,6 +92,7 @@ export default function AdminProfileDetailsRefactor({
         ? (entity as { picture_url?: string }).picture_url || null
         : null
     );
+    setEntityStatus(entity && 'status' in entity ? entity.status : '');
   };
 
   const handleCancelClickToReturn = () => {
@@ -90,21 +101,35 @@ export default function AdminProfileDetailsRefactor({
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!activeMutation || !entityId) return;
+    if (entityType !== 'patient') {
+      if (!activeMutation || !entityId) return;
 
-    const formData = new FormData(e.currentTarget);
-    if (selectedFile) {
-      formData.append('file', selectedFile);
+      const formData = new FormData(e.currentTarget);
+      if (selectedFile) {
+        formData.append('file', selectedFile);
+      }
+
+      activeMutation.mutate({ id: entityId, formData });
+
+      if (activeMutation.isPending) {
+        return DNALoader();
+      }
     }
 
-    activeMutation.mutate({ id: entityId, formData });
+    if (entityType === 'therapist' && entityId !== null) {
+      handleTherapistStatusChange.mutate({
+        id: entityId,
+        status: entityStatus,
+      });
+    } else if (entityType === 'patient' && entityId !== null) {
+      handlePatientStatusChange.mutate({
+        id: entityId,
+        status: entityStatus,
+      });
+    }
 
     setIsProfileEditing(false);
     setSelectedFile(null);
-
-    if (activeMutation.isPending) {
-      return DNALoader();
-    }
   };
 
   return (
@@ -169,53 +194,52 @@ export default function AdminProfileDetailsRefactor({
           </div>
 
           <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl">
-            {entityStatus && (
-              <StatusMenu>
-                <StatusButtonsRefactor
-                  entityType={entityType}
-                  id={entityId}
-                  entityStatus={entityStatus}
-                />
-              </StatusMenu>
-            )}
-
-            <div className="flex gap-1">
+            <div className="flex gap-1 items-center ">
               {!isProfileEditing ? (
                 <>
-                  {entityType !== 'patient' && (
-                    <>
-                      {' '}
-                      <CustomBtn
-                        btn={{
-                          type: 'modify',
-                          text: 'Modifier',
-                          style: 'normal',
-                          hasBorder: true,
-                          onClick: handleModifyClick,
-                        }}
-                      />
-                      <CustomBtn
-                        btn={{
-                          type: 'delete',
-                          text: 'Supprimer',
-                          style: 'normal',
-                          hasBorder: true,
-                          onClick: handleDeleteClick,
-                        }}
-                      />
-                    </>
-                  )}
+                  <>
+                    <CustomBtn
+                      btn={{
+                        type: 'modify',
+                        text: 'Modifier',
+                        style: 'normal',
+                        hasBorder: true,
+                        onClick: handleModifyClick,
+                      }}
+                    />
+                    <CustomBtn
+                      btn={{
+                        type: 'delete',
+                        text: 'Supprimer',
+                        style: 'normal',
+                        hasBorder: true,
+                        onClick: handleDeleteClick,
+                      }}
+                    />
+                  </>
                 </>
               ) : (
-                <CustomBtn
-                  btn={{
-                    type: 'active',
-                    text: 'Enregistrer',
-                    style: 'normal',
-                    hasBorder: true,
-                  }}
-                  type="submit"
-                />
+                <>
+                  {entityStatus && (
+                    <StatusMenu>
+                      <StatusButtonsRefactor
+                        entityType={entityType}
+                        id={entityId}
+                        entityStatus={entityStatus}
+                        setEntityStatus={setEntityStatus}
+                      />
+                    </StatusMenu>
+                  )}
+                  <CustomBtn
+                    btn={{
+                      type: 'active',
+                      text: 'Enregistrer',
+                      style: 'normal',
+                      hasBorder: true,
+                    }}
+                    type="submit"
+                  />
+                </>
               )}
 
               <>
@@ -253,6 +277,7 @@ export default function AdminProfileDetailsRefactor({
           setSelectedFile={setSelectedFile}
         />
       )}
+      <ToastContainer />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { handleMedicUpdateAsAdmin } from '../../../../apiUtils/adminApiUtils/medicApiUtils/handleMedicUpdateAsAdmin';
 import { validateMedicUpdateForm } from './validations/validateMedicUpdateForm';
 
@@ -25,9 +26,13 @@ export const useMedicUpdateMutation = () => {
           { entityType: 'medic', entityId: variables.id },
         ],
       });
+      toast.success('Profil du médecin mis à jour avec succès !');
     },
     onError: (error) => {
       console.error('Failed to update medic profile', error);
+      toast.error(
+        'Une erreur est survenue lors de la mise à jour du profil du médecin.'
+      );
     },
   });
 };

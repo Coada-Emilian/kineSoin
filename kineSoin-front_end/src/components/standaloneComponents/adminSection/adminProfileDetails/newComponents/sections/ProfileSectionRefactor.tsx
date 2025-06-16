@@ -17,11 +17,12 @@ interface ProfileSectionRefactorProps {
 export default function ProfileSectionRefactor({
   entityType,
 }: ProfileSectionRefactorProps) {
+  const isPatientProfile = entityType === 'patient';
   const { isProfileEditing } = useAdminProfileDetailsGlobalContext();
 
   return (
     <section className="mb-2 md:text-2xl w-full">
-      {!isProfileEditing ? (
+      {!isProfileEditing || isPatientProfile ? (
         <ProfileSectionOutputs />
       ) : (
         <ProfileSectionInputs entityType={entityType} />
