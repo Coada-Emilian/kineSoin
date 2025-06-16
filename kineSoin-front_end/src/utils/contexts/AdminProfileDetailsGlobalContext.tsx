@@ -8,7 +8,7 @@ import {
   IPatient,
   ITherapist,
 } from '../../@types/interfaces/modelInterfaces';
-import { useGetBodyRegionsMutation } from '../functions/component_utils/page_components/admin_profile_details/mutations/useGetBodyRegionsMutation';
+import { useGetBodyRegionsMutation } from '../functions/adminSection/adminProfileDetails/mutations/useGetBodyRegionsMutation';
 
 const AdminProfileDetailsGlobalContext = createContext<
   IAdminProfileDetailsGlobalContextProps | undefined

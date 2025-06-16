@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DNALoader from '../../../../utils/DNALoader.tsx';
 import { useGlobalContext } from '../../../../utils/contexts/GlobalContext.tsx';
 import { useAuthentificationContext } from '../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
-import { useAdminLoginMutation } from '../../../../utils/functions/public_section/mutations/useAdminLoginMutation.ts';
+import { useAdminLoginMutation } from '../../../../utils/functions/publicSection/mutations/useAdminLoginMutation.ts';
 import CustomBtn from '../../../standaloneComponents/generalComponents/customButton/newComponents/CustomButtonRefactor.tsx';
 import StandardEmailInputRefactor from '../../../standaloneComponents/generalComponents/standardInputs/newInputs/StandardEmailInputRefactor.tsx';
 import StandardPasswordInputRefactor from '../../../standaloneComponents/generalComponents/standardInputs/newInputs/StandardPasswordInputRefactor.tsx';

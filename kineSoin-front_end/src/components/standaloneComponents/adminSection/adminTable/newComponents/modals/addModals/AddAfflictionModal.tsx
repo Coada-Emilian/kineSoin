@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../../utils/DNALoader';
-import { useSubmitAfflictionMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/affliction_mutations/useAfflictionSubmitMutation';
-import { useFetchBodyRegionsMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/region_mutations/useFetchBodyRegionsMutation';
+import { useSubmitAfflictionMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/afflictionModalMutations/useAfflictionSubmitMutation';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardDropdownInputRefactor';
 import StandardTextInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTextInputRefactor';
 import BaseModal from '../../../../../privateSection/therapistSection/modals/BaseModal';
 import CreateButtonsSection from '../../pageComponents/CreateButtonsSection';
+import { useFetchBodyRegionsMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/bodyRegionModalMutations/useFetchBodyRegionsMutation';
 
 interface AddAfflictionModalProps {
   isOpen: boolean;

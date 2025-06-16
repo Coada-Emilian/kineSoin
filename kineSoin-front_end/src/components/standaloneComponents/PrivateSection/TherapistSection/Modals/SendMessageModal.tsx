@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
-import { sendMessageToPatient } from '../../../../../utils/apiUtils/therapistApiUtils';
+import { sendMessageToPatient } from '../../../../../utils/apiUtils/therapistApiUtils/therapistApiUtils';
 import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
 import StandardTextInput from '../../../generalComponents/standardInputs/oldInputs/StandardTextInput';
 import BaseModal from './BaseModal';

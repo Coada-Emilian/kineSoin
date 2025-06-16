@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../utils/DNALoader';
-import { useFetchBodyRegionsMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/region_mutations/useFetchBodyRegionsMutation';
+import { useFetchBodyRegionsMutation } from '../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/bodyRegionModalMutations/useFetchBodyRegionsMutation';
 import CustomBtn from '../../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import BaseModal from '../../../../privateSection/therapistSection/modals/BaseModal';
 import RegionTable from './RegionTable';

@@ -10,7 +10,7 @@ import {
   fetchPatientDataAsTherapist,
   reducePrescriptionQuantity,
   sendMessageToPatient,
-} from '../../../../../utils/apiUtils/therapistApiUtils';
+} from '../../../../../utils/apiUtils/therapistApiUtils/therapistApiUtils';
 import DNALoader from '../../../../../utils/DNALoader';
 import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
 import StandardTextInput from '../../../generalComponents/standardInputs/oldInputs/StandardTextInput';

@@ -2,7 +2,7 @@ import { Button } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
-import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils';
+import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils/therapistApiUtils';
 import { generateTimeSlots } from '../../../../../utils/AppUtils/time';
 import DNALoader from '../../../../../utils/DNALoader';
 import SendMessageModal from '../modals/SendMessageModal';

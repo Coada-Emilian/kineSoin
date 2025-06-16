@@ -15,7 +15,7 @@ import {
   handlePatientMessageCreation,
   handlePatientPhotoUpdate,
   handlePatientUpdate,
-} from '../../../../utils/apiUtils/patientApiUtils';
+} from '../../../../utils/apiUtils/patientApiUtils/patientApiUtils';
 import EditPatientModal from '../../privateSection/patientSection/modals/EditPatientModal';
 import CustomButton from '../customButton/oldComponents/CustomButton';
 import EditIcon from '../editIcon/EditIcon';

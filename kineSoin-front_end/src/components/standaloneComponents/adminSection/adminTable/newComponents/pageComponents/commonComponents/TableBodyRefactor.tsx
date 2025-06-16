@@ -1,5 +1,5 @@
 import { ITableBodyRefactorProps } from '../../../../../../../@types/interfaces/customInterfaces';
-import { getAdminTableBodyContent } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/getAdminTableBodyContent';
+import { getAdminTableBodyContent } from '../../../../../../../utils/functions/adminSection/adminTable/getAdminTableBodyContent';
 
 export default function TableBodyRefactor({
   renderedEntities,

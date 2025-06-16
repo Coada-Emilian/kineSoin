@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { adminMobileNavLinks } from '../../../../../../utils/constants/admin_section/adminMobileNavLinks';
+import { adminMobileNavLinks } from '../../../../../../utils/constants/adminSection/adminMobileNavLinks';
 
 export default function AdminMobileNav() {
   return (

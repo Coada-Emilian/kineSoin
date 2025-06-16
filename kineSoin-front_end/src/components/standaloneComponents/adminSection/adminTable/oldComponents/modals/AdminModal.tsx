@@ -15,7 +15,7 @@ import CustomButton from '../../../../generalComponents/customButton/oldComponen
 import AddAfflictionModal from '../../newComponents/modals/addModals/AddAfflictionModal';
 import AddInsuranceModal from '../../newComponents/modals/addModals/AddInsuranceModal';
 import AddMedicModal from '../../newComponents/modals/addModals/AddMedicModal';
-import FirstAddTherapistModal from '../../newComponents/modals/addModals/FirstAddTherapistModal';
+import FirstAddTherapistModal from '../../newComponents/modals/addModals/addTherapistModals/FirstAddTherapistModal';
 import SecondAddTherapistModal from '../../newComponents/modals/addModals/SecondAddTherapistModal';
 import ThirdAddTherapistModal from '../../newComponents/modals/addModals/ThirdAddTherapistModal';
 import { createTherapist } from './createTherapist';

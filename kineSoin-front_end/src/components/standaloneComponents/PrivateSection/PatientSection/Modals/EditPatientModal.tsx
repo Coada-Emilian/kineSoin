@@ -12,7 +12,7 @@ import {
   checkPatientCredentials,
   fetchInsurancesAsPatient,
   handlePatientInsuranceAdd,
-} from '../../../../../utils/apiUtils/patientApiUtils';
+} from '../../../../../utils/apiUtils/patientApiUtils/patientApiUtils';
 import StandardPasswordInput from '../../../generalComponents/StandardInputs/new_inputs/StandardPasswordInput';
 
 interface EditPatientModalProps {

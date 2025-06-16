@@ -2,8 +2,8 @@ import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IPatient } from '../../../../../../../@types/interfaces/modelInterfaces';
 import { useAdminTableGlobalContext } from '../../../../../../../utils/contexts/AdminTableGlobalContext';
-import { getPatientTableBodyStatusBackgroundColor } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/patient_table_body/getPatientTableBodyStatusBackgroundColor';
-import { getPatientTableBodyStatusText } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/patient_table_body/getPatientTableBodyStatusText';
+import { getPatientTableBodyStatusBackgroundColor } from '../../../../../../../utils/functions/adminSection/adminTable/patientTableBody/getPatientTableBodyStatusBackgroundColor';
+import { getPatientTableBodyStatusText } from '../../../../../../../utils/functions/adminSection/adminTable/patientTableBody/getPatientTableBodyStatusText';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 

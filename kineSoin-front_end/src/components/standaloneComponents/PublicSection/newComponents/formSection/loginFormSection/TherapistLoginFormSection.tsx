@@ -1,7 +1,7 @@
 import { useAuthentificationContext } from '../../../../../../utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { useGlobalContext } from '../../../../../../utils/contexts/GlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
-import { useTherapistLoginMutation } from '../../../../../../utils/functions/public_section/mutations/useTherapistLoginMutation';
+import { useTherapistLoginMutation } from '../../../../../../utils/functions/publicSection/mutations/useTherapistLoginMutation';
 import CustomBtn from '../../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import StandardEmailInputRefactor from '../../../../generalComponents/standardInputs/newInputs/StandardEmailInputRefactor';
 import StandardPasswordInputRefactor from '../../../../generalComponents/standardInputs/newInputs/StandardPasswordInputRefactor';

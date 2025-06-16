@@ -2,11 +2,11 @@ import { Route, Routes } from 'react-router-dom';
 import AdminMain from './components/pageComponents/adminSection/newComponents/AdminMain';
 import AdminLoginPage from './components/pageComponents/adminSection/oldComponents/AdminLoginPage';
 import ErrorPageRefactor from './components/pageComponents/errorPage/newComponents/ErrorPageRefactor';
-import { adminRoutes } from './utils/constants/public_section/routes/adminRoutes';
-import { publicRoutes } from './utils/constants/public_section/routes/publicRoutes';
+import { adminRoutes } from './utils/constants/publicSection/routes/adminRoutes';
+import { publicRoutes } from './utils/constants/publicSection/routes/publicRoutes';
 import { useAuthentificationContext } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
-import { AdminLayout } from './utils/layouts/new_layouts/AdminLayout';
-import { PublicLayout } from './utils/layouts/new_layouts/PublicLayout';
+import { AdminLayout } from './utils/layouts/newLayouts/AdminLayout';
+import { PublicLayout } from './utils/layouts/newLayouts/PublicLayout';
 
 function App() {
   const { isAdminAuthenticated } = useAuthentificationContext();

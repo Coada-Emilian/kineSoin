@@ -5,13 +5,13 @@ import { useGlobalContext } from '../../../../../../../utils/contexts/GlobalCont
 import { usePatientRegisterContext } from '../../../../../../../utils/contexts/PatientRegisterContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
 
-import { usePatientRegisterFormMutation } from '../../../../../../../utils/functions/public_section/mutations/usePatientRegisterFormMutation';
-import { usePatientRegisterMutation } from '../../../../../../../utils/functions/public_section/mutations/usePatientRegisterMutation';
+import { usePatientRegisterFormMutation } from '../../../../../../../utils/functions/publicSection/mutations/usePatientRegisterFormMutation';
+import { usePatientRegisterMutation } from '../../../../../../../utils/functions/publicSection/mutations/usePatientRegisterMutation';
 import {
   getFormElement,
   getSectionBackground,
   getStepParagraph,
-} from '../../../../../../../utils/functions/public_section/patient_register_functions';
+} from '../../../../../../../utils/functions/publicSection/patientRegisterFunctions';
 import CustomBtn from '../../../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import mainLogo from '/logos/Main-Logo.png';
 

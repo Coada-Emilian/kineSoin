@@ -1,5 +1,5 @@
 import DNALoader from '../../../../../../../utils/DNALoader';
-import { useSubmitRegionMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/region_mutations/useRegionSubmitMutation';
+import { useSubmitRegionMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/bodyRegionModalMutations/useRegionSubmitMutation';
 import StandardTextInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTextInputRefactor';
 import BaseModal from '../../../../../privateSection/therapistSection/modals/BaseModal';
 import CreateButtonsSection from '../../pageComponents/CreateButtonsSection';

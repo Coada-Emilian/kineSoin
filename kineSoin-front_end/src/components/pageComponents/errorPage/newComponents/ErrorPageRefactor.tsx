@@ -5,7 +5,7 @@ import {
   getErrorPageLinkDestination,
   getErrorPageLinkText,
   getErrorPageStatusCode,
-} from '../../../../utils/functions/error_page';
+} from '../../../../utils/functions/errorPage';
 
 export default function ErrorPageRefactor({ type }: IErrorPageRefactorProps) {
   const errorPageProps: IErrorPageRefactorProps = { type };

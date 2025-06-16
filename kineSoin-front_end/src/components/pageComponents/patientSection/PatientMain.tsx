@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { IUserProfile } from '../../../@types/interfaces/customInterfaces';
 import { IAppointment } from '../../../@types/interfaces/modelInterfaces';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
-import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils';
+import { fetchPatientAppointments } from '../../../utils/apiUtils/patientApiUtils/patientApiUtils';
 import AppointmentsCalendar from '../../standaloneComponents/generalComponents/appointmentCalendar/AppointmentsCalendar';
 import AppointmentCard from '../../standaloneComponents/generalComponents/appointmentComponents/appointmentCard/AppointmentCard';
 import SideNav from '../../standaloneComponents/generalComponents/layoutComponents/sideNav/oldComponents/SideNav';

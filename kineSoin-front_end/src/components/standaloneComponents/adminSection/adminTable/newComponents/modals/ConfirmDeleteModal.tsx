@@ -1,16 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { IEntityInterface } from '../../../../../../@types/types/componentTypes';
-import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/body_region_utils/adminBodyRegionApiUtils';
+import { handleBodyRegionDeleteAsAdmin } from '../../../../../../utils/apiUtils/adminApiUtils/bodyRegionApiUtils';
 import { useAdminTableGlobalContext } from '../../../../../../utils/contexts/AdminTableGlobalContext';
 import DNALoader from '../../../../../../utils/DNALoader';
-
-import { useAfflictionDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/affliction_mutations/useAfflictionDeleteMutation';
-import { useInsuranceDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/insurance_mutations/useInsuranceDeleteMutation';
-import { useMedicDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/medic_mutations/useMedicDeleteMutation';
-import { usePatientDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/patient_mutations/usePatientDeleteMutation';
-import { useTherapistDeleteMutation } from '../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/therapist_mutations/useTherapistDeleteMutation';
-import { getDeleteModalEntityDetails } from '../../../../../../utils/functions/component_utils/page_components/admin_table/other_functions/getDeleteModalEntityDetails';
+import { useAfflictionDeleteMutation } from '../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/afflictionModalMutations/useAfflictionDeleteMutation';
+import { useInsuranceDeleteMutation } from '../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/insuranceModalMutations/useInsuranceDeleteMutation';
+import { useMedicDeleteMutation } from '../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/medicModalMutations/useMedicDeleteMutation';
+import { usePatientDeleteMutation } from '../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/patientModalMutations/usePatientDeleteMutation';
+import { useTherapistDeleteMutation } from '../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/therapistModalMutations/useTherapistDeleteMutation';
+import { getDeleteModalEntityDetails } from '../../../../../../utils/functions/adminSection/adminTable/otherFunctions/getDeleteModalEntityDetails';
 import CustomBtn from '../../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import BaseModal from '../../../../privateSection/therapistSection/modals/BaseModal';
 

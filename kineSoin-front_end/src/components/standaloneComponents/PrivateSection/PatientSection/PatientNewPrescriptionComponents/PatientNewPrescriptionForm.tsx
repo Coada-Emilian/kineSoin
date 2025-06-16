@@ -8,7 +8,7 @@ import {
   fetchAfflictionNamesAsPatient,
   fetchAllMedicNamesAsPatient,
   handleNewPrescriptionCreation,
-} from '../../../../../utils/apiUtils/patientApiUtils';
+} from '../../../../../utils/apiUtils/patientApiUtils/patientApiUtils';
 import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
 import StandardDateInput from '../../../generalComponents/standardInputs/oldInputs/StandardDateInput';
 import StandardChoiceDropdown from '../../../generalComponents/standardInputs/oldInputs/StandardDropdownInput';

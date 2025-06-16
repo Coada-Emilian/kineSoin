@@ -1,7 +1,7 @@
 import {
   therapistLoginPageArticle,
   therapistLoginPageReverseArticle,
-} from '../../../../../utils/constants/public_section/standalone_components/description_section_articles/therapistLoginPageArticles';
+} from '../../../../../utils/constants/publicSection/standalone_components/description_section_articles/therapistLoginPageArticles';
 import ArticleRow from './articles/ArticleRow';
 
 export default function TherapistLoginDescriptionSection() {

@@ -1,4 +1,4 @@
-import { getAdminTableTitleContent } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/getAdminTableTitleContent';
+import { getAdminTableTitleContent } from '../../../../../../../utils/functions/adminSection/adminTable/getAdminTableTitleContent';
 
 interface TableTitleRefactorProps {
   tableTitle: string;

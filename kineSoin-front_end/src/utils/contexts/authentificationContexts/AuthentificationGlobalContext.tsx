@@ -11,7 +11,7 @@ import {
   checkAdminAuthentification,
   checkPatientAuthentification,
   checkTherapistAuthentification,
-} from '../../functions/public_section/authentification_functions';
+} from '../../functions/publicSection/authentificationFunctions';
 
 // Define the shape of the global context
 interface AuthentificationGlobalContextType {

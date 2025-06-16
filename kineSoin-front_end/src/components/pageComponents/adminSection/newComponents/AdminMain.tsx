@@ -8,8 +8,8 @@ import {
 import { AdminProfileDetailsGlobalProvider } from '../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableGlobalContext';
 import DNALoader from '../../../../utils/DNALoader';
-import { fetchAdminEntityDetails } from '../../../../utils/functions/admin_section/admin_main/fetchAdminEntityDetails';
-import { fetchAdminTableDetails } from '../../../../utils/functions/admin_section/admin_main/fetchAdminTableDetails';
+import { fetchAdminEntityDetails } from '../../../../utils/functions/adminSection/adminMain/fetchAdminEntityDetails';
+import { fetchAdminTableDetails } from '../../../../utils/functions/adminSection/adminMain/fetchAdminTableDetails';
 
 import AdminProfileDetailsRefactor from '../../../standaloneComponents/adminSection/adminProfileDetails/newComponents/AdminProfileDetailsRefactor';
 import AdminTableRefactor from '../../../standaloneComponents/adminSection/adminTable/newComponents/AdminTableRefactor';

@@ -17,7 +17,7 @@
 import {
   registerFormArticles,
   registerFormReverseArticles,
-} from '../../../../../../utils/constants/public_section/standalone_components/description_section_articles/registerFormArticles';
+} from '../../../../../../utils/constants/publicSection/standalone_components/description_section_articles/registerFormArticles';
 import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
 import ArticleRow from '../articles/ArticleRow';
 

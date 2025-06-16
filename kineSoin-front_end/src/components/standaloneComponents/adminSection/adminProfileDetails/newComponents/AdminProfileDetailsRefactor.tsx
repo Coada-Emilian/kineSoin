@@ -6,8 +6,8 @@ import {
   IPatient,
   ITherapist,
 } from '../../../../../@types/interfaces/modelInterfaces';
-import { entityUpdateMutations } from '../../../../../utils/constants/admin_section/admin_profile_details/entityUpdateMutations.tsx';
-import { StatusMenu } from '../../../../../utils/constants/admin_section/admin_profile_details/StatusMenu.tsx';
+import { entityUpdateMutations } from '../../../../../utils/constants/adminSection/adminProfileDetails/entityUpdateMutations.tsx';
+import { StatusMenu } from '../../../../../utils/constants/adminSection/adminProfileDetails/StatusMenu.tsx';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext.tsx';
 import { useGlobalContext } from '../../../../../utils/contexts/GlobalContext.tsx';
 import DNALoader from '../../../../../utils/DNALoader.tsx';

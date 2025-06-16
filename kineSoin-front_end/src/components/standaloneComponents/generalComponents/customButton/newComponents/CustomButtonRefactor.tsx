@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { IButtonDetails } from '../../../../../@types/interfaces/customInterfaces';
-import { customButtonDetails } from '../../../../../utils/constants/public_section/standalone_components/custom_button/customButtonDetails';
+import { customButtonDetails } from '../../../../../utils/constants/publicSection/standalone_components/custom_button/customButtonDetails';
 import LogoutIcon from '/icons/logout.png';
 import NotificationIcon from '/icons/notification.png';
 

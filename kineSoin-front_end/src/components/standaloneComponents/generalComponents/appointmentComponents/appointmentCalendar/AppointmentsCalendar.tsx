@@ -7,7 +7,7 @@ import {
   IAppointment,
   IPrescription,
 } from '../../../../../@types/interfaces/modelInterfaces';
-import { fetchPatientPrescriptions } from '../../../../../utils/apiUtils/patientApiUtils';
+import { fetchPatientPrescriptions } from '../../../../../utils/apiUtils/patientApiUtils/patientApiUtils';
 import StandardChoiceDropdown from '../../standardInputs/oldInputs/StandardDropdownInput';
 
 interface AppointmentsCalendarProps {

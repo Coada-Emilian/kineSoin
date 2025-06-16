@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ICountry } from '../../../../../../../@types/interfaces/customInterfaces';
-import { fetchCountriesData } from '../../../../../../../utils/functions/component_utils/common_components/standardInputs/fetchCountriesData';
+import { fetchCountriesData } from '../../../../../../../utils/functions/commonComponents/standardInputs/fetchCountriesData';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardDropdownInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTelephoneInputRefactor';
 import StandardTextInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTextInputRefactor';

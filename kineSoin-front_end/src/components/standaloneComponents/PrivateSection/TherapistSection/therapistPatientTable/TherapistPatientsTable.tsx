@@ -5,7 +5,7 @@ import DNALoader from '../../../../../utils/DNALoader';
 import {
   fetchTherapistPatients,
   togglePatientStatusAsTherapist,
-} from '../../../../../utils/apiUtils/therapistApiUtils';
+} from '../../../../../utils/apiUtils/therapistApiUtils/therapistApiUtils';
 import TherapistModal from '../modals/TherapistModal';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';

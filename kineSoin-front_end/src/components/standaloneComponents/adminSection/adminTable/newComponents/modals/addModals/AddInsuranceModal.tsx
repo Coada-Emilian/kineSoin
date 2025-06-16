@@ -1,6 +1,6 @@
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
-import { useSubmitInsuranceMutation } from '../../../../../../../utils/functions/component_utils/page_components/admin_table/modal_mutations/insurance_mutations/useInsuranceSubmitMutation';
+import { useSubmitInsuranceMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/insuranceModalMutations/useInsuranceSubmitMutation';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardDropdownInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTelephoneInputRefactor';
 import StandardTextInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTextInputRefactor';

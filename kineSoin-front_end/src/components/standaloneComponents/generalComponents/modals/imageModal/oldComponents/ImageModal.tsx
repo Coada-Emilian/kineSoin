@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
-import { handleFileChange } from '../../../../../../utils/functions/component_utils/common_components/imageModal/handleFileChange';
+import { handleFileChange } from '../../../../../../utils/functions/commonComponents/imageModal/handleFileChange';
 import CustomButton from '../../../customButton/oldComponents/CustomButton';
 
 interface ImageModalProps {

@@ -1,4 +1,4 @@
-import { handlePatientMessageCreation } from '../../../../../utils/apiUtils/patientApiUtils';
+import { handlePatientMessageCreation } from '../../../../../utils/apiUtils/patientApiUtils/patientApiUtils';
 import CustomButton from '../../customButton/oldComponents/CustomButton';
 import StandardTextInput from '../../standardInputs/oldInputs/StandardTextInput';
 

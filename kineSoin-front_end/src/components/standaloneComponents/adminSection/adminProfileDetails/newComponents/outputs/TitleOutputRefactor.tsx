@@ -1,4 +1,4 @@
-import { tableTitleEntityDetails } from '../../../../../../utils/constants/admin_section/admin_profile_details/TableTitleEntityDetails';
+import { tableTitleEntityDetails } from '../../../../../../utils/constants/adminSection/adminProfileDetails/TableTitleEntityDetails';
 
 interface TitleOutputRefactorProps {
   entityType: string;

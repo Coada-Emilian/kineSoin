@@ -6,22 +6,22 @@ import {
 } from '../../../../../@types/types/componentTypes';
 import { AdminAddTherapistFormGlobalProvider } from '../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useAdminTableGlobalContext } from '../../../../../utils/contexts/AdminTableGlobalContext';
-import { getAdminTableElements } from '../../../../../utils/functions/component_utils/page_components/admin_table/getAdminTableElements';
+import { getAdminTableElements } from '../../../../../utils/functions/adminSection/adminTable/getAdminTableElements';
 import {
   renderAfflictions,
   renderPatients,
   renderTherapists,
-} from '../../../../../utils/functions/component_utils/page_components/admin_table/render_entities/index';
+} from '../../../../../utils/functions/adminSection/adminTable/renderEntitites/index';
 import AddAfflictionModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddAfflictionModal';
 import AddInsuranceModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddInsuranceModal';
 import AddMedicModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddMedicModal';
 import AddRegionModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddRegionModal';
-import FirstAddTherapistModal from '../../../adminSection/adminTable/newComponents/modals/addModals/FirstAddTherapistModal';
-import SecondAddTherapistModal from '../../../adminSection/adminTable/newComponents/modals/addModals/SecondAddTherapistModal';
-import ThirdAddTherapistModal from '../../../adminSection/adminTable/newComponents/modals/addModals/ThirdAddTherapistModal';
 import ConfirmDeleteModal from '../../../adminSection/adminTable/newComponents/modals/ConfirmDeleteModal';
 import RegionModalRefactor from '../../../adminSection/adminTable/newComponents/modals/RegionModalRefactor';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
+import FirstAddTherapistModal from './modals/addModals/addTherapistModals/FirstAddTherapistModal';
+import SecondAddTherapistModal from './modals/addModals/addTherapistModals/SecondAddTherapistModal';
+import ThirdAddTherapistModal from './modals/addModals/addTherapistModals/ThirdAddTherapistModal';
 import TableBodyRefactor from './pageComponents/commonComponents/TableBodyRefactor';
 import TableHeadRefactor from './pageComponents/commonComponents/TableHeadRefactor';
 import TableTitleRefactor from './pageComponents/commonComponents/TableTitleRefactor';

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { publicNavbarButtonDetails } from '../../../../../../utils/constants/public_section/standalone_components/publicNavbarButtonDetails';
+import { publicNavbarButtonDetails } from '../../../../../../utils/constants/publicSection/standalone_components/publicNavbarButtonDetails';
 import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
 import CustomBtn from '../../../customButton/newComponents/CustomButtonRefactor';
 import Logo2 from '/logos/kinesoin-logo-2.webp';

@@ -5,7 +5,7 @@ import {
   homePageFirstArticles,
   homePageSecondArticles,
 } from '../../../../../utils/componentUtils/pageComponents/constants/publicSection/DescriptionSectionArticles/homePageArticles';
-import { articleElements } from '../../../../utils/constants/articleElements';
+import { articleElements } from '../../../../utils/constants/unused/articleElements';
 import { useEffect } from 'react';
 
 interface DescriptionSectionProps {
