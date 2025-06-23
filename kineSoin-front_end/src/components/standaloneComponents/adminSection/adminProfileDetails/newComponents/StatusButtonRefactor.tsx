@@ -1,3 +1,29 @@
+/**
+ * @component StatusButtonsRefactor
+ *
+ * Displays a set of status buttons for a given entity type (e.g., therapist or patient),
+ * allowing the user to change the entity's status.
+ *
+ * It filters available status options based on the current status and entity type,
+ * then renders buttons to switch to other valid statuses.
+ *
+ * @param {Object} props
+ * @param {string} props.entityType - The type of entity (e.g., 'therapist' or 'patient').
+ * @param {string} props.entityStatus - The current status of the entity.
+ * @param {React.Dispatch<React.SetStateAction<string>>} props.setEntityStatus -
+ *   Function to update the entity's status.
+ * @param {number | null | undefined} [props.id] - Optional entity ID (not used directly here).
+ *
+ * @returns {JSX.Element} A set of buttons to select and update the entity's status.
+ *
+ * @example
+ * <StatusButtonsRefactor
+ *   entityType="therapist"
+ *   entityStatus="active"
+ *   setEntityStatus={setStatus}
+ * />
+ */
+
 import { Button, MenuItem } from '@headlessui/react';
 import { getStatusButtonsItemDetails } from '../../../../../utils/functions/adminSection/adminMain/getStatusButtonsItemDetails';
 
@@ -10,20 +36,9 @@ interface StatusButtonsRefactorProps {
 
 export default function StatusButtonsRefactor({
   entityType,
-  id,
   entityStatus,
   setEntityStatus,
 }: StatusButtonsRefactorProps) {
-  // const handleTherapistStatusChange = useTherapistStatusChangeMutation();
-  // const handlePatientStatusChange = usePatientStatusChangeMutation();
-
-  // if (
-  //   handleTherapistStatusChange.isPending ||
-  //   handlePatientStatusChange.isPending
-  // ) {
-  //   return DNALoader();
-  // }
-
   const itemDetails = getStatusButtonsItemDetails();
 
   // Filter out items based on entityType and current status

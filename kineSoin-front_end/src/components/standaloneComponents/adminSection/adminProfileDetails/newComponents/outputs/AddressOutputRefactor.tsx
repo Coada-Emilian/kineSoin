@@ -1,3 +1,26 @@
+/**
+ * @component AddressOutputRefactor
+ *
+ * Displays a full address composed of street number, street name, postal code, and city
+ * using the BaseOutput component. Returns null if any part of the address is missing.
+ *
+ * @param {Object} props
+ * @param {string | undefined} props.street_number - The street number.
+ * @param {string | undefined} props.street_name - The street name.
+ * @param {string | undefined} props.postal_code - The postal code.
+ * @param {string | undefined} props.city - The city name.
+ *
+ * @returns {JSX.Element | null} The rendered address output or null if any field is missing.
+ *
+ * @example
+ * <AddressOutputRefactor
+ *   street_number="12"
+ *   street_name="Rue de Paris"
+ *   postal_code="75001"
+ *   city="Paris"
+ * />
+ */
+
 import BaseOutput from './BaseOutput';
 
 interface AddressOutputRefactorProps {

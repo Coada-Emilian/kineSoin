@@ -1,4 +1,14 @@
-// Import the available entity types used throughout the admin interface
+/**
+ * Fetches detailed information for a specific admin entity based on its type and ID.
+ *
+ * Dynamically selects and calls the appropriate fetch function for the given entity type.
+ * Returns the entity data if successful, otherwise logs errors and returns undefined.
+ *
+ * @param entityType - The type of entity to fetch (e.g., 'therapist', 'patient', etc.).
+ * @param entityId - The ID of the entity to fetch.
+ * @returns A promise resolving to the entity data or undefined if fetching fails or inputs are invalid.
+ */
+
 import { IEntityTypes } from '../../../../@types/types/componentTypes';
 import { fetchAfflictionAsAdmin } from '../../../apiUtils/adminApiUtils/afflictionApiUtils';
 import { fetchInsuranceOrganismAsAdmin } from '../../../apiUtils/adminApiUtils/insuranceApiUtils';
@@ -6,22 +16,11 @@ import { fetchMedicAsAdmin } from '../../../apiUtils/adminApiUtils/medicApiUtils
 import { fetchPatientAsAdmin } from '../../../apiUtils/adminApiUtils/patientApiUtils';
 import { fetchTherapistAsAdmin } from '../../../apiUtils/adminApiUtils/therapistApiUtils';
 
-// Import specific data-fetching functions for individual entities
-
-// Define the expected props for this generic fetch function
 interface fetchAdminEntityDetailsProps {
-  entityType: IEntityTypes; // Entity type to fetch (e.g., 'therapist', 'patient', etc.)
-  entityId: number | null; // ID of the entity to fetch (can be null)
+  entityType: IEntityTypes;
+  entityId: number | null;
 }
 
-/**
- * Fetches the details of a specific admin entity based on its type and ID.
- * This generic function abstracts multiple fetch calls into a single, reusable logic block.
- *
- * @param entityType - The type of entity (e.g., 'therapist', 'patient', etc.)
- * @param entityId - The ID of the entity to fetch
- * @returns A Promise resolving to the fetched data or undefined on failure
- */
 export const fetchAdminEntityDetails = async <T>({
   entityType,
   entityId,

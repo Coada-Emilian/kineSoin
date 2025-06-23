@@ -1,3 +1,31 @@
+/**
+ * @component AddInsuranceModal
+ *
+ * Modal component that displays a form for creating a new insurance organization.
+ * It gathers details such as name, AMC code, address, and contact phone number.
+ *
+ * @param {boolean} isOpen - Indicates whether the modal is open.
+ * @param {() => void} onClose - Function to close the modal.
+ *
+ * @returns {JSX.Element} A modal form wrapped inside `BaseModal` for adding an insurance record.
+ *
+ * @example
+ * <AddInsuranceModal isOpen={modalOpen} onClose={handleClose} />
+ *
+ * @remarks
+ * - Uses `useSubmitInsuranceMutation` to handle the form submission.
+ * - Uses the `FormData` API to collect input values.
+ * - Country prefixes for the phone number input are retrieved via `usePrefixesContext`.
+ * - Displays a loader using `DNALoader` during the mutation process.
+ * - Shows error messages if submission fails.
+ *
+ * @dependencies
+ * - `DNALoader` for loading animation.
+ * - `BaseModal` for layout.
+ * - `CreateButtonsSection` for submission/cancel buttons.
+ * - Input components: `StandardTextInputRefactor`, `StandardDropdownInputRefactor`, `StandardTelephoneInputRefactor`.
+ */
+
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
 import { useSubmitInsuranceMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/insuranceModalMutations/useInsuranceSubmitMutation';
@@ -16,15 +44,19 @@ export default function AddInsuranceModal({
   isOpen,
   onClose,
 }: AddInsuranceModalProps) {
+  // Get the countries and their prefixes from the context
   const { countries } = usePrefixesContext();
 
+  // Declare the mutation for submitting the insurance
   const handleInsuranceSubmit = useSubmitInsuranceMutation(onClose);
 
+  // Handle form submission
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleInsuranceSubmit.mutate(new FormData(e.currentTarget));
   };
 
+  // If the countries are not loaded or the insurance submission is pending, show a loader
   if (handleInsuranceSubmit.isPending) {
     return DNALoader();
   }

@@ -1,3 +1,23 @@
+/**
+ * @component CommonSectionRefactor
+ *
+ * Renders the common section of an entity profile, displaying status, ID, and name fields.
+ * Allows editing of name and surname if profile editing is enabled and entity is not a patient.
+ *
+ * @param {Object} props
+ * @param {string} props.entityType - The type of entity (e.g., 'therapist', 'patient') to customize behavior.
+ *
+ * @returns {JSX.Element} The common profile section component with conditional rendering based on editing state.
+ *
+ * @description
+ * - Displays status and ID using output components.
+ * - Shows name and surname either as read-only outputs or editable inputs depending on editing mode and entity type.
+ * - Uses global context for profile state management including editing status, entity name, surname, and ID.
+ *
+ * @example
+ * <CommonSectionRefactor entityType="therapist" />
+ */
+
 import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import { StandardTextInputRefactor } from '../../../../generalComponents/standardInputs/newInputs';
 import {
@@ -13,8 +33,10 @@ interface CommonSectionRefactorProps {
 export default function CommonSectionRefactor({
   entityType,
 }: CommonSectionRefactorProps) {
+  // Check if the entity type is 'patient' to determine if it's a patient profile
   const isPatientProfile = entityType === 'patient';
 
+  // Get the necessary state and functions from the global context
   const {
     isProfileEditing,
     entityName,
@@ -25,10 +47,12 @@ export default function CommonSectionRefactor({
     entityId,
   } = useAdminProfileDetailsGlobalContext();
 
+  // Handlers for name change
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEntityName(e.target.value);
   };
 
+  // Handler for surname change
   const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEntitySurname(e.target.value);
   };

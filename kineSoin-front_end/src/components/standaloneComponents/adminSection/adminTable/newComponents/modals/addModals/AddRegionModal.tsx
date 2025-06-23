@@ -1,3 +1,20 @@
+/**
+ * @component AddRegionModal
+ *
+ * Modal component to add a new body region through a form.
+ *
+ * @param {boolean} isOpen - Controls whether the modal is visible.
+ * @param {() => void} onClose - Callback to close the modal.
+ *
+ * @returns {JSX.Element} A modal with a form to submit a new body region.
+ *
+ * @details
+ * - Uses `useSubmitRegionMutation` to handle the form submission asynchronously.
+ * - Shows a loader while the submission is in progress.
+ * - Displays an error message if the submission fails.
+ * - Contains a form with a single text input for the region name and buttons to submit or cancel.
+ */
+
 import DNALoader from '../../../../../../../utils/DNALoader';
 import { useSubmitRegionMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/bodyRegionModalMutations/useRegionSubmitMutation';
 import StandardTextInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTextInputRefactor';
@@ -13,13 +30,16 @@ export default function AddRegionModal({
   isOpen,
   onClose,
 }: AddRegionModalProps) {
+  // Mutation to handle region creation
   const handleRegionCreation = useSubmitRegionMutation(onClose);
 
+  // Function to handle form submission
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleRegionCreation.mutate(new FormData(e.currentTarget));
   };
 
+  // If the mutation is pending, display the loader
   if (handleRegionCreation.isPending) {
     return DNALoader();
   }

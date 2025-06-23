@@ -1,6 +1,14 @@
+/**
+ * Fetches the list of afflictions for the admin panel.
+ *
+ * Sends a GET request to the '/admin/afflictions' endpoint and returns the data if successful.
+ * Logs an error and returns an empty array if the request fails or the response status is not 200.
+ *
+ * @returns {Promise<Array>} - A promise that resolves to an array of afflictions or an empty array on failure.
+ */
+
 import axios from '../../../../axios.ts';
 
-// Function to fetch afflictions as admin
 export const fetchAfflictionsAsAdmin = async () => {
   try {
     const response = await axios.get('/admin/afflictions');

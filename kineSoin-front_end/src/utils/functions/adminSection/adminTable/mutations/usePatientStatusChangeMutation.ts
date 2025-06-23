@@ -1,3 +1,17 @@
+/**
+ * @function usePatientStatusChangeMutation
+ *
+ * Custom React hook that provides a mutation to update a patient's status as an admin.
+ * It validates input data, triggers the API request, and handles cache invalidation and UI feedback.
+ *
+ * @returns {UseMutationResult<boolean, unknown, { id: number; status: string }, unknown>}
+ * - Returns a mutation object from React Query for patient status update.
+ *
+ * @example
+ * const mutation = usePatientStatusChangeMutation();
+ * mutation.mutate({ id: 123, status: 'active' });
+ */
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

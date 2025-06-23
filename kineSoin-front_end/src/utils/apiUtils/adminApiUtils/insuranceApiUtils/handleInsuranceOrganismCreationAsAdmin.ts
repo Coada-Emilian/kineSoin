@@ -1,3 +1,18 @@
+/**
+ * @function handleInsuranceOrganismCreationAsAdmin
+ *
+ * Sends a POST request to create a new insurance organism as an admin.
+ *
+ * @param {FormData} formData - The form data containing insurance organism details to be submitted.
+ *
+ * @returns {Promise<boolean>} Returns true if creation is successful (HTTP 200), otherwise false.
+ *
+ * @details
+ * - Sends form data to the `/admin/insuranceOrganisms` endpoint with JSON content type.
+ * - Logs success message on successful creation.
+ * - Logs error messages and returns false on failure or exceptions.
+ */
+
 import axios from '../../../../axios.ts';
 
 // Function to handle insurance organism creation as admin

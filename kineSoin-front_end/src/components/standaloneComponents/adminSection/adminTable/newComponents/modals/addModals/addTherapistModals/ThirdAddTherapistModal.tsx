@@ -1,3 +1,35 @@
+/**
+ * @component ThirdAddTherapistModal
+ *
+ * The third and final step of the "Add Therapist" multi-step modal form in the admin panel.
+ * This modal collects account-related information such as email, password, and status.
+ * Once validated, it triggers the therapist creation via a React Query mutation.
+ *
+ * @param {boolean} isOpen - Determines if the modal is visible.
+ * @param {() => void} onClose - Function to close the modal.
+ *
+ * @returns {JSX.Element} - A modal component with form inputs and submit behavior.
+ *
+ * @example
+ * <ThirdAddTherapistModal isOpen={isModalOpen} onClose={handleClose} />
+ *
+ * @features
+ * - Uses React Query to submit a creation request.
+ * - Shows loading indicator while submitting.
+ * - Displays validation or API error messages.
+ * - Relies on global context (`useAdminAddTherapistFormGlobalContext`) to complete form data.
+ *
+ * @formInputs
+ * - Email
+ * - Password and confirmation
+ * - Status (active/inactive)
+ *
+ * @remarks
+ * - Uses `addThirdFormDetails` to validate form values and complete the global form state.
+ * - Calls `handleTherapistCreation` mutation upon valid form data.
+ * - Uses a shared `CreateButtonsSection` component for confirm/cancel actions.
+ */
+
 import { useEffect, useState } from 'react';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';

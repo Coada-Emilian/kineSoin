@@ -1,3 +1,25 @@
+/**
+ * AdminTableRefactor component renders a dynamic, reusable admin data table
+ * for various entity types (therapists, patients, afflictions, etc.).
+ *
+ * Responsibilities:
+ * - Manage and render filtered entities based on the current entity type and status.
+ * - Integrate with the global admin table context for modal control and entity selection.
+ * - Render table headers, body, and title dynamically based on the active entity type.
+ * - Provide buttons to open modals for adding or viewing entities and regions.
+ * - Include modals for adding therapists (multi-step), afflictions, medics, insurance organisms, and regions.
+ * - Confirm deletion modals with context-aware handling.
+ *
+ * Uses:
+ * - React hooks for side effects and state synchronization.
+ * - Context for centralized state management.
+ * - Utility functions for entity rendering and table configuration.
+ * - Tailwind CSS for responsive and styled UI components.
+ *
+ * @param {IEntitiesInterfaces} entities - Array of entities to display in the table.
+ * @param {IEntityTypes} entityType - The type of entities to be rendered (e.g., therapist, patient).
+ */
+
 import { useEffect } from 'react';
 import {
   IEntitiesInterfaces,
@@ -11,17 +33,20 @@ import {
   renderAfflictions,
   renderPatients,
   renderTherapists,
-} from '../../../../../utils/functions/adminSection/adminTable/renderEntitites/index';
-import AddAfflictionModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddAfflictionModal';
-import AddInsuranceModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddInsuranceModal';
-import AddMedicModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddMedicModal';
-import AddRegionModal from '../../../adminSection/adminTable/newComponents/modals/addModals/AddRegionModal';
-import ConfirmDeleteModal from '../../../adminSection/adminTable/newComponents/modals/ConfirmDeleteModal';
-import RegionModalRefactor from '../../../adminSection/adminTable/newComponents/modals/RegionModalRefactor';
+} from '../../../../../utils/functions/adminSection/adminTable/renderEntities/index';
+
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
-import FirstAddTherapistModal from './modals/addModals/addTherapistModals/FirstAddTherapistModal';
-import SecondAddTherapistModal from './modals/addModals/addTherapistModals/SecondAddTherapistModal';
-import ThirdAddTherapistModal from './modals/addModals/addTherapistModals/ThirdAddTherapistModal';
+import {
+  AddAfflictionModal,
+  AddInsuranceModal,
+  AddMedicModal,
+  AddRegionModal,
+  ConfirmDeleteModal,
+  FirstAddTherapistModal,
+  RegionModalRefactor,
+  SecondAddTherapistModal,
+  ThirdAddTherapistModal,
+} from './modals';
 import TableBodyRefactor from './pageComponents/commonComponents/TableBodyRefactor';
 import TableHeadRefactor from './pageComponents/commonComponents/TableHeadRefactor';
 import TableTitleRefactor from './pageComponents/commonComponents/TableTitleRefactor';
@@ -92,7 +117,9 @@ export default function AdminTableRefactor({
     <>
       <div className="min-h-screen">
         <div
-          className={`${!activeEntity?.statusButtons ? 'justify-end' : 'justify-between'} mb-6 flex flex-row md:ml-10 md:mr-10`}
+          className={`flex flex-row ${
+            !activeEntity?.statusButtons ? 'justify-end' : 'justify-between'
+          } mb-6 md:ml-10 md:mr-10`}
         >
           <>
             {activeEntity?.statusButtons}
@@ -136,7 +163,7 @@ export default function AdminTableRefactor({
           />
         </div>
 
-        <table className="border-separate border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
+        <table className="border border-gray-300 border-separate w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
           <TableHeadRefactor
             secondHeaderContent={activeEntity?.secondTableHeadContent || ''}
             thirdHeaderContent={activeEntity?.thirdTableHeadContent || ''}
@@ -158,7 +185,6 @@ export default function AdminTableRefactor({
           entityType={entityType}
         />
 
-        {/* <PrefixesContextProvider> */}
         <AdminAddTherapistFormGlobalProvider>
           <FirstAddTherapistModal
             onClose={closeModal}
@@ -189,7 +215,6 @@ export default function AdminTableRefactor({
           isOpen={openModal === 'addInsurance'}
           onClose={closeModal}
         />
-        {/* </PrefixesContextProvider> */}
 
         <RegionModalRefactor
           isOpen={openModal === 'region'}

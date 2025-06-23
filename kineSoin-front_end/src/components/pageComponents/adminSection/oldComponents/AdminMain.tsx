@@ -10,9 +10,9 @@ import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableG
 import DNALoader from '../../../../utils/DNALoader';
 import { fetchAdminEntityDetails } from '../../../../utils/functions/adminSection/adminMain/fetchAdminEntityDetails';
 import { fetchAdminTableDetails } from '../../../../utils/functions/adminSection/adminMain/fetchAdminTableDetails';
-import AdminTableRefactor from '../../../standaloneComponents/admin/adminTable/newComponents/AdminTableRefactor';
 import AdminProfileDetailsRefactor from '../../../standaloneComponents/adminSection/adminProfileDetails/newComponents/AdminProfileDetailsRefactor';
 import AdminSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/AdminSideNav';
+import AdminTableRefactor from '../../../standaloneComponents/adminSection/adminTable/newComponents/AdminTableRefactor';
 
 interface AdminMainProps {
   entityType: IEntityTypes;

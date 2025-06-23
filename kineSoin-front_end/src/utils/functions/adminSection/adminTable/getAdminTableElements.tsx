@@ -1,3 +1,32 @@
+/**
+ * @function getAdminTableElements
+ *
+ * Generates an array of configuration objects representing the different
+ * admin table entities for use in the admin section UI.
+ *
+ * Each configuration object defines properties specific to an entity type,
+ * including status filter buttons, add button text and modal names,
+ * table titles, and custom table header contents.
+ *
+ * @param entityStatus - The current status filter applied to entities.
+ * @param setEntityStatus - Setter function to update the entity status filter.
+ *
+ * @returns {Array<Object>} - Array of entity configuration objects
+ * for rendering the corresponding admin table components dynamically.
+ *
+ * @example
+ * const elements = getAdminTableElements({
+ *   entityStatus: 'all',
+ *   setEntityStatus: setStatusFunction,
+ * });
+ *
+ * @remarks
+ * - Status buttons components allow filtering entities by their status.
+ * - Custom add buttons open modals for adding new entities.
+ * - Supports entities like therapists, patients, afflictions, medics, insurances, and regions.
+ * - Provides flexible table header customization per entity type.
+ */
+
 import AfflictionsStatusButtons from '../../../../components/standaloneComponents/adminSection/adminTable/newComponents/pageComponents/afflictionComponents/AfflictionsStatusButtons';
 import PatientsStatusButtons from '../../../../components/standaloneComponents/adminSection/adminTable/newComponents/pageComponents/patientComponents/PatientsStatusButtons';
 import TherapistsStatusButtons from '../../../../components/standaloneComponents/adminSection/adminTable/newComponents/pageComponents/therapistComponents/TherapistsStatusButtons';

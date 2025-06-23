@@ -1,3 +1,18 @@
+/**
+ * @function useInsuranceUpdateMutation
+ *
+ * Custom React Query mutation hook to update insurance organism details as an admin.
+ *
+ * Validates the form data, sends the update request, and handles UI feedback.
+ *
+ * @returns {UseMutationResult<boolean, unknown, { id: number; formData: FormData }>}
+ *   A mutation object with status and mutation functions.
+ *
+ * @example
+ * const mutation = useInsuranceUpdateMutation();
+ * mutation.mutate({ id: 1, formData: new FormData() });
+ */
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { handleInsuranceOrganismUpdateAsAdmin } from '../../../../apiUtils/adminApiUtils/insuranceApiUtils/handleInsuranceOrganismUpdateAsAdmin';

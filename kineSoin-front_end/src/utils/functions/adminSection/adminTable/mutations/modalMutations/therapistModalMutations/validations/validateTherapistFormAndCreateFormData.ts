@@ -1,3 +1,25 @@
+/**
+ * Validates the therapist form fields from an addForm object and creates a FormData instance.
+ *
+ * This function performs comprehensive validation on the therapist's information such as
+ * name, email, password, diploma, phone number, photo, and others. It throws descriptive errors
+ * if any validation fails. If all validations pass, it returns a FormData object ready for submission.
+ *
+ * @param {IAddForm} addForm - The object containing all therapist form fields.
+ *
+ * @throws {Error} Throws an error with a descriptive message if a validation fails.
+ *
+ * @returns {FormData} A FormData object with all validated and appended fields suitable for API submission.
+ *
+ * @example
+ * try {
+ *   const formData = validateTherapistFormAndCreateFormData(addForm);
+ *   // proceed with form submission using formData
+ * } catch (error) {
+ *   console.error(error.message);
+ * }
+ */
+
 import { IAddForm } from '../../../../../../../../@types/interfaces/customInterfaces';
 
 export function validateTherapistFormAndCreateFormData(addForm: IAddForm) {

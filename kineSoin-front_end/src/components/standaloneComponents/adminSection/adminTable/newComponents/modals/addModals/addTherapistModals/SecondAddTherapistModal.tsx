@@ -1,3 +1,35 @@
+/**
+ * @component SecondAddTherapistModal
+ *
+ * A modal component representing step 2 of the "Add Therapist" form in the admin interface.
+ * This step collects professional and contact information for a therapist, including diploma, experience,
+ * specialty, phone number, and a brief description.
+ *
+ * @typedef {Object} SecondAddTherapistModalProps
+ * @property {boolean} isOpen - Determines if the modal is open.
+ * @property {() => void} onClose - Function to close the modal.
+ * @property {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP3Open - Function to open the third form step.
+ *
+ * @returns {JSX.Element} A modal that allows admins to enter study and experience details for a new therapist.
+ *
+ * @example
+ * <SecondAddTherapistModal
+ *   isOpen={isStep2Open}
+ *   onClose={closeStep2}
+ *   setIsAddTherapistModalP3Open={openStep3}
+ * />
+ *
+ * @features
+ * - Collects diploma, experience, specialty, phone prefix and number, and a description.
+ * - Uses `StandardTextInputRefactor`, `StandardDropdownInputRefactor`, and `StandardTelephoneInputRefactor` for input fields.
+ * - Submits form data using `addSecondFormDetails()` and updates the global form context.
+ *
+ * @remarks
+ * - The country prefixes are sourced from the `PrefixesContext`.
+ * - Uses `useAdminAddTherapistFormGlobalContext` to persist form values across steps.
+ * - Displays an error message from global context if one is present.
+ */
+
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';
 import { usePrefixesContext } from '../../../../../../../../utils/contexts/PrefixesContext';

@@ -1,3 +1,27 @@
+/**
+ * AdminMain.tsx
+ *
+ * Main admin interface component responsible for displaying either:
+ * - A table of entities (e.g., therapists, patients, etc.)
+ * - The detailed profile view of a selected entity
+ *
+ * Behavior:
+ * - Uses `useParams` to get an optional `id` from the URL
+ * - Fetches entity list and single entity details using React Query
+ * - Shows a loading spinner while fetching data
+ * - Conditionally renders:
+ *   - AdminTableRefactor: when no ID is present (listing view)
+ *   - AdminProfileDetailsRefactor: when an ID is present (details view)
+ *
+ * Context Providers:
+ * - AdminTableGlobalProvider: shares table state globally
+ * - AdminProfileDetailsGlobalProvider: shares profile-specific state
+ *
+ * Dependencies:
+ * - React Query for data fetching and caching
+ * - TailwindCSS for layout and styling
+ */
+
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import {
@@ -10,7 +34,6 @@ import { AdminTableGlobalProvider } from '../../../../utils/contexts/AdminTableG
 import DNALoader from '../../../../utils/DNALoader';
 import { fetchAdminEntityDetails } from '../../../../utils/functions/adminSection/adminMain/fetchAdminEntityDetails';
 import { fetchAdminTableDetails } from '../../../../utils/functions/adminSection/adminMain/fetchAdminTableDetails';
-
 import AdminProfileDetailsRefactor from '../../../standaloneComponents/adminSection/adminProfileDetails/newComponents/AdminProfileDetailsRefactor';
 import AdminTableRefactor from '../../../standaloneComponents/adminSection/adminTable/newComponents/AdminTableRefactor';
 import AdminSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/AdminSideNav';
@@ -30,7 +53,7 @@ export default function AdminMain({ entityType }: AdminMainProps) {
   const { isPending: isEntitiesLoading, data: entities } = useQuery({
     queryKey: ['fetchTableDataRefactor', { entityType }],
     queryFn: () => fetchAdminTableDetails<IEntitiesInterfaces>({ entityType }),
-    refetchOnMount: true, // <--- refetches every time component mounts
+    refetchOnMount: true,
     refetchOnWindowFocus: true,
   });
 
@@ -42,8 +65,8 @@ export default function AdminMain({ entityType }: AdminMainProps) {
         entityType,
         entityId: entity_id,
       }),
-    enabled: !!entity_id, // Only run if entity_id is truthy
-    refetchOnMount: true, // <--- refetches every time component mounts
+    enabled: !!entity_id,
+    refetchOnMount: true,
     refetchOnWindowFocus: true,
   });
 
@@ -53,13 +76,13 @@ export default function AdminMain({ entityType }: AdminMainProps) {
   }
 
   return (
-    <main className="w-full h-fit bg-gradient-to-r from-white to-gray-200 pb-2 flex p-4">
+    <main className="w-full h-fit flex p-4 pb-2 bg-gradient-to-r from-white to-gray-200">
       <AdminTableGlobalProvider>
-        <div className="w-1/4 h-screen hidden md:block">
+        <div className="hidden h-screen w-1/4 md:block">
           <AdminSideNav />
         </div>
 
-        <div className="w-full md:border-l-2 md:border-solid ">
+        <div className="w-full md:border-l-2 md:border-solid">
           {entities && !id && (
             <AdminTableRefactor entities={entities} entityType={entityType} />
           )}

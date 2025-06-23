@@ -27,5 +27,8 @@ export const useTherapistLoginMutation = (
       setTherapistProfileToken(data);
       navigate('/therapist/dashboard');
     },
+    onError: (error: Error) => {
+      throw new Error(error.message);
+    },
   });
 };

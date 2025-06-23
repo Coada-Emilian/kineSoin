@@ -1,3 +1,21 @@
+/**
+ * @component BaseOutput
+ *
+ * Displays a labeled output value, either as inline text or as a read-only textarea.
+ *
+ * @param {Object} props
+ * @param {string} props.label - The label to display before the value.
+ * @param {string | number | undefined} props.value - The value to display; if undefined or empty, renders nothing.
+ * @param {boolean} [props.isTextArea=false] - If true, displays the value inside a read-only textarea instead of a span.
+ * @param {boolean} [props.isOneThirdWidth=false] - If true, the component width is restricted to one-third of the container; otherwise, full width.
+ *
+ * @returns {JSX.Element | null} A styled output block showing the label and value or null if value is falsy.
+ *
+ * @example
+ * <BaseOutput label="Description" value="This is a test." isTextArea={true} />
+ * <BaseOutput label="Name" value="John Doe" />
+ */
+
 interface BaseOutputProps {
   label: string;
   value: string | number | undefined;

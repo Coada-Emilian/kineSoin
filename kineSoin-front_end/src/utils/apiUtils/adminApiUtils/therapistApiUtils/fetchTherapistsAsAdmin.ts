@@ -1,6 +1,15 @@
+/**
+ * fetchTherapistsAsAdmin
+ *
+ * Fetches the list of therapists from the admin API endpoint.
+ * Handles successful responses and logs errors if the request fails.
+ * Returns an array of therapists or an empty array if an error occurs.
+ *
+ * @returns {Promise<any[]>} - A promise that resolves to an array of therapists or an empty array on failure.
+ */
+
 import axios from '../../../../axios.ts';
 
-// Function to fetch therapists as admin
 export const fetchTherapistsAsAdmin = async () => {
   try {
     const response = await axios.get('/admin/therapists');
@@ -15,4 +24,3 @@ export const fetchTherapistsAsAdmin = async () => {
     return [];
   }
 };
-;

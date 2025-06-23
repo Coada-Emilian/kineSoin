@@ -1,3 +1,23 @@
+/**
+ * @component ImageOutputRefactor
+ *
+ * Displays a rounded profile image for a given entity type, with an optional edit button.
+ *
+ * @param {Object} props
+ * @param {string | undefined} props.picture_url - The URL of the profile picture to display.
+ * @param {string} props.entityType - The type of entity (e.g., 'therapist') to determine display logic.
+ *
+ * @returns {JSX.Element | null} The profile image component; returns null if no picture URL is provided.
+ *
+ * @description
+ * - Shows a profile image with a white border and shadow.
+ * - If the entity is a therapist and the profile is in editing mode, displays an edit button overlay.
+ * - Clicking the edit button opens the photo editing modal via global context.
+ *
+ * @example
+ * <ImageOutputRefactor picture_url="https://example.com/pic.jpg" entityType="therapist" />
+ */
+
 import { Button } from '@headlessui/react';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import editIcon from '/icons/edit.svg';
@@ -11,15 +31,19 @@ export default function ImageOutputRefactor({
   picture_url,
   entityType,
 }: ImageOutputProps) {
+  // If picture_url is not provided, return null
   if (!picture_url) return null;
 
+  // Get the context for profile editing and modal state
   const { isProfileEditing, setIsEditPhotoModalOpen } =
     useAdminProfileDetailsGlobalContext();
 
+  // Function to handle the click event for editing the photo
   const handleClick = () => {
     setIsEditPhotoModalOpen(true);
   };
 
+  // Get the preview URL from the context
   const { previewUrl } = useAdminProfileDetailsGlobalContext();
 
   return (

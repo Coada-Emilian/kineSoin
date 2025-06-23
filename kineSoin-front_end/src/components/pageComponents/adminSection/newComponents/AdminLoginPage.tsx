@@ -1,3 +1,27 @@
+/**
+ * AdminLoginPage.tsx
+ *
+ * This component renders the login page for administrators.
+ *
+ * Features:
+ * - Displays a login form with custom email and password input components
+ * - Submits login credentials via a mutation hook (useAdminLoginMutation)
+ * - Redirects authenticated admins to the admin therapist list page
+ * - Shows a loading animation during login process
+ * - Displays an error message on failed login attempts
+ *
+ * Contexts:
+ * - GlobalContext: provides navigation (navigate)
+ * - AuthentificationContext: manages admin authentication state and token
+ *
+ * UI Components:
+ * - CustomBtn: styled submit button
+ * - StandardEmailInputRefactor / StandardPasswordInputRefactor: form fields
+ *
+ * Utilities:
+ * - DNALoader: loading animation
+ */
+
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DNALoader from '../../../../utils/DNALoader.tsx';
@@ -14,12 +38,13 @@ export default function AdminLoginPage() {
   const { navigate } = useGlobalContext();
 
   // Destructure the necessary variables from the authentification context
-  const { adminProfileToken, setAdminProfileToken } =
+  const { adminProfileToken, setAdminProfileToken, isAdminAuthenticated } =
     useAuthentificationContext();
 
   // Create a mutation to handle the admin login
   const handleAdminLogin = useAdminLoginMutation(setAdminProfileToken);
 
+  // Handle form submission and call the mutation with form data
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -28,10 +53,10 @@ export default function AdminLoginPage() {
 
   // // Ensure navigation happens only when adminProfileToken is set
   useEffect(() => {
-    if (adminProfileToken && adminProfileToken !== null) {
+    if (isAdminAuthenticated && adminProfileToken) {
       navigate('/admin/therapists');
     }
-  }, [adminProfileToken]);
+  }, [isAdminAuthenticated]);
 
   // If the admin login is pending, display the loader
   if (handleAdminLogin.isPending) {
@@ -39,23 +64,23 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main className="flex items-center justify-center min-h-screen w-11/12 mx-auto md:w-full bg-gradient-to-r from-white to-gray-200 ">
-      <section className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-sm">
+    <main className="min-h-screen w-11/12 mx-auto md:w-full flex items-center justify-center bg-gradient-to-r from-white to-gray-200">
+      <section className="w-full max-w-sm bg-white p-8 rounded-2xl shadow-lg">
         <form onSubmit={handleFormSubmit} className="space-y-4">
-          <h1 className="text-2xl font-semibold text-center mb-6 text-primaryBlue italic">
-            Connexion administrateur
+          <h1 className="mb-6 text-center text-2xl font-semibold italic text-primaryBlue">
+            Connexion Administrateur
           </h1>
 
           <Link to="/">
             <img
               src={logo}
               alt="kinesoin"
-              className="w-14 md:w-16 xl:w-20 2xl:w-24 mx-auto mb-6"
+              className="mx-auto mb-6 w-14 md:w-16 xl:w-20 2xl:w-24"
             />
           </Link>
 
           {handleAdminLogin.error && (
-            <p className="text-center text-red-600 font-semibold">
+            <p className="text-center font-semibold text-red-600">
               {handleAdminLogin.error.message}
             </p>
           )}

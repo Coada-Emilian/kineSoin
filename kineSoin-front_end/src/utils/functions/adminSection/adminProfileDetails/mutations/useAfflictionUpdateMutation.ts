@@ -1,3 +1,22 @@
+/**
+ * @function useAfflictionUpdateMutation
+ *
+ * Custom React Query mutation hook to update an affliction's profile as an admin.
+ *
+ * @returns {UseMutationResult<boolean, unknown, { id: number; formData: FormData }, unknown>}
+ * - Provides mutation functions and status for updating affliction data.
+ *
+ * @details
+ * - Validates the form data before sending the update request.
+ * - Calls the API to update the affliction profile.
+ * - On success, invalidates relevant query cache and shows a success toast.
+ * - On error, logs the error and shows an error toast.
+ *
+ * @example
+ * const mutation = useAfflictionUpdateMutation();
+ * mutation.mutate({ id: 1, formData });
+ */
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { handleAfflictionUpdateAsAdmin } from '../../../../apiUtils/adminApiUtils/afflictionApiUtils/handleAfflictionUpdateAsAdmin';

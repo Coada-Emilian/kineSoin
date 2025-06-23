@@ -1,3 +1,30 @@
+/**
+ * @function validateMedicForm
+ *
+ * Validates the medic creation form data contained in a FormData object.
+ * Ensures all required fields are present and meet length and format constraints.
+ *
+ * @param {FormData} formData - The form data to validate.
+ *
+ * @throws {Error} Throws an error with a descriptive message if validation fails.
+ *
+ * @returns {boolean} Returns true if all validations pass.
+ *
+ * @example
+ * try {
+ *   validateMedicForm(formData);
+ *   // proceed with submission
+ * } catch (error) {
+ *   console.error(error.message);
+ *   // handle validation error
+ * }
+ *
+ * @details
+ * - Checks presence of required fields: name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code.
+ * - Validates maximum length constraints on all fields.
+ * - Validates that phone_number contains only digits.
+ */
+
 export function validateMedicForm(formData: FormData) {
   const name = formData.get('name') as string;
   const surname = formData.get('surname') as string;

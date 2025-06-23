@@ -1,7 +1,18 @@
-// Import the available entity types (e.g., 'therapist', 'patient', etc.)
-import { IEntityTypes } from '../../../../@types/types/componentTypes';
+/**
+ * fetchAdminTableDetails
+ *
+ * A generic, reusable function to fetch data for different admin entities based on the specified entity type.
+ * It dynamically selects and calls the appropriate API fetching function for therapists, patients, afflictions, medics, or insurances.
+ *
+ * This centralizes and simplifies data fetching logic for admin tables, improving maintainability and scalability.
+ *
+ * @template T - The expected return data type for the fetched entity list.
+ * @param {object} params - Function parameters.
+ * @param {IEntityTypes} params.entityType - The entity type to fetch data for (e.g., 'therapist', 'patient', etc.).
+ * @returns {Promise<T | undefined>} - A promise that resolves to the fetched data or undefined if the entity type is not recognized or an error occurs.
+ */
 
-// Import data-fetching functions for each entity type used in the admin section
+import { IEntityTypes } from '../../../../@types/types/componentTypes';
 import { fetchAfflictionsAsAdmin } from '../../../apiUtils/adminApiUtils/afflictionApiUtils';
 import { fetchInsuranceOrganismsAsAdmin } from '../../../apiUtils/adminApiUtils/insuranceApiUtils';
 import { fetchMedicsAsAdmin } from '../../../apiUtils/adminApiUtils/medicApiUtils';
@@ -13,13 +24,6 @@ interface fetchAdminTableDataProps {
   entityType: IEntityTypes; // One of the supported entity types
 }
 
-/**
- * Fetches the admin table data dynamically based on the provided entity type.
- * This generic function improves reusability across multiple admin components.
- *
- * @param entityType - The type of entity to fetch (e.g., 'therapist', 'patient', etc.)
- * @returns A Promise containing the fetched data or undefined if no fetch function is found.
- */
 export const fetchAdminTableDetails = async <T>({
   entityType,
 }: fetchAdminTableDataProps): Promise<T | undefined> => {

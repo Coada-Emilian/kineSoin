@@ -1,3 +1,25 @@
+/**
+ * @function handleMedicUpdateAsAdmin
+ *
+ * Sends a PUT request to update a medic's profile as an admin.
+ *
+ * @param {number} id - The ID of the medic to update.
+ * @param {FormData} formData - The form data containing the updated medic details.
+ *
+ * @returns {Promise<boolean>} Returns `true` if the update is successful, otherwise `false`.
+ *
+ * @throws Will log errors to the console if the update fails.
+ *
+ * @example
+ * const formData = new FormData();
+ * formData.append('name', 'Jane');
+ * // ... append other fields
+ * const success = await handleMedicUpdateAsAdmin(1, formData);
+ * if(success) {
+ *   console.log('Update successful');
+ * }
+ */
+
 import axios from '../../../../axios.ts';
 
 // Function to handle medic update as admin

@@ -1,12 +1,42 @@
+/**
+ * @component AddAfflictionModal
+ *
+ * A modal component that renders a form for adding a new affliction. It allows admins
+ * to input details such as the name, affected body region, insurance code, operation status,
+ * and a description. It fetches available body regions dynamically when opened.
+ *
+ * @param {boolean} isOpen - Controls whether the modal is visible.
+ * @param {() => void} onClose - Function to close the modal.
+ *
+ * @returns {JSX.Element} - The form modal for creating a new affliction.
+ *
+ * @example
+ * <AddAfflictionModal isOpen={isModalOpen} onClose={closeModalHandler} />
+ *
+ * @remarks
+ * - Uses React Query mutations for submitting the form and fetching body regions.
+ * - Displays a loading spinner while fetching or submitting.
+ * - Uses FormData to collect and send form fields to the backend.
+ * - The `is_operated` field accepts a boolean string ("true" or "false").
+ *
+ * @dependencies
+ * - `useSubmitAfflictionMutation` to handle affliction submission.
+ * - `useFetchBodyRegionsMutation` to populate body region dropdown.
+ * - `StandardTextInputRefactor` and `StandardDropdownInputRefactor` for inputs.
+ * - `BaseModal` for rendering the modal UI.
+ * - `CreateButtonsSection` for form submit/cancel buttons.
+ * - `DNALoader` for loading animation.
+ */
+
 import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../../utils/DNALoader';
 import { useSubmitAfflictionMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/afflictionModalMutations/useAfflictionSubmitMutation';
+import { useFetchBodyRegionsMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/bodyRegionModalMutations/useFetchBodyRegionsMutation';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardDropdownInputRefactor';
 import StandardTextInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTextInputRefactor';
 import BaseModal from '../../../../../privateSection/therapistSection/modals/BaseModal';
 import CreateButtonsSection from '../../pageComponents/CreateButtonsSection';
-import { useFetchBodyRegionsMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/bodyRegionModalMutations/useFetchBodyRegionsMutation';
 
 interface AddAfflictionModalProps {
   isOpen: boolean;
@@ -17,23 +47,29 @@ export default function AddAfflictionModal({
   isOpen,
   onClose,
 }: AddAfflictionModalProps) {
+  // Declare the mutation for submitting the affliction
   const submitAfflictionMutation = useSubmitAfflictionMutation(onClose);
 
+  // Handle form submission
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     submitAfflictionMutation.mutate(new FormData(e.currentTarget));
   };
 
+  // Initialize the state to store body regions
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
+  // Fetch body regions using a custom mutation
   const regionFetchMutation = useFetchBodyRegionsMutation(setBodyRegions);
 
+  // Fetch body regions when the modal is opened
   useEffect(() => {
     if (location.pathname.includes('affliction')) {
       regionFetchMutation.mutate();
     }
   }, [isOpen]);
 
+  // If the body regions are still being fetched or the affliction submission is pending, show a loader
   if (regionFetchMutation.isPending || submitAfflictionMutation.isPending) {
     return DNALoader();
   }

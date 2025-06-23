@@ -1,3 +1,32 @@
+/**
+ * @component AddMedicModal
+ *
+ * Modal component that displays a form for creating a new médecin (doctor).
+ * It collects all necessary personal and contact details, including name, address,
+ * ADELI license code, and phone number with country prefix.
+ *
+ * @param {boolean} isOpen - Boolean that controls whether the modal is displayed.
+ * @param {() => void} onClose - Function to close the modal.
+ *
+ * @returns {JSX.Element} A form modal wrapped inside a `BaseModal` to add a new doctor.
+ *
+ * @example
+ * <AddMedicModal isOpen={modalState} onClose={closeHandler} />
+ *
+ * @remarks
+ * - Uses React Query mutation via `useSubmitMedicMutation` to submit form data.
+ * - Uses `FormData` API to serialize form values.
+ * - Uses prefix options from `usePrefixesContext` to render international phone inputs.
+ * - Displays a loading indicator while submitting.
+ * - Shows backend error message if the mutation fails.
+ *
+ * @dependencies
+ * - `DNALoader` for spinner.
+ * - `useSubmitMedicMutation` for API mutation logic.
+ * - `StandardTextInputRefactor`, `StandardDropdownInputRefactor`, `StandardTelephoneInputRefactor` for inputs.
+ * - `CreateButtonsSection` for submission/cancellation buttons.
+ */
+
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
 import { useSubmitMedicMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/medicModalMutations/useMedicSubmitMutation';
@@ -13,15 +42,19 @@ interface AddMedicModalProps {
 }
 
 export default function AddMedicModal({ isOpen, onClose }: AddMedicModalProps) {
+  // Get the countries and their prefixes from the context
   const { countries } = usePrefixesContext();
 
+  // Handle the submission of the medic form using a custom mutation
   const handleMedicSubmit = useSubmitMedicMutation(onClose);
 
+  // Handle form submission
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleMedicSubmit.mutate(new FormData(e.currentTarget));
   };
 
+  // If the medic submission is pending, show a loader
   if (handleMedicSubmit.isPending) {
     return DNALoader();
   }

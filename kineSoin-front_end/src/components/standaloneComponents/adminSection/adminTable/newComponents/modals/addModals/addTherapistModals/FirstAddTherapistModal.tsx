@@ -1,3 +1,34 @@
+/**
+ * @component FirstAddTherapistModal
+ *
+ * A modal component for the first step of the "Add Therapist" form in the admin section.
+ * Collects initial personal details of the therapist including name, surname, licence code, and photo.
+ *
+ * @typedef {Object} FirstAddTherapistModalProps
+ * @property {boolean} isOpen - Determines if the modal is currently open.
+ * @property {() => void} onClose - Function to close the modal.
+ * @property {React.Dispatch<React.SetStateAction<boolean>>} setIsAddTherapistModalP2Open - Setter to open the second step of the form.
+ *
+ * @returns {JSX.Element} - A modal containing the first form step to add a therapist.
+ *
+ * @example
+ * <FirstAddTherapistModal
+ *   isOpen={modalState}
+ *   onClose={closeModal}
+ *   setIsAddTherapistModalP2Open={setModalStep2}
+ * />
+ *
+ * @features
+ * - Uses `StandardTextInputRefactor` and `StandardFileInputRefactor` for inputs.
+ * - Captures name, surname, ADELI code, and profile photo.
+ * - On submit, triggers `addFirstFormDetails()` to store values and proceed to step 2.
+ *
+ * @remarks
+ * - Validates required fields.
+ * - Displays contextual error messages from global error context.
+ * - Integrates with `AdminAddTherapistFormGlobalContext` to store form data globally.
+ */
+
 import { useState } from 'react';
 import { useAdminAddTherapistFormGlobalContext } from '../../../../../../../../utils/contexts/AdminAddTherapistFormGlobalContext';
 import { useGlobalContext } from '../../../../../../../../utils/contexts/GlobalContext';

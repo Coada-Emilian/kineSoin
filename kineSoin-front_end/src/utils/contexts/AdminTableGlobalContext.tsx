@@ -1,3 +1,18 @@
+/**
+ * React context provider for centralized state management of the admin table interface.
+ *
+ * This context manages the currently selected entity, modal states (including generic
+ * and region-specific delete modals), entity status filtering, and the list of entities
+ * rendered in the admin table. It exposes methods to control modal visibility, update
+ * the selected entity, and modify the filtered and rendered entities.
+ *
+ * The provider ensures that all admin table components have consistent access to shared
+ * state and control mechanisms, facilitating coordinated UI behavior and state updates.
+ *
+ * A custom hook `useAdminTableGlobalContext` is provided for convenient and type-safe
+ * consumption of the context, including a runtime check to ensure usage within the provider.
+ */
+
 import {
   createContext, // Hook to perform side effects when dependencies change
   ReactNode, // Function to create a new context

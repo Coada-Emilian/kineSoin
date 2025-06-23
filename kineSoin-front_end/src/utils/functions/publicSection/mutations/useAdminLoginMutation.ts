@@ -40,5 +40,8 @@ export const useAdminLoginMutation = (
     onSuccess: (token) => {
       setAdminProfileToken(token);
     },
+    onError: (error: Error) => {
+      throw new Error(error.message);
+    },
   });
 };

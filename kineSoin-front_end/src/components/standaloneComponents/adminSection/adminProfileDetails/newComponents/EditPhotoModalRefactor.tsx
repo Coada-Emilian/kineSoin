@@ -1,3 +1,31 @@
+/**
+ * @component EditPhotoModalRefactor
+ *
+ * Modal component for editing a therapist's profile photo.
+ *
+ * Allows the user to select a new image file, preview it immediately,
+ * and confirm or cancel the change.
+ *
+ * Uses a global context to manage and display the current preview URL of the photo.
+ *
+ * @param {Object} props
+ * @param {boolean} props.isOpen - Controls the visibility of the modal.
+ * @param {() => void} props.onClose - Callback to close the modal.
+ * @param {ITherapist} props.therapist - Therapist object containing current photo URL.
+ * @param {React.Dispatch<React.SetStateAction<File | null>>} props.setSelectedFile -
+ *   State setter to store the newly selected image file.
+ *
+ * @returns {JSX.Element} A modal UI to upload and preview a new therapist photo.
+ *
+ * @example
+ * <EditPhotoModalRefactor
+ *   isOpen={isModalOpen}
+ *   onClose={() => setModalOpen(false)}
+ *   therapist={therapistData}
+ *   setSelectedFile={setFile}
+ * />
+ */
+
 import { ITherapist } from '../../../../../@types/interfaces/modelInterfaces';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
@@ -15,8 +43,10 @@ export default function EditPhotoModalRefactor({
   therapist,
   setSelectedFile,
 }: EditPhotoModalRefactorProps) {
+  // Get the preview URL and setPreviewUrl from the global context
   const { previewUrl, setPreviewUrl } = useAdminProfileDetailsGlobalContext();
 
+  // Initialize the selected file state
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -25,6 +55,7 @@ export default function EditPhotoModalRefactor({
     }
   };
 
+  // Handle cancel click to reset the selected file and preview URL
   const handleCancelClick = () => {
     setSelectedFile(null);
     setPreviewUrl(therapist.picture_url);

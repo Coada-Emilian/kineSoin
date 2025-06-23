@@ -1,3 +1,36 @@
+/**
+ * @function validateMedicUpdateForm
+ *
+ * Validates the update form data for a medic's profile.
+ *
+ * @param {number} id - The ID of the medic being updated.
+ * @param {FormData} formData - The form data containing updated medic details.
+ *
+ * @returns {boolean} Returns `true` if validation passes.
+ *
+ * @throws {Error} Throws an error with a descriptive message if validation fails.
+ *
+ * @details
+ * - Ensures the presence of the ID and required fields in the form.
+ * - Validates the following fields:
+ *   - `name`: required, max 50 characters.
+ *   - `surname`: required, max 50 characters.
+ *   - `prefix`: required, must start with `+` followed by 1 to 5 digits, max 10 characters.
+ *   - `phone_number`: required, 6–15 digits.
+ *   - `street_number`: required, 1–5 digits, max 10 characters.
+ *   - `street_name`: required, max 50 characters.
+ *   - `postal_code`: required, 4–10 digits.
+ *   - `city`: required, max 100 characters.
+ *   - `licence_code`: required, max 9 characters.
+ *
+ * @example
+ * const formData = new FormData();
+ * formData.append('name', 'Jane');
+ * formData.append('surname', 'Doe');
+ * // ... add all required fields
+ * validateMedicUpdateForm(1, formData); // returns true or throws error
+ */
+
 export function validateMedicUpdateForm(id: number, formData: FormData) {
   if (!id || !formData) {
     throw new Error('ID et formulaire requis pour la mise à jour.');

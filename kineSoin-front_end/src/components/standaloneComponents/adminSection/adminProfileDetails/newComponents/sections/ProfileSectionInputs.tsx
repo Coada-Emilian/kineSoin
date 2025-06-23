@@ -1,3 +1,23 @@
+/**
+ * @component ProfileSectionInputs
+ *
+ * Renders a set of input fields for editing profile details of a given entity type
+ * (e.g., therapist, patient, medic) using various standard input components.
+ *
+ * This component consumes global contexts to obtain current entity values,
+ * input change handlers, body regions, and country prefixes to populate dropdowns.
+ *
+ * @param {Object} props
+ * @param {string} props.entityType - The type of entity (used for input IDs and naming).
+ *
+ * @returns {JSX.Element} A collection of form inputs for editing profile information,
+ * including email, phone prefix and number, address fields, codes (AMC, insurance, ADELI),
+ * body region selection, operated status, diploma, specialty, experience, and description.
+ *
+ * @example
+ * <ProfileSectionInputs entityType="therapist" />
+ */
+
 import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import { usePrefixesContext } from '../../../../../../utils/contexts/PrefixesContext';
@@ -15,6 +35,7 @@ interface ProfileSectionInputsProps {
 export default function ProfileSectionInputs({
   entityType,
 }: ProfileSectionInputsProps) {
+  // Get the global context for profile details
   const {
     entityPrefix,
     entityEmail,
@@ -36,15 +57,19 @@ export default function ProfileSectionInputs({
     bodyRegions,
   } = useAdminProfileDetailsGlobalContext();
 
+  // Get the countries and their prefixes from the prefixes context
   const { countries } = usePrefixesContext();
 
+  // Find the existing country based on the entity prefix
   const existingCountry = countries.find(
     (country) => country.prefix === entityPrefix
   );
+  // Filter out the remaining countries that do not match the entity prefix
   const remainingCountries = countries.filter(
     (country) => country.prefix !== entityPrefix
   );
 
+  // Function to handle input changes
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     stateName: string
@@ -59,15 +84,18 @@ export default function ProfileSectionInputs({
     }
   };
 
+  // Filter the body regions to exclude the one already selected or if no region is selected
   const remainingBodyRegions: IBodyRegion[] = bodyRegions.filter(
     (region) => region.id !== entityBodyRegion?.id || !entityBodyRegion.id
   );
 
+  // Determine the operated status options based on the entity's operated status
   const operatedStatus =
     entityOperatedStatus === 'Oui'
       ? { value: 'true', text: 'Oui' }
       : { value: 'false', text: 'Non' };
 
+  // Determine the other operated status option based on the entity's operated status
   const otherOperatedStatus =
     entityOperatedStatus === 'Oui'
       ? { value: 'false', text: 'Non' }

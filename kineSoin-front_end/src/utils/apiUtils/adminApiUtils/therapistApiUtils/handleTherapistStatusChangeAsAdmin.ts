@@ -1,3 +1,19 @@
+/**
+ * @function handleTherapistStatusChangeAsAdmin
+ *
+ * Sends a PUT request to update a therapist's status as an admin.
+ *
+ * @param {number} id - The ID of the therapist whose status will be changed.
+ * @param {string} status - The new status value to set for the therapist.
+ *
+ * @returns {Promise<boolean>}
+ * - Returns `true` if the status update was successful (HTTP 200).
+ * - Returns `false` if the update failed, request completed with error, or if input validation fails.
+ *
+ * @example
+ * const success = await handleTherapistStatusChangeAsAdmin(123, 'active');
+ */
+
 import axios from '../../../../axios.ts';
 
 export const handleTherapistStatusChangeAsAdmin = async (

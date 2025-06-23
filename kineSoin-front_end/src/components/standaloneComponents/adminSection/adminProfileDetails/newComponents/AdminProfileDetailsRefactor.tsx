@@ -1,4 +1,27 @@
+/**
+ * @component AdminProfileDetailsRefactor
+ *
+ * Displays detailed information and editable form for a specific admin-managed entity
+ * (therapist, patient, affliction, medic, or insurance). Includes logic for viewing,
+ * editing, updating status, and deleting the entity.
+ *
+ * @param {ITherapist | IPatient | IAffliction | IMedic | IInsurance | null} entity - The entity object to display and edit.
+ * @param {string} entityType - The type of the entity, used for conditional rendering and logic (e.g., "therapist").
+ *
+ * @returns {JSX.Element} A complete entity profile view with editable fields, photo preview, action buttons, and status controls.
+ *
+ * @details
+ * - Uses context from `useAdminProfileDetailsGlobalContext` to manage global state and form values.
+ * - On mount, sets entity-related state via `setEntityStates`.
+ * - Displays a dynamic title, image, and form sections (`CommonSectionRefactor`, `ProfileSectionRefactor`).
+ * - Includes actions to modify, delete, or cancel profile changes.
+ * - Submits the profile data using `entityUpdateMutations`, and updates status for patients and therapists using dedicated mutation hooks.
+ * - Includes conditional modals (`ConfirmDeleteModal`, `EditPhotoModalRefactor`) and email/phone interaction shortcuts.
+ * - Uses `ToastContainer` for error or success notifications.
+ */
+
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import {
   IAffliction,
   IInsurance,
@@ -25,7 +48,6 @@ import StatusButtonsRefactor from './StatusButtonRefactor.tsx';
 import messageIcon from '/icons/message3.png';
 import phoneIcon from '/icons/phone-call.png';
 import mainLogo from '/logos/Main-Logo.png';
-import { ToastContainer } from 'react-toastify';
 
 interface AdminProfileDetailsRefactorProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
@@ -36,17 +58,22 @@ export default function AdminProfileDetailsRefactor({
   entity,
   entityType,
 }: AdminProfileDetailsRefactorProps) {
+  // Find the mutation entry based on the entityType
   const mutationEntry = entityUpdateMutations().find(
     (entry) => entry.entityType === entityType && entry.updateFunction
   );
 
+  // Set the active mutation function based on the entityType
   const activeMutation = mutationEntry?.updateFunction?.();
 
+  // Get navigate function from global context
   const { navigate } = useGlobalContext();
 
+  // Define mutations for therapist and patient status changes
   const handleTherapistStatusChange = useTherapistStatusChangeMutation();
   const handlePatientStatusChange = usePatientStatusChangeMutation();
 
+  // Destructure global context for admin profile details
   const {
     setIsProfileEditing,
     setIsDeleteModalOpen,
@@ -68,22 +95,22 @@ export default function AdminProfileDetailsRefactor({
     setEntityStatus,
   } = useAdminProfileDetailsGlobalContext();
 
+  // Set the initial entity states when the component mounts
   useEffect(() => {
     setEntityStates(entity);
   }, [entity]);
 
-  useEffect(() => {
-    console.log(entityStatus);
-  }, [entityStatus]);
-
+  // Modify click handler to set profile editing state
   const handleModifyClick = () => {
     setIsProfileEditing(true);
   };
 
+  // Delete click handler to open the delete modal
   const handleDeleteClick = () => {
     setIsDeleteModalOpen(true);
   };
 
+  // Edit photo click handler to open the edit photo modal
   const handleCancelClick = () => {
     setIsProfileEditing(false);
     setSelectedFile(null);
@@ -95,10 +122,12 @@ export default function AdminProfileDetailsRefactor({
     setEntityStatus(entity && 'status' in entity ? entity.status : '');
   };
 
+  // Cancel click handler to return to the list of entities
   const handleCancelClickToReturn = () => {
     navigate(`/admin/${entityType}s`);
   };
 
+  // Handle form submission for profile updates
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (entityType !== 'patient') {

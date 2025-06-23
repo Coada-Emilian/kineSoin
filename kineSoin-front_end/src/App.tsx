@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
+import AdminLoginPage from './components/pageComponents/adminSection/newComponents/AdminLoginPage';
 import AdminMain from './components/pageComponents/adminSection/newComponents/AdminMain';
-import AdminLoginPage from './components/pageComponents/adminSection/oldComponents/AdminLoginPage';
 import ErrorPageRefactor from './components/pageComponents/errorPage/newComponents/ErrorPageRefactor';
 import { adminRoutes } from './utils/constants/publicSection/routes/adminRoutes';
 import { publicRoutes } from './utils/constants/publicSection/routes/publicRoutes';

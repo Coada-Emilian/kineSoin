@@ -1,3 +1,33 @@
+/**
+ * @function ConfirmDeleteModal
+ *
+ * A modal component that handles confirmation for deleting various types of entities in the admin section.
+ * It supports deletion of therapists, patients, afflictions, medics, insurances, and body regions.
+ * The component leverages React Query mutations for async deletion operations and displays a loader while processing.
+ *
+ * @param isOpen - A boolean to control the visibility of the modal.
+ * @param onClose - A callback function to close the modal.
+ * @param entity - The entity object targeted for deletion.
+ * @param entityType - A string representing the type of entity to delete (e.g., "therapist", "region").
+ *
+ * @returns {JSX.Element} - A modal dialog prompting user confirmation to delete the specified entity.
+ *
+ * @example
+ * <ConfirmDeleteModal
+ *   isOpen={isDeleteModalOpen}
+ *   onClose={closeModal}
+ *   entity={selectedEntity}
+ *   entityType="patient"
+ * />
+ *
+ * @remarks
+ * - Uses custom mutation hooks for each entity type to perform deletions.
+ * - Displays confirmation messages tailored to the entity type.
+ * - Shows a DNA-style loader while any deletion is in progress.
+ * - Resets and closes the modal appropriately after confirmation or cancellation.
+ * - Uses global context state to manage region deletion modal visibility.
+ */
+
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { IEntityInterface } from '../../../../../../@types/types/componentTypes';
@@ -46,17 +76,20 @@ export default function ConfirmDeleteModal({
     }
   }, [entity]);
 
+  // Function to handle region deletion
   const handleRegionDelete = useMutation({
     mutationKey: ['regionDelete'],
     mutationFn: ({ id }: { id: number }) => handleBodyRegionDeleteAsAdmin(id),
   });
 
+  // Mutations for deleting different entities
   const therapistDeleteMutation = useTherapistDeleteMutation();
   const patientDeleteMutation = usePatientDeleteMutation();
   const medicDeleteMutation = useMedicDeleteMutation();
   const afflictionDeleteMutation = useAfflictionDeleteMutation();
   const insuranceDeleteMutation = useInsuranceDeleteMutation();
 
+  // Function to handle entity deletion based on the active entity type
   const handleEntityDelete = () => {
     if (activeEntity?.entityType === 'therapist') {
       therapistDeleteMutation.mutate({ id: entity.id });
@@ -71,22 +104,26 @@ export default function ConfirmDeleteModal({
     }
   };
 
+  // Handlers for confirming and canceling deletion actions
   const handleConfirmRegionDelete = () => {
     onClose && onClose();
     handleRegionDelete.mutate({ id: entity.id });
     setRegionDeleteModal(false);
   };
 
+  // Handler for confirming entity deletion
   const handleConfirmEntityDelete = () => {
     onClose && onClose();
     handleEntityDelete();
   };
 
+  // Handlers for canceling deletion actions
   const handleCancelRegionDelete = () => {
     onClose && onClose();
     setRegionDeleteModal(false);
   };
 
+  // Handler for canceling entity deletion
   const handleCancelEntityDelete = () => {
     onClose && onClose();
   };

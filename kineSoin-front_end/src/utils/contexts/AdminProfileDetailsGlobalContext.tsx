@@ -1,3 +1,26 @@
+/**
+ * @component AdminProfileDetailsGlobalProvider
+ *
+ * Provides a React context to manage global admin profile details state and actions.
+ *
+ * @param {object} props
+ * @param {React.ReactNode} props.children - React components wrapped by this provider.
+ *
+ * @returns {JSX.Element} Context provider component that shares profile editing state,
+ * form states for various entity fields, body regions data, and utility functions.
+ *
+ * @details
+ * - Manages editing flags and modal visibility for profile editing, deletion, and photo editing.
+ * - Stores form field states for entities like therapists, patients, afflictions, medics, and insurances.
+ * - Includes file selection and preview URL management.
+ * - Fetches body regions on mount using `useGetBodyRegionsMutation` and stores them in state.
+ * - Provides `setEntityStates` to update all entity-related states from a given entity object.
+ * - Offers an array of input change handlers to update common form fields easily.
+ * - Exposes all these states and functions through context for use throughout admin profile detail components.
+ *
+ * @throws Will throw an error if `useAdminProfileDetailsGlobalContext` is used outside this provider.
+ */
+
 import { createContext, useContext, useEffect, useState } from 'react';
 import { IAdminProfileDetailsGlobalContextProps } from '../../@types/interfaces/customInterfaces';
 import {

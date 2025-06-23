@@ -1,6 +1,15 @@
+/**
+ * Fetches detailed information for a specific affliction by ID for admin purposes.
+ *
+ * Sends a GET request to the admin API endpoint for the affliction with the given ID.
+ * Returns the affliction data if successful (status 200), otherwise logs an error and returns null.
+ *
+ * @param id - The ID of the affliction to fetch.
+ * @returns A promise resolving to the affliction data or null if the fetch fails.
+ */
+
 import axios from '../../../../axios.ts';
 
-// Function to fetch an affliction as admin
 export const fetchAfflictionAsAdmin = async (id: number) => {
   try {
     const response = await axios.get(`/admin/afflictions/${id}`);

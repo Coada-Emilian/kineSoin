@@ -1,3 +1,22 @@
+/**
+ * @component StatusOutputRefactor
+ *
+ * Displays the status of an entity with styled text and a status label.
+ * Uses helper functions to convert status codes into user-friendly text and CSS class names.
+ *
+ * @param {Object} props
+ * @param {string | undefined} props.status - The current status string of the entity.
+ *
+ * @returns {JSX.Element | null} A styled status display component or null if no status is provided.
+ *
+ * @description
+ * - Internally manages the display status text state, updating when the input status changes.
+ * - Applies dynamic CSS classes based on the status for visual distinction.
+ *
+ * @example
+ * <StatusOutputRefactor status="active" />
+ */
+
 import { useEffect, useState } from 'react';
 import { getProfileStatusClassName } from '../../../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusClassName';
 import { getProfileStatusText } from '../../../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusText';

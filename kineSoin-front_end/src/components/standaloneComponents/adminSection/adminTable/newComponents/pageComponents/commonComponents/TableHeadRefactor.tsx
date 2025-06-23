@@ -1,3 +1,29 @@
+/**
+ * @function TableHeadRefactor
+ *
+ * A React functional component that renders the header section of an admin table.
+ * It displays column headers with dynamic content for the second, third, and optionally fourth columns.
+ * The first column is fixed as an ID column, and the last column spans two cells for actions.
+ *
+ * @param secondHeaderContent - Text content for the second column header.
+ * @param thirdHeaderContent - Text content for the third column header.
+ * @param fourthHeaderContent - Optional text content for the fourth column header, which is hidden on small screens and shown on medium and larger screens.
+ *
+ * @returns {JSX.Element} - A table head element containing a single row of table headers.
+ *
+ * @example
+ * <TableHeadRefactor
+ *   secondHeaderContent="Name"
+ *   thirdHeaderContent="Status"
+ *   fourthHeaderContent="Region"
+ * />
+ *
+ * @remarks
+ * - The component uses Tailwind CSS classes for styling and responsive design.
+ * - Borders, padding, text alignment, and rounded corners are applied for better UI.
+ * - The fourth header cell is conditionally rendered and responsive.
+ */
+
 interface TableHeadRefactorProps {
   secondHeaderContent: string;
   thirdHeaderContent: string;

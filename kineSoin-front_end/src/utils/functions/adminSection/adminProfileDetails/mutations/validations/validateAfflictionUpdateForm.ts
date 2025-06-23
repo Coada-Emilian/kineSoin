@@ -1,3 +1,32 @@
+/**
+ * @function validateAfflictionUpdateForm
+ *
+ * Validates the update form data for an affliction's profile.
+ *
+ * @param {number} id - The ID of the affliction being updated.
+ * @param {FormData} formData - The form data containing updated affliction details.
+ *
+ * @returns {boolean} Returns `true` if validation passes.
+ *
+ * @throws {Error} Throws an error with a descriptive message if validation fails.
+ *
+ * @details
+ * - Ensures the presence of the ID and required fields in the form.
+ * - Validates the following fields:
+ *   - `body_region_id`: required, must be a valid number.
+ *   - `name`: required, max 50 characters.
+ *   - `description`: optional, if present must be a string and max 255 characters.
+ *   - `insurance_code`: optional, if present must be a string and max 25 characters.
+ *   - `is_operated`: optional, if present must be string 'true' or 'false'.
+ *
+ * @example
+ * const formData = new FormData();
+ * formData.append('body_region_id', '1');
+ * formData.append('name', 'Back Pain');
+ * // ... add optional fields
+ * validateAfflictionUpdateForm(1, formData); // returns true or throws error
+ */
+
 export function validateAfflictionUpdateForm(id: number, formData: FormData) {
   if (!id || !formData) {
     throw new Error('ID et formulaire requis pour la mise à jour.');

@@ -1,3 +1,28 @@
+/**
+ * @function useMedicUpdateMutation
+ *
+ * Custom React Query mutation hook to update a medic's profile as an admin.
+ *
+ * @returns {object} React Query mutation object for updating a medic profile.
+ *
+ * @details
+ * - Validates the medic update form data before submission.
+ * - Calls the API to update the medic profile with the given ID and form data.
+ * - On success:
+ *    - Logs a success message.
+ *    - Invalidates related queries to refresh medic data.
+ *    - Shows a success toast notification.
+ * - On error:
+ *    - Logs the error.
+ *    - Shows an error toast notification.
+ *
+ * @example
+ * const { mutate } = useMedicUpdateMutation();
+ * const formData = new FormData();
+ * formData.append('name', 'John Doe');
+ * mutate({ id: 1, formData });
+ */
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { handleMedicUpdateAsAdmin } from '../../../../apiUtils/adminApiUtils/medicApiUtils/handleMedicUpdateAsAdmin';

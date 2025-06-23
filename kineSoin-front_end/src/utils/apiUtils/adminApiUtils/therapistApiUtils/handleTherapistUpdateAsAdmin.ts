@@ -1,3 +1,28 @@
+/**
+ * @function handleTherapistUpdateAsAdmin
+ *
+ * Sends a PUT request to update a therapist's profile as an admin.
+ *
+ * @param {number} id - The ID of the therapist to update.
+ * @param {FormData} formData - The form data containing the updated therapist details.
+ *
+ * @returns {Promise<boolean>} Returns `true` if the update is successful, otherwise `false`.
+ *
+ * @throws Will log errors if the request fails.
+ *
+ * @example
+ * const formData = new FormData();
+ * formData.append('name', 'John');
+ * formData.append('surname', 'Doe');
+ * // ... add all required fields
+ * const success = await handleTherapistUpdateAsAdmin(1, formData);
+ * if (success) {
+ *   console.log('Update succeeded');
+ * } else {
+ *   console.log('Update failed');
+ * }
+ */
+
 import axios from '../../../../axios.ts';
 
 // Function to handle therapist update as admin

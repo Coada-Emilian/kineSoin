@@ -1,3 +1,35 @@
+/**
+ * @function validateTherapistUpdateForm
+ *
+ * Validates the update form data for a therapist's profile.
+ *
+ * @param {number} id - The ID of the therapist being updated.
+ * @param {FormData} formData - The form data containing updated therapist details.
+ *
+ * @returns {boolean} Returns `true` if validation passes.
+ *
+ * @throws {Error} Throws an error with a descriptive message if validation fails.
+ *
+ * @details
+ * - Ensures the presence of the ID and required fields in the form.
+ * - Validates the following fields:
+ *   - `name`: required, 2–50 characters.
+ *   - `surname`: required, 2–50 characters.
+ *   - `email`: required, must be valid, max 255 characters.
+ *   - `prefix`: required, must start with `+` and digits, max 10 characters.
+ *   - `phone_number`: required, 9–15 digits.
+ *   - `licence_code`: required, 3–9 characters.
+ *   - `diploma`, `specialty`, `experience`: required, max 255 characters.
+ *   - `description`: required, at least 10 characters.
+ *
+ * @example
+ * const formData = new FormData();
+ * formData.append('name', 'John');
+ * formData.append('surname', 'Doe');
+ * // ... add all required fields
+ * validateTherapistUpdateForm(1, formData); // returns true or throws error
+ */
+
 export function validateTherapistUpdateForm(id: number, formData: FormData) {
   if (!id || !formData) {
     throw new Error('ID et formulaire requis pour la mise à jour.');

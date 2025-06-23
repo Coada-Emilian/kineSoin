@@ -1,3 +1,19 @@
+/**
+ * @function handlePatientStatusChangeAsAdmin
+ *
+ * Sends a PUT request to update a patient's status as an admin.
+ *
+ * @param {number} id - The ID of the patient to update.
+ * @param {string} status - The new status to assign to the patient.
+ *
+ * @returns {Promise<boolean>}
+ * - Returns `true` if the status update was successful (HTTP 200).
+ * - Returns `false` if the update failed or if required parameters are missing.
+ *
+ * @example
+ * const success = await handlePatientStatusChangeAsAdmin(123, 'active');
+ */
+
 import axios from '../../../../axios.ts';
 
 // Function to handle patient status change as admin

@@ -1,3 +1,21 @@
+/**
+ * @component RegionModalRefactor
+ *
+ * Modal component that displays a list of body regions fetched from the admin API.
+ *
+ * @param {boolean} isOpen - Controls whether the modal is open or closed.
+ * @param {() => void} onClose - Callback to close the modal.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsAddRegionModalOpen - Setter to control opening of the "Add Region" modal.
+ *
+ * @returns {JSX.Element} The modal UI showing body regions in a table or loading/error states.
+ *
+ * @details
+ * - Fetches body regions when the modal opens and the current URL path includes 'afflictions'.
+ * - Uses a mutation hook `useFetchBodyRegionsMutation` to perform fetching and manage state.
+ * - Shows a loader while fetching, an error message if fetching fails, or a `RegionTable` with the data.
+ * - Provides a cancel button to close the modal.
+ */
+
 import { useEffect, useState } from 'react';
 import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import DNALoader from '../../../../../../utils/DNALoader';
@@ -20,8 +38,10 @@ export default function RegionModalRefactor({
   // State to store all body regions fetched
   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
 
+  // Mutation to fetch body regions
   const regionFetchMutation = useFetchBodyRegionsMutation(setBodyRegions);
 
+  // Effect to fetch body regions when the modal opens and the path includes 'afflictions'
   useEffect(() => {
     if (isOpen && location.pathname.includes('afflictions')) {
       regionFetchMutation.mutate();

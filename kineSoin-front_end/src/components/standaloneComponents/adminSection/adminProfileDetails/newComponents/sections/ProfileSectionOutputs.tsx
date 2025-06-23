@@ -1,3 +1,19 @@
+/**
+ * @component ProfileSectionRefactor
+ *
+ * Conditionally renders either the profile output view or the input editing form
+ * based on the current profile editing state and entity type.
+ *
+ * @param {Object} props
+ * @param {ITherapist | IPatient | IAffliction | IMedic | IInsurance | undefined} props.entity - The entity data (not used directly here).
+ * @param {string} props.entityType - The type of the entity (e.g., 'patient', 'therapist').
+ *
+ * @returns {JSX.Element} A section containing either ProfileSectionOutputs or ProfileSectionInputs components.
+ *
+ * @example
+ * <ProfileSectionRefactor entityType="therapist" />
+ */
+
 import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import {
   AddressOutputRefactor,
@@ -15,6 +31,7 @@ import {
 } from '../outputs';
 
 export default function ProfileSectionOutputs() {
+  // Destructure the necessary data from the global context
   const {
     entityAge,
     entityGender,

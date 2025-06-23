@@ -1,3 +1,41 @@
+/**
+ * @function addFirstFormDetails
+ *
+ * Handles the submission of the first step of the "Add Therapist" form in the admin panel.
+ * Validates input fields such as name, surname, and ADELI license code, and ensures an image file is provided.
+ * If validation passes, it updates the global `addForm` context and transitions to the next modal step.
+ *
+ * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+ * @param {Object} props - Object containing handler functions and the selected image file.
+ * @param {File | null} [props.therapistImage] - The selected therapist image file.
+ * @param {(message: string | null) => void} props.setError - Function to display validation or server errors.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} [props.setIsAddTherapistModalP1Open] - Function to close the current modal (step 1).
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} [props.setIsAddTherapistModalP2Open] - Function to open the next modal (step 2).
+ * @param {(form: IAddForm | any) => void} props.setAddForm - Function to update the global add form state.
+ *
+ * @returns {Promise<void>} Does not return anything explicitly. Handles internal side effects.
+ *
+ * @example
+ * await addFirstFormDetails(e, {
+ *   therapistImage,
+ *   setError,
+ *   setIsAddTherapistModalP1Open: closeStep1,
+ *   setIsAddTherapistModalP2Open: openStep2,
+ *   setAddForm
+ * });
+ *
+ * @validation
+ * - All fields must be filled in.
+ * - Name and surname must contain only letters and spaces.
+ * - ADELI code must be exactly 9 digits.
+ * - A photo must be provided.
+ *
+ * @remarks
+ * - If validation passes, updates the `addForm` state with partial form data.
+ * - Moves to step 2 of the therapist registration process by updating modal visibility.
+ * - Displays user-friendly error messages for common validation issues.
+ */
+
 import { IAddForm } from '../../../../../@types/interfaces/customInterfaces';
 
 interface addFormDetailsProps {

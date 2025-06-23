@@ -1,3 +1,13 @@
+/**
+ * Fetches detailed information for a specific therapist by ID for admin purposes.
+ *
+ * Sends a GET request to the admin API endpoint for the therapist with the provided ID.
+ * Returns the therapist data if the response is successful (status 200), otherwise logs errors and returns null.
+ *
+ * @param id - The ID of the therapist to fetch.
+ * @returns A promise resolving to the therapist data or null if fetching fails.
+ */
+
 import axios from '../../../../axios.ts';
 
 export const fetchTherapistAsAdmin = async (id: number) => {

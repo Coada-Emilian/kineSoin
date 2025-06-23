@@ -1,3 +1,16 @@
+/**
+ * adminMobileNavLinks.ts
+ *
+ * Defines the navigation links used in the admin mobile navigation bar.
+ * Each link object includes:
+ * - name: Label displayed under the icon
+ * - path: React Router path for navigation
+ * - icon: Image source for the link icon
+ *
+ * These links correspond to key admin sections:
+ * Patients, Afflictions, Therapists, Medics, and Insurances.
+ */
+
 import afflictionIcon from '/icons/affliction.png';
 import doctorIcon from '/icons/doctor.png';
 import insuranceIcon from '/icons/insurance.png';

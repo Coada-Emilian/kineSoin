@@ -1,3 +1,20 @@
+/**
+ * @function validateInsuranceForm
+ *
+ * Validates the insurance organism creation form data before submission.
+ *
+ * @param {FormData} formData - The form data containing insurance organism details.
+ *
+ * @throws {Error} Throws an error if any required field is missing or if any field violates length or format constraints.
+ *
+ * @returns {true} Returns true if all validations pass.
+ *
+ * @details
+ * - Checks that all required fields are present and not empty.
+ * - Validates maximum length for each field (name, licence code, street number, street name, postal code, city, prefix, telephone).
+ * - Ensures the telephone number contains only digits and does not exceed 15 characters.
+ */
+
 export function validateInsuranceForm(formData: FormData) {
   const name = formData.get('name') as string;
   const licenceCode = formData.get('amc_code') as string;
