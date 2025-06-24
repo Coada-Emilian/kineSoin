@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 import { IButtonDetails } from '../../../../../@types/interfaces/customInterfaces';
-import { customButtonDetails } from '../../../../../utils/constants/publicSection/standalone_components/custom_button/customButtonDetails';
-import LogoutIcon from '/icons/logout.png';
-import NotificationIcon from '/icons/notification.png';
+import { customButtonDetails } from '../../../../../utils/constants/publicSection/standaloneComponents/customButton/customButtonDetails';
+import { customButtonIconDetails } from '../../../../../utils/constants/publicSection/standaloneComponents/customButton/customButtonIconDetails';
 
 interface CustomButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,42 +20,29 @@ export default function CustomBtn({ btn, type }: CustomButtonProps) {
     btn.style === 'normal' &&
       'p-2 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg',
     btn.style === 'nav' &&
-      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm',
+      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm ',
     btn.style === 'status' &&
       'p-1 px-2 max-w-52 my-0 mx-0 text-xxs md:text-sm xl:text-base',
     btn.style === 'mobile' &&
-      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm'
+      'p-2 max-w-36 lg:max-w-40 xl:max-w-44 m-0 text-xxs md:text-xs lg:text-sm',
+    btn.style === 'hasIcon' &&
+      'p-2 w-36 lg:w-40 xl:w-44 m-0 text-xxs md:text-xs lg:text-sm flex items-center justify-center gap-2 hover:text-black hover:scale-110 transition-all duration-300 ease-in-out'
   );
 
   const renderIcon = () => {
-    if (btn.icon === 'notification') {
-      return (
-        <>
-          <img src={NotificationIcon} alt="Notification" className="max-w-6" />
-          {/* {patientNotificationQuantity > 0 && (
-            <div className="flex items-center">
-              <p className="bg-red-600 px-1 md:px-2 rounded-full text-white text-xxs md:text-xxs flex items-center absolute top-1 left-8 md:left-7">
-                {patientNotificationQuantity
-                  ? patientNotificationQuantity
-                  : therapistNotificationQuantity
-                    ? therapistNotificationQuantity
-                    : ''}
-              </p>
-            </div>
-          )} */}
-        </>
-      );
-    }
+    const iconDetails = customButtonIconDetails.find(
+      (icon) => icon.name === btn.icon
+    );
 
-    if (btn.icon === 'logout') {
-      return (
-        <img
-          src={LogoutIcon}
-          alt="Logout"
-          className="max-w-6 block md:hidden"
-        />
-      );
-    }
+    if (!iconDetails) return null;
+
+    return (
+      <img
+        src={iconDetails.src}
+        alt={iconDetails.alt}
+        className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
+      />
+    );
   };
 
   return (

@@ -1,7 +1,7 @@
 import {
   patientLoginPageArticle,
   patientLoginPageReverseArticle,
-} from '../../../../../../utils/constants/publicSection/standalone_components/description_section_articles/patientLoginPageArticles';
+} from '../../../../../../utils/constants/publicSection/standaloneComponents/descriptionSectionArticles/patientLoginPageArticles';
 import ArticleRow from '../articles/ArticleRow';
 
 export default function PatientLoginDescriptionSection() {

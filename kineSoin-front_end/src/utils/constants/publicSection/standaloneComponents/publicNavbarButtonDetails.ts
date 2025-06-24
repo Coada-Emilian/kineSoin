@@ -1,14 +1,17 @@
 export const publicNavbarButtonDetails = [
   {
-    text: 'Connexion thérapeute',
+    text: 'Thérapeute',
     to: '/loginTherapist',
+    icon: 'therapist',
   },
   {
-    text: 'Connexion patient',
+    text: 'Patient',
     to: '/loginPatient',
+    icon: 'patient',
   },
   {
-    text: 'Connexion admin',
+    text: 'Administrateur',
     to: '/loginAdmin',
+    icon: 'admin',
   },
 ];

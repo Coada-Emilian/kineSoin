@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { handleFileChange } from '../../../../../../utils/functions/commonComponents/imageModal/handleFileChange';
 import BaseModal from '../../../../privateSection/therapistSection/modals/BaseModal';
 import CustomBtn from '../../../customButton/newComponents/CustomButtonRefactor';
+
 interface ImageModalProps {
   isOpen: boolean;
   onClose: () => void;

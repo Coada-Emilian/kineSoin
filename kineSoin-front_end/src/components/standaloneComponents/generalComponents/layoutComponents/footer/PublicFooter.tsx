@@ -1,4 +1,4 @@
-import { publicFooterLinks } from '../../../../../utils/constants/publicSection/standalone_components/publicFooterLinks';
+import { publicFooterLinks } from '../../../../../utils/constants/publicSection/standaloneComponents/publicFooterLinks';
 
 export default function PublicFooter() {
   const currentYear = new Date().getFullYear();
