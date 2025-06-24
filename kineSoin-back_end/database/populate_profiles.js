@@ -27,8 +27,9 @@ for (const admin of admins) {
   const hashedPassword = Scrypt.hash(admin.password);
 
   const query = `INSERT INTO administrators (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
-  
+
   await pgClient.query(query, [name, email, hashedPassword]);
+  console.log(`👨‍💼 Admin ${name} inserted 👨‍💼`);
 }
 
 console.log('🛠️ Admins inserted 🛠️');
@@ -71,6 +72,8 @@ for (const therapist of therapists) {
     licence_code,
     status,
   ]);
+
+  console.log(`👩‍⚕️ Therapist ${name} ${surname} inserted 👩‍⚕️`);
 }
 
 console.log('💆🏻‍♀️ Therapists inserted 💆🏻‍♀️');
@@ -104,6 +107,8 @@ for (const medic of medics) {
     phone_number,
     licence_code,
   ]);
+
+  console.log(`👩🏻‍⚕️ Medic ${name} ${surname} inserted 👩🏻‍⚕️`);
 }
 
 console.log('👩🏻‍⚕️ Medics inserted 👩🏻‍⚕️');
@@ -150,6 +155,8 @@ for (const patient of patients) {
     status,
     picture_url,
   ]);
+
+  console.log(`👩‍👩‍👦‍👦 Patient ${name} ${surname} inserted 👩‍👩‍👦‍👦`);
 }
 
 console.log('👩‍👩‍👦‍👦 Patients inserted 👩‍👩‍👦‍👦');

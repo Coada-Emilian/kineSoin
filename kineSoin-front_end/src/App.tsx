@@ -2,11 +2,15 @@ import { Route, Routes } from 'react-router-dom';
 import AdminLoginPage from './components/pageComponents/adminSection/newComponents/AdminLoginPage';
 import AdminMain from './components/pageComponents/adminSection/newComponents/AdminMain';
 import ErrorPageRefactor from './components/pageComponents/errorPage/newComponents/ErrorPageRefactor';
+import ErrorPage from './components/pageComponents/errorPage/oldComponents/ErrorPage';
+import TherapistMainRefactor from './components/pageComponents/therapistSection/newComponents/TherapistMainRefactor';
 import { adminRoutes } from './utils/constants/publicSection/routes/adminRoutes';
 import { publicRoutes } from './utils/constants/publicSection/routes/publicRoutes';
+import { therapistRoutes } from './utils/constants/publicSection/routes/therapistRoutes';
 import { useAuthentificationContext } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext';
 import { AdminLayout } from './utils/layouts/newLayouts/AdminLayout';
 import { PublicLayout } from './utils/layouts/newLayouts/PublicLayout';
+import { TherapistLayout } from './utils/layouts/newLayouts/TherapistLayout';
 
 function App() {
   const { isAdminAuthenticated, isTherapistAuthenticated } =
@@ -54,22 +58,13 @@ function App() {
         </Route>
       )}
 
-      {/* {isTherapistAuthenticated ? (
-        <Route
-          path="/therapist"
-          element={
-            <Layout
-              isTherapistLayout
-              isTherapistAuthenticated={isTherapistAuthenticated}
-              setIsTherapistAuthenticated={setIsTherapistAuthenticated}
-            />
-          }
-        >
+      {isTherapistAuthenticated ? (
+        <Route path="/therapist" element={<TherapistLayout />}>
           {therapistRoutes.map((route) => (
             <Route
               path={route.path}
               key={route.path}
-              element={<TherapistMain {...{ [route.boolean]: true }} />}
+              element={<TherapistMainRefactor />}
             />
           ))}
 
@@ -79,22 +74,13 @@ function App() {
           />
         </Route>
       ) : (
-        <Route
-          path="/therapist"
-          element={
-            <Layout
-              isTherapistLayout
-              isTherapistAuthenticated={isTherapistAuthenticated}
-              setIsTherapistAuthenticated={setIsTherapistAuthenticated}
-            />
-          }
-        >
+        <Route path="/therapist" element={<TherapistLayout />}>
           <Route
             path="*"
             element={<ErrorPage isUnconnectedTherapistErrorPage />}
           />
         </Route>
-      )} */}
+      )}
 
       {/* Patient routes
       {isPatientAuthenticated ? (

@@ -45,7 +45,14 @@ export default async function loginTherapist(req, res) {
 
     const foundTherapist = await Therapist.findOne({
       where: { email },
-      attributes: ['id', 'name', 'surname', 'status', 'picture_url'],
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'status',
+        'picture_url',
+        'password',
+      ],
     });
 
     if (!foundTherapist) {

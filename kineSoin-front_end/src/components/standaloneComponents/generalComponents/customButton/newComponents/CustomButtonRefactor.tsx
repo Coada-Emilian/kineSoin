@@ -40,7 +40,7 @@ export default function CustomBtn({ btn, type }: CustomButtonProps) {
       <img
         src={iconDetails.src}
         alt={iconDetails.alt}
-        className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
+        className={`${iconDetails.name === 'logout' && 'block md:hidden'} w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7 `}
       />
     );
   };
