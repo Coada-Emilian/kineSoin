@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { handleTherapistLogin } from '../../../apiUtils/publicApiUtils';
+import { validateTherapistLoginForm } from './validations/validateTherapistLoginForm';
 
 export const useTherapistLoginMutation = (
   setTherapistProfileToken: (token: string) => void,
@@ -8,20 +9,12 @@ export const useTherapistLoginMutation = (
   return useMutation({
     mutationKey: ['therapistLogin'],
     mutationFn: async (formData: FormData) => {
-      const therapistLoginEmail = formData.get('email') as string;
-      const therapistLoginPassword = formData.get('password') as string;
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
 
-      if (!therapistLoginEmail || !therapistLoginPassword) {
-        throw new Error('Veuillez remplir tous les champs');
-      } else if (
-        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-          therapistLoginEmail
-        )
-      ) {
-        throw new Error('Veuillez entrer une adresse email valide');
-      }
+      validateTherapistLoginForm(email, password);
 
-      return handleTherapistLogin(therapistLoginEmail, therapistLoginPassword);
+      return handleTherapistLogin(email, password);
     },
     onSuccess: (data) => {
       setTherapistProfileToken(data);

@@ -9,7 +9,8 @@ import { AdminLayout } from './utils/layouts/newLayouts/AdminLayout';
 import { PublicLayout } from './utils/layouts/newLayouts/PublicLayout';
 
 function App() {
-  const { isAdminAuthenticated } = useAuthentificationContext();
+  const { isAdminAuthenticated, isTherapistAuthenticated } =
+    useAuthentificationContext();
 
   return (
     <Routes>
@@ -53,47 +54,7 @@ function App() {
         </Route>
       )}
 
-      {/* Patient routes
-      {isPatientAuthenticated ? (
-        <Route
-          path="/patient"
-          element={
-            <Layout
-              isPatientLayout
-              isPatientAuthenticated={isPatientAuthenticated}
-              setIsPatientAuthenticated={setIsPatientAuthenticated}
-            />
-          }
-        >
-          {patientRoutes.map((route) => (
-            <Route
-              path={route.path}
-              key={route.path}
-              element={<PatientMain {...{ [route.boolean]: true }} />}
-            />
-          ))}
-
-          <Route path="*" element={<ErrorPage isConnectedPatientErrorPage />} />
-        </Route>
-      ) : (
-        <Route
-          path="/patient"
-          element={
-            <Layout
-              isPatientLayout
-              isPatientAuthenticated={isPatientAuthenticated}
-              setIsPatientAuthenticated={setIsPatientAuthenticated}
-            />
-          }
-        >
-          <Route
-            path="*"
-            element={<ErrorPage isUnconnectedPatientErrorPage />}
-          />
-        </Route>
-      )}
-        
-      {isTherapistAuthenticated ? (
+      {/* {isTherapistAuthenticated ? (
         <Route
           path="/therapist"
           element={
@@ -131,6 +92,46 @@ function App() {
           <Route
             path="*"
             element={<ErrorPage isUnconnectedTherapistErrorPage />}
+          />
+        </Route>
+      )} */}
+
+      {/* Patient routes
+      {isPatientAuthenticated ? (
+        <Route
+          path="/patient"
+          element={
+            <Layout
+              isPatientLayout
+              isPatientAuthenticated={isPatientAuthenticated}
+              setIsPatientAuthenticated={setIsPatientAuthenticated}
+            />
+          }
+        >
+          {patientRoutes.map((route) => (
+            <Route
+              path={route.path}
+              key={route.path}
+              element={<PatientMain {...{ [route.boolean]: true }} />}
+            />
+          ))}
+
+          <Route path="*" element={<ErrorPage isConnectedPatientErrorPage />} />
+        </Route>
+      ) : (
+        <Route
+          path="/patient"
+          element={
+            <Layout
+              isPatientLayout
+              isPatientAuthenticated={isPatientAuthenticated}
+              setIsPatientAuthenticated={setIsPatientAuthenticated}
+            />
+          }
+        >
+          <Route
+            path="*"
+            element={<ErrorPage isUnconnectedPatientErrorPage />}
           />
         </Route>
       )} */}

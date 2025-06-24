@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { usePatientRegisterContext } from '../../../../../../utils/contexts/PatientRegisterContext';
 import CustomBtn from '../../../customButton/newComponents/CustomButtonRefactor';
 import ConnectionModal from '../../../modals/imageModal/newComponents/ConnectionModal';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
 import Logo1 from '/logos/kinesoin-logo.webp';
 
 export default function PublicNavBar() {
- 
-
   const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
 
   const handleClick = () => {
