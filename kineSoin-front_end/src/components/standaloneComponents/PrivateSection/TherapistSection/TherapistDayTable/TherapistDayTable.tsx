@@ -2,9 +2,10 @@ import { Button } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
-import { fetchTherapistDashboardData } from '../../../../../utils/apiUtils/therapistApiUtils/therapistApiUtils';
-import { generateTimeSlots } from '../../../../../utils/AppUtils/time';
 import DNALoader from '../../../../../utils/DNALoader';
+import { formatCurrentDate } from '../../../../../utils/functions/privateSection/therapistSection/formatCurrentDate';
+import { generateTimeSlots } from '../../../../../utils/functions/privateSection/therapistSection/generateTimeSlots';
+import { useFetchTherapistDashboardDataQuery } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistDashboardData';
 import SendMessageModal from '../modals/SendMessageModal';
 import TherapistModal from '../modals/TherapistModal';
 import cancelIcon from '/icons/cancel.png';
@@ -15,69 +16,17 @@ import messageIcon from '/icons/message.png';
 import messageIcon2 from '/icons/message2.png';
 
 export default function TherapistDayTable() {
-  const currentDate = new Date();
-  const formattedDate = currentDate
-    .toLocaleDateString('fr-FR')
-    .split('/')
-    .join('/');
+  const formattedDate = formatCurrentDate();
 
   const [tableAppointments, setTableAppointments] = useState<
-    ISameDayAppointment[] | []
+    ISameDayAppointment[]
   >([]);
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchSameDayAppointments = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetchTherapistDashboardData();
-
-        // Check if response contains `sameDayAppointments`
-        if (response && Array.isArray(response.sameDayAppointments)) {
-          const sameDayAppointments = response.sameDayAppointments;
-
-          if (sameDayAppointments.length > 0) {
-            sameDayAppointments.forEach((appointment: ISameDayAppointment) => {
-              const formattedTime = appointment.time.slice(0, 5);
-
-              const sentAppointmentData: ISameDayAppointment = {
-                id: appointment.id,
-                time: formattedTime,
-                patient: appointment.patient,
-                prescription: appointment.prescription,
-                patientFullName:
-                  appointment.patient.name + ' ' + appointment.patient.surname,
-                afflictionName: appointment.prescription.affliction.name,
-              };
-
-              const existingAppointment = tableAppointments.find(
-                (appointment) => appointment.time === sentAppointmentData.time
-              );
-
-              if (existingAppointment) {
-                return;
-              } else {
-                setTableAppointments((prevAppointments) => [
-                  ...prevAppointments,
-                  sentAppointmentData,
-                ]);
-              }
-            });
-          } else {
-            setNoAppointments(true);
-          }
-        } else {
-          console.log('Error: sameDayAppointments is missing or not an array');
-        }
-      } catch (error) {
-        console.error('Error fetching appointments:', error);
-      }
-    };
-
-    fetchSameDayAppointments();
-    setIsLoading(false);
-  }, []);
+  const { data, error, isLoading, isFetching } =
+    useFetchTherapistDashboardDataQuery({
+      tableAppointments,
+      setTableAppointments,
+    });
 
   const timeSlots = generateTimeSlots();
   const [noAppointments, setNoAppointments] = useState(false);
@@ -139,7 +88,7 @@ export default function TherapistDayTable() {
     return () => clearInterval(interval);
   }, [isDynamicModeOn]);
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return DNALoader();
   }
 

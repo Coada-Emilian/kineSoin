@@ -15,7 +15,7 @@ export default async function getTherapistDashboardData(req, res) {
       const sameDayAppointments = await Appointment.findAll({
         attributes: ['id', 'date', 'time'],
         where: {
-          therapist_id: therapistId,
+          therapist_id,
           is_accepted: true,
           is_canceled: false,
           date: currentDate,

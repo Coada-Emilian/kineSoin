@@ -64,7 +64,7 @@ function App() {
             <Route
               path={route.path}
               key={route.path}
-              element={<TherapistMainRefactor />}
+              element={<TherapistMainRefactor pathName={route.path} />}
             />
           ))}
 
