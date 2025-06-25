@@ -7,6 +7,7 @@ import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/pa
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
 
 // Import authentication check functions
+import { useNavigate } from 'react-router-dom';
 import {
   checkAdminAuthentification,
   checkPatientAuthentification,
@@ -40,6 +41,8 @@ export const AuthentificationGlobalContext = createContext<
 export const AuthentificationGlobalContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
+  const navigate = useNavigate();
+
   // === ADMIN AUTHENTICATION ===
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
@@ -117,6 +120,12 @@ export const AuthentificationGlobalContextProvider: React.FC<{
       clearInterval(patientIntervalId);
     };
   }, [patientProfileToken]);
+
+  // useEffect(() => {
+  //   if (!isAdminAuthenticated && !adminProfileToken) {
+  //     navigate('/admin/login');
+  //   }
+  // }, [isAdminAuthenticated, adminProfileToken, navigate]);
 
   // === THERAPIST AUTHENTICATION ===
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =

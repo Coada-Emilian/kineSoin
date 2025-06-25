@@ -8,9 +8,9 @@ export const fetchTherapistPageTitle = (page: string): string => {
       return 'Patients';
     case 'messages':
       return 'Messages';
-    case 'profile':
+    case 'my-profile':
       return 'Mes Informations';
-    case 'prescriptions ':
+    case 'prescriptions':
       return 'Ordonnances';
     default:
       return 'KineSoin - Thérapeute';

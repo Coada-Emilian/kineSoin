@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import AdminLoginPage from './components/pageComponents/adminSection/newComponents/AdminLoginPage';
 import AdminMain from './components/pageComponents/adminSection/newComponents/AdminMain';
 import ErrorPageRefactor from './components/pageComponents/errorPage/newComponents/ErrorPageRefactor';
@@ -17,72 +18,73 @@ function App() {
     useAuthentificationContext();
 
   return (
-    <Routes>
-      <Route element={<PublicLayout />}>
-        {publicRoutes.map((route) => (
-          <Route
-            path={route.path}
-            key={route.path ?? '/'}
-            element={route.element}
-            index={route.index}
-          />
-        ))}
-
-        <Route path="*" element={<ErrorPageRefactor type="public" />} />
-      </Route>
-
-      <Route path="/loginAdmin" element={<AdminLoginPage />} />
-
-      {/* Admin routes */}
-      {isAdminAuthenticated ? (
-        <Route path="/admin" element={<AdminLayout />}>
-          {adminRoutes.map((route) => (
+    <>
+      <Routes>
+        <Route element={<PublicLayout />}>
+          {publicRoutes.map((route) => (
             <Route
               path={route.path}
-              key={route.path}
-              element={<AdminMain entityType={route.entityType} />}
+              key={route.path ?? '/'}
+              element={route.element}
+              index={route.index}
             />
           ))}
 
-          <Route
-            path="*"
-            element={<ErrorPageRefactor type="connectedAdmin" />}
-          />
+          <Route path="*" element={<ErrorPageRefactor type="public" />} />
         </Route>
-      ) : (
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route
-            path="*"
-            element={<ErrorPageRefactor type="unconnectedAdmin" />}
-          />
-        </Route>
-      )}
 
-      {isTherapistAuthenticated ? (
-        <Route path="/therapist" element={<TherapistLayout />}>
-          {therapistRoutes.map((route) => (
+        <Route path="/loginAdmin" element={<AdminLoginPage />} />
+
+        {/* Admin routes */}
+        {isAdminAuthenticated ? (
+          <Route path="/admin" element={<AdminLayout />}>
+            {adminRoutes.map((route) => (
+              <Route
+                path={route.path}
+                key={route.path}
+                element={<AdminMain entityType={route.entityType} />}
+              />
+            ))}
+
             <Route
-              path={route.path}
-              key={route.path}
-              element={<TherapistMainRefactor pathName={route.path} />}
+              path="*"
+              element={<ErrorPageRefactor type="connectedAdmin" />}
             />
-          ))}
+          </Route>
+        ) : (
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route
+              path="*"
+              element={<ErrorPageRefactor type="unconnectedAdmin" />}
+            />
+          </Route>
+        )}
 
-          <Route
-            path="*"
-            element={<ErrorPage isConnectedTherapistErrorPage />}
-          />
-        </Route>
-      ) : (
-        <Route path="/therapist" element={<TherapistLayout />}>
-          <Route
-            path="*"
-            element={<ErrorPage isUnconnectedTherapistErrorPage />}
-          />
-        </Route>
-      )}
+        {isTherapistAuthenticated ? (
+          <Route path="/therapist" element={<TherapistLayout />}>
+            {therapistRoutes.map((route) => (
+              <Route
+                path={route.path}
+                key={route.path}
+                element={<TherapistMainRefactor pathName={route.path} />}
+              />
+            ))}
 
-      {/* Patient routes
+            <Route
+              path="*"
+              element={<ErrorPage isConnectedTherapistErrorPage />}
+            />
+          </Route>
+        ) : (
+          <Route path="/therapist" element={<TherapistLayout />}>
+            <Route
+              path="*"
+              element={<ErrorPage isUnconnectedTherapistErrorPage />}
+            />
+          </Route>
+        )}
+
+        {/* Patient routes
       {isPatientAuthenticated ? (
         <Route
           path="/patient"
@@ -121,7 +123,9 @@ function App() {
           />
         </Route>
       )} */}
-    </Routes>
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 

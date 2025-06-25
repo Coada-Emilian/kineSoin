@@ -18,7 +18,7 @@ export const useFetchTherapistDashboardDataQuery = ({
 }: QueryProps) => {
   // useQuery automatically fetches data and tracks loading, errors, etc.
   const queryResult = useQuery({
-    queryKey: ['sameDayAppointments'], // Unique key for caching/query management
+    queryKey: ['fetchSameDayAppointments'], // Unique key for caching/query management
     queryFn: fetchTherapistDashboardData, // API call function returning data
     select: (response) => {
       // Transform the raw API response before useQuery returns it

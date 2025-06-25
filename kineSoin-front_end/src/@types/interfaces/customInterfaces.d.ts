@@ -339,3 +339,8 @@ export interface IRegisterFormUtilsProps {
   patientImage?: Blob | null;
   sentPatientData?: Record<string, string | Blob>;
 }
+
+interface IModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

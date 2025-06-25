@@ -35,4 +35,8 @@ export const customButtonDetails = [
     btnType: 'banned',
     background: 'bg-red-300 hover:bg-red-500',
   },
+  {
+    btnType: 'send',
+    background: 'bg-blue-300 hover:bg-primaryBlue',
+  },
 ];

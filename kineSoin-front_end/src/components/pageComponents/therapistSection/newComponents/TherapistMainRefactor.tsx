@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { IUserProfile } from '../../../../@types/interfaces/customInterfaces';
+import { TherapistDayTableContextProvider } from '../../../../utils/contexts/TherapistDayTableContext';
 import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSection/therapistSection/fetchTherapistPageTitle';
 import { useFetchTherapistBasicData } from '../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistBasicData';
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
@@ -35,7 +36,11 @@ export default function TherapistMainRefactor({
             {fetchTherapistPageTitle(pathName)}
           </p>
 
-          {pathName === 'dashboard' && <TherapistDayTable />}
+          {pathName === 'dashboard' && (
+            <TherapistDayTableContextProvider>
+              <TherapistDayTable />
+            </TherapistDayTableContextProvider>
+          )}
 
           {/* {isTherapistPatientsMain && <TherapistPatientsTable />} */}
         </div>

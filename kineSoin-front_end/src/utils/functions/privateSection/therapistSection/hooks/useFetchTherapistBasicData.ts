@@ -27,7 +27,7 @@ export const useFetchTherapistBasicData = ({ setTherapist }: QueryProps) => {
   useEffect(() => {
     if (queryResult.isSuccess) {
       setTherapist(queryResult.data as IUserProfile);
-      console.log('Therapist data fetched successfully:', queryResult.data);
+      console.log('Therapist data fetched successfully');
     } else if (queryResult.isError) {
       console.error('Error fetching therapist data:', queryResult.error);
     }

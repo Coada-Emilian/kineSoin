@@ -15,11 +15,11 @@ export const fetchTherapistDashboardData = async () => {
   }
 };
 
-export const sendMessageToPatient = async (id: number, formData: FormData) => {
+export const sendMessageToPatient = async (id: number, content: string) => {
   try {
     const response = await axios.post(
       `/therapist/me/patients/${id}/messages`,
-      formData,
+      { content },
       {
         headers: {
           'Content-Type': 'application/json',

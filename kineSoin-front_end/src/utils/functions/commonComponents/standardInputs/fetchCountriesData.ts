@@ -7,7 +7,10 @@ interface FunctionProps {
 
 export const fetchCountriesData = async ({ setCountries }: FunctionProps) => {
   try {
-    const response = await axios.get('https://restcountries.com/v3.1/all');
+    const response = await axios.get(
+      'https://restcountries.com/v3.1/all?fields=name,idd'
+    );
+
     if (response) {
       const data: ICountry[] = response.data
         .map((country: any): ICountry => {

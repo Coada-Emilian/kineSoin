@@ -1,40 +1,46 @@
-import { useState } from 'react';
-import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
-import { sendMessageToPatient } from '../../../../../utils/apiUtils/therapistApiUtils/therapistApiUtils';
-import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
-import StandardTextInput from '../../../generalComponents/standardInputs/oldInputs/StandardTextInput';
+import { IModalProps } from '../../../../../@types/interfaces/customInterfaces';
+import { useTherapistDayTableContext } from '../../../../../utils/contexts/TherapistDayTableContext';
+import DNALoader from '../../../../../utils/DNALoader';
+import { useSendMessageToPatientMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useSendMessageToPatientMutation';
+import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
+import { StandardTextInputRefactor } from '../../../generalComponents/standardInputs/newInputs';
 import BaseModal from './BaseModal';
 
-interface SendMessageModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  patient?: ISameDayAppointment['patient'] | null;
-}
+export default function SendMessageModal({ isOpen, onClose }: IModalProps) {
+  // const [messageContent, setMessageContent] = useState<string>('');
 
-export default function SendMessageModal({
-  isOpen,
-  onClose,
-  patient,
-}: SendMessageModalProps) {
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const { selectedPatient: patient } = useTherapistDayTableContext();
 
-  const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleMessageSubmitMutation = useSendMessageToPatientMutation(onClose);
+
+  // const handleMessageContentChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   console.log('Message content changed:', e.target.value);
+  //   setMessageContent(e.target.value);
+  // };
+
+  const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const formData = new FormData(e.target as HTMLFormElement);
-      if (patient && patient.id) {
-        const response = await sendMessageToPatient(patient.id, formData);
-        if (response) {
-          onClose && onClose();
-        } else {
-          setErrorMessage("Erreur lors de l'envoi du message");
-        }
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      setErrorMessage("Erreur lors de l'envoi du message");
+    if (!patient?.id) {
+      console.error('Patient ID is invalid');
+      return;
     }
+    const formData = new FormData(e.currentTarget);
+
+    handleMessageSubmitMutation.mutate({
+      id: patient.id,
+      formData,
+    });
   };
+
+  if (handleMessageSubmitMutation.isPending) {
+    return (
+      <div className="flex w-full items-center justify-center">
+        {DNALoader()};
+      </div>
+    );
+  }
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -51,14 +57,15 @@ export default function SendMessageModal({
           />
         </div>
 
-        {errorMessage && (
+        {handleMessageSubmitMutation.isError && (
           <p className="text-red-500 text-center text-sm md:text-md xl:text-xl font-medium">
-            {errorMessage}
+            {handleMessageSubmitMutation.error.message ||
+              "Erreur lors de l'envoi du message."}
           </p>
         )}
 
         <form
-          className="flex flex-col mt-2 italic text-primaryBlue font-medium"
+          className="flex flex-col gap-2 mt-2 italic text-primaryBlue font-medium"
           onSubmit={handleMessageSubmit}
         >
           <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic flex flex-col items-center">
@@ -70,26 +77,38 @@ export default function SendMessageModal({
             </span>
           </h3>
 
-          <div className={`flex flex-col gap-4 mb-2`}>
-            <StandardTextInput
-              therapistMessage={{
-                isTherapistSendMessageInput: true,
+          <div className="w-11/12 mx-auto">
+            <StandardTextInputRefactor
+              textInput={{
+                id: `therapist-${patient?.name}_${patient?.surname}-send-message_input`,
+                labelName: '',
+                name: 'content',
+                placeholder: 'Tapez votre message ici',
+                isRequired: true,
+                autoComplete: 'message',
+                additionalLabelClassName: 'text-sm',
               }}
             />
           </div>
 
           <div className="flex gap-4 justify-center py-4  bg-primaryTeal">
-            <CustomButton
-              btnText="Valider"
-              profileCardModifyProfileButton
-              btnType="submit"
+            <CustomBtn
+              btn={{
+                type: 'send',
+                text: 'Envoyer',
+                style: 'normal',
+              }}
+              type="submit"
             />
 
-            <CustomButton
-              btnText="Annuler"
-              mobileCancelButton
-              onClick={() => {
-                onClose && onClose();
+            <CustomBtn
+              btn={{
+                type: 'cancel',
+                text: 'Annuler',
+                style: 'normal',
+                onClick: () => {
+                  onClose && onClose();
+                },
               }}
             />
           </div>

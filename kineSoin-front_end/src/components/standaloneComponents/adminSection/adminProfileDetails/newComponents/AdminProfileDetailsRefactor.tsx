@@ -306,7 +306,7 @@ export default function AdminProfileDetailsRefactor({
           setSelectedFile={setSelectedFile}
         />
       )}
-      <ToastContainer />
+      
     </>
   );
 }
