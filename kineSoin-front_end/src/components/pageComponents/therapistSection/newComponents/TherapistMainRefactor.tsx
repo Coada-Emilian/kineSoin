@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { IUserProfile } from '../../../../@types/interfaces/customInterfaces';
 import { TherapistDayTableContextProvider } from '../../../../utils/contexts/TherapistDayTableContext';
+import { useTherapistDetailsContext } from '../../../../utils/contexts/TherapistDetailsContext';
 import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSection/therapistSection/fetchTherapistPageTitle';
-import { useFetchTherapistBasicData } from '../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistBasicData';
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
 import UserHeadband from '../../../standaloneComponents/generalComponents/layoutComponents/userHeadband/UserHeadband';
 import TherapistDayTable from '../../../standaloneComponents/privateSection/therapistSection/therapistDayTable/TherapistDayTable';
@@ -15,9 +13,8 @@ interface TherapistMainRefactorProps {
 export default function TherapistMainRefactor({
   pathName,
 }: TherapistMainRefactorProps) {
-  const [therapist, setTherapist] = useState<IUserProfile>();
-
-  useFetchTherapistBasicData({ setTherapist });
+  const therapistContext = useTherapistDetailsContext();
+  const therapist = therapistContext?.basicTherapistDetails;
 
   return (
     <main className={`bg-gray-200 `}>
@@ -43,7 +40,9 @@ export default function TherapistMainRefactor({
             </TherapistDayTableContextProvider>
           )}
 
-          {pathName === 'patients' && <TherapistPatientsTable />}
+          {pathName === 'patients' && therapist && (
+            <TherapistPatientsTable therapist={therapist} />
+          )}
         </div>
       </div>
     </main>

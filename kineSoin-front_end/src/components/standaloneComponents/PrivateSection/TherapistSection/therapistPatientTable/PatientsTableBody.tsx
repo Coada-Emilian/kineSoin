@@ -19,8 +19,8 @@ export default function PatientsTableBody({
     handleStatusChange.mutate(patientId);
   };
 
-  {
-    handleStatusChange.isPending && (
+  if (handleStatusChange.isPending) {
+    return (
       <div className="flex justify-center items-center h-96 w-full">
         <DNALoader />
       </div>
@@ -31,98 +31,106 @@ export default function PatientsTableBody({
     <>
       <tbody className="xxs:text-xxs text-xs md:text-sm">
         {patients && patients.length > 0 ? (
-          patients.map((patient, index) => (
-            <tr key={patient.id} className="odd:bg-white even:bg-gray-50">
-              <td className="border border-gray-300 px-4 py-2 text-center">
-                {index + 1}
-              </td>
+          patients.map((patient, index) => {
+            const isLastRow = index === patients.length - 1;
 
-              <td className="border border-gray-300 px-4 py-2 text-center">
-                {patient.fullName}
-              </td>
+            return (
+              <tr key={patient.id} className={`odd:bg-white even:bg-gray-50`}>
+                <td
+                  className={`${isLastRow ? 'rounded-bl-2xl' : ''} border border-gray-300 px-4 py-2 text-center`}
+                >
+                  {index + 1}
+                </td>
 
-              <td
-                className={`border border-gray-300 ${
-                  patient.status === 'active'
-                    ? 'bg-green-300'
-                    : patient.status === 'pending'
-                      ? 'bg-yellow-300'
-                      : patient.status === 'banned'
-                        ? 'bg-red-300'
-                        : 'bg-gray-200'
-                } px-4 py-2 text-center flex gap-1 items-center justify-center`}
-              >
-                {(patient.status === 'active' ||
-                  patient.status === 'inactive') && (
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  {patient.fullName}
+                </td>
+
+                <td
+                  className={`border border-gray-300 ${
+                    patient.status === 'active'
+                      ? 'bg-green-300'
+                      : patient.status === 'pending'
+                        ? 'bg-yellow-300'
+                        : patient.status === 'banned'
+                          ? 'bg-red-300'
+                          : 'bg-gray-200'
+                  } px-4 py-2 text-center flex gap-1 items-center justify-center`}
+                >
+                  {(patient.status === 'active' ||
+                    patient.status === 'inactive') && (
+                    <Button
+                      className=" md:block"
+                      onClick={() => handlePatientStatusChange(patient.id)}
+                    >
+                      <img
+                        src={refreshIcon}
+                        alt="change status"
+                        className="max-w-4 md:max-w-6 hover:animate-spin"
+                      />
+                    </Button>
+                  )}
+
+                  <p>
+                    {patient.status === 'active'
+                      ? 'ACTIF'
+                      : patient.status === 'inactive'
+                        ? 'INACTIF'
+                        : patient.status === 'banned'
+                          ? 'BANNI'
+                          : 'EN ATTENTE'}
+                  </p>
+                </td>
+
+                <td className="border border-gray-300 px-4 py-2  text-center">
                   <Button
-                    className=" md:block"
-                    onClick={() => handlePatientStatusChange(patient.id)}
+                    className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
+                    // onClick={() => {
+                    //   setSelectedPatient(patient);
+                    //   setIsPatientDetailsModalOpen(true);
+                    // }}
                   >
                     <img
-                      src={refreshIcon}
-                      alt="change status"
-                      className="max-w-4 md:max-w-6 hover:animate-spin"
+                      src={editIcon}
+                      alt="edit"
+                      className="mx-auto w-5 md:mx-1"
                     />
+
+                    <p className="text-blue-300 font-semibold hidden md:block">
+                      Inspecter
+                    </p>
                   </Button>
-                )}
+                </td>
 
-                <p>
-                  {patient.status === 'active'
-                    ? 'ACTIF'
-                    : patient.status === 'inactive'
-                      ? 'INACTIF'
-                      : patient.status === 'banned'
-                        ? 'BANNI'
-                        : 'EN ATTENTE'}
-                </p>
-              </td>
-
-              <td className="border border-gray-300 px-4 py-2  text-center">
-                <Button
-                  className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
-                  // onClick={() => {
-                  //   setSelectedPatient(patient);
-                  //   setIsPatientDetailsModalOpen(true);
-                  // }}
+                <td
+                  className={`${isLastRow ? 'rounded-br-2xl' : ''} border border-gray-300 px-4 py-2  text-center`}
                 >
-                  <img
-                    src={editIcon}
-                    alt="edit"
-                    className="mx-auto w-5 md:mx-1"
-                  />
+                  <Button
+                    className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
+                    // onClick={() => {
+                    //   setSelectedPatient(patient);
+                    //   setIsDeletePatientModalOpen(true);
+                    // }}
+                  >
+                    <img
+                      src={deleteIcon}
+                      alt="supprimer"
+                      className="mx-auto w-5 md:mx-1"
+                    />
 
-                  <p className="text-blue-300 font-semibold hidden md:block">
-                    Inspecter
-                  </p>
-                </Button>
-              </td>
-
-              <td className="border border-gray-300 px-4 py-2  text-center">
-                <Button
-                  className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
-                  // onClick={() => {
-                  //   setSelectedPatient(patient);
-                  //   setIsDeletePatientModalOpen(true);
-                  // }}
-                >
-                  <img
-                    src={deleteIcon}
-                    alt="supprimer"
-                    className="mx-auto w-5 md:mx-1"
-                  />
-
-                  <p className="text-red-600 font-semibold hidden md:block">
-                    Supprimer
-                  </p>
-                </Button>
-              </td>
-            </tr>
-          ))
+                    <p className="text-red-600 font-semibold hidden md:block">
+                      Supprimer
+                    </p>
+                  </Button>
+                </td>
+              </tr>
+            );
+          })
         ) : (
           <tr>
             <td
               className="border border-gray-300 px-4 py-2 text-center"
-              colSpan={4}
+              colSpan={5}
             >
               Aucun patient trouvé
             </td>

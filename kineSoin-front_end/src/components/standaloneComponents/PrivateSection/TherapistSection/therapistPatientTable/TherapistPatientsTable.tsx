@@ -5,7 +5,11 @@ import { useFetchTherapistPatientsData } from '../../../../../utils/functions/pr
 import PatientsTableBody from './PatientsTableBody';
 import PatientsTableHead from './PatientsTableHead';
 
-export default function TherapistPatientsTable() {
+interface TableProps {
+  therapist: IUserProfile;
+}
+
+export default function TherapistPatientsTable({ therapist }: TableProps) {
   const [patients, setPatients] = useState<IUserProfile[]>([]);
 
   const { isLoading, isFetching } = useFetchTherapistPatientsData({

@@ -8,6 +8,7 @@ import './index.css';
 import { AuthentificationGlobalContextProvider } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
 import { GlobalContextProvider } from './utils/contexts/GlobalContext.tsx';
 import { PrefixesContextProvider } from './utils/contexts/PrefixesContext.tsx';
+import { TherapistDetailsContextProvider } from './utils/contexts/TherapistDetailsContext.tsx';
 
 Modal.setAppElement('#root');
 
@@ -20,7 +21,9 @@ export default function Root() {
         <GlobalContextProvider>
           <AuthentificationGlobalContextProvider>
             <PrefixesContextProvider>
-              <App />
+              <TherapistDetailsContextProvider>
+                <App />
+              </TherapistDetailsContextProvider>
             </PrefixesContextProvider>
           </AuthentificationGlobalContextProvider>
         </GlobalContextProvider>

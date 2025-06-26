@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
 
 interface UserHeadbandProps {
-  userProfile?: IUserProfile;
+  userProfile?: IUserProfile | undefined;
   profileUrl: string;
   dashboardUrl: string;
 }

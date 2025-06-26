@@ -15,6 +15,10 @@ export default function PatientsTableHead() {
             Statut
           </th>
 
+          <th className="border border-gray-300 px-4 py-2 text-center">
+            Thérapeute
+          </th>
+
           <th
             className="border border-gray-300 px-4 py-2 text-center rounded-tr-2xl"
             colSpan={2}
