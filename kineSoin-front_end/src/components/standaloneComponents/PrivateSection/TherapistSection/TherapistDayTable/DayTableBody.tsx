@@ -1,4 +1,5 @@
 import { Button } from '@headlessui/react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
 import { useTherapistDayTableContext } from '../../../../../utils/contexts/TherapistDayTableContext';
@@ -17,6 +18,7 @@ export default function DayTableBody() {
     setIsCancelAppointmentModalOpen,
     setSelectedPatient,
     setSelectedAppointment,
+    setSelectedPrescription,
   } = useTherapistDayTableContext();
 
   const handleMessageIconClick = (appointment: ISameDayAppointment) => {
@@ -30,9 +32,11 @@ export default function DayTableBody() {
     if (!appointment.isTimePassed) {
       setSelectedAppointment(appointment);
       setSelectedPatient(appointment.patient);
+      setSelectedPrescription(appointment.prescription);
       setIsCancelAppointmentModalOpen(true);
     }
   };
+
   return (
     <tbody className="xs:text-xxs sm:text-xs md:text-sm">
       {timeSlots.map((time, index) => {

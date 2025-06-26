@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { sendMessageToPatient } from '../../../../apiUtils/therapistApiUtils/therapistApiUtils';
+import { sendMessageToPatient } from '../../../../apiUtils/therapistApiUtils';
 
 export const useSendMessageToPatientMutation = (onClose: () => void) => {
   return useMutation({

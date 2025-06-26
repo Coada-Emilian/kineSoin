@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import {
-  cancelAppointment,
-  reducePrescriptionQuantity,
-} from '../../../../apiUtils/therapistApiUtils/therapistApiUtils';
+  cancelAppointmentAsTherapist,
+  reduceAppointmentQuantity,
+} from '../../../../apiUtils/therapistApiUtils';
 
 export const useCancelAppointmentByTherapistMutation = (
   onClose: () => void
@@ -25,22 +25,22 @@ export const useCancelAppointmentByTherapistMutation = (
         throw new Error('Invalid prescription ID for cancellation');
       }
       // Assuming cancelAppointment and reducePrescriptionQuantity are defined elsewhere
-      const appointmentResponse = await cancelAppointment(appointmentId);
+      const appointmentResponse =
+        await cancelAppointmentAsTherapist(appointmentId);
       const prescriptionResponse =
-        await reducePrescriptionQuantity(prescriptionId);
+        await reduceAppointmentQuantity(prescriptionId);
 
       if (!appointmentResponse || !prescriptionResponse) {
-        throw new Error(
-          'Error during appointment or prescription cancellation'
-        );
+        throw new Error("Erreur pendant l'annulation du rendez-vous.");
       }
     },
     onSuccess: () => {
       console.log('Appointment canceled successfully');
-      onClose();
       clientQuery.invalidateQueries({
         queryKey: ['fetchSameDayAppointments'],
       });
+      onClose();
+
       toast.success('Rendez-vous annulé avec succès !');
     },
     onError: (error) => {

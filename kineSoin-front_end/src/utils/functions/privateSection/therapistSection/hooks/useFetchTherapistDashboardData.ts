@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
-import { fetchTherapistDashboardData } from '../../../../apiUtils/therapistApiUtils/therapistApiUtils';
 
 interface QueryProps {
   tableAppointments: ISameDayAppointment[]; // Current list of appointments in state
@@ -10,6 +9,7 @@ interface QueryProps {
 }
 
 import { useEffect } from 'react';
+import { fetchTherapistDashboardData } from '../../../../apiUtils/therapistApiUtils';
 
 // Custom hook to fetch same-day therapist appointments and update local state
 export const useFetchTherapistDashboardDataQuery = ({
@@ -57,19 +57,22 @@ export const useFetchTherapistDashboardDataQuery = ({
       // Log any errors from fetching to the console
       console.error('Error fetching appointments:', queryResult.error);
     }
-    if (queryResult.data && queryResult.data.length > 0) {
-      // Filter out appointments that are already in the current state to avoid duplicates
-      const newAppointments = queryResult.data.filter(
-        (appointment) =>
-          !tableAppointments.some(
-            (existing) => existing.time === appointment.time
-          )
-      );
+    // if (queryResult.data && queryResult.data.length > 0) {
+    //   // Filter out appointments that are already in the current state to avoid duplicates
+    //   const newAppointments = queryResult.data.filter(
+    //     (appointment) =>
+    //       !tableAppointments.some(
+    //         (existing) => existing.time === appointment.time
+    //       )
+    //   );
 
-      // If there are new appointments, append them to the existing state
-      if (newAppointments.length > 0) {
-        setTableAppointments((prev) => [...prev, ...newAppointments]);
-      }
+    //   // If there are new appointments, append them to the existing state
+    //   if (newAppointments.length > 0) {
+    //     setTableAppointments((prev) => [...prev, ...newAppointments]);
+    //   }
+    // }
+    if (queryResult.data) {
+      setTableAppointments(queryResult.data);
     }
     // We disable exhaustive deps rule here because tableAppointments and setTableAppointments
     // come from the component and are stable enough, avoiding unnecessary reruns

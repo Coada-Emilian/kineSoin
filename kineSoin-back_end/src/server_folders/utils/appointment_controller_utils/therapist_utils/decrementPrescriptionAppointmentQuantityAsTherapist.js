@@ -48,19 +48,20 @@ export default async function decrementPrescriptionAppointmentQuantityAsTherapis
         });
       }
 
-      const { error } = appointmentQuantitySchema.validate(req.body);
+      // console.log(req.body);
+      // const { error } = appointmentQuantitySchema.validate(req.body);
 
-      if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-      }
+      // if (error) {
+      //   return res.status(400).json({ message: error.details[0].message });
+      // }
 
-      const { appointment_quantity } = req.body;
+      // const { appointment_quantity } = req.body;
 
-      if (appointment_quantity < 1) {
-        return res
-          .status(400)
-          .json({ message: 'Appointment quantity must be at least 1' });
-      }
+      // if (appointment_quantity < 1) {
+      //   return res
+      //     .status(400)
+      //     .json({ message: 'Appointment quantity must be at least 1' });
+      // }
 
       const foundPrescription = await Prescription.findByPk(prescription_id);
       if (!foundPrescription) {
@@ -73,18 +74,18 @@ export default async function decrementPrescriptionAppointmentQuantityAsTherapis
           .json({ message: 'Appointment quantity already at 0' });
       }
 
-      if (foundPrescription.appointment_quantity < appointment_quantity) {
-        return res.status(400).json({
-          message: 'Cannot reduce appointment quantity below current value',
-        });
-      } else {
-        foundPrescription.appointment_quantity -= appointment_quantity;
-        await foundPrescription.save();
+      // if (foundPrescription.appointment_quantity < appointment_quantity) {
+      //   return res.status(400).json({
+      //     message: 'Cannot reduce appointment quantity below current value',
+      //   });
+      // } else {
+      foundPrescription.appointment_quantity -= 1;
+      await foundPrescription.save();
 
-        return res
-          .status(200)
-          .json({ message: 'Appointment quantity successfully reduced' });
-      }
+      return res
+        .status(200)
+        .json({ message: 'Appointment quantity successfully reduced' });
+      // }
     } catch (error) {
       console.error('Error reducing prescription appointment quantity:', error);
       res.status(500).json({ message: 'Internal server error' });
