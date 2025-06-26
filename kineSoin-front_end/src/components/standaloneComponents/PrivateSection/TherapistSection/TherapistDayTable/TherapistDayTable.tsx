@@ -8,9 +8,9 @@ import CancelAppointmentModal from '../modals/CancelAppointmentModal';
 import SendMessageModal from '../modals/SendMessageModal';
 import DayTableBody from './DayTableBody';
 import DayTableDynamicParagraph from './DayTableDynamicParagraph';
-import DayTableHeader from './DayTableHeader';
 import dynamicIcon from '/icons/dynamic.png';
 import dynamicIcon2 from '/icons/dynamic2.png';
+import DayTableHead from './DayTableHead';
 
 export default function TherapistDayTable() {
   const formattedDate = formatCurrentDate();
@@ -61,8 +61,8 @@ export default function TherapistDayTable() {
 
       {tableAppointments.length > 0 ? (
         <div className="w-full rounded-xl ">
-          <table className="border-collapse border border-gray-300 w-11/12 mx-auto md:w-10/12 md:my-auto mb-6 shadow-xl ">
-            <DayTableHeader />
+          <table className="border border-gray-300 border-separate w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
+            <DayTableHead />
 
             <DayTableBody />
           </table>

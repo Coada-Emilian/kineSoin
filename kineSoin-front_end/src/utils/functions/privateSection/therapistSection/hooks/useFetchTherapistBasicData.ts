@@ -6,6 +6,7 @@ import { getTherapistTokenAndDataFromLocalStorage } from '../../../../../localSt
 interface QueryProps {
   setTherapist: React.Dispatch<React.SetStateAction<IUserProfile | undefined>>;
 }
+
 export const useFetchTherapistBasicData = ({ setTherapist }: QueryProps) => {
   const queryResult = useQuery({
     queryKey: ['fetchTherapistBasicData'],

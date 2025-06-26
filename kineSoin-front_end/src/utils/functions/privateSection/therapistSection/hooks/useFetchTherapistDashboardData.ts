@@ -54,34 +54,30 @@ export const useFetchTherapistDashboardDataQuery = ({
   // useEffect to sync the query result data with local state in the component
   useEffect(() => {
     if (queryResult.error) {
-      // Log any errors from fetching to the console
       console.error('Error fetching appointments:', queryResult.error);
+      return;
     }
-    // if (queryResult.data && queryResult.data.length > 0) {
-    //   // Filter out appointments that are already in the current state to avoid duplicates
-    //   const newAppointments = queryResult.data.filter(
-    //     (appointment) =>
-    //       !tableAppointments.some(
-    //         (existing) => existing.time === appointment.time
-    //       )
-    //   );
 
-    //   // If there are new appointments, append them to the existing state
-    //   if (newAppointments.length > 0) {
-    //     setTableAppointments((prev) => [...prev, ...newAppointments]);
-    //   }
-    // }
     if (queryResult.data) {
-      setTableAppointments(queryResult.data);
+      // 1. Remove appointments that no longer exist in the new data
+      const updatedAppointments = tableAppointments.filter((existing) =>
+        queryResult.data.some((newApp) => newApp.id === existing.id)
+      );
+
+      // 2. Add any new appointments that aren't already in the local state
+      const newAppointments = queryResult.data.filter(
+        (newApp) =>
+          !updatedAppointments.some((existing) => existing.id === newApp.id)
+      );
+
+      if (
+        updatedAppointments.length !== tableAppointments.length ||
+        newAppointments.length > 0
+      ) {
+        setTableAppointments([...updatedAppointments, ...newAppointments]);
+      }
     }
-    // We disable exhaustive deps rule here because tableAppointments and setTableAppointments
-    // come from the component and are stable enough, avoiding unnecessary reruns
-  }, [
-    queryResult.data,
-    queryResult.error,
-    setTableAppointments,
-    tableAppointments,
-  ]);
+  }, [queryResult.data, queryResult.error]);
 
   // Return the full query result so consuming component can use loading, error, and data states
   return queryResult;

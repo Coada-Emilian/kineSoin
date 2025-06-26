@@ -6,6 +6,7 @@ import { useFetchTherapistBasicData } from '../../../../utils/functions/privateS
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
 import UserHeadband from '../../../standaloneComponents/generalComponents/layoutComponents/userHeadband/UserHeadband';
 import TherapistDayTable from '../../../standaloneComponents/privateSection/therapistSection/therapistDayTable/TherapistDayTable';
+import TherapistPatientsTable from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientTable/TherapistPatientsTable';
 
 interface TherapistMainRefactorProps {
   pathName: string;
@@ -42,7 +43,7 @@ export default function TherapistMainRefactor({
             </TherapistDayTableContextProvider>
           )}
 
-          {/* {isTherapistPatientsMain && <TherapistPatientsTable />} */}
+          {pathName === 'patients' && <TherapistPatientsTable />}
         </div>
       </div>
     </main>

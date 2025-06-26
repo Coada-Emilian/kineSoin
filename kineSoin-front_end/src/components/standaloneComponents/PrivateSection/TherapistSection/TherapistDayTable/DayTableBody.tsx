@@ -1,5 +1,4 @@
 import { Button } from '@headlessui/react';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
 import { useTherapistDayTableContext } from '../../../../../utils/contexts/TherapistDayTableContext';
@@ -40,13 +39,16 @@ export default function DayTableBody() {
   return (
     <tbody className="xs:text-xxs sm:text-xs md:text-sm">
       {timeSlots.map((time, index) => {
+        const isLastRow = index === timeSlots.length - 1;
         const appointment = tableAppointments.find(
           (appointment) => appointment.time === time
         );
 
         return (
           <tr key={index}>
-            <td className="border border-gray-300 px-4 py-2 text-center">
+            <td
+              className={`${isLastRow && 'rounded-bl-2xl'} border border-gray-300 px-4 py-2 text-center`}
+            >
               {time}
             </td>
 
@@ -93,7 +95,8 @@ export default function DayTableBody() {
                   </Button>
                 </td>
 
-                <td className="border border-gray-300 px-4 py-2 text-center w-2/12">
+                <td className={`${isLastRow && 'rounded-br-2xl'} border border-gray-300 px-4 py-2 text-center w-2/12`}
+               >
                   <Button
                     onClick={() => handleCancelIconClick(appointment)}
                     className="flex justify-center items-center w-full"

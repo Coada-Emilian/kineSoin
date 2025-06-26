@@ -96,8 +96,9 @@ export interface IFullPatient {
 export interface IUserProfile {
   fullName: string | null;
   picture_url: string | null;
-  id: number | null;
-  token: string | null;
+  id: number;
+  token?: string | null;
+  status?: string | undefined;
 }
 
 export interface ICommonEntityDetails {
