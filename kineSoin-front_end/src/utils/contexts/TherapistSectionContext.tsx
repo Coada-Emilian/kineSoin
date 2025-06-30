@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import {
   ISameDayAppointment,
+  ITherapistPatientDetails,
   IUserProfile,
 } from '../../@types/interfaces/customInterfaces';
 
@@ -57,6 +58,11 @@ interface TherapistSectionContextType {
   setTableType: React.Dispatch<
     React.SetStateAction<'therapistPatients' | 'allPatients'>
   >;
+
+  patientDetails: ITherapistPatientDetails | null;
+  setPatientDetails: React.Dispatch<
+    React.SetStateAction<ITherapistPatientDetails | null>
+  >;
 }
 
 const TherapistSectionContext = createContext<
@@ -89,6 +95,9 @@ export const TherapistSectionContextProvider = ({
   const [selectedPrescription, setSelectedPrescription] = useState<
     ISameDayAppointment['prescription'] | null
   >(null);
+
+  const [patientDetails, setPatientDetails] =
+    useState<ITherapistPatientDetails | null>(null);
 
   const [isDynamicModeOn, setIsDynamicModeOn] = useState(false);
 
@@ -150,6 +159,8 @@ export const TherapistSectionContextProvider = ({
         setAllPatients,
         tableType,
         setTableType,
+        patientDetails,
+        setPatientDetails,
       }}
     >
       {children}

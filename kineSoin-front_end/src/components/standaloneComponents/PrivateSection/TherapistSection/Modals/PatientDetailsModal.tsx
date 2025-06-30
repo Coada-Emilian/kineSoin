@@ -1,39 +1,30 @@
+import { useEffect } from 'react';
 import { IModalProps } from '../../../../../@types/interfaces/customInterfaces';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import DNALoader from '../../../../../utils/DNALoader';
+import { useFetchPatientDetailsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchPatientDetailsByTherapist';
 import BaseModal from './BaseModal';
 
 export default function PatientDetailsModal({ isOpen, onClose }: IModalProps) {
-  //   const patientDetails = [
-  //     {
-  //       label: 'Statut',
-  //       value:
-  //         patientData?.status === 'active'
-  //           ? 'ACTIF'
-  //           : patientData?.status === 'banned'
-  //             ? 'BANNI'
-  //             : patientData?.status === 'pending'
-  //               ? 'EN ATTENTE'
-  //               : 'INACTIF',
-  //     },
+  const { selectedPatient, setPatientDetails, patientDetails } =
+    useTherapistSectionContext();
 
-  //     {
-  //       label: 'Adresse',
-  //       value:
-  //         patientData?.street_number +
-  //         ' ' +
-  //         patientData?.street_name +
-  //         ', ' +
-  //         patientData?.postal_code +
-  //         ' ' +
-  //         patientData?.city,
-  //     },
-  //     {
-  //       label: 'N° de téléphone',
-  //       value: patientData?.prefix + ' ' + patientData?.phone_number,
-  //     },
-  //     { label: 'Email', value: patientData?.email },
-  //     { label: 'Date de naissance', value: patientData?.birth_date },
-  //     { label: 'Mutuelle', value: patientData?.insurance[0].name },
-  //   ];
+  const { isLoading, isFetching } = useFetchPatientDetailsByTherapist({
+    patient_id: selectedPatient?.id ?? 0,
+    setPatientDetails,
+  });
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="flex justify-center items-center h-96 w-full">
+        <DNALoader />
+      </div>
+    );
+  }
+
+  useEffect(() => {
+    console.log(patientDetails);
+  }, [patientDetails]);
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>

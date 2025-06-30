@@ -1,5 +1,6 @@
 import { Patient } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
+import computeAge from '../../computeAge.js';
 
 export default async function getOnePatientAsTherapist(req, res) {
   const therapist_id = parseInt(req.therapist_id, 10);
@@ -29,7 +30,7 @@ export default async function getOnePatientAsTherapist(req, res) {
           association: 'insurance',
           attributes: ['id', 'name'],
         },
-        { association: 'patient_insurance' },
+        // { association: 'patient_insurance' },
         // {
         //   association: 'prescriptions',
         //   attributes: [

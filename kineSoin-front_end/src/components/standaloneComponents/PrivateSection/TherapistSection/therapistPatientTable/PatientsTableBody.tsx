@@ -20,12 +20,6 @@ export default function PatientsTableBody({
 }: PatientsTableBodyProps) {
   const handleStatusChange = useTogglePatientStatusAsTherapistMutation();
 
-  useEffect(() => {
-    for (const patient of patients) {
-      console.log(patient);
-    }
-  }, [patients]);
-
   const handlePatientStatusChange = (patientId: number) => {
     handleStatusChange.mutate(patientId);
   };

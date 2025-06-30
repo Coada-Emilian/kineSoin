@@ -40,7 +40,7 @@ export interface ITherapistPatient {
   picture_url: string;
 }
 
-export interface IFullPatient {
+export interface ITherapistPatientDetails {
   id: number;
   therapist_id: number;
   name: string;
@@ -59,39 +59,16 @@ export interface IFullPatient {
   picture_url: string;
   email: string;
   insurance: IInsurance[];
-  prescription: {
+  patient_insurance: {
     id: number;
-    appointment_quantity: number;
-    is_new_prescription: boolean;
-    is_completed: boolean;
-    at_home_care: boolean;
-    date: string;
-    picture_url: string;
+    patient_id: number;
+    insurance_id: number;
+    adherent_code: string;
+    contract_number: string;
+    start_date: string;
+    end_date: string;
   };
-  medic: {
-    id: number;
-    name: string;
-    surname: string;
-    street_number: string;
-    street_name: string;
-    postal_code: string;
-    city: string;
-    prefix: string;
-    phone_number: string;
-    licence_code: string;
-  };
-  affliction: {
-    id: number;
-    name: string;
-    description: string;
-    insurance_code: string;
-    is_operated: boolean;
-  };
-  appointments: {
-    is: number;
-    date: string;
-    time: string;
-  }[];
+
   therapist: ITherapist;
 }
 
