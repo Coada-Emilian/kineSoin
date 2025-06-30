@@ -6,6 +6,7 @@ import getConnectedPatientData from '../../utils/patient_controller_utils/patien
 import updateConnectedPatient from '../../utils/patient_controller_utils/patient_utils/updateConnectedPatient.js';
 import uploadPatientPhoto from '../../utils/patient_controller_utils/patient_utils/uploadPatientPhoto.js';
 import getAllAppointedPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllAppointedPatientsAsTherapist.js';
+import getAllPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllPatientsAsTherapist.js';
 import getOnePatientAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getOnePatientAsTherapist.js';
 import togglePatientStatusAsTherapist from '../../utils/patient_controller_utils/therapist_utils/togglePatientStatusAsTherapist.js';
 
@@ -36,6 +37,8 @@ const patientController = {
 
   // Function to get all the patients of a therapist
   getAllAppointedPatientsAsTherapist,
+
+  getAllPatientsAsTherapist,
 
   // Function to get one patients data as a therapist
   getOnePatientAsTherapist,

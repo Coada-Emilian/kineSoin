@@ -54,6 +54,12 @@ therapistRouter.get(
   wrapper(patientController.getAllAppointedPatientsAsTherapist)
 );
 
+therapistRouter.get(
+  '/me/allPatients',
+  authenticateTherapist,
+  wrapper(patientController.getAllPatientsAsTherapist)
+);
+
 therapistRouter.patch(
   '/me/patients/:patient_id/toggleStatus',
   authenticateTherapist,
@@ -85,11 +91,6 @@ therapistRouter.post(
   '/me/uploadPhoto',
   uploadTherapistPhoto.single('photo'),
   therapistController.uploadTherapistPhoto
-);
-
-therapistRouter.get(
-  '/me/allPatients',
-  wrapper(patientController.getAllPatients)
 );
 
 therapistRouter.post(

@@ -1,5 +1,8 @@
 import { Button } from '@headlessui/react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useTogglePatientStatusAsTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useTogglePatientStatusAsTherapistMutation';
 import deleteIcon from '/icons/delete.png';
@@ -8,12 +11,20 @@ import refreshIcon from '/icons/refresh.png';
 
 interface PatientsTableBodyProps {
   patients: IUserProfile[];
+  therapist: IUserProfile;
 }
 
 export default function PatientsTableBody({
   patients,
+  therapist,
 }: PatientsTableBodyProps) {
   const handleStatusChange = useTogglePatientStatusAsTherapistMutation();
+
+  useEffect(() => {
+    for (const patient of patients) {
+      console.log(patient);
+    }
+  }, [patients]);
 
   const handlePatientStatusChange = (patientId: number) => {
     handleStatusChange.mutate(patientId);
@@ -26,6 +37,64 @@ export default function PatientsTableBody({
       </div>
     );
   }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active':
+        return 'bg-green-300';
+      case 'pending':
+        return 'bg-yellow-300';
+      case 'banned':
+        return 'bg-red-300';
+      default:
+        return 'bg-gray-200';
+    }
+  };
+
+  const handleStatusChangeClick = (patientId: number) => {
+    handlePatientStatusChange(patientId);
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'active':
+        return 'ACTIF';
+      case 'inactive':
+        return 'INACTIF';
+      case 'banned':
+        return 'BANNI';
+      default:
+        return 'EN ATTENTE';
+    }
+  };
+
+  const {
+    setSelectedPatient,
+    setIsDeletePatientModalOpen,
+    setIsPatientDetailsModalOpen,
+  } = useTherapistSectionContext();
+
+  const handleEditClick = (patient: IUserProfile) => {
+    setSelectedPatient({
+      id: patient.id,
+      name: patient.fullName?.split(' ')[0] ?? '',
+      surname: patient.fullName?.split(' ').slice(1).join(' ') ?? '',
+      picture_url: patient.picture_url ?? '',
+    });
+    setIsPatientDetailsModalOpen(true);
+  };
+
+  const handleDeleteClick = (patient: IUserProfile) => {
+    setSelectedPatient({
+      id: patient.id,
+      name: patient.fullName?.split(' ')[0] ?? '',
+      surname: patient.fullName?.split(' ').slice(1).join(' ') ?? '',
+      picture_url: patient.picture_url ?? '',
+    });
+    setIsDeletePatientModalOpen(true);
+  };
+
+  const { tableType } = useTherapistSectionContext();
 
   return (
     <>
@@ -47,48 +116,48 @@ export default function PatientsTableBody({
                 </td>
 
                 <td
-                  className={`border border-gray-300 ${
-                    patient.status === 'active'
-                      ? 'bg-green-300'
-                      : patient.status === 'pending'
-                        ? 'bg-yellow-300'
-                        : patient.status === 'banned'
-                          ? 'bg-red-300'
-                          : 'bg-gray-200'
-                  } px-4 py-2 text-center flex gap-1 items-center justify-center`}
+                  className={`border border-gray-300 ${getStatusColor(patient.status ?? '')} px-4 py-2 text-center flex gap-1 items-center justify-center`}
                 >
                   {(patient.status === 'active' ||
-                    patient.status === 'inactive') && (
-                    <Button
-                      className=" md:block"
-                      onClick={() => handlePatientStatusChange(patient.id)}
-                    >
-                      <img
-                        src={refreshIcon}
-                        alt="change status"
-                        className="max-w-4 md:max-w-6 hover:animate-spin"
-                      />
-                    </Button>
-                  )}
+                    patient.status === 'inactive') &&
+                    therapist.fullName === patient.therapist?.fullName && (
+                      <Button
+                        className=" md:block"
+                        onClick={() => handleStatusChangeClick(patient.id)}
+                      >
+                        <img
+                          src={refreshIcon}
+                          alt="change status"
+                          className="max-w-4 md:max-w-6 hover:animate-spin"
+                        />
+                      </Button>
+                    )}
 
-                  <p>
-                    {patient.status === 'active'
-                      ? 'ACTIF'
-                      : patient.status === 'inactive'
-                        ? 'INACTIF'
-                        : patient.status === 'banned'
-                          ? 'BANNI'
-                          : 'EN ATTENTE'}
-                  </p>
+                  <p>{getStatusText(patient.status ?? '')}</p>
+                </td>
+
+                <td className="border border-gray-300 px-2 text-center  ">
+                  <Link
+                    to={`/therapist/therapists/${patient.therapist?.id}`}
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <img
+                      src={patient.therapist?.picture_url}
+                      alt={patient.therapist?.fullName ?? 'Therapist'}
+                      className="w-6 h-6 rounded-full"
+                    />
+                    <p className="text-sm font-medium italic">
+                      {patient.therapist?.fullName ?? 'Inconnu'}
+                    </p>
+                  </Link>
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2  text-center">
                   <Button
                     className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
-                    // onClick={() => {
-                    //   setSelectedPatient(patient);
-                    //   setIsPatientDetailsModalOpen(true);
-                    // }}
+                    onClick={() => {
+                      handleEditClick(patient);
+                    }}
                   >
                     <img
                       src={editIcon}
@@ -107,10 +176,9 @@ export default function PatientsTableBody({
                 >
                   <Button
                     className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
-                    // onClick={() => {
-                    //   setSelectedPatient(patient);
-                    //   setIsDeletePatientModalOpen(true);
-                    // }}
+                    onClick={() => {
+                      handleDeleteClick(patient);
+                    }}
                   >
                     <img
                       src={deleteIcon}

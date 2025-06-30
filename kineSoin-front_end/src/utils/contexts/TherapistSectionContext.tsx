@@ -1,47 +1,75 @@
 import { createContext, useContext, useState } from 'react';
-import { ISameDayAppointment } from '../../@types/interfaces/customInterfaces';
+import {
+  ISameDayAppointment,
+  IUserProfile,
+} from '../../@types/interfaces/customInterfaces';
 
-interface TherapistDayTableContextType {
+interface TherapistSectionContextType {
   isSendMessageModalOpen: boolean;
   setIsSendMessageModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
   isCancelAppointmentModalOpen: boolean;
   setIsCancelAppointmentModalOpen: React.Dispatch<
     React.SetStateAction<boolean>
   >;
+
   tableAppointments: ISameDayAppointment[];
   setTableAppointments: React.Dispatch<
     React.SetStateAction<ISameDayAppointment[]>
   >;
+
   selectedPatient: ISameDayAppointment['patient'] | null;
   setSelectedPatient: React.Dispatch<
     React.SetStateAction<ISameDayAppointment['patient'] | null>
   >;
+
   isDynamicModeOn: boolean;
   setIsDynamicModeOn: React.Dispatch<React.SetStateAction<boolean>>;
+
   showParagraph: boolean;
   setShowParagraph: React.Dispatch<React.SetStateAction<boolean>>;
+
   handleDynamicModeClick: () => void;
+
+  selectedAppointment: ISameDayAppointment | null;
   setSelectedAppointment: React.Dispatch<
     React.SetStateAction<ISameDayAppointment | null>
   >;
-  selectedAppointment: ISameDayAppointment | null;
+
   selectedPrescription: ISameDayAppointment['prescription'] | null;
   setSelectedPrescription: React.Dispatch<
     React.SetStateAction<ISameDayAppointment['prescription'] | null>
   >;
+
+  isDeletePatientModalOpen: boolean;
+  setIsDeletePatientModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isPatientDetailsModalOpen: boolean;
+  setIsPatientDetailsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  therapistPatients: IUserProfile[];
+  setTherapistPatients: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
+
+  allPatients: IUserProfile[];
+  setAllPatients: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
+
+  tableType: 'therapistPatients' | 'allPatients';
+  setTableType: React.Dispatch<
+    React.SetStateAction<'therapistPatients' | 'allPatients'>
+  >;
 }
 
-const TherapistDayTableContext = createContext<
-  TherapistDayTableContextType | undefined
+const TherapistSectionContext = createContext<
+  TherapistSectionContextType | undefined
 >(undefined);
 
-interface TherapistDayTableContextProviderProps {
+interface TherapistSectionContextProviderProps {
   children: React.ReactNode;
 }
 
-export const TherapistDayTableContextProvider = ({
+export const TherapistSectionContextProvider = ({
   children,
-}: TherapistDayTableContextProviderProps) => {
+}: TherapistSectionContextProviderProps) => {
   const [isSendMessageModalOpen, setIsSendMessageModalOpen] = useState(false);
 
   const [isCancelAppointmentModalOpen, setIsCancelAppointmentModalOpen] =
@@ -66,6 +94,22 @@ export const TherapistDayTableContextProvider = ({
 
   const [showParagraph, setShowParagraph] = useState(false);
 
+  const [isDeletePatientModalOpen, setIsDeletePatientModalOpen] =
+    useState<boolean>(false);
+
+  const [isPatientDetailsModalOpen, setIsPatientDetailsModalOpen] =
+    useState<boolean>(false);
+
+  const [therapistPatients, setTherapistPatients] = useState<IUserProfile[]>(
+    []
+  );
+
+  const [allPatients, setAllPatients] = useState<IUserProfile[]>([]);
+
+  const [tableType, setTableType] = useState<
+    'therapistPatients' | 'allPatients'
+  >('therapistPatients');
+
   const handleDynamicModeClick = () => {
     setIsDynamicModeOn(!isDynamicModeOn);
 
@@ -77,7 +121,7 @@ export const TherapistDayTableContextProvider = ({
     }
   };
   return (
-    <TherapistDayTableContext.Provider
+    <TherapistSectionContext.Provider
       value={{
         isSendMessageModalOpen,
         setIsSendMessageModalOpen,
@@ -96,21 +140,31 @@ export const TherapistDayTableContextProvider = ({
         selectedAppointment,
         selectedPrescription,
         setSelectedPrescription,
+        isDeletePatientModalOpen,
+        setIsDeletePatientModalOpen,
+        isPatientDetailsModalOpen,
+        setIsPatientDetailsModalOpen,
+        therapistPatients,
+        setTherapistPatients,
+        allPatients,
+        setAllPatients,
+        tableType,
+        setTableType,
       }}
     >
       {children}
-    </TherapistDayTableContext.Provider>
+    </TherapistSectionContext.Provider>
   );
 };
 
-export const useTherapistDayTableContext = () => {
-  const context = useContext(TherapistDayTableContext);
+export const useTherapistSectionContext = () => {
+  const context = useContext(TherapistSectionContext);
   if (context === undefined) {
     throw new Error(
-      'useTherapistDayTableContext must be used within a TherapistDayTableContextProvider'
+      'useTherapistSectionContext must be used within a useTherapistSectionContextProvider'
     );
   }
   return context;
 };
 
-export default TherapistDayTableContext;
+export default TherapistSectionContext;

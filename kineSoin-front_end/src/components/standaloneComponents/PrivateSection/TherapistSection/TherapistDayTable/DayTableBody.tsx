@@ -1,12 +1,12 @@
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistDayTableContext } from '../../../../../utils/contexts/TherapistDayTableContext';
 import { generateTimeSlots } from '../../../../../utils/functions/privateSection/therapistSection/generateTimeSlots';
 import cancelIcon from '/icons/cancel.png';
 import cancelIcon2 from '/icons/cancel2.png';
 import messageIcon from '/icons/message.png';
 import messageIcon2 from '/icons/message2.png';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 
 export default function DayTableBody() {
   const timeSlots = generateTimeSlots();
@@ -18,7 +18,7 @@ export default function DayTableBody() {
     setSelectedPatient,
     setSelectedAppointment,
     setSelectedPrescription,
-  } = useTherapistDayTableContext();
+  } = useTherapistSectionContext();
 
   const handleMessageIconClick = (appointment: ISameDayAppointment) => {
     if (!appointment.isTimePassed) {
@@ -41,7 +41,7 @@ export default function DayTableBody() {
       {timeSlots.map((time, index) => {
         const isLastRow = index === timeSlots.length - 1;
         const appointment = tableAppointments.find(
-          (appointment) => appointment.time === time
+          (appointment: ISameDayAppointment) => appointment.time === time
         );
 
         return (
@@ -95,8 +95,9 @@ export default function DayTableBody() {
                   </Button>
                 </td>
 
-                <td className={`${isLastRow && 'rounded-br-2xl'} border border-gray-300 px-4 py-2 text-center w-2/12`}
-               >
+                <td
+                  className={`${isLastRow && 'rounded-br-2xl'} border border-gray-300 px-4 py-2 text-center w-2/12`}
+                >
                   <Button
                     onClick={() => handleCancelIconClick(appointment)}
                     className="flex justify-center items-center w-full"

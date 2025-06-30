@@ -1,5 +1,6 @@
-import { TherapistDayTableContextProvider } from '../../../../utils/contexts/TherapistDayTableContext';
 import { useTherapistDetailsContext } from '../../../../utils/contexts/TherapistDetailsContext';
+import { TherapistSectionContextProvider } from '../../../../utils/contexts/TherapistSectionContext';
+
 import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSection/therapistSection/fetchTherapistPageTitle';
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
 import UserHeadband from '../../../standaloneComponents/generalComponents/layoutComponents/userHeadband/UserHeadband';
@@ -14,6 +15,7 @@ export default function TherapistMainRefactor({
   pathName,
 }: TherapistMainRefactorProps) {
   const therapistContext = useTherapistDetailsContext();
+
   const therapist = therapistContext?.basicTherapistDetails;
 
   return (
@@ -30,19 +32,17 @@ export default function TherapistMainRefactor({
         </div>
 
         <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
-          <p className="text-xl font-semibold italic mb-2 ">
+          <p className="text-2xl font-semibold italic mb-2 ">
             {fetchTherapistPageTitle(pathName)}
           </p>
+          
+          <TherapistSectionContextProvider>
+            {pathName === 'dashboard' && <TherapistDayTable />}
 
-          {pathName === 'dashboard' && (
-            <TherapistDayTableContextProvider>
-              <TherapistDayTable />
-            </TherapistDayTableContextProvider>
-          )}
-
-          {pathName === 'patients' && therapist && (
-            <TherapistPatientsTable therapist={therapist} />
-          )}
+            {pathName === 'patients' && therapist && (
+              <TherapistPatientsTable therapist={therapist} />
+            )}
+          </TherapistSectionContextProvider>
         </div>
       </div>
     </main>

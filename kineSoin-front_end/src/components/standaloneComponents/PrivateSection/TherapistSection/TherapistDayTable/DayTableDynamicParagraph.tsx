@@ -1,7 +1,7 @@
-import { useTherapistDayTableContext } from '../../../../../utils/contexts/TherapistDayTableContext';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 
 export default function DayTableDynamicParagraph() {
-  const { isDynamicModeOn, showParagraph } = useTherapistDayTableContext();
+  const { isDynamicModeOn, showParagraph } = useTherapistSectionContext();
 
   return (
     <>

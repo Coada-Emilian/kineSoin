@@ -1,5 +1,4 @@
 import { Button } from '@headlessui/react';
-import { useTherapistDayTableContext } from '../../../../../utils/contexts/TherapistDayTableContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { formatCurrentDate } from '../../../../../utils/functions/privateSection/therapistSection/formatCurrentDate';
 import { useDynamicAppointmentCheck } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useDynamicAppointmentCheck';
@@ -8,9 +7,10 @@ import CancelAppointmentModal from '../modals/CancelAppointmentModal';
 import SendMessageModal from '../modals/SendMessageModal';
 import DayTableBody from './DayTableBody';
 import DayTableDynamicParagraph from './DayTableDynamicParagraph';
+import DayTableHead from './DayTableHead';
 import dynamicIcon from '/icons/dynamic.png';
 import dynamicIcon2 from '/icons/dynamic2.png';
-import DayTableHead from './DayTableHead';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 
 export default function TherapistDayTable() {
   const formattedDate = formatCurrentDate();
@@ -24,7 +24,7 @@ export default function TherapistDayTable() {
     setIsSendMessageModalOpen,
     isCancelAppointmentModalOpen,
     setIsCancelAppointmentModalOpen,
-  } = useTherapistDayTableContext();
+  } = useTherapistSectionContext();
 
   useDynamicAppointmentCheck(tableAppointments, isDynamicModeOn);
 

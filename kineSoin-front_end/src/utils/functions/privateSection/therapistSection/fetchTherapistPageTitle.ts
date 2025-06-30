@@ -5,7 +5,7 @@ export const fetchTherapistPageTitle = (page: string): string => {
     case 'appointments':
       return 'Rendez-vous';
     case 'patients':
-      return 'Patients';
+      return 'Tous les patients';
     case 'messages':
       return 'Messages';
     case 'my-profile':

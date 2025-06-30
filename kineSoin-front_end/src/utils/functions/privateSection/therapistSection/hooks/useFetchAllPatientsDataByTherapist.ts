@@ -1,21 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
-import { fetchPatientsAsTherapist } from '../../../../apiUtils/therapistApiUtils';
+import { fetchAllPatientsDataAsTherapist } from '../../../../apiUtils/therapistApiUtils/patientApiUtils/fetchAllPatientsDataAsTherapist';
 
 interface QueryProps {
-  setTherapistPatients: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
+  setAllPatients: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
 }
 
-export const useFetchTherapistPatientsData = ({
-  setTherapistPatients,
+export const useFetchAllPatientsDataByTherapist = ({
+  setAllPatients,
 }: QueryProps) => {
   const queryResult = useQuery({
-    queryKey: ['fetchTherapistPatientsData'],
-    queryFn: fetchPatientsAsTherapist,
+    queryKey: ['fetchAllPatientsDataByTherapist'],
+    queryFn: fetchAllPatientsDataAsTherapist,
     select: (patients) => {
       if (!Array.isArray(patients)) {
-        console.warn('Invalid response format for therapist patients data');
+        console.warn('Invalid response format for all patients data');
         return [];
       }
 
@@ -31,19 +31,16 @@ export const useFetchTherapistPatientsData = ({
 
   useEffect(() => {
     if (queryResult.isSuccess && queryResult.data) {
-      setTherapistPatients(queryResult.data);
-      console.log('Therapist patients data fetched successfully');
+      setAllPatients(queryResult.data);
+      console.log('All patients data fetched successfully');
     } else if (queryResult.isError) {
-      console.error(
-        'Error fetching therapist patients data:',
-        queryResult.error
-      );
+      console.error('Error fetching all patients data:', queryResult.error);
     }
   }, [
     queryResult.data,
     queryResult.isSuccess,
     queryResult.isError,
-    setTherapistPatients,
+    setAllPatients,
   ]);
 
   return queryResult;

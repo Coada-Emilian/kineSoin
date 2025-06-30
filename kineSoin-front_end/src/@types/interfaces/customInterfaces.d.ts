@@ -1,3 +1,5 @@
+import { ITherapist } from './modelInterfaces';
+
 export interface ICountry {
   flag_url?: string;
   prefix: string;
@@ -99,6 +101,7 @@ export interface IUserProfile {
   id: number;
   token?: string | null;
   status?: string | undefined;
+  therapist?: ITherapist | null;
 }
 
 export interface ICommonEntityDetails {
