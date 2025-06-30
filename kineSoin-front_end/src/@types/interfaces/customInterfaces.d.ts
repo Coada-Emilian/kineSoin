@@ -59,17 +59,17 @@ export interface ITherapistPatientDetails {
   picture_url: string;
   email: string;
   insurance: IInsurance[];
-  patient_insurance: {
-    id: number;
-    patient_id: number;
-    insurance_id: number;
-    adherent_code: string;
-    contract_number: string;
-    start_date: string;
-    end_date: string;
-  };
+  // patient_insurance: {
+  //   id: number;
+  //   patient_id: number;
+  //   insurance_id: number;
+  //   adherent_code: string;
+  //   contract_number: string;
+  //   start_date: string;
+  //   end_date: string;
+  // };
 
-  therapist: ITherapist;
+  // therapist: ITherapist;
 }
 
 export interface IUserProfile {

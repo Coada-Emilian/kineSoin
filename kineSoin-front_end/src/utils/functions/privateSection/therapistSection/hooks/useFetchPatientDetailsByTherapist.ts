@@ -17,7 +17,7 @@ export const useFetchPatientDetailsByTherapist = ({
   const queryResult = useQuery({
     queryKey: ['fetchPatientDetailsByTherapist', patient_id],
     queryFn: () => fetchPatientDataAsTherapist(patient_id),
-    enabled: !!patient_id,
+    //     enabled: !!patient_id,
     select: (data): ITherapistPatientDetails => ({
       id: data.id,
       therapist_id: data.therapist_id,
@@ -37,16 +37,16 @@ export const useFetchPatientDetailsByTherapist = ({
       picture_url: data.picture_url,
       email: data.email,
       insurance: data.insurance ?? [],
-      patient_insurance: data.patient_insurance ?? {
-        id: 0,
-        patient_id: data.id,
-        insurance_id: 0,
-        adherent_code: '',
-        contract_number: '',
-        start_date: '',
-        end_date: '',
-      },
-      therapist: data.therapist,
+      // patient_insurance: data.patient_insurance ?? {
+      //   id: 0,
+      //   patient_id: data.id,
+      //   insurance_id: 0,
+      //   adherent_code: '',
+      //   contract_number: '',
+      //   start_date: '',
+      //   end_date: '',
+      // },
+      // therapist: data.therapist,
     }),
   });
 
