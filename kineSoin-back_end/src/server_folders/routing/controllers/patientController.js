@@ -5,6 +5,7 @@ import getOnePatientAsAdmin from '../../utils/patient_controller_utils/admin_uti
 import getConnectedPatientData from '../../utils/patient_controller_utils/patient_utils/getConnectedPatientData.js';
 import updateConnectedPatient from '../../utils/patient_controller_utils/patient_utils/updateConnectedPatient.js';
 import uploadPatientPhoto from '../../utils/patient_controller_utils/patient_utils/uploadPatientPhoto.js';
+import deletePatientAsTherapist from '../../utils/patient_controller_utils/therapist_utils/deletePatientAsTherapist.js';
 import getAllAppointedPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllAppointedPatientsAsTherapist.js';
 import getAllPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllPatientsAsTherapist.js';
 import getOnePatientAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getOnePatientAsTherapist.js';
@@ -42,6 +43,8 @@ const patientController = {
 
   // Function to get one patients data as a therapist
   getOnePatientAsTherapist,
+
+  deletePatientAsTherapist,
 
   // Unused functions
 

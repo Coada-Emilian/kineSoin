@@ -45,9 +45,6 @@ interface TherapistSectionContextType {
   isDeletePatientModalOpen: boolean;
   setIsDeletePatientModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 
-  isPatientDetailsModalOpen: boolean;
-  setIsPatientDetailsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
   therapistPatients: IUserProfile[];
   setTherapistPatients: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
 
@@ -106,9 +103,6 @@ export const TherapistSectionContextProvider = ({
   const [isDeletePatientModalOpen, setIsDeletePatientModalOpen] =
     useState<boolean>(false);
 
-  const [isPatientDetailsModalOpen, setIsPatientDetailsModalOpen] =
-    useState<boolean>(false);
-
   const [therapistPatients, setTherapistPatients] = useState<IUserProfile[]>(
     []
   );
@@ -151,8 +145,6 @@ export const TherapistSectionContextProvider = ({
         setSelectedPrescription,
         isDeletePatientModalOpen,
         setIsDeletePatientModalOpen,
-        isPatientDetailsModalOpen,
-        setIsPatientDetailsModalOpen,
         therapistPatients,
         setTherapistPatients,
         allPatients,

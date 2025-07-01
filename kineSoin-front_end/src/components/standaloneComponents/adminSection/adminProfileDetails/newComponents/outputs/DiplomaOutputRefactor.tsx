@@ -12,7 +12,7 @@
  * <DiplomaOutputRefactor diploma="Master of Science in Psychology" />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface DiplomaOutputRefactorProps {
   diploma: string | undefined;

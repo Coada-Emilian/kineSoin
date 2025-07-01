@@ -12,7 +12,7 @@
  * <IdOutputRefactor id={123} />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface IdOutputRefactorProps {
   id: number | null;

@@ -14,7 +14,7 @@
  * <NameOutputRefactor name="Cher" surname={undefined} />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface NameOutputRefactorProps {
   name: string | undefined;

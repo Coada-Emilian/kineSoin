@@ -1,10 +1,27 @@
 import { IModalProps } from '../../../../../@types/interfaces/customInterfaces';
 import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { useHandlePatientDeleteAsTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useHandlePatientDeleteAsTherapistMutation';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import BaseModal from './BaseModal';
 
 export default function PatientDeleteModal({ isOpen, onClose }: IModalProps) {
   const { selectedPatient } = useTherapistSectionContext();
+
+  const handlePatientDeletion =
+    useHandlePatientDeleteAsTherapistMutation(onClose);
+
+  const handleConfirmDelete = () => {
+    if (selectedPatient?.id) {
+      handlePatientDeletion.mutate(selectedPatient.id);
+    } else {
+      console.error('No patient selected for deletion');
+    }
+  };
+
+  const handleCancelDelete = () => {
+    onClose();
+  };
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div>
@@ -20,10 +37,7 @@ export default function PatientDeleteModal({ isOpen, onClose }: IModalProps) {
           />
         </div>
 
-        <div
-          className="flex flex-col gap-2 mt-2 italic text-primaryBlue font-medium text-center"
-          //     onSubmit={handleMessageSubmit}
-        >
+        <div className="flex flex-col gap-2 mt-2 italic text-primaryBlue font-medium text-center">
           <p>
             Êtes-vous sûr de vouloir supprimer le profil de{' '}
             <span className="font-semibold italic text-red-500">
@@ -43,7 +57,7 @@ export default function PatientDeleteModal({ isOpen, onClose }: IModalProps) {
                   type: 'delete',
                   text: 'Confirmer',
                   style: 'normal',
-                  // onClick: handleConfirmEntityDelete,
+                  onClick: handleConfirmDelete,
                 }}
               />
 
@@ -52,7 +66,7 @@ export default function PatientDeleteModal({ isOpen, onClose }: IModalProps) {
                   type: 'cancel',
                   text: 'Annuler',
                   style: 'normal',
-                  // onClick: handleCancelEntityDelete,
+                  onClick: handleCancelDelete,
                 }}
               />
             </>

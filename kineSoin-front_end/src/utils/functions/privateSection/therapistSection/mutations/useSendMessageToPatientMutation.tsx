@@ -12,9 +12,6 @@ export const useSendMessageToPatientMutation = (onClose: () => void) => {
       id: number;
       formData: FormData;
     }) => {
-      for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-      }
       if (!id || !formData) {
         throw new Error('Invalid parameters for sending message');
       } else {

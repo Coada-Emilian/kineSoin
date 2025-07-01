@@ -12,7 +12,7 @@
  * <AMCCodeOutputRefactor amc_code="12345" />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface AMCCodeOutputRefactorProps {
   amc_code: string | undefined;

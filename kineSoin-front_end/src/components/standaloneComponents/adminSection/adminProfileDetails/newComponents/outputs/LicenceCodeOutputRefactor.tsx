@@ -12,7 +12,7 @@
  * <LicenceCodeOutputRefactor licence_code="ADELI-123456" />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface LicenceCodeOutputRefactorProps {
   licence_code: string | undefined;

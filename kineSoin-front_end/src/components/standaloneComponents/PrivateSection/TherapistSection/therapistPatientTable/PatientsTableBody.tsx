@@ -65,18 +65,9 @@ export default function PatientsTableBody({
   const {
     setSelectedPatient,
     setIsDeletePatientModalOpen,
-    setIsPatientDetailsModalOpen,
   } = useTherapistSectionContext();
 
-  const handleEditClick = (patient: IUserProfile) => {
-    setSelectedPatient({
-      id: patient.id,
-      name: patient.fullName?.split(' ')[0] ?? '',
-      surname: patient.fullName?.split(' ').slice(1).join(' ') ?? '',
-      picture_url: patient.picture_url ?? '',
-    });
-    setIsPatientDetailsModalOpen(true);
-  };
+
 
   const handleDeleteClick = (patient: IUserProfile) => {
     setSelectedPatient({
@@ -87,8 +78,6 @@ export default function PatientsTableBody({
     });
     setIsDeletePatientModalOpen(true);
   };
-
-  const { tableType } = useTherapistSectionContext();
 
   return (
     <>
@@ -147,11 +136,10 @@ export default function PatientsTableBody({
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2  text-center">
-                  <Button
+                  <Link
+                    to={`/therapist/patient/${patient.id}`}
                     className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
-                    onClick={() => {
-                      handleEditClick(patient);
-                    }}
+                    
                   >
                     <img
                       src={editIcon}
@@ -162,7 +150,7 @@ export default function PatientsTableBody({
                     <p className="text-blue-300 font-semibold hidden md:block">
                       Inspecter
                     </p>
-                  </Button>
+                  </Link>
                 </td>
 
                 <td

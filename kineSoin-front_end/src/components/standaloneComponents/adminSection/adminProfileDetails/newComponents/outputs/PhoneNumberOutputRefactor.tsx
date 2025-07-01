@@ -13,7 +13,7 @@
  * <PhoneNumberOutputRefactor prefix="+33 " phone_number="612345678" />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface PhoneNumberOutputRefactorProps {
   prefix: string | undefined;

@@ -69,7 +69,7 @@ export interface ITherapistPatientDetails {
   //   end_date: string;
   // };
 
-  // therapist: ITherapist;
+  therapist: ITherapist;
 }
 
 export interface IUserProfile {

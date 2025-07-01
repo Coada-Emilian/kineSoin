@@ -12,7 +12,7 @@
  * <ExperienceOutputRefactor experience="5 years in pediatrics" />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface ExperienceOutputRefactorProps {
   experience: string | undefined;

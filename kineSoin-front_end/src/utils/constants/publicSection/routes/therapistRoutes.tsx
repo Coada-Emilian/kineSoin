@@ -5,4 +5,5 @@ export const therapistRoutes = [
   { path: 'messages', boolean: 'isTherapistMessagesMain' },
   { path: 'my-profile', boolean: 'isTherapistProfileMain' },
   { path: 'prescriptions', boolean: 'isTherapistPrescriptionsMain' },
+  { path: 'patient/:patientId', boolean: 'isTherapistPatientDetailsMain' },
 ];

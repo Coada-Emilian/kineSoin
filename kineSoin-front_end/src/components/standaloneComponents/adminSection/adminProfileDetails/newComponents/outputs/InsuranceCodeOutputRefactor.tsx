@@ -12,7 +12,7 @@
  * <InsuranceCodeOutputRefactor insurance_code="INS-98765" />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface InsuranceCodeOutputRefactorProps {
   insurance_code: string | undefined;

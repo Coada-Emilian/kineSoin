@@ -46,7 +46,7 @@ export const useFetchPatientDetailsByTherapist = ({
       //   start_date: '',
       //   end_date: '',
       // },
-      // therapist: data.therapist,
+      therapist: data.therapist,
     }),
   });
 

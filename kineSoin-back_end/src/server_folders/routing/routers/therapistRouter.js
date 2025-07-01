@@ -60,6 +60,12 @@ therapistRouter.get(
   wrapper(patientController.getAllPatientsAsTherapist)
 );
 
+therapistRouter.delete(
+  '/me/patients/:patient_id',
+  authenticateTherapist,
+  wrapper(patientController.deletePatientAsTherapist)
+);
+
 therapistRouter.patch(
   '/me/patients/:patient_id/toggleStatus',
   authenticateTherapist,

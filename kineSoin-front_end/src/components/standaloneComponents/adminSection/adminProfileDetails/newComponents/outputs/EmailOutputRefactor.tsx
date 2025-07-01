@@ -12,7 +12,7 @@
  * <EmailOutputRefactor email="user@example.com" />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface EmailOutputRefactorProps {
   email: string | undefined;

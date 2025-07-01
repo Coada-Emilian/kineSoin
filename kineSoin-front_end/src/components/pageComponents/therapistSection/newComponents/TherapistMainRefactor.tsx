@@ -5,6 +5,7 @@ import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSect
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
 import UserHeadband from '../../../standaloneComponents/generalComponents/layoutComponents/userHeadband/UserHeadband';
 import TherapistDayTable from '../../../standaloneComponents/privateSection/therapistSection/therapistDayTable/TherapistDayTable';
+import TherapistPatientDetails from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientDetails/therapistPatientDetails';
 import TherapistPatientsTable from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientTable/TherapistPatientsTable';
 
 interface TherapistMainRefactorProps {
@@ -35,13 +36,15 @@ export default function TherapistMainRefactor({
           <p className="text-2xl font-semibold italic mb-2 ">
             {fetchTherapistPageTitle(pathName)}
           </p>
-          
+
           <TherapistSectionContextProvider>
             {pathName === 'dashboard' && <TherapistDayTable />}
 
             {pathName === 'patients' && therapist && (
               <TherapistPatientsTable therapist={therapist} />
             )}
+
+            {pathName === 'patient/:patientId' && <TherapistPatientDetails />}
           </TherapistSectionContextProvider>
         </div>
       </div>

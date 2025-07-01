@@ -10,30 +10,28 @@ export default function PatientsTableLinks({
   setTableType,
 }: PatientsTableLinksProps) {
   return (
-    <div className="flex justify-between w-full ">
-      <div className="flex gap-2">
-        <CustomBtn
-          btn={{
-            type: 'basic',
-            text: 'Tous mes patients',
-            style: 'status',
-            onClick: () => {
-              setTableType('therapistPatients');
-            },
-          }}
-        />
+    <div className="w-11/12 flex gap-2 ">
+      <CustomBtn
+        btn={{
+          type: 'basic',
+          text: 'Tous mes patients',
+          style: 'status',
+          onClick: () => {
+            setTableType('therapistPatients');
+          },
+        }}
+      />
 
-        <CustomBtn
-          btn={{
-            type: 'send',
-            text: 'Tous les patients',
-            style: 'status',
-            onClick: () => {
-              setTableType('allPatients');
-            },
-          }}
-        />
-      </div>
+      <CustomBtn
+        btn={{
+          type: 'send',
+          text: 'Tous les patients',
+          style: 'status',
+          onClick: () => {
+            setTableType('allPatients');
+          },
+        }}
+      />
 
       {/* <div className="flex gap-2">
         {' '}

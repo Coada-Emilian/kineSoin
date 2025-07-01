@@ -21,7 +21,7 @@
  * />
  */
 
-import BaseOutput from './BaseOutput';
+import BaseOutput from '../../../../generalComponents/BaseOutput';
 
 interface AddressOutputRefactorProps {
   city: string | undefined;
