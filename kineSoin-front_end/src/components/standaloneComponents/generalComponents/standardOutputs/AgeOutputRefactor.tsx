@@ -1,4 +1,4 @@
-import BaseOutput from '../../../../generalComponents/BaseOutput';
+import BaseOutput from '../BaseOutput';
 
 interface AgeOutputRefactorProps {
   age: number | undefined;

@@ -1,4 +1,4 @@
-import BaseOutput from '../../../../generalComponents/BaseOutput';
+import BaseOutput from '../BaseOutput';
 
 interface IsOperatedOutputRefactorProps {
   is_operated: string | undefined;

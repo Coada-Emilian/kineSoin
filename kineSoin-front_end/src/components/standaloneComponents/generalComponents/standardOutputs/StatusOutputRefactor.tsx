@@ -18,8 +18,8 @@
  */
 
 import { useEffect, useState } from 'react';
-import { getProfileStatusClassName } from '../../../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusClassName';
-import { getProfileStatusText } from '../../../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusText';
+import { getProfileStatusClassName } from '../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusClassName';
+import { getProfileStatusText } from '../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusText';
 
 interface StatusOutputRefactorProps {
   status: string | undefined;

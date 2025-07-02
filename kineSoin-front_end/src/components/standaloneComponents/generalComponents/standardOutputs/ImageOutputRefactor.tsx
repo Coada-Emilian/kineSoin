@@ -19,7 +19,7 @@
  */
 
 import { Button } from '@headlessui/react';
-import { useAdminProfileDetailsGlobalContext } from '../../../../../../utils/contexts/AdminProfileDetailsGlobalContext';
+import { useAdminProfileDetailsGlobalContext } from '../../../../utils/contexts/AdminProfileDetailsGlobalContext';
 import editIcon from '/icons/edit.svg';
 
 interface ImageOutputProps {

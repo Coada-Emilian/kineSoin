@@ -21,7 +21,6 @@
  */
 
 import { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
 import {
   IAffliction,
   IInsurance,
@@ -37,9 +36,12 @@ import DNALoader from '../../../../../utils/DNALoader.tsx';
 import { usePatientStatusChangeMutation } from '../../../../../utils/functions/adminSection/adminTable/mutations/usePatientStatusChangeMutation.ts';
 import { useTherapistStatusChangeMutation } from '../../../../../utils/functions/adminSection/adminTable/mutations/useTherapistStatusChangeMutation.ts';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor.tsx';
+import {
+  ImageOutputRefactor,
+  TitleOutputRefactor,
+} from '../../../generalComponents/standardOutputs/index.ts';
 import ConfirmDeleteModal from '../../adminTable/newComponents/modals/ConfirmDeleteModal.tsx';
 import EditPhotoModalRefactor from './EditPhotoModalRefactor.tsx';
-import { ImageOutputRefactor, TitleOutputRefactor } from './outputs/index.ts';
 import {
   CommonSectionRefactor,
   ProfileSectionRefactor,
@@ -306,7 +308,6 @@ export default function AdminProfileDetailsRefactor({
           setSelectedFile={setSelectedFile}
         />
       )}
-      
     </>
   );
 }

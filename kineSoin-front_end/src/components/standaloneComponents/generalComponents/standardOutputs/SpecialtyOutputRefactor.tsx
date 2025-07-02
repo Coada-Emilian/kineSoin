@@ -12,7 +12,7 @@
  * <SpecialtyOutputRefactor specialty="Cardiology" />
  */
 
-import BaseOutput from '../../../../generalComponents/BaseOutput';
+import BaseOutput from '../BaseOutput';
 
 interface SpecialtyOutputRefactorProps {
   specialty: string | undefined;

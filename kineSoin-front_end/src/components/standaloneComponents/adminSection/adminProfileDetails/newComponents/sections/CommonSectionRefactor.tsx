@@ -24,7 +24,7 @@ import {
   IdOutputRefactor,
   NameOutputRefactor,
   StatusOutputRefactor,
-} from '../outputs';
+} from '../../../../generalComponents/standardOutputs';
 
 interface CommonSectionRefactorProps {
   entityType: string;

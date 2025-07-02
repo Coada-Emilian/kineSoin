@@ -1,4 +1,4 @@
-export { default as BaseOutput } from '../../../../generalComponents/BaseOutput';
+export { default as BaseOutput } from '../BaseOutput';
 export { default as AddressOutputRefactor } from './AddressOutputRefactor';
 export { default as AgeAndGenderOutputRefactor } from './AgeAndGenderOutputRefactor';
 export { default as AgeOutputRefactor } from './AgeOutputRefactor';

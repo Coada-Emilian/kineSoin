@@ -46,19 +46,16 @@ export interface ITherapistPatientDetails {
   name: string;
   surname: string;
   age: number;
-  gender: string;
-  birth_date: string;
   street_number: string;
   street_name: string;
   postal_code: string;
   city: string;
   prefix: string;
   phone_number: string;
-  full_phone_number: string;
   status: string;
   picture_url: string;
   email: string;
-  insurance: IInsurance[];
+  insurance_details: IPatientInsuranceExtended;
   // patient_insurance: {
   //   id: number;
   //   patient_id: number;

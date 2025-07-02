@@ -62,6 +62,7 @@ export interface IDropdownInput {
   additionalLabelClassName?: string;
   value?: string;
   isRequired?: boolean;
+  isLabelNormal?: boolean;
   autoComplete?: string;
   allOptions: {
     startingOption?: {

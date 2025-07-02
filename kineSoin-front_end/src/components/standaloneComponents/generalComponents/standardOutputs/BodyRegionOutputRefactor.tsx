@@ -1,5 +1,5 @@
-import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
-import BaseOutput from '../../../../generalComponents/BaseOutput';
+import { IBodyRegion } from '../../../../@types/interfaces/modelInterfaces';
+import BaseOutput from '../BaseOutput';
 
 interface BodyRegionOutputRefactorProps {
   body_region: IBodyRegion | undefined;

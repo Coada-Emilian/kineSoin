@@ -1,4 +1,4 @@
-import { Patient } from '../../../models/index.js';
+import { Patient, Patient_Insurance } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 import computeAge from '../../computeAge.js';
 
@@ -23,6 +23,8 @@ export default async function getOnePatientAsTherapist(req, res) {
           'updated_at',
           'picture_id',
           'birth_name',
+          'full_phone_number',
+          'gender',
         ],
       },
       include: [
@@ -30,49 +32,31 @@ export default async function getOnePatientAsTherapist(req, res) {
           association: 'therapist',
           attributes: ['id', 'name', 'surname'],
         },
+      ],
+    });
+
+    const foundPatientInsurance = await Patient_Insurance.findOne({
+      where: { patient_id },
+      attributes: [
+        'id',
+        'adherent_code',
+        'contract_number',
+        'start_date',
+        'end_date',
+      ],
+      include: [
         {
           association: 'insurance',
           attributes: ['id', 'name'],
         },
-        // {
-        //   association: 'prescriptions',
-        //   attributes: [
-        //     'id',
-        //     'appointment_quantity',
-        //     'is_new_prescription',
-        //     'is_completed',
-        //     'at_home_care',
-        //     'date',
-        //     'picture_url',
-        //   ],
-        //   include: [
-        //     {
-        //       association: 'medic',
-        //       attributes: [
-        //         'id',
-        //         'name',
-        //         'surname',
-        //         'street_number',
-        //         'street_name',
-        //         'postal_code',
-        //         'city',
-        //         'prefix',
-        //         'phone_number',
-        //         'licence_code',
-        //       ],
-        //     },
-        //     {
-        //       association: 'affliction',
-        //       attributes: ['id', 'name', 'description'],
-        //     },
-        //     {
-        //       association: 'appointments',
-        //       attributes: ['id', 'is_canceled', 'date', 'time'],
-        //     },
-        //   ],
-        // },
       ],
     });
+
+    if (!foundPatientInsurance) {
+      return res.status(404).json({ message: 'Patient insurance not found' });
+    } else {
+      foundPatient.dataValues.insurance_details = foundPatientInsurance;
+    }
 
     if (!foundPatient) {
       return res.status(400).json({ message: 'Patient not found' });

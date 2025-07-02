@@ -140,3 +140,10 @@ export interface IAffliction {
   is_operated: boolean;
   body_region?: IBodyRegion;
 }
+
+export interface IPatientInsuranceExtended extends IPatient_Insurance {
+  insurance: {
+    id: number;
+    name: string;
+  };
+}

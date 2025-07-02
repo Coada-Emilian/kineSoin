@@ -12,7 +12,7 @@
  * <DescriptionOutputRefactor description="Detailed description about the entity." />
  */
 
-import BaseOutput from '../../../../generalComponents/BaseOutput';
+import BaseOutput from '../BaseOutput';
 
 interface DescriptionOutputRefactorProps {
   description: string | undefined;

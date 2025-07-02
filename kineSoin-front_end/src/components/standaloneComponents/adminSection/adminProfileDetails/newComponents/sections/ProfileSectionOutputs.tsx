@@ -28,7 +28,7 @@ import {
   LicenceCodeOutputRefactor,
   PhoneNumberOutputRefactor,
   SpecialtyOutputRefactor,
-} from '../outputs';
+} from '../../../../generalComponents/standardOutputs';
 
 export default function ProfileSectionOutputs() {
   // Destructure the necessary data from the global context

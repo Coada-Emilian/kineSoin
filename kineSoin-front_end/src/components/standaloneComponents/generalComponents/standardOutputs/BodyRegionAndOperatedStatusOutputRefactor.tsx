@@ -18,7 +18,7 @@
  * />
  */
 
-import { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
+import { IBodyRegion } from '../../../../@types/interfaces/modelInterfaces';
 import BodyRegionOutputRefactor from './BodyRegionOutputRefactor';
 import IsOperatedOutputRefactor from './IsOperatedOutputRefactor';
 

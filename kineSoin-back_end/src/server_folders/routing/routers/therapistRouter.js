@@ -79,6 +79,12 @@ therapistRouter.get(
 );
 
 therapistRouter.get(
+  '/me/therapists',
+  authenticateTherapist,
+  wrapper(therapistController.getAllTherapistsAsTherapist)
+);
+
+therapistRouter.get(
   '/me',
   wrapper(therapistController.getConnectedTherapistData)
 );
@@ -108,6 +114,7 @@ therapistRouter.get(
   '/me/appointments',
   wrapper(appointmentController.getAllAppointmentAsTherapist)
 );
+
 // therapistRouter.get(
 //   '/me/pendingPatients',
 //   wrapper(patientController.getPendingPatients)

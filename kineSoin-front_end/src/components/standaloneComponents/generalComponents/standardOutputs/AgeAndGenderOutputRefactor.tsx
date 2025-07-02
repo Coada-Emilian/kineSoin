@@ -14,7 +14,7 @@
  * <AgeAndGenderOutputRefactor age="30" gender="male" />
  */
 
-import BaseOutput from '../../../../generalComponents/BaseOutput';
+import BaseOutput from '../BaseOutput';
 
 interface AgeAndGenderOutputRefactorProps {
   age: string | undefined;

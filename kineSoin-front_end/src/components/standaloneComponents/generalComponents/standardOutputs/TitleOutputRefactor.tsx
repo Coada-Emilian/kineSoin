@@ -12,7 +12,7 @@
  * <TitleOutputRefactor entityType="therapist" />
  */
 
-import { tableTitleEntityDetails } from '../../../../../../utils/constants/adminSection/adminProfileDetails/TableTitleEntityDetails';
+import { tableTitleEntityDetails } from '../../../../utils/constants/adminSection/adminProfileDetails/TableTitleEntityDetails';
 
 interface TitleOutputRefactorProps {
   entityType: string;

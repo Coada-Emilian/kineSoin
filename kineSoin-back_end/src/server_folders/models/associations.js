@@ -264,6 +264,8 @@ Appointment.belongsTo(Prescription, {
   as: 'prescription',
 });
 
+Patient_Insurance.associate({ Patient, Insurance });
+
 export {
   Admin,
   Affliction,

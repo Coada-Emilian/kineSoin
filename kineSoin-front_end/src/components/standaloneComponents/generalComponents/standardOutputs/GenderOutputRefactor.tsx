@@ -1,4 +1,4 @@
-import BaseOutput from '../../../../generalComponents/BaseOutput';
+import BaseOutput from '../BaseOutput';
 
 interface GenderOutputRefactorProps {
   gender: string | undefined;
