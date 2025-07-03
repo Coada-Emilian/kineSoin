@@ -95,8 +95,8 @@ export default function TherapistAppointmentsCalendar() {
         components={{
           event: ({ event }) => (
             <Link to={`/therapist/patient/${event.patientId}`}>
-              <div className="w-full h-full flex items-center justify-center text-sm text-center font-medium">
-                {event.title}
+              <div className="w-full h-full flex items-center justify-center text-sm text-center font-medium bg-secondaryBlue hover:bg-primaryBlue hover:rounded-lg text-white p-2">
+                <span className="hover:scale-110">{event.title}</span>
               </div>
             </Link>
           ),
