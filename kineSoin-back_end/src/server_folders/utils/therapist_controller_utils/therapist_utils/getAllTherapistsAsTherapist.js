@@ -15,8 +15,6 @@ export default async function getAllTherapistsAsTherapist(req, res) {
         attributes: ['id', 'name', 'surname', 'picture_url'],
       });
 
-      console.log('Therapists retrieved successfully:', response);
-
       if (!response || response.length === 0) {
         return res.status(404).json({ message: 'No therapists found' });
       } else {

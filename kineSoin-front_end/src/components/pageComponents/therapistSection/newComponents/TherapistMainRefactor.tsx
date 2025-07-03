@@ -4,6 +4,7 @@ import { TherapistSectionContextProvider } from '../../../../utils/contexts/Ther
 import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSection/therapistSection/fetchTherapistPageTitle';
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
 import UserHeadband from '../../../standaloneComponents/generalComponents/layoutComponents/userHeadband/UserHeadband';
+import TherapistAppointmentsCalendar from '../../../standaloneComponents/privateSection/therapistSection/therapistAppointments/TherapistAppointmentsCalendar';
 import TherapistDayTable from '../../../standaloneComponents/privateSection/therapistSection/therapistDayTable/TherapistDayTable';
 import TherapistPatientDetails from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientDetails/therapistPatientDetails';
 import TherapistPatientsTable from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientTable/TherapistPatientsTable';
@@ -45,6 +46,8 @@ export default function TherapistMainRefactor({
             )}
 
             {pathName === 'patient/:patientId' && <TherapistPatientDetails />}
+
+            {pathName === 'appointments' && <TherapistAppointmentsCalendar />}
           </TherapistSectionContextProvider>
         </div>
       </div>

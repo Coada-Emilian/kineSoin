@@ -25,54 +25,35 @@ export default async function getAllAppointmentAsTherapist(req, res) {
 
   checkIsValidNumber(therapist_id);
 
-  const appointmentDetailsSchema = Joi.object({
-    day: Joi.number().required(),
-    month: Joi.number().required(),
-    year: Joi.number().required(),
-  });
-
-  if (!req.body) {
-    return res.status(400).json({
-      message: 'The body of the request is empty',
-    });
-  }
-
-  const { error } = appointmentDetailsSchema.validate(req.body);
-  if (error) {
-    return res.status(400).json({
-      message: 'The body of the request is not valid',
-      error: error.details[0].message,
-    });
-  }
-
-  const { day, month, year } = req.body;
-
-  const searchedDate = `${year}-${month}-${day}`;
-
   const foundAppointments = await Appointment.findAll({
     where: {
       therapist_id,
       is_canceled: false,
       is_accepted: true,
-      date: searchedDate,
     },
     attributes: ['id', 'date', 'time'],
     include: [
       {
-        association: 'prescription',
-        where: { is_completed: false },
-        attributes: [
-          'id',
-          'appointment_quantity',
-          'at_home_care',
-          'picture_url',
-        ],
-        include: [
-          { association: 'medic', attributes: ['name', 'surname'] },
-          { association: 'affliction', attributes: ['name', 'description'] },
-        ],
+        association: 'patient',
+        attributes: ['id', 'name', 'surname', 'picture_url'],
       },
     ],
+    // include: [
+    //   {
+    //     association: 'prescription',
+    //     where: { is_completed: false },
+    //     attributes: [
+    //       'id',
+    //       'appointment_quantity',
+    //       'at_home_care',
+    //       'picture_url',
+    //     ],
+    //     include: [
+    //       { association: 'medic', attributes: ['name', 'surname'] },
+    //       { association: 'affliction', attributes: ['name', 'description'] },
+    //     ],
+    //   },
+    // ],
     order: [
       ['date', 'ASC'],
       ['time', 'ASC'],
@@ -83,5 +64,5 @@ export default async function getAllAppointmentAsTherapist(req, res) {
     return res.status(200).json({ message: 'No appointments found' });
   }
 
-  res.status(200).json({ foundAppointments });
+  res.status(200).json(foundAppointments);
 }

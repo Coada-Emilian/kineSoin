@@ -33,6 +33,18 @@ export interface ISameDayAppointment {
   };
 }
 
+export interface ICalendarAppointment {
+  id: number;
+  date: string;
+  time: string;
+  patient: {
+    id: number;
+    name: string;
+    surname: string;
+    picture_url: string;
+  };
+}
+
 export interface ITherapistPatient {
   id: number;
   fullName: string;

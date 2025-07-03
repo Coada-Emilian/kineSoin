@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
 import { StatusMenu } from '../../../../../utils/constants/adminSection/adminProfileDetails/StatusMenu';
 import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
@@ -19,6 +19,7 @@ import {
 import InsuranceNameOutput from '../../../generalComponents/standardOutputs/InsuranceNameOutput';
 import TherapistOutput from '../../../generalComponents/standardOutputs/TherapistOutput';
 import PatientDeleteModal from '../modals/PatientDeleteModal';
+import SendMessageModal from '../modals/SendMessageModal';
 import TherapistDropdownInput from './TherapistDropdownInput';
 
 export default function TherapistPatientDetails() {
@@ -26,15 +27,16 @@ export default function TherapistPatientDetails() {
 
   const navigate = useNavigate();
 
-  const { patientDetails, setPatientDetails } = useTherapistSectionContext();
+  const { patientDetails, setPatientDetails, setSelectedPatient } =
+    useTherapistSectionContext();
 
   const [isProfileEditing, setIsProfileEditing] = useState(false);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const [entityStatus, setEntityStatus] = useState(
-    patientDetails?.status || ''
-  );
+  const [isSendMessageModalOpen, setIsSendMessageModalOpen] = useState(false);
+
+  const [entityStatus, setEntityStatus] = useState<string>(patientDetails?.status ?? '');
 
   const [therapists, setTherapists] = useState<IUserProfile[]>([]);
 
@@ -42,8 +44,6 @@ export default function TherapistPatientDetails() {
     useFetchTherapistsByTherapist({
       setTherapists,
     });
-
-  const { setSelectedPatient } = useTherapistSectionContext();
 
   const { isLoading, isFetching } = useFetchPatientDetailsByTherapist({
     patient_id: patientId ? Number(patientId) : 0,
@@ -69,7 +69,7 @@ export default function TherapistPatientDetails() {
       case 'banned':
         return 'BANNI';
       default:
-        return status || 'Statut inconnu';
+        return status;
     }
   };
 
@@ -79,7 +79,7 @@ export default function TherapistPatientDetails() {
     return d.toLocaleDateString('fr-FR');
   };
 
-  const patientStatus = transformPatientStatusNames(entityStatus);
+  const patientStatus = transformPatientStatusNames(patientDetails?.status);
 
   const handleModifyClick = () => {
     setIsProfileEditing(true);
@@ -106,6 +106,19 @@ export default function TherapistPatientDetails() {
       };
       setSelectedPatient(selectedPatient);
       setIsDeleteModalOpen(true);
+    }
+  };
+
+  const handleSendMessageClick = () => {
+    if (typeof patientDetails?.id === 'number') {
+      const selectedPatient = {
+        id: patientDetails.id,
+        name: patientDetails?.name ?? '',
+        surname: patientDetails?.surname ?? '',
+        picture_url: patientDetails?.picture_url ?? '',
+      };
+      setSelectedPatient(selectedPatient);
+      setIsSendMessageModalOpen(true);
     }
   };
 
@@ -195,25 +208,32 @@ export default function TherapistPatientDetails() {
             </div>
 
             <div className="flex gap-4 items-center justify-around mt-4 ">
-              <CustomBtn
-                btn={{
-                  type: 'basic',
-                  text: 'Envoyez un message',
-                  style: 'normal',
-                  hasBorder: true,
-                  // onClick: handleModifyClick,
-                }}
-              />
-
-              <CustomBtn
-                btn={{
-                  type: 'basic',
-                  text: 'Gérer rendez-vous',
-                  style: 'normal',
-                  hasBorder: true,
-                  // onClick: handleModifyClick,
-                }}
-              />
+              {!isProfileEditing && (
+                <>
+                  {' '}
+                  <CustomBtn
+                    btn={{
+                      type: 'basic',
+                      text: 'Envoyez un message',
+                      style: 'normal',
+                      hasBorder: true,
+                      onClick: handleSendMessageClick,
+                    }}
+                  />
+                  <Link
+                    to={`/therapist/patient/${patientDetails?.id}/appointments`}
+                  >
+                    <CustomBtn
+                      btn={{
+                        type: 'basic',
+                        text: 'Gérer rendez-vous',
+                        style: 'normal',
+                        hasBorder: true,
+                      }}
+                    />
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 
@@ -287,6 +307,13 @@ export default function TherapistPatientDetails() {
         <PatientDeleteModal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
+        />
+      )}
+
+      {isSendMessageModalOpen && (
+        <SendMessageModal
+          isOpen={isSendMessageModalOpen}
+          onClose={() => setIsSendMessageModalOpen(false)}
         />
       )}
     </div>

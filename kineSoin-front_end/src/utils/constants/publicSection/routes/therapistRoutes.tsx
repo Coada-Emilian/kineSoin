@@ -1,9 +1,12 @@
 export const therapistRoutes = [
-  { path: 'dashboard', boolean: 'isTherapistDashboardMain' },
-  { path: 'patients', boolean: 'isTherapistPatientsMain' },
-  { path: 'appointments', boolean: 'isTherapistAppointmentsMain' },
-  { path: 'messages', boolean: 'isTherapistMessagesMain' },
-  { path: 'my-profile', boolean: 'isTherapistProfileMain' },
-  { path: 'prescriptions', boolean: 'isTherapistPrescriptionsMain' },
-  { path: 'patient/:patientId', boolean: 'isTherapistPatientDetailsMain' },
+  { path: 'dashboard' },
+  { path: 'patients' },
+  { path: 'appointments' },
+  { path: 'messages' },
+  { path: 'my-profile' },
+  { path: 'prescriptions' },
+  { path: 'patient/:patientId' },
+  {
+    path: 'patient/:patientId/appointments',
+  },
 ];

@@ -9,16 +9,10 @@ import BaseModal from './BaseModal';
 export default function SendMessageModal({ isOpen, onClose }: IModalProps) {
   // const [messageContent, setMessageContent] = useState<string>('');
 
-  const { selectedPatient: patient } = useTherapistSectionContext();
+  const { selectedPatient: patient, setSelectedPatient } =
+    useTherapistSectionContext();
 
   const handleMessageSubmitMutation = useSendMessageToPatientMutation(onClose);
-
-  // const handleMessageContentChange = (
-  //   e: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   console.log('Message content changed:', e.target.value);
-  //   setMessageContent(e.target.value);
-  // };
 
   const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,6 +35,13 @@ export default function SendMessageModal({ isOpen, onClose }: IModalProps) {
       </div>
     );
   }
+
+  const handleCancelClick = () => {
+    setSelectedPatient(null);
+    if (onClose) {
+      onClose();
+    }
+  };
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -106,9 +107,7 @@ export default function SendMessageModal({ isOpen, onClose }: IModalProps) {
                 type: 'cancel',
                 text: 'Annuler',
                 style: 'normal',
-                onClick: () => {
-                  onClose && onClose();
-                },
+                onClick: handleCancelClick,
               }}
             />
           </div>

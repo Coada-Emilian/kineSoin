@@ -85,6 +85,12 @@ therapistRouter.get(
 );
 
 therapistRouter.get(
+  '/me/allAppointments',
+  authenticateTherapist,
+  wrapper(appointmentController.getAllAppointmentAsTherapist)
+);
+
+therapistRouter.get(
   '/me',
   wrapper(therapistController.getConnectedTherapistData)
 );
@@ -108,11 +114,6 @@ therapistRouter.post(
 therapistRouter.post(
   '/me/newAppointment',
   wrapper(appointmentController.proposeOneAppointmentAsTherapist)
-);
-
-therapistRouter.get(
-  '/me/appointments',
-  wrapper(appointmentController.getAllAppointmentAsTherapist)
 );
 
 // therapistRouter.get(
