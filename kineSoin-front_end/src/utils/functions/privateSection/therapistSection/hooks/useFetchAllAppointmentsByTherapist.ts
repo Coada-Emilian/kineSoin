@@ -26,6 +26,7 @@ export const useFetchAllAppointmentsByTherapist = ({
           surname: appointment.patient.surname,
           picture_url: appointment.patient.picture_url,
         },
+        prescription: appointment.prescription,
       })),
   });
 

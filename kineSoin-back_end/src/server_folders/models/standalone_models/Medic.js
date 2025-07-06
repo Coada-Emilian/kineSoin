@@ -81,6 +81,13 @@ Medic.init(
       allowNull: false,
       unique: true,
     },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
+        isEmail: true,
+      },
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,

@@ -36,6 +36,7 @@ export default async function updateMedicAsAdmin(req, res) {
       city,
       phone_number,
       licence_code,
+      email,
       prefix,
     } = req.body;
 
@@ -54,6 +55,7 @@ export default async function updateMedicAsAdmin(req, res) {
         phone_number === '' ? foundMedic.phone_number : phone_number,
       licence_code:
         licence_code === '' ? foundMedic.licence_code : licence_code,
+      email: email === '' ? foundMedic.email : email,
       prefix: prefix === '' ? foundMedic.prefix : prefix,
       full_phone_number:
         fullPhoneNumber === '' ? foundMedic.full_phone_number : fullPhoneNumber,
@@ -71,6 +73,7 @@ export default async function updateMedicAsAdmin(req, res) {
       licence_code: Joi.string().optional(),
       prefix: Joi.string().optional(),
       full_phone_number: Joi.string().optional(),
+      email: Joi.string().email().optional(),
     }).min(1);
 
     const { error } = updatedMedicSchema.validate(newMedic);

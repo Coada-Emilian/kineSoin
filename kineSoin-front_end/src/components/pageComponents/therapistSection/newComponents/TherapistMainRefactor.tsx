@@ -7,6 +7,7 @@ import UserHeadband from '../../../standaloneComponents/generalComponents/layout
 import TherapistAppointmentsCalendar from '../../../standaloneComponents/privateSection/therapistSection/therapistAppointments/TherapistAppointmentsCalendar';
 import TherapistDayTable from '../../../standaloneComponents/privateSection/therapistSection/therapistDayTable/TherapistDayTable';
 import TherapistPatientDetails from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientDetails/therapistPatientDetails';
+
 import TherapistPatientsTable from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientTable/TherapistPatientsTable';
 
 interface TherapistMainRefactorProps {
@@ -48,6 +49,14 @@ export default function TherapistMainRefactor({
             {pathName === 'patient/:patientId' && <TherapistPatientDetails />}
 
             {pathName === 'appointments' && <TherapistAppointmentsCalendar />}
+
+            {pathName === 'patient/:patientId/appointments' && (
+              <div>Do the appointments page</div>
+            )}
+
+            {pathName === 'patient/:patientId/appointments/:appointmentId' && (
+              <div>Do the appointment page</div>
+            )}
           </TherapistSectionContextProvider>
         </div>
       </div>

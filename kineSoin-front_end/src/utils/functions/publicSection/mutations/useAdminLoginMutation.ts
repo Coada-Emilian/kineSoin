@@ -18,11 +18,13 @@
  */
 
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { checkAdminCredentials } from '../../adminSection/adminLoginPage/checkAdminCredentials';
 
 export const useAdminLoginMutation = (
   setAdminProfileToken: (token: string) => void
 ) => {
+  const navigate = useNavigate();
   return useMutation({
     mutationKey: ['adminLogin'],
     mutationFn: async (formData: FormData) => {
@@ -35,7 +37,14 @@ export const useAdminLoginMutation = (
         throw new Error('Veuillez entrer une adresse email valide');
       }
 
-      return checkAdminCredentials(adminEmail, adminPassword);
+      const token = await checkAdminCredentials(adminEmail, adminPassword);
+
+      if (!token) {
+        throw new Error('Identifiants incorrects. Veuillez réessayer.');
+      } else {
+        navigate('/admin/therapists');
+        return token;
+      }
     },
     onSuccess: (token) => {
       setAdminProfileToken(token);

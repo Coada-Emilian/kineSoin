@@ -1,54 +1,53 @@
-import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
-import { StatusMenu } from '../../../../../utils/constants/adminSection/adminProfileDetails/StatusMenu';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { getProfileStatusClassName } from '../../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusClassName';
 import { useFetchPatientDetailsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchPatientDetailsByTherapist';
 import { useFetchTherapistsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistsByTherapist';
-import StatusButtonsRefactor from '../../../adminSection/adminProfileDetails/newComponents/StatusButtonRefactor';
-import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
-import {
-  AddressOutputRefactor,
-  EmailOutputRefactor,
-  IdOutputRefactor,
-  NameOutputRefactor,
-  PhoneNumberOutputRefactor,
-} from '../../../generalComponents/standardOutputs';
-import InsuranceNameOutput from '../../../generalComponents/standardOutputs/InsuranceNameOutput';
-import TherapistOutput from '../../../generalComponents/standardOutputs/TherapistOutput';
+import { useModifyPatientDetailsAsTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useModifyPatientDetailsAsTherapistMutation';
+import { transformPatientStatusNames } from '../../../../../utils/functions/privateSection/therapistSection/transformPatientStatusNames';
+import { IdOutputRefactor } from '../../../generalComponents/standardOutputs';
 import PatientDeleteModal from '../modals/PatientDeleteModal';
 import SendMessageModal from '../modals/SendMessageModal';
-import TherapistDropdownInput from './TherapistDropdownInput';
+import PatientDetailsBottomButtons from './PatientDetailsBottomButtons';
+import PatientDetailsInteractiveButtons from './PatientDetailsInteractiveButtons';
+import PatientDetailsOutputs from './PatientDetailsOutputs';
+import PatientDetailsUtilityButtons from './PatientDetailsUtilityButtons';
 
 export default function TherapistPatientDetails() {
   const { patientId } = useParams();
 
-  const navigate = useNavigate();
+  const {
+    patientDetails,
+    setPatientDetails,
+    isDeletePatientModalOpen,
+    setIsDeletePatientModalOpen,
+    isSendMessageModalOpen,
+    setIsSendMessageModalOpen,
+    setTherapistProfiles,
+    setIsPatientProfileEditing,
+  } = useTherapistSectionContext();
 
-  const { patientDetails, setPatientDetails, setSelectedPatient } =
-    useTherapistSectionContext();
+  const [entityStatus, setEntityStatus] = useState<string>('');
 
-  const [isProfileEditing, setIsProfileEditing] = useState(false);
-
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  const [isSendMessageModalOpen, setIsSendMessageModalOpen] = useState(false);
-
-  const [entityStatus, setEntityStatus] = useState<string>(patientDetails?.status ?? '');
-
-  const [therapists, setTherapists] = useState<IUserProfile[]>([]);
+  useEffect(() => {
+    setEntityStatus(patientDetails?.status ?? '');
+  }, [patientDetails?.status]);
 
   const { isLoading: isTherapistsLoading, isFetching: isTherapistsFetching } =
     useFetchTherapistsByTherapist({
-      setTherapists,
+      setTherapistProfiles,
     });
 
   const { isLoading, isFetching } = useFetchPatientDetailsByTherapist({
     patient_id: patientId ? Number(patientId) : 0,
     setPatientDetails,
   });
+
+  // ✅ Correct hook usage here:
+  const modifyPatientDetailsMutation =
+    useModifyPatientDetailsAsTherapistMutation();
 
   if (isLoading || isFetching || isTherapistsLoading || isTherapistsFetching) {
     return (
@@ -58,73 +57,23 @@ export default function TherapistPatientDetails() {
     );
   }
 
-  const transformPatientStatusNames = (status: string | undefined) => {
-    switch (status) {
-      case 'active':
-        return 'ACTIF';
-      case 'inactive':
-        return 'INACTIF';
-      case 'pending':
-        return 'EN ATTENTE';
-      case 'banned':
-        return 'BANNI';
-      default:
-        return status;
-    }
-  };
+  const patientStatus = transformPatientStatusNames(entityStatus);
 
-  const transformInsuranceDate = (date: string | undefined) => {
-    if (!date) return '';
-    const d = new Date(date);
-    return d.toLocaleDateString('fr-FR');
-  };
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    formData.append('status', entityStatus ?? '');
 
-  const patientStatus = transformPatientStatusNames(patientDetails?.status);
-
-  const handleModifyClick = () => {
-    setIsProfileEditing(true);
-  };
-
-  const handleCancelClick = () => {
-    setIsProfileEditing(false);
-    setEntityStatus(patientDetails?.status || '');
-  };
-
-  const handleCancelClickToReturn = () => {
-    setIsProfileEditing(false);
-
-    navigate('/therapist/patients');
-  };
-
-  const handleDeleteClick = () => {
-    if (typeof patientDetails?.id === 'number') {
-      const selectedPatient = {
-        id: patientDetails.id,
-        name: patientDetails?.name ?? '',
-        surname: patientDetails?.surname ?? '',
-        picture_url: patientDetails?.picture_url ?? '',
-      };
-      setSelectedPatient(selectedPatient);
-      setIsDeleteModalOpen(true);
-    }
-  };
-
-  const handleSendMessageClick = () => {
-    if (typeof patientDetails?.id === 'number') {
-      const selectedPatient = {
-        id: patientDetails.id,
-        name: patientDetails?.name ?? '',
-        surname: patientDetails?.surname ?? '',
-        picture_url: patientDetails?.picture_url ?? '',
-      };
-      setSelectedPatient(selectedPatient);
-      setIsSendMessageModalOpen(true);
-    }
+    modifyPatientDetailsMutation.mutate({
+      patient_id: patientDetails?.id ?? 0,
+      formData,
+    });
+    setIsPatientProfileEditing(false);
   };
 
   return (
     <div className=" w-full">
-      <form className="flex justify-center">
+      <form className="flex justify-center" onSubmit={handleFormSubmit}>
         <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-1/2 items-center md:items-start">
           <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center text-white italic font-medium text-lg md:text-xl">
             Cabinet kinésithérapie Ruffec
@@ -156,157 +105,21 @@ export default function TherapistPatientDetails() {
               <IdOutputRefactor id={patientDetails?.id ?? null} />
             </div>
 
-            <NameOutputRefactor
-              name={patientDetails?.name}
-              surname={patientDetails?.surname}
-            />
+            <PatientDetailsOutputs />
 
-            <AddressOutputRefactor
-              city={patientDetails?.city}
-              postal_code={patientDetails?.postal_code}
-              street_name={patientDetails?.street_name}
-              street_number={patientDetails?.street_number}
-            />
-
-            <PhoneNumberOutputRefactor
-              prefix={patientDetails?.prefix}
-              phone_number={patientDetails?.phone_number}
-            />
-
-            <EmailOutputRefactor email={patientDetails?.email} />
-
-            {isProfileEditing ? (
-              <TherapistDropdownInput
-                therapistId={patientDetails?.therapist.id ?? 0}
-                therapistFullName={`${patientDetails?.therapist.name} ${patientDetails?.therapist.surname}`}
-                therapists={therapists}
-              />
-            ) : (
-              <TherapistOutput
-                therapist_name={patientDetails?.therapist.name}
-                therapist_surname={patientDetails?.therapist.surname}
-              />
-            )}
-
-            <InsuranceNameOutput
-              insuranceName={patientDetails?.insurance_details.insurance.name}
-            />
-
-            <div className="flex-col items-start w-full mb-2 flex gap-1 text-xs md:text-sm lg:text-base xl:text-lg">
-              <label className="font-bold">Date de validité:</label>
-              <div className="flex">
-                <span className="italic font-normal flex gap-2">
-                  {transformInsuranceDate(
-                    patientDetails?.insurance_details.start_date
-                  )}
-                  <p>au</p>
-                  {transformInsuranceDate(
-                    patientDetails?.insurance_details.end_date
-                  )}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-center justify-around mt-4 ">
-              {!isProfileEditing && (
-                <>
-                  {' '}
-                  <CustomBtn
-                    btn={{
-                      type: 'basic',
-                      text: 'Envoyez un message',
-                      style: 'normal',
-                      hasBorder: true,
-                      onClick: handleSendMessageClick,
-                    }}
-                  />
-                  <Link
-                    to={`/therapist/patient/${patientDetails?.id}/appointments`}
-                  >
-                    <CustomBtn
-                      btn={{
-                        type: 'basic',
-                        text: 'Gérer rendez-vous',
-                        style: 'normal',
-                        hasBorder: true,
-                      }}
-                    />
-                  </Link>
-                </>
-              )}
-            </div>
+            <PatientDetailsUtilityButtons />
           </div>
 
-          <div className="bg-primaryBlue p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
-            <div className="flex gap-1 items-center ">
-              {!isProfileEditing ? (
-                <>
-                  <>
-                    <CustomBtn
-                      btn={{
-                        type: 'modify',
-                        text: 'Modifier',
-                        style: 'normal',
-                        hasBorder: true,
-                        onClick: handleModifyClick,
-                      }}
-                    />
-                    <CustomBtn
-                      btn={{
-                        type: 'delete',
-                        text: 'Supprimer',
-                        style: 'normal',
-                        hasBorder: true,
-                        onClick: handleDeleteClick,
-                      }}
-                    />
-                  </>
-                </>
-              ) : (
-                <>
-                  <StatusMenu>
-                    <StatusButtonsRefactor
-                      entityType="patient"
-                      id={patientDetails?.id}
-                      entityStatus={patientDetails?.status ?? ''}
-                      setEntityStatus={setEntityStatus}
-                    />
-                  </StatusMenu>
-
-                  <CustomBtn
-                    btn={{
-                      type: 'active',
-                      text: 'Enregistrer',
-                      style: 'normal',
-                      hasBorder: true,
-                    }}
-                    type="submit"
-                  />
-                </>
-              )}
-
-              <>
-                <CustomBtn
-                  btn={{
-                    type: 'cancel',
-                    text: 'Annuler',
-                    style: 'normal',
-                    hasBorder: true,
-                    onClick: isProfileEditing
-                      ? handleCancelClick
-                      : handleCancelClickToReturn,
-                  }}
-                />
-              </>
-            </div>
-          </div>
+          <PatientDetailsInteractiveButtons />
+          
+          <PatientDetailsBottomButtons setEntityStatus={setEntityStatus} />
         </div>
       </form>
 
-      {isDeleteModalOpen && (
+      {isDeletePatientModalOpen && (
         <PatientDeleteModal
-          isOpen={isDeleteModalOpen}
-          onClose={() => setIsDeleteModalOpen(false)}
+          isOpen={isDeletePatientModalOpen}
+          onClose={() => setIsDeletePatientModalOpen(false)}
         />
       )}
 

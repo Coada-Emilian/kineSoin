@@ -60,6 +60,12 @@ interface TherapistSectionContextType {
   setPatientDetails: React.Dispatch<
     React.SetStateAction<ITherapistPatientDetails | null>
   >;
+
+  isPatientProfileEditing: boolean;
+  setIsPatientProfileEditing: React.Dispatch<React.SetStateAction<boolean>>;
+
+  therapistProfiles: IUserProfile[];
+  setTherapistProfiles: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
 }
 
 const TherapistSectionContext = createContext<
@@ -113,6 +119,12 @@ export const TherapistSectionContextProvider = ({
     'therapistPatients' | 'allPatients'
   >('therapistPatients');
 
+  const [isPatientProfileEditing, setIsPatientProfileEditing] = useState(false);
+
+  const [therapistProfiles, setTherapistProfiles] = useState<IUserProfile[]>(
+    []
+  );
+
   const handleDynamicModeClick = () => {
     setIsDynamicModeOn(!isDynamicModeOn);
 
@@ -153,6 +165,11 @@ export const TherapistSectionContextProvider = ({
         setTableType,
         patientDetails,
         setPatientDetails,
+        isPatientProfileEditing,
+        setIsPatientProfileEditing,
+
+        therapistProfiles,
+        setTherapistProfiles,
       }}
     >
       {children}

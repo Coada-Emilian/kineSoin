@@ -16,12 +16,12 @@ export default function TherapistAppointmentsCalendar() {
 
   const [calendarEvents, setCalendarEvents] = useState<
     {
+      id: string;
       title: string;
       start: Date;
       end: Date;
-      status: string;
       patientId: string;
-    }[] // Add status and patientId fields
+    }[]
   >([]);
 
   const [allAppointments, setAllAppointments] = useState<
@@ -38,6 +38,7 @@ export default function TherapistAppointmentsCalendar() {
 
   useEffect(() => {
     const formattedEvents = allAppointments.map((appointment) => ({
+      id: String(appointment.id),
       title: `${appointment.patient.surname} ${appointment.patient.name}`, // Just the patient's full name
       start: new Date(`${appointment.date}T${appointment.time}`),
       patientId: String(appointment.patient.id), // Ensure patientId is a string
@@ -46,7 +47,6 @@ export default function TherapistAppointmentsCalendar() {
           .add(30, 'minute')
           .toISOString()
       ), // +30min
-      status: 'confirmed', // if needed
     }));
     setCalendarEvents(formattedEvents);
   }, [allAppointments]);
@@ -94,7 +94,9 @@ export default function TherapistAppointmentsCalendar() {
         }}
         components={{
           event: ({ event }) => (
-            <Link to={`/therapist/patient/${event.patientId}`}>
+            <Link
+              to={`/therapist/patient/${event.patientId}/appointments/${event.id}`}
+            >
               <div className="w-full h-full flex items-center justify-center text-sm text-center font-medium bg-secondaryBlue hover:bg-primaryBlue hover:rounded-lg text-white p-2">
                 <span className="hover:scale-110">{event.title}</span>
               </div>

@@ -78,6 +78,12 @@ therapistRouter.get(
   wrapper(patientController.getOnePatientAsTherapist)
 );
 
+therapistRouter.patch(
+  '/me/patients/:patient_id',
+  authenticateTherapist,
+  wrapper(patientController.updatePatientAsTherapist)
+);
+
 therapistRouter.get(
   '/me/therapists',
   authenticateTherapist,

@@ -9,4 +9,5 @@ export const therapistRoutes = [
   {
     path: 'patient/:patientId/appointments',
   },
+  { path: 'patient/:patientId/appointments/:appointmentId' },
 ];

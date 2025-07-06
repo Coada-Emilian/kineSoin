@@ -43,6 +43,25 @@ export interface ICalendarAppointment {
     surname: string;
     picture_url: string;
   };
+  prescription: {
+    affliction: {
+      id: number;
+      name: string;
+      description: string;
+    };
+    appointment_quantity: number;
+    at_home_care: boolean;
+    id: number;
+    picture_url: string;
+    medic: {
+      email: string;
+      id: number;
+      name: string;
+      phone_number: string;
+      prefix: string;
+      surname: string;
+    };
+  };
 }
 
 export interface ITherapistPatient {

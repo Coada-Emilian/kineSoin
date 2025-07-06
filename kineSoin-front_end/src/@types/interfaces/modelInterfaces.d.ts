@@ -93,6 +93,7 @@ export interface IMedic {
   phone_number: string;
   full_phone_number: string;
   licence_code: string;
+  email: string;
 }
 
 export interface IInsurance {

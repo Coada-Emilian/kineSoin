@@ -91,9 +91,10 @@ for (const medic of medics) {
     prefix,
     phone_number,
     licence_code,
+    email,
   } = medic;
 
-  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
+  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code, email ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
 
   await pgClient.query(query, [
     admin_id,
@@ -106,6 +107,7 @@ for (const medic of medics) {
     prefix,
     phone_number,
     licence_code,
+    email,
   ]);
 
   console.log(`👩🏻‍⚕️ Medic ${name} ${surname} inserted 👩🏻‍⚕️`);

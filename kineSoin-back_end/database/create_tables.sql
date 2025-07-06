@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS "medics" (
     "phone_number" VARCHAR(15) NOT NULL,
     "full_phone_number" VARCHAR(25),
     "licence_code" VARCHAR(9) UNIQUE NOT NULL,
+     "email" VARCHAR(255) UNIQUE NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );

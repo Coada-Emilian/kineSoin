@@ -163,6 +163,10 @@ export default function AdminProfileDetailsRefactor({
     setSelectedFile(null);
   };
 
+  useEffect(() => {
+    console.log(entity);
+  }, [entity]);
+
   return (
     <>
       <form onSubmit={handleFormSubmit} className="flex justify-center">

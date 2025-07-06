@@ -26,6 +26,7 @@ export default async function getOneMedicAsAdmin(req, res) {
           'prefix',
           'phone_number',
           'licence_code',
+          'email',
         ],
       });
 
@@ -48,6 +49,7 @@ export default async function getOneMedicAsAdmin(req, res) {
           prefix: foundMedic.prefix,
           full_phone_number: fullPhoneNumber,
           licence_code: foundMedic.licence_code,
+          email: foundMedic.email,
         };
 
         return res.status(200).json(sentMedic);

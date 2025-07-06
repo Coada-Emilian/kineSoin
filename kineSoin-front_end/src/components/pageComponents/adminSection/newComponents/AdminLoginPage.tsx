@@ -22,7 +22,6 @@
  * - DNALoader: loading animation
  */
 
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DNALoader from '../../../../utils/DNALoader.tsx';
 import { useGlobalContext } from '../../../../utils/contexts/GlobalContext.tsx';
@@ -51,12 +50,12 @@ export default function AdminLoginPage() {
     handleAdminLogin.mutate(formData);
   };
 
-  // // Ensure navigation happens only when adminProfileToken is set
-  useEffect(() => {
-    if (isAdminAuthenticated && adminProfileToken) {
-      navigate('/admin/therapists');
-    }
-  }, [isAdminAuthenticated]);
+  // // // Ensure navigation happens only when adminProfileToken is set
+  // useEffect(() => {
+  //   if (isAdminAuthenticated && adminProfileToken) {
+  //     navigate('/admin/therapists');
+  //   }
+  // }, [isAdminAuthenticated]);
 
   // If the admin login is pending, display the loader
   if (handleAdminLogin.isPending) {

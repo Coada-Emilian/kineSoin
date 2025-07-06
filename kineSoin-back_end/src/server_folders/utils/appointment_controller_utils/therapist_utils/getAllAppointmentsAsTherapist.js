@@ -37,6 +37,33 @@ export default async function getAllAppointmentAsTherapist(req, res) {
         association: 'patient',
         attributes: ['id', 'name', 'surname', 'picture_url'],
       },
+      {
+        association: 'prescription',
+        where: { is_completed: false },
+        attributes: [
+          'id',
+          'appointment_quantity',
+          'at_home_care',
+          'picture_url',
+        ],
+        include: [
+          {
+            association: 'medic',
+            attributes: [
+              'id',
+              'name',
+              'surname',
+              'email',
+              'prefix',
+              'phone_number',
+            ],
+          },
+          {
+            association: 'affliction',
+            attributes: ['id', 'name', 'description'],
+          },
+        ],
+      },
     ],
     // include: [
     //   {

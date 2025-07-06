@@ -4,20 +4,20 @@ import { StandardDropdownInputRefactor } from '../../../generalComponents/standa
 interface TherapistDropdownInputProps {
   therapistId: number;
   therapistFullName: string;
-  therapists: IUserProfile[];
+  therapistProfiles: IUserProfile[];
 }
 export default function TherapistDropdownInput(
   props: TherapistDropdownInputProps
 ) {
-  const remainingTherapists = props.therapists.filter(
+  const remainingTherapists = props.therapistProfiles.filter(
     (therapist) => therapist.id !== props.therapistId
   );
   return (
     <StandardDropdownInputRefactor
       dropdownInput={{
-        id: 'therapistDropdown',
+        id: `${props.therapistFullName}-therapist-dropdown`,
         labelName: 'Thérapeute: ',
-        name: 'therapist',
+        name: 'therapist_id',
         value: props.therapistId.toString(),
         isRequired: true,
         isFlexRow: true,

@@ -4,11 +4,11 @@ import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces'
 import { fetchTherapistsByTherapist } from '../../../../apiUtils/therapistApiUtils/fetchTherapistsByTherapist';
 
 interface QueryProps {
-  setTherapists: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
+  setTherapistProfiles: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
 }
 
 export const useFetchTherapistsByTherapist = ({
-  setTherapists,
+  setTherapistProfiles,
 }: QueryProps) => {
   const queryResult = useQuery({
     queryKey: ['fetchTherapistsByTherapist'],
@@ -29,7 +29,7 @@ export const useFetchTherapistsByTherapist = ({
 
   useEffect(() => {
     if (queryResult.isSuccess && queryResult.data) {
-      setTherapists(queryResult.data);
+      setTherapistProfiles(queryResult.data);
       console.log('Therapists data fetched successfully');
     } else if (queryResult.isError) {
       console.error('Error fetching therapists data:', queryResult.error);
@@ -38,7 +38,7 @@ export const useFetchTherapistsByTherapist = ({
     queryResult.data,
     queryResult.isSuccess,
     queryResult.isError,
-    setTherapists,
+    setTherapistProfiles,
   ]);
 
   return queryResult;
