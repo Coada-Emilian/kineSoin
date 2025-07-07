@@ -100,6 +100,45 @@ export interface ITherapistPatientDetails {
   therapist: ITherapist;
 }
 
+export interface IPatientAppointmentDetails {
+  id: number;
+  prescription_id: number;
+  patient_id: number;
+  is_canceled: boolean;
+  is_accepted: boolean;
+  date: string; // format: "YYYY-MM-DD"
+  time: string; // format: "HH:MM:SS"
+  therapist: {
+    id: number;
+    name: string;
+    surname: string;
+  };
+  prescription: {
+    id: number;
+    patient_id: number;
+    appointment_quantity: number;
+    completed_appointment_quantity: number;
+    is_new_prescription: boolean;
+    is_completed: boolean;
+    at_home_care: boolean;
+    date: string; // format: "YYYY-MM-DD"
+    picture_url: string;
+    medic: {
+      id: number;
+      name: string;
+      surname: string;
+      email: string;
+      prefix: string;
+      phone_number: string;
+    };
+    affliction: {
+      id: number;
+      name: string;
+      description: string;
+    };
+  };
+}
+
 export interface IUserProfile {
   fullName: string | null;
   picture_url: string | null;

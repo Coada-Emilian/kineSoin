@@ -17,7 +17,6 @@ export const useFetchPatientDetailsByTherapist = ({
   const queryResult = useQuery({
     queryKey: ['fetchPatientDetailsByTherapist', patient_id],
     queryFn: () => fetchPatientDataAsTherapist(patient_id),
-    //     enabled: !!patient_id,
     select: (data): ITherapistPatientDetails => ({
       id: data.id,
       therapist_id: data.therapist_id,

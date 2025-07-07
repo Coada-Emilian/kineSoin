@@ -1,13 +1,14 @@
-import { useTherapistDetailsContext } from '../../../../utils/contexts/TherapistDetailsContext';
+import { useState } from 'react';
+import { IUserProfile } from '../../../../@types/interfaces/customInterfaces';
 import { TherapistSectionContextProvider } from '../../../../utils/contexts/TherapistSectionContext';
-
 import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSection/therapistSection/fetchTherapistPageTitle';
+import { useFetchTherapistBasicData } from '../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistBasicData';
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
 import UserHeadband from '../../../standaloneComponents/generalComponents/layoutComponents/userHeadband/UserHeadband';
 import TherapistAppointmentsCalendar from '../../../standaloneComponents/privateSection/therapistSection/therapistAppointments/TherapistAppointmentsCalendar';
 import TherapistDayTable from '../../../standaloneComponents/privateSection/therapistSection/therapistDayTable/TherapistDayTable';
-import TherapistPatientDetails from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientDetails/therapistPatientDetails';
-
+import TherapistPatientAppointments from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientAppointments/TherapistPatientAppointments';
+import TherapistPatientDetails from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientDetails/TherapistPatientDetails';
 import TherapistPatientsTable from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientTable/TherapistPatientsTable';
 
 interface TherapistMainRefactorProps {
@@ -17,14 +18,14 @@ interface TherapistMainRefactorProps {
 export default function TherapistMainRefactor({
   pathName,
 }: TherapistMainRefactorProps) {
-  const therapistContext = useTherapistDetailsContext();
+  const [basicTherapistDetails, setBasicTherapistDetails] =
+    useState<IUserProfile>();
 
-  const therapist = therapistContext?.basicTherapistDetails;
-
+  useFetchTherapistBasicData({ setTherapist: setBasicTherapistDetails });
   return (
     <main className={`bg-gray-200 `}>
       <UserHeadband
-        userProfile={therapist}
+        userProfile={basicTherapistDetails}
         profileUrl={'/therapist/my-profile'}
         dashboardUrl={'/therapist/dashboard'}
       />
@@ -42,8 +43,8 @@ export default function TherapistMainRefactor({
           <TherapistSectionContextProvider>
             {pathName === 'dashboard' && <TherapistDayTable />}
 
-            {pathName === 'patients' && therapist && (
-              <TherapistPatientsTable therapist={therapist} />
+            {pathName === 'patients' && basicTherapistDetails && (
+              <TherapistPatientsTable therapist={basicTherapistDetails} />
             )}
 
             {pathName === 'patient/:patientId' && <TherapistPatientDetails />}
@@ -51,7 +52,7 @@ export default function TherapistMainRefactor({
             {pathName === 'appointments' && <TherapistAppointmentsCalendar />}
 
             {pathName === 'patient/:patientId/appointments' && (
-              <div>Do the appointments page</div>
+              <TherapistPatientAppointments />
             )}
 
             {pathName === 'patient/:patientId/appointments/:appointmentId' && (

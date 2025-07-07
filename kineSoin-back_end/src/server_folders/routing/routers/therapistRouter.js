@@ -97,6 +97,12 @@ therapistRouter.get(
 );
 
 therapistRouter.get(
+  '/me/patient/:patient_id/appointments',
+  authenticateTherapist,
+  wrapper(appointmentController.getPatientAppointmentsAsTherapist)
+);
+
+therapistRouter.get(
   '/me',
   wrapper(therapistController.getConnectedTherapistData)
 );

@@ -33,6 +33,7 @@ import decrementCompletedAppointmentQuantityAsTherapist from '../../utils/appoin
 import decrementPrescriptionAppointmentQuantityAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/decrementPrescriptionAppointmentQuantityAsTherapist.js';
 import deleteAppointmentAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/deleteAppointmentAsTherapist.js';
 import getAllAppointmentAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/getAllAppointmentsAsTherapist.js';
+import getPatientAppointmentsAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/getPatientAppointmentsAsTherapist.js';
 import getTherapistDashboardData from '../../utils/appointment_controller_utils/therapist_utils/getTherapistDashboardData.js';
 import incrementCompletedAppointmentQuantityAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/incrementCompletedAppointmentQuantityAsTherapist.js';
 import incrementPrescriptionAppointmentQuantityAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/incrementPrescriptionAppointmentQuantityAsTherapist.js';
@@ -82,6 +83,8 @@ const appointmentController = {
   incrementPrescriptionAppointmentQuantityAsTherapist,
 
   getTherapistDashboardData,
+
+  getPatientAppointmentsAsTherapist,
 };
 
 export default appointmentController;

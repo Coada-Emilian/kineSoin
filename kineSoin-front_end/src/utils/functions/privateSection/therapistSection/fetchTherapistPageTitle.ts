@@ -14,6 +14,8 @@ export const fetchTherapistPageTitle = (page: string): string => {
       return 'Ordonnances';
     case 'patient/:patientId':
       return 'Détails du patient';
+    case 'patient/:patientId/appointments':
+      return 'Rendez-vous du patient';
     default:
       return 'KineSoin - Thérapeute';
   }
