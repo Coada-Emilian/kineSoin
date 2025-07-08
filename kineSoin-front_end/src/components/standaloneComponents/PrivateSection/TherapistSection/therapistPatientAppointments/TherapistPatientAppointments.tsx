@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
 import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
@@ -24,10 +24,6 @@ export default function TherapistPatientAppointments() {
     setUpcomingPatientAppointments,
   });
 
-  useEffect(() => {
-    console.log('Previous Patient Appointments:', previousPatientAppointments);
-    console.log('Upcoming Patient Appointments:', upcomingPatientAppointments);
-  }, [previousPatientAppointments, upcomingPatientAppointments]);
   if (isLoading || isFetching) {
     return (
       <div className="flex justify-center items-center h-96 w-full">
@@ -38,7 +34,13 @@ export default function TherapistPatientAppointments() {
 
   return (
     <div className="w-full rounded-xl ">
-      <div className="w-full flex justify-end items-center mb-4 gap-2">
+      <div className="flex justify-start w-full mx-auto items-center mb-4 gap-4">
+        <img
+          src={patientDetails?.picture_url}
+          alt={patientDetails?.name || ''}
+          className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
+        />
+
         <div className="flex flex-col gap-1 items-center">
           <p className="text-primaryBlue text-sm font-semibold md:text-sm xl:text-base italic">
             {patientDetails?.name} {patientDetails?.surname}
@@ -50,12 +52,6 @@ export default function TherapistPatientAppointments() {
             Retour
           </Link>
         </div>
-
-        <img
-          src={patientDetails?.picture_url}
-          alt={patientDetails?.name || ''}
-          className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
-        />
       </div>
       <table className="border border-gray-300 border-separate w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
         <PatientAppointmentsTableHead />

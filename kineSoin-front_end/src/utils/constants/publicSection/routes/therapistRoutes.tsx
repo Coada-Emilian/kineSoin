@@ -1,7 +1,7 @@
 export const therapistRoutes = [
   { path: 'dashboard' },
   { path: 'patients' },
-  { path: 'appointments' },
+  { path: 'agenda' },
   { path: 'messages' },
   { path: 'my-profile' },
   { path: 'prescriptions' },

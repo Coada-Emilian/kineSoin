@@ -49,7 +49,7 @@ export default function TherapistMainRefactor({
 
             {pathName === 'patient/:patientId' && <TherapistPatientDetails />}
 
-            {pathName === 'appointments' && <TherapistAppointmentsCalendar />}
+            {pathName === 'agenda' && <TherapistAppointmentsCalendar />}
 
             {pathName === 'patient/:patientId/appointments' && (
               <TherapistPatientAppointments />

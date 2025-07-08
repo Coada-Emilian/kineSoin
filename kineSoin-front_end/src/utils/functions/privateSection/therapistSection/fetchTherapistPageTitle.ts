@@ -2,8 +2,8 @@ export const fetchTherapistPageTitle = (page: string): string => {
   switch (page) {
     case 'dashboard':
       return 'RDV de la journée';
-    case 'appointments':
-      return 'Rendez-vous';
+    case 'agenda':
+      return 'Agenda';
     case 'patients':
       return 'Tous les patients';
     case 'messages':

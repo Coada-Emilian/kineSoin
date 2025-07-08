@@ -1,7 +1,7 @@
 export default function PatientAppointmentsTableHead() {
   return (
-    <thead className="bg-gray-100 xs:text-xs md:text-base">
-      <tr className="text-xxs md:text-base">
+    <thead className="bg-gray-100">
+      <tr className="xs:text-xxs sm:text-xs md:text-sm">
         <th className="border border-gray-300 p-1 md:p-2 text-center rounded-tl-2xl">
           ID
         </th>

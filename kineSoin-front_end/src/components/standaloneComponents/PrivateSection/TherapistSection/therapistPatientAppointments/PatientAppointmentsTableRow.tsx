@@ -1,11 +1,13 @@
 import { Button } from '@headlessui/react';
+import { useEffect, useState } from 'react';
 import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
-
-import { useState } from 'react';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import CancelPatientAppointmentModal from '../modals/CancelPatientAppointmentModal';
 import cancelIcon from '/icons/cancel.png';
 import cancelIcon2 from '/icons/cancel2.png';
 import blueMagnifierIcon from '/icons/magnifier_blue.png';
 import grayMagnifierIcon from '/icons/magnifier_gray.png';
+import AppointmentDetailsModal from '../modals/AppointmentDetailsModal';
 
 interface ComponentProps {
   appointment: IPatientAppointmentDetails;
@@ -22,30 +24,17 @@ export default function PatientAppointmentsTableRow({
 
   const [isInspectModalOpen, setIsInspectModalOpen] = useState(false);
 
-  // const {
-  //   isCancelAppointmentModalOpen,
-  //   setIsCancelAppointmentModalOpen,
-  //   selectedPatient,
-  //   setSelectedPatient,
-  //   setSelectedAppointment,
-  //   setSelectedPrescription,
-  // } = useTherapistSectionContext();
+  const { isCancelAppointmentModalOpen, setIsCancelAppointmentModalOpen } =
+    useTherapistSectionContext();
 
-  // const handleCancelClick = () => {
-  //   const selectedAppointment = {
-  //     id: appointment.id,
-  //     time: appointment.time,
-  //     patientFullName: selectedPatient?.name + ' ' + selectedPatient?.surname,
-  //     afflictionName: appointment.prescription.affliction.name,
-  //   }
-  //   setIsCancelAppointmentModalOpen(true);
-  //   setSelectedAppointment(selectedAppointment);
-  //   setSelectedPrescription(appointment.prescription);
-  // };
+  const handleCancelAppointmentClick = () => {
+    setIsCancelAppointmentModalOpen(true);
+  };
 
-  // const handleInspectClick = () => {
-  //   setIsInspectModalOpen(true);
-  // };
+  const handleInspectClick = () => {
+    setIsInspectModalOpen(true);
+  };
+
   return (
     <tr
       className={`${is_past ? 'text-gray-500 italic font-light' : 'text-primaryBlue font-medium'}  border-b border-gray-300`}
@@ -74,9 +63,9 @@ export default function PatientAppointmentsTableRow({
 
       <td className="border border-gray-300 px-4 py-2  text-center">
         <Button
-          // onClick={() => {
-          //   handleInspectClick();
-          // }}
+          onClick={() => {
+            handleInspectClick();
+          }}
           className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
         >
           <img
@@ -98,9 +87,9 @@ export default function PatientAppointmentsTableRow({
       >
         <Button
           className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
-          // onClick={() => {
-          //   handleCancelClick();
-          // }}
+          onClick={() => {
+            handleCancelAppointmentClick();
+          }}
         >
           <img
             src={`${is_past ? cancelIcon2 : cancelIcon}`}
@@ -115,14 +104,26 @@ export default function PatientAppointmentsTableRow({
           </p>
         </Button>
       </td>
-      {/* {isCancelAppointmentModalOpen && (
-        <CancelAppointmentModal
+
+      {isCancelAppointmentModalOpen && (
+        <CancelPatientAppointmentModal
+          appointment={appointment}
           isOpen={isCancelAppointmentModalOpen}
           onClose={() => {
             setIsCancelAppointmentModalOpen(false);
           }}
         />
-      )} */}
+      )}
+
+      {isInspectModalOpen && (
+        <AppointmentDetailsModal
+          appointment={appointment}
+          isOpen={isInspectModalOpen}
+          onClose={() => {
+            setIsInspectModalOpen(false);
+          }}
+        />
+      )}
     </tr>
   );
 }
