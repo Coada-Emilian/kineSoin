@@ -22,6 +22,7 @@ export default function TherapistMainRefactor({
     useState<IUserProfile>();
 
   useFetchTherapistBasicData({ setTherapist: setBasicTherapistDetails });
+  
   return (
     <main className={`bg-gray-200 `}>
       <UserHeadband
@@ -49,11 +50,11 @@ export default function TherapistMainRefactor({
 
             {pathName === 'patient/:patientId' && <TherapistPatientDetails />}
 
-            {pathName === 'agenda' && <TherapistAppointmentsCalendar />}
-
             {pathName === 'patient/:patientId/appointments' && (
               <TherapistPatientAppointments />
             )}
+
+            {pathName === 'agenda' && <TherapistAppointmentsCalendar />}
 
             {pathName === 'patient/:patientId/appointments/:appointmentId' && (
               <div>Do the appointment page</div>

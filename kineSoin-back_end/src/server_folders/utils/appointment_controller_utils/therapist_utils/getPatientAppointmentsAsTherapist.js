@@ -1,4 +1,4 @@
-import { Appointment } from '../../../models/index.js';
+import { Appointment, Patient } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function getPatientAppointmentsAsTherapist(req, res) {
@@ -91,9 +91,24 @@ export default async function getPatientAppointmentsAsTherapist(req, res) {
           );
         });
 
+        const foundPatient = await Patient.findOne({
+          where: { id: patient_id },
+          attributes: ['id', 'name', 'surname', 'picture_url'],
+        });
+
+        if (!foundPatient) {
+          return res.status(404).json({ error: 'Patient not found' });
+        }
+
         return res.status(200).json({
           previousAppointments,
           upcomingAppointments,
+          patient: {
+            id: foundPatient.id,
+            fullName: `${foundPatient.name} ${foundPatient.surname}`,
+            picture_url: foundPatient.picture_url,
+            status: foundPatient.status,
+          },
         });
       }
     }

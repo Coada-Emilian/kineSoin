@@ -1,11 +1,11 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useEffect } from 'react';
 
 import { Button } from '@headlessui/react';
 import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
 import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 import BaseOutput from '../../../generalComponents/BaseOutput';
+import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import BaseModal from './BaseModal';
 
 interface ModalProps {
@@ -45,12 +45,13 @@ export default function AppointmentDetailsModal({
   onClose,
   appointment,
 }: ModalProps) {
-  const { patientDetails } = useTherapistSectionContext();
+  const { patientDetails, setIsCancelAppointmentModalOpen } =
+    useTherapistSectionContext();
   const patient = patientDetails;
 
-  useEffect(() => {
-    console.log(appointment);
-  }, [appointment]);
+  const handleCancelClick = () => {
+    setIsCancelAppointmentModalOpen(true);
+  };
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
@@ -147,6 +148,31 @@ export default function AppointmentDetailsModal({
             isTextArea
           />
         </Section>
+      </div>
+
+      <div className="bg-primaryTeal p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
+        <div className="flex gap-1 items-center ">
+          <>
+            <CustomBtn
+              btn={{
+                type: 'cancel',
+                text: 'Retour',
+                style: 'normal',
+                hasBorder: true,
+                onClick: onClose,
+              }}
+            />
+            <CustomBtn
+              btn={{
+                type: 'delete',
+                text: 'Annuler RDV',
+                style: 'normal',
+                hasBorder: true,
+                onClick: handleCancelClick,
+              }}
+            />
+          </>
+        </div>
       </div>
     </BaseModal>
   );

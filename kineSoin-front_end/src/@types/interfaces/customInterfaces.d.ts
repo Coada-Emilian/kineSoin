@@ -392,3 +392,11 @@ interface IModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+export interface ICalendarEvent {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+  patientId: string;
+}

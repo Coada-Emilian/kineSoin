@@ -19,6 +19,7 @@
  * @returns {object} JSON with a success or error message based on the operation outcome
  */
 
+import Joi from 'joi';
 import { Prescription } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 

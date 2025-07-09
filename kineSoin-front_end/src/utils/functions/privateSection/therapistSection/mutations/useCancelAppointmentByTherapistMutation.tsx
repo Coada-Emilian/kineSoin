@@ -1,9 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import {
-  cancelAppointmentAsTherapist,
-  reduceAppointmentQuantity,
-} from '../../../../apiUtils/therapistApiUtils';
+import { cancelAppointmentAsTherapist } from '../../../../apiUtils/therapistApiUtils';
+import { increaseAppointmentQuantity } from '../../../../apiUtils/therapistApiUtils/prescriptionApiUtils/increaseAppointmentQuantity';
 
 export const useCancelAppointmentByTherapistMutation = (
   onClose: () => void
@@ -28,7 +26,7 @@ export const useCancelAppointmentByTherapistMutation = (
       const appointmentResponse =
         await cancelAppointmentAsTherapist(appointmentId);
       const prescriptionResponse =
-        await reduceAppointmentQuantity(prescriptionId);
+        await increaseAppointmentQuantity(prescriptionId);
 
       if (!appointmentResponse || !prescriptionResponse) {
         throw new Error("Erreur pendant l'annulation du rendez-vous.");

@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
+import {
+  IPatientAppointmentDetails,
+  ITherapistPatient,
+} from '../../../../../@types/interfaces/customInterfaces';
 import { fetchPatientAppointmentsAsTherapist } from '../../../../apiUtils/therapistApiUtils/appointmentApiUtils/fetchPatientAppointmentsAsTherapist';
 
 interface QueryProps {
@@ -11,16 +14,19 @@ interface QueryProps {
   setUpcomingPatientAppointments: React.Dispatch<
     React.SetStateAction<IPatientAppointmentDetails[]>
   >;
+  setPatientData?: React.Dispatch<
+    React.SetStateAction<ITherapistPatient | undefined>
+  >;
 }
 
 export const useFetchPatientAppointmentsByTherapist = ({
   patient_id,
   setPreviousPatientAppointments,
   setUpcomingPatientAppointments,
+  setPatientData,
 }: QueryProps) => {
   const queryResult = useQuery({
     queryKey: ['fetchPatientAppointmentsByTherapist', patient_id],
-
     queryFn: () => fetchPatientAppointmentsAsTherapist(patient_id),
     select: (data) => ({
       previousAppointments: data.previousAppointments.map(
@@ -105,6 +111,7 @@ export const useFetchPatientAppointmentsByTherapist = ({
           },
         })
       ),
+      patient: data.patient,
     }),
   });
 
@@ -112,6 +119,9 @@ export const useFetchPatientAppointmentsByTherapist = ({
     if (queryResult.isSuccess && queryResult.data) {
       setPreviousPatientAppointments(queryResult.data.previousAppointments);
       setUpcomingPatientAppointments(queryResult.data.upcomingAppointments);
+      if (setPatientData) {
+        setPatientData(queryResult.data.patient);
+      }
     }
   }, [
     queryResult.data,
@@ -119,6 +129,7 @@ export const useFetchPatientAppointmentsByTherapist = ({
     queryResult.isError,
     setPreviousPatientAppointments,
     setUpcomingPatientAppointments,
+    setPatientData,
   ]);
 
   return queryResult;

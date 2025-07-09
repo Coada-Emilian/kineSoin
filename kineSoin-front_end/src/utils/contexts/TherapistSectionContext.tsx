@@ -1,5 +1,8 @@
 import { createContext, useContext, useState } from 'react';
 import {
+  ICalendarAppointment,
+  ICalendarEvent,
+  IPatientAppointmentDetails,
   ISameDayAppointment,
   ITherapistPatientDetails,
   IUserProfile,
@@ -66,6 +69,32 @@ interface TherapistSectionContextType {
 
   therapistProfiles: IUserProfile[];
   setTherapistProfiles: React.Dispatch<React.SetStateAction<IUserProfile[]>>;
+
+  calendarEvents: ICalendarEvent[];
+  setCalendarEvents: React.Dispatch<React.SetStateAction<ICalendarEvent[]>>;
+
+  allAppointments: ICalendarAppointment[];
+  setAllAppointments: React.Dispatch<
+    React.SetStateAction<ICalendarAppointment[]>
+  >;
+
+  previousPatientAppointments: IPatientAppointmentDetails[];
+  setPreviousPatientAppointments: React.Dispatch<
+    React.SetStateAction<IPatientAppointmentDetails[]>
+  >;
+
+  upcomingPatientAppointments: IPatientAppointmentDetails[];
+  setUpcomingPatientAppointments: React.Dispatch<
+    React.SetStateAction<IPatientAppointmentDetails[]>
+  >;
+
+  isInspectModalOpen: boolean;
+  setIsInspectModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  basicTherapistDetails?: IUserProfile;
+  setBasicTherapistDetails?: React.Dispatch<
+    React.SetStateAction<IUserProfile | undefined>
+  >;
 }
 
 const TherapistSectionContext = createContext<
@@ -125,6 +154,23 @@ export const TherapistSectionContextProvider = ({
     []
   );
 
+  const [calendarEvents, setCalendarEvents] = useState<ICalendarEvent[]>([]);
+
+  const [allAppointments, setAllAppointments] = useState<
+    ICalendarAppointment[]
+  >([]);
+
+  const [previousPatientAppointments, setPreviousPatientAppointments] =
+    useState<IPatientAppointmentDetails[]>([]);
+
+  const [upcomingPatientAppointments, setUpcomingPatientAppointments] =
+    useState<IPatientAppointmentDetails[]>([]);
+
+  const [isInspectModalOpen, setIsInspectModalOpen] = useState(false);
+
+  const [basicTherapistDetails, setBasicTherapistDetails] =
+    useState<IUserProfile>();
+
   const handleDynamicModeClick = () => {
     setIsDynamicModeOn(!isDynamicModeOn);
 
@@ -167,9 +213,20 @@ export const TherapistSectionContextProvider = ({
         setPatientDetails,
         isPatientProfileEditing,
         setIsPatientProfileEditing,
-
         therapistProfiles,
         setTherapistProfiles,
+        calendarEvents,
+        setCalendarEvents,
+        allAppointments,
+        setAllAppointments,
+        previousPatientAppointments,
+        setPreviousPatientAppointments,
+        upcomingPatientAppointments,
+        setUpcomingPatientAppointments,
+        isInspectModalOpen,
+        setIsInspectModalOpen,
+        basicTherapistDetails,
+        setBasicTherapistDetails,
       }}
     >
       {children}

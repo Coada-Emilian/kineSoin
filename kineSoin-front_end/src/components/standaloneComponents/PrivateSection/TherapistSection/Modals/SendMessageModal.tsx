@@ -7,8 +7,6 @@ import { StandardTextInputRefactor } from '../../../generalComponents/standardIn
 import BaseModal from './BaseModal';
 
 export default function SendMessageModal({ isOpen, onClose }: IModalProps) {
-  // const [messageContent, setMessageContent] = useState<string>('');
-
   const { selectedPatient: patient, setSelectedPatient } =
     useTherapistSectionContext();
 
@@ -38,9 +36,7 @@ export default function SendMessageModal({ isOpen, onClose }: IModalProps) {
 
   const handleCancelClick = () => {
     setSelectedPatient(null);
-    if (onClose) {
-      onClose();
-    }
+    onClose();
   };
 
   return (

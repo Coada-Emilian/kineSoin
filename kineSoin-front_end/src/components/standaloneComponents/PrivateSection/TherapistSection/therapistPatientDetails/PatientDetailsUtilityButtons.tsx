@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
@@ -6,11 +7,15 @@ export default function PatientDetailsUtilityButtons() {
   const {
     isPatientProfileEditing,
     patientDetails,
-    setSelectedPatient,
     setIsSendMessageModalOpen,
+    setSelectedPatient,
   } = useTherapistSectionContext();
 
   const handleSendMessageClick = () => {
+    setIsSendMessageModalOpen(true);
+  };
+
+  useEffect(() => {
     if (typeof patientDetails?.id === 'number') {
       const selectedPatient = {
         id: patientDetails.id,
@@ -19,9 +24,8 @@ export default function PatientDetailsUtilityButtons() {
         picture_url: patientDetails?.picture_url ?? '',
       };
       setSelectedPatient(selectedPatient);
-      setIsSendMessageModalOpen(true);
     }
-  };
+  }, [patientDetails, setSelectedPatient]);
 
   return (
     <div className="flex gap-4 items-center justify-around mt-4 ">

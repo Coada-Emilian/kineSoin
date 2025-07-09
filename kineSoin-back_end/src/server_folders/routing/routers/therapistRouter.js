@@ -33,7 +33,7 @@ therapistRouter.delete(
 );
 
 therapistRouter.patch(
-  '/me/prescriptions/:prescription_id/addQuantity',
+  '/me/prescriptions/:prescription_id/increaseQuantity',
   authenticateTherapist,
   wrapper(
     appointmentController.incrementPrescriptionAppointmentQuantityAsTherapist

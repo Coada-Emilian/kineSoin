@@ -1,12 +1,13 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr'; // Import French locale for Day.js
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Link } from 'react-router-dom';
-import { ICalendarAppointment } from '../../../../../@types/interfaces/customInterfaces';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useFetchAllAppointmentsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchAllAppointmentsByTherapist';
+import { transformAppointmentsToCalendarEvents } from '../../../../../utils/functions/privateSection/therapistSection/transformAppointmentsToCalendarEvents';
 
 export default function TherapistAppointmentsCalendar() {
   dayjs.locale('fr');
@@ -14,40 +15,20 @@ export default function TherapistAppointmentsCalendar() {
   // Set up the localizer with Day.js
   const localizer = dayjsLocalizer(dayjs);
 
-  const [calendarEvents, setCalendarEvents] = useState<
-    {
-      id: string;
-      title: string;
-      start: Date;
-      end: Date;
-      patientId: string;
-    }[]
-  >([]);
-
-  const [allAppointments, setAllAppointments] = useState<
-    ICalendarAppointment[]
-  >([]);
+  const {
+    allAppointments,
+    setAllAppointments,
+    calendarEvents,
+    setCalendarEvents,
+  } = useTherapistSectionContext();
 
   const { isLoading, isFetching } = useFetchAllAppointmentsByTherapist({
     setAllAppointments,
   });
 
   useEffect(() => {
-    console.log('All Appointments:', allAppointments);
-  }, [allAppointments]);
-
-  useEffect(() => {
-    const formattedEvents = allAppointments.map((appointment) => ({
-      id: String(appointment.id),
-      title: `${appointment.patient.surname} ${appointment.patient.name}`, // Just the patient's full name
-      start: new Date(`${appointment.date}T${appointment.time}`),
-      patientId: String(appointment.patient.id), // Ensure patientId is a string
-      end: new Date(
-        dayjs(`${appointment.date}T${appointment.time}`)
-          .add(30, 'minute')
-          .toISOString()
-      ), // +30min
-    }));
+    const formattedEvents =
+      transformAppointmentsToCalendarEvents(allAppointments);
     setCalendarEvents(formattedEvents);
   }, [allAppointments]);
 

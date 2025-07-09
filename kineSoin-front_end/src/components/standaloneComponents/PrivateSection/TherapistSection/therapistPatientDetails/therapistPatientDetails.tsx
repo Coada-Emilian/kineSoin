@@ -63,7 +63,6 @@ export default function TherapistPatientDetails() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget as HTMLFormElement);
     formData.append('status', entityStatus ?? '');
-
     modifyPatientDetailsMutation.mutate({
       patient_id: patientDetails?.id ?? 0,
       formData,
@@ -75,8 +74,13 @@ export default function TherapistPatientDetails() {
     <div className=" w-full">
       <form className="flex justify-center" onSubmit={handleFormSubmit}>
         <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-1/2 items-center md:items-start">
-          <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center text-white italic font-medium text-lg md:text-xl">
-            Cabinet kinésithérapie Ruffec
+          <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex flex-col justify-center text-white italic font-medium text-lg md:text-xl ">
+            <p className="text-base md:text-lg mb-2">
+              Cabinet kinésithérapie Ruffec
+            </p>
+            <p className="text-sm md:text-base text-center italic">
+              Details du patient
+            </p>
           </div>
 
           <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
@@ -111,7 +115,7 @@ export default function TherapistPatientDetails() {
           </div>
 
           <PatientDetailsInteractiveButtons />
-          
+
           <PatientDetailsBottomButtons setEntityStatus={setEntityStatus} />
         </div>
       </form>

@@ -83,7 +83,7 @@ export default function CancelAppointmentModal({
         <div className="flex gap-4 justify-center py-4  bg-primaryTeal">
           <CustomBtn
             btn={{
-              type: 'send',
+              type: 'delete',
               text: 'Valider',
               style: 'normal',
             }}

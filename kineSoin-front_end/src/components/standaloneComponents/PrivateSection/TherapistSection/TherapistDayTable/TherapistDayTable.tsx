@@ -1,4 +1,5 @@
 import { Button } from '@headlessui/react';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { formatCurrentDate } from '../../../../../utils/functions/privateSection/therapistSection/formatCurrentDate';
 import { useDynamicAppointmentCheck } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useDynamicAppointmentCheck';
@@ -10,7 +11,6 @@ import DayTableDynamicParagraph from './DayTableDynamicParagraph';
 import DayTableHead from './DayTableHead';
 import dynamicIcon from '/icons/dynamic.png';
 import dynamicIcon2 from '/icons/dynamic2.png';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 
 export default function TherapistDayTable() {
   const formattedDate = formatCurrentDate();
@@ -54,24 +54,18 @@ export default function TherapistDayTable() {
           />
         </Button>
 
-        <p className="border border-gray-400 p-2 rounded-xl shadow-xl italic font-semibold ">
+        <p className="border border-gray-400 p-2 rounded-xl shadow-xl italic font-semibold text-xxs md:text-base">
           Date: {formattedDate}
         </p>
       </div>
 
-      {tableAppointments.length > 0 ? (
-        <div className="w-full rounded-xl ">
-          <table className="border border-gray-300 border-separate w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
-            <DayTableHead />
+      <div className="w-full rounded-xl ">
+        <table className="border border-gray-300 border-separate w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl text-xxs md:text-base">
+          <DayTableHead />
 
-            <DayTableBody />
-          </table>
-        </div>
-      ) : (
-        <div className="w-full flex justify-center items-center h-32 rounded-xl border border-gray-300 shadow-xl">
-          <p className="text-lg">Pas de rendez-vous pour aujourd'hui</p>
-        </div>
-      )}
+          <DayTableBody />
+        </table>
+      </div>
 
       {isSendMessageModalOpen && (
         <SendMessageModal

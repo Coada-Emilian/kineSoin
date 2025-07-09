@@ -1,15 +1,12 @@
-import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
 import PatientAppointmentsTableRow from './PatientAppointmentsTableRow';
 
-interface ComponentProps {
-  previousAppointments: IPatientAppointmentDetails[];
-  upcomingAppointments: IPatientAppointmentDetails[];
-}
+export default function PatientAppointmentsTableBody() {
+  const {
+    previousPatientAppointments: previousAppointments,
+    upcomingPatientAppointments: upcomingAppointments,
+  } = useTherapistSectionContext();
 
-export default function PatientAppointmentsTableBody({
-  previousAppointments,
-  upcomingAppointments,
-}: ComponentProps) {
   const onlyPreviousExist =
     previousAppointments.length > 0 && upcomingAppointments.length === 0;
 
