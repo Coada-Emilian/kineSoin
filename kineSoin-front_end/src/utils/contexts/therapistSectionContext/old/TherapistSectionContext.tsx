@@ -6,7 +6,7 @@ import {
   ISameDayAppointment,
   ITherapistPatientDetails,
   IUserProfile,
-} from '../../../@types/interfaces/customInterfaces';
+} from '../../../../@types/interfaces/customInterfaces';
 
 interface TherapistSectionContextType {
   isSendMessageModalOpen: boolean;

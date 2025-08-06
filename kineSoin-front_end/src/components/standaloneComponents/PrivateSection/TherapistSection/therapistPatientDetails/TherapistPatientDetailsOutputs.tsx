@@ -12,7 +12,7 @@ import TherapistOutput from '../../../generalComponents/standardOutputs/Therapis
 import InsuranceValidityOutput from './InsuranceValidityOutput';
 import TherapistDropdownInput from './TherapistDropdownInput';
 
-export default function PatientDetailsOutputs() {
+export default function TherapistPatientDetailsOutputs() {
   const { patientDetails } = usePatientsContext();
 
   const { isPatientProfileEditing } = useUIContext();

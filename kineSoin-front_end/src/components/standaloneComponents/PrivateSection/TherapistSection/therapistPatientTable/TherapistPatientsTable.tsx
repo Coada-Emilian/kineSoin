@@ -17,7 +17,7 @@ interface TableProps {
 export default function TherapistPatientsTable({ therapist }: TableProps) {
   const { setTherapistPatients, setAllPatients } = usePatientsContext();
 
-  const { tableType, setTableType } = useTableContext();
+  const { tableType } = useTableContext();
 
   const { therapistPatients, allPatients } = usePatientsContext();
 
@@ -47,7 +47,7 @@ export default function TherapistPatientsTable({ therapist }: TableProps) {
         </div>
       )}
 
-      <PatientsTableLinks setTableType={setTableType} />
+      <PatientsTableLinks />
 
       <table className="border border-gray-300 border-separate w-11/12 mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
         <PatientsTableHead />

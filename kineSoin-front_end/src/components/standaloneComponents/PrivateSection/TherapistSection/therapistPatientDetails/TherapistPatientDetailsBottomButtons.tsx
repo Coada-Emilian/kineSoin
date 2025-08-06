@@ -9,7 +9,7 @@ interface PatientDetailsBottomButtonsProps {
   setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function PatientDetailsBottomButtons({
+export default function TherapistPatientDetailsBottomButtons({
   setEntityStatus,
 }: PatientDetailsBottomButtonsProps) {
   const {

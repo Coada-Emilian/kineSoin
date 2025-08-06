@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { IUserProfile } from '../../../../@types/interfaces/customInterfaces';
+import TherapistSectionProvider from '../../../../utils/contexts/therapistSectionContext/TherapistSectionProvider';
 import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSection/therapistSection/fetchTherapistPageTitle';
 import { useFetchTherapistBasicData } from '../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistBasicData';
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
@@ -9,7 +10,6 @@ import TherapistDayTable from '../../../standaloneComponents/privateSection/ther
 import TherapistPatientAppointments from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientAppointments/TherapistPatientAppointments';
 import TherapistPatientDetails from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientDetails/TherapistPatientDetails';
 import TherapistPatientsTable from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientTable/TherapistPatientsTable';
-import TherapistSectionProvider from '../../../../utils/contexts/therapistSectionContext/TherapistSectionProvider';
 
 interface TherapistMainRefactorProps {
   pathName: string;

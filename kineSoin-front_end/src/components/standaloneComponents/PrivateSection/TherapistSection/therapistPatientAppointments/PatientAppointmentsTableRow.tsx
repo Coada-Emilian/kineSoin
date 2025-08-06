@@ -1,12 +1,12 @@
 import { Button } from '@headlessui/react';
 import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
-import AppointmentDetailsModal from '../modals/AppointmentDetailsModal';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
+import AppointmentDetailsModal from '../modals/appointmentDetailsModal/AppointmentDetailsModal';
 import CancelPatientAppointmentModal from '../modals/CancelPatientAppointmentModal';
 import cancelIcon from '/icons/cancel.png';
 import cancelIcon2 from '/icons/cancel2.png';
 import blueMagnifierIcon from '/icons/magnifier_blue.png';
 import grayMagnifierIcon from '/icons/magnifier_gray.png';
-import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 
 interface ComponentProps {
   appointment: IPatientAppointmentDetails;
@@ -29,17 +29,21 @@ export default function PatientAppointmentsTableRow({
   } = useUIContext();
 
   const handleCancelAppointmentClick = () => {
-    setIsCancelAppointmentModalOpen(true);
+    if (!is_past) {
+      setIsCancelAppointmentModalOpen(true);
+    }
   };
 
   const handleInspectClick = () => {
-    setIsInspectModalOpen(true);
+    if (!is_past) {
+      setIsInspectModalOpen(true);
+    }
   };
 
   return (
     <>
       <tr
-        className={`${is_past ? 'text-gray-500 italic font-light' : 'text-primaryBlue font-medium'}  border-b border-gray-300`}
+        className={`${is_past ? 'text-gray-500 italic font-light' : 'text-primaryBlue font-medium'} ${appointment.is_canceled ? 'line-through' : ''}  border-b border-gray-300`}
       >
         <td
           className={` ${is_last_row ? 'rounded-bl-2xl' : ''} ${basicClassName}`}

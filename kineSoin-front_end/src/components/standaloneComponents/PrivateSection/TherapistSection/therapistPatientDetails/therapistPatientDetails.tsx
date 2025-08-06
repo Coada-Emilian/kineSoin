@@ -5,17 +5,17 @@ import { useTherapistContext } from '../../../../../utils/contexts/therapistSect
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { getProfileStatusClassName } from '../../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusClassName';
+import { formatPatientStatusText } from '../../../../../utils/functions/privateSection/therapistSection/formatPatientStatusText';
 import { useFetchPatientDetailsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchPatientDetailsByTherapist';
 import { useFetchTherapistsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistsByTherapist';
 import { useModifyPatientDetailsAsTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useModifyPatientDetailsAsTherapistMutation';
-import { transformPatientStatusNames } from '../../../../../utils/functions/privateSection/therapistSection/transformPatientStatusNames';
 import { IdOutputRefactor } from '../../../generalComponents/standardOutputs';
 import PatientDeleteModal from '../modals/PatientDeleteModal';
 import SendMessageModal from '../modals/SendMessageModal';
-import PatientDetailsBottomButtons from './PatientDetailsBottomButtons';
-import PatientDetailsInteractiveButtons from './PatientDetailsInteractiveButtons';
-import PatientDetailsOutputs from './PatientDetailsOutputs';
-import PatientDetailsUtilityButtons from './PatientDetailsUtilityButtons';
+import PatientDetailsBottomButtons from './TherapistPatientDetailsBottomButtons';
+import TherapistPatientDetailsOutputs from './TherapistPatientDetailsOutputs';
+import TherapistPatientDetailsUtilityButtons from './TherapistPatientDetailsUtilityButtons';
+import TherapistPatientDetailsInteractiveButtons from './TherapistPatientDetailsInteractiveButtons';
 
 export default function TherapistPatientDetails() {
   const { patientId } = useParams();
@@ -48,7 +48,6 @@ export default function TherapistPatientDetails() {
     setPatientDetails,
   });
 
-  // ✅ Correct hook usage here:
   const modifyPatientDetailsMutation =
     useModifyPatientDetailsAsTherapistMutation();
 
@@ -60,7 +59,7 @@ export default function TherapistPatientDetails() {
     );
   }
 
-  const patientStatus = transformPatientStatusNames(entityStatus);
+  const patientStatus = formatPatientStatusText(entityStatus);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +76,7 @@ export default function TherapistPatientDetails() {
     <div className=" w-full">
       <form className="flex justify-center" onSubmit={handleFormSubmit}>
         <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-1/2 items-center md:items-start">
-          <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex flex-col justify-center text-white italic font-medium text-lg md:text-xl ">
+          <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex flex-col justify-center text-white font-medium text-lg md:text-xl ">
             <p className="text-base md:text-lg mb-2">
               Cabinet kinésithérapie Ruffec
             </p>
@@ -112,12 +111,12 @@ export default function TherapistPatientDetails() {
               <IdOutputRefactor id={patientDetails?.id ?? null} />
             </div>
 
-            <PatientDetailsOutputs />
+            <TherapistPatientDetailsOutputs />
 
-            <PatientDetailsUtilityButtons />
+            <TherapistPatientDetailsUtilityButtons />
           </div>
 
-          <PatientDetailsInteractiveButtons />
+          <TherapistPatientDetailsInteractiveButtons />
 
           <PatientDetailsBottomButtons setEntityStatus={setEntityStatus} />
         </div>

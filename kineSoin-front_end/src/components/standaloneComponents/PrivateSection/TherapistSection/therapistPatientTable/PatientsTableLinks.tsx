@@ -1,20 +1,14 @@
+import { useTableContext } from '../../../../../utils/contexts/therapistSectionContext/TableContext';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 
-interface PatientsTableLinksProps {
-  setTableType: React.Dispatch<
-    React.SetStateAction<'therapistPatients' | 'allPatients'>
-  >;
-}
-
-export default function PatientsTableLinks({
-  setTableType,
-}: PatientsTableLinksProps) {
+export default function PatientsTableLinks() {
+  const { setTableType } = useTableContext();
   return (
     <div className="w-11/12 flex gap-2 ">
       <CustomBtn
         btn={{
           type: 'basic',
-          text: 'Tous mes patients',
+          text: 'Mes patients',
           style: 'status',
           onClick: () => {
             setTableType('therapistPatients');
@@ -32,38 +26,6 @@ export default function PatientsTableLinks({
           },
         }}
       />
-
-      {/* <div className="flex gap-2">
-        {' '}
-        <CustomBtn
-          btn={{
-            type: 'active',
-            text: 'Actifs',
-            style: 'status',
-          }}
-        />
-        <CustomBtn
-          btn={{
-            type: 'inactive',
-            text: 'Inactifs',
-            style: 'status',
-          }}
-        />
-        <CustomBtn
-          btn={{
-            type: 'pending',
-            text: 'En attente',
-            style: 'status',
-          }}
-        />
-        <CustomBtn
-          btn={{
-            type: 'banned',
-            text: 'Bannis',
-            style: 'status',
-          }}
-        />
-      </div> */}
     </div>
   );
 }

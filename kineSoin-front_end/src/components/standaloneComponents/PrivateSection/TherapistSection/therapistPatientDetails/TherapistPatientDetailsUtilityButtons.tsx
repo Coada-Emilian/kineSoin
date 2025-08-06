@@ -1,16 +1,22 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 
-export default function PatientDetailsUtilityButtons() {
+export default function TherapistPatientDetailsUtilityButtons() {
+  const navigate = useNavigate();
+
   const { isPatientProfileEditing, setIsSendMessageModalOpen } = useUIContext();
 
   const { patientDetails, setSelectedPatient } = usePatientsContext();
 
   const handleSendMessageClick = () => {
     setIsSendMessageModalOpen(true);
+  };
+
+  const handleAppointmentClick = () => {
+    navigate(`/therapist/patient/${patientDetails?.id}/appointments`);
   };
 
   useEffect(() => {
@@ -38,16 +44,16 @@ export default function PatientDetailsUtilityButtons() {
               onClick: handleSendMessageClick,
             }}
           />
-          <Link to={`/therapist/patient/${patientDetails?.id}/appointments`}>
-            <CustomBtn
-              btn={{
-                type: 'basic',
-                text: 'Gérer rendez-vous',
-                style: 'normal',
-                hasBorder: true,
-              }}
-            />
-          </Link>
+
+          <CustomBtn
+            btn={{
+              type: 'basic',
+              text: 'Gérer rendez-vous',
+              style: 'normal',
+              hasBorder: true,
+              onClick: handleAppointmentClick,
+            }}
+          />
         </>
       )}
     </div>

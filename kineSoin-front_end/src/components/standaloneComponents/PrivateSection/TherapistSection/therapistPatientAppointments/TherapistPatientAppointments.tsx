@@ -63,7 +63,7 @@ export default function TherapistPatientAppointments() {
         <PatientAppointmentsTableBody />
       </table>
 
-      <div className="flex gap-2 w-full justify-end mt-6">
+      <div className="flex gap-2 w-11/12 justify-end mt-6">
         <CustomBtn
           btn={{
             type: 'basic',
@@ -74,7 +74,8 @@ export default function TherapistPatientAppointments() {
         />
         <CustomBtn
           btn={{
-            type: 'delete',
+            type: 'cancel',
+            hasBorder: true,
             text: 'Retour',
             style: 'nav',
             onClick: handleCancelClick,

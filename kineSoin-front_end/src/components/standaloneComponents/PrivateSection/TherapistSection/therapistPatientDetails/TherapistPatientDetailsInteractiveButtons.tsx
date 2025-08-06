@@ -2,7 +2,7 @@ import { usePatientsContext } from '../../../../../utils/contexts/therapistSecti
 import messageIcon from '/icons/message3.png';
 import phoneIcon from '/icons/phone-call.png';
 
-export default function PatientDetailsInteractiveButtons() {
+export default function TherapistPatientDetailsInteractiveButtons() {
   const { patientDetails } = usePatientsContext();
   return (
     <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">

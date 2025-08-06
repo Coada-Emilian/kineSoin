@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { IModalProps } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/therapistSectionContext/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useFetchPatientDetailsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchPatientDetailsByTherapist';
 import BaseModal from './BaseModal';
 
 export default function PatientDetailsModal({ isOpen, onClose }: IModalProps) {
   const { selectedPatient, setPatientDetails, patientDetails } =
-    useTherapistSectionContext();
+    usePatientsContext();
 
   const { isLoading, isFetching } = useFetchPatientDetailsByTherapist({
     patient_id: selectedPatient?.id ?? 0,

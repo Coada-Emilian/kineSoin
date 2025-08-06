@@ -19,13 +19,11 @@ export default function CancelPatientAppointmentModal({
   const handleAppointmentCancellationMutation =
     useCancelAppointmentByTherapistMutation(onClose);
 
-  const { patientDetails } = usePatientsContext();
+  const { patientDetails: patient } = usePatientsContext();
 
   const prescription = appointment.prescription;
 
   const appointment_time = `${appointment.time.split(':')[0]}h${appointment.time.split(':')[1]}`;
-
-  const patient = patientDetails;
 
   const handleAppointmentCancellation = async (
     e: React.FormEvent<HTMLFormElement>

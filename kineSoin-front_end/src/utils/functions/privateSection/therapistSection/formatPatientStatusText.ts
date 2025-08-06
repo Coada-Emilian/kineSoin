@@ -1,14 +1,12 @@
-export const transformPatientStatusNames = (status: string | undefined) => {
+export const formatPatientStatusText = (status: string) => {
   switch (status) {
     case 'active':
       return 'ACTIF';
     case 'inactive':
       return 'INACTIF';
-    case 'pending':
-      return 'EN ATTENTE';
     case 'banned':
       return 'BANNI';
     default:
-      return status;
+      return 'EN ATTENTE';
   }
 };

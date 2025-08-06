@@ -1,13 +1,15 @@
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
+import { formatPatientStatusText } from '../../../../../utils/functions/privateSection/therapistSection/formatPatientStatusText';
+import { getPatientStatusBackgroundColor } from '../../../../../utils/functions/privateSection/therapistSection/getPatientStatusBackgroundColor';
 import { useTogglePatientStatusAsTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useTogglePatientStatusAsTherapistMutation';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
-import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 
 interface PatientsTableBodyProps {
   patients: IUserProfile[];
@@ -32,34 +34,8 @@ export default function PatientsTableBody({
     );
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'bg-green-300';
-      case 'pending':
-        return 'bg-yellow-300';
-      case 'banned':
-        return 'bg-red-300';
-      default:
-        return 'bg-gray-200';
-    }
-  };
-
   const handleStatusChangeClick = (patientId: number) => {
     handlePatientStatusChange(patientId);
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'ACTIF';
-      case 'inactive':
-        return 'INACTIF';
-      case 'banned':
-        return 'BANNI';
-      default:
-        return 'EN ATTENTE';
-    }
   };
 
   const { setSelectedPatient } = usePatientsContext();
@@ -96,7 +72,7 @@ export default function PatientsTableBody({
                 </td>
 
                 <td
-                  className={`border border-gray-300 ${getStatusColor(patient.status ?? '')} px-4 py-2 text-center flex gap-1 items-center justify-center`}
+                  className={`border border-gray-300 ${getPatientStatusBackgroundColor(patient.status ?? '')} px-4 py-2 text-center flex gap-1 items-center justify-center`}
                 >
                   {(patient.status === 'active' ||
                     patient.status === 'inactive') &&
@@ -113,7 +89,7 @@ export default function PatientsTableBody({
                       </Button>
                     )}
 
-                  <p>{getStatusText(patient.status ?? '')}</p>
+                  <p>{formatPatientStatusText(patient.status ?? '')}</p>
                 </td>
 
                 <td className="border border-gray-300 px-2 text-center  ">

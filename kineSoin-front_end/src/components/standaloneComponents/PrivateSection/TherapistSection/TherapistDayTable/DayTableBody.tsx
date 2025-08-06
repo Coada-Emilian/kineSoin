@@ -12,8 +12,6 @@ import messageIcon from '/icons/message.png';
 import messageIcon2 from '/icons/message2.png';
 
 export default function DayTableBody() {
-  const timeSlots = generateTimeSlots();
-
   const { setSelectedPatient } = usePatientsContext();
 
   const { setIsSendMessageModalOpen, setIsCancelAppointmentModalOpen } =
@@ -23,6 +21,8 @@ export default function DayTableBody() {
     useAppointmentsContext();
 
   const { setSelectedPrescription } = usePrescriptionsContext();
+
+  const timeSlots = generateTimeSlots();
 
   const handleMessageIconClick = (appointment: ISameDayAppointment) => {
     if (!appointment.isTimePassed) {

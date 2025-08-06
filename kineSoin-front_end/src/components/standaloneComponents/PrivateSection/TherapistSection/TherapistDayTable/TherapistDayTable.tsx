@@ -1,4 +1,5 @@
 import { Button } from '@headlessui/react';
+import { useAppointmentsContext } from '../../../../../utils/contexts/therapistSectionContext/AppointmentsContext';
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { formatCurrentDate } from '../../../../../utils/functions/privateSection/therapistSection/formatCurrentDate';
@@ -11,11 +12,8 @@ import DayTableDynamicParagraph from './DayTableDynamicParagraph';
 import DayTableHead from './DayTableHead';
 import dynamicIcon from '/icons/dynamic.png';
 import dynamicIcon2 from '/icons/dynamic2.png';
-import { useAppointmentsContext } from '../../../../../utils/contexts/therapistSectionContext/AppointmentsContext';
 
 export default function TherapistDayTable() {
-  const formattedDate = formatCurrentDate();
-
   const { tableAppointments, setTableAppointments } = useAppointmentsContext();
 
   const {
@@ -26,6 +24,8 @@ export default function TherapistDayTable() {
     isCancelAppointmentModalOpen,
     setIsCancelAppointmentModalOpen,
   } = useUIContext();
+
+  const formattedDate = formatCurrentDate();
 
   useDynamicAppointmentCheck(tableAppointments, isDynamicModeOn);
 
@@ -55,7 +55,7 @@ export default function TherapistDayTable() {
           />
         </Button>
 
-        <p className="border border-gray-400 p-2 rounded-xl shadow-xl italic font-semibold text-xxs md:text-base">
+        <p className="border border-gray-200 p-2 rounded-xl shadow-xl italic font-semibold text-xxs md:text-base">
           Date: {formattedDate}
         </p>
       </div>
