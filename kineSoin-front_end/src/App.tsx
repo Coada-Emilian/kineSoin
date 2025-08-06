@@ -14,9 +14,11 @@ import { PublicLayout } from './utils/layouts/newLayouts/PublicLayout';
 import { TherapistLayout } from './utils/layouts/newLayouts/TherapistLayout';
 
 function App() {
+  // Authentication context
   const {
     isAdminAuthenticated,
     adminProfileToken,
+
     isTherapistAuthenticated,
     therapistProfileToken,
   } = useAuthentificationContext();
@@ -24,6 +26,7 @@ function App() {
   return (
     <>
       <Routes>
+        {/* Public routes */}
         <Route element={<PublicLayout />}>
           {publicRoutes.map((route) => (
             <Route
@@ -64,6 +67,7 @@ function App() {
           </Route>
         )}
 
+        {/* Therapist routes */}
         {isTherapistAuthenticated && therapistProfileToken ? (
           <Route path="/therapist" element={<TherapistLayout />}>
             {therapistRoutes.map((route) => (

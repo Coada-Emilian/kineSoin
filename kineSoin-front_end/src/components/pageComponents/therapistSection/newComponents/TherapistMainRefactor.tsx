@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { IUserProfile } from '../../../../@types/interfaces/customInterfaces';
-import { TherapistSectionContextProvider } from '../../../../utils/contexts/TherapistSectionContext';
 import { fetchTherapistPageTitle } from '../../../../utils/functions/privateSection/therapistSection/fetchTherapistPageTitle';
 import { useFetchTherapistBasicData } from '../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistBasicData';
 import TherapistSideNav from '../../../standaloneComponents/generalComponents/layoutComponents/sideNav/newComponents/TherapistSideNav';
@@ -10,6 +9,7 @@ import TherapistDayTable from '../../../standaloneComponents/privateSection/ther
 import TherapistPatientAppointments from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientAppointments/TherapistPatientAppointments';
 import TherapistPatientDetails from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientDetails/TherapistPatientDetails';
 import TherapistPatientsTable from '../../../standaloneComponents/privateSection/therapistSection/therapistPatientTable/TherapistPatientsTable';
+import TherapistSectionProvider from '../../../../utils/contexts/therapistSectionContext/TherapistSectionProvider';
 
 interface TherapistMainRefactorProps {
   pathName: string;
@@ -22,7 +22,7 @@ export default function TherapistMainRefactor({
     useState<IUserProfile>();
 
   useFetchTherapistBasicData({ setTherapist: setBasicTherapistDetails });
-  
+
   return (
     <main className={`bg-gray-200 `}>
       <UserHeadband
@@ -41,7 +41,7 @@ export default function TherapistMainRefactor({
             {fetchTherapistPageTitle(pathName)}
           </p>
 
-          <TherapistSectionContextProvider>
+          <TherapistSectionProvider>
             {pathName === 'dashboard' && <TherapistDayTable />}
 
             {pathName === 'patients' && basicTherapistDetails && (
@@ -59,7 +59,7 @@ export default function TherapistMainRefactor({
             {pathName === 'patient/:patientId/appointments/:appointmentId' && (
               <div>Do the appointment page</div>
             )}
-          </TherapistSectionContextProvider>
+          </TherapistSectionProvider>
         </div>
       </div>
     </main>

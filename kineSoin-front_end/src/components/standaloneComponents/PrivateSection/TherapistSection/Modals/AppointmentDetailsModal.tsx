@@ -3,7 +3,8 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 import { Button } from '@headlessui/react';
 import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import BaseOutput from '../../../generalComponents/BaseOutput';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import BaseModal from './BaseModal';
@@ -45,9 +46,9 @@ export default function AppointmentDetailsModal({
   onClose,
   appointment,
 }: ModalProps) {
-  const { patientDetails, setIsCancelAppointmentModalOpen } =
-    useTherapistSectionContext();
-  const patient = patientDetails;
+  const { patientDetails: patient } = usePatientsContext();
+
+  const { setIsCancelAppointmentModalOpen } = useUIContext();
 
   const handleCancelClick = () => {
     setIsCancelAppointmentModalOpen(true);
@@ -60,6 +61,7 @@ export default function AppointmentDetailsModal({
         <p className="text-base md:text-lg mb-2">
           Cabinet kinésithérapie Ruffec
         </p>
+
         <p className="text-sm md:text-base text-center italic">
           Détails du Rendez-vous
         </p>

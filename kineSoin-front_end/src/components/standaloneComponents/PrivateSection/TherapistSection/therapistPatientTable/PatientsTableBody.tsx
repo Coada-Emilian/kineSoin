@@ -1,13 +1,13 @@
 import { Button } from '@headlessui/react';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useTogglePatientStatusAsTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useTogglePatientStatusAsTherapistMutation';
 import deleteIcon from '/icons/delete.png';
 import editIcon from '/icons/edit.png';
 import refreshIcon from '/icons/refresh.png';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 
 interface PatientsTableBodyProps {
   patients: IUserProfile[];
@@ -62,12 +62,9 @@ export default function PatientsTableBody({
     }
   };
 
-  const {
-    setSelectedPatient,
-    setIsDeletePatientModalOpen,
-  } = useTherapistSectionContext();
+  const { setSelectedPatient } = usePatientsContext();
 
-
+  const { setIsDeletePatientModalOpen } = useUIContext();
 
   const handleDeleteClick = (patient: IUserProfile) => {
     setSelectedPatient({
@@ -139,7 +136,6 @@ export default function PatientsTableBody({
                   <Link
                     to={`/therapist/patient/${patient.id}`}
                     className="w-12 md:w-25 flex justify-center items-center mx-auto hover:transform hover:scale-110"
-                    
                   >
                     <img
                       src={editIcon}

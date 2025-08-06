@@ -1,17 +1,17 @@
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { useAppointmentsContext } from '../../../../../utils/contexts/therapistSectionContext/AppointmentsContext';
 import PatientAppointmentsTableRow from './PatientAppointmentsTableRow';
 
 export default function PatientAppointmentsTableBody() {
   const {
     previousPatientAppointments: previousAppointments,
     upcomingPatientAppointments: upcomingAppointments,
-  } = useTherapistSectionContext();
+  } = useAppointmentsContext();
 
   const onlyPreviousExist =
     previousAppointments.length > 0 && upcomingAppointments.length === 0;
 
   return (
-    <tbody className="xs:text-xxxs sm:text-xxs md:text-xs">
+    <tbody>
       {previousAppointments.map((appointment, index) => {
         const isLastRow =
           onlyPreviousExist && index === previousAppointments.length - 1;

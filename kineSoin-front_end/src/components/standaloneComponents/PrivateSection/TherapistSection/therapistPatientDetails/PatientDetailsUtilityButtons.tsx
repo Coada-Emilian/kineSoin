@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 
 export default function PatientDetailsUtilityButtons() {
-  const {
-    isPatientProfileEditing,
-    patientDetails,
-    setIsSendMessageModalOpen,
-    setSelectedPatient,
-  } = useTherapistSectionContext();
+  const { isPatientProfileEditing, setIsSendMessageModalOpen } = useUIContext();
+
+  const { patientDetails, setSelectedPatient } = usePatientsContext();
 
   const handleSendMessageClick = () => {
     setIsSendMessageModalOpen(true);
@@ -31,7 +29,6 @@ export default function PatientDetailsUtilityButtons() {
     <div className="flex gap-4 items-center justify-around mt-4 ">
       {!isPatientProfileEditing && (
         <>
-          {' '}
           <CustomBtn
             btn={{
               type: 'basic',

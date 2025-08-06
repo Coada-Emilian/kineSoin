@@ -1,9 +1,9 @@
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import messageIcon from '/icons/message3.png';
 import phoneIcon from '/icons/phone-call.png';
 
 export default function PatientDetailsInteractiveButtons() {
-  const { patientDetails } = useTherapistSectionContext();
+  const { patientDetails } = usePatientsContext();
   return (
     <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
       <div className="flex gap-2">

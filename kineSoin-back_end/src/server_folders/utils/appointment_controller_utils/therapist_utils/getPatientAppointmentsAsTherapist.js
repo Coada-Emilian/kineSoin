@@ -71,24 +71,24 @@ export default async function getPatientAppointmentsAsTherapist(req, res) {
         const currentDate = new Date();
         const currentTime = currentDate.toTimeString().split(' ')[0]; // Get current time in HH:MM:SS format
 
+        function getAppointmentDateTime(dateStr, timeStr) {
+          return new Date(`${dateStr}T${timeStr}`);
+        }
+
         const previousAppointments = foundAppointments.filter((appointment) => {
-          const appointmentDate = new Date(appointment.date);
-          const appointmentTime = appointment.time;
-          return (
-            appointmentDate < currentDate ||
-            (appointmentDate.toDateString() === currentDate.toDateString() &&
-              appointmentTime < currentTime)
+          const appointmentDateTime = getAppointmentDateTime(
+            appointment.date,
+            appointment.time
           );
+          return appointmentDateTime < new Date();
         });
 
         const upcomingAppointments = foundAppointments.filter((appointment) => {
-          const appointmentDate = new Date(appointment.date);
-          const appointmentTime = appointment.time;
-          return (
-            appointmentDate > currentDate ||
-            (appointmentDate.toDateString() === currentDate.toDateString() &&
-              appointmentTime >= currentTime)
+          const appointmentDateTime = getAppointmentDateTime(
+            appointment.date,
+            appointment.time
           );
+          return appointmentDateTime >= new Date();
         });
 
         const foundPatient = await Patient.findOne({

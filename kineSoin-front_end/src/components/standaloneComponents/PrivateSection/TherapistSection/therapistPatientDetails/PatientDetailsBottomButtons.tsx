@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { StatusMenu } from '../../../../../utils/constants/adminSection/adminProfileDetails/StatusMenu';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import StatusButtonsRefactor from '../../../adminSection/adminProfileDetails/newComponents/StatusButtonRefactor';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 
@@ -13,11 +14,11 @@ export default function PatientDetailsBottomButtons({
 }: PatientDetailsBottomButtonsProps) {
   const {
     isPatientProfileEditing,
-    patientDetails,
     setIsPatientProfileEditing,
-    setSelectedPatient,
     setIsDeletePatientModalOpen,
-  } = useTherapistSectionContext();
+  } = useUIContext();
+
+  const { patientDetails, setSelectedPatient } = usePatientsContext();
 
   const navigate = useNavigate();
 

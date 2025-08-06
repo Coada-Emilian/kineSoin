@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Link } from 'react-router-dom';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { useAppointmentsContext } from '../../../../../utils/contexts/therapistSectionContext/AppointmentsContext';
+import { useCalendarContext } from '../../../../../utils/contexts/therapistSectionContext/CalendarContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useFetchAllAppointmentsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchAllAppointmentsByTherapist';
 import { transformAppointmentsToCalendarEvents } from '../../../../../utils/functions/privateSection/therapistSection/transformAppointmentsToCalendarEvents';
@@ -15,12 +16,9 @@ export default function TherapistAppointmentsCalendar() {
   // Set up the localizer with Day.js
   const localizer = dayjsLocalizer(dayjs);
 
-  const {
-    allAppointments,
-    setAllAppointments,
-    calendarEvents,
-    setCalendarEvents,
-  } = useTherapistSectionContext();
+  const { allAppointments, setAllAppointments } = useAppointmentsContext();
+
+  const { calendarEvents, setCalendarEvents } = useCalendarContext();
 
   const { isLoading, isFetching } = useFetchAllAppointmentsByTherapist({
     setAllAppointments,

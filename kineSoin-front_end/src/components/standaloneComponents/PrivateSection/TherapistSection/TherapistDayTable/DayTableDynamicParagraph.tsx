@@ -1,7 +1,7 @@
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 
 export default function DayTableDynamicParagraph() {
-  const { isDynamicModeOn, showParagraph } = useTherapistSectionContext();
+  const { isDynamicModeOn, showParagraph } = useUIContext();
 
   return (
     <>

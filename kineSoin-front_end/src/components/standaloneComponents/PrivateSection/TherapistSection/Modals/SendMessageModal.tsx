@@ -1,5 +1,5 @@
 import { IModalProps } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useSendMessageToPatientMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useSendMessageToPatientMutation';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
@@ -7,8 +7,7 @@ import { StandardTextInputRefactor } from '../../../generalComponents/standardIn
 import BaseModal from './BaseModal';
 
 export default function SendMessageModal({ isOpen, onClose }: IModalProps) {
-  const { selectedPatient: patient, setSelectedPatient } =
-    useTherapistSectionContext();
+  const { selectedPatient: patient, setSelectedPatient } = usePatientsContext();
 
   const handleMessageSubmitMutation = useSendMessageToPatientMutation(onClose);
 

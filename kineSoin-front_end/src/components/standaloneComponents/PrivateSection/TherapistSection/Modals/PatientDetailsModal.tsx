@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { IModalProps } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { useTherapistSectionContext } from '../../../../../utils/contexts/therapistSectionContext/TherapistSectionContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useFetchPatientDetailsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchPatientDetailsByTherapist';
 import BaseModal from './BaseModal';

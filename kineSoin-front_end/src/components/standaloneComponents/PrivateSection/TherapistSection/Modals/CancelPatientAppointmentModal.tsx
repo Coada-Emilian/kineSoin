@@ -1,5 +1,5 @@
 import { IPatientAppointmentDetails } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useCancelAppointmentByTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useCancelAppointmentByTherapistMutation';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
@@ -19,7 +19,7 @@ export default function CancelPatientAppointmentModal({
   const handleAppointmentCancellationMutation =
     useCancelAppointmentByTherapistMutation(onClose);
 
-  const { patientDetails } = useTherapistSectionContext();
+  const { patientDetails } = usePatientsContext();
 
   const prescription = appointment.prescription;
 

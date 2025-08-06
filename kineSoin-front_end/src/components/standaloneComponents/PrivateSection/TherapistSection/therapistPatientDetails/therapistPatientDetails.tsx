@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { useTherapistContext } from '../../../../../utils/contexts/therapistSectionContext/TherapistContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { getProfileStatusClassName } from '../../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusClassName';
 import { useFetchPatientDetailsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchPatientDetailsByTherapist';
@@ -18,16 +20,17 @@ import PatientDetailsUtilityButtons from './PatientDetailsUtilityButtons';
 export default function TherapistPatientDetails() {
   const { patientId } = useParams();
 
+  const { patientDetails, setPatientDetails } = usePatientsContext();
+
+  const { setTherapistProfiles } = useTherapistContext();
+
   const {
-    patientDetails,
-    setPatientDetails,
+    setIsPatientProfileEditing,
     isDeletePatientModalOpen,
     setIsDeletePatientModalOpen,
     isSendMessageModalOpen,
     setIsSendMessageModalOpen,
-    setTherapistProfiles,
-    setIsPatientProfileEditing,
-  } = useTherapistSectionContext();
+  } = useUIContext();
 
   const [entityStatus, setEntityStatus] = useState<string>('');
 

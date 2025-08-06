@@ -1,11 +1,11 @@
 import { IModalProps } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import { useHandlePatientDeleteAsTherapistMutation } from '../../../../../utils/functions/privateSection/therapistSection/mutations/useHandlePatientDeleteAsTherapistMutation';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 import BaseModal from './BaseModal';
 
 export default function PatientDeleteModal({ isOpen, onClose }: IModalProps) {
-  const { selectedPatient } = useTherapistSectionContext();
+  const { selectedPatient } = usePatientsContext();
 
   const handlePatientDeletion =
     useHandlePatientDeleteAsTherapistMutation(onClose);

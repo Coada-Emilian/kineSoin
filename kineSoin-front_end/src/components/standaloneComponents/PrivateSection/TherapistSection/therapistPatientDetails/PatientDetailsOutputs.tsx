@@ -1,4 +1,6 @@
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { useTherapistContext } from '../../../../../utils/contexts/therapistSectionContext/TherapistContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import {
   AddressOutputRefactor,
   EmailOutputRefactor,
@@ -11,8 +13,11 @@ import InsuranceValidityOutput from './InsuranceValidityOutput';
 import TherapistDropdownInput from './TherapistDropdownInput';
 
 export default function PatientDetailsOutputs() {
-  const { patientDetails, isPatientProfileEditing, therapistProfiles } =
-    useTherapistSectionContext();
+  const { patientDetails } = usePatientsContext();
+
+  const { isPatientProfileEditing } = useUIContext();
+
+  const { therapistProfiles } = useTherapistContext();
 
   return (
     <>

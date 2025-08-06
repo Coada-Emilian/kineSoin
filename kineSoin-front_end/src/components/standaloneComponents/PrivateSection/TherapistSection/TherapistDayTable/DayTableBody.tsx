@@ -1,7 +1,10 @@
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { useAppointmentsContext } from '../../../../../utils/contexts/therapistSectionContext/AppointmentsContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { usePrescriptionsContext } from '../../../../../utils/contexts/therapistSectionContext/PrescriptionsContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import { generateTimeSlots } from '../../../../../utils/functions/privateSection/therapistSection/generateTimeSlots';
 import cancelIcon from '/icons/cancel.png';
 import cancelIcon2 from '/icons/cancel2.png';
@@ -11,14 +14,15 @@ import messageIcon2 from '/icons/message2.png';
 export default function DayTableBody() {
   const timeSlots = generateTimeSlots();
 
-  const {
-    tableAppointments,
-    setIsSendMessageModalOpen,
-    setIsCancelAppointmentModalOpen,
-    setSelectedPatient,
-    setSelectedAppointment,
-    setSelectedPrescription,
-  } = useTherapistSectionContext();
+  const { setSelectedPatient } = usePatientsContext();
+
+  const { setIsSendMessageModalOpen, setIsCancelAppointmentModalOpen } =
+    useUIContext();
+
+  const { setSelectedAppointment, tableAppointments } =
+    useAppointmentsContext();
+
+  const { setSelectedPrescription } = usePrescriptionsContext();
 
   const handleMessageIconClick = (appointment: ISameDayAppointment) => {
     if (!appointment.isTimePassed) {

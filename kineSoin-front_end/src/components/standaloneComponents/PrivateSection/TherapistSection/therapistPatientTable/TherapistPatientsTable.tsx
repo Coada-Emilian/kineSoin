@@ -1,5 +1,7 @@
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
-import { useTherapistSectionContext } from '../../../../../utils/contexts/TherapistSectionContext';
+import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { useTableContext } from '../../../../../utils/contexts/therapistSectionContext/TableContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useFetchAllPatientsDataByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchAllPatientsDataByTherapist';
 import { useFetchTherapistPatientsData } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistPatientsData';
@@ -13,16 +15,14 @@ interface TableProps {
 }
 
 export default function TherapistPatientsTable({ therapist }: TableProps) {
-  const {
-    therapistPatients,
-    setTherapistPatients,
-    setAllPatients,
-    allPatients,
-    tableType,
-    setTableType,
-    isDeletePatientModalOpen,
-    setIsDeletePatientModalOpen,
-  } = useTherapistSectionContext();
+  const { setTherapistPatients, setAllPatients } = usePatientsContext();
+
+  const { tableType, setTableType } = useTableContext();
+
+  const { therapistPatients, allPatients } = usePatientsContext();
+
+  const { isDeletePatientModalOpen, setIsDeletePatientModalOpen } =
+    useUIContext();
 
   const {
     isLoading: isTherapistPatientsLoading,
