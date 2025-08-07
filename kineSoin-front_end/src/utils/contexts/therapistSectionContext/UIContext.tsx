@@ -25,6 +25,14 @@ interface UIContextType {
   setIsPatientProfileEditing: React.Dispatch<React.SetStateAction<boolean>>;
 
   handleDynamicModeClick: () => void;
+
+  isPatientDetailsModalOpen: boolean;
+  setIsPatientDetailsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isAfflictionDetailsModalOpen: boolean;
+  setIsAfflictionDetailsModalOpen: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -43,6 +51,10 @@ export const UIContextProvider = ({
   const [isDynamicModeOn, setIsDynamicModeOn] = useState(false);
   const [showParagraph, setShowParagraph] = useState(false);
   const [isPatientProfileEditing, setIsPatientProfileEditing] = useState(false);
+  const [isPatientDetailsModalOpen, setIsPatientDetailsModalOpen] =
+    useState(false);
+  const [isAfflictionDetailsModalOpen, setIsAfflictionDetailsModalOpen] =
+    useState(false);
 
   const handleDynamicModeClick = () => {
     setIsDynamicModeOn((prev) => !prev);
@@ -68,6 +80,10 @@ export const UIContextProvider = ({
         handleDynamicModeClick,
         isPatientProfileEditing,
         setIsPatientProfileEditing,
+        isPatientDetailsModalOpen,
+        setIsPatientDetailsModalOpen,
+        isAfflictionDetailsModalOpen,
+        setIsAfflictionDetailsModalOpen,
       }}
     >
       {children}

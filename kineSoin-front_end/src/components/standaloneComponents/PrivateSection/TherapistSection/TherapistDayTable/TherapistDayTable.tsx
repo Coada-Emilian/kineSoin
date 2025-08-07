@@ -5,7 +5,9 @@ import DNALoader from '../../../../../utils/DNALoader';
 import { formatCurrentDate } from '../../../../../utils/functions/privateSection/therapistSection/formatCurrentDate';
 import { useDynamicAppointmentCheck } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useDynamicAppointmentCheck';
 import { useFetchTherapistDashboardDataQuery } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistDashboardData';
+import AfflictionDetailsModal from '../modals/afflictionDetailsModal/AfflictionDetailsModal';
 import CancelAppointmentModal from '../modals/CancelAppointmentModal';
+import PatientDetailsModal from '../modals/PatientDetailsModal';
 import SendMessageModal from '../modals/SendMessageModal';
 import DayTableBody from './DayTableBody';
 import DayTableDynamicParagraph from './DayTableDynamicParagraph';
@@ -23,6 +25,10 @@ export default function TherapistDayTable() {
     setIsSendMessageModalOpen,
     isCancelAppointmentModalOpen,
     setIsCancelAppointmentModalOpen,
+    isPatientDetailsModalOpen,
+    setIsPatientDetailsModalOpen,
+    isAfflictionDetailsModalOpen,
+    setIsAfflictionDetailsModalOpen,
   } = useUIContext();
 
   const formattedDate = formatCurrentDate();
@@ -82,6 +88,24 @@ export default function TherapistDayTable() {
           isOpen={isCancelAppointmentModalOpen}
           onClose={() => {
             setIsCancelAppointmentModalOpen(false);
+          }}
+        />
+      )}
+
+      {isPatientDetailsModalOpen && (
+        <PatientDetailsModal
+          isOpen={isPatientDetailsModalOpen}
+          onClose={() => {
+            setIsPatientDetailsModalOpen(false);
+          }}
+        />
+      )}
+
+      {isAfflictionDetailsModalOpen && (
+        <AfflictionDetailsModal
+          isOpen={isAfflictionDetailsModalOpen}
+          onClose={() => {
+            setIsAfflictionDetailsModalOpen(false);
           }}
         />
       )}

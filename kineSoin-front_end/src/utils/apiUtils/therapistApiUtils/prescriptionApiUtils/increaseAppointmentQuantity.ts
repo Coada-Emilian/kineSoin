@@ -6,14 +6,14 @@ export const increaseAppointmentQuantity = async (id: number) => {
       `/therapist/me/prescriptions/${id}/increaseQuantity`
     );
     if (response.status === 200) {
-      console.log('Prescription quantity reduced successfully');
+      console.log('Appointment quantity increased successfully');
       return true;
     } else {
-      console.error('Failed to reduce prescription quantity', response.data);
+      console.error('Failed to increase appointment quantity', response.data);
       return false;
     }
   } catch (error) {
-    console.error('Error reducing prescription quantity:', error);
+    console.error('Error increasing appointment quantity:', error);
     return false;
   }
 };

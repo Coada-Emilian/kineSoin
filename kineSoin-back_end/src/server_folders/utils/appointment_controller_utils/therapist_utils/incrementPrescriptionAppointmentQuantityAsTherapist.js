@@ -19,7 +19,6 @@
  * @returns {object} JSON with a success or error message based on the operation outcome
  */
 
-import Joi from 'joi';
 import { Prescription } from '../../../models/index.js';
 import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
@@ -39,28 +38,28 @@ export default async function incrementPrescriptionAppointmentQuantityAsTherapis
 
       checkIsValidNumber(prescription_id);
 
-      const appointmentQuantitySchema = Joi.object({
-        appointment_quantity: Joi.number().integer().required(),
-      });
+      // const appointmentQuantitySchema = Joi.object({
+      //   appointment_quantity: Joi.number().integer().required(),
+      // });
 
-      if (!req.body) {
-        return res.status(400).json({
-          message:
-            'The request body cannot be empty. Please provide the necessary data.',
-        });
-      }
-      const { error } = appointmentQuantitySchema.validate(req.body);
-      if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-      }
+      // if (!req.body) {
+      //   return res.status(400).json({
+      //     message:
+      //       'The request body cannot be empty. Please provide the necessary data.',
+      //   });
+      // }
+      // const { error } = appointmentQuantitySchema.validate(req.body);
+      // if (error) {
+      //   return res.status(400).json({ message: error.details[0].message });
+      // }
 
-      const { appointment_quantity } = req.body;
+      // const { appointment_quantity } = req.body;
 
-      if (appointment_quantity < 1) {
-        return res
-          .status(400)
-          .json({ message: 'Appointment quantity must be at least 1' });
-      }
+      // if (appointment_quantity < 1) {
+      //   return res
+      //     .status(400)
+      //     .json({ message: 'Appointment quantity must be at least 1' });
+      // }
 
       const foundPrescription = await Prescription.findByPk(prescription_id);
 
@@ -68,7 +67,7 @@ export default async function incrementPrescriptionAppointmentQuantityAsTherapis
         return res.status(400).json({ message: 'Prescription not found' });
       }
 
-      foundPrescription.appointment_quantity += appointment_quantity;
+      foundPrescription.appointment_quantity += 1;
 
       await foundPrescription.save();
 

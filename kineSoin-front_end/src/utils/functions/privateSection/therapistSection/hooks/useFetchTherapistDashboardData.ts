@@ -41,7 +41,8 @@ export const useFetchTherapistDashboardDataQuery = ({
             patient: appointment.patient,
             prescription: appointment.prescription,
             patientFullName: `${appointment.patient.name} ${appointment.patient.surname}`, // Combined full name
-            afflictionName: appointment.prescription.affliction.name, // Affliction's name for display
+            afflictionName: appointment.prescription.affliction.name,
+            // Affliction's name for display
           };
         });
 

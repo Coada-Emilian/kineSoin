@@ -8,7 +8,7 @@ import Logo1 from '/logos/kinesoin-logo.webp';
 export default function PublicNavBar() {
   const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
 
-  const handleClick = () => {
+  const handleConnectionClick = () => {
     setIsConnectionModalOpen(true);
   };
 
@@ -37,7 +37,16 @@ export default function PublicNavBar() {
                   type: 'basic',
                   text: 'Connexion',
                   style: 'nav',
-                  onClick: handleClick,
+                  onClick: handleConnectionClick,
+                }}
+              />
+
+              <CustomBtn
+                btn={{
+                  type: 'basic',
+                  text: 'Inscription',
+                  style: 'nav',
+                  to: '/registerPatient',
                 }}
               />
             </div>

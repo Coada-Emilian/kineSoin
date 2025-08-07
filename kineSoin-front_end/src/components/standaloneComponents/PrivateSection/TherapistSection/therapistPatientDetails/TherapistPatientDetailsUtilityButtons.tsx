@@ -1,22 +1,15 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
 
 export default function TherapistPatientDetailsUtilityButtons() {
-  const navigate = useNavigate();
-
   const { isPatientProfileEditing, setIsSendMessageModalOpen } = useUIContext();
 
   const { patientDetails, setSelectedPatient } = usePatientsContext();
 
   const handleSendMessageClick = () => {
     setIsSendMessageModalOpen(true);
-  };
-
-  const handleAppointmentClick = () => {
-    navigate(`/therapist/patient/${patientDetails?.id}/appointments`);
   };
 
   useEffect(() => {
@@ -51,7 +44,7 @@ export default function TherapistPatientDetailsUtilityButtons() {
               text: 'Gérer rendez-vous',
               style: 'normal',
               hasBorder: true,
-              onClick: handleAppointmentClick,
+              to: `/therapist/patient/${patientDetails?.id}/appointments`,
             }}
           />
         </>

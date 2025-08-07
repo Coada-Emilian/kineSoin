@@ -1,5 +1,4 @@
 import { Button } from '@headlessui/react';
-import { Link } from 'react-router-dom';
 import { ISameDayAppointment } from '../../../../../@types/interfaces/customInterfaces';
 import { useAppointmentsContext } from '../../../../../utils/contexts/therapistSectionContext/AppointmentsContext';
 import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
@@ -14,8 +13,12 @@ import messageIcon2 from '/icons/message2.png';
 export default function DayTableBody() {
   const { setSelectedPatient } = usePatientsContext();
 
-  const { setIsSendMessageModalOpen, setIsCancelAppointmentModalOpen } =
-    useUIContext();
+  const {
+    setIsSendMessageModalOpen,
+    setIsCancelAppointmentModalOpen,
+    setIsPatientDetailsModalOpen,
+    setIsAfflictionDetailsModalOpen,
+  } = useUIContext();
 
   const { setSelectedAppointment, tableAppointments } =
     useAppointmentsContext();
@@ -40,6 +43,16 @@ export default function DayTableBody() {
     }
   };
 
+  const handlePatientNameClick = (appointment: ISameDayAppointment) => {
+    setIsPatientDetailsModalOpen(true);
+    setSelectedPatient(appointment.patient);
+  };
+
+  const handleAfflictionNameClick = (appointment: ISameDayAppointment) => {
+    setSelectedAppointment(appointment);
+    setIsAfflictionDetailsModalOpen(true);
+  };
+
   return (
     <tbody className="xs:text-xxs sm:text-xs md:text-sm">
       {timeSlots.map((time, index) => {
@@ -58,22 +71,34 @@ export default function DayTableBody() {
 
             {appointment ? (
               <>
-                <td className={`border border-gray-300 px-4 py-2 text-center`}>
-                  <Link
-                    to={`${appointment.isTimePassed ? '#' : `/therapist/patient/${appointment.patient.id}`}`}
-                    className={`${appointment.isTimePassed ? 'italic text-gray-500 ' : 'hover:text-secondaryBlue hover:font-semibold  hover:transform hover:scale-125 hover:italic font-medium'}  `}
-                  >
-                    {appointment.patientFullName}
-                  </Link>
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  {appointment.isTimePassed ? (
+                    <span className="italic text-gray-500">
+                      {appointment.patientFullName}
+                    </span>
+                  ) : (
+                    <button
+                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium"
+                      onClick={() => handlePatientNameClick(appointment)}
+                    >
+                      <p>{appointment.patientFullName}</p>
+                    </button>
+                  )}
                 </td>
 
-                <td className={`border border-gray-300 px-4 py-2 text-center`}>
-                  <Link
-                    to={`${appointment.isTimePassed ? '#' : `/therapist/afflictions/${appointment.prescription.affliction.id}`}`}
-                    className={`${appointment.isTimePassed ? 'italic text-gray-500 ' : 'hover:text-secondaryBlue hover:font-semibold  hover:transform hover:scale-125 hover:italic font-medium'}  `}
-                  >
-                    {appointment.afflictionName}
-                  </Link>
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  {appointment.isTimePassed ? (
+                    <span className="italic text-gray-500">
+                      {appointment.afflictionName}
+                    </span>
+                  ) : (
+                    <button
+                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium"
+                      onClick={() => handleAfflictionNameClick(appointment)}
+                    >
+                      <p>{appointment.afflictionName}</p>
+                    </button>
+                  )}
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2 text-center w-2/12 ">
@@ -116,7 +141,7 @@ export default function DayTableBody() {
               </>
             ) : (
               <td
-                className="border border-gray-300 px-4 py-2 text-center"
+                className="border border-gray-300 px-4 py-2 text-center font-medium italic text-gray-500"
                 colSpan={4}
               >
                 Pas de RDV

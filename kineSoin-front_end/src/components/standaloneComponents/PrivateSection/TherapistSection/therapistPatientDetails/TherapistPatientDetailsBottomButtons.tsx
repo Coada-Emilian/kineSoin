@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { StatusMenu } from '../../../../../utils/constants/adminSection/adminProfileDetails/StatusMenu';
 import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
@@ -20,8 +20,6 @@ export default function TherapistPatientDetailsBottomButtons({
 
   const { patientDetails, setSelectedPatient } = usePatientsContext();
 
-  const navigate = useNavigate();
-
   const handleModifyClick = () => {
     setIsPatientProfileEditing(true);
   };
@@ -29,11 +27,6 @@ export default function TherapistPatientDetailsBottomButtons({
   const handleCancelClick = () => {
     setIsPatientProfileEditing(false);
     setEntityStatus(patientDetails?.status ?? '');
-  };
-
-  const handleCancelClickToReturn = () => {
-    setIsPatientProfileEditing(false);
-    navigate('/therapist/patients');
   };
 
   const handleDeleteClick = () => {
@@ -72,6 +65,15 @@ export default function TherapistPatientDetailsBottomButtons({
                   onClick: handleDeleteClick,
                 }}
               />
+              <CustomBtn
+                btn={{
+                  type: 'cancel',
+                  text: 'Annuler',
+                  style: 'normal',
+                  hasBorder: true,
+                  to: '/therapist/patients',
+                }}
+              />
             </>
           </>
         ) : (
@@ -94,22 +96,18 @@ export default function TherapistPatientDetailsBottomButtons({
               }}
               type="submit"
             />
+
+            <CustomBtn
+              btn={{
+                type: 'cancel',
+                text: 'Annuler',
+                style: 'normal',
+                hasBorder: true,
+                onClick: handleCancelClick,
+              }}
+            />
           </>
         )}
-
-        <>
-          <CustomBtn
-            btn={{
-              type: 'cancel',
-              text: 'Annuler',
-              style: 'normal',
-              hasBorder: true,
-              onClick: isPatientProfileEditing
-                ? handleCancelClick
-                : handleCancelClickToReturn,
-            }}
-          />
-        </>
       </div>
     </div>
   );

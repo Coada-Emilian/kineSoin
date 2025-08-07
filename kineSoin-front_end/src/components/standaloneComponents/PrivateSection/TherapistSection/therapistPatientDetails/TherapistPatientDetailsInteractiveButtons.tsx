@@ -4,6 +4,7 @@ import phoneIcon from '/icons/phone-call.png';
 
 export default function TherapistPatientDetailsInteractiveButtons() {
   const { patientDetails } = usePatientsContext();
+
   return (
     <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
       <div className="flex gap-2">

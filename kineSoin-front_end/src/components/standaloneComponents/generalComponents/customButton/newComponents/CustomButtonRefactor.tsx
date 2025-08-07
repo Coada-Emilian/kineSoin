@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 import { IButtonDetails } from '../../../../../@types/interfaces/customInterfaces';
 import { customButtonDetails } from '../../../../../utils/constants/publicSection/standaloneComponents/customButton/customButtonDetails';
 import { customButtonIconDetails } from '../../../../../utils/constants/publicSection/standaloneComponents/customButton/customButtonIconDetails';
@@ -45,7 +46,11 @@ export default function CustomBtn({ btn, type }: CustomButtonProps) {
     );
   };
 
-  return (
+  return btn.to ? (
+    <Link to={btn.to} className={btnClasses}>
+      {btn.text}
+    </Link>
+  ) : (
     <button
       type={type ?? 'button'}
       onClick={btn.onClick ? btn.onClick : () => {}}

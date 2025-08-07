@@ -32,7 +32,7 @@ export default async function getTherapistDashboardData(req, res) {
             include: [
               {
                 association: 'affliction',
-                attributes: ['id', 'name'],
+                attributes: ['id', 'name', 'description', 'insurance_code'],
               },
             ],
           },

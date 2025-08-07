@@ -29,6 +29,8 @@ export interface ISameDayAppointment {
     affliction: {
       id: number;
       name: string;
+      description: string;
+      insurance_code: string;
     };
   };
 }
@@ -252,6 +254,7 @@ export interface IButtonDetails {
   icon?: IButtonIcon;
   hasBorder?: boolean;
   onClick?: () => void;
+  to?: string;
 }
 
 export interface IErrorPageFunctionProps {
