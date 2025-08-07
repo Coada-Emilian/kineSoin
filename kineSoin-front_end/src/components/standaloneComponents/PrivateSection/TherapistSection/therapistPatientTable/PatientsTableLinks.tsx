@@ -3,6 +3,7 @@ import CustomBtn from '../../../generalComponents/customButton/newComponents/Cus
 
 export default function PatientsTableLinks() {
   const { setTableType } = useTableContext();
+
   return (
     <div className="w-11/12 flex gap-2 ">
       <CustomBtn
@@ -23,6 +24,17 @@ export default function PatientsTableLinks() {
           style: 'status',
           onClick: () => {
             setTableType('allPatients');
+          },
+        }}
+      />
+
+      <CustomBtn
+        btn={{
+          type: 'pending',
+          text: 'Patients en attente',
+          style: 'status',
+          onClick: () => {
+            setTableType('pendingPatients');
           },
         }}
       />

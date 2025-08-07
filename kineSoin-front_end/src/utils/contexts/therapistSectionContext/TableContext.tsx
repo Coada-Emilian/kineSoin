@@ -1,9 +1,11 @@
 import { createContext, useContext, useState } from 'react';
 
 interface TableContextType {
-  tableType: 'therapistPatients' | 'allPatients';
+  tableType: 'therapistPatients' | 'allPatients' | 'pendingPatients';
   setTableType: React.Dispatch<
-    React.SetStateAction<'therapistPatients' | 'allPatients'>
+    React.SetStateAction<
+      'therapistPatients' | 'allPatients' | 'pendingPatients'
+    >
   >;
 }
 
@@ -15,7 +17,7 @@ export const TableContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [tableType, setTableType] = useState<
-    'therapistPatients' | 'allPatients'
+    'therapistPatients' | 'allPatients' | 'pendingPatients'
   >('therapistPatients');
 
   return (

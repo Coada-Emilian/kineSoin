@@ -2,6 +2,7 @@ import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { IUserProfile } from '../../../../../@types/interfaces/customInterfaces';
 import { usePatientsContext } from '../../../../../utils/contexts/therapistSectionContext/PatientsContext';
+import { useTherapistContext } from '../../../../../utils/contexts/therapistSectionContext/TherapistContext';
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { formatPatientStatusText } from '../../../../../utils/functions/privateSection/therapistSection/formatPatientStatusText';
@@ -25,6 +26,8 @@ export default function PatientsTableBody({
   const handlePatientStatusChange = (patientId: number) => {
     handleStatusChange.mutate(patientId);
   };
+
+  const { setSelectedTherapist } = useTherapistContext();
 
   if (handleStatusChange.isPending) {
     return (
@@ -92,20 +95,19 @@ export default function PatientsTableBody({
                   <p>{formatPatientStatusText(patient.status ?? '')}</p>
                 </td>
 
-                <td className="border border-gray-300 px-2 text-center  ">
-                  <Link
-                    to={`/therapist/therapists/${patient.therapist?.id}`}
-                    className="flex items-center justify-center gap-2"
-                  >
-                    <img
-                      src={patient.therapist?.picture_url}
-                      alt={patient.therapist?.fullName ?? 'Therapist'}
-                      className="w-6 h-6 rounded-full"
-                    />
+                <td className="border border-gray-300 px-2 text-center">
+                  <div className="flex items-center justify-center gap-2 w-full">
+                    {patient.therapist?.picture_url && (
+                      <img
+                        src={patient.therapist?.picture_url}
+                        alt={patient.therapist?.fullName ?? 'Therapist'}
+                        className="w-6 h-6 rounded-full"
+                      />
+                    )}
                     <p className="text-sm font-medium italic">
-                      {patient.therapist?.fullName ?? 'Inconnu'}
+                      {patient.therapist?.fullName ?? ''}
                     </p>
-                  </Link>
+                  </div>
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2  text-center">

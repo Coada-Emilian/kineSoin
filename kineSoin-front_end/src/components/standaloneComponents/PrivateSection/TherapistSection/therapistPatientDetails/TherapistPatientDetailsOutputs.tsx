@@ -42,14 +42,18 @@ export default function TherapistPatientDetailsOutputs() {
 
       {isPatientProfileEditing ? (
         <TherapistDropdownInput
-          therapistId={patientDetails?.therapist.id ?? 0}
-          therapistFullName={`${patientDetails?.therapist.name} ${patientDetails?.therapist.surname}`}
+          therapistId={patientDetails?.therapist?.id ?? 0}
+          therapistFullName={
+            patientDetails?.therapist
+              ? `${patientDetails.therapist.name} ${patientDetails.therapist.surname}`
+              : 'Aucun thérapeute assigné'
+          }
           therapistProfiles={therapistProfiles}
         />
       ) : (
         <TherapistOutput
-          therapist_name={patientDetails?.therapist.name}
-          therapist_surname={patientDetails?.therapist.surname}
+          therapist_name={patientDetails?.therapist?.name ?? 'Aucun'}
+          therapist_surname={patientDetails?.therapist?.surname ?? 'assigné'}
         />
       )}
 

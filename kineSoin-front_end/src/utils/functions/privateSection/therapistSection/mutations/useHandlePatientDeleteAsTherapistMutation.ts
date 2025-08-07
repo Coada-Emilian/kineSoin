@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { deletePatientAsTherapist } from '../../../../apiUtils/therapistApiUtils/patientApiUtils/deletePatientAsTherapist';
+import { useNavigate } from 'react-router-dom';
 
 export const useHandlePatientDeleteAsTherapistMutation = (
   onClose: () => void
 ) => {
   const clientQuery = useQueryClient();
+  const navigate = useNavigate();
   return useMutation({
     mutationKey: ['deletePatientAsTherapist'],
     mutationFn: async (id: number) => {
@@ -19,12 +21,11 @@ export const useHandlePatientDeleteAsTherapistMutation = (
     onSuccess: () => {
       console.log('Patient deleted successfully');
       toast.success('Patient supprimé avec succès !');
-      ['fetchTherapistPatientsData', 'fetchAllPatientsDataByTherapist'].forEach(
-        (key) => {
-          clientQuery.invalidateQueries({ queryKey: [key] });
-        }
-      );
+      ['fetchAllPatientsDataByTherapist'].forEach((key) => {
+        clientQuery.invalidateQueries({ queryKey: [key] });
+      });
       onClose();
+      navigate('/therapist/patients');
     },
     onError: (error) => {
       console.error('Error deleting patient:', error);

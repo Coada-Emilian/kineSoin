@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ITherapistPatient } from '../../../../../@types/interfaces/customInterfaces';
 import { useAppointmentsContext } from '../../../../../utils/contexts/therapistSectionContext/AppointmentsContext';
+import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useFetchPatientAppointmentsByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchPatientAppointmentsByTherapist';
 import CustomBtn from '../../../generalComponents/customButton/newComponents/CustomButtonRefactor';
+import AddAppointmentModal from '../modals/AddAppointmentModal';
 import PatientAppointmentsTableBody from './PatientAppointmentsTableBody';
 import PatientAppointmentsTableHead from './PatientAppointmentsTableHead';
 
@@ -13,11 +15,12 @@ export default function TherapistPatientAppointments() {
 
   const numericPatientId = patientId ? Number(patientId) : 0;
 
-  const navigate = useNavigate();
-
   const [patientData, setPatientData] = useState<ITherapistPatient | undefined>(
     undefined
   );
+
+  const { isAddAppointmentModalOpen, setIsAddAppointmentModalOpen } =
+    useUIContext();
 
   const { setPreviousPatientAppointments, setUpcomingPatientAppointments } =
     useAppointmentsContext();
@@ -37,8 +40,8 @@ export default function TherapistPatientAppointments() {
     );
   }
 
-  const handleCancelClick = () => {
-    navigate(`/therapist/patient/${numericPatientId}`);
+  const handleAddAppointmentClick = () => {
+    setIsAddAppointmentModalOpen(true);
   };
 
   return (
@@ -69,19 +72,27 @@ export default function TherapistPatientAppointments() {
             type: 'basic',
             text: 'Proposer rendez-vous',
             style: 'nav',
-            // onClick: handleClick,
+            onClick: handleAddAppointmentClick,
           }}
         />
+
         <CustomBtn
           btn={{
             type: 'cancel',
             hasBorder: true,
             text: 'Retour',
             style: 'nav',
-            onClick: handleCancelClick,
+            to: `/therapist/patient/${numericPatientId}`,
           }}
         />
       </div>
+
+      {isAddAppointmentModalOpen && (
+        <AddAppointmentModal
+          onClose={() => setIsAddAppointmentModalOpen(false)}
+          isOpen={isAddAppointmentModalOpen}
+        />
+      )}
     </div>
   );
 }

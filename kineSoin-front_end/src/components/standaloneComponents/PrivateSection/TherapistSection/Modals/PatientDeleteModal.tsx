@@ -25,8 +25,13 @@ export default function PatientDeleteModal({ isOpen, onClose }: IModalProps) {
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div>
-        <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full text-center">
-          <p className="text-base md:text-lg">Cabinet kinésithérapie Ruffec</p>
+        <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex flex-col justify-center text-white font-medium text-lg md:text-xl text-center">
+          <p className="text-base md:text-lg mb-2">
+            Cabinet kinésithérapie Ruffec
+          </p>
+          <p className="text-sm md:text-base text-center italic">
+            Suppression du patient
+          </p>
         </div>
 
         <div className="bg-primaryTeal py-8 w-full flex flex-col items-center relative mb-14">

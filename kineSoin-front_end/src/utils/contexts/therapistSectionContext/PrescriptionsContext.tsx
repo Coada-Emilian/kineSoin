@@ -1,10 +1,18 @@
 import { createContext, useContext, useState } from 'react';
-import { ISameDayAppointment } from '../../../@types/interfaces/customInterfaces';
+import {
+  IPatientPrescription,
+  ISameDayAppointment,
+} from '../../../@types/interfaces/customInterfaces';
 
 interface PrescriptionsContextType {
   selectedPrescription: ISameDayAppointment['prescription'] | null;
   setSelectedPrescription: React.Dispatch<
     React.SetStateAction<ISameDayAppointment['prescription'] | null>
+  >;
+
+  patientPrescriptions: IPatientPrescription[] | null;
+  setPatientPrescriptions: React.Dispatch<
+    React.SetStateAction<IPatientPrescription[] | null>
   >;
 }
 const PrescriptionsContext = createContext<
@@ -20,9 +28,18 @@ export const PrescriptionsContextProvider = ({
     ISameDayAppointment['prescription'] | null
   >(null);
 
+  const [patientPrescriptions, setPatientPrescriptions] = useState<
+    IPatientPrescription[] | null
+  >(null);
+
   return (
     <PrescriptionsContext.Provider
-      value={{ selectedPrescription, setSelectedPrescription }}
+      value={{
+        selectedPrescription,
+        setSelectedPrescription,
+        patientPrescriptions,
+        setPatientPrescriptions,
+      }}
     >
       {children}
     </PrescriptionsContext.Provider>

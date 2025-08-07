@@ -24,7 +24,7 @@ export const useFetchAllPatientsDataByTherapist = ({
         fullName: patient.fullName,
         picture_url: patient.picture_url,
         status: patient.status,
-        therapist: patient.therapist,
+        therapist: patient.therapist || null,
       }));
     },
   });

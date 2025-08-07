@@ -9,6 +9,11 @@ interface TherapistContextType {
   setBasicTherapistDetails?: React.Dispatch<
     React.SetStateAction<IUserProfile | undefined>
   >;
+
+  selectedTherapist: IUserProfile | undefined;
+  setSelectedTherapist: React.Dispatch<
+    React.SetStateAction<IUserProfile | undefined>
+  >;
 }
 
 const TherapistContext = createContext<TherapistContextType | undefined>(
@@ -27,6 +32,7 @@ export const TherapistContextProvider = ({
     IUserProfile | undefined
   >(undefined);
 
+  const [selectedTherapist, setSelectedTherapist] = useState<IUserProfile>();
   return (
     <TherapistContext.Provider
       value={{
@@ -34,6 +40,8 @@ export const TherapistContextProvider = ({
         setTherapistProfiles,
         basicTherapistDetails,
         setBasicTherapistDetails,
+        selectedTherapist,
+        setSelectedTherapist,
       }}
     >
       {children}

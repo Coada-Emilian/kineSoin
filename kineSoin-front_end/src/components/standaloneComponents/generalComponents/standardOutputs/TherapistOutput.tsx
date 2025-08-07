@@ -12,7 +12,11 @@ export default function TherapistOutput({
   return (
     <BaseOutput
       label="Thérapeute"
-      value={`${therapist_name} ${therapist_surname}`}
+      value={
+        therapist_name && therapist_surname
+          ? `${therapist_name} ${therapist_surname}`
+          : 'Inconnu'
+      }
     />
   );
 }

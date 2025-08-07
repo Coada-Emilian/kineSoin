@@ -13,9 +13,9 @@ import { IdOutputRefactor } from '../../../generalComponents/standardOutputs';
 import PatientDeleteModal from '../modals/PatientDeleteModal';
 import SendMessageModal from '../modals/SendMessageModal';
 import PatientDetailsBottomButtons from './TherapistPatientDetailsBottomButtons';
+import TherapistPatientDetailsInteractiveButtons from './TherapistPatientDetailsInteractiveButtons';
 import TherapistPatientDetailsOutputs from './TherapistPatientDetailsOutputs';
 import TherapistPatientDetailsUtilityButtons from './TherapistPatientDetailsUtilityButtons';
-import TherapistPatientDetailsInteractiveButtons from './TherapistPatientDetailsInteractiveButtons';
 
 export default function TherapistPatientDetails() {
   const { patientId } = useParams();
@@ -63,12 +63,29 @@ export default function TherapistPatientDetails() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget as HTMLFormElement);
-    formData.append('status', entityStatus ?? '');
+    const submittedTherapistId = formData.get('therapist_id');
+
+    const hadTherapistBefore = !!patientDetails?.therapist?.id;
+    const hasTherapistNow =
+      submittedTherapistId && submittedTherapistId !== '0';
+
+    // Determine whether therapist is being assigned for the first time
+    const isNewTherapistAssignment = !hadTherapistBefore && hasTherapistNow;
+
+    // Logic to set status
+    if (isNewTherapistAssignment) {
+      formData.set('status', 'active');
+    } else {
+      formData.set('status', entityStatus ?? '');
+    }
+
     modifyPatientDetailsMutation.mutate({
       patient_id: patientDetails?.id ?? 0,
       formData,
     });
+
     setIsPatientProfileEditing(false);
   };
 

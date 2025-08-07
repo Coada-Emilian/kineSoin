@@ -19,7 +19,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663204/2_xz1eqc.webp"
   },
   {
-    "therapist_id": 2,
+    "therapist_id": null,
     "name": "Martin",
     "birth_name": "Martin",
     "surname": "Lucie",
@@ -95,7 +95,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663206/5_usos8t.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Garnier",
     "birth_name": "Garnier",
     "surname": "Claire",
@@ -114,7 +114,7 @@
     "picture_url": "https://img.freepik.com/photos-gratuite/coup-moyen-femme-agee-s-amusant_23-2149304701.jpg?t=st=1725824111~exp=1725827711~hmac=ca4d5e5fdbc247de47068ea54c809bec9ace856caa157fcd9c60fd19b19b3985&w=360"
   },
   {
-    "therapist_id": 2,
+    "therapist_id": null,
     "name": "Bouchard",
     "birth_name": "Bouchard",
     "surname": "Alain",
@@ -205,7 +205,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663208/11_y3k0se.webp"
   },
   {
-    "therapist_id": 2,
+    "therapist_id": null,
     "name": "Brun",
     "birth_name": "Brun",
     "surname": "Chantal",
@@ -295,7 +295,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663208/21_xqfczw.webp"
   },
   {
-    "therapist_id": 2,
+    "therapist_id": null,
     "name": "Gros",
     "birth_name": "Gros",
     "surname": "Robert",
@@ -385,7 +385,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726652589/hen-451984_1280-min_qtshk5.webp"
   },
   {
-    "therapist_id": 2,
+    "therapist_id": null,
     "name": "Lemoine",
     "birth_name": "Lemoine",
     "surname": "Julien",
@@ -457,7 +457,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663208/27_crgkll.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Pichon",
     "birth_name": "Pichon",
     "surname": "Marc",
@@ -547,7 +547,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663207/17_srmuxx.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Renaud",
     "birth_name": "Renaud",
     "surname": "Céline",
@@ -637,7 +637,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663217/37_mpchav.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Pires",
     "birth_name": "Pires",
     "surname": "Antoine",
@@ -727,7 +727,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663209/28_tb4jx5.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Dufour",
     "birth_name": "Dufour",
     "surname": "Élodie",
@@ -817,7 +817,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663221/45_dg1isd.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Leblanc",
     "birth_name": "Leblanc",
     "surname": "Matthieu",
@@ -925,7 +925,7 @@
     "picture_url": "https://img.freepik.com/photos-gratuite/blonde-senior-woman-dancing-fond-jaune_23-2149310433.jpg?t=st=1725827367~exp=1725830967~hmac=1515c405a9d88d2ce9224a010836960c5386be947f38626a930901837039daa7&w=360"
   },
   {
-    "therapist_id": 2,
+    "therapist_id": null,
     "name": "Bernard",
     "birth_name": "Bernard",
     "surname": "Olivier",
@@ -997,7 +997,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663222/55_t6rytc.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Bourgeois",
     "birth_name": "Bourgeois",
     "surname": "Jules",
@@ -1087,7 +1087,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663222/48_onlmen.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Joubert",
     "birth_name": "Joubert",
     "surname": "Sébastien",
@@ -1177,7 +1177,7 @@
     "picture_url": "https://res.cloudinary.com/dsb2ihfdx/image/upload/v1726663222/54_uas2w2.webp"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Barret",
     "birth_name": "Barret",
     "surname": "Laurent",
@@ -1285,7 +1285,7 @@
     "picture_url": "https://img.freepik.com/free-photo/portrait-senior-woman-wearing-red-shirt_23-2149082565.jpg?ga=GA1.1.1596265537.1724756005&semt=ais_hybrid"
   },
   {
-    "therapist_id": 2,
+    "therapist_id": null,
     "name": "Renard",
     "birth_name": "Renard",
     "surname": "Luc",
@@ -1357,7 +1357,7 @@
     "picture_url": "https://img.freepik.com/free-photo/front-view-woman-posing-with-hat_23-2150872148.jpg?ga=GA1.1.1596265537.1724756005&semt=ais_hybrid"
   },
   {
-    "therapist_id": 1,
+    "therapist_id": null,
     "name": "Blanc",
     "birth_name": "Blanc",
     "surname": "Julien",

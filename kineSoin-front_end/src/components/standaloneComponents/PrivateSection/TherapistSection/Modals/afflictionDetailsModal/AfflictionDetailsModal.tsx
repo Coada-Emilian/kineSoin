@@ -9,35 +9,6 @@ export default function AfflictionDetailsModal({
   isOpen,
   onClose,
 }: IModalProps) {
-  //   const { selectedPatient, setPatientDetails, patientDetails } =
-  //     usePatientsContext();
-
-  //   const { isLoading, isFetching } = useFetchPatientDetailsByTherapist({
-  //     patient_id: selectedPatient?.id ?? 0,
-  //     setPatientDetails,
-  //   });
-
-  //   // Always call hooks first
-  //   useEffect(() => {
-  //     console.log(patientDetails);
-  //   }, [patientDetails]);
-
-  //   if (isLoading || isFetching) {
-  //     return (
-  //       <div className="flex justify-center items-center h-96 w-full">
-  //         <DNALoader />
-  //       </div>
-  //     );
-  //   }
-
-  //   if (!selectedPatient) {
-  //     return (
-  //       <BaseModal isOpen={isOpen} onClose={onClose}>
-  //         <p>No patient selected.</p>
-  //       </BaseModal>
-  //     );
-  //   }
-
   const { selectedAppointment } = useAppointmentsContext();
 
   const selectedAffliction = selectedAppointment?.prescription.affliction;

@@ -110,6 +110,7 @@ INSERT INTO "prescriptions" ("medic_id", "patient_id", "affliction_id", "appoint
 (4, 23, 8, 6,false, false, true, '2022-12-15', 'https://as5.ftcdn.net/v2/jpg/00/51/75/63/1000_F_51756300_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (5, 24, 9, 20,false, false, true, '2022-01-20', 'https://as2.ftcdn.net/v2/jpg/00/51/75/64/1000_F_51756400_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (5, 25, 10, 11,false, false, false, '2022-02-10', 'https://as1.ftcdn.net/v2/jpg/00/51/75/60/1000_F_51756000_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
+(5, 25, 10, 20,false, false, false, '2022-06-25', 'https://as1.ftcdn.net/v2/jpg/00/51/75/60/1000_F_51756000_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (1, 26, 11, 5,false, false, true, '2022-03-15', 'https://as3.ftcdn.net/v2/jpg/00/51/75/61/1000_F_51756100_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (1, 27, 12, 8,false, false, false, '2022-04-20', 'https://as4.ftcdn.net/v2/jpg/00/51/75/62/1000_F_51756200_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),
 (2, 28, 13, 9,false, false, true, '2022-05-11', 'https://as5.ftcdn.net/v2/jpg/00/51/75/63/1000_F_51756300_BnBi2Xrc7U24AYt2bZn5eRAV9wo0PsNQ.jpg', NOW()),

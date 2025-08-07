@@ -35,6 +35,17 @@ export interface ISameDayAppointment {
   };
 }
 
+export interface IPatientPrescription {
+  id: number;
+  date: string;
+  appointment_quantity: number;
+  completed_appointment_quantity: number;
+  is_new_prescription: boolean;
+  is_completed: boolean;
+  at_home_care: boolean;
+  picture_url: string;
+}
+
 export interface ICalendarAppointment {
   id: number;
   date: string;

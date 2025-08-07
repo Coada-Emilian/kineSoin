@@ -8,6 +8,7 @@ import { authenticateTherapist } from '../../middlewares/userAuthentication.js';
 import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
 import patientController from '../controllers/patientController.js';
+import prescriptionController from '../controllers/prescriptionController.js';
 import therapistController from '../controllers/therapistController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
@@ -100,6 +101,12 @@ therapistRouter.get(
   '/me/patient/:patient_id/appointments',
   authenticateTherapist,
   wrapper(appointmentController.getPatientAppointmentsAsTherapist)
+);
+
+therapistRouter.get(
+  '/me/patient/:patient_id/prescriptions',
+  authenticateTherapist,
+  wrapper(prescriptionController.getPatientPrescriptionsAsTherapist)
 );
 
 therapistRouter.get(

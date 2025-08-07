@@ -33,6 +33,9 @@ interface UIContextType {
   setIsAfflictionDetailsModalOpen: React.Dispatch<
     React.SetStateAction<boolean>
   >;
+
+  isAddAppointmentModalOpen: boolean;
+  setIsAddAppointmentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -54,6 +57,9 @@ export const UIContextProvider = ({
   const [isPatientDetailsModalOpen, setIsPatientDetailsModalOpen] =
     useState(false);
   const [isAfflictionDetailsModalOpen, setIsAfflictionDetailsModalOpen] =
+    useState(false);
+
+  const [isAddAppointmentModalOpen, setIsAddAppointmentModalOpen] =
     useState(false);
 
   const handleDynamicModeClick = () => {
@@ -84,6 +90,8 @@ export const UIContextProvider = ({
         setIsPatientDetailsModalOpen,
         isAfflictionDetailsModalOpen,
         setIsAfflictionDetailsModalOpen,
+        isAddAppointmentModalOpen,
+        setIsAddAppointmentModalOpen,
       }}
     >
       {children}

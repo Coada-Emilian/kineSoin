@@ -3,6 +3,7 @@
 import addNewPrescription from '../../utils/prescription_controller_utils/patient_utils/addNewPrescription.js';
 import getAllPrescriptionsAsPatient from '../../utils/prescription_controller_utils/patient_utils/getAllPrescriptionsAsPatient.js';
 import getOnePrescription from '../../utils/prescription_controller_utils/patient_utils/getOnePrescription.js';
+import getPatientPrescriptionsAsTherapist from '../../utils/prescription_controller_utils/therapist_utils/getPatientPrescriptionsAsTherapist.js';
 
 const prescriptionController = {
   // Function to get all prescriptions for a patient
@@ -13,6 +14,8 @@ const prescriptionController = {
 
   // Get one prescription
   getOnePrescription,
+
+  getPatientPrescriptionsAsTherapist,
 };
 
 export default prescriptionController;

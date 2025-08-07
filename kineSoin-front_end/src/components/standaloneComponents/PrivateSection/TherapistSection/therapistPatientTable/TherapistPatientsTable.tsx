@@ -4,7 +4,6 @@ import { useTableContext } from '../../../../../utils/contexts/therapistSectionC
 import { useUIContext } from '../../../../../utils/contexts/therapistSectionContext/UIContext';
 import DNALoader from '../../../../../utils/DNALoader';
 import { useFetchAllPatientsDataByTherapist } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchAllPatientsDataByTherapist';
-import { useFetchTherapistPatientsData } from '../../../../../utils/functions/privateSection/therapistSection/hooks/useFetchTherapistPatientsData';
 import PatientDeleteModal from '../modals/PatientDeleteModal';
 import PatientsTableBody from './PatientsTableBody';
 import PatientsTableHead from './PatientsTableHead';
@@ -15,33 +14,35 @@ interface TableProps {
 }
 
 export default function TherapistPatientsTable({ therapist }: TableProps) {
-  const { setTherapistPatients, setAllPatients } = usePatientsContext();
+  const { setAllPatients } = usePatientsContext();
 
   const { tableType } = useTableContext();
 
-  const { therapistPatients, allPatients } = usePatientsContext();
+  const { allPatients } = usePatientsContext();
 
   const { isDeletePatientModalOpen, setIsDeletePatientModalOpen } =
     useUIContext();
-
-  const {
-    isLoading: isTherapistPatientsLoading,
-    isFetching: isTherapistPatientsFetching,
-  } = useFetchTherapistPatientsData({
-    setTherapistPatients,
-  });
 
   const { isLoading: isAllPatientsLoading, isFetching: isAllPatientsFetching } =
     useFetchAllPatientsDataByTherapist({
       setAllPatients,
     });
 
+  const filteredTherapistPatients = allPatients.filter(
+    (patient) => patient.therapist?.id === therapist.id
+  );
+
+  const allFilteredPatients = allPatients.filter(
+    (patient) => patient.status !== 'pending'
+  );
+
+  const pendingPatients = allPatients.filter(
+    (patient) => patient.status === 'pending'
+  );
+
   return (
     <>
-      {(isTherapistPatientsLoading ||
-        isTherapistPatientsFetching ||
-        isAllPatientsLoading ||
-        isAllPatientsFetching) && (
+      {(isAllPatientsLoading || isAllPatientsFetching) && (
         <div className="flex justify-center items-center h-96 w-full">
           <DNALoader />
         </div>
@@ -54,7 +55,11 @@ export default function TherapistPatientsTable({ therapist }: TableProps) {
 
         <PatientsTableBody
           patients={
-            tableType === 'therapistPatients' ? therapistPatients : allPatients
+            tableType === 'therapistPatients'
+              ? filteredTherapistPatients
+              : tableType === 'pendingPatients'
+                ? pendingPatients
+                : allFilteredPatients
           }
           therapist={therapist}
         />
