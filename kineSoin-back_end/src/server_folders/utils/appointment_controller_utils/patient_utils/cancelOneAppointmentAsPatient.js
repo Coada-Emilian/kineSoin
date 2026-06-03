@@ -18,8 +18,8 @@
  * @returns {object} JSON response with status and message indicating success or failure.
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function cancelOneAppointmentAsPatient(req, res) {
   const patient_id = parseInt(req.patient_id, 10);

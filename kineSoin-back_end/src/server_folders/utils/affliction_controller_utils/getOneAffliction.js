@@ -25,8 +25,8 @@
  * @requires checkIsValidNumber - Utility function to validate numeric IDs.
  */
 
+import { checkIsValidNumber } from '../../middlewares/checkIsValidNumber.js';
 import { Affliction } from '../../models/index.js';
-import { checkIsValidNumber } from '../checkIsValidNumber.js';
 
 export default async function getOneAffliction(req, res) {
   const admin_id = parseInt(req.admin_id, 10);

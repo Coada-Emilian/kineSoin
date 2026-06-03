@@ -15,8 +15,8 @@
  * @returns {object} JSON success or error message indicating the result of the deletion attempt
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment } from '../../../models/associations.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function deleteAppointmentAsTherapist(req, res) {
   const therapist_id = parseInt(req.therapist_id, 10);

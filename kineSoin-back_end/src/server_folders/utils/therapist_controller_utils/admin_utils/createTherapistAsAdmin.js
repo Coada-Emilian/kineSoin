@@ -3,8 +3,8 @@ import Joi from 'joi';
 import multer from 'multer';
 import { Scrypt } from '../../../authentification/Scrypt.js';
 import { therapistPhotoStorage } from '../../../cloudinary/index.js';
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Therapist } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 multer({ storage: therapistPhotoStorage });
 

@@ -1,5 +1,5 @@
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment, Patient } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function getPatientAppointmentsAsTherapist(req, res) {
   const therapist_id = parseInt(req.therapist_id, 10);

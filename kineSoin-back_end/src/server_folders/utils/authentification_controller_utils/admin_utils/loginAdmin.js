@@ -16,70 +16,53 @@
  * @returns {Object} 200 OK with token and admin info on success, or appropriate error status on failure.
  */
 
-import Joi from 'joi';
 import jsonwebtoken from 'jsonwebtoken';
 import { Scrypt } from '../../../authentification/Scrypt.js';
 import { Admin } from '../../../models/index.js';
+import loginAdminSchema from '../../joi_validations/authentification_validations/loginAdminSchema.js';
 
 export default async function loginAdmin(req, res) {
-  const loginAdminSchema = Joi.object({
-    email: Joi.string()
-      .max(255)
-      .email({
-        minDomainSegments: 2,
-        tlds: { allow: ['com', 'net', 'fr'] },
-      })
-      .required(),
-    password: Joi.required(),
-  });
+  const { error } = loginAdminSchema.validate(req.body);
 
-  if (!req.body) {
-    return res.status(400).json({
-      message: 'Request body is missing. Please provide the necessary data.',
-    });
+  if (error) {
+    return res.status(400).json({ message: error.message });
   } else {
-    const { error } = loginAdminSchema.validate(req.body);
+    const { email, password } = req.body;
 
-    if (error) {
-      return res.status(400).json({ message: error.message });
+    const foundAdmin = await Admin.findOne({
+      where: { email },
+      attributes: ['id', 'name', 'password'],
+    });
+
+    if (!foundAdmin) {
+      return res.status(401).json({
+        message: `Invalid email or password. Please try again.`,
+      });
     }
-  }
 
-  const { email, password } = req.body;
+    const isPasswordValid = Scrypt.compare(password, foundAdmin.password);
 
-  const foundAdmin = await Admin.findOne({
-    where: { email },
-    attributes: ['id', 'name', 'password'],
-  });
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        message:
+          'Unauthorized access. Please check your credentials and try again.',
+      });
+    } else {
+      const jwtContent = { admin_id: foundAdmin.id };
 
-  if (!foundAdmin) {
-    return res.status(401).json({
-      message: `Invalid email or password. Please try again.`,
-    });
-  }
+      const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
+        expiresIn: '3h',
+        algorithm: 'HS256',
+      });
 
-  const isPasswordValid = Scrypt.compare(password, foundAdmin.password);
+      req.session.admin_id = foundAdmin.id;
 
-  if (!isPasswordValid) {
-    return res.status(401).json({
-      message:
-        'Unauthorized access. Please check your credentials and try again.',
-    });
-  } else {
-    const jwtContent = { admin_id: foundAdmin.id };
-
-    const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
-      expiresIn: '3h',
-      algorithm: 'HS256',
-    });
-
-    req.session.admin_id = foundAdmin.id;
-
-    res.status(200).json({
-      message: 'Admin logged in successfully.',
-      id: foundAdmin.id,
-      name: foundAdmin.name,
-      token,
-    });
+      res.status(200).json({
+        message: 'Admin logged in successfully.',
+        id: foundAdmin.id,
+        name: foundAdmin.name,
+        token,
+      });
+    }
   }
 }

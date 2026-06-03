@@ -19,9 +19,9 @@
  */
 
 import Joi from 'joi';
-import { Scrypt } from '../../../authentification/Scrypt.js';
-import { Patient } from '../../../models/index.js';
-import computeAge from '../../computeAge.js';
+import { Scrypt } from '../../authentification/Scrypt.js';
+import { Patient } from '../../models/index.js';
+import computeAge from '../computeAge.js';
 
 export default async function registerPatient(req, res) {
   const registerPatientSchema = Joi.object({

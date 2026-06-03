@@ -1,5 +1,5 @@
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Medic } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function getMedicNamesAsPatient(req, res) {
   const patient_id = parseInt(req.patient_id, 10);

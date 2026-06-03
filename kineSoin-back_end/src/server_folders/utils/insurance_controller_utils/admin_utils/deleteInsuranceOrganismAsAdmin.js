@@ -18,8 +18,8 @@
  * @param {Object} res - Express response object used to send the result of the deletion operation.
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Insurance } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function deleteInsuranceOrganismAsAdmin(req, res) {
   const admin_id = parseInt(req.admin_id, 10);

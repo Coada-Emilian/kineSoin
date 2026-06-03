@@ -1,5 +1,5 @@
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Patient } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
 
 export default async function getConnectedPatientData(req, res) {

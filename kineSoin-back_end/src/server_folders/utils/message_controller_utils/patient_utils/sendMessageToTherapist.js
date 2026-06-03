@@ -1,6 +1,6 @@
 import Joi from 'joi';
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Patient, Patient_message } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
 
 export default async function sendMessageToTherapist(req, res) {

@@ -1,6 +1,6 @@
 import Joi from 'joi';
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Patient, Prescription } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
 
 export default async function addNewPrescription(req, res) {

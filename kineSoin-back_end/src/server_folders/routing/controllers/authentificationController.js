@@ -21,13 +21,9 @@ import 'dotenv/config';
 import loginAdmin from '../../utils/authentification_controller_utils/admin_utils/loginAdmin.js';
 import checkPatientPassword from '../../utils/authentification_controller_utils/patient_utils/checkPAtientPassword.js';
 import loginPatient from '../../utils/authentification_controller_utils/patient_utils/loginPatient.js';
-import registerPatient from '../../utils/authentification_controller_utils/patient_utils/registerPatient.js';
 import loginTherapist from '../../utils/authentification_controller_utils/therapist_utils/loginTherapist.js';
 
 const authentificationController = {
-  // Function to register a new patient
-  registerPatient,
-
   // Function to login patient
   loginPatient,
 

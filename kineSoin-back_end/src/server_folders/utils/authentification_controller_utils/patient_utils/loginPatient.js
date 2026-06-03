@@ -22,6 +22,7 @@ import { Patient } from '../../../models/index.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
 
 export default async function loginPatient(req, res) {
+  // Define Joi schema for validating login input
   const loginPatientSchema = Joi.object({
     email: Joi.string()
       .max(255)
@@ -30,6 +31,7 @@ export default async function loginPatient(req, res) {
     password: Joi.required(),
   });
 
+  // Validate request body and handle missing or invalid input
   if (!req.body) {
     return res.status(400).json({
       message: 'Request body is missing. Please provide the necessary data.',
@@ -48,30 +50,37 @@ export default async function loginPatient(req, res) {
       attributes: ['id', 'name', 'surname', 'picture_url', 'password'],
     });
 
-    checkPatientStatus(foundPatient);
-
-    const isPasswordValid = Scrypt.compare(password, foundPatient.password);
-
-    if (!isPasswordValid) {
+    if (!foundPatient) {
       return res.status(401).json({
         message:
           'Unauthorized access. Please check your credentials and try again.',
       });
+    } else {
+      checkPatientStatus(foundPatient);
+
+      const isPasswordValid = Scrypt.compare(password, foundPatient.password);
+
+      if (!isPasswordValid) {
+        return res.status(401).json({
+          message:
+            'Unauthorized access. Please check your credentials and try again.',
+        });
+      }
+
+      const jwtContent = { patient_id: foundPatient.id };
+
+      const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
+        expiresIn: '3h',
+        algorithm: 'HS256',
+      });
+
+      res.status(200).json({
+        message: 'Patient logged in successfully.',
+        id: foundPatient.id,
+        fullName: `${foundPatient.name} ${foundPatient.surname}`,
+        picture_url: foundPatient.picture_url,
+        token,
+      });
     }
-
-    const jwtContent = { patient_id: foundPatient.id };
-
-    const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
-      expiresIn: '3h',
-      algorithm: 'HS256',
-    });
-
-    res.status(200).json({
-      message: 'Patient logged in successfully.',
-      id: foundPatient.id,
-      fullName: `${foundPatient.name} ${foundPatient.surname}`,
-      picture_url: foundPatient.picture_url,
-      token,
-    });
   }
 }

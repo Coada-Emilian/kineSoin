@@ -20,8 +20,8 @@
  */
 
 import Joi from 'joi';
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Insurance } from '../../../models/associations.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function updateInsuranceOrganismAsAdmin(req, res) {
   const admin_id = parseInt(req.admin_id, 10);

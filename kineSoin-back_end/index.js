@@ -23,18 +23,18 @@
  * - Starts the server and listens on the specified port from environment variables.
  */
 
+import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
+import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import cors from 'cors';
-import session from 'express-session';
 
 import { sanitizeRequestBody } from './src/server_folders/middlewares/sanitizeRequestBody.js';
-import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
-import { patientRouter } from './src/server_folders/routing/routers/patientRouter.js';
-import { therapistRouter } from './src/server_folders/routing/routers/therapistRouter.js';
 import { adminRouter } from './src/server_folders/routing/routers/adminRouter.js';
+import { patientRouter } from './src/server_folders/routing/routers/patientRouter.js';
+import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
+import { therapistRouter } from './src/server_folders/routing/routers/therapistRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -64,10 +64,10 @@ app.use(cors(corsOptions));
 
 app.use(sanitizeRequestBody);
 
+app.use('/api/admin', adminRouter);
 app.use('/api/public', publicRouter);
 app.use('/api/patient', patientRouter);
 app.use('/api/therapist', therapistRouter);
-app.use('/api/admin', adminRouter);
 
 app.disable('x-powered-by');
 

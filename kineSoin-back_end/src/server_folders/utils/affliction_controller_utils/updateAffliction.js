@@ -27,8 +27,8 @@
  */
 
 import Joi from 'joi';
+import { checkIsValidNumber } from '../../middlewares/checkIsValidNumber.js';
 import { Affliction } from '../../models/index.js';
-import { checkIsValidNumber } from '../checkIsValidNumber.js';
 
 export default async function updateAffliction(req, res) {
   const admin_id = parseInt(req.admin_id, 10);

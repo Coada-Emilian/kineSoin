@@ -21,8 +21,8 @@
  * @returns {object} JSON of appointment data or error message
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function getOneAppointmentAsPatient(req, res) {
   const patient_id = parseInt(req.patient_id, 10);

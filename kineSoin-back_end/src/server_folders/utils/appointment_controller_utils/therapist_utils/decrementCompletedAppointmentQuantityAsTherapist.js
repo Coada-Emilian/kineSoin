@@ -15,8 +15,8 @@
  * @returns {object} JSON success or error message
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Prescription } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function decrementCompletedAppointmentQuantityAsTherapist(
   req,

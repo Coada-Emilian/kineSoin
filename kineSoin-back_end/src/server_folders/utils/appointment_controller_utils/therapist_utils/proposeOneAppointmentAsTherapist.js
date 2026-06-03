@@ -19,8 +19,8 @@
  * @returns {object} JSON with success or error message and appointment data if created
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function proposeOneAppointmentAsTherapist(req, res) {
   // const therapistId = parseInt(req.body.therapist_id, 10);

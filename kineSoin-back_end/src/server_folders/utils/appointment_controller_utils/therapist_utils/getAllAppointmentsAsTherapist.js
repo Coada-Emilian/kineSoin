@@ -17,8 +17,8 @@
  * @returns {object} JSON with either a message indicating no appointments or a list of found appointments
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function getAllAppointmentAsTherapist(req, res) {
   const therapist_id = parseInt(req.therapist_id, 10);

@@ -16,25 +16,25 @@ const therapistController = {
   // Function to get a patient's personal therapist
   getPersonalTherapistAsPatient,
 
-  // Function to get all therapists
+  // Function to get all therapists as admin
   getAllTherapistsAsAdmin,
 
-  // Function to get one therapist
+  // Function to get one therapist as admin
   getOneTherapistAsAdmin,
 
-  // Function to update a therapist by
+  // Function to update a therapist as admin
   updateTherapistAsAdmin,
 
-  // Function to delete a therapist
+  // Function to delete a therapist as admin
   deleteTherapistAsAdmin,
 
-  // Function to create a therapist
+  // Function to create a therapist as admin
   createTherapistAsAdmin,
 
-  // Function to toggle therapist status
+  // Function to toggle therapist status as admin
   changeTherapistStatusAsAdmin,
 
-  // Function to toggle therapist status
+  // Function to toggle therapist status as admin
   toggleTherapistStatusAsAdmin,
 
   // Get therapist's data
@@ -49,6 +49,7 @@ const therapistController = {
   // Upload therapist's photo
   uploadTherapistPhoto,
 
+  // Function to get all therapists as therapist
   getAllTherapistsAsTherapist,
 };
 

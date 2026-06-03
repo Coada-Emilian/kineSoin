@@ -1,6 +1,6 @@
 import Joi from 'joi';
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Patient } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function updatePatientAsTherapist(req, res) {
   const therapist_id = parseInt(req.therapist_id, 10);

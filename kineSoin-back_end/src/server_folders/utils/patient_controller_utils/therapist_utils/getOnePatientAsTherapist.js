@@ -1,5 +1,5 @@
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Patient, Patient_Insurance } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 import computeAge from '../../computeAge.js';
 
 export default async function getOnePatientAsTherapist(req, res) {

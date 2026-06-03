@@ -15,8 +15,12 @@
  * checkIsValidNumber('abc'); // returns false
  * checkIsValidNumber('123'); // returns true
  */
-export function checkIsValidNumber(number) {
-  if (typeof number !== 'number' || isNaN(number) || number <= 0) {
+
+export function checkIsValidNumber(value) {
+  const isInvalid =
+    typeof value !== 'number' || Number.isNaN(value) || value <= 0;
+
+  if (isInvalid) {
     throw new Error('Invalid ID: must be a positive number');
   }
 }

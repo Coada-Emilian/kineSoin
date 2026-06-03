@@ -24,8 +24,8 @@
  * @requires checkIsValidNumber - Utility function for validating numeric inputs.
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Body_region } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 export default async function deleteBodyRegion(req, res) {
   const admin_id = parseInt(req.admin_id, 10);

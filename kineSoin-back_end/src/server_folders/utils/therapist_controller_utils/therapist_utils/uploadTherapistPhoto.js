@@ -1,8 +1,8 @@
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../../cloudinary/index.js';
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Therapist } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 multer({ storage: therapistPhotoStorage });
 

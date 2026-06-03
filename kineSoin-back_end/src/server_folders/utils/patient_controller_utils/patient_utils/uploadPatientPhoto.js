@@ -1,8 +1,8 @@
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 import { patientPhotoStorage } from '../../../cloudinary/index.js';
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Patient } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 
 multer({ storage: patientPhotoStorage });
 export default async function uploadPatientPhoto(req, res) {

@@ -19,8 +19,8 @@
  * @param {Object} res - Express response object for sending data or error messages.
  */
 
+import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Insurance, Patient } from '../../../models/index.js';
-import { checkIsValidNumber } from '../../checkIsValidNumber.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
 
 export default async function getInsurancesAsPatient(req, res) {
