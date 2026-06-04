@@ -35,15 +35,11 @@ export default async function getOneTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
   if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
+    return res.status(400).json({ message: 'Admin ID is required' });
   } else {
     const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
 
     try {
-      if (!therapist_id) {
-        return res.status(400).json({ message: 'Therapist ID is required' });
-      }
-
       const foundTherapist = await Therapist.findByPk(therapist_id, {
         attributes: {
           exclude: [
@@ -60,15 +56,14 @@ export default async function getOneTherapistAsAdmin(req, res) {
 
       if (!foundTherapist) {
         return res.status(400).json({ message: 'Therapist not found' });
-      } else {
-        const fullPhoneNumber = `${foundTherapist.prefix}${foundTherapist.phone_number}`;
-
-        const fullName = `${foundTherapist.name} ${foundTherapist.surname}`;
-
-        return res
-          .status(200)
-          .json({ ...foundTherapist.dataValues, fullName, fullPhoneNumber });
       }
+      const fullPhoneNumber = `${foundTherapist.prefix}${foundTherapist.phone_number}`;
+
+      const fullName = `${foundTherapist.name} ${foundTherapist.surname}`;
+
+      return res
+        .status(200)
+        .json({ ...foundTherapist.dataValues, fullName, fullPhoneNumber });
     } catch (err) {
       console.error('Error fetching therapist:', err);
       return res.status(500).json({ message: 'Internal server error' });

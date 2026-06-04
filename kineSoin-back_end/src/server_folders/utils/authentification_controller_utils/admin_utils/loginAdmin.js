@@ -17,7 +17,7 @@
  */
 
 import jsonwebtoken from 'jsonwebtoken';
-import { Scrypt } from '../../../authentification/Scrypt.js';
+import validatePassword from '../../../middlewares/validatePassword.js';
 import { Admin } from '../../../models/index.js';
 import loginAdminSchema from '../../joi_validations/authentification_validations/loginAdminSchema.js';
 
@@ -40,7 +40,7 @@ export default async function loginAdmin(req, res) {
       });
     }
 
-    const isPasswordValid = Scrypt.compare(password, foundAdmin.password);
+    const isPasswordValid = validatePassword(password, foundAdmin.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({

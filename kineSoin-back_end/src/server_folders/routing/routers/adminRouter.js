@@ -1,3 +1,33 @@
+/**
+ * @module adminRouter
+ * @description
+ * This module defines all administrative API routes for the application.
+ * It handles CRUD operations and management features for multiple entities
+ * within the system, all restricted to authenticated admin users.
+ *
+ * Protected by:
+ * - `authenticateAdmin` middleware to ensure only authorized admins can access these routes.
+ * - `controllerWrapper` to handle async errors consistently across all controllers.
+ *
+ * Features included:
+ * - Admin authentication (login)
+ * - Therapist management (create, read, update, delete, status changes, photo upload)
+ * - Patient management (read, update status, delete)
+ * - Affliction management (CRUD operations)
+ * - Medic management (CRUD operations)
+ * - Body region management (create, read, delete)
+ * - Insurance organism management (CRUD operations)
+ *
+ * Notable implementations:
+ * - Uses Multer with Cloudinary storage (`therapistPhotoStorage`) for handling therapist image uploads.
+ * - Follows a RESTful structure with consistent and predictable endpoints.
+ * - Separates concerns by delegating business logic to dedicated controllers.
+ *
+ * This router acts as the central entry point for all admin-related actions
+ * in the system, ensuring a clean separation between admin operations and
+ * other application layers.
+ */
+
 import { Router } from 'express';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
@@ -17,21 +47,21 @@ export const adminRouter = Router();
 // Route to login an admin
 adminRouter.post('/login', wrapper(authentificationController.loginAdmin));
 
-// Route to get all therapists
+// Route to get all therapists as admin
 adminRouter.get(
   '/therapists',
   authenticateAdmin,
   wrapper(therapistController.getAllTherapistsAsAdmin)
 );
 
-// Route to get one therapist
+// Route to get one therapist as admin
 adminRouter.get(
   '/therapists/:therapist_id',
   authenticateAdmin,
   wrapper(therapistController.getOneTherapistAsAdmin)
 );
 
-// Route to create a new therapist
+// Route to create a new therapist as admin
 adminRouter.post(
   '/therapists',
   authenticateAdmin,
@@ -39,7 +69,7 @@ adminRouter.post(
   wrapper(therapistController.createTherapistAsAdmin)
 );
 
-// Route to update a therapist
+// Route to update a therapist as admin
 adminRouter.put(
   '/therapists/:therapist_id',
   authenticateAdmin,
@@ -47,88 +77,88 @@ adminRouter.put(
   wrapper(therapistController.updateTherapistAsAdmin)
 );
 
-// Route to toggle therapist status change
+// Route to toggle therapist status change as admin
 adminRouter.put(
   '/therapists/:therapist_id/changeStatus',
   authenticateAdmin,
   wrapper(therapistController.changeTherapistStatusAsAdmin)
 );
 
-// Route to toggle therapist status
+// Route to toggle therapist status as admin
 adminRouter.patch(
   '/therapists/:therapist_id/toggleStatus',
   authenticateAdmin,
   wrapper(therapistController.toggleTherapistStatusAsAdmin)
 );
 
-// Route to delete a therapist
+// Route to delete a therapist as admin
 adminRouter.delete(
   '/therapists/:therapist_id',
   authenticateAdmin,
   wrapper(therapistController.deleteTherapistAsAdmin)
 );
 
-// Route to get all patients
+// Route to get all patients as admin
 adminRouter.get(
   '/allPatients',
   authenticateAdmin,
   wrapper(patientController.getAllPatientsAsAdmin)
 );
 
-// Route to get one patient
+// Route to get one patient as admin
 adminRouter.get(
   '/patients/:patient_id',
   authenticateAdmin,
   wrapper(patientController.getOnePatientAsAdmin)
 );
 
-// Route to change patient status
+// Route to change patient status as admin
 adminRouter.put(
   '/patients/:patient_id/changeStatus',
   authenticateAdmin,
   wrapper(patientController.changePatientStatusAsAdmin)
 );
 
-// Route to delete a patient
+// Route to delete a patient as admin
 adminRouter.delete(
   '/patients/:patient_id',
   authenticateAdmin,
   wrapper(patientController.deletePatientAsAdmin)
 );
 
-// Route to get all afflictions
+// Route to get all afflictions as admin
 adminRouter.get(
   '/afflictions',
   authenticateAdmin,
-  wrapper(afflictionController.getAllAfflictions)
+  wrapper(afflictionController.getAllAfflictionsAsAdmin)
 );
 
-// Route to get one affliction
+// Route to get one affliction as admin
 adminRouter.get(
   '/afflictions/:affliction_id',
   authenticateAdmin,
-  wrapper(afflictionController.getOneAffliction)
+  wrapper(afflictionController.getOneAfflictionAsAdmin)
 );
 
-// Route to create a new affliction
+// Route to create a new affliction as admin
 adminRouter.post(
   '/afflictions',
   authenticateAdmin,
-  wrapper(afflictionController.createAffliction)
+  wrapper(afflictionController.createAfflictionAsAdmin)
 );
 
-// Route to delete an affliction
+// Route to delete an affliction as admin
 adminRouter.delete(
   '/afflictions/:affliction_id',
   authenticateAdmin,
-  wrapper(afflictionController.deleteAffliction)
+  wrapper(afflictionController.deleteAfflictionAsAdmin)
 );
 
-// Route to update an affliction
+// Route to update an affliction as admin
 adminRouter.put(
   '/afflictions/:affliction_id',
   authenticateAdmin,
-  wrapper(afflictionController.updateAffliction)
+  wrapper(afflictionController.updateAfflictionAsAdmin)
 );
 
 // Route to get all medics

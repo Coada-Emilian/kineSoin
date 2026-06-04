@@ -36,7 +36,7 @@ export default async function getAllTherapistsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
   if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
+    return res.status(400).json({ message: 'Invalid admin ID' });
   } else {
     try {
       const foundTherapists = await Therapist.findAll({
@@ -47,22 +47,22 @@ export default async function getAllTherapistsAsAdmin(req, res) {
         ],
       });
 
-      if (!foundTherapists) {
+      if (foundTherapists.length === 0) {
         return res.status(400).json({ message: 'No therapists found' });
-      } else {
-        const allTherapists = [];
-
-        for (const therapist of foundTherapists) {
-          const newTherapist = {
-            id: therapist.id,
-            fullName: `${therapist.name} ${therapist.surname}`,
-            status: therapist.status,
-          };
-          allTherapists.push(newTherapist);
-        }
-
-        return res.status(200).json(allTherapists);
       }
+
+      const allTherapists = [];
+
+      for (const therapist of foundTherapists) {
+        const newTherapist = {
+          id: therapist.id,
+          fullName: `${therapist.name} ${therapist.surname}`,
+          status: therapist.status,
+        };
+        allTherapists.push(newTherapist);
+      }
+
+      return res.status(200).json(allTherapists);
     } catch (err) {
       console.error('Error fetching therapists:', err);
       return res.status(500).json({ message: 'Internal server error' });

@@ -13,9 +13,6 @@ import updateConnectedTherapist from '../../utils/therapist_controller_utils/the
 import uploadTherapistPhoto from '../../utils/therapist_controller_utils/therapist_utils/uploadTherapistPhoto.js';
 
 const therapistController = {
-  // Function to get a patient's personal therapist
-  getPersonalTherapistAsPatient,
-
   // Function to get all therapists as admin
   getAllTherapistsAsAdmin,
 
@@ -51,6 +48,9 @@ const therapistController = {
 
   // Function to get all therapists as therapist
   getAllTherapistsAsTherapist,
+
+  // Function to get a patient's personal therapist
+  getPersonalTherapistAsPatient,
 };
 
 export default therapistController;

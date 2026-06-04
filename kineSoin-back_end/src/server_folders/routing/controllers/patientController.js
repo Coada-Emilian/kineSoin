@@ -13,16 +13,16 @@ import togglePatientStatusAsTherapist from '../../utils/patient_controller_utils
 import updatePatientAsTherapist from '../../utils/therapist_controller_utils/patient_utils/updatePatientAsTherapist.js';
 
 const patientController = {
-  // Function to get all patients
+  // Function to get all patients as an admin
   getAllPatientsAsAdmin,
 
-  // Function to get one patient
+  // Function to get one patient as an admin
   getOnePatientAsAdmin,
 
-  // Function to toggle the patient's status
+  // Function to toggle the patient's status as an admin
   changePatientStatusAsAdmin,
 
-  // Function to delete a patient
+  // Function to delete a patient as an admin
   deletePatientAsAdmin,
 
   // Function to get the connected patient's data

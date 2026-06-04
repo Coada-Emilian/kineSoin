@@ -1,18 +1,46 @@
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+/**
+ * @function deletePatientAsAdmin
+ * @description
+ * Deletes a patient from the system through the admin panel.
+ *
+ * This controller:
+ * - Validates the admin ID using `getValidId`.
+ * - Validates the patient ID from request parameters.
+ * - Attempts to delete the patient record from the database.
+ * - Checks whether a record was actually deleted.
+ *
+ * Behavior:
+ * - Permanently removes a patient from the database if found.
+ * - Returns an error if no patient matches the provided ID.
+ *
+ * Error handling:
+ * - Returns 400 if admin ID or patient ID is invalid.
+ * - Returns 400 if the patient does not exist.
+ * - Returns 500 for unexpected server/database errors.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.admin_id` {number} Admin ID injected by authentication middleware.
+ *   - `req.params.patient_id` {string|number} Patient ID to delete.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response confirming deletion or describing errors.
+ *
+ * @sideEffects
+ * - Permanently deletes a patient record from the database.
+ */
+
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Patient } from '../../../models/index.js';
 
 export default async function deletePatientAsAdmin(req, res) {
-  const admin_id = parseInt(req.admin_id, 10);
-
-  checkIsValidNumber(admin_id);
+  const admin_id = getValidId(req.admin_id, 'Admin ID');
 
   if (!admin_id) {
     return res.status(400).json({ message: 'Admin not found' });
   } else {
     try {
-      const patient_id = parseInt(req.params.patient_id, 10);
-
-      checkIsValidNumber(patient_id);
+      const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
       const response = await Patient.destroy({ where: { id: patient_id } });
 
