@@ -1,6 +1,6 @@
-import createBodyRegion from '../../utils/affliction_controller_utils/body_region_utils/createBodyRegion.js';
-import deleteBodyRegion from '../../utils/affliction_controller_utils/body_region_utils/deleteBodyRegion.js';
-import getAllBodyRegions from '../../utils/affliction_controller_utils/body_region_utils/getAllBodyRegions.js';
+import createBodyRegionAsAdmin from '../../utils/affliction_controller_utils/body_region_utils/createBodyRegionAsAdmin.js';
+import deleteBodyRegionAsAdmin from '../../utils/affliction_controller_utils/body_region_utils/deleteBodyRegionAsAdmin.js';
+import getAllBodyRegionsAsAdmin from '../../utils/affliction_controller_utils/body_region_utils/getAllBodyRegionsAsAdmin.js';
 import createAfflictionAsAdmin from '../../utils/affliction_controller_utils/createAfflictionAsAdmin.js';
 import deleteAfflictionAsAdmin from '../../utils/affliction_controller_utils/deleteAfflictionAsAdmin.js';
 import getAfflictionNamesAsPatient from '../../utils/affliction_controller_utils/getAfflictionNamesAsPatient.js';
@@ -24,14 +24,14 @@ const afflictionController = {
   // Function to delete an affliction as admin
   deleteAfflictionAsAdmin,
 
-  // Function to get all body regions
-  getAllBodyRegions,
+  // Function to get all body regions as admin
+  getAllBodyRegionsAsAdmin,
 
-  // Function to create a new body region
-  createBodyRegion,
+  // Function to create a new body region as admin
+  createBodyRegionAsAdmin,
 
   // Function to delete one body region
-  deleteBodyRegion,
+  deleteBodyRegionAsAdmin,
 
   // Function to get affliction names as a patient
   getAfflictionNamesAsPatient,

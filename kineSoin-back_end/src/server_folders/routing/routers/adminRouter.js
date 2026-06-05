@@ -162,7 +162,7 @@ adminRouter.put(
 );
 
 // Route to get all medics as admin
-adminRouter.get( 
+adminRouter.get(
   '/medics',
   authenticateAdmin,
   wrapper(medicController.getAllMedicsAsAdmin)
@@ -196,25 +196,25 @@ adminRouter.delete(
   wrapper(medicController.deleteMedicAsAdmin)
 );
 
-// Route to get all body regions
+// Route to get all body regions as admin
 adminRouter.get(
   '/bodyRegions',
   authenticateAdmin,
-  wrapper(afflictionController.getAllBodyRegions)
+  wrapper(afflictionController.getAllBodyRegionsAsAdmin)
 );
 
-// Route to create a new body region
+// Route to create a new body region as admin
 adminRouter.post(
   '/bodyRegions',
   authenticateAdmin,
-  wrapper(afflictionController.createBodyRegion)
+  wrapper(afflictionController.createBodyRegionAsAdmin)
 );
 
-// Route to delete a body region
+// Route to delete a body region as admin
 adminRouter.delete(
   '/bodyRegions/:body_region_id',
   authenticateAdmin,
-  wrapper(afflictionController.deleteBodyRegion)
+  wrapper(afflictionController.deleteBodyRegionAsAdmin)
 );
 
 // Route to get all insurance organisms
