@@ -8,6 +8,7 @@ export interface IEmailInput {
   value?: string;
   isFlexRow?: boolean;
   autoComplete?: string;
+  isRequired?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

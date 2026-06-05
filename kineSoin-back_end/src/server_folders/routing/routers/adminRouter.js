@@ -161,35 +161,35 @@ adminRouter.put(
   wrapper(afflictionController.updateAfflictionAsAdmin)
 );
 
-// Route to get all medics
-adminRouter.get(
+// Route to get all medics as admin
+adminRouter.get( 
   '/medics',
   authenticateAdmin,
   wrapper(medicController.getAllMedicsAsAdmin)
 );
 
-// Route to get one medic
+// Route to get one medic as admin
 adminRouter.get(
   '/medics/:medic_id',
   authenticateAdmin,
   wrapper(medicController.getOneMedicAsAdmin)
 );
 
-// Route to create a new medic
+// Route to create a new medic as admin
 adminRouter.post(
   '/medics',
   authenticateAdmin,
   wrapper(medicController.createMedicAsAdmin)
 );
 
-// Route to update a medic
+// Route to update a medic as admin
 adminRouter.put(
   '/medics/:medic_id',
   authenticateAdmin,
   wrapper(medicController.updateMedicAsAdmin)
 );
 
-// Route to delete a medic
+// Route to delete a medic as admin
 adminRouter.delete(
   '/medics/:medic_id',
   authenticateAdmin,

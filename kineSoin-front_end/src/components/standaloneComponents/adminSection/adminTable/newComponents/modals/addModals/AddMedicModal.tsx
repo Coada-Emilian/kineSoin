@@ -30,6 +30,7 @@
 import { usePrefixesContext } from '../../../../../../../utils/contexts/PrefixesContext';
 import DNALoader from '../../../../../../../utils/DNALoader';
 import { useSubmitMedicMutation } from '../../../../../../../utils/functions/adminSection/adminTable/mutations/modalMutations/medicModalMutations/useMedicSubmitMutation';
+import { StandardEmailInputRefactor } from '../../../../../generalComponents/standardInputs/newInputs';
 import StandardDropdownInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardDropdownInputRefactor';
 import StandardTelephoneInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTelephoneInputRefactor';
 import StandardTextInputRefactor from '../../../../../generalComponents/standardInputs/newInputs/StandardTextInputRefactor';
@@ -190,6 +191,18 @@ export default function AddMedicModal({ isOpen, onClose }: AddMedicModalProps) {
               }}
             />
           </div>
+
+          <StandardEmailInputRefactor
+            emailInput={{
+              id: 'medic-register-email_input',
+              isRequired: true,
+              labelName: 'E-mail',
+              autoComplete: 'email',
+              name: 'email',
+              placeholder: "Entrez l'adresse email du médecin",
+              additionalDivClassName: 'w-3/4',
+            }}
+          />
 
           <CreateButtonsSection onClose={onClose} />
         </form>

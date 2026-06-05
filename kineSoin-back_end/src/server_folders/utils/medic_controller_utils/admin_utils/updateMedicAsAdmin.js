@@ -1,17 +1,55 @@
-import Joi from 'joi';
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+/**
+ * @function updateMedicAsAdmin
+ * @description
+ * Updates an existing medic record through the admin panel.
+ *
+ * This controller:
+ * - Validates the admin ID using `getValidId`.
+ * - Validates the medic ID from request parameters.
+ * - Ensures the request body is provided.
+ * - Retrieves the existing medic from the database.
+ * - Merges incoming data with existing medic values to support partial updates.
+ * - Rebuilds the full phone number using the provided prefix and phone number.
+ * - Validates the updated medic data using Joi schema (`updatedMedicSchema`).
+ * - Updates the medic record in the database.
+ *
+ * Behavior:
+ * - Supports partial updates by preserving existing values when fields are omitted.
+ * - Ensures the medic exists before applying modifications.
+ * - Validates all updated data before persisting changes.
+ *
+ * Error handling:
+ * - Returns 400 if admin ID or medic ID is invalid.
+ * - Returns 400 if the request body is empty.
+ * - Returns 400 if validation fails.
+ * - Returns 404 if the medic is not found.
+ * - Returns 500 if the update fails or an unexpected server/database error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.admin_id` {number} Admin ID injected by authentication middleware.
+ *   - `req.params.medic_id` {string|number} Medic ID to update.
+ *   - `req.body` {Object} Medic update data.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing the updated medic or an error message.
+ *
+ * @sideEffects
+ * - Updates an existing medic record in the database.
+ */
+
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Medic } from '../../../models/index.js';
+import updatedMedicSchema from '../../joi_validations/update_validations/updatedMedicSchema.js';
 
 export default async function updateMedicAsAdmin(req, res) {
-  const admin_id = parseInt(req.admin_id, 10);
-  checkIsValidNumber(admin_id);
+  const admin_id = getValidId(req.admin_id, 'Admin ID');
 
   if (!admin_id) {
     return res.status(400).json({ message: 'Admin ID is required.' });
   }
 
-  const medic_id = parseInt(req.params.medic_id, 10);
-  checkIsValidNumber(medic_id);
+  const medic_id = getValidId(req.params.medic_id, 'Medic ID');
 
   if (!req.body) {
     return res.status(400).json({
@@ -40,42 +78,22 @@ export default async function updateMedicAsAdmin(req, res) {
       prefix,
     } = req.body;
 
-    const fullPhoneNumber = prefix + phone_number;
-
     const newMedic = {
       admin_id: admin_id || foundMedic.admin_id,
-      name: name === '' ? foundMedic.name : name,
-      surname: surname === '' ? foundMedic.surname : surname,
-      street_number:
-        street_number === '' ? foundMedic.street_number : street_number,
-      street_name: street_name === '' ? foundMedic.street_name : street_name,
-      postal_code: postal_code === '' ? foundMedic.postal_code : postal_code,
-      city: city === '' ? foundMedic.city : city,
-      phone_number:
-        phone_number === '' ? foundMedic.phone_number : phone_number,
-      licence_code:
-        licence_code === '' ? foundMedic.licence_code : licence_code,
-      email: email === '' ? foundMedic.email : email,
-      prefix: prefix === '' ? foundMedic.prefix : prefix,
-      full_phone_number:
-        fullPhoneNumber === '' ? foundMedic.full_phone_number : fullPhoneNumber,
+      name: name || foundMedic.name,
+      surname: surname || foundMedic.surname,
+      street_number: street_number || foundMedic.street_number,
+      street_name: street_name || foundMedic.street_name,
+      postal_code: postal_code || foundMedic.postal_code,
+      city: city || foundMedic.city,
+      phone_number: phone_number || foundMedic.phone_number,
+      licence_code: licence_code || foundMedic.licence_code,
+      email: email || foundMedic.email,
+      prefix: prefix || foundMedic.prefix,
+      full_phone_number: prefix + phone_number || foundMedic.full_phone_number,
     };
 
-    const updatedMedicSchema = Joi.object({
-      admin_id: Joi.number().required(),
-      name: Joi.string().optional(),
-      surname: Joi.string().optional(),
-      street_number: Joi.string().optional(),
-      street_name: Joi.string().optional(),
-      postal_code: Joi.string().optional(),
-      city: Joi.string().optional(),
-      phone_number: Joi.string().optional(),
-      licence_code: Joi.string().optional(),
-      prefix: Joi.string().optional(),
-      full_phone_number: Joi.string().optional(),
-      email: Joi.string().email().optional(),
-    }).min(1);
-
+    console.log('Constructed newMedic object:', newMedic);
     const { error } = updatedMedicSchema.validate(newMedic);
     if (error) {
       return res.status(400).json({ message: error.details[0].message });

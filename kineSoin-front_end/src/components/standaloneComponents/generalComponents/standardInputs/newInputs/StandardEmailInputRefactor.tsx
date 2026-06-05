@@ -32,7 +32,7 @@ export default function StandardEmailInputRefactor({
         placeholder={emailInput.placeholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        required
+        required={emailInput.isRequired}
         autoComplete={emailInput.autoComplete}
       />
     </div>

@@ -8,21 +8,22 @@ import updateMedicAsAdmin from '../../utils/medic_controller_utils/admin_utils/u
 import getMedicNamesAsPatient from '../../utils/medic_controller_utils/patient_utils/getMedicNamesAsPatient.js';
 
 const medicController = {
-  // Function to get all medics
+  // Function to get all medics as admin
   getAllMedicsAsAdmin,
 
-  // Function to get one medic
+  // Function to get one medic as admin
   getOneMedicAsAdmin,
 
-  // Function to create a medic
+  // Function to create a medic as admin
   createMedicAsAdmin,
 
-  // Function to update a medic
+  // Function to update a medic as admin
   updateMedicAsAdmin,
 
-  // Function to delete a medic
+  // Function to delete a medic as admin
   deleteMedicAsAdmin,
 
+  // Function to get medic names as patient
   getMedicNamesAsPatient,
 };
 
