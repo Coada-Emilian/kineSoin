@@ -217,35 +217,35 @@ adminRouter.delete(
   wrapper(afflictionController.deleteBodyRegionAsAdmin)
 );
 
-// Route to get all insurance organisms
+// Route to get all insurance organisms as admin
 adminRouter.get(
   '/insuranceOrganisms',
   authenticateAdmin,
   wrapper(insuranceController.getAllInsuranceOrganismsAsAdmin)
 );
 
-// Route to get one insurance organism
+// Route to get one insurance organism as admin
 adminRouter.get(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
   wrapper(insuranceController.getOneInsuranceOrganismAsAdmin)
 );
 
-// Route to create a new insurance organism
+// Route to create a new insurance organism as admin
 adminRouter.post(
   '/insuranceOrganisms',
   authenticateAdmin,
   wrapper(insuranceController.createInsuranceOrganismAsAdmin)
 );
 
-// Route to delete an insurance organism
+// Route to delete an insurance organism as admin
 adminRouter.delete(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
   wrapper(insuranceController.deleteInsuranceOrganismAsAdmin)
 );
 
-// Route to update an insurance organism
+// Route to update an insurance organism as admin
 adminRouter.put(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
