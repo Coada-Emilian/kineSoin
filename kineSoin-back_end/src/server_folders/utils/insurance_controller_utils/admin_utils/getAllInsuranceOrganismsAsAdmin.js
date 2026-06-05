@@ -1,29 +1,43 @@
 /**
  * @function getAllInsuranceOrganismsAsAdmin
  * @description
- * Retrieves a list of all insurance organisms in the database. This action is reserved for admin users.
+ * Retrieves all insurance organisms (insurance providers) for the admin panel.
  *
- * Steps:
- * 1. Parses and validates `admin_id` from the request context.
- * 2. If valid, fetches all insurances using Sequelize’s `findAll()` method.
- * 3. Returns only selected attributes: `id`, `name`, and `amc_code`.
+ * This controller:
+ * - Validates the admin ID using `getValidId`.
+ * - Fetches all insurance records from the database using `Insurance.findAll`.
+ * - Selects only required attributes (id, name, amc_code).
+ * - Formats the data before sending the response.
  *
- * Responses:
- * - 200: Returns an array of insurance organisms.
- * - 400: Missing or invalid admin ID, or no insurances found.
- * - 500: Internal server error while retrieving data.
+ * Behavior:
+ * - Ensures only authenticated admin requests are processed.
+ * - Returns a simplified and structured list of insurance organisms.
+ * - Provides consistent output formatting for frontend consumption.
  *
- * @param {Object} req - Express request object, expects `admin_id` from authenticated context.
- * @param {Object} res - Express response object to return data or error messages.
+ * Error handling:
+ * - Returns 400 if admin ID is missing or invalid.
+ * - Returns 400 if no insurance records are found.
+ * - Returns 500 if a database or unexpected server error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.admin_id` {number} Admin ID injected by authentication middleware.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Array of insurance organisms `{ id, name, amc_code }`
+ *   - 400: Missing/invalid admin ID or no data found
+ *   - 500: Internal server error
+ *
+ * @sideEffects
+ * - None (read-only database operation).
  */
 
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Insurance } from '../../../models/index.js';
 
 export default async function getAllInsuranceOrganismsAsAdmin(req, res) {
-  const admin_id = parseInt(req.admin_id, 10);
-
-  checkIsValidNumber(admin_id);
+  const admin_id = getValidId(req.admin_id, 'Admin ID');
 
   if (!admin_id) {
     return res.status(400).json({ message: 'Admin ID is required.' });
@@ -36,7 +50,13 @@ export default async function getAllInsuranceOrganismsAsAdmin(req, res) {
       if (!allInsurances) {
         return res.status(400).json({ message: 'No insurance found' });
       } else {
-        return res.status(200).json(allInsurances);
+        const allInsurancesData = allInsurances.map((insurance) => ({
+          id: insurance.id,
+          name: insurance.name,
+          amc_code: insurance.amc_code,
+        }));
+
+        return res.status(200).json(allInsurancesData);
       }
     } catch (error) {
       return res.status(500).json({ message: 'Error fetching insurances.' });

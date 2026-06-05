@@ -1,38 +1,51 @@
 /**
  * @function deleteInsuranceOrganismAsAdmin
  * @description
- * Deletes an existing insurance organism entry from the system, initiated by an admin.
+ * Deletes an insurance organism (insurance provider) through the admin panel.
  *
- * Steps:
- * 1. Parses and validates `admin_id` from the request.
- * 2. Parses and validates `insurance_id` from request parameters.
- * 3. Checks if the insurance organism exists via `Insurance.findByPk`.
- * 4. If found, deletes it using Sequelize's `destroy()` method.
+ * This controller:
+ * - Validates the admin ID using `getValidId`.
+ * - Validates the insurance ID from request parameters.
+ * - Retrieves the insurance record from the database.
+ * - Deletes the insurance record if it exists.
  *
- * Responses:
- * - 200: Insurance organism successfully deleted.
- * - 400: Missing or invalid admin ID or insurance ID, or insurance not found.
- * - 500: Internal server error during the deletion process.
+ * Behavior:
+ * - Ensures only authenticated admin requests are processed.
+ * - Verifies existence of the insurance organism before deletion.
+ * - Permanently removes the insurance record from the database.
  *
- * @param {Object} req - Express request object, expects `admin_id` in auth context and `insurance_id` in route params.
- * @param {Object} res - Express response object used to send the result of the deletion operation.
+ * Error handling:
+ * - Returns 400 if admin ID is missing or invalid.
+ * - Returns 400 if insurance is not found.
+ * - Returns 400 if deletion fails.
+ * - Returns 500 if a database or unexpected server error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.admin_id` {number} Admin ID injected by authentication middleware.
+ *   - `req.params.insurance_id` {string|number} Insurance ID to delete.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Success message and deletion response
+ *   - 400: Missing/invalid admin ID, not found, or deletion failure
+ *   - 500: Internal server error
+ *
+ * @sideEffects
+ * - Permanently deletes an insurance organism record from the database.
  */
 
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Insurance } from '../../../models/index.js';
 
 export default async function deleteInsuranceOrganismAsAdmin(req, res) {
-  const admin_id = parseInt(req.admin_id, 10);
-
-  checkIsValidNumber(admin_id);
+  const admin_id = getValidId(req.admin_id, 'Admin ID');
 
   if (!admin_id) {
     return res.status(400).json({ message: 'Admin ID is required.' });
   } else {
     try {
-      const insurance_id = parseInt(req.params.insurance_id, 10);
-
-      checkIsValidNumber(insurance_id);
+      const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
 
       const foundInsurance = await Insurance.findByPk(insurance_id);
 

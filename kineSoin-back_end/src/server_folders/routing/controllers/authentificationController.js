@@ -1,20 +1,35 @@
 /**
  * @module authentificationController
  * @description
- * This controller manages all authentication-related operations for the three user roles:
- * - Patients
- * - Therapists
- * - Admins
+ * Centralized authentication controller registry for all user roles in the system.
  *
- * Functions include:
- * - `registerPatient`: Handles registration logic for a new patient.
- * - `loginPatient`: Authenticates a patient and returns a token if successful.
- * - `loginTherapist`: Authenticates a therapist and returns a token if successful.
- * - `loginAdmin`: Authenticates an admin and returns a token if successful.
- * - `checkPatientPassword`: Validates the patient’s password (used for confirmation flows).
+ * This module:
+ * - Loads environment variables using `dotenv/config`.
+ * - Aggregates authentication-related controller functions for admin, patient, and therapist.
+ * - Provides a single structured export for authentication routing and logic handling.
  *
- * These utilities ensure secure access control and token-based session management
- * across different types of users in the system.
+ * Included functionalities:
+ *
+ * Patient Authentication:
+ * - loginPatient: Authenticates a patient and returns login session/token data.
+ * - checkPatientPassword: Validates a patient's password without full login (e.g. pre-check or verification step).
+ *
+ * Therapist Authentication:
+ * - loginTherapist: Authenticates a therapist and returns login session/token data.
+ *
+ * Admin Authentication:
+ * - loginAdmin: Authenticates an admin user and returns login session/token data.
+ *
+ * Behavior:
+ * - Acts as a centralized entry point for authentication operations.
+ * - Separates authentication logic by user role (admin, patient, therapist).
+ * - Improves maintainability and modular structure of authentication flows.
+ *
+ * Security considerations:
+ * - Relies on environment variables for sensitive configuration (`dotenv/config`).
+ * - Delegates authentication logic to specialized utility functions per user type.
+ *
+ * @exports {Object} authentificationController - Collection of authentication controller functions.
  */
 
 import 'dotenv/config';

@@ -1,40 +1,66 @@
 /**
  * @function updateInsuranceOrganismAsAdmin
  * @description
- * Updates an existing insurance organism's data in the database, accessible only by admins.
+ * Updates an existing insurance organism (insurance provider) through the admin panel.
  *
- * Steps:
- * 1. Validates `admin_id` from the authenticated context.
- * 2. Parses and validates `insurance_id` from request parameters.
- * 3. Validates the request body using Joi to ensure at least one field is provided.
- * 4. Retrieves the insurance organism by primary key using Sequelize.
- * 5. Merges new values with existing ones and updates the database.
+ * This controller:
+ * - Validates the admin ID using `getValidId`.
+ * - Validates the insurance ID from request parameters.
+ * - Ensures the request body is provided.
+ * - Validates incoming data using Joi schema (`updatedInsuranceSchema`).
+ * - Retrieves the existing insurance record from the database.
+ * - Merges incoming data with existing values to support partial updates.
+ * - Recomputes the full phone number when applicable.
+ * - Updates the insurance record in the database.
  *
- * Responses:
- * - 200: Returns a success message with the updated insurance data.
- * - 400: If `admin_id`, `insurance_id`, or request body is invalid or the insurance is not found.
- * - 500: If any unexpected error occurs during processing.
+ * Behavior:
+ * - Supports partial updates by preserving existing values when fields are omitted.
+ * - Ensures the insurance organism exists before applying modifications.
+ * - Produces a consistent and updated data structure after changes.
  *
- * @param {Object} req - Express request object; expects `admin_id`, `insurance_id` and update data in the body.
- * @param {Object} res - Express response object for sending results or errors.
+ * Error handling:
+ * - Returns 400 if admin ID is missing or invalid.
+ * - Returns 400 if request body is missing.
+ * - Returns 400 if validation fails.
+ * - Returns 400 if insurance is not found.
+ * - Returns 500 if update fails or an unexpected server/database error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.admin_id` {number} Admin ID injected by authentication middleware.
+ *   - `req.params.insurance_id` {string|number} Insurance ID to update.
+ *   - `req.body` {Object} Insurance update data.
+ *     - `name` {string} Insurance name.
+ *     - `amc_code` {string} AMC code.
+ *     - `street_number` {string|number} Street number.
+ *     - `street_name` {string} Street name.
+ *     - `postal_code` {string} Postal code.
+ *     - `city` {string} City.
+ *     - `prefix` {string} Phone prefix.
+ *     - `phone_number` {string} Phone number.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Updated insurance organism object
+ *   - 400: Validation errors, missing data, or not found
+ *   - 500: Internal server error
+ *
+ * @sideEffects
+ * - Updates an existing insurance organism record in the database.
  */
 
-import Joi from 'joi';
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Insurance } from '../../../models/associations.js';
+import updatedInsuranceSchema from '../../joi_validations/update_validations/updatedInsuranceSchema.js';
 
 export default async function updateInsuranceOrganismAsAdmin(req, res) {
-  const admin_id = parseInt(req.admin_id, 10);
-
-  checkIsValidNumber(admin_id);
+  const admin_id = getValidId(req.admin_id, 'Admin ID');
 
   if (!admin_id) {
     return res.status(400).json({ message: 'Admin ID is required.' });
   } else {
     try {
-      const insurance_id = parseInt(req.params.insurance_id, 10);
-
-      checkIsValidNumber(insurance_id);
+      const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
 
       if (!req.body) {
         return res.status(400).json({
@@ -42,19 +68,6 @@ export default async function updateInsuranceOrganismAsAdmin(req, res) {
             'Request body is missing. Please provide the necessary data.',
         });
       } else {
-        const updatedInsuranceSchema = Joi.object({
-          admin_id: Joi.number().optional(),
-          name: Joi.string().optional(),
-          amc_code: Joi.string().optional(),
-          street_number: Joi.string().optional(),
-          street_name: Joi.string().optional(),
-          postal_code: Joi.string().optional(),
-          city: Joi.string().optional(),
-          phone_number: Joi.string().optional(),
-          prefix: Joi.string().optional(),
-          full_phone_number: Joi.string().optional(),
-        }).min(1);
-
         const { error } = updatedInsuranceSchema.validate(req.body);
 
         if (error) {
@@ -71,8 +84,6 @@ export default async function updateInsuranceOrganismAsAdmin(req, res) {
             phone_number,
           } = req.body;
 
-          const fullPhoneNumber = prefix + phone_number;
-
           const foundInsurance = await Insurance.findByPk(insurance_id);
 
           if (!foundInsurance) {
@@ -88,8 +99,7 @@ export default async function updateInsuranceOrganismAsAdmin(req, res) {
               city: city || foundInsurance.city,
               phone_number: phone_number || foundInsurance.phone_number,
               prefix: prefix || foundInsurance.prefix,
-              full_phone_number:
-                fullPhoneNumber || foundInsurance.full_phone_number,
+              full_phone_number: `${prefix && phone_number ? prefix + phone_number : foundInsurance.full_phone_number}`,
             };
 
             const response = await foundInsurance.update(sentInsurance);

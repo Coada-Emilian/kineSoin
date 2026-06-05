@@ -1,37 +1,51 @@
 /**
  * @function getOneInsuranceOrganismAsAdmin
  * @description
- * Retrieves detailed information about a specific insurance organism for admin users.
+ * Retrieves a single insurance organism (insurance provider) by ID through the admin panel.
  *
- * Steps:
- * 1. Validates `admin_id` from the authenticated context.
- * 2. Parses and validates `insurance_id` from request parameters.
- * 3. Retrieves the insurance record from the database using `findByPk()`.
- * 4. Constructs a response object with relevant insurance details including a formatted address and full phone number.
+ * This controller:
+ * - Validates the admin ID using `getValidId`.
+ * - Validates the insurance ID from request parameters.
+ * - Fetches the insurance record from the database using `Insurance.findByPk`.
+ * - Selects detailed attributes for full insurance information.
+ * - Formats and enriches the response with computed fields (address, full phone number).
  *
- * Responses:
- * - 200: Returns the detailed insurance information.
- * - 400: If `admin_id` or `insurance_id` is invalid or if the insurance is not found.
- * - 500: On internal server error during data retrieval.
+ * Behavior:
+ * - Ensures only authenticated admin requests are processed.
+ * - Returns a fully structured insurance object for frontend display.
+ * - Enhances raw database data with computed, human-readable fields.
  *
- * @param {Object} req - Express request object; expects `admin_id` and `insurance_id`.
- * @param {Object} res - Express response object for sending data or errors.
+ * Error handling:
+ * - Returns 400 if admin ID is missing or invalid.
+ * - Returns 400 if insurance is not found.
+ * - Returns 500 if a database or unexpected server error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.admin_id` {number} Admin ID injected by authentication middleware.
+ *   - `req.params.insurance_id` {string|number} Insurance ID to retrieve.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Detailed insurance organism object
+ *   - 400: Missing/invalid admin ID or not found
+ *   - 500: Internal server error
+ *
+ * @sideEffects
+ * - None (read-only database operation).
  */
 
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Insurance } from '../../../models/index.js';
 
 export default async function getOneInsuranceOrganismAsAdmin(req, res) {
-  const admin_id = parseInt(req.admin_id, 10);
+  const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  checkIsValidNumber(admin_id);
   if (!admin_id) {
     return res.status(400).json({ message: 'Admin ID is required.' });
   } else {
     try {
-      const insurance_id = parseInt(req.params.insurance_id, 10);
-
-      checkIsValidNumber(insurance_id);
+      const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
 
       const foundInsurance = await Insurance.findByPk(insurance_id, {
         attributes: [
@@ -48,9 +62,6 @@ export default async function getOneInsuranceOrganismAsAdmin(req, res) {
         ],
       });
 
-      const fullPhoneNumber =
-        foundInsurance.prefix + foundInsurance.phone_number;
-
       const sentInsurance = {
         id: foundInsurance.id,
         name: foundInsurance.name,
@@ -62,7 +73,7 @@ export default async function getOneInsuranceOrganismAsAdmin(req, res) {
         address: `${foundInsurance.street_number} ${foundInsurance.street_name}, ${foundInsurance.postal_code} ${foundInsurance.city}`,
         phone_number: foundInsurance.phone_number,
         prefix: foundInsurance.prefix,
-        full_phone_number: fullPhoneNumber,
+        full_phone_number: `${foundInsurance.prefix}${foundInsurance.phone_number}`,
       };
 
       if (!foundInsurance) {

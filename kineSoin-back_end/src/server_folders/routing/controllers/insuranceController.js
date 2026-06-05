@@ -29,27 +29,29 @@ import getInsurancesAsPatient from '../../utils/insurance_controller_utils/patie
 import updateInsuranceAsPatient from '../../utils/insurance_controller_utils/patient_utils/updateInsuranceAsPatient.js';
 
 const insuranceController = {
-  // Function to get all insurances for a patient
-  getInsurancesAsPatient,
-  // Function to update an insurance for a patient
-  updateInsuranceAsPatient,
-  // Function to add an insurance to a patient
-  addInsuranceAsPatient,
-
-  // Function to get all insurance organisms
+  // Function to get all insurance organisms as admin
   getAllInsuranceOrganismsAsAdmin,
 
-  // Function to delete an insurance organism
-  deleteInsuranceOrganismAsAdmin,
-
-  // Function to create an insurance organism
-  createInsuranceOrganismAsAdmin,
-
-  // Function to get one insurance organism
+  // Function to get one insurance organism as admin
   getOneInsuranceOrganismAsAdmin,
 
-  // Function to update an insurance organism
+  // Function to delete an insurance organism as admin
+  deleteInsuranceOrganismAsAdmin,
+
+  // Function to create an insurance organism as admin
+  createInsuranceOrganismAsAdmin,
+
+  // Function to update an insurance organism as admin
   updateInsuranceOrganismAsAdmin,
+
+  // Function to get all insurances for a patient
+  getInsurancesAsPatient,
+
+  // Function to update an insurance for a patient
+  updateInsuranceAsPatient,
+
+  // Function to add an insurance to a patient
+  addInsuranceAsPatient,
 };
 
 export default insuranceController;
