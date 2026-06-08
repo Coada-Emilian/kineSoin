@@ -1,38 +1,55 @@
 /**
- * @description Checks if the patient status is banned, pending, or inactive.
+ * @function checkPatientStatus
+ * @description
+ * Validates whether a patient's account status allows authentication and
+ * access to the application.
  *
- * This function:
- * - Accepts a patient object (foundPatient) as its parameter.
- * - Checks if the patient object is not found.
- *   - If the patient object is not found, throws an error with a message indicating that the account is not found.
+ * This utility:
+ * - Verifies that a patient record exists.
+ * - Checks the patient's account status.
+ * - Throws descriptive errors when the account is not eligible for login.
+ * - Returns `true` when the account is active and authorized.
  *
- * - Defines a statusMessages object with the following properties:
- *   - banned: A message indicating that the account is banned.
- *   - pending: A message indicating that the account is pending.
- *   - inactive: A message indicating that the account is inactive.
+ * Behavior:
+ * - Rejects authentication attempts for non-existent accounts.
+ * - Prevents access for patients whose accounts are:
+ *   - `banned`
+ *   - `pending`
+ *   - `inactive`
+ * - Allows authentication to continue when no restricted status is detected.
  *
- * - Checks if the patient's status matches any of the properties in the statusMessages object.
- *   - If the patient's status matches, throws an error with the corresponding message from the statusMessages object.
+ * Status validation:
+ * - `banned`: Account has been suspended and access is denied.
+ * - `pending`: Account is awaiting approval and cannot access the system.
+ * - `inactive`: Account has been deactivated and must be reactivated.
  *
- * - Returns true if the patient is found and their status is not banned, pending, or inactive.
+ * Error handling:
+ * - Throws an error if the patient record does not exist.
+ * - Throws an error if the patient's status is banned.
+ * - Throws an error if the patient's status is pending.
+ * - Throws an error if the patient's status is inactive.
  *
- * @param {Object} foundPatient - The patient object to be checked.
- * @returns {boolean} - Returns true if the patient is found and their status is valid, otherwise throws an error.
+ * @param {Object|null} foundPatient - Patient record retrieved from the database.
+ *   - `status` {string} Current patient account status.
  *
- * Example usage:
- * checkPatientStatus({ status: 'banned' }); // throws Error: "Invalid email or password. Your account is currently banned. Please contact support."
- * checkPatientStatus({ status: 'active' }); // returns true
- * checkPatientStatus(null); // throws Error: "Invalid email or password. Your account is currently not found. Please try again."
+ * @returns {boolean}
+ * - Returns `true` when the patient account is valid and allowed to proceed.
+ *
+ * @throws {Error}
+ * - If no patient record is provided.
+ * - If the patient's status prevents authentication.
+ *
+ * @sideEffects
+ * - None.
  */
+
 export function checkPatientStatus(foundPatient) {
-  // If the patient is not found, throw an error.
   if (!foundPatient) {
     throw new Error(
       'Invalid email or password. Your account is currently not found. Please try again.'
     );
   }
 
-  // If the patient status is banned, pending, or inactive, throw an error.
   const statusMessages = {
     banned: 'Your account is currently banned. Please contact support.',
     pending: 'Your account is currently pending. Please check back later.',

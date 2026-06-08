@@ -19,10 +19,10 @@
 import jsonwebtoken from 'jsonwebtoken';
 import validatePassword from '../../../middlewares/validatePassword.js';
 import { Admin } from '../../../models/index.js';
-import loginAdminSchema from '../../joi_validations/authentification_validations/loginAdminSchema.js';
+import loggedInAdminSchema from '../../joi_validations/authentification_validations/loggedInEntitySchema.js';
 
 export default async function loginAdmin(req, res) {
-  const { error } = loginAdminSchema.validate(req.body);
+  const { error } = loggedInAdminSchema.validate(req.body);
 
   if (error) {
     return res.status(400).json({ message: error.message });

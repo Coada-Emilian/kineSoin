@@ -77,4 +77,7 @@ const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`kineSoin server has started at http://localhost:${port}`);
+  console.log(
+    'TO DO: Check front-end for registration success and failure. You get the same confirmation page and not an error'
+  );
 });

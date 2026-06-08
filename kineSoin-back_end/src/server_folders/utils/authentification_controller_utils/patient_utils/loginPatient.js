@@ -1,43 +1,77 @@
 /**
  * @function loginPatient
  * @description
- * Handles the login process for a patient:
+ * Authenticates a patient and generates a JSON Web Token (JWT) for access
+ * to protected patient resources.
  *
- * 1. Validates the email and password from the request body using Joi schema.
- * 2. Retrieves the patient by email from the database.
- * 3. Uses a utility function `checkPatientStatus` to verify patient status (e.g. active or not).
- * 4. Compares the input password with the stored hashed password using Scrypt.
- * 5. If valid, creates a JWT token and returns patient data and token in response.
+ * This controller:
+ * - Ensures the request body is provided.
+ * - Validates login credentials using Joi schema (`loggedInPatientSchema`).
+ * - Retrieves the patient account using the provided email address.
+ * - Verifies the patient's account status using `checkPatientStatus`.
+ * - Compares the provided password against the stored hashed password using `Scrypt`.
+ * - Generates a JWT containing the patient's ID.
+ * - Returns authenticated patient information and the access token.
  *
- * @param {Object} req - Express request object. Requires `email` and `password` in `req.body`.
- * @param {Object} res - Express response object. Returns patient details and JWT on success.
+ * Behavior:
+ * - Authenticates patients using email and password credentials.
+ * - Uses secure password verification through password hashing.
+ * - Generates a JWT signed with the application's secret key.
+ * - Provides a token valid for 3 hours.
+ * - Returns only non-sensitive patient information in the response.
  *
- * @returns {Object} 200 OK on successful login, or appropriate error messages for validation/authentication failures.
+ * Security considerations:
+ * - Passwords are never returned to the client.
+ * - Password verification is performed using secure hash comparison.
+ * - JWTs are signed using the configured `TOKEN_KEY` environment variable.
+ * - Invalid credentials always return the same error message to avoid
+ *   exposing account existence information.
+ *
+ * Error handling:
+ * - Returns 400 if the request body is missing.
+ * - Returns 400 if validation fails.
+ * - Returns 401 if the email is not associated with an existing patient.
+ * - Returns 401 if the password is incorrect.
+ * - May return errors thrown by `checkPatientStatus` if the patient's
+ *   account status does not allow authentication.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.body` {Object} Login credentials.
+ *     - `email` {string} Patient email address.
+ *     - `password` {string} Patient password.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Authenticated patient information and JWT token.
+ *   - 400: Validation or missing data errors.
+ *   - 401: Authentication failure.
+ *
+ * Response payload:
+ * - `message` {string} Success message.
+ * - `id` {number} Patient ID.
+ * - `fullName` {string} Patient full name.
+ * - `picture_url` {string|null} Patient profile picture URL.
+ * - `token` {string} JWT access token.
+ *
+ * @sideEffects
+ * - Generates and signs a JWT token.
+ * - Performs authentication checks against the database.
  */
 
-import Joi from 'joi';
 import jsonwebtoken from 'jsonwebtoken';
 import { Scrypt } from '../../../authentification/Scrypt.js';
 import { Patient } from '../../../models/index.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
+import loggedInPatientSchema from '../../joi_validations/authentification_validations/loggedInEntitySchema.js';
 
 export default async function loginPatient(req, res) {
-  // Define Joi schema for validating login input
-  const loginPatientSchema = Joi.object({
-    email: Joi.string()
-      .max(255)
-      .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
-      .required(),
-    password: Joi.required(),
-  });
-
-  // Validate request body and handle missing or invalid input
   if (!req.body) {
     return res.status(400).json({
       message: 'Request body is missing. Please provide the necessary data.',
     });
   } else {
-    const { error } = loginPatientSchema.validate(req.body);
+    const { error } = loggedInPatientSchema.validate(req.body);
 
     if (error) {
       return res.status(400).json({ message: error.message });

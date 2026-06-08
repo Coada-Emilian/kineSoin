@@ -54,6 +54,7 @@ publicRouter.post(
   wrapper(authentificationController.loginPatient)
 );
 
+// Route to login a therapist
 publicRouter.post(
   '/loginTherapist',
   wrapper(authentificationController.loginTherapist)

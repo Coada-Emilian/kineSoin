@@ -1,41 +1,76 @@
 /**
  * @function loginTherapist
  * @description
- * Handles therapist login:
+ * Authenticates a therapist and generates a JSON Web Token (JWT) for access
+ * to protected therapist resources.
  *
- * 1. Validates input credentials using Joi schema (email and password).
- * 2. Searches for a therapist by email in the database.
- * 3. Verifies the therapist exists and is not inactive.
- * 4. Compares provided password with the stored hashed password using Scrypt.
- * 5. If valid, signs a JWT containing the therapist ID and returns it along with user details.
- * 6. Returns appropriate error messages if validation or authentication fails.
+ * This controller:
+ * - Ensures the request body is provided.
+ * - Validates login credentials using Joi schema (`loggedInTherapistSchema`).
+ * - Retrieves the therapist account using the provided email address.
+ * - Verifies that the therapist account exists.
+ * - Checks whether the therapist account is active.
+ * - Compares the provided password against the stored hashed password using `Scrypt`.
+ * - Generates a JWT containing the therapist's ID.
+ * - Returns authenticated therapist information and the access token.
  *
- * @param {Object} req - Express request object containing login credentials in `req.body`.
- * @param {Object} res - Express response object. Returns JWT, therapist details, or an error message.
+ * Behavior:
+ * - Authenticates therapists using email and password credentials.
+ * - Restricts access for inactive therapist accounts.
+ * - Uses secure password verification through password hashing.
+ * - Generates a JWT signed with the application's secret key.
+ * - Provides a token valid for 3 hours.
+ * - Returns only non-sensitive therapist information in the response.
  *
- * @returns {Object} 200 OK with token and user info, or 400/401 on error.
+ * Security considerations:
+ * - Passwords are never returned to the client.
+ * - Password verification is performed using secure hash comparison.
+ * - JWTs are signed using the configured `TOKEN_KEY` environment variable.
+ * - Authentication failures do not expose sensitive account information.
+ *
+ * Error handling:
+ * - Returns 400 if the request body is missing.
+ * - Returns 400 if validation fails.
+ * - Returns 401 if the therapist account does not exist.
+ * - Returns 401 if the therapist account is inactive.
+ * - Returns 401 if the password is incorrect.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.body` {Object} Login credentials.
+ *     - `email` {string} Therapist email address.
+ *     - `password` {string} Therapist password.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Authenticated therapist information and JWT token.
+ *   - 400: Validation or missing data errors.
+ *   - 401: Authentication failure.
+ *
+ * Response payload:
+ * - `message` {string} Success message.
+ * - `id` {number} Therapist ID.
+ * - `fullName` {string} Therapist full name.
+ * - `picture_url` {string|null} Therapist profile picture URL.
+ * - `token` {string} JWT access token.
+ *
+ * @sideEffects
+ * - Generates and signs a JWT token.
+ * - Performs authentication checks against the database.
  */
 
-import Joi from 'joi';
 import jsonwebtoken from 'jsonwebtoken';
 import { Scrypt } from '../../../authentification/Scrypt.js';
 import { Therapist } from '../../../models/index.js';
+import loggedInTherapistSchema from '../../joi_validations/authentification_validations/loggedInEntitySchema.js';
 
 export default async function loginTherapist(req, res) {
-  const loginTherapistSchema = Joi.object({
-    email: Joi.string()
-      .max(255)
-      .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
-      .required(),
-    password: Joi.required(),
-  });
-
   if (!req.body) {
     return res.status(400).json({
       message: 'Request body is missing. Please provide the necessary data.',
     });
   } else {
-    const { error } = loginTherapistSchema.validate(req.body);
+    const { error } = loggedInTherapistSchema.validate(req.body);
 
     if (error) {
       return res.status(400).json({ message: error.message });

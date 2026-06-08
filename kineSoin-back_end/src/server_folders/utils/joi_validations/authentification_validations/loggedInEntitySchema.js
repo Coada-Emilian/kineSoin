@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const loginAdminSchema = Joi.object({
+const loggedInEntitySchema = Joi.object({
   email: Joi.string()
     .max(255)
     .email({
@@ -11,4 +11,4 @@ const loginAdminSchema = Joi.object({
   password: Joi.required(),
 });
 
-export default loginAdminSchema;
+export default loggedInEntitySchema;
