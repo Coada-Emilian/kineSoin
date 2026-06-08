@@ -1,35 +1,59 @@
 /**
- * @description Allows a therapist to delete an appointment by its ID.
+ * @function deleteAppointmentAsTherapist
+ * @description
+ * Deletes an appointment belonging to an authenticated therapist.
  *
- * Validations and steps:
- * - Validates the therapist ID from the request.
- * - Validates the appointment ID from the request parameters.
- * - Attempts to delete the appointment matching the appointment ID and therapist ID.
- * - If no appointment is found/deleted, returns a 400 error with an appropriate message.
- * - If deletion is successful, returns a success message.
- * - Handles unexpected errors with a 500 status and logs the error.
+ * This controller:
+ * - Validates the therapist ID using `getValidId`.
+ * - Validates the appointment ID from request parameters.
+ * - Ensures the appointment belongs to the authenticated therapist.
+ * - Deletes the appointment from the database.
+ * - Returns a success message when deletion is completed.
  *
- * @param {object} req - Express request object containing therapist_id and params.appointment_id
- * @param {object} res - Express response object for sending JSON responses
+ * Behavior:
+ * - Ensures only authenticated therapists can delete appointments.
+ * - Restricts deletion to appointments associated with the requesting therapist.
+ * - Permanently removes the appointment record from the database.
  *
- * @returns {object} JSON success or error message indicating the result of the deletion attempt
+ * Error handling:
+ * - Returns 400 if the therapist ID is missing or invalid.
+ * - Returns 400 if the appointment ID is missing or invalid.
+ * - Returns 400 if the appointment cannot be found or deleted.
+ * - Returns 500 if a database or unexpected server error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.therapist_id` {number} Therapist ID injected by authentication middleware.
+ *   - `req.params.appointment_id` {string|number} Appointment ID to delete.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Success message confirming appointment deletion.
+ *   - 400: Invalid therapist ID, appointment ID, or appointment not found.
+ *   - 500: Internal server error.
+ *
+ * @sideEffects
+ * - Permanently deletes an appointment record from the database.
  */
 
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Appointment } from '../../../models/associations.js';
 
 export default async function deleteAppointmentAsTherapist(req, res) {
-  const therapist_id = parseInt(req.therapist_id, 10);
-
-  checkIsValidNumber(therapist_id);
+  const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
   if (!therapist_id) {
     return res.status(400).json({ message: 'Therapist not found' });
   } else {
     try {
-      const appointment_id = parseInt(req.params.appointment_id, 10);
+      const appointment_id = getValidId(
+        req.params.appointment_id,
+        'Appointment ID'
+      );
 
-      checkIsValidNumber(appointment_id);
+      if (!appointment_id) {
+        return res.status(400).json({ message: 'Appointment not found' });
+      }
 
       const deletedAppointment = await Appointment.destroy({
         where: { id: appointment_id, therapist_id },

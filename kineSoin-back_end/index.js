@@ -32,7 +32,6 @@ import { fileURLToPath } from 'url';
 
 import { sanitizeRequestBody } from './src/server_folders/middlewares/sanitizeRequestBody.js';
 import { adminRouter } from './src/server_folders/routing/routers/adminRouter.js';
-import { patientRouter } from './src/server_folders/routing/routers/patientRouter.js';
 import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
 import { therapistRouter } from './src/server_folders/routing/routers/therapistRouter.js';
 
@@ -65,9 +64,12 @@ app.use(cors(corsOptions));
 app.use(sanitizeRequestBody);
 
 app.use('/api/admin', adminRouter);
+
 app.use('/api/public', publicRouter);
-app.use('/api/patient', patientRouter);
+
 app.use('/api/therapist', therapistRouter);
+
+// app.use('/api/patient', patientRouter);
 
 app.disable('x-powered-by');
 
@@ -79,5 +81,11 @@ app.listen(port, () => {
   console.log(`kineSoin server has started at http://localhost:${port}`);
   console.log(
     'TO DO: Check front-end for registration success and failure. You get the same confirmation page and not an error'
+  );
+  console.log(
+    `TO DO: Patient status toggling working on the back end, but the front won't re-render patient tables`
+  );
+  console.log(
+    `TO DO: Don't forget you intended to have appointment cancelation and creation from the dashboard page via the patient modal`
   );
 });

@@ -1,16 +1,63 @@
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+/**
+ * @function getOnePatientAsTherapist
+ * @description
+ * Retrieves detailed information about a single patient for the therapist panel,
+ * including therapist relation, insurance details, and computed age.
+ *
+ * This controller:
+ * - Validates the therapist ID using `getValidId`.
+ * - Validates the patient ID from request parameters.
+ * - Fetches patient data excluding sensitive fields (passwords, internal metadata).
+ * - Includes associated therapist information.
+ * - Retrieves patient insurance details from `Patient_Insurance`.
+ * - Attaches insurance information to the patient response.
+ * - Computes and appends patient age using `computeAge`.
+ *
+ * Behavior:
+ * - Ensures only authenticated therapists can access patient details.
+ * - Provides a sanitized patient object without sensitive fields.
+ * - Enriches response with insurance and computed age data.
+ *
+ * Data enrichment:
+ * - `insurance_details`: linked insurance contract information.
+ * - `age`: computed from `birth_date`.
+ *
+ * Error handling:
+ * - Returns 400 if therapist ID is missing or invalid.
+ * - Returns 400 if patient is not found.
+ * - Returns 404 if patient insurance is not found.
+ * - Returns 500 if a database or unexpected server error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.therapist_id` {number} Therapist ID injected by authentication middleware.
+ *   - `req.params.patient_id` {string|number} Patient ID to retrieve.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Detailed patient object with insurance and age.
+ *   - 400: Patient not found or invalid therapist ID.
+ *   - 404: Patient insurance not found.
+ *   - 500: Internal server error.
+ *
+ * Response payload:
+ * - Patient object excluding sensitive fields.
+ * - `insurance_details` {Object} Patient insurance information.
+ * - `age` {number} Computed patient age.
+ *
+ * @sideEffects
+ * - None (read-only database queries).
+ */
+
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Patient, Patient_Insurance } from '../../../models/index.js';
 import computeAge from '../../computeAge.js';
 
 export default async function getOnePatientAsTherapist(req, res) {
-  const therapist_id = parseInt(req.therapist_id, 10);
-
-  checkIsValidNumber(therapist_id);
+  const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
   try {
-    const patient_id = parseInt(req.params.patient_id, 10);
-
-    checkIsValidNumber(patient_id);
+    const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
     const foundPatient = await Patient.findByPk(patient_id, {
       attributes: {

@@ -2,11 +2,7 @@ import changePatientStatusAsAdmin from '../../utils/patient_controller_utils/adm
 import deletePatientAsAdmin from '../../utils/patient_controller_utils/admin_utils/deletePatientAsAdmin.js';
 import getAllPatientsAsAdmin from '../../utils/patient_controller_utils/admin_utils/getAllPatientsAsAdmin.js';
 import getOnePatientAsAdmin from '../../utils/patient_controller_utils/admin_utils/getOnePatientAsAdmin.js';
-import getConnectedPatientData from '../../utils/patient_controller_utils/patient_utils/getConnectedPatientData.js';
-import updateConnectedPatient from '../../utils/patient_controller_utils/patient_utils/updateConnectedPatient.js';
-import uploadPatientPhoto from '../../utils/patient_controller_utils/patient_utils/uploadPatientPhoto.js';
 import deletePatientAsTherapist from '../../utils/patient_controller_utils/therapist_utils/deletePatientAsTherapist.js';
-import getAllAppointedPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllAppointedPatientsAsTherapist.js';
 import getAllPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllPatientsAsTherapist.js';
 import getOnePatientAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getOnePatientAsTherapist.js';
 import togglePatientStatusAsTherapist from '../../utils/patient_controller_utils/therapist_utils/togglePatientStatusAsTherapist.js';
@@ -25,31 +21,33 @@ const patientController = {
   // Function to delete a patient as an admin
   deletePatientAsAdmin,
 
-  // Function to get the connected patient's data
-  getConnectedPatientData,
-
-  // Function to update the connected patient's profile
-  updateConnectedPatient,
-
-  // Function to upload a patient photo
-  uploadPatientPhoto,
-
   // Function to toggle patient status as therapist
   togglePatientStatusAsTherapist,
 
-  // Function to get all the patients of a therapist
-  getAllAppointedPatientsAsTherapist,
-
+  // Function to get all patients as therapist
   getAllPatientsAsTherapist,
 
   // Function to get one patients data as a therapist
   getOnePatientAsTherapist,
 
+  // Function to delete a patient as a therapist
   deletePatientAsTherapist,
 
   updatePatientAsTherapist,
 
   // Unused functions
+
+  // // Function to get the connected patient's data
+  // getConnectedPatientData,
+
+  // // Function to update the connected patient's profile
+  // updateConnectedPatient,
+
+  // // Function to upload a patient photo
+  // uploadPatientPhoto,
+
+  // Function to get all the patients of a therapist
+  // getAllAppointedPatientsAsTherapist,
 
   // // Delete the patient's account
   // deleteConnectedPatient: async (req, res) => {
