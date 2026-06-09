@@ -1,21 +1,72 @@
-import Joi from 'joi';
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
+/**
+ * @function updatePatientAsTherapist
+ * @description
+ * Updates a patient's status and therapist assignment through the therapist panel.
+ *
+ * This controller:
+ * - Validates the therapist ID using `getValidId`.
+ * - Validates the patient ID from request parameters.
+ * - Retrieves the existing patient from the database.
+ * - Ensures update data is provided in the request body.
+ * - Validates incoming data using Joi schema (`updatedPatientByTherapistSchema`).
+ * - Updates the patient's status and therapist assignment.
+ * - Returns the updated patient record upon success.
+ *
+ * Behavior:
+ * - Ensures only authenticated therapists can perform patient updates.
+ * - Verifies the patient exists before applying modifications.
+ * - Validates all incoming data before persisting changes.
+ * - Allows therapists to update:
+ *   - Patient status.
+ *   - Assigned therapist.
+ *
+ * Error handling:
+ * - Returns 400 if therapist ID is missing or invalid.
+ * - Returns 400 if patient ID is missing or invalid.
+ * - Returns 400 if no update data is provided.
+ * - Returns 400 if validation fails.
+ * - Returns 400 if the update operation fails.
+ * - Returns 404 if the patient is not found.
+ * - Returns 500 if a database or unexpected server error occurs.
+ *
+ * @param {Object} req - Express request object.
+ *   - `req.therapist_id` {number} Therapist ID injected by authentication middleware.
+ *   - `req.params.patient_id` {string|number} Patient ID to update.
+ *   - `req.body` {Object} Patient update data.
+ *     - `status` {string} Updated patient status.
+ *     - `therapist_id` {number} Updated therapist assignment.
+ *
+ * @param {Object} res - Express response object used to return JSON responses.
+ *
+ * @returns {Object} JSON response containing:
+ *   - 200: Updated patient information.
+ *   - 400: Invalid IDs, missing data, validation errors, or update failure.
+ *   - 404: Patient not found.
+ *   - 500: Internal server error.
+ *
+ * Response payload:
+ * - `message` {string} Operation result message.
+ * - `patient` {Object} Updated patient record.
+ *
+ * @sideEffects
+ * - Updates an existing patient record in the database.
+ */
+
+import { getValidId } from '../../../middlewares/getValidId.js';
 import { Patient } from '../../../models/index.js';
+import updatedPatientByTherapistSchema from '../../joi_validations/update_validations/updatedPatientByTherapistSchema.js';
 
 export default async function updatePatientAsTherapist(req, res) {
-  const therapist_id = parseInt(req.therapist_id, 10);
+  const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
   if (!therapist_id) {
     return res.status(400).json({ message: 'Therapist not found' });
   } else {
-    checkIsValidNumber(therapist_id);
-    const patient_id = parseInt(req.params.patient_id, 10);
+    const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
     if (!patient_id) {
       return res.status(400).json({ message: 'Patient not found' });
     } else {
-      checkIsValidNumber(patient_id);
-
       try {
         const foundPatient = await Patient.findByPk(patient_id);
 
@@ -27,12 +78,9 @@ export default async function updatePatientAsTherapist(req, res) {
               .status(400)
               .json({ message: 'No data provided for update' });
           } else {
-            const updateBodyValidationSchema = Joi.object({
-              status: Joi.string().optional(),
-              therapist_id: Joi.string().optional(),
-            }).min(1);
-
-            const { error } = updateBodyValidationSchema.validate(req.body);
+            const { error } = updatedPatientByTherapistSchema.validate(
+              req.body
+            );
 
             if (error) {
               return res.status(400).json({

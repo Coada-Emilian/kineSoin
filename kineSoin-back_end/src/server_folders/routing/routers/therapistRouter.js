@@ -1,5 +1,3 @@
-// Purpose: Define the therapist router, which contains the routes that are accessible to the therapists.
-
 import { Router } from 'express';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
@@ -8,8 +6,6 @@ import { authenticateTherapist } from '../../middlewares/userAuthentication.js';
 import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
 import patientController from '../controllers/patientController.js';
-import prescriptionController from '../controllers/prescriptionController.js';
-import therapistController from '../controllers/therapistController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -64,6 +60,34 @@ therapistRouter.get(
   wrapper(patientController.getOnePatientAsTherapist)
 );
 
+// Route to update a patient's details as a therapist
+therapistRouter.patch(
+  '/me/patients/:patient_id',
+  authenticateTherapist,
+  wrapper(patientController.updatePatientAsTherapist)
+);
+
+// Route to get all appointments as a therapist for agenda
+therapistRouter.get(
+  '/me/allAppointments',
+  authenticateTherapist,
+  wrapper(appointmentController.getAllAppointmentsAsTherapist)
+);
+
+// Route to get all appointments for a patient as a therapist
+therapistRouter.get(
+  '/me/patient/:patient_id/appointments',
+  authenticateTherapist,
+  wrapper(appointmentController.getPatientAppointmentsAsTherapist)
+);
+
+therapistRouter.post(
+  '/me/newAppointment',
+  wrapper(appointmentController.proposeOneAppointmentAsTherapist)
+);
+
+// Unused routes
+
 // therapistRouter.patch(
 //   '/me/prescriptions/:prescription_id/increaseQuantity',
 //   authenticateTherapist,
@@ -86,61 +110,38 @@ therapistRouter.get(
 //   wrapper(patientController.getAllAppointedPatientsAsTherapist)
 // );
 
-therapistRouter.patch(
-  '/me/patients/:patient_id',
-  authenticateTherapist,
-  wrapper(patientController.updatePatientAsTherapist)
-);
+// therapistRouter.get(
+//   '/me/therapists',
+//   authenticateTherapist,
+//   wrapper(therapistController.getAllTherapistsAsTherapist)
+// );
 
-therapistRouter.get(
-  '/me/therapists',
-  authenticateTherapist,
-  wrapper(therapistController.getAllTherapistsAsTherapist)
-);
+// therapistRouter.get(
+//   '/me/patient/:patient_id/prescriptions',
+//   authenticateTherapist,
+//   wrapper(prescriptionController.getPatientPrescriptionsAsTherapist)
+// );
 
-therapistRouter.get(
-  '/me/allAppointments',
-  authenticateTherapist,
-  wrapper(appointmentController.getAllAppointmentAsTherapist)
-);
+// therapistRouter.get(
+//   '/me',
+//   wrapper(therapistController.getConnectedTherapistData)
+// );
 
-therapistRouter.get(
-  '/me/patient/:patient_id/appointments',
-  authenticateTherapist,
-  wrapper(appointmentController.getPatientAppointmentsAsTherapist)
-);
+// therapistRouter.delete(
+//   '/me',
+//   wrapper(therapistController.deleteConnectedTherapist)
+// );
 
-therapistRouter.get(
-  '/me/patient/:patient_id/prescriptions',
-  authenticateTherapist,
-  wrapper(prescriptionController.getPatientPrescriptionsAsTherapist)
-);
+// therapistRouter.patch(
+//   '/me',
+//   wrapper(therapistController.updateConnectedTherapist)
+// );
 
-therapistRouter.get(
-  '/me',
-  wrapper(therapistController.getConnectedTherapistData)
-);
-
-therapistRouter.delete(
-  '/me',
-  wrapper(therapistController.deleteConnectedTherapist)
-);
-
-therapistRouter.patch(
-  '/me',
-  wrapper(therapistController.updateConnectedTherapist)
-);
-
-therapistRouter.post(
-  '/me/uploadPhoto',
-  uploadTherapistPhoto.single('photo'),
-  therapistController.uploadTherapistPhoto
-);
-
-therapistRouter.post(
-  '/me/newAppointment',
-  wrapper(appointmentController.proposeOneAppointmentAsTherapist)
-);
+// therapistRouter.post(
+//   '/me/uploadPhoto',
+//   uploadTherapistPhoto.single('photo'),
+//   therapistController.uploadTherapistPhoto
+// );
 
 // therapistRouter.get(
 //   '/me/pendingPatients',

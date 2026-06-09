@@ -23,7 +23,10 @@
  */
 
 import deleteAppointmentAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/deleteAppointmentAsTherapist.js';
+import getAllAppointmentsAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/getAllAppointmentsAsTherapist.js';
+import getPatientAppointmentsAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/getPatientAppointmentsAsTherapist.js';
 import getTherapistDashboardData from '../../utils/appointment_controller_utils/therapist_utils/getTherapistDashboardData.js';
+import proposeOneAppointmentAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/proposeOneAppointmentAsTherapist.js';
 
 const appointmentController = {
   // Function to delete an appointment as a therapist
@@ -32,7 +35,14 @@ const appointmentController = {
   // Get the therapist dashboard data consisting of existing appointments on the day
   getTherapistDashboardData,
 
-  // getPatientAppointmentsAsTherapist,
+  // Get all appointments as a therapist
+  getAllAppointmentsAsTherapist,
+
+  // Get all appointments for a patient as a therapist
+  getPatientAppointmentsAsTherapist,
+
+  // // Propose one appointment as a therapist
+  proposeOneAppointmentAsTherapist,
 
   // unused functions
   // // Function to get all appointments for a patient
@@ -55,12 +65,6 @@ const appointmentController = {
 
   // // Cancel one appointment for a patient
   // cancelOneAppointmentAsPatient,
-
-  // // Propose one appointment as a therapist
-  // proposeOneAppointmentAsTherapist,
-
-  // //  Get all appointments for a therapist
-  // getAllAppointmentAsTherapist,
 
   // // Decrement the completed appointment quantity as a therapist
   // decrementCompletedAppointmentQuantityAsTherapist,

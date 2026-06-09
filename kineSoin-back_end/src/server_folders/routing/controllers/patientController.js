@@ -3,6 +3,7 @@ import deletePatientAsAdmin from '../../utils/patient_controller_utils/admin_uti
 import getAllPatientsAsAdmin from '../../utils/patient_controller_utils/admin_utils/getAllPatientsAsAdmin.js';
 import getOnePatientAsAdmin from '../../utils/patient_controller_utils/admin_utils/getOnePatientAsAdmin.js';
 import deletePatientAsTherapist from '../../utils/patient_controller_utils/therapist_utils/deletePatientAsTherapist.js';
+import getAllAppointedPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllAppointedPatientsAsTherapist.js';
 import getAllPatientsAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getAllPatientsAsTherapist.js';
 import getOnePatientAsTherapist from '../../utils/patient_controller_utils/therapist_utils/getOnePatientAsTherapist.js';
 import togglePatientStatusAsTherapist from '../../utils/patient_controller_utils/therapist_utils/togglePatientStatusAsTherapist.js';
@@ -33,7 +34,11 @@ const patientController = {
   // Function to delete a patient as a therapist
   deletePatientAsTherapist,
 
+  // Function to update a patient's status as a therapist
   updatePatientAsTherapist,
+
+  // Function to get all the patients of a therapist
+  getAllAppointedPatientsAsTherapist,
 
   // Unused functions
 
@@ -45,9 +50,6 @@ const patientController = {
 
   // // Function to upload a patient photo
   // uploadPatientPhoto,
-
-  // Function to get all the patients of a therapist
-  // getAllAppointedPatientsAsTherapist,
 
   // // Delete the patient's account
   // deleteConnectedPatient: async (req, res) => {

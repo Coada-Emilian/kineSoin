@@ -46,6 +46,7 @@ export default async function getAllAppointedPatientsAsTherapist(req, res) {
           sentPatients.push(newPatient);
         }
 
+        console.log('getAllAppointedPatientsAsTherapist fired');
         return res.status(200).json(sentPatients);
       }
     } catch (error) {

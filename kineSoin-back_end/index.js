@@ -86,6 +86,9 @@ app.listen(port, () => {
     `TO DO: Patient status toggling working on the back end, but the front won't re-render patient tables`
   );
   console.log(
-    `TO DO: Don't forget you intended to have appointment cancelation and creation from the dashboard page via the patient modal`
+    `TO DO: Don't forget you intended to have appointment cancellation and creation from the dashboard page via the patient modal`
+  );
+  console.log(
+    `TO DO: On a therapist's dashboard, when a patient modal is opened and you click on Gerer RDV, it sends you on another page, when coming back to dashboard the modal is still open`
   );
 });

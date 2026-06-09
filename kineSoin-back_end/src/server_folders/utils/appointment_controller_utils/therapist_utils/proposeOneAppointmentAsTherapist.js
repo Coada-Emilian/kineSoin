@@ -1,24 +1,3 @@
-/**
- * @description Allows a therapist to propose a new appointment for a patient.
- *
- * Validations and steps:
- * - Therapist ID is hardcoded here (should be dynamic in production).
- * - Validates the therapist ID.
- * - Validates the request body to ensure it contains a valid date, time, patientId, and prescriptionId.
- * - Checks that the prescription ID and patient ID are valid numbers.
- * - Checks if an appointment already exists at the requested date and time.
- * - If no conflicting appointment exists, creates a new appointment with:
- *   - is_canceled set to false
- *   - is_accepted set to false (proposed state)
- * - Returns appropriate error messages for invalid input or if appointment already exists.
- * - Returns success message and appointment details when created.
- *
- * @param {object} req - Express request object containing therapist_id, prescription_id, patient_id, date, and time
- * @param {object} res - Express response object for sending JSON responses
- *
- * @returns {object} JSON with success or error message and appointment data if created
- */
-
 import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment } from '../../../models/index.js';
 
