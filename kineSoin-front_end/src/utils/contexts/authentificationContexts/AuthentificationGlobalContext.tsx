@@ -1,36 +1,15 @@
-// Import necessary React tools
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
-// Import functions to retrieve tokens from localStorage
+import { AuthentificationGlobalContextType } from '../../../@types/interfaces/contextInterfaces/authentificationGlobalContextType';
 import { getAdminTokenAndDataFromLocalStorage } from '../../../localStorage/adminLocalStorage';
 import { getPatientTokenAndDataFromLocalStorage } from '../../../localStorage/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../../localStorage/therapistLocalStorage';
 
-// Import authentication check functions
-import { useNavigate } from 'react-router-dom';
 import {
   checkAdminAuthentification,
   checkPatientAuthentification,
   checkTherapistAuthentification,
 } from '../../functions/publicSection/authentificationFunctions';
-
-// Define the shape of the global context
-interface AuthentificationGlobalContextType {
-  isAdminAuthenticated: boolean;
-  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  adminProfileToken: string | null;
-  setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-
-  isPatientAuthenticated: boolean;
-  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  patientProfileToken: string | null;
-  setPatientProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-
-  isTherapistAuthenticated: boolean;
-  setIsTherapistAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  therapistProfileToken: string | null;
-  setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-}
 
 // Create the global authentication context
 export const AuthentificationGlobalContext = createContext<
@@ -41,7 +20,7 @@ export const AuthentificationGlobalContext = createContext<
 export const AuthentificationGlobalContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // === ADMIN AUTHENTICATION ===
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
