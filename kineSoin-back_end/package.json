@@ -9,7 +9,7 @@
     "db:populate": "node database/populate_profiles.js && psql -U kinesoin_user -d kinesoin_database -f database/populate_tables.sql",
     "db:reset": "pnpm db:create && pnpm db:populate",
     "server_back": "nodemon index.js",
-    "server_front": "cd ../kineSoin-front_end && npm run dev",
+    "server_front": "cd ../kineSoin-front_endV2.0 && npm run dev",
     "dev": "concurrently \"pnpm server_back\" \"pnpm server_front\""
   },
   "author": "Emilian COADA",
