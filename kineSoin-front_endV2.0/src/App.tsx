@@ -1,4 +1,5 @@
 import './App.css';
+import PublicLayout from './layouts/PublicLayout';
 
 function App() {
   // const location = useLocation();
@@ -8,7 +9,11 @@ function App() {
   //   setError(null);
   // }, [location.pathname]);
 
-  return <>kineSoin V2.0</>;
+  return (
+    <>
+      <PublicLayout />
+    </>
+  );
 }
 
 export default App;

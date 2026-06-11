@@ -14,3 +14,14 @@ export interface RestCountry {
     suffixes?: string[];
   };
 }
+
+// Interface for custom button details
+export interface ButtonDetailsInterface {
+  type: ButtonInterfaceTypes;
+  text: string | JSX.Element;
+  style: ButtonInterfaceStyles;
+  icon?: ButtonInterfaceIcons;
+  hasBorder?: boolean;
+  onClick?: () => void;
+  to?: string;
+}

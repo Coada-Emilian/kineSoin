@@ -6,7 +6,7 @@ export const useAppContext = () => {
 
   if (!context) {
     throw new Error(
-      'useGlobalContext must be used within a GlobalAdminContextProvider'
+      'useAppContext must be used within a AppContextProvider'
     );
   }
 

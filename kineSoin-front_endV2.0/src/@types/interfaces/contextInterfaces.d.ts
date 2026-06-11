@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { FormOrderTypes } from '../types/customTypes';
 import type { CountryPrefixInterface } from './customInterfaces';
 
 export interface AppContextInterface {
@@ -12,4 +13,9 @@ export interface AppContextInterface {
 
 export interface AppContextProviderProps {
   children: ReactNode;
+}
+
+export interface PatientRegistrationContextInterface {
+  formOrder: FormOrderTypes;
+  setFormOrder: React.Dispatch<React.SetStateAction<FormOrderTypes>>;
 }

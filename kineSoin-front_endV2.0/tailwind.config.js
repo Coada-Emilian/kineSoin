@@ -1,30 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-import plugin from 'tailwindcss';
 
-module.exports = {
-  content: [
-    './src/**/*.{html,js,ts,jsx,tsx}',
-    './src/**/**/*.{html,js,ts,jsx,tsx}',
-    './docs/**/*.html/',
-  ],
+export default {
   theme: {
     extend: {
-      colors: {
-        primaryTeal: '#6FFFE9',
-        secondaryTeal: '#00E0D1',
-        primaryBlue: '#003249',
-        secondaryBlue: '#007EA7',
-        primaryRed: '#D85071',
-        lightGrey: '#cdcdcd',
-        container: '#BFF3F3',
-        cardHeader: '#007EA7',
-      },
       fontSize: {
         xxs: '0.636rem',
         xxxs: '0.5rem',
         xxxxs: '0.4rem',
       },
-
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
       },
@@ -50,7 +33,7 @@ module.exports = {
       },
       screens: {
         xxs: '0px',
-        xs: '496px', // Example custom breakpoint
+        xs: '496px',
       },
       spacing: {
         header: '4rem',

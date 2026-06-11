@@ -2,9 +2,9 @@ import { createContext, useEffect, useState } from 'react';
 import type {
   AppContextInterface,
   AppContextProviderProps,
-} from '../../@types/interfaces/contextInterfaces';
-import type { CountryPrefixInterface } from '../../@types/interfaces/customInterfaces';
-import { fetchCountriesData } from '../functions/fetchCountriesData';
+} from '../../../@types/interfaces/contextInterfaces';
+import type { CountryPrefixInterface } from '../../../@types/interfaces/customInterfaces';
+import { fetchCountriesData } from '../../functions/fetchCountriesData';
 
 const AppContext = createContext<AppContextInterface | undefined>(undefined);
 
