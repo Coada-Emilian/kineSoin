@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import PublicFooter from '../components/layout/footers/PublicFooter';
-import PublicMobileNavbar from '../components/layout/mobileNavbars/PublicMobileNavBar';
+import PublicMobileNavbar from '../components/layout/mobileNavbars/PublicMobileNavbar';
 import PublicNavbar from '../components/layout/navbars/PublicNavbar';
 import { PatientRegistrationContextProvider } from '../utils/contexts/PatientRegistrationContext/PatientRegistrationContext';
 

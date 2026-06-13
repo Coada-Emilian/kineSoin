@@ -1,0 +1,34 @@
+{
+  "name": "kineSoin",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"pnpm --filter kineSoin-back_end dev\" \"pnpm --filter kineSoin-front dev\"",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "lint_front": "pnpm --filter kineSoin-front lint",
+    "lint_back": "pnpm --filter kineSoin-back_end lint",
+    "lint_both": "pnpm lint_front && pnpm lint_back"
+  },
+  "keywords": [],
+  "author": "Emilian Coada",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.5.3",
+      "onFail": "download"
+    }
+  },
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "oxlint": "^1.69.0",
+    "prettier": "^3.8.4"
+  },
+  "format": "prettier . --write",
+  "type": "module",
+  "dependencies": {
+    "prettier-plugin-sql": "^0.18.1"
+  }
+}

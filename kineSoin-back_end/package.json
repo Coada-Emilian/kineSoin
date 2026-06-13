@@ -1,16 +1,15 @@
 {
-  "name": "kinesoin-back_end",
+  "name": "kineSoin-back_end",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "nodemon index.js",
     "db:create": "psql -U kinesoin_user -d kinesoin_database -f database/create_tables.sql",
     "db:populate": "node database/populate_profiles.js && psql -U kinesoin_user -d kinesoin_database -f database/populate_tables.sql",
     "db:reset": "pnpm db:create && pnpm db:populate",
-    "server_back": "nodemon index.js",
-    "server_front": "cd ../kineSoin-front_endV2.0 && npm run dev",
-    "dev": "concurrently \"pnpm server_back\" \"pnpm server_front\""
+    "lint": "oxlint"
   },
   "author": "Emilian COADA",
   "license": "ISC",
