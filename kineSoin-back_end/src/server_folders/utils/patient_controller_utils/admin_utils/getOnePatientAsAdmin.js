@@ -45,11 +45,6 @@ import computeAge from '../../computeAge.js';
 
 export default async function getOnePatientAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
-
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
-  }
-
   try {
     const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
@@ -148,9 +143,6 @@ export default async function getOnePatientAsAdmin(req, res) {
         : null,
       status: foundPatient.status,
       picture_url: foundPatient.picture_url,
-      // prescriptions: newPrescriptions,
-      // medic: foundPatient.prescriptions?.[0]?.medic || null,
-      // email: foundPatient.email,
     };
 
     return res.status(200).json(sentPatient);

@@ -23,13 +23,12 @@
  * @requires checkIsValidNumber - Utility function to ensure numeric ID inputs are valid.
  */
 
-import { checkIsValidNumber } from '../../middlewares/checkIsValidNumber.js';
 import { Affliction } from '../../models/index.js';
 
 export default async function getAfflictionNamesAsPatient(req, res) {
   const patient_id = parseInt(req.patient_id, 10);
 
-  checkIsValidNumber(patient_id);
+  // checkIsValidNumber(patient_id);
 
   if (!patient_id) {
     return res.status(400).json({ message: 'Patient ID is required.' });

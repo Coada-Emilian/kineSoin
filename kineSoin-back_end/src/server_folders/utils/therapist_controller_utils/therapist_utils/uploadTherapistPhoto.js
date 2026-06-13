@@ -1,7 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../../cloudinary/index.js';
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Therapist } from '../../../models/index.js';
 
 multer({ storage: therapistPhotoStorage });
@@ -13,8 +12,6 @@ export default async function uploadTherapistPhoto(req, res) {
     return res.status(400).json({ message: 'Therapist not found' });
   } else {
     try {
-      checkIsValidNumber(therapist_id);
-
       if (!req.file) {
         return res.status(400).json({
           message: 'No file detected. Please upload a file to continue.',

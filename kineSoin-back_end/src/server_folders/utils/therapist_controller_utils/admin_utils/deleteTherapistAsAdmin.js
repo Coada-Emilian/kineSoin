@@ -14,7 +14,7 @@
  * - If no therapist is found, an error response is returned.
  *
  * Error handling:
- * - Returns 400 if admin ID or therapist ID is invalid.
+
  * - Returns 400 if the therapist does not exist.
  * - Logs and handles unexpected server/database errors.
  *
@@ -36,25 +36,21 @@ import { Therapist } from '../../../models/index.js';
 export default async function deleteTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
-  } else {
-    try {
-      const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
+  try {
+    const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
 
-      const response = await Therapist.destroy({
-        where: { id: therapist_id },
-      });
+    const response = await Therapist.destroy({
+      where: { id: therapist_id },
+    });
 
-      if (!response) {
-        return res.status(400).json({ message: 'Therapist not found' });
-      } else {
-        return res
-          .status(200)
-          .json({ message: 'Therapist deleted successfully!' });
-      }
-    } catch (err) {
-      console.error('Error deleting therapist:', err);
+    if (!response) {
+      return res.status(400).json({ message: 'Therapist not found' });
+    } else {
+      return res
+        .status(200)
+        .json({ message: 'Therapist deleted successfully!' });
     }
+  } catch (err) {
+    console.error('Error deleting therapist:', err);
   }
 }

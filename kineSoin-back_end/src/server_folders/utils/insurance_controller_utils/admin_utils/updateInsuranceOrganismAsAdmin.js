@@ -56,68 +56,63 @@ import updatedInsuranceSchema from '../../joi_validations/update_validations/upd
 export default async function updateInsuranceOrganismAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
+  try {
+    const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
 
-      if (!req.body) {
-        return res.status(400).json({
-          message:
-            'Request body is missing. Please provide the necessary data.',
-        });
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    } else {
+      const { error } = updatedInsuranceSchema.validate(req.body);
+
+      if (error) {
+        return res.status(400).json({ message: error.message });
       } else {
-        const { error } = updatedInsuranceSchema.validate(req.body);
+        const {
+          name,
+          amc_code,
+          street_number,
+          street_name,
+          postal_code,
+          city,
+          prefix,
+          phone_number,
+        } = req.body;
 
-        if (error) {
-          return res.status(400).json({ message: error.message });
+        const foundInsurance = await Insurance.findByPk(insurance_id);
+
+        if (!foundInsurance) {
+          return res.status(400).json({ message: 'Insurance not found' });
         } else {
-          const {
-            name,
-            amc_code,
-            street_number,
-            street_name,
-            postal_code,
-            city,
-            prefix,
-            phone_number,
-          } = req.body;
+          const sentInsurance = {
+            admin_id,
+            name: name || foundInsurance.name,
+            amc_code: amc_code || foundInsurance.amc_code,
+            street_number: street_number || foundInsurance.street_number,
+            street_name: street_name || foundInsurance.street_name,
+            postal_code: postal_code || foundInsurance.postal_code,
+            city: city || foundInsurance.city,
+            phone_number: phone_number || foundInsurance.phone_number,
+            prefix: prefix || foundInsurance.prefix,
+            full_phone_number: `${prefix && phone_number ? prefix + phone_number : foundInsurance.full_phone_number}`,
+          };
 
-          const foundInsurance = await Insurance.findByPk(insurance_id);
+          const response = await foundInsurance.update(sentInsurance);
 
-          if (!foundInsurance) {
-            return res.status(400).json({ message: 'Insurance not found' });
+          if (response) {
+            return res
+              .status(200)
+              .json({ message: 'Insurance organism updated', response });
           } else {
-            const sentInsurance = {
-              admin_id,
-              name: name || foundInsurance.name,
-              amc_code: amc_code || foundInsurance.amc_code,
-              street_number: street_number || foundInsurance.street_number,
-              street_name: street_name || foundInsurance.street_name,
-              postal_code: postal_code || foundInsurance.postal_code,
-              city: city || foundInsurance.city,
-              phone_number: phone_number || foundInsurance.phone_number,
-              prefix: prefix || foundInsurance.prefix,
-              full_phone_number: `${prefix && phone_number ? prefix + phone_number : foundInsurance.full_phone_number}`,
-            };
-
-            const response = await foundInsurance.update(sentInsurance);
-
-            if (response) {
-              return res
-                .status(200)
-                .json({ message: 'Insurance organism updated', response });
-            } else {
-              return res
-                .status(500)
-                .json({ message: 'Error updating insurance organism.' });
-            }
+            return res
+              .status(500)
+              .json({ message: 'Error updating insurance organism.' });
           }
         }
       }
-    } catch (error) {
-      return res.status(500).json({ message: 'Error updating insurance.' });
     }
+  } catch (error) {
+    return res.status(500).json({ message: 'Error updating insurance.' });
   }
 }

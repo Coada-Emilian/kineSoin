@@ -15,14 +15,7 @@ export const therapistRouter = Router();
 therapistRouter.get(
   '/me/dashboard',
   authenticateTherapist,
-  wrapper(appointmentController.getTherapistDashboardData)
-);
-
-// Route to send a message to the patient from the therapist
-therapistRouter.post(
-  '/me/patients/:patient_id/messages',
-  authenticateTherapist,
-  wrapper(messageController.sendMessageToPatientAsTherapist)
+  wrapper(appointmentController.getTherapistAppointmentDashboardData)
 );
 
 // Route to delete an appointment as a therapist
@@ -30,6 +23,32 @@ therapistRouter.delete(
   '/me/appointments/:appointment_id',
   authenticateTherapist,
   wrapper(appointmentController.deleteAppointmentAsTherapist)
+);
+
+// Route to get all appointments as a therapist for agenda
+therapistRouter.get(
+  '/me/allAppointments',
+  authenticateTherapist,
+  wrapper(appointmentController.getAllAppointmentsAsTherapist)
+);
+
+// Route to get all appointments for a patient as a therapist
+therapistRouter.get(
+  '/me/patient/:patient_id/appointments',
+  authenticateTherapist,
+  wrapper(appointmentController.getPatientAppointmentsAsTherapist)
+);
+
+therapistRouter.post(
+  '/me/newAppointment',
+  wrapper(appointmentController.proposeOneAppointmentAsTherapist)
+);
+
+// Route to send a message to the patient from the therapist
+therapistRouter.post(
+  '/me/patients/:patient_id/messages',
+  authenticateTherapist,
+  wrapper(messageController.sendMessageToPatientAsTherapist)
 );
 
 // Route to get all patients as therapist
@@ -65,25 +84,6 @@ therapistRouter.patch(
   '/me/patients/:patient_id',
   authenticateTherapist,
   wrapper(patientController.updatePatientAsTherapist)
-);
-
-// Route to get all appointments as a therapist for agenda
-therapistRouter.get(
-  '/me/allAppointments',
-  authenticateTherapist,
-  wrapper(appointmentController.getAllAppointmentsAsTherapist)
-);
-
-// Route to get all appointments for a patient as a therapist
-therapistRouter.get(
-  '/me/patient/:patient_id/appointments',
-  authenticateTherapist,
-  wrapper(appointmentController.getPatientAppointmentsAsTherapist)
-);
-
-therapistRouter.post(
-  '/me/newAppointment',
-  wrapper(appointmentController.proposeOneAppointmentAsTherapist)
 );
 
 // Unused routes

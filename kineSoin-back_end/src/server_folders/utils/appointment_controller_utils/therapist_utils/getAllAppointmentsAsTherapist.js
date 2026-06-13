@@ -54,80 +54,33 @@ import { Appointment } from '../../../models/associations.js';
 export default async function getAllAppointmentsAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 10);
 
-  if (!therapist_id) {
-    return res.status(400).json({ message: 'Therapist not found' });
-  } else {
-    try {
-      const foundAppointments = await Appointment.findAll({
-        where: {
-          therapist_id,
-          is_canceled: false,
-          is_accepted: true,
+  try {
+    const foundAppointments = await Appointment.findAll({
+      where: {
+        therapist_id,
+        is_canceled: false,
+        is_accepted: true,
+      },
+      attributes: ['id', 'date', 'time'],
+      include: [
+        {
+          association: 'patient',
+          attributes: ['id', 'name', 'surname', 'picture_url'],
         },
-        attributes: ['id', 'date', 'time'],
-        include: [
-          {
-            association: 'patient',
-            attributes: ['id', 'name', 'surname', 'picture_url'],
-          },
-          // {
-          //   association: 'prescription',
-          //   where: { is_completed: false },
-          //   attributes: [
-          //     'id',
-          //     'appointment_quantity',
-          //     'at_home_care',
-          //     'picture_url',
-          //   ],
-          //   include: [
-          //     {
-          //       association: 'medic',
-          //       attributes: [
-          //         'id',
-          //         'name',
-          //         'surname',
-          //         'email',
-          //         'prefix',
-          //         'phone_number',
-          //       ],
-          //     },
-          //     {
-          //       association: 'affliction',
-          //       attributes: ['id', 'name', 'description'],
-          //     },
-          //   ],
-          // },
-        ],
-        // include: [
-        //   {
-        //     association: 'prescription',
-        //     where: { is_completed: false },
-        //     attributes: [
-        //       'id',
-        //       'appointment_quantity',
-        //       'at_home_care',
-        //       'picture_url',
-        //     ],
-        //     include: [
-        //       { association: 'medic', attributes: ['name', 'surname'] },
-        //       { association: 'affliction', attributes: ['name', 'description'] },
-        //     ],
-        //   },
-        // ],
-        order: [
-          ['date', 'ASC'],
-          ['time', 'ASC'],
-        ],
-      });
+      ],
+      order: [
+        ['date', 'ASC'],
+        ['time', 'ASC'],
+      ],
+    });
 
-      if (!foundAppointments || foundAppointments.length === 0) {
-        return res.status(200).json({ message: 'No appointments found' });
-      }
-
-      res.status(200).json(foundAppointments);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: 'Internal server error' });
+    if (!foundAppointments || foundAppointments.length === 0) {
+      return res.status(200).json({ message: 'No appointments found' });
     }
+
+    res.status(200).json(foundAppointments);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

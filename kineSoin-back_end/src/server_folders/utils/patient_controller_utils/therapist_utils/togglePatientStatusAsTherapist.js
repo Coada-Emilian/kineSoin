@@ -50,50 +50,46 @@ import { Patient } from '../../../models/index.js';
 export default async function togglePatientStatusAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
-  if (!therapist_id) {
-    return res.status(400).json({ message: 'Therapist not found' });
-  } else {
-    try {
-      const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+  try {
+    const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
-      if (!patient_id) {
-        return res.status(400).json({ message: 'Patient not found' });
-      }
+    if (!patient_id) {
+      return res.status(400).json({ message: 'Patient not found' });
+    }
 
-      const foundPatient = await Patient.findByPk(patient_id);
+    const foundPatient = await Patient.findByPk(patient_id);
 
-      if (!foundPatient) {
-        return res.status(400).json({ message: 'Patient not found' });
+    if (!foundPatient) {
+      return res.status(400).json({ message: 'Patient not found' });
+    } else {
+      if (
+        foundPatient.status === 'pending' ||
+        foundPatient.status === 'banned'
+      ) {
+        return res.status(400).json({
+          message: 'Cannot change status of pending or banned patient',
+        });
       } else {
-        if (
-          foundPatient.status === 'pending' ||
-          foundPatient.status === 'banned'
-        ) {
-          return res.status(400).json({
-            message: 'Cannot change status of pending or banned patient',
+        if (foundPatient.status === 'active') {
+          foundPatient.status = 'inactive';
+
+          await foundPatient.save();
+
+          return res.status(200).json({
+            message: 'Patient status updated successfully!',
           });
-        } else {
-          if (foundPatient.status === 'active') {
-            foundPatient.status = 'inactive';
+        } else if (foundPatient.status === 'inactive') {
+          foundPatient.status = 'active';
 
-            await foundPatient.save();
+          await foundPatient.save();
 
-            return res.status(200).json({
-              message: 'Patient status updated successfully!',
-            });
-          } else if (foundPatient.status === 'inactive') {
-            foundPatient.status = 'active';
-
-            await foundPatient.save();
-
-            return res.status(200).json({
-              message: 'Patient status updated successfully!',
-            });
-          }
+          return res.status(200).json({
+            message: 'Patient status updated successfully!',
+          });
         }
       }
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
     }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 }

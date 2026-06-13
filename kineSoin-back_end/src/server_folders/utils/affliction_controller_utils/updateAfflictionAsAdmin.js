@@ -45,64 +45,57 @@ import updatedAfflictionSchema from '../joi_validations/update_validations/updat
 export default async function updateAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const affliction_id = getValidId(
-        req.params.affliction_id,
-        'Affliction ID'
-      );
+  try {
+    const affliction_id = getValidId(req.params.affliction_id, 'Affliction ID');
 
-      const foundAffliction = await Affliction.findByPk(affliction_id);
+    const foundAffliction = await Affliction.findByPk(affliction_id);
 
-      if (!foundAffliction) {
-        console.error('Affliction not found');
-        return res.status(404).json({ message: 'Affliction not found.' });
-      }
-
-      if (!req.body) {
-        console.error('Request body is empty or invalid');
-        return res.status(400).json({
-          message:
-            'The request body cannot be empty. Please provide the necessary data.',
-        });
-      }
-
-      const { body_region_id, name, description, insurance_code, is_operated } =
-        req.body;
-
-      const newAffliction = {
-        body_region_id: body_region_id || foundAffliction.body_region_id,
-        name: name || foundAffliction.name,
-        description: description || foundAffliction.description,
-        insurance_code: insurance_code || foundAffliction.insurance_code,
-        is_operated: is_operated || foundAffliction.is_operated,
-        admin_id,
-      };
-
-      const { error } = updatedAfflictionSchema.validate(newAffliction);
-
-      if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-      }
-
-      const updatedAffliction = await foundAffliction.update(newAffliction);
-
-      if (!updatedAffliction) {
-        console.error('Error while updating affliction');
-        return res
-          .status(500)
-          .json({ message: 'Error while updating affliction.' });
-      } else {
-        console.log('Affliction updated successfully');
-        return res.status(200).json({
-          message: 'Affliction updated successfully',
-        });
-      }
-    } catch (error) {
-      console.error('Error updating affliction:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+    if (!foundAffliction) {
+      console.error('Affliction not found');
+      return res.status(404).json({ message: 'Affliction not found.' });
     }
+
+    if (!req.body) {
+      console.error('Request body is empty or invalid');
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
+
+    const { body_region_id, name, description, insurance_code, is_operated } =
+      req.body;
+
+    const newAffliction = {
+      body_region_id: body_region_id || foundAffliction.body_region_id,
+      name: name || foundAffliction.name,
+      description: description || foundAffliction.description,
+      insurance_code: insurance_code || foundAffliction.insurance_code,
+      is_operated: is_operated || foundAffliction.is_operated,
+      admin_id,
+    };
+
+    const { error } = updatedAfflictionSchema.validate(newAffliction);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
+    const updatedAffliction = await foundAffliction.update(newAffliction);
+
+    if (!updatedAffliction) {
+      console.error('Error while updating affliction');
+      return res
+        .status(500)
+        .json({ message: 'Error while updating affliction.' });
+    } else {
+      console.log('Affliction updated successfully');
+      return res.status(200).json({
+        message: 'Affliction updated successfully',
+      });
+    }
+  } catch (error) {
+    console.error('Error updating affliction:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

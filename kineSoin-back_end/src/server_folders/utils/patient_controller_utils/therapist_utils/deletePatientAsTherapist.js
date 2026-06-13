@@ -48,29 +48,25 @@ export default async function deletePatientAsTherapist(req, res) {
 
   const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
-  if (!therapist_id || !patient_id) {
-    return res.status(400).json({ message: 'Invalid therapist or patient ID' });
-  } else {
-    try {
-      const foundPatient = await Patient.findByPk(patient_id);
+  try {
+    const foundPatient = await Patient.findByPk(patient_id);
 
-      if (!foundPatient) {
-        return res.status(404).json({ message: 'Patient not found' });
+    if (!foundPatient) {
+      return res.status(404).json({ message: 'Patient not found' });
+    } else {
+      if (foundPatient.therapist_id !== therapist_id) {
+        return res
+          .status(403)
+          .json({ message: 'You are unauthorized to delete this patient' });
       } else {
-        if (foundPatient.therapist_id !== therapist_id) {
-          return res
-            .status(403)
-            .json({ message: 'You are unauthorized to delete this patient' });
-        } else {
-          await foundPatient.destroy();
+        await foundPatient.destroy();
 
-          return res
-            .status(200)
-            .json({ message: 'Patient deleted successfully' });
-        }
+        return res
+          .status(200)
+          .json({ message: 'Patient deleted successfully' });
       }
-    } catch (error) {
-      return res.status(500).json({ message: 'Error deleting patient' });
     }
+  } catch (error) {
+    return res.status(500).json({ message: 'Error deleting patient' });
   }
 }

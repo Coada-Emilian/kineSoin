@@ -1,4 +1,3 @@
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Appointment } from '../../../models/index.js';
 
 export default async function proposeOneAppointmentAsTherapist(req, res) {
@@ -9,8 +8,6 @@ export default async function proposeOneAppointmentAsTherapist(req, res) {
   // const patientId = parseInt(req.patient_id, 10);
 
   const therapist_id = 1;
-
-  checkIsValidNumber(therapist_id);
 
   const newAppointmentSchema = Joi.object({
     date: Joi.date().required(),
@@ -34,10 +31,6 @@ export default async function proposeOneAppointmentAsTherapist(req, res) {
   }
 
   const { date, time, patient_id, prescription_id } = req.body;
-
-  checkIsValidNumber(prescription_id);
-
-  checkIsValidNumber(patient_id);
 
   const allAppointments = await Appointment.findAll();
 

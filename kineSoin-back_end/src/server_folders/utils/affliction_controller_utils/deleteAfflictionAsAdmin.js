@@ -36,35 +36,28 @@ import { Affliction } from '../../models/index.js';
 export default async function deleteAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const afflictionId = getValidId(
-        req.params.affliction_id,
-        'Affliction ID'
-      );
+  try {
+    const afflictionId = getValidId(req.params.affliction_id, 'Affliction ID');
 
-      const foundAffliction = await Affliction.findByPk(afflictionId);
+    const foundAffliction = await Affliction.findByPk(afflictionId);
 
-      if (!foundAffliction) {
-        return res.status(404).json({ message: 'Affliction not found.' });
+    if (!foundAffliction) {
+      return res.status(404).json({ message: 'Affliction not found.' });
+    } else {
+      const deletedAffliction = await foundAffliction.destroy();
+
+      if (!deletedAffliction) {
+        return res
+          .status(500)
+          .json({ message: 'Error while deleting affliction.' });
       } else {
-        const deletedAffliction = await foundAffliction.destroy();
-
-        if (!deletedAffliction) {
-          return res
-            .status(500)
-            .json({ message: 'Error while deleting affliction.' });
-        } else {
-          return res
-            .status(200)
-            .json({ message: 'Affliction deleted successfully.' });
-        }
+        return res
+          .status(200)
+          .json({ message: 'Affliction deleted successfully.' });
       }
-    } catch (error) {
-      console.error('Error deleting affliction:', error);
-      return res.status(500).json({ message: 'Internal server error' });
     }
+  } catch (error) {
+    console.error('Error deleting affliction:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

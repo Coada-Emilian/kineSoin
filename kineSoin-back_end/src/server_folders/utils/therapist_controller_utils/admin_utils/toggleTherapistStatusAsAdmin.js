@@ -17,7 +17,6 @@
  * - Ensures the therapist exists before applying changes.
  *
  * Error handling:
- * - Returns 400 if admin ID or therapist ID is invalid.
  * - Returns 400 if therapist is not found.
  * - Returns 500 for unexpected server/database errors.
  *
@@ -39,31 +38,27 @@ import { Therapist } from '../../../models/index.js';
 export default async function toggleTherapistStatusAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
-  } else {
-    try {
-      const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
+  try {
+    const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
 
-      const foundTherapist = await Therapist.findByPk(therapist_id);
+    const foundTherapist = await Therapist.findByPk(therapist_id);
 
-      if (!foundTherapist) {
-        return res.status(400).json({ message: 'Therapist not found' });
-      }
-
-      if (foundTherapist.status === 'active') {
-        foundTherapist.status = 'inactive';
-      } else {
-        foundTherapist.status = 'active';
-      }
-
-      await foundTherapist.save();
-
-      return res
-        .status(200)
-        .json({ message: 'Therapist status updated successfully!' });
-    } catch (error) {
-      console.error('Error toggling therapist status:', error);
+    if (!foundTherapist) {
+      return res.status(400).json({ message: 'Therapist not found' });
     }
+
+    if (foundTherapist.status === 'active') {
+      foundTherapist.status = 'inactive';
+    } else {
+      foundTherapist.status = 'active';
+    }
+
+    await foundTherapist.save();
+
+    return res
+      .status(200)
+      .json({ message: 'Therapist status updated successfully!' });
+  } catch (error) {
+    console.error('Error toggling therapist status:', error);
   }
 }

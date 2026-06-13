@@ -42,9 +42,6 @@ import createdMedicSchema from '../../joi_validations/creation_validations/creat
 export default async function createMedicAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  }
   try {
     if (!req.body) {
       return res.status(400).json({

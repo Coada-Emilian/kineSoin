@@ -37,43 +37,36 @@ import { Affliction } from '../../models/index.js';
 export default async function getOneAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const affliction_id = getValidId(
-        req.params.affliction_id,
-        'Affliction ID'
-      );
+  try {
+    const affliction_id = getValidId(req.params.affliction_id, 'Affliction ID');
 
-      if (!affliction_id) {
-        return res.status(400).json({ message: 'Affliction ID is required.' });
-      }
-
-      const foundAffliction = await Affliction.findByPk(affliction_id, {
-        attributes: [
-          'id',
-          'name',
-          'description',
-          'insurance_code',
-          'is_operated',
-        ],
-        include: [
-          {
-            association: 'body_region',
-            attributes: ['id', 'name'],
-          },
-        ],
-      });
-
-      if (!foundAffliction) {
-        return res.status(404).json({ message: 'Affliction not found.' });
-      } else {
-        return res.status(200).json(foundAffliction);
-      }
-    } catch (error) {
-      console.error('Error fetching affliction:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+    if (!affliction_id) {
+      return res.status(400).json({ message: 'Affliction ID is required.' });
     }
+
+    const foundAffliction = await Affliction.findByPk(affliction_id, {
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'insurance_code',
+        'is_operated',
+      ],
+      include: [
+        {
+          association: 'body_region',
+          attributes: ['id', 'name'],
+        },
+      ],
+    });
+
+    if (!foundAffliction) {
+      return res.status(404).json({ message: 'Affliction not found.' });
+    } else {
+      return res.status(200).json(foundAffliction);
+    }
+  } catch (error) {
+    console.error('Error fetching affliction:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

@@ -59,57 +59,45 @@ import updatedPatientByTherapistSchema from '../../joi_validations/update_valida
 export default async function updatePatientAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
-  if (!therapist_id) {
-    return res.status(400).json({ message: 'Therapist not found' });
-  } else {
-    const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+  const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
-    if (!patient_id) {
-      return res.status(400).json({ message: 'Patient not found' });
+  try {
+    const foundPatient = await Patient.findByPk(patient_id);
+
+    if (!foundPatient) {
+      return res.status(404).json({ message: 'Patient not found' });
     } else {
-      try {
-        const foundPatient = await Patient.findByPk(patient_id);
+      if (!req.body) {
+        return res.status(400).json({ message: 'No data provided for update' });
+      } else {
+        const { error } = updatedPatientByTherapistSchema.validate(req.body);
 
-        if (!foundPatient) {
-          return res.status(404).json({ message: 'Patient not found' });
+        if (error) {
+          return res.status(400).json({
+            message: 'Invalid data provided for update',
+            details: error.details,
+          });
         } else {
-          if (!req.body) {
-            return res
-              .status(400)
-              .json({ message: 'No data provided for update' });
+          const updatedPatient = await foundPatient.update({
+            status: req.body.status,
+            therapist_id: req.body.therapist_id,
+          });
+
+          if (!updatedPatient) {
+            return res.status(400).json({
+              message: 'Failed to update patient',
+            });
           } else {
-            const { error } = updatedPatientByTherapistSchema.validate(
-              req.body
-            );
-
-            if (error) {
-              return res.status(400).json({
-                message: 'Invalid data provided for update',
-                details: error.details,
-              });
-            } else {
-              const updatedPatient = await foundPatient.update({
-                status: req.body.status,
-                therapist_id: req.body.therapist_id,
-              });
-
-              if (!updatedPatient) {
-                return res.status(400).json({
-                  message: 'Failed to update patient',
-                });
-              } else {
-                return res.status(200).json({
-                  message: 'Patient updated successfully',
-                  patient: updatedPatient,
-                });
-              }
-            }
+            return res.status(200).json({
+              message: 'Patient updated successfully',
+              patient: updatedPatient,
+            });
           }
         }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Internal server error' });
       }
     }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

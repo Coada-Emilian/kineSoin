@@ -44,38 +44,34 @@ import createdBodyRegionSchema from '../../joi_validations/creation_validations/
 export default async function createBodyRegionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      if (!req.body) {
-        return res.status(400).json({
-          message:
-            'The request body cannot be empty. Please provide the necessary data.',
-        });
-      }
-
-      const { error } = createdBodyRegionSchema.validate(req.body);
-
-      if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-      } else {
-        const newBodyRegion = await Body_region.create({
-          admin_id,
-          name: req.body.name,
-        });
-
-        if (!newBodyRegion) {
-          return res
-            .status(500)
-            .json({ message: 'Error while creating body region.' });
-        } else {
-          return res.status(201).json(newBodyRegion);
-        }
-      }
-    } catch (error) {
-      console.error('Error creating body region:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
     }
+
+    const { error } = createdBodyRegionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    } else {
+      const newBodyRegion = await Body_region.create({
+        admin_id,
+        name: req.body.name,
+      });
+
+      if (!newBodyRegion) {
+        return res
+          .status(500)
+          .json({ message: 'Error while creating body region.' });
+      } else {
+        return res.status(201).json(newBodyRegion);
+      }
+    }
+  } catch (error) {
+    console.error('Error creating body region:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

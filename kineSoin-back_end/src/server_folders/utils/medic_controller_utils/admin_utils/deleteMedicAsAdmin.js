@@ -37,31 +37,23 @@ import { Medic } from '../../../models/index.js';
 export default async function deleteMedicAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const medic_id = getValidId(req.params.medic_id, 'Medic ID');
+  try {
+    const medic_id = getValidId(req.params.medic_id, 'Medic ID');
 
-      const foundMedic = await Medic.findByPk(medic_id);
+    const foundMedic = await Medic.findByPk(medic_id);
 
-      if (!foundMedic) {
-        return res.status(404).json({ message: 'Medic not found.' });
+    if (!foundMedic) {
+      return res.status(404).json({ message: 'Medic not found.' });
+    } else {
+      const deletedMedic = await foundMedic.destroy();
+
+      if (!deletedMedic) {
+        return res.status(500).json({ message: 'Error while deleting medic.' });
       } else {
-        const deletedMedic = await foundMedic.destroy();
-
-        if (!deletedMedic) {
-          return res
-            .status(500)
-            .json({ message: 'Error while deleting medic.' });
-        } else {
-          return res
-            .status(200)
-            .json({ message: 'Medic deleted successfully.' });
-        }
+        return res.status(200).json({ message: 'Medic deleted successfully.' });
       }
-    } catch (error) {
-      return res.status(500).json({ message: 'Error deleting medic.' });
     }
+  } catch (error) {
+    return res.status(500).json({ message: 'Error deleting medic.' });
   }
 }

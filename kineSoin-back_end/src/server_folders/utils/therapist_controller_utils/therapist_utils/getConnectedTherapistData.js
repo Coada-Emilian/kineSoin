@@ -1,4 +1,3 @@
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Therapist } from '../../../models/index.js';
 
 export default async function getConnectedTherapistData(req, res) {
@@ -8,8 +7,6 @@ export default async function getConnectedTherapistData(req, res) {
     return res.status(400).json({ message: 'Therapist not found' });
   } else {
     try {
-      checkIsValidNumber(therapist_id);
-
       const foundTherapist = await Therapist.findByPk(therapist_id, {
         where: { status: 'active' },
         attributes: [

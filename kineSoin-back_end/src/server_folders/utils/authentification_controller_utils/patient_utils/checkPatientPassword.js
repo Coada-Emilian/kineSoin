@@ -16,13 +16,10 @@
  */
 
 import { Scrypt } from '../../../authentification/Scrypt.js';
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Patient } from '../../../models/index.js';
 
 export default async function checkPatientPassword(req, res) {
   const patient_id = parseInt(req.patient_id, 10);
-
-  checkIsValidNumber(patient_id);
 
   if (!patient_id) {
     return res.status(400).json({ message: 'Patient not found' });

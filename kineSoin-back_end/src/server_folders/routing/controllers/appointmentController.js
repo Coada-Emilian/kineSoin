@@ -25,7 +25,7 @@
 import deleteAppointmentAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/deleteAppointmentAsTherapist.js';
 import getAllAppointmentsAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/getAllAppointmentsAsTherapist.js';
 import getPatientAppointmentsAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/getPatientAppointmentsAsTherapist.js';
-import getTherapistDashboardData from '../../utils/appointment_controller_utils/therapist_utils/getTherapistDashboardData.js';
+import getTherapistAppointmentDashboardData from '../../utils/appointment_controller_utils/therapist_utils/getTherapistAppointmentDashboardData.js';
 import proposeOneAppointmentAsTherapist from '../../utils/appointment_controller_utils/therapist_utils/proposeOneAppointmentAsTherapist.js';
 
 const appointmentController = {
@@ -33,7 +33,7 @@ const appointmentController = {
   deleteAppointmentAsTherapist,
 
   // Get the therapist dashboard data consisting of existing appointments on the day
-  getTherapistDashboardData,
+  getTherapistAppointmentDashboardData,
 
   // Get all appointments as a therapist
   getAllAppointmentsAsTherapist,

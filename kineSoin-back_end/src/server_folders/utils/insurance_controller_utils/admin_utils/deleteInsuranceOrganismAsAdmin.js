@@ -41,31 +41,27 @@ import { Insurance } from '../../../models/index.js';
 export default async function deleteInsuranceOrganismAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
+  try {
+    const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
 
-      const foundInsurance = await Insurance.findByPk(insurance_id);
+    const foundInsurance = await Insurance.findByPk(insurance_id);
 
-      if (!foundInsurance) {
-        return res.status(400).json({ message: 'Insurance not found' });
+    if (!foundInsurance) {
+      return res.status(400).json({ message: 'Insurance not found' });
+    } else {
+      const response = await foundInsurance.destroy();
+
+      if (response) {
+        return res
+          .status(200)
+          .json({ message: 'The insurance was deleted', response });
       } else {
-        const response = await foundInsurance.destroy();
-
-        if (response) {
-          return res
-            .status(200)
-            .json({ message: 'The insurance was deleted', response });
-        } else {
-          return res
-            .status(400)
-            .json({ message: 'The insurance was not deleted', response });
-        }
+        return res
+          .status(400)
+          .json({ message: 'The insurance was not deleted', response });
       }
-    } catch (error) {
-      return res.status(500).json({ message: 'Error deleting insurance.' });
     }
+  } catch (error) {
+    return res.status(500).json({ message: 'Error deleting insurance.' });
   }
 }

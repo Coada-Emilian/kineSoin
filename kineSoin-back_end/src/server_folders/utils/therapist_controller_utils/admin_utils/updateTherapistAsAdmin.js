@@ -16,7 +16,6 @@
  * - Updates the therapist record in the database.
  *
  * Error handling:
- * - Returns 400 if admin ID or therapist ID is invalid.
  * - Returns 400 if request body is missing or invalid.
  * - Returns 400 if therapist is not found.
  * - Returns 400 if update validation fails.
@@ -50,90 +49,86 @@ multer({ storage: therapistPhotoStorage });
 export default async function updateTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
-  } else {
-    try {
-      const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
+  try {
+    const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
 
-      if (!req.body) {
-        return res.status(400).json({
-          message: 'Please provide the data to update the therapist',
-        });
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Please provide the data to update the therapist',
+      });
+    } else {
+      const { error } = updatedTherapistSchema.validate(req.body);
+
+      if (error) {
+        return res.status(400).json({ message: error.message });
       } else {
-        const { error } = updatedTherapistSchema.validate(req.body);
+        const foundTherapist = await Therapist.findByPk(therapist_id);
 
-        if (error) {
-          return res.status(400).json({ message: error.message });
-        } else {
-          const foundTherapist = await Therapist.findByPk(therapist_id);
+        if (!foundTherapist) {
+          return res.status(400).json({ message: 'Therapist not found' });
+        }
 
-          if (!foundTherapist) {
-            return res.status(400).json({ message: 'Therapist not found' });
-          }
+        const {
+          status,
+          name,
+          email,
+          surname,
+          diploma,
+          experience,
+          specialty,
+          phone_number,
+          description,
+          licence_code,
+          prefix,
+        } = req.body;
 
-          const {
-            status,
-            name,
-            email,
-            surname,
-            diploma,
-            experience,
-            specialty,
-            phone_number,
-            description,
-            licence_code,
-            prefix,
-          } = req.body;
+        const fullPhoneNumber = `${prefix}${phone_number}`;
 
-          const fullPhoneNumber = `${prefix}${phone_number}`;
+        const newProfile = {
+          status: status || foundTherapist.status,
+          name: name || foundTherapist.name,
+          surname: surname || foundTherapist.surname,
+          diploma: diploma || foundTherapist.diploma,
+          email: email || foundTherapist.email,
+          experience: experience || foundTherapist.experience,
+          specialty: specialty || foundTherapist.specialty,
+          phone_number: phone_number || foundTherapist.phone_number,
+          description: description || foundTherapist.description,
+          licence_code: licence_code || foundTherapist.licence_code,
+          prefix: prefix || foundTherapist.prefix,
+          full_phone_number: fullPhoneNumber,
+        };
 
-          const newProfile = {
-            status: status || foundTherapist.status,
-            name: name || foundTherapist.name,
-            surname: surname || foundTherapist.surname,
-            diploma: diploma || foundTherapist.diploma,
-            email: email || foundTherapist.email,
-            experience: experience || foundTherapist.experience,
-            specialty: specialty || foundTherapist.specialty,
-            phone_number: phone_number || foundTherapist.phone_number,
-            description: description || foundTherapist.description,
-            licence_code: licence_code || foundTherapist.licence_code,
-            prefix: prefix || foundTherapist.prefix,
-            full_phone_number: fullPhoneNumber,
-          };
-
-          if (req.file) {
-            if (foundTherapist.picture_id) {
-              try {
-                await cloudinary.uploader.destroy(foundTherapist.picture_id);
-              } catch (err) {
-                console.error(
-                  'Error deleting old picture from Cloudinary:',
-                  err.message
-                );
-              }
+        if (req.file) {
+          if (foundTherapist.picture_id) {
+            try {
+              await cloudinary.uploader.destroy(foundTherapist.picture_id);
+            } catch (err) {
+              console.error(
+                'Error deleting old picture from Cloudinary:',
+                err.message
+              );
             }
-            const { path, filename } = req.file;
-
-            newProfile.picture_id = filename;
-
-            newProfile.picture_url = path;
           }
-          const response = await foundTherapist.update(newProfile);
+          const { path, filename } = req.file;
 
-          if (!response) {
-            return res.status(400).json({ message: 'Therapist not updated' });
-          } else {
-            return res
-              .status(200)
-              .json({ message: 'Therapist updated successfully!' });
-          }
+          newProfile.picture_id = filename;
+
+          newProfile.picture_url = path;
+        }
+        const response = await foundTherapist.update(newProfile);
+
+        if (!response) {
+          return res.status(400).json({ message: 'Therapist not updated' });
+        } else {
+          return res
+            .status(200)
+            .json({ message: 'Therapist updated successfully!' });
         }
       }
-    } catch (err) {
-      console.error('Error updating therapist:', err);
-      return res.status(500).json({ message: 'Internal server error' });
     }
+  } catch (err) {
+    console.error('Error updating therapist:', err);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

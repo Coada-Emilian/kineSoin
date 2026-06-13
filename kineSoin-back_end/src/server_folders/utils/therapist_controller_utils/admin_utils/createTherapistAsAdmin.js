@@ -21,7 +21,6 @@
  * - Rolls back uploaded image from Cloudinary if creation fails.
  *
  * Error handling:
- * - Returns 400 if admin ID is invalid.
  * - Returns 400 if request body is missing or invalid.
  * - Returns 400 if validation fails.
  * - Returns 400 if therapist already exists.
@@ -57,102 +56,98 @@ multer({ storage: therapistPhotoStorage });
 export default async function createTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
-  } else {
-    try {
-      if (!req.body) {
-        return res.status(400).json({
-          message: 'Please provide the data to create the therapist',
-        });
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Please provide the data to create the therapist',
+      });
+    } else {
+      const { error } = createdTherapistSchema.validate(req.body);
+
+      if (error) {
+        return res.status(400).json({ message: error.message });
+      }
+
+      const {
+        name,
+        surname,
+        email,
+        password,
+        repeated_password,
+        description,
+        diploma,
+        experience,
+        specialty,
+        prefix,
+        phone_number,
+        licence_code,
+        status,
+      } = req.body;
+
+      const foundTherapist = await Therapist.findOne({
+        where: { email },
+      });
+
+      if (foundTherapist) {
+        return res.status(400).json({ message: 'Therapist already exists' });
+      } else if (password !== repeated_password) {
+        return res.status(400).json({ message: 'Passwords do not match' });
       } else {
-        const { error } = createdTherapistSchema.validate(req.body);
+        const hashedPassword = Scrypt.hash(password);
 
-        if (error) {
-          return res.status(400).json({ message: error.message });
-        }
+        const fullPhoneNumber = `${prefix}${phone_number}`;
 
-        const {
-          name,
-          surname,
-          email,
-          password,
-          repeated_password,
-          description,
-          diploma,
-          experience,
-          specialty,
-          prefix,
-          phone_number,
-          licence_code,
-          status,
-        } = req.body;
-
-        const foundTherapist = await Therapist.findOne({
-          where: { email },
-        });
-
-        if (foundTherapist) {
-          return res.status(400).json({ message: 'Therapist already exists' });
-        } else if (password !== repeated_password) {
-          return res.status(400).json({ message: 'Passwords do not match' });
+        if (!req.file) {
+          return res.status(400).json({
+            message: 'No file detected. Please upload a file to continue.',
+          });
         } else {
-          const hashedPassword = Scrypt.hash(password);
+          const picture_url = req.file.path;
+          const picture_id = req.file.filename;
 
-          const fullPhoneNumber = `${prefix}${phone_number}`;
+          const newTherapist = {
+            admin_id,
+            name,
+            surname,
+            email,
+            password: hashedPassword,
+            picture_url,
+            picture_id,
+            description,
+            diploma,
+            experience,
+            specialty,
+            prefix,
+            phone_number,
+            full_phone_number: fullPhoneNumber,
+            licence_code,
+            status: status || 'active',
+          };
 
-          if (!req.file) {
-            return res.status(400).json({
-              message: 'No file detected. Please upload a file to continue.',
-            });
-          } else {
-            const picture_url = req.file.path;
-            const picture_id = req.file.filename;
+          const createdTherapist = await Therapist.create(newTherapist);
 
-            const newTherapist = {
-              admin_id,
-              name,
-              surname,
-              email,
-              password: hashedPassword,
-              picture_url,
-              picture_id,
-              description,
-              diploma,
-              experience,
-              specialty,
-              prefix,
-              phone_number,
-              full_phone_number: fullPhoneNumber,
-              licence_code,
-              status: status || 'active',
-            };
-
-            const createdTherapist = await Therapist.create(newTherapist);
-
-            if (!createdTherapist) {
-              try {
-                await cloudinary.uploader.destroy(picture_id);
-              } catch (err) {
-                console.error(
-                  'Error deleting old picture from Cloudinary:',
-                  err.message
-                );
-              }
-              return res
-                .status(400)
-                .json({ message: 'The therapist was not created' });
-            } else {
-              return res.status(201).json({
-                message: 'Therapist created successfully!',
-              });
+          if (!createdTherapist) {
+            try {
+              await cloudinary.uploader.destroy(picture_id);
+            } catch (err) {
+              console.error(
+                'Error deleting old picture from Cloudinary:',
+                err.message
+              );
             }
+            return res
+              .status(400)
+              .json({ message: 'The therapist was not created' });
+          } else {
+            return res.status(201).json({
+              message: 'Therapist created successfully!',
+            });
           }
         }
       }
-    } catch (err) {
-      console.error('Error creating therapist:', err);
-      return res.status(500).json({ message: 'Internal server error' });
     }
+  } catch (err) {
+    console.error('Error creating therapist:', err);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

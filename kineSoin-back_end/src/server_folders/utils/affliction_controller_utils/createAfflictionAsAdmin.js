@@ -40,42 +40,38 @@ import createdAfflictionSchema from '../joi_validations/creation_validations/cre
 export default async function createAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      if (!req.body) {
-        return res.status(400).json({
-          message:
-            'The request body cannot be empty. Please provide the necessary data.',
-        });
-      }
-
-      const { error } = createdAfflictionSchema.validate(req.body);
-
-      if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-      } else {
-        const newAffliction = await Affliction.create({
-          admin_id,
-          body_region_id: req.body.body_region_id,
-          name: req.body.name,
-          description: req.body.description,
-          insurance_code: req.body.insurance_code,
-          is_operated: req.body.is_operated,
-        });
-
-        if (!newAffliction) {
-          return res
-            .status(500)
-            .json({ message: 'Error while creating affliction.' });
-        } else {
-          return res.status(201).json(newAffliction);
-        }
-      }
-    } catch (error) {
-      console.error('Error creating affliction:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
     }
+
+    const { error } = createdAfflictionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    } else {
+      const newAffliction = await Affliction.create({
+        admin_id,
+        body_region_id: req.body.body_region_id,
+        name: req.body.name,
+        description: req.body.description,
+        insurance_code: req.body.insurance_code,
+        is_operated: req.body.is_operated,
+      });
+
+      if (!newAffliction) {
+        return res
+          .status(500)
+          .json({ message: 'Error while creating affliction.' });
+      } else {
+        return res.status(201).json(newAffliction);
+      }
+    }
+  } catch (error) {
+    console.error('Error creating affliction:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

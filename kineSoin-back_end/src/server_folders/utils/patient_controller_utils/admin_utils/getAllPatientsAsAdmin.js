@@ -22,7 +22,6 @@
  * - Returns 404 if no patients are found.
  *
  * Error handling:
- * - Returns 400 if admin ID is invalid.
  * - Returns 404 if no patients exist in the database.
  * - Returns 500 for unexpected server/database errors.
  *
@@ -43,24 +42,9 @@ import { Patient } from '../../../models/index.js';
 export default async function getAllPatientsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
-  }
-
   try {
     const foundPatients = await Patient.findAll({
-      attributes: [
-        'id',
-        'name',
-        'surname',
-        'status',
-        // 'birth_date',
-        // 'phone_number',
-        // 'city',
-        // 'street_name',
-        // 'street_number',
-        // 'postal_code',
-      ],
+      attributes: ['id', 'name', 'surname', 'status'],
       order: [
         ['status', 'ASC'],
         ['name', 'ASC'],
@@ -83,12 +67,6 @@ export default async function getAllPatientsAsAdmin(req, res) {
       name: patient.name,
       surname: patient.surname,
       fullName: `${patient.name} ${patient.surname}`,
-      // age: computeAge(patient.birth_date),
-      // address: `${patient.street_number} ${patient.street_name}, ${patient.postal_code} ${patient.city}`,
-      // phone_number: patient.phone_number,
-      // therapist: patient.therapist
-      //   ? `${patient.therapist.name} ${patient.therapist.surname}`
-      //   : null,
     }));
 
     return res.status(200).json(sentPatients);

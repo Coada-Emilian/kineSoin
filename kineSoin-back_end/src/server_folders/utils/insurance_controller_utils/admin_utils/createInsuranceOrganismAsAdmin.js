@@ -53,57 +53,52 @@ import createdInsuranceSchema from '../../joi_validations/creation_validations/c
 export default async function createInsuranceOrganismAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      if (!req.body) {
-        return res.status(400).json({
-          message:
-            'Request body is missing. Please provide the necessary data.',
-        });
-      }
-      const { error } = createdInsuranceSchema.validate(req.body);
-
-      if (error) {
-        return res.status(400).json({ message: error.message });
-      }
-      const {
-        name,
-        amc_code,
-        street_number,
-        street_name,
-        postal_code,
-        city,
-        phone_number,
-        prefix,
-      } = req.body;
-
-      const sentInsurance = {
-        admin_id,
-        name,
-        amc_code,
-        street_number,
-        street_name,
-        postal_code,
-        city,
-        phone_number,
-        prefix,
-        full_phone_number: `${prefix}${phone_number}`,
-      };
-
-      const response = await Insurance.create(sentInsurance);
-      if (response) {
-        return res
-          .status(200)
-          .json({ message: 'Insurance organism created', response });
-      } else {
-        return res
-          .status(400)
-          .json({ message: 'Insurance organism not created', response });
-      }
-    } catch (error) {
-      return res.status(500).json({ message: 'Error creating insurance.' });
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
     }
+    const { error } = createdInsuranceSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+    const {
+      name,
+      amc_code,
+      street_number,
+      street_name,
+      postal_code,
+      city,
+      phone_number,
+      prefix,
+    } = req.body;
+
+    const sentInsurance = {
+      admin_id,
+      name,
+      amc_code,
+      street_number,
+      street_name,
+      postal_code,
+      city,
+      phone_number,
+      prefix,
+      full_phone_number: `${prefix}${phone_number}`,
+    };
+
+    const response = await Insurance.create(sentInsurance);
+    if (response) {
+      return res
+        .status(200)
+        .json({ message: 'Insurance organism created', response });
+    } else {
+      return res
+        .status(400)
+        .json({ message: 'Insurance organism not created', response });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: 'Error creating insurance.' });
   }
 }

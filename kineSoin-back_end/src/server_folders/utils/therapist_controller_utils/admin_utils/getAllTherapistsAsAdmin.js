@@ -19,7 +19,6 @@
  * - status: therapist availability or account status
  *
  * Error handling:
- * - Returns 400 if admin_id is missing or invalid.
  * - Returns 400 if no therapists are found.
  * - Returns 500 for unexpected server/database errors.
  *
@@ -35,37 +34,33 @@ import { Therapist } from '../../../models/index.js';
 export default async function getAllTherapistsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Invalid admin ID' });
-  } else {
-    try {
-      const foundTherapists = await Therapist.findAll({
-        attributes: ['id', 'name', 'surname', 'status'],
-        order: [
-          ['status', 'ASC'],
-          ['name', 'ASC'],
-        ],
-      });
+  try {
+    const foundTherapists = await Therapist.findAll({
+      attributes: ['id', 'name', 'surname', 'status'],
+      order: [
+        ['status', 'ASC'],
+        ['name', 'ASC'],
+      ],
+    });
 
-      if (foundTherapists.length === 0) {
-        return res.status(400).json({ message: 'No therapists found' });
-      }
-
-      const allTherapists = [];
-
-      for (const therapist of foundTherapists) {
-        const newTherapist = {
-          id: therapist.id,
-          fullName: `${therapist.name} ${therapist.surname}`,
-          status: therapist.status,
-        };
-        allTherapists.push(newTherapist);
-      }
-
-      return res.status(200).json(allTherapists);
-    } catch (err) {
-      console.error('Error fetching therapists:', err);
-      return res.status(500).json({ message: 'Internal server error' });
+    if (foundTherapists.length === 0) {
+      return res.status(400).json({ message: 'No therapists found' });
     }
+
+    const allTherapists = [];
+
+    for (const therapist of foundTherapists) {
+      const newTherapist = {
+        id: therapist.id,
+        fullName: `${therapist.name} ${therapist.surname}`,
+        status: therapist.status,
+      };
+      allTherapists.push(newTherapist);
+    }
+
+    return res.status(200).json(allTherapists);
+  } catch (err) {
+    console.error('Error fetching therapists:', err);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

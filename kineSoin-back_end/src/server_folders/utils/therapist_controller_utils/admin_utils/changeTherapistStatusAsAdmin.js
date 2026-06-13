@@ -16,7 +16,6 @@
  * - Ensures therapist exists before applying updates.
  *
  * Error handling:
- * - Returns 400 if admin ID or therapist ID is invalid.
  * - Returns 400 if request body is missing or invalid.
  * - Returns 400 if validation fails.
  * - Returns 400 if therapist is not found.
@@ -42,43 +41,39 @@ import { Therapist } from '../../../models/index.js';
 export default async function changeTherapistStatusAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin not found' });
-  } else {
-    try {
-      const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
+  try {
+    const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
 
-      const updatedTherapistStatusSchema = Joi.object({
-        status: Joi.string().valid('active', 'inactive'),
+    const updatedTherapistStatusSchema = Joi.object({
+      status: Joi.string().valid('active', 'inactive'),
+    });
+
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Please provide the status to update the therapist',
       });
+    } else {
+      const { error } = updatedTherapistStatusSchema.validate(req.body);
 
-      if (!req.body) {
-        return res.status(400).json({
-          message: 'Please provide the status to update the therapist',
-        });
-      } else {
-        const { error } = updatedTherapistStatusSchema.validate(req.body);
-
-        if (error) {
-          return res.status(400).json({ message: error.message });
-        }
-
-        const { status } = req.body;
-
-        const foundTherapist = await Therapist.findByPk(therapist_id);
-
-        if (!foundTherapist) {
-          return res.status(400).json({ message: 'Therapist not found' });
-        } else {
-          await foundTherapist.update({ status });
-        }
-
-        return res
-          .status(200)
-          .json({ message: 'Therapist status updated successfully!' });
+      if (error) {
+        return res.status(400).json({ message: error.message });
       }
-    } catch (error) {
-      console.error('Error changing therapist status:', error);
+
+      const { status } = req.body;
+
+      const foundTherapist = await Therapist.findByPk(therapist_id);
+
+      if (!foundTherapist) {
+        return res.status(400).json({ message: 'Therapist not found' });
+      } else {
+        await foundTherapist.update({ status });
+      }
+
+      return res
+        .status(200)
+        .json({ message: 'Therapist status updated successfully!' });
     }
+  } catch (error) {
+    console.error('Error changing therapist status:', error);
   }
 }

@@ -37,35 +37,31 @@ import { Body_region } from '../../../models/index.js';
 export default async function deleteBodyRegionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const body_region_id = getValidId(
-        req.params.body_region_id,
-        'Body Region ID'
-      );
+  try {
+    const body_region_id = getValidId(
+      req.params.body_region_id,
+      'Body Region ID'
+    );
 
-      const foundBodyRegion = await Body_region.findByPk(body_region_id);
+    const foundBodyRegion = await Body_region.findByPk(body_region_id);
 
-      if (!foundBodyRegion) {
-        return res.status(404).json({ message: 'Body region not found.' });
+    if (!foundBodyRegion) {
+      return res.status(404).json({ message: 'Body region not found.' });
+    } else {
+      const deletedBodyRegion = await foundBodyRegion.destroy();
+
+      if (!deletedBodyRegion) {
+        return res
+          .status(500)
+          .json({ message: 'Error while deleting body region.' });
       } else {
-        const deletedBodyRegion = await foundBodyRegion.destroy();
-
-        if (!deletedBodyRegion) {
-          return res
-            .status(500)
-            .json({ message: 'Error while deleting body region.' });
-        } else {
-          return res
-            .status(200)
-            .json({ message: 'Body region deleted successfully.' });
-        }
+        return res
+          .status(200)
+          .json({ message: 'Body region deleted successfully.' });
       }
-    } catch (error) {
-      console.error('Error deleting body region:', error);
-      return res.status(500).json({ message: 'Internal server error' });
     }
+  } catch (error) {
+    console.error('Error deleting body region:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

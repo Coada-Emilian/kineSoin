@@ -39,27 +39,23 @@ import { Insurance } from '../../../models/index.js';
 export default async function getAllInsuranceOrganismsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  } else {
-    try {
-      const allInsurances = await Insurance.findAll({
-        attributes: ['id', 'name', 'amc_code'],
-      });
+  try {
+    const allInsurances = await Insurance.findAll({
+      attributes: ['id', 'name', 'amc_code'],
+    });
 
-      if (!allInsurances) {
-        return res.status(400).json({ message: 'No insurance found' });
-      } else {
-        const allInsurancesData = allInsurances.map((insurance) => ({
-          id: insurance.id,
-          name: insurance.name,
-          amc_code: insurance.amc_code,
-        }));
+    if (!allInsurances) {
+      return res.status(400).json({ message: 'No insurance found' });
+    } else {
+      const allInsurancesData = allInsurances.map((insurance) => ({
+        id: insurance.id,
+        name: insurance.name,
+        amc_code: insurance.amc_code,
+      }));
 
-        return res.status(200).json(allInsurancesData);
-      }
-    } catch (error) {
-      return res.status(500).json({ message: 'Error fetching insurances.' });
+      return res.status(200).json(allInsurancesData);
     }
+  } catch (error) {
+    return res.status(500).json({ message: 'Error fetching insurances.' });
   }
 }

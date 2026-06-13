@@ -18,7 +18,6 @@
  * - fullPhoneNumber: concatenation of prefix and phone number.
  *
  * Error handling:
- * - Returns 400 if admin_id is missing or invalid.
  * - Returns 400 if therapist_id is missing, invalid, or not found.
  * - Returns 500 for unexpected server or database errors.
  *
@@ -34,39 +33,35 @@ import { Therapist } from '../../../models/index.js';
 export default async function getOneTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required' });
-  } else {
-    const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
+  const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
 
-    try {
-      const foundTherapist = await Therapist.findByPk(therapist_id, {
-        attributes: {
-          exclude: [
-            'password',
-            'old_password',
-            'new_password',
-            'repeated_password',
-            'created_at',
-            'updated_at',
-            'picture_id',
-          ],
-        },
-      });
+  try {
+    const foundTherapist = await Therapist.findByPk(therapist_id, {
+      attributes: {
+        exclude: [
+          'password',
+          'old_password',
+          'new_password',
+          'repeated_password',
+          'created_at',
+          'updated_at',
+          'picture_id',
+        ],
+      },
+    });
 
-      if (!foundTherapist) {
-        return res.status(400).json({ message: 'Therapist not found' });
-      }
-      const fullPhoneNumber = `${foundTherapist.prefix}${foundTherapist.phone_number}`;
-
-      const fullName = `${foundTherapist.name} ${foundTherapist.surname}`;
-
-      return res
-        .status(200)
-        .json({ ...foundTherapist.dataValues, fullName, fullPhoneNumber });
-    } catch (err) {
-      console.error('Error fetching therapist:', err);
-      return res.status(500).json({ message: 'Internal server error' });
+    if (!foundTherapist) {
+      return res.status(400).json({ message: 'Therapist not found' });
     }
+    const fullPhoneNumber = `${foundTherapist.prefix}${foundTherapist.phone_number}`;
+
+    const fullName = `${foundTherapist.name} ${foundTherapist.surname}`;
+
+    return res
+      .status(200)
+      .json({ ...foundTherapist.dataValues, fullName, fullPhoneNumber });
+  } catch (err) {
+    console.error('Error fetching therapist:', err);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

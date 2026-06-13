@@ -70,114 +70,102 @@ import { Appointment, Patient } from '../../../models/index.js';
 export default async function getPatientAppointmentsAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
-  if (!therapist_id) {
-    return res.status(400).json({ error: 'Invalid therapist ID' });
-  } else {
-    const patient_id = getValidId(req.params.patient_id, 10);
+  const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
-    if (!patient_id) {
-      return res.status(400).json({ error: 'Patient ID' });
-    } else {
-      try {
-        const foundPatient = await Patient.findOne({
-          where: { id: patient_id },
-          attributes: ['id', 'name', 'surname', 'picture_url'],
-        });
+  try {
+    const foundPatient = await Patient.findOne({
+      where: { id: patient_id },
+      attributes: ['id', 'name', 'surname', 'picture_url'],
+    });
 
-        if (!foundPatient) {
-          return res.status(404).json({ error: 'Patient not found' });
-        }
+    if (!foundPatient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
 
-        const foundAppointments = await Appointment.findAll({
-          where: { patient_id },
+    const foundAppointments = await Appointment.findAll({
+      where: { patient_id },
+      attributes: {
+        exclude: ['created_at', 'updated_at', 'therapist_id'],
+      },
+      order: [
+        ['date', 'ASC'],
+        ['time', 'ASC'],
+      ],
+      include: [
+        {
+          association: 'therapist',
+          attributes: ['id', 'name', 'surname'],
+        },
+        {
+          association: 'prescription',
           attributes: {
-            exclude: ['created_at', 'updated_at', 'therapist_id'],
+            exclude: [
+              'created_at',
+              'updated_at',
+              'affliction_id',
+              'medic_id',
+              'picture_id',
+              'prescription_id',
+            ],
           },
-          order: [
-            ['date', 'ASC'],
-            ['time', 'ASC'],
-          ],
           include: [
             {
-              association: 'therapist',
-              attributes: ['id', 'name', 'surname'],
-            },
-            {
-              association: 'prescription',
-              attributes: {
-                exclude: [
-                  'created_at',
-                  'updated_at',
-                  'affliction_id',
-                  'medic_id',
-                  'picture_id',
-                  'prescription_id',
-                ],
-              },
-              include: [
-                {
-                  association: 'medic',
-                  attributes: [
-                    'id',
-                    'name',
-                    'surname',
-                    'email',
-                    'prefix',
-                    'phone_number',
-                  ],
-                },
-                {
-                  association: 'affliction',
-                  attributes: ['id', 'name', 'description'],
-                },
+              association: 'medic',
+              attributes: [
+                'id',
+                'name',
+                'surname',
+                'email',
+                'prefix',
+                'phone_number',
               ],
             },
-          ],
-        });
-
-        if (!foundAppointments || foundAppointments.length === 0) {
-          return res
-            .status(404)
-            .json({ error: 'No appointments found for this patient' });
-        } else {
-          const currentDate = new Date();
-          const currentTime = currentDate.toTimeString().split(' ')[0];
-
-          const previousAppointments = foundAppointments.filter(
-            (appointment) => {
-              const appointmentDateTime = getAppointmentDateTime(
-                appointment.date,
-                appointment.time
-              );
-              return appointmentDateTime < new Date();
-            }
-          );
-
-          const upcomingAppointments = foundAppointments.filter(
-            (appointment) => {
-              const appointmentDateTime = getAppointmentDateTime(
-                appointment.date,
-                appointment.time
-              );
-              return appointmentDateTime >= new Date();
-            }
-          );
-
-          return res.status(200).json({
-            previousAppointments,
-            upcomingAppointments,
-            patient: {
-              id: foundPatient.id,
-              fullName: `${foundPatient.name} ${foundPatient.surname}`,
-              picture_url: foundPatient.picture_url,
-              status: foundPatient.status,
+            {
+              association: 'affliction',
+              attributes: ['id', 'name', 'description'],
             },
-          });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Internal server error' });
-      }
+          ],
+        },
+      ],
+    });
+
+    if (!foundAppointments || foundAppointments.length === 0) {
+      return res
+        .status(404)
+        .json({ error: 'No appointments found for this patient' });
+    } else {
+      const currentDate = new Date();
+      const currentTime = currentDate.toTimeString().split(' ')[0];
+
+      const previousAppointments = foundAppointments.filter((appointment) => {
+        const appointmentDateTime = getAppointmentDateTime(
+          appointment.date,
+          appointment.time
+        );
+        return appointmentDateTime < new Date();
+      });
+
+      const upcomingAppointments = foundAppointments.filter((appointment) => {
+        const appointmentDateTime = getAppointmentDateTime(
+          appointment.date,
+          appointment.time
+        );
+        return appointmentDateTime >= new Date();
+      });
+
+      return res.status(200).json({
+        previousAppointments,
+        upcomingAppointments,
+        patient: {
+          id: foundPatient.id,
+          fullName: `${foundPatient.name} ${foundPatient.surname}`,
+          picture_url: foundPatient.picture_url,
+          status: foundPatient.status,
+        },
+      });
     }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

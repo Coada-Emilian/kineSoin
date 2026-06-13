@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import { Scrypt } from '../../../authentification/Scrypt.js';
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Therapist } from '../../../models/index.js';
 
 export default async function updateConnectedTherapist(req, res) {
@@ -10,8 +9,6 @@ export default async function updateConnectedTherapist(req, res) {
     return res.status(400).json({ message: 'Therapist not found' });
   } else {
     try {
-      checkIsValidNumber(therapist_id);
-
       const updatedTherapistSchema = Joi.object({
         name: Joi.string().max(50).optional(),
         surname: Joi.string().max(50).optional(),

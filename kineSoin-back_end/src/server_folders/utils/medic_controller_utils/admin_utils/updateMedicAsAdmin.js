@@ -45,10 +45,6 @@ import updatedMedicSchema from '../../joi_validations/update_validations/updated
 export default async function updateMedicAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  if (!admin_id) {
-    return res.status(400).json({ message: 'Admin ID is required.' });
-  }
-
   const medic_id = getValidId(req.params.medic_id, 'Medic ID');
 
   if (!req.body) {

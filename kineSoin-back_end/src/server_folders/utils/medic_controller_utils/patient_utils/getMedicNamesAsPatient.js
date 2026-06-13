@@ -1,10 +1,7 @@
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Medic } from '../../../models/index.js';
 
 export default async function getMedicNamesAsPatient(req, res) {
   const patient_id = parseInt(req.patient_id, 10);
-
-  checkIsValidNumber(patient_id);
 
   if (!patient_id) {
     return res.status(400).json({ message: 'Patient ID is required.' });

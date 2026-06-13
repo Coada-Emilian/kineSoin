@@ -19,14 +19,11 @@
  * @param {Object} res - Express response object for sending data or error messages.
  */
 
-import { checkIsValidNumber } from '../../../middlewares/checkIsValidNumber.js';
 import { Insurance, Patient } from '../../../models/index.js';
 import { checkPatientStatus } from '../../checkPatientStatus.js';
 
 export default async function getInsurancesAsPatient(req, res) {
   const patient_id = parseInt(req.patient_id, 10);
-
-  checkIsValidNumber(patient_id);
 
   if (!patient_id) {
     return res.status(400).json({ message: 'Patient not found' });
