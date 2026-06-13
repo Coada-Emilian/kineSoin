@@ -37,12 +37,15 @@
  * - Inserts a new body region record into the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Body_region } from '../../../models/index.js';
+import { Admin, Body_region } from '../../../models/index.js';
 import createdBodyRegionSchema from '../../joi_validations/creation_validations/createdBodyRegionSchema.js';
 
 export default async function createBodyRegionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     if (!req.body) {
@@ -72,6 +75,10 @@ export default async function createBodyRegionAsAdmin(req, res) {
     }
   } catch (error) {
     console.error('Error creating body region:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error creating body region:',
+      error: error.message,
+    });
   }
 }

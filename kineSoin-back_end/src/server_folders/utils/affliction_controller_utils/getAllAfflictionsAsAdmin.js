@@ -30,11 +30,14 @@
  * - No database mutations; read-only operation.
  */
 
+import { findOrThrow } from '../../middlewares/findOrThrow.js';
 import { getValidId } from '../../middlewares/getValidId.js';
-import { Affliction } from '../../models/index.js';
+import { Admin, Affliction } from '../../models/index.js';
 
 export default async function getAllAfflictionsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const foundAfflictions = await Affliction.findAll({
@@ -43,7 +46,7 @@ export default async function getAllAfflictionsAsAdmin(req, res) {
         'name',
         // 'description',
         'insurance_code',
-        // 'is_operated',
+        'is_operated',
         'body_region_id',
       ],
       order: [
@@ -65,6 +68,10 @@ export default async function getAllAfflictionsAsAdmin(req, res) {
     }
   } catch (error) {
     console.error('Error fetching afflictions:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error fetching afflictions:',
+      error: error.message,
+    });
   }
 }

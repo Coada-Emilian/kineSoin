@@ -38,12 +38,15 @@
  * - Updates an existing affliction record in the database.
  */
 
+import { findOrThrow } from '../../middlewares/findOrThrow.js';
 import { getValidId } from '../../middlewares/getValidId.js';
-import { Affliction } from '../../models/index.js';
+import { Admin, Affliction } from '../../models/index.js';
 import updatedAfflictionSchema from '../joi_validations/update_validations/updatedAfflictionSchema.js';
 
 export default async function updateAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const affliction_id = getValidId(req.params.affliction_id, 'Affliction ID');
@@ -96,6 +99,10 @@ export default async function updateAfflictionAsAdmin(req, res) {
     }
   } catch (error) {
     console.error('Error updating affliction:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error updating affliction:',
+      error: error.message,
+    });
   }
 }

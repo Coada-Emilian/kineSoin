@@ -51,11 +51,14 @@
  * - None (read-only database operation).
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Appointment } from '../../../models/index.js';
+import { Appointment, Therapist } from '../../../models/index.js';
 
 export default async function getTherapistAppointmentDashboardData(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
+
+  await findOrThrow(Therapist, therapist_id, 'Therapist');
 
   try {
     const currentDate = new Date().toISOString().split('T')[0];
@@ -93,7 +96,11 @@ export default async function getTherapistAppointmentDashboardData(req, res) {
       return res.status(200).json({ message: 'No appointments today' });
     }
   } catch (error) {
-    console.error('Error fetching therapist dashboard data:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.error('Error fetching dashboard data:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching dashboard data:',
+      error: error.message,
+    });
   }
 }

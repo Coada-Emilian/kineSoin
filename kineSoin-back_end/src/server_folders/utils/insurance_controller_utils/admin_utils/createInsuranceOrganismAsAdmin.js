@@ -46,12 +46,15 @@
  * - Inserts a new insurance organism record into the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Insurance } from '../../../models/associations.js';
+import { Admin, Insurance } from '../../../models/associations.js';
 import createdInsuranceSchema from '../../joi_validations/creation_validations/createdInsuranceSchema.js';
 
 export default async function createInsuranceOrganismAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     if (!req.body) {
@@ -99,6 +102,11 @@ export default async function createInsuranceOrganismAsAdmin(req, res) {
         .json({ message: 'Insurance organism not created', response });
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error creating insurance.' });
+    console.error('Error creating insurance:', error);
+
+    return res.status(500).json({
+      message: 'Error creating insurance:',
+      error: error.message,
+    });
   }
 }

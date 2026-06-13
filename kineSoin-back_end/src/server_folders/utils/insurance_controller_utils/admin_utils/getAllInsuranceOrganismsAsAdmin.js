@@ -33,11 +33,14 @@
  * - None (read-only database operation).
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Insurance } from '../../../models/index.js';
+import { Admin, Insurance } from '../../../models/index.js';
 
 export default async function getAllInsuranceOrganismsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const allInsurances = await Insurance.findAll({
@@ -56,6 +59,11 @@ export default async function getAllInsuranceOrganismsAsAdmin(req, res) {
       return res.status(200).json(allInsurancesData);
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error fetching insurances.' });
+    console.error('Error fetching insurances:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching insurances:',
+      error: error.message,
+    });
   }
 }

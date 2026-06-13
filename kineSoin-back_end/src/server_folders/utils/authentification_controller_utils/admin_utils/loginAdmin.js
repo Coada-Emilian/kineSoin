@@ -17,7 +17,7 @@
  */
 
 import jsonwebtoken from 'jsonwebtoken';
-import validatePassword from '../../../middlewares/validatePassword.js';
+import verifyPassword from '../../../middlewares/verifyPassword.js';
 import { Admin } from '../../../models/index.js';
 import loggedInAdminSchema from '../../joi_validations/authentification_validations/loggedInEntitySchema.js';
 
@@ -26,7 +26,8 @@ export default async function loginAdmin(req, res) {
 
   if (error) {
     return res.status(400).json({ message: error.message });
-  } else {
+  }
+  try {
     const { email, password } = req.body;
 
     const foundAdmin = await Admin.findOne({
@@ -36,33 +37,37 @@ export default async function loginAdmin(req, res) {
 
     if (!foundAdmin) {
       return res.status(401).json({
-        message: `Invalid email or password. Please try again.`,
+        message: `Invalid email or password.`,
       });
     }
 
-    const isPasswordValid = validatePassword(password, foundAdmin.password);
+    const isPasswordValid = verifyPassword(password, foundAdmin.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        message:
-          'Unauthorized access. Please check your credentials and try again.',
-      });
-    } else {
-      const jwtContent = { admin_id: foundAdmin.id };
-
-      const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
-        expiresIn: '3h',
-        algorithm: 'HS256',
-      });
-
-      req.session.admin_id = foundAdmin.id;
-
-      res.status(200).json({
-        message: 'Admin logged in successfully.',
-        id: foundAdmin.id,
-        name: foundAdmin.name,
-        token,
+        message: `Invalid email or password.`,
       });
     }
+    const jwtContent = { admin_id: foundAdmin.id };
+
+    const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
+      expiresIn: '3h',
+      algorithm: 'HS256',
+    });
+
+    req.session.admin_id = foundAdmin.id;
+
+    return res.status(200).json({
+      message: 'Admin logged in successfully.',
+      id: foundAdmin.id,
+      name: foundAdmin.name,
+      token,
+    });
+  } catch (error) {
+    console.error('Error logging in:', error);
+
+    return res.status(500).json({
+      message: 'Error logging in',
+    });
   }
 }

@@ -30,11 +30,14 @@
  * - Permanently removes a therapist record from the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Therapist } from '../../../models/index.js';
+import { Admin, Therapist } from '../../../models/index.js';
 
 export default async function deleteTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
@@ -50,7 +53,12 @@ export default async function deleteTherapistAsAdmin(req, res) {
         .status(200)
         .json({ message: 'Therapist deleted successfully!' });
     }
-  } catch (err) {
-    console.error('Error deleting therapist:', err);
+  } catch (error) {
+    console.error('Error deleting therapist:', error);
+
+    return res.status(500).json({
+      message: 'Error deleting therapist:',
+      error: error.message,
+    });
   }
 }

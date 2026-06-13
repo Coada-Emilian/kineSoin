@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import multer from 'multer';
-import { therapistPhotoStorage } from '../../cloudinary/index.js';
+// import multer from 'multer';
+// import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import { authenticateTherapist } from '../../middlewares/userAuthentication.js';
 import appointmentController from '../controllers/appointmentController.js';
 import messageController from '../controllers/messageController.js';
 import patientController from '../controllers/patientController.js';
 
-const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
+// const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
 export const therapistRouter = Router();
 

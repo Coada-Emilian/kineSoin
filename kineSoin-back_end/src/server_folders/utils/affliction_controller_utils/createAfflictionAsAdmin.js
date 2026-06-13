@@ -34,11 +34,13 @@
  */
 
 import { getValidId } from '../../middlewares/getValidId.js';
-import { Affliction } from '../../models/index.js';
+import { Admin, Affliction } from '../../models/index.js';
 import createdAfflictionSchema from '../joi_validations/creation_validations/createdAfflictionSchema.js';
 
 export default async function createAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     if (!req.body) {
@@ -72,6 +74,10 @@ export default async function createAfflictionAsAdmin(req, res) {
     }
   } catch (error) {
     console.error('Error creating affliction:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error creating affliction:',
+      error: error.message,
+    });
   }
 }

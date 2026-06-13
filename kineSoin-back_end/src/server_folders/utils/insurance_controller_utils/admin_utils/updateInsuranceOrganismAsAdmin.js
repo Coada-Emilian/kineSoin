@@ -49,12 +49,15 @@
  * - Updates an existing insurance organism record in the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Insurance } from '../../../models/associations.js';
+import { Admin, Insurance } from '../../../models/associations.js';
 import updatedInsuranceSchema from '../../joi_validations/update_validations/updatedInsuranceSchema.js';
 
 export default async function updateInsuranceOrganismAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
@@ -113,6 +116,11 @@ export default async function updateInsuranceOrganismAsAdmin(req, res) {
       }
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error updating insurance.' });
+    console.error('Error updating insurance:', error);
+
+    return res.status(500).json({
+      message: 'Error updating insurance:',
+      error: error.message,
+    });
   }
 }

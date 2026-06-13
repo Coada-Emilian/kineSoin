@@ -35,11 +35,14 @@
  * - Permanently deletes an insurance organism record from the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Insurance } from '../../../models/index.js';
+import { Admin, Insurance } from '../../../models/index.js';
 
 export default async function deleteInsuranceOrganismAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
@@ -62,6 +65,11 @@ export default async function deleteInsuranceOrganismAsAdmin(req, res) {
       }
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error deleting insurance.' });
+    console.error('Error deleting insurance:', error);
+
+    return res.status(500).json({
+      message: 'Error deleting insurance.',
+      error: error.message,
+    });
   }
 }

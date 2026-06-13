@@ -34,25 +34,18 @@
  * - No database mutations; read-only operation.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Medic } from '../../../models/index.js';
+import { Admin, Medic } from '../../../models/index.js';
 
 export default async function getAllMedicsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
+  await findOrThrow(Admin, admin_id, 'Admin');
+
   try {
     const foundMedics = await Medic.findAll({
-      attributes: [
-        'id',
-        'name',
-        'surname',
-        // 'street_number',
-        // 'street_name',
-        // 'postal_code',
-        // 'city',
-        // 'phone_number',
-        'licence_code',
-      ],
+      attributes: ['id', 'name', 'surname', 'licence_code'],
     });
 
     if (foundMedics.length === 0) {
@@ -64,8 +57,6 @@ export default async function getAllMedicsAsAdmin(req, res) {
         const newMedic = {
           id: medic.id,
           fullName: `${medic.name} ${medic.surname}`,
-          // address: `${medic.street_number} ${medic.street_name}, ${medic.postal_code} ${medic.city}`,
-          // phone_number: medic.phone_number,
           licence_code: medic.licence_code,
         };
 
@@ -74,6 +65,11 @@ export default async function getAllMedicsAsAdmin(req, res) {
       return res.status(200).json(sentMedics);
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error fetching medics.' });
+    console.error('Error fetching medics:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching medics:',
+      error: error.message,
+    });
   }
 }

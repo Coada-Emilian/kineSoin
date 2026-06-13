@@ -42,11 +42,14 @@
  */
 
 import Joi from 'joi';
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Patient } from '../../../models/index.js';
+import { Admin, Patient } from '../../../models/index.js';
 
 export default async function changePatientStatusAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const patient_id = getValidId(req.params.patient_id, 'Patient ID');
@@ -81,6 +84,11 @@ export default async function changePatientStatusAsAdmin(req, res) {
       }
     }
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.error('Error toggling patient status:', error);
+
+    return res.status(500).json({
+      message: 'Error toggling patient status:',
+      error: error.message,
+    });
   }
 }

@@ -30,16 +30,19 @@
  * - Permanently removes an affliction record from the database.
  */
 
+import { findOrThrow } from '../../middlewares/findOrThrow.js';
 import { getValidId } from '../../middlewares/getValidId.js';
-import { Affliction } from '../../models/index.js';
+import { Admin, Affliction } from '../../models/index.js';
 
 export default async function deleteAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  try {
-    const afflictionId = getValidId(req.params.affliction_id, 'Affliction ID');
+  await findOrThrow(Admin, admin_id, 'Admin');
 
-    const foundAffliction = await Affliction.findByPk(afflictionId);
+  try {
+    const affliction_id = getValidId(req.params.affliction_id, 'Affliction ID');
+
+    const foundAffliction = await Affliction.findByPk(affliction_id);
 
     if (!foundAffliction) {
       return res.status(404).json({ message: 'Affliction not found.' });
@@ -58,6 +61,10 @@ export default async function deleteAfflictionAsAdmin(req, res) {
     }
   } catch (error) {
     console.error('Error deleting affliction:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error deleting affliction:',
+      error: error.message,
+    });
   }
 }

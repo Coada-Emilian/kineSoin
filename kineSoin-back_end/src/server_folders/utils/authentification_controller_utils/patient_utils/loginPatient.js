@@ -66,11 +66,12 @@ import { checkPatientStatus } from '../../checkPatientStatus.js';
 import loggedInPatientSchema from '../../joi_validations/authentification_validations/loggedInEntitySchema.js';
 
 export default async function loginPatient(req, res) {
-  if (!req.body) {
-    return res.status(400).json({
-      message: 'Request body is missing. Please provide the necessary data.',
-    });
-  } else {
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    }
     const { error } = loggedInPatientSchema.validate(req.body);
 
     if (error) {
@@ -86,35 +87,39 @@ export default async function loginPatient(req, res) {
 
     if (!foundPatient) {
       return res.status(401).json({
-        message:
-          'Unauthorized access. Please check your credentials and try again.',
-      });
-    } else {
-      checkPatientStatus(foundPatient);
-
-      const isPasswordValid = Scrypt.compare(password, foundPatient.password);
-
-      if (!isPasswordValid) {
-        return res.status(401).json({
-          message:
-            'Unauthorized access. Please check your credentials and try again.',
-        });
-      }
-
-      const jwtContent = { patient_id: foundPatient.id };
-
-      const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
-        expiresIn: '3h',
-        algorithm: 'HS256',
-      });
-
-      res.status(200).json({
-        message: 'Patient logged in successfully.',
-        id: foundPatient.id,
-        fullName: `${foundPatient.name} ${foundPatient.surname}`,
-        picture_url: foundPatient.picture_url,
-        token,
+        message: `Invalid email or password.`,
       });
     }
+
+    checkPatientStatus(foundPatient);
+
+    const isPasswordValid = Scrypt.compare(password, foundPatient.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        message: `Invalid email or password.`,
+      });
+    }
+
+    const jwtContent = { patient_id: foundPatient.id };
+
+    const token = jsonwebtoken.sign(jwtContent, process.env.TOKEN_KEY, {
+      expiresIn: '3h',
+      algorithm: 'HS256',
+    });
+
+    return res.status(200).json({
+      message: 'Patient logged in successfully.',
+      id: foundPatient.id,
+      fullName: `${foundPatient.name} ${foundPatient.surname}`,
+      picture_url: foundPatient.picture_url,
+      token,
+    });
+  } catch (error) {
+    console.error('Error logging in:', error);
+
+    return res.status(500).json({
+      message: 'Error logging in',
+    });
   }
 }

@@ -40,14 +40,17 @@
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../../cloudinary/index.js';
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Therapist } from '../../../models/index.js';
+import { Admin, Therapist } from '../../../models/index.js';
 import updatedTherapistSchema from '../../joi_validations/update_validations/updatedTherapistSchema.js';
 
 multer({ storage: therapistPhotoStorage });
 
 export default async function updateTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
@@ -127,8 +130,12 @@ export default async function updateTherapistAsAdmin(req, res) {
         }
       }
     }
-  } catch (err) {
-    console.error('Error updating therapist:', err);
-    return res.status(500).json({ message: 'Internal server error' });
+  } catch (error) {
+    console.error('Error updating therapist:', error);
+
+    return res.status(500).json({
+      message: 'Error updating therapist:',
+      error: error.message,
+    });
   }
 }

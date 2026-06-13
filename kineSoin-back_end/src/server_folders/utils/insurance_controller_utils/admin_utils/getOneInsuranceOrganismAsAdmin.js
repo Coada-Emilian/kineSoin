@@ -35,11 +35,14 @@
  * - None (read-only database operation).
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Insurance } from '../../../models/index.js';
+import { Admin, Insurance } from '../../../models/index.js';
 
 export default async function getOneInsuranceOrganismAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const insurance_id = getValidId(req.params.insurance_id, 'Insurance ID');
@@ -79,6 +82,11 @@ export default async function getOneInsuranceOrganismAsAdmin(req, res) {
       return res.status(200).json(sentInsurance);
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error fetching insurance.' });
+    console.error('Error fetching insurance:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching insurance:',
+      error: error.message,
+    });
   }
 }

@@ -47,14 +47,17 @@ import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 import { Scrypt } from '../../../authentification/Scrypt.js';
 import { therapistPhotoStorage } from '../../../cloudinary/index.js';
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Therapist } from '../../../models/index.js';
+import { Admin, Therapist } from '../../../models/index.js';
 import createdTherapistSchema from '../../joi_validations/creation_validations/createdTherapistSchema.js';
 
 multer({ storage: therapistPhotoStorage });
 
 export default async function createTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     if (!req.body) {
@@ -146,8 +149,12 @@ export default async function createTherapistAsAdmin(req, res) {
         }
       }
     }
-  } catch (err) {
-    console.error('Error creating therapist:', err);
-    return res.status(500).json({ message: 'Internal server error' });
+  } catch (error) {
+    console.error('Error creating therapist:', error);
+
+    return res.status(500).json({
+      message: 'Error creating therapist:',
+      error: error.message,
+    });
   }
 }

@@ -31,11 +31,14 @@
  * - Permanently deletes a body region record from the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Body_region } from '../../../models/index.js';
+import { Admin, Body_region } from '../../../models/index.js';
 
 export default async function deleteBodyRegionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const body_region_id = getValidId(
@@ -62,6 +65,10 @@ export default async function deleteBodyRegionAsAdmin(req, res) {
     }
   } catch (error) {
     console.error('Error deleting body region:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error deleting body region:',
+      error: error.message,
+    });
   }
 }

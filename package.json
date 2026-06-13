@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"pnpm --filter kineSoin-back_end dev\" \"pnpm --filter kineSoin-front_end dev\"",
+    "dev1": "concurrently \"pnpm --filter kineSoin-back_end dev\" \"pnpm --filter kineSoin-front dev\"",
+    "dev2": "concurrently \"pnpm --filter kineSoin-back_end dev\" \"pnpm --filter kineSoin-front_end dev\"",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "lint_front": "pnpm --filter kineSoin-front lint",

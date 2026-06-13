@@ -35,12 +35,15 @@
  * - Creates a new medic record in the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Medic } from '../../../models/index.js';
+import { Admin, Medic } from '../../../models/index.js';
 import createdMedicSchema from '../../joi_validations/creation_validations/createdMedicSchema.js';
 
 export default async function createMedicAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     if (!req.body) {
@@ -76,8 +79,11 @@ export default async function createMedicAsAdmin(req, res) {
       }
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Error creating medic because reasons.' });
+    console.error('Error creating medic:', error);
+
+    return res.status(500).json({
+      message: 'Error creating medic:',
+      error: error.message,
+    });
   }
 }

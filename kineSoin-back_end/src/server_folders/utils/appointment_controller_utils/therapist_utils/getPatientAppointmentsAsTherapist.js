@@ -63,16 +63,19 @@
  * - None (read-only database operations).
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import getAppointmentDateTime from '../../../middlewares/getAppointmentDateTime.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Appointment, Patient } from '../../../models/index.js';
+import { Appointment, Patient, Therapist } from '../../../models/index.js';
 
 export default async function getPatientAppointmentsAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
-  const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+  await findOrThrow(Therapist, therapist_id, 'Therapist');
 
   try {
+    const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+
     const foundPatient = await Patient.findOne({
       where: { id: patient_id },
       attributes: ['id', 'name', 'surname', 'picture_url'],
@@ -134,9 +137,6 @@ export default async function getPatientAppointmentsAsTherapist(req, res) {
         .status(404)
         .json({ error: 'No appointments found for this patient' });
     } else {
-      const currentDate = new Date();
-      const currentTime = currentDate.toTimeString().split(' ')[0];
-
       const previousAppointments = foundAppointments.filter((appointment) => {
         const appointmentDateTime = getAppointmentDateTime(
           appointment.date,
@@ -165,7 +165,11 @@ export default async function getPatientAppointmentsAsTherapist(req, res) {
       });
     }
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.error('Error fetching patient appointments:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching patient appointments:',
+      error: error.message,
+    });
   }
 }

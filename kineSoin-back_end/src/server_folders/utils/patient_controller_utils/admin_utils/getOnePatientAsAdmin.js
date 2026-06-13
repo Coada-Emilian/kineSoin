@@ -39,12 +39,16 @@
  * - No database mutations; read-only operation.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Patient } from '../../../models/index.js';
+import { Admin, Patient } from '../../../models/index.js';
 import computeAge from '../../computeAge.js';
 
 export default async function getOnePatientAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
+
   try {
     const patient_id = getValidId(req.params.patient_id, 'Patient ID');
 
@@ -147,6 +151,11 @@ export default async function getOnePatientAsAdmin(req, res) {
 
     return res.status(200).json(sentPatient);
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.error('Error fetching patient details:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching patient details:',
+      error: error.message,
+    });
   }
 }

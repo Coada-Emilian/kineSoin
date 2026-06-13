@@ -31,11 +31,14 @@
  * - No database mutations; read-only operation.
  */
 
+import { findOrThrow } from '../../middlewares/findOrThrow.js';
 import { getValidId } from '../../middlewares/getValidId.js';
-import { Affliction } from '../../models/index.js';
+import { Admin, Affliction } from '../../models/index.js';
 
 export default async function getOneAfflictionAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const affliction_id = getValidId(req.params.affliction_id, 'Affliction ID');
@@ -67,6 +70,10 @@ export default async function getOneAfflictionAsAdmin(req, res) {
     }
   } catch (error) {
     console.error('Error fetching affliction:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error fetching affliction:',
+      error: error.message,
+    });
   }
 }

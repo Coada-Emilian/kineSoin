@@ -36,11 +36,14 @@
  * - Permanently deletes an appointment record from the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Appointment } from '../../../models/associations.js';
+import { Appointment, Therapist } from '../../../models/associations.js';
 
 export default async function deleteAppointmentAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
+
+  await findOrThrow(Therapist, therapist_id, 'Therapist');
 
   try {
     const appointment_id = getValidId(
@@ -65,6 +68,10 @@ export default async function deleteAppointmentAsTherapist(req, res) {
     }
   } catch (error) {
     console.error('Error deleting appointment:', error);
-    res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error deleting appointment:',
+      error: error.message,
+    });
   }
 }

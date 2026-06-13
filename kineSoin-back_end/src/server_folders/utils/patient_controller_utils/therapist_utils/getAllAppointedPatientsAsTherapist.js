@@ -1,7 +1,10 @@
-import { Patient } from '../../../models/index.js';
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
+import { Patient, Therapist } from '../../../models/index.js';
 
 export default async function getAllAppointedPatientsAsTherapist(req, res) {
   const therapist_id = parseInt(req.therapist_id, 10);
+
+  await findOrThrow(Therapist, therapist_id, 'Therapist');
 
   try {
     const foundPatients = await Patient.findAll({
@@ -44,7 +47,11 @@ export default async function getAllAppointedPatientsAsTherapist(req, res) {
       return res.status(200).json(sentPatients);
     }
   } catch (error) {
-    console.error('Error retrieving patients:', error.message);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.error('Error fetching appointments:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching appointments:',
+      error: error.message,
+    });
   }
 }

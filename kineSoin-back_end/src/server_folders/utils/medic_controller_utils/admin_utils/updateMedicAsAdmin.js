@@ -38,14 +38,15 @@
  * - Updates an existing medic record in the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Medic } from '../../../models/index.js';
+import { Admin, Medic } from '../../../models/index.js';
 import updatedMedicSchema from '../../joi_validations/update_validations/updatedMedicSchema.js';
 
 export default async function updateMedicAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
 
-  const medic_id = getValidId(req.params.medic_id, 'Medic ID');
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   if (!req.body) {
     return res.status(400).json({
@@ -55,6 +56,8 @@ export default async function updateMedicAsAdmin(req, res) {
   }
 
   try {
+    const medic_id = getValidId(req.params.medic_id, 'Medic ID');
+
     const foundMedic = await Medic.findByPk(medic_id);
 
     if (!foundMedic) {
@@ -106,6 +109,11 @@ export default async function updateMedicAsAdmin(req, res) {
       updatedMedic,
     });
   } catch (error) {
-    return res.status(500).json({ message: 'Error updating medic.' });
+    console.error('Error updating medic:', error);
+
+    return res.status(500).json({
+      message: 'Error updating medic:',
+      error: error.message,
+    });
   }
 }

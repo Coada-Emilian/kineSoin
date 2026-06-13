@@ -49,45 +49,51 @@
  * - Creates a new therapist-to-patient message record in the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Therapist_message } from '../../../models/index.js';
+import { Therapist, Therapist_message } from '../../../models/index.js';
 import createdMessageSchema from '../../joi_validations/creation_validations/createdMessageSchema.js';
 
 export default async function sendMessageToPatientAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
-  const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+  await findOrThrow(Therapist, therapist_id, 'Therapist');
 
   try {
     if (!req.body) {
       return res.status(400).json({
         message: 'Please provide the content of the message',
       });
+    }
+    const messageContent = req.body.content;
+
+    const { error } = createdMessageSchema.validate(messageContent);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+
+    const newMessage = await Therapist_message.create({
+      receiver_id: patient_id,
+      sender_id: therapist_id,
+      content: messageContent,
+      date: new Date().toISOString().split('T')[0],
+      time: new Date().toISOString().split('T')[1].split('.')[0],
+    });
+
+    if (newMessage) {
+      return res.status(201).json({ message: 'Message sent successfully' });
     } else {
-      const messageContent = req.body.content;
-
-      const { error } = createdMessageSchema.validate(messageContent);
-
-      if (error) {
-        return res.status(400).json({ message: error.message });
-      } else {
-        const newMessage = await Therapist_message.create({
-          receiver_id: patient_id,
-          sender_id: therapist_id,
-          content: messageContent,
-          date: new Date().toISOString().split('T')[0],
-          time: new Date().toISOString().split('T')[1].split('.')[0],
-        });
-
-        if (newMessage) {
-          return res.status(201).json({ message: 'Message sent successfully' });
-        } else {
-          return res.status(400).json({ message: 'Message not sent' });
-        }
-      }
+      return res.status(400).json({ message: 'Message not sent' });
     }
   } catch (error) {
     console.error('Error sending message to patient:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+
+    return res.status(500).json({
+      message: 'Error sending message to patient:',
+      error: error.message,
+    });
   }
 }

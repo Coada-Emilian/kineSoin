@@ -27,11 +27,14 @@
  * @returns {Object} JSON response containing therapist details or an error message.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Therapist } from '../../../models/index.js';
+import { Admin, Therapist } from '../../../models/index.js';
 
 export default async function getOneTherapistAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
 
@@ -60,8 +63,12 @@ export default async function getOneTherapistAsAdmin(req, res) {
     return res
       .status(200)
       .json({ ...foundTherapist.dataValues, fullName, fullPhoneNumber });
-  } catch (err) {
-    console.error('Error fetching therapist:', err);
-    return res.status(500).json({ message: 'Internal server error' });
+  } catch (error) {
+    console.error('Error fetching therapist:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching therapist:',
+      error: error.message,
+    });
   }
 }

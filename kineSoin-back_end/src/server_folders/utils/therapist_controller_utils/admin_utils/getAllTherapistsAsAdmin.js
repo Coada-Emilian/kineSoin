@@ -28,11 +28,14 @@
  * @returns {Object} JSON response containing an array of therapists or an error message.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Therapist } from '../../../models/index.js';
+import { Admin, Therapist } from '../../../models/index.js';
 
 export default async function getAllTherapistsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');
+
+  await findOrThrow(Admin, admin_id, 'Admin');
 
   try {
     const foundTherapists = await Therapist.findAll({
@@ -59,8 +62,12 @@ export default async function getAllTherapistsAsAdmin(req, res) {
     }
 
     return res.status(200).json(allTherapists);
-  } catch (err) {
-    console.error('Error fetching therapists:', err);
-    return res.status(500).json({ message: 'Internal server error' });
+  } catch (error) {
+    console.error('Error fetching therapists:', error);
+
+    return res.status(500).json({
+      message: 'Error fetching therapists.',
+      error: error.message,
+    });
   }
 }

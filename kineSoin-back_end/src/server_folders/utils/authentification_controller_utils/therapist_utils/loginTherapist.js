@@ -65,11 +65,12 @@ import { Therapist } from '../../../models/index.js';
 import loggedInTherapistSchema from '../../joi_validations/authentification_validations/loggedInEntitySchema.js';
 
 export default async function loginTherapist(req, res) {
-  if (!req.body) {
-    return res.status(400).json({
-      message: 'Request body is missing. Please provide the necessary data.',
-    });
-  } else {
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Request body is missing. Please provide the necessary data.',
+      });
+    }
     const { error } = loggedInTherapistSchema.validate(req.body);
 
     if (error) {
@@ -77,6 +78,7 @@ export default async function loginTherapist(req, res) {
     }
 
     const { email, password } = req.body;
+
 
     const foundTherapist = await Therapist.findOne({
       where: { email },
@@ -92,7 +94,7 @@ export default async function loginTherapist(req, res) {
 
     if (!foundTherapist) {
       return res.status(401).json({
-        message: `Invalid email or password. Please try again.`,
+        message: `Invalid email or password.`,
       });
     }
 
@@ -106,8 +108,7 @@ export default async function loginTherapist(req, res) {
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        message:
-          'Unauthorized access. Please check your credentials and try again.',
+        message: `Invalid email or password.`,
       });
     }
 
@@ -124,6 +125,12 @@ export default async function loginTherapist(req, res) {
       fullName: `${foundTherapist.name} ${foundTherapist.surname}`,
       picture_url: foundTherapist.picture_url,
       token,
+    });
+  } catch (error) {
+    console.error('Error logging in:', error);
+
+    return res.status(500).json({
+      message: 'Error logging in:',
     });
   }
 }

@@ -49,12 +49,19 @@
  * - None (read-only database queries).
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Patient, Patient_Insurance } from '../../../models/index.js';
+import {
+  Patient,
+  Patient_Insurance,
+  Therapist,
+} from '../../../models/index.js';
 import computeAge from '../../computeAge.js';
 
 export default async function getOnePatientAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
+
+  await findOrThrow(Therapist, therapist_id, 'Therapist');
 
   try {
     const patient_id = getValidId(req.params.patient_id, 'Patient ID');
@@ -115,8 +122,11 @@ export default async function getOnePatientAsTherapist(req, res) {
       return res.status(200).json(foundPatient);
     }
   } catch (error) {
-    console.error('Error retrieving patient:', error.message);
+    console.error('Error fetching patient:', error);
 
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({
+      message: 'Error fetching patient:',
+      error: error.message,
+    });
   }
 }

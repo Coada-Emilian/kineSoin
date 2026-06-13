@@ -40,15 +40,18 @@
  * - Permanently deletes a patient record from the database.
  */
 
+import { findOrThrow } from '../../../middlewares/findOrThrow.js';
 import { getValidId } from '../../../middlewares/getValidId.js';
-import { Patient } from '../../../models/index.js';
+import { Patient, Therapist } from '../../../models/index.js';
 
 export default async function deletePatientAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
 
-  const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+  await findOrThrow(Therapist, therapist_id, 'Therapist');
 
   try {
+    const patient_id = getValidId(req.params.patient_id, 'Patient ID');
+
     const foundPatient = await Patient.findByPk(patient_id);
 
     if (!foundPatient) {
@@ -67,6 +70,11 @@ export default async function deletePatientAsTherapist(req, res) {
       }
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error deleting patient' });
+    console.error('Error deleting patient:', error);
+
+    return res.status(500).json({
+      message: 'Error deleting patient:',
+      error: error.message,
+    });
   }
 }
