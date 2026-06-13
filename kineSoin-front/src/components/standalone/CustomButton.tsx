@@ -13,8 +13,10 @@ export default function CustomButton({ btn, type }: CustomButtonProps) {
 
   const hasBorder = btn.hasBorder ?? false;
 
+  const baseStyles = `rounded-xl shadow-2xl text-primaryBlue transition-all duration-200 ease-in-out hover:text-white font-medium ${background} ${hasBorder && 'border border-2 border-white'} cursor-pointer `;
+
   const btnClasses = clsx(
-    `rounded-lg shadow-2xl text-primaryBlue hover:text-white font-semibold ${background} ${hasBorder && 'border border-2 border-white'} `,
+    baseStyles,
     btn.style === 'normal' &&
       'p-2 min-w-16 md:min-w-24 text-xs md:text-md xl:text-lg',
     btn.style === 'nav' &&

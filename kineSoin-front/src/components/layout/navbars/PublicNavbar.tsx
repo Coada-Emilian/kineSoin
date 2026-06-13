@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ConnectionModal from '../../standalone/ConnectionModal';
 import CustomButton from '../../standalone/CustomButton';
-import Logo2 from '/logos/kinesoin-logo-2.webp';
-import Logo1 from '/logos/kinesoin-logo.webp';
+import Logo2 from '/logos/new-kinesoin-logo-2.webp';
+import Logo1 from '/logos/new-kinesoin-logo.webp';
 
 export default function PublicNavbar() {
   const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
@@ -14,7 +14,7 @@ export default function PublicNavbar() {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-white to-gray-200 bg-opacity-70 sticky top-0 w-full py-1 z-10">
+      <header className="bg-linear-to-r from-white to-gray-200 bg-opacity-70 sticky top-0 w-full py-1 z-10">
         <nav className="justify-center md:justify-between flex items-center w-full px-4">
           <Link to="/">
             <img
@@ -26,11 +26,11 @@ export default function PublicNavbar() {
             <img
               src={Logo1}
               alt="Retour a l'accueil"
-              className="max-w-32 lg:max-w-40 hidden md:block"
+              className="max-w-40 lg:max-w-48 hidden md:block transition-transform duration-200 hover:scale-105"
             />
           </Link>
 
-          <div className="hidden md:flex md:items-center">
+          <div className="hidden md:flex md:items-center ">
             <div className="flex gap-2">
               <CustomButton
                 btn={{
@@ -63,3 +63,5 @@ export default function PublicNavbar() {
     </>
   );
 }
+
+// alternative nav-bar color bg-white/70 backdrop-blur-md
