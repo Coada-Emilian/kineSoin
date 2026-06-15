@@ -1,4 +1,10 @@
-import { IButtonDetails, type IHomePageArticle } from './customInterfaces';
+import {
+  IButtonDetails,
+  type IEmailInput,
+  type IHomePageArticle,
+  type IPasswordInput,
+  type IPublicArticle,
+} from './customInterfaces';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btn: IButtonDetails;
@@ -22,4 +28,16 @@ export interface PublicRouteDetailsProps {
 
 export interface IHomePageArticleProps {
   article: IHomePageArticle;
+}
+
+export interface EmailInputProps {
+  emailInput: IEmailInput;
+}
+
+export interface PasswordInputProps {
+  passwordInput: IPasswordInput;
+}
+
+export interface PublicArticleRowProps {
+  article: IPublicArticle;
 }

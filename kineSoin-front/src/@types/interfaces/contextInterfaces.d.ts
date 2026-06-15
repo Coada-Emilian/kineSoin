@@ -1,8 +1,7 @@
-import type { ReactNode } from 'react';
 import type { FormOrderTypes } from '../types/customTypes';
 import type { CountryPrefixInterface } from './customInterfaces';
 
-export interface AppContextInterface {
+export interface IAppContext {
   isLoading: boolean;
   setLoading: (loading: boolean) => void;
   errorMessage: string | null;
@@ -11,11 +10,24 @@ export interface AppContextInterface {
   setCountryPrefixes: Dispatch<SetStateAction<CountryPrefixInterface[]>>;
 }
 
-export interface AppContextProviderProps {
-  children: ReactNode;
-}
-
-export interface PatientRegistrationContextInterface {
+export interface IPatientRegistrationContext {
   formOrder: FormOrderTypes;
   setFormOrder: React.Dispatch<React.SetStateAction<FormOrderTypes>>;
+}
+
+export interface IAuthentificationContext {
+  isAdminAuthenticated: boolean;
+  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  adminProfileToken: string | null;
+  setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
+
+  isPatientAuthenticated: boolean;
+  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  patientProfileToken: string | null;
+  setPatientProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
+
+  isTherapistAuthenticated: boolean;
+  setIsTherapistAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  therapistProfileToken: string | null;
+  setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }

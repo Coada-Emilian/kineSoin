@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import type { CustomButtonProps } from '../../@types/interfaces/customProps';
+
+import type { CustomButtonProps } from '../../../@types/interfaces/customProps';
 import {
   customButtonIconDetails,
   customButtonTypeDetails,
-} from '../../utils/constants/customButtonDetails';
+} from '../../../utils/constants/customButtonDetails';
 
 export default function CustomButton({ btn, type }: CustomButtonProps) {
   const background = customButtonTypeDetails.find(

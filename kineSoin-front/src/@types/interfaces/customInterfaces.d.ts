@@ -34,3 +34,39 @@ export interface IHomePageArticle {
   title: string;
   description: string;
 }
+
+export interface IEmailInput {
+  id: string;
+  name: string;
+  labelName: string;
+  placeholder?: string;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  value?: string;
+  isFlexRow?: boolean;
+  autoComplete?: string;
+  isRequired?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface IPasswordInput {
+  id: string;
+  name: string;
+  labelName: string;
+  placeholder: string;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  oldPassword?: string;
+  value?: boolean;
+  autoComplete?: string;
+  hasInfoIcon?: boolean;
+  isFlexRow?: boolean;
+}
+
+export interface IPublicArticle {
+  isReversed?: boolean;
+  image: string;
+  title: string;
+  paragraph: string;
+  alt: string;
+}

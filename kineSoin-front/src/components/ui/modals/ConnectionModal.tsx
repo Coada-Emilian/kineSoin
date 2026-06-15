@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import type { ConnectionModalProps } from '../../@types/interfaces/customProps';
-import { publicNavbarButtonDetails } from '../../utils/constants/publicNavbarButtonDetails';
-import { usePatientRegistrationContext } from '../../utils/contexts/PatientRegistrationContext/usePatientRegistrationContext';
+
+import type { ConnectionModalProps } from '../../../@types/interfaces/customProps';
 import BaseModal from './BaseModal';
-import CustomButton from './CustomButton';
+import { publicNavbarButtonDetails } from '../../../utils/constants/publicNavbarButtonDetails';
+import { usePatientRegistrationContext } from '../../../utils/contexts/PatientRegistrationContext/usePatientRegistrationContext';
+import CustomButton from '../buttons/CustomButton';
 
 export default function ConnectionModal({
   isOpen,

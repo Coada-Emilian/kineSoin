@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ConnectionModal from '../../standalone/ConnectionModal';
-import CustomButton from '../../standalone/CustomButton';
+import CustomButton from '../../ui/buttons/CustomButton';
+import ConnectionModal from '../../ui/modals/ConnectionModal';
 import Logo2 from '/logos/new-kinesoin-logo-2.webp';
 import Logo1 from '/logos/new-kinesoin-logo.webp';
 

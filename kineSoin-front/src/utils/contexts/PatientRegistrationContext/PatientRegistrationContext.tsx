@@ -1,9 +1,9 @@
 import { createContext, useState, type ReactNode } from 'react';
-import type { PatientRegistrationContextInterface } from '../../../@types/interfaces/contextInterfaces';
+import type { IPatientRegistrationContext } from '../../../@types/interfaces/contextInterfaces';
 import type { FormOrderTypes } from '../../../@types/types/customTypes';
 
 const PatientRegistrationContext = createContext<
-  PatientRegistrationContextInterface | undefined
+  IPatientRegistrationContext | undefined
 >(undefined);
 
 export const PatientRegistrationContextProvider: React.FC<{
