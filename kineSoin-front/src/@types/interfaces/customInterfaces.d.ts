@@ -27,3 +27,10 @@ export interface IButtonDetails {
   onClick?: () => void;
   to?: string;
 }
+
+export interface IHomePageArticle {
+  icon: string;
+  alt: string;
+  title: string;
+  description: string;
+}

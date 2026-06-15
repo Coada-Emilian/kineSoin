@@ -14,7 +14,7 @@ export default function PublicNavbar() {
 
   return (
     <>
-      <header className="bg-linear-to-r from-white to-gray-200 bg-opacity-70 sticky top-0 w-full py-1 z-10">
+      <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1 z-10">
         <nav className="justify-center md:justify-between flex items-center w-full px-4">
           <Link to="/">
             <img
