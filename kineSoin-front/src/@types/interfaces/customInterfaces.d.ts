@@ -1,4 +1,6 @@
-export interface CountryPrefixInterface {
+import { ButtonInterfaceStyles } from './customTypes';
+
+export interface ICountryPrefix {
   flag_url?: string;
   prefix: string;
   name: string;
@@ -16,7 +18,7 @@ export interface RestCountry {
 }
 
 // Interface for custom button details
-export interface ButtonDetailsInterface {
+export interface IButtonDetails {
   type: ButtonInterfaceTypes;
   text: string | JSX.Element;
   style: ButtonInterfaceStyles;

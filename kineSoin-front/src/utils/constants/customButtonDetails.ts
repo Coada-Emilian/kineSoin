@@ -6,43 +6,43 @@ import therapistLogo from '/icons/therapist.png';
 
 export const customButtonTypeDetails = [
   {
-    btnType: 'basic',
+    type: 'basic',
     background: 'bg-primaryTeal hover:bg-secondaryTeal',
   },
   {
-    btnType: 'cancel',
+    type: 'cancel',
     background: 'bg-gray-200 hover:bg-gray-400 ',
   },
   {
-    btnType: 'modify',
+    type: 'modify',
     background: 'bg-blue-300 hover:bg-blue-500 ',
   },
   {
-    btnType: 'delete',
+    type: 'delete',
     background: 'bg-red-300 hover:bg-red-500 ',
   },
   {
-    btnType: 'active',
+    type: 'active',
     background: 'bg-green-300 hover:bg-green-500',
   },
   {
-    btnType: 'inactive',
+    type: 'inactive',
     background: 'bg-gray-200 hover:bg-gray-400',
   },
   {
-    btnType: 'add',
+    type: 'add',
     background: 'bg-blue-200 hover:bg-blue-400',
   },
   {
-    btnType: 'pending',
+    type: 'pending',
     background: 'bg-yellow-300 hover:bg-yellow-500',
   },
   {
-    btnType: 'banned',
+    type: 'banned',
     background: 'bg-red-300 hover:bg-red-500',
   },
   {
-    btnType: 'send',
+    type: 'send',
     background: 'bg-blue-300 hover:bg-primaryBlue',
   },
 ];

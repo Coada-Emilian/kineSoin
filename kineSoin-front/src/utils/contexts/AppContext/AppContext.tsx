@@ -3,7 +3,7 @@ import type {
   AppContextInterface,
   AppContextProviderProps,
 } from '../../../@types/interfaces/contextInterfaces';
-import type { CountryPrefixInterface } from '../../../@types/interfaces/customInterfaces';
+import type { ICountryPrefix } from '../../../@types/interfaces/customInterfaces';
 import { fetchCountriesData } from '../../functions/fetchCountriesData';
 
 const AppContext = createContext<AppContextInterface | undefined>(undefined);
@@ -17,9 +17,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   const setError = (message: string | null) => setErrorMessage(message);
 
-  const [countryPrefixes, setCountryPrefixes] = useState<
-    CountryPrefixInterface[]
-  >([]);
+  const [countryPrefixes, setCountryPrefixes] = useState<ICountryPrefix[]>([]);
 
   useEffect(() => {
     fetchCountriesData({ setCountryPrefixes });

@@ -1,7 +1,7 @@
-import { ButtonDetailsInterface } from './customInterfaces';
+import { IButtonDetails } from './customInterfaces';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  btn: ButtonDetailsInterface;
+  btn: IButtonDetails;
 }
 
 export interface ConnectionModalProps {

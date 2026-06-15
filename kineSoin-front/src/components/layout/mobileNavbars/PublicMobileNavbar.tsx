@@ -10,13 +10,13 @@ export default function PublicMobileNavbar() {
   };
 
   return (
-    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 md:hidden">
+    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 rounded  md:hidden">
       {publicMobileNavbarLinkDetails.map((link, index) => (
         <NavLink
           to={link.path}
           key={index}
           className={({ isActive }) =>
-            `flex flex-col w-auto items-center bg-white/50 justify-center text-center border shadow-2xl rounded-2xl p-2 ${
+            `flex flex-col w-3/12 items-center bg-white/40 justify-center text-center border border-slate-200 shadow-2xl rounded-2xl p-2 ${
               isActive
                 ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal scale-105 text-base animate-pulse'
                 : 'text-primaryBlue'
