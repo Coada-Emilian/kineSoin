@@ -1,19 +1,19 @@
-import ReactModal from 'react-modal';
-import CustomButton from '../../../generalComponents/CustomButton/CustomButton';
 import { useEffect, useState } from 'react';
-import StandardTextInput from '../../../generalComponents/StandardInputs/StandardTextInput';
+import ReactModal from 'react-modal';
+import {
+  IFullPatient,
+  ISameDayAppointment,
+  ITherapistPatient,
+} from '../../../../../@types/interfaces/customInterfaces';
 import {
   cancelAppointment,
   fetchPatientDataAsTherapist,
   reducePrescriptionQuantity,
   sendMessageToPatient,
-} from '../../../../../utils/apiUtils';
-import {
-  IFullPatient,
-  ISameDayAppointment,
-  ITherapistPatient,
-} from '../../../../../@types/types';
+} from '../../../../../utils/apiUtils/therapistApiUtils/therapistApiUtils';
 import DNALoader from '../../../../../utils/DNALoader';
+import CustomButton from '../../../generalComponents/customButton/oldComponents/CustomButton';
+import StandardTextInput from '../../../generalComponents/standardInputs/oldInputs/StandardTextInput';
 
 interface TherapistModalProps {
   isSendMessageModal?: boolean;
@@ -143,6 +143,43 @@ export default function TherapistModal({
     fetchData();
   }, [selected_patient]);
 
+  const patientDetails = [
+    {
+      label: 'Statut',
+      value:
+        patientData?.status === 'active'
+          ? 'ACTIF'
+          : patientData?.status === 'banned'
+            ? 'BANNI'
+            : patientData?.status === 'pending'
+              ? 'EN ATTENTE'
+              : 'INACTIF',
+    },
+
+    {
+      label: 'Adresse',
+      value:
+        patientData?.street_number +
+        ' ' +
+        patientData?.street_name +
+        ', ' +
+        patientData?.postal_code +
+        ' ' +
+        patientData?.city,
+    },
+    {
+      label: 'N° de téléphone',
+      value: patientData?.prefix + ' ' + patientData?.phone_number,
+    },
+    { label: 'Email', value: patientData?.email },
+    { label: 'Date de naissance', value: patientData?.birth_date },
+    { label: 'Mutuelle', value: patientData?.insurance[0].name },
+  ];
+
+  useEffect(() => {
+    console.log(patientData);
+  }, [patientData]);
+
   return (
     <ReactModal
       isOpen={
@@ -211,7 +248,7 @@ export default function TherapistModal({
                   : undefined
             }
           >
-            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic py-2 flex flex-col items-center">
+            <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic flex flex-col items-center">
               {isSendMessageModal && patient ? (
                 <span>
                   {'Envoyez un message à '}
@@ -249,6 +286,7 @@ export default function TherapistModal({
                 ''
               )}
             </h3>
+
             {isSendMessageModal && patient && (
               <div className={`flex flex-col gap-4 mb-2`}>
                 <StandardTextInput
@@ -260,16 +298,29 @@ export default function TherapistModal({
             )}
 
             {isPatientDetailsModal && patientData && (
-              <div className="w-full flex flex-col items-center gap-4">
-                <p className="text-xl md:text-2xl mt-8">
-                  <span className="font-semibold">{patientData?.surname}</span>{' '}
-                  <span className="font-semibold">{patientData?.name}</span>
-                </p>
+              <>
+                <div className="w-full flex flex-col items-center  mb-6">
+                  <p className="text-lg md:text-xl ">
+                    <span className="font-normal">{patientData?.surname}</span>{' '}
+                    <span className="font-semibold">{patientData?.name}</span>
+                  </p>
 
-                <p className="text-primaryBlue italic font-semibold mb-6">
-                  {patientData?.age} ans
-                </p>
-              </div>
+                  <p className="text-primaryBlue italic font-semibold">
+                    {patientData?.age} ans
+                  </p>
+                </div>
+                <div>
+                  {patientDetails.map((detail, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between px-4 py-1 text-xs md:text-lg"
+                    >
+                      <p className="w-1/2">{detail.label}</p>
+                      <p className="w-1/2 font-normal">{detail.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
 
             <div className="flex gap-4 justify-center py-4  bg-primaryTeal">

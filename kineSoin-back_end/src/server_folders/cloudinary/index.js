@@ -70,8 +70,8 @@ const insuranceScanStorage = new CloudinaryStorage({
 });
 
 export {
-  patientPhotoStorage,
-  therapistPhotoStorage,
-  prescriptionScanStorage,
   insuranceScanStorage,
+  patientPhotoStorage,
+  prescriptionScanStorage,
+  therapistPhotoStorage,
 };

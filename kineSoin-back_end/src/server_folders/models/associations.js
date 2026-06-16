@@ -40,18 +40,18 @@
  * Ensure that all referenced models and associations are properly defined and configured before using this setup.
  */
 
+import { Patient_Insurance } from './associative_tables/Patient_Insurance.js';
 import { Admin } from './standalone_models/Admin.js';
 import { Affliction } from './standalone_models/Affliction.js';
 import { Appointment } from './standalone_models/Appointment.js';
 import { Body_region } from './standalone_models/Body_region.js';
+import { Insurance } from './standalone_models/Insurance.js';
 import { Medic } from './standalone_models/Medic.js';
 import { Patient } from './standalone_models/Patient.js';
+import { Patient_message } from './standalone_models/Patient_message.js';
 import { Prescription } from './standalone_models/Prescription.js';
 import { Therapist } from './standalone_models/Therapist.js';
-import { Patient_message } from './standalone_models/Patient_message.js';
 import { Therapist_message } from './standalone_models/Therapist_message.js';
-import { Insurance } from './standalone_models/Insurance.js';
-import { Patient_Insurance } from './associative_tables/Patient_Insurance.js';
 
 // Administrator associations
 Admin.hasMany(Insurance, {
@@ -264,17 +264,19 @@ Appointment.belongsTo(Prescription, {
   as: 'prescription',
 });
 
+Patient_Insurance.associate({ Patient, Insurance });
+
 export {
   Admin,
   Affliction,
   Appointment,
   Body_region,
+  Insurance,
   Medic,
   Patient,
+  Patient_Insurance,
+  Patient_message,
   Prescription,
   Therapist,
-  Patient_message,
   Therapist_message,
-  Insurance,
-  Patient_Insurance,
 };

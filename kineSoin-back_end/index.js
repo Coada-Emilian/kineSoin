@@ -23,18 +23,17 @@
  * - Starts the server and listens on the specified port from environment variables.
  */
 
+import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
+import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import cors from 'cors';
-import session from 'express-session';
 
 import { sanitizeRequestBody } from './src/server_folders/middlewares/sanitizeRequestBody.js';
-import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
-import { patientRouter } from './src/server_folders/routing/routers/patientRouter.js';
-import { therapistRouter } from './src/server_folders/routing/routers/therapistRouter.js';
 import { adminRouter } from './src/server_folders/routing/routers/adminRouter.js';
+import { publicRouter } from './src/server_folders/routing/routers/publicRouter.js';
+import { therapistRouter } from './src/server_folders/routing/routers/therapistRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -64,10 +63,13 @@ app.use(cors(corsOptions));
 
 app.use(sanitizeRequestBody);
 
-app.use('/api/public', publicRouter);
-app.use('/api/patient', patientRouter);
-app.use('/api/therapist', therapistRouter);
 app.use('/api/admin', adminRouter);
+
+app.use('/api/public', publicRouter);
+
+app.use('/api/therapist', therapistRouter);
+
+// app.use('/api/patient', patientRouter);
 
 app.disable('x-powered-by');
 
@@ -77,4 +79,16 @@ const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`kineSoin server has started at http://localhost:${port}`);
+  console.log(
+    'TO DO: Check front-end for registration success and failure. You get the same confirmation page and not an error'
+  );
+  console.log(
+    `TO DO: Patient status toggling working on the back end, but the front won't re-render patient tables`
+  );
+  console.log(
+    `TO DO: Don't forget you intended to have appointment cancellation and creation from the dashboard page via the patient modal`
+  );
+  console.log(
+    `TO DO: On a therapist's dashboard, when a patient modal is opened and you click on Gerer RDV, it sends you on another page, when coming back to dashboard the modal is still open`
+  );
 });

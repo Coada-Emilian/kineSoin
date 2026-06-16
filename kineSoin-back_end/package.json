@@ -1,16 +1,15 @@
 {
-  "name": "kinesoin-back_end",
+  "name": "kineSoin-back_end",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "nodemon index.js",
     "db:create": "psql -U kinesoin_user -d kinesoin_database -f database/create_tables.sql",
     "db:populate": "node database/populate_profiles.js && psql -U kinesoin_user -d kinesoin_database -f database/populate_tables.sql",
     "db:reset": "pnpm db:create && pnpm db:populate",
-    "server_back": "nodemon index.js",
-    "server_front": "cd ../kineSoin-front_end && npm run dev",
-    "dev": "concurrently \"pnpm server_back\" \"pnpm server_front\""
+    "lint": "oxlint"
   },
   "author": "Emilian COADA",
   "license": "ISC",
@@ -23,7 +22,7 @@
     "express-session": "^1.18.1",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "multer": "1.4.5-lts.1",
+    "multer": "2.1.1",
     "multer-storage-cloudinary": "^4.0.0",
     "pg": "^8.13.0",
     "sanitize-html": "^2.13.1",
@@ -40,8 +39,6 @@
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
     "jest": "^29.7.0",
-    "nodemon": "^3.1.7",
-    "prettier": "^3.3.3",
-    "prettier-plugin-sql": "^0.18.1"
+    "nodemon": "^3.1.7"
   }
 }

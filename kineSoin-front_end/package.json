@@ -1,5 +1,5 @@
 {
-  "name": "kinesoin-front-end",
+  "name": "kineSoin-front_end",
   "private": true,
   "version": "0.0.0",
   "jest": {
@@ -39,6 +39,7 @@
     "@vitejs/plugin-react": "^4.3.2",
     "dayjs": "^1.11.13",
     "eslint": "^9.11.1",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",

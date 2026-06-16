@@ -22,7 +22,19 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../sequelize_client.js';
 
-export class Patient_Insurance extends Model {}
+export class Patient_Insurance extends Model {
+  static associate(models) {
+    Patient_Insurance.belongsTo(models.Patient, {
+      foreignKey: 'patient_id',
+      as: 'patient',
+    });
+
+    Patient_Insurance.belongsTo(models.Insurance, {
+      foreignKey: 'insurance_id',
+      as: 'insurance', // this is what you're using in your include
+    });
+  }
+}
 
 Patient_Insurance.init(
   {

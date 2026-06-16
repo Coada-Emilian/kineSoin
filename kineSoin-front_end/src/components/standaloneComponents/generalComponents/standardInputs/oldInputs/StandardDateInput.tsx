@@ -1,0 +1,88 @@
+import { useState } from 'react';
+
+interface StandardDateInputProps {
+  isPatientRegisterBirthdateInput?: boolean;
+
+  isNewPrescriptionDateInput?: boolean;
+
+  isPatientProfileBirthDateModification?: boolean;
+  birth_date?: string;
+}
+
+export default function StandardDateInput({
+  isPatientRegisterBirthdateInput,
+
+  isNewPrescriptionDateInput,
+
+  isPatientProfileBirthDateModification,
+  birth_date,
+}: StandardDateInputProps) {
+  // State to store the patient birth date
+  const [patientBirthDate, setPatientBirthDate] = useState<string | undefined>(
+    birth_date
+  );
+
+  // Conditional rendering variables
+  const id = isPatientRegisterBirthdateInput
+    ? 'patient-register-birth_date_input'
+    : isNewPrescriptionDateInput
+      ? 'new-prescription-date_input'
+      : isPatientProfileBirthDateModification
+        ? 'patient-profile-birth_date_input'
+        : '';
+
+  const divClassName = isNewPrescriptionDateInput
+    ? 'mb-4 flex flex-col gap-2 items-center md:items-start md:w-full md:text-start'
+    : isPatientProfileBirthDateModification
+      ? 'mb-4 flex gap-2 items-center w-full'
+      : 'mb-4 flex gap-2 flex-col';
+
+  const labelClassName = isPatientProfileBirthDateModification
+    ? 'text-xxs md:text-base xl:text-xl w-full md:w-1/2 flex text-primaryBlue font-medium italic'
+    : isNewPrescriptionDateInput
+      ? 'text-sm text-primaryBlue font-medium italic w-full'
+      : 'text-sm text-primaryBlue font-medium italic w-1/2';
+
+  const labelContent = isPatientRegisterBirthdateInput
+    ? 'Date de naissance'
+    : isNewPrescriptionDateInput
+      ? "Date de l'ordonnance"
+      : isPatientProfileBirthDateModification
+        ? 'Date de naissance'
+        : '';
+
+  const inputName = isPatientRegisterBirthdateInput
+    ? 'birth-date'
+    : isPatientProfileBirthDateModification
+      ? 'birth_date'
+      : isNewPrescriptionDateInput
+        ? 'date'
+        : '';
+
+  // Function to get the input value on change
+  const getInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isPatientProfileBirthDateModification) {
+      setPatientBirthDate(e.target.value);
+    }
+    return undefined;
+  };
+
+  const inputValue = birth_date ? patientBirthDate : undefined;
+
+  return (
+    <div className={divClassName}>
+      <label htmlFor={id} className={labelClassName}>
+        {labelContent}
+      </label>
+
+      <input
+        type="date"
+        name={inputName}
+        id={id}
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md"
+        onChange={(e) => getInputOnChange(e)}
+        value={inputValue}
+      />
+    </div>
+  );
+}

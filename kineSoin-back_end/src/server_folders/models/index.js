@@ -12,19 +12,20 @@
  * Ensure that all referenced models and the sequelize client are properly defined and configured before using this setup.
  */
 
+
 import {
   Admin,
   Affliction,
   Appointment,
   Body_region,
+  Insurance,
   Medic,
   Patient,
+  Patient_Insurance,
+  Patient_message,
   Prescription,
   Therapist,
-  Patient_message,
   Therapist_message,
-  Insurance,
-  Patient_Insurance,
 } from './associations.js';
 import { sequelize } from './sequelize_client.js';
 
@@ -33,13 +34,13 @@ export {
   Affliction,
   Appointment,
   Body_region,
+  Insurance,
   Medic,
   Patient,
-  Prescription,
-  Therapist,
-  Patient_message,
-  Therapist_message,
-  Insurance,
   Patient_Insurance,
+  Patient_message,
+  Prescription,
   sequelize,
+  Therapist,
+  Therapist_message,
 };

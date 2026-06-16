@@ -1,4 +1,13 @@
+import { Button } from '@headlessui/react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  IInsurance,
+  IPatient,
+  IPatient_Insurance,
+  ITherapist,
+} from '../../../../@types/interfaces/modelInterfaces';
+import { updatePatientDataInLocalStorage } from '../../../../localStorage/patientLocalStorage';
 import {
   fetchPatientData,
   fetchPatientTherapist,
@@ -6,28 +15,20 @@ import {
   handlePatientMessageCreation,
   handlePatientPhotoUpdate,
   handlePatientUpdate,
-} from '../../../../utils/apiUtils';
-import {
-  IInsurance,
-  IPatient,
-  IPatient_Insurance,
-  ITherapist,
-} from '../../../../@types/types';
-import CustomButton from '../CustomButton/CustomButton';
+} from '../../../../utils/apiUtils/patientApiUtils/patientApiUtils';
+import EditPatientModal from '../../privateSection/patientSection/modals/EditPatientModal';
+import CustomButton from '../customButton/oldComponents/CustomButton';
+import EditIcon from '../editIcon/EditIcon';
+import StandardDateInput from '../standardInputs/oldInputs/StandardDateInput';
+import StandardChoiceDropdown from '../standardInputs/oldInputs/StandardDropdownInput';
+import StandardEmailInput from '../standardInputs/oldInputs/StandardEmailInput';
+import StandardTelephoneInput from '../standardInputs/oldInputs/StandardTelephoneInput';
+import StandardTextInput from '../standardInputs/oldInputs/StandardTextInput';
+import checkIcon from '/icons/check.png';
 import facebookIcon from '/icons/facebook.png';
 import instagramIcon from '/icons/insta.png';
 import linkedInIcon from '/icons/linkedIn.png';
 import phoneIcon from '/icons/phone-call.png';
-import { Link, useNavigate } from 'react-router-dom';
-import StandardTextInput from '../StandardInputs/StandardTextInput';
-import StandardDateInput from '../StandardInputs/StandardDateInput';
-import StandardChoiceDropdown from '../StandardInputs/StandardDropdownInput';
-import StandardTelephoneInput from '../StandardInputs/StandardTelephoneInput';
-import StandardEmailInput from '../StandardInputs/StandardEmailInput';
-import EditIcon from '../EditIcon/EditIcon';
-import EditPatientModal from '../../PrivateSection/PatientSection/Modals/EditPatientModal';
-import checkIcon from '/icons/check.png';
-import { updatePatientDataInLocalStorage } from '../../../../localStorage/patientLocalStorage';
 
 interface ProfileCardProps {
   patientId?: number;
@@ -315,10 +316,9 @@ export default function ProfileCard({
                 className="w-32 h-32 rounded-full border-4 border-white object-cover "
               />
               {isPatientDetailsProfileCard && patient && isProfileEditing && (
-                <Link to="#" onClick={() => setIsPhotoEditModalOpen(true)}>
-                  {' '}
+                <Button onClick={() => setIsPhotoEditModalOpen(true)}>
                   <EditIcon isPatientProfilePhotoModification />
-                </Link>
+                </Button>
               )}
             </div>
           </div>
@@ -444,30 +444,30 @@ export default function ProfileCard({
                 {isPatientTherapistProfileCard &&
                   patientTherapistData?.therapist && (
                     <div className="flex gap-2 p-2">
-                      <Link to="#">
+                      <Button>
                         <img
                           src={linkedInIcon}
                           alt="LinkedIn"
                           className="w-8"
                         />
-                      </Link>
-                      <Link to="#">
+                      </Button>
+                      <Button>
                         <img
                           src={facebookIcon}
                           alt="facebook"
                           className="w-8"
                         />
-                      </Link>
-                      <Link to="#">
+                      </Button>
+                      <Button>
                         <img
                           src={instagramIcon}
                           alt="instagram"
                           className="w-8"
                         />
-                      </Link>
-                      <Link to="#">
+                      </Button>
+                      <Button>
                         <img src={phoneIcon} alt="phone" className="w-8" />
-                      </Link>
+                      </Button>
                     </div>
                   )}
                 <div>
@@ -583,18 +583,19 @@ export default function ProfileCard({
                     />
                   </div>
                   <StandardEmailInput
-                    isPatientProfileEmailModification
-                    patient_email={patient?.email}
+                    emailInput={{
+                      inputId: 'patient-edit-email_input',
+                      old_email: patient?.email,
+                      additionalDivClassName: 'flex-row items-center ',
+                      additionalLabelClassName: 'w-1/6 md:w-1/12 text-start',
+                    }}
                   />
                   <div className="flex flex-col md:flex-row gap-2 justify-between w-full mb-4">
                     <div className="flex gap-2 items-center">
                       {isInsuranceEdited && (
                         <img src={checkIcon} alt="check" className="w-6 h-6" />
                       )}{' '}
-                      <Link
-                        to="#"
-                        onClick={() => setIsEditInsuranceModalOpen(true)}
-                      >
+                      <Button onClick={() => setIsEditInsuranceModalOpen(true)}>
                         {' '}
                         <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
                           <EditIcon />
@@ -603,16 +604,13 @@ export default function ProfileCard({
                             Modifier l'assurance mutuelle
                           </span>
                         </p>
-                      </Link>
+                      </Button>
                     </div>
                     <div className="flex gap-2 items-center">
                       {isPasswordEdited && (
                         <img src={checkIcon} alt="check" className="w-6 h-6" />
                       )}{' '}
-                      <Link
-                        to="#"
-                        onClick={() => setIsEditPasswordModalOpen(true)}
-                      >
+                      <Button onClick={() => setIsEditPasswordModalOpen(true)}>
                         {' '}
                         <p className="flex gap-2 items-center hover:transform hover:scale-105 transition-transform duration-200">
                           <EditIcon />
@@ -621,7 +619,7 @@ export default function ProfileCard({
                             Modifier votre mot de passe
                           </span>
                         </p>
-                      </Link>
+                      </Button>
                     </div>
                   </div>
                 </div>

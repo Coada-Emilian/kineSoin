@@ -11,21 +11,25 @@
  * Ensure that the profile data JSON files are correctly formatted and available before running this module.
  */
 
-import { pgClient } from './pgClient.js';
 import { Scrypt } from '../src/server_folders/authentification/Scrypt.js';
-import patients from './data/patient_data.json' with { type: 'json' };
-import medics from './data/medic_data.json' with { type: 'json' };
-import therapists from './data/therapist_data.json' with { type: 'json' };
 import admins from './data/admin_data.json' with { type: 'json' };
+import medics from './data/medic_data.json' with { type: 'json' };
+import patients from './data/patient_data.json' with { type: 'json' };
+import therapists from './data/therapist_data.json' with { type: 'json' };
+import { pgClient } from './pgClient.js';
 
 await pgClient.connect();
 
 // Inserting admin profiles into the database
 for (const admin of admins) {
   const { name, email } = admin;
+
   const hashedPassword = Scrypt.hash(admin.password);
+
   const query = `INSERT INTO administrators (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
+
   await pgClient.query(query, [name, email, hashedPassword]);
+  console.log(`👨‍💼 Admin ${name} inserted 👨‍💼`);
 }
 
 console.log('🛠️ Admins inserted 🛠️');
@@ -68,6 +72,8 @@ for (const therapist of therapists) {
     licence_code,
     status,
   ]);
+
+  console.log(`👩‍⚕️ Therapist ${name} ${surname} inserted 👩‍⚕️`);
 }
 
 console.log('💆🏻‍♀️ Therapists inserted 💆🏻‍♀️');
@@ -85,9 +91,11 @@ for (const medic of medics) {
     prefix,
     phone_number,
     licence_code,
+    email,
   } = medic;
 
-  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
+  const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code, email ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
+
   await pgClient.query(query, [
     admin_id,
     name,
@@ -99,7 +107,10 @@ for (const medic of medics) {
     prefix,
     phone_number,
     licence_code,
+    email,
   ]);
+
+  console.log(`👩🏻‍⚕️ Medic ${name} ${surname} inserted 👩🏻‍⚕️`);
 }
 
 console.log('👩🏻‍⚕️ Medics inserted 👩🏻‍⚕️');
@@ -146,6 +157,8 @@ for (const patient of patients) {
     status,
     picture_url,
   ]);
+
+  console.log(`👩‍👩‍👦‍👦 Patient ${name} ${surname} inserted 👩‍👩‍👦‍👦`);
 }
 
 console.log('👩‍👩‍👦‍👦 Patients inserted 👩‍👩‍👦‍👦');

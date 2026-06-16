@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primaryTeal: #6fffe9;
+  --color-secondaryTeal: #00e0d1;
+  --color-primaryBlue: #003249;
+  --color-secondaryBlue: #007ea7;
+  --color-primaryRed: #d85071;
+  --color-lightGrey: #cdcdcd;
+  --color-container: #bff3f3;
+  --color-cardHeader: #007ea7;
+
+  --text-xxs: 0.636rem;
+  --text-xxxs: 0.5rem;
+  --text-xxxxs: 0.4rem;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.rbc-today {
+  background-color: #b9bfe2 !important;
+}
+.dark .rbc-today {
+  background-color: #1e293b !important;
+}

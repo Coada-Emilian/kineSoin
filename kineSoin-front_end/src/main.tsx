@@ -1,16 +1,32 @@
-import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRoot } from 'react-dom/client';
 import Modal from 'react-modal';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
+import { AuthentificationGlobalContextProvider } from './utils/contexts/authentificationContexts/AuthentificationGlobalContext.tsx';
+import { GlobalContextProvider } from './utils/contexts/GlobalContext.tsx';
+import { PrefixesContextProvider } from './utils/contexts/PrefixesContext.tsx';
 
 Modal.setAppElement('#root');
 
+const queryClient = new QueryClient();
+
 export default function Root() {
   return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <GlobalContextProvider>
+          <AuthentificationGlobalContextProvider>
+            <PrefixesContextProvider>
+              <App />
+            </PrefixesContextProvider>
+          </AuthentificationGlobalContextProvider>
+        </GlobalContextProvider>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

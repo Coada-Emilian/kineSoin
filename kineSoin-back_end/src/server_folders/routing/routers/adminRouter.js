@@ -1,148 +1,44 @@
 /**
- * @description Defines the admin router, which contains the routes that are accessible to administrators.
+ * @module adminRouter
+ * @description
+ * This module defines all administrative API routes for the application.
+ * It handles CRUD operations and management features for multiple entities
+ * within the system, all restricted to authenticated admin users.
  *
- * This module:
- * - Imports the Router class from the express module to create a new router.
- * - Imports the authenticateAdmin middleware to authenticate admin users.
- * - Imports the therapistPhotoStorage configuration from the cloudinary module.
- * - Imports the controllerWrapper middleware to wrap controller functions and catch errors.
- * - Imports the multer module to handle file uploads.
- * - Imports controller modules for handling various entities: patientController, therapistController, authentificationController, afflictionController, medicController, and insuranceController.
- * - Configures multer to use the therapistPhotoStorage for storing uploaded therapist photos.
- * - Creates a new router instance using Router().
+ * Protected by:
+ * - `authenticateAdmin` middleware to ensure only authorized admins can access these routes.
+ * - `controllerWrapper` to handle async errors consistently across all controllers.
  *
- * The admin router defines the following routes:
- * - POST /login: Logs in an admin.
- *   - Wraps the loginAdmin controller function with the controllerWrapper to catch and handle errors.
+ * Features included:
+ * - Admin authentication (login)
+ * - Therapist management (create, read, update, delete, status changes, photo upload)
+ * - Patient management (read, update status, delete)
+ * - Affliction management (CRUD operations)
+ * - Medic management (CRUD operations)
+ * - Body region management (create, read, delete)
+ * - Insurance organism management (CRUD operations)
  *
- * - GET /therapists: Retrieves all therapists.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getAllTherapists controller function with the controllerWrapper to catch and handle errors.
+ * Notable implementations:
+ * - Uses Multer with Cloudinary storage (`therapistPhotoStorage`) for handling therapist image uploads.
+ * - Follows a RESTful structure with consistent and predictable endpoints.
+ * - Separates concerns by delegating business logic to dedicated controllers.
  *
- * - GET /therapists/:therapist_id: Retrieves a specific therapist.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getOneTherapist controller function with the controllerWrapper to catch and handle errors.
- *
- * - POST /therapists: Creates a new therapist.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Uses multer middleware to handle photo uploads (single file) with storage configuration.
- *   - Wraps the createTherapist controller function with the controllerWrapper to catch and handle errors.
- *
- * - PUT /therapists/:therapist_id: Updates a specific therapist.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Uses multer middleware to handle photo uploads (single file) with storage configuration.
- *   - Wraps the updateTherapist controller function with the controllerWrapper to catch and handle errors.
- *
- * - PUT /therapists/:therapist_id/toggleStatus: Toggles the status of a specific therapist.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the toggleTherapistStatus controller function with the controllerWrapper to catch and handle errors.
- *
- * - DELETE /therapists/:therapist_id: Deletes a specific therapist.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the deleteTherapist controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /allPatients: Retrieves all patients.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getAllPatients controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /patients/:patient_id: Retrieves a specific patient.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getOnePatient controller function with the controllerWrapper to catch and handle errors.
- *
- * - PUT /patients/:patient_id: Toggles the status of a specific patient.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the togglePatientStatus controller function with the controllerWrapper to catch and handle errors.
- *
- * - DELETE /patients/:patient_id: Deletes a specific patient.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the deletePatient controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /afflictions: Retrieves all afflictions.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getAllAfflictions controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /afflictions/:affliction_id: Retrieves a specific affliction.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getOneAffliction controller function with the controllerWrapper to catch and handle errors.
- *
- * - POST /afflictions: Creates a new affliction.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the createAffliction controller function with the controllerWrapper to catch and handle errors.
- *
- * - DELETE /afflictions/:affliction_id: Deletes a specific affliction.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the deleteAffliction controller function with the controllerWrapper to catch and handle errors.
- *
- * - PUT /afflictions/:affliction_id: Updates a specific affliction.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the updateAffliction controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /medics: Retrieves all medics.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getAllMedics controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /medics/:medic_id: Retrieves a specific medic.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getOneMedic controller function with the controllerWrapper to catch and handle errors.
- *
- * - POST /medics: Creates a new medic.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the createMedic controller function with the controllerWrapper to catch and handle errors.
- *
- * - PUT /medics/:medic_id: Updates a specific medic.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the updateMedic controller function with the controllerWrapper to catch and handle errors.
- *
- * - DELETE /medics/:medic_id: Deletes a specific medic.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the deleteMedic controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /bodyRegions: Retrieves all body regions.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getAllBodyRegions controller function with the controllerWrapper to catch and handle errors.
- *
- * - POST /bodyRegions: Creates a new body region.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the createBodyRegion controller function with the controllerWrapper to catch and handle errors.
- *
- * - DELETE /bodyRegions/:body_region_id: Deletes a specific body region.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the deleteBodyRegion controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /insuranceOrganisms: Retrieves all insurance organisms.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getAllInsuranceOrganisms controller function with the controllerWrapper to catch and handle errors.
- *
- * - GET /insuranceOrganisms/:insurance_id: Retrieves a specific insurance organism.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the getOneInsuranceOrganism controller function with the controllerWrapper to catch and handle errors.
- *
- * - POST /insuranceOrganisms: Creates a new insurance organism.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the createInsuranceOrganism controller function with the controllerWrapper to catch and handle errors.
- *
- * - DELETE /insuranceOrganisms/:insurance_id: Deletes a specific insurance organism.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the deleteInsuranceOrganism controller function with the controllerWrapper to catch and handle errors.
- *
- * - PUT /insuranceOrganisms/:insurance_id: Updates a specific insurance organism.
- *   - Uses authenticateAdmin middleware to authenticate admin users.
- *   - Wraps the updateInsuranceOrganism controller function with the controllerWrapper to catch and handle errors.
- *
- * Ensure that the express, multer, authenticateAdmin, controllerWrapper, patientController, therapistController, authentificationController, afflictionController, medicController, and insuranceController modules are installed and properly configured before using this setup.
+ * This router acts as the central entry point for all admin-related actions
+ * in the system, ensuring a clean separation between admin operations and
+ * other application layers.
  */
 
 import { Router } from 'express';
-import { authenticateAdmin } from '../../middlewares/userAuthentication.js';
+import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
-import multer from 'multer';
+import { authenticateAdmin } from '../../middlewares/userAuthentication.js';
+import afflictionController from '../controllers/afflictionController.js';
+import authentificationController from '../controllers/authentificationController.js';
+import insuranceController from '../controllers/insuranceController.js';
+import medicController from '../controllers/medicController.js';
 import patientController from '../controllers/patientController.js';
 import therapistController from '../controllers/therapistController.js';
-import authentificationController from '../controllers/authentificationController.js';
-import afflictionController from '../controllers/afflictionController.js';
-import medicController from '../controllers/medicController.js';
-import insuranceController from '../controllers/insuranceController.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -151,200 +47,207 @@ export const adminRouter = Router();
 // Route to login an admin
 adminRouter.post('/login', wrapper(authentificationController.loginAdmin));
 
-// Route to get all therapists
+// Route to get all therapists as admin
 adminRouter.get(
   '/therapists',
   authenticateAdmin,
-  wrapper(therapistController.getAllTherapists)
+  wrapper(therapistController.getAllTherapistsAsAdmin)
 );
 
-// Route to get one therapist
+// Route to get one therapist as admin
 adminRouter.get(
   '/therapists/:therapist_id',
   authenticateAdmin,
-  wrapper(therapistController.getOneTherapist)
+  wrapper(therapistController.getOneTherapistAsAdmin)
 );
 
-// Route to create a new therapist
+// Route to create a new therapist as admin
 adminRouter.post(
   '/therapists',
   authenticateAdmin,
   uploadTherapistPhoto.single('photo'),
-  wrapper(therapistController.createTherapist)
+  wrapper(therapistController.createTherapistAsAdmin)
 );
 
-// Route to update a therapist
+// Route to update a therapist as admin
 adminRouter.put(
   '/therapists/:therapist_id',
   authenticateAdmin,
   uploadTherapistPhoto.single('file'),
-  wrapper(therapistController.updateTherapist)
+  wrapper(therapistController.updateTherapistAsAdmin)
 );
 
-// Route to toggle therapist status change
+// Route to toggle therapist status change as admin
 adminRouter.put(
+  '/therapists/:therapist_id/changeStatus',
+  authenticateAdmin,
+  wrapper(therapistController.changeTherapistStatusAsAdmin)
+);
+
+// Route to toggle therapist status as admin
+adminRouter.patch(
   '/therapists/:therapist_id/toggleStatus',
   authenticateAdmin,
-  wrapper(therapistController.toggleTherapistStatus)
+  wrapper(therapistController.toggleTherapistStatusAsAdmin)
 );
 
-// Route to delete a therapist
+// Route to delete a therapist as admin
 adminRouter.delete(
   '/therapists/:therapist_id',
   authenticateAdmin,
-  wrapper(therapistController.deleteTherapist)
+  wrapper(therapistController.deleteTherapistAsAdmin)
 );
 
-// Route to get all patients
+// Route to get all patients as admin
 adminRouter.get(
   '/allPatients',
   authenticateAdmin,
-  wrapper(patientController.getAllPatients)
+  wrapper(patientController.getAllPatientsAsAdmin)
 );
 
-// Route to get one patient
+// Route to get one patient as admin
 adminRouter.get(
   '/patients/:patient_id',
   authenticateAdmin,
-  wrapper(patientController.getOnePatient)
+  wrapper(patientController.getOnePatientAsAdmin)
 );
 
-// Route to toggle patient status change
+// Route to change patient status as admin
 adminRouter.put(
-  '/patients/:patient_id',
+  '/patients/:patient_id/changeStatus',
   authenticateAdmin,
-  wrapper(patientController.togglePatientStatus)
+  wrapper(patientController.changePatientStatusAsAdmin)
 );
 
-// Route to delete a patient
+// Route to delete a patient as admin
 adminRouter.delete(
   '/patients/:patient_id',
   authenticateAdmin,
-  wrapper(patientController.deletePatient)
+  wrapper(patientController.deletePatientAsAdmin)
 );
 
-// Route to get all afflictions
+// Route to get all afflictions as admin
 adminRouter.get(
   '/afflictions',
   authenticateAdmin,
-  wrapper(afflictionController.getAllAfflictions)
+  wrapper(afflictionController.getAllAfflictionsAsAdmin)
 );
 
-// Route to get one affliction
+// Route to get one affliction as admin
 adminRouter.get(
   '/afflictions/:affliction_id',
   authenticateAdmin,
-  wrapper(afflictionController.getOneAffliction)
+  wrapper(afflictionController.getOneAfflictionAsAdmin)
 );
 
-// Route to create a new affliction
+// Route to create a new affliction as admin
 adminRouter.post(
   '/afflictions',
   authenticateAdmin,
-  wrapper(afflictionController.createAffliction)
+  wrapper(afflictionController.createAfflictionAsAdmin)
 );
 
-// Route to delete an affliction
+// Route to delete an affliction as admin
 adminRouter.delete(
   '/afflictions/:affliction_id',
   authenticateAdmin,
-  wrapper(afflictionController.deleteAffliction)
+  wrapper(afflictionController.deleteAfflictionAsAdmin)
 );
 
-// Route to update an affliction
+// Route to update an affliction as admin
 adminRouter.put(
   '/afflictions/:affliction_id',
   authenticateAdmin,
-  wrapper(afflictionController.updateAffliction)
+  wrapper(afflictionController.updateAfflictionAsAdmin)
 );
 
-// Route to get all medics
+// Route to get all medics as admin
 adminRouter.get(
   '/medics',
   authenticateAdmin,
-  wrapper(medicController.getAllMedics)
+  wrapper(medicController.getAllMedicsAsAdmin)
 );
 
-// Route to get one medic
+// Route to get one medic as admin
 adminRouter.get(
   '/medics/:medic_id',
   authenticateAdmin,
-  wrapper(medicController.getOneMedic)
+  wrapper(medicController.getOneMedicAsAdmin)
 );
 
-// Route to create a new medic
+// Route to create a new medic as admin
 adminRouter.post(
   '/medics',
   authenticateAdmin,
-  wrapper(medicController.createMedic)
+  wrapper(medicController.createMedicAsAdmin)
 );
 
-// Route to update a medic
+// Route to update a medic as admin
 adminRouter.put(
   '/medics/:medic_id',
   authenticateAdmin,
-  wrapper(medicController.updateMedic)
+  wrapper(medicController.updateMedicAsAdmin)
 );
 
-// Route to delete a medic
+// Route to delete a medic as admin
 adminRouter.delete(
   '/medics/:medic_id',
   authenticateAdmin,
-  wrapper(medicController.deleteMedic)
+  wrapper(medicController.deleteMedicAsAdmin)
 );
 
-// Route to get all body regions
+// Route to get all body regions as admin
 adminRouter.get(
   '/bodyRegions',
   authenticateAdmin,
-  wrapper(afflictionController.getAllBodyRegions)
+  wrapper(afflictionController.getAllBodyRegionsAsAdmin)
 );
 
-// Route to create a new body region
+// Route to create a new body region as admin
 adminRouter.post(
   '/bodyRegions',
   authenticateAdmin,
-  wrapper(afflictionController.createBodyRegion)
+  wrapper(afflictionController.createBodyRegionAsAdmin)
 );
 
-// Route to delete a body region
+// Route to delete a body region as admin
 adminRouter.delete(
   '/bodyRegions/:body_region_id',
   authenticateAdmin,
-  wrapper(afflictionController.deleteBodyRegion)
+  wrapper(afflictionController.deleteBodyRegionAsAdmin)
 );
 
-// Route to get all insurance organisms
+// Route to get all insurance organisms as admin
 adminRouter.get(
   '/insuranceOrganisms',
   authenticateAdmin,
-  wrapper(insuranceController.getAllInsuranceOrganisms)
+  wrapper(insuranceController.getAllInsuranceOrganismsAsAdmin)
 );
 
-// Route to get one insurance organism
+// Route to get one insurance organism as admin
 adminRouter.get(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
-  wrapper(insuranceController.getOneInsuranceOrganism)
+  wrapper(insuranceController.getOneInsuranceOrganismAsAdmin)
 );
 
-// Route to create a new insurance organism
+// Route to create a new insurance organism as admin
 adminRouter.post(
   '/insuranceOrganisms',
   authenticateAdmin,
-  wrapper(insuranceController.createInsuranceOrganism)
+  wrapper(insuranceController.createInsuranceOrganismAsAdmin)
 );
 
-// Route to delete an insurance organism
+// Route to delete an insurance organism as admin
 adminRouter.delete(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
-  wrapper(insuranceController.deleteInsuranceOrganism)
+  wrapper(insuranceController.deleteInsuranceOrganismAsAdmin)
 );
 
-// Route to update an insurance organism
+// Route to update an insurance organism as admin
 adminRouter.put(
   '/insuranceOrganisms/:insurance_id',
   authenticateAdmin,
-  wrapper(insuranceController.updateInsuranceOrganism)
+  wrapper(insuranceController.updateInsuranceOrganismAsAdmin)
 );

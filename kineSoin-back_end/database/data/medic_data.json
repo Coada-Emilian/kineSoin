@@ -9,7 +9,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0123456789",
-    "licence_code": "123456789"
+    "licence_code": "123456789",
+    "email": "dupont.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -21,7 +22,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0145678910",
-    "licence_code": "987654321"
+    "licence_code": "987654321",
+    "email": "martin.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -33,7 +35,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0156789123",
-    "licence_code": "456789123"
+    "licence_code": "456789123",
+    "email": "durand.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -45,7 +48,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0167891234",
-    "licence_code": "654321789"
+    "licence_code": "654321789",
+    "email": "lefevre.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -57,7 +61,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0178912345",
-    "licence_code": "321654987"
+    "licence_code": "321654987",
+    "email": "moreau.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -69,7 +74,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0189123456",
-    "licence_code": "852147963"
+    "licence_code": "852147963",
+    "email": "simon.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -81,7 +87,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0191234567",
-    "licence_code": "753951486"
+    "licence_code": "753951486",
+    "email": "leroy.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -93,7 +100,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0201234567",
-    "licence_code": "159753456"
+    "licence_code": "159753456",
+    "email": "nicolas.medic@example.com"
   },
   {
     "admin_id": 1,
@@ -105,7 +113,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0212345678",
-    "licence_code": "951753852"
+    "licence_code": "951753852",
+    "email": "martinez.medic@example.com"
   },
   {
     "admin_id": 2,
@@ -117,7 +126,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0223456789",
-    "licence_code": "753852159"
+    "licence_code": "753852159",
+    "email": "richard.medic@example.com"
   },
   {
     "admin_id": 2,
@@ -129,7 +139,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0234567890",
-    "licence_code": "329954987"
+    "licence_code": "329954987",
+    "email": "morel.medic@example.com"
   },
   {
     "admin_id": 2,
@@ -141,7 +152,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0245678901",
-    "licence_code": "654123789"
+    "licence_code": "654123789",
+    "email": "garnier.medic@example.com"
   },
   {
     "admin_id": 2,
@@ -153,7 +165,8 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0256789012",
-    "licence_code": "987123456"
+    "licence_code": "987123456",
+    "email": "chevalier.medic@example.com"
   },
   {
     "admin_id": 2,
@@ -165,6 +178,7 @@
     "city": "Paris",
     "prefix": "+33",
     "phone_number": "0267890123",
-    "licence_code": "456789321"
+    "licence_code": "456789321",
+    "email": "benoit.medic@example.com"
   }
 ]
