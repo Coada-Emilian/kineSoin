@@ -4,11 +4,11 @@ import closedEyeIcon from '/icons/eye-closed.svg';
 import openedEyeIcon from '/icons/eye.svg';
 import questionIcon from '/icons/question-circle.svg';
 
-export default function PasswordInput({ passwordInput }: PasswordInputProps) {
+export default function PasswordInput({ input }: PasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const [password, setPassword] = useState(
-    typeof passwordInput.value === 'string' ? passwordInput.value : ''
+    typeof input.value === 'string' ? input.value : ''
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,19 +22,17 @@ export default function PasswordInput({ passwordInput }: PasswordInputProps) {
   return (
     <div
       className={`${
-        passwordInput.additionalDivClassName &&
-        passwordInput.additionalDivClassName
-      } ${passwordInput.isFlexRow ? 'flex-row' : 'flex-col'} flex gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg mb-4`}
+        input.additionalDivClassName && input.additionalDivClassName
+      } ${input.isFlexRow ? 'flex-row' : 'flex-col'} flex gap-1 italic text-xs md:text-sm xl:text-md 2xl:text-lg mb-4`}
     >
       <label
-        htmlFor={passwordInput.id}
+        htmlFor={input.id}
         className={`${
-          passwordInput.additionalLabelClassName &&
-          passwordInput.additionalLabelClassName
-        } ${passwordInput.hasInfoIcon && 'flex-row items-center'} text-primaryBlue font-medium flex gap-1`}
+          input.additionalLabelClassName && input.additionalLabelClassName
+        } ${input.hasInfoIcon && 'flex-row items-center'} text-primaryBlue font-medium flex gap-1`}
       >
-        {passwordInput.labelName}
-        {passwordInput.hasInfoIcon && (
+        {input.labelName}
+        {input.hasInfoIcon && (
           <p
             className="text-sm text-center ml-4"
             title="12 caractères minimum avec 1 majuscule, 1 minuscule, 1 chiffre & 1 caractère spécial"
@@ -52,11 +50,11 @@ export default function PasswordInput({ passwordInput }: PasswordInputProps) {
       <div className="flex rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:border-gray-300 focus-within:border-secondaryTeal focus-within:ring-2 focus-within:ring-secondaryTeal/40">
         <input
           type={showPassword ? 'text' : 'password'}
-          name={passwordInput.name}
-          id={passwordInput.id}
+          name={input.name}
+          id={input.id}
           className="w-full px-4 py-2.5 text-xs md:text-sm xl:text-base text-gray-800 bg-transparent placeholder:text-gray-400 rounded-l-lg focus:outline-none"
-          placeholder={passwordInput.placeholder}
-          autoComplete={passwordInput.autoComplete}
+          placeholder={input.placeholder}
+          autoComplete={input.autoComplete}
           required
           value={password}
           onChange={handleInputChange}

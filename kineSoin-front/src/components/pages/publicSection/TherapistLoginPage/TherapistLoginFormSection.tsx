@@ -44,7 +44,7 @@ export default function TherapistLoginFormSection() {
           )}
 
           <EmailInput
-            emailInput={{
+            input={{
               id: 'therapist-login-email_input',
               placeholder: 'Entrez votre adresse e-mail',
               name: 'email',
@@ -54,7 +54,7 @@ export default function TherapistLoginFormSection() {
           />
 
           <PasswordInput
-            passwordInput={{
+            input={{
               id: 'therapist-login-password_input',
               name: 'password',
               labelName: 'Mot de passe',

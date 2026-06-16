@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import type { PatientRegistrationContextInterface } from '../../../@types/interfaces/contextInterfaces';
+import type { IPatientRegistrationContext } from '../../../@types/interfaces/contextInterfaces';
 import PatientRegistrationContext from './PatientRegistrationContext';
 
 export const usePatientRegistrationContext =
-  (): PatientRegistrationContextInterface => {
+  (): IPatientRegistrationContext => {
     const context = useContext(PatientRegistrationContext);
     if (!context) {
       throw new Error(

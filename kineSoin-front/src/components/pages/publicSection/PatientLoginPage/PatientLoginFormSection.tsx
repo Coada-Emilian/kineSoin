@@ -44,7 +44,7 @@ export default function PatientLoginFormSection() {
           )}
 
           <EmailInput
-            emailInput={{
+            input={{
               id: 'patient-login-email_input',
               placeholder: 'Entrez votre adresse e-mail',
               name: 'email',
@@ -54,7 +54,7 @@ export default function PatientLoginFormSection() {
           />
 
           <PasswordInput
-            passwordInput={{
+            input={{
               id: 'patient-login-password_input',
               name: 'password',
               labelName: 'Mot de passe',

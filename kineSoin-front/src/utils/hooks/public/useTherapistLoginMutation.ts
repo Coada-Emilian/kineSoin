@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { handleTherapistLogin } from '../../functions/apiUtils/public/handleTherapistLogin';
-import { validateLoginForm } from './validations/validateLoginForm';
+import { validateLoginForm } from './validators/validateLoginForm';
 
 export const useTherapistLoginMutation = (
   setTherapistProfileToken: (token: string) => void,

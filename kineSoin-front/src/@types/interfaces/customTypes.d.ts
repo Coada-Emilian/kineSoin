@@ -22,3 +22,5 @@ export type ButtonInterfaceIcons =
   | 'admin'
   | 'patient'
   | 'therapist';
+
+export type IFormOrders = 'first' | 'second' | 'third' | 'last';

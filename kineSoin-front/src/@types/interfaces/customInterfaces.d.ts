@@ -70,3 +70,96 @@ export interface IPublicArticle {
   paragraph: string;
   alt: string;
 }
+
+export interface IPatientRegistrationData {
+  name?: string;
+  birth_name?: string;
+  surname?: string;
+  gender?: string;
+  birth_date?: string;
+  street_number?: string;
+  street_name?: string;
+  postal_code?: string;
+  city?: string;
+  prefix?: string;
+  phone_number?: string;
+  email?: string;
+  password?: string;
+  picture?: File;
+}
+
+export interface ITextInput {
+  id: string;
+  labelName: string;
+  name: string;
+  placeholder?: string;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  value?: string;
+  isFlexRow?: boolean;
+  autoComplete?: string;
+  isTextArea?: boolean;
+  isRequired?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface IDateInput {
+  id: string;
+  labelName: string;
+  isFlexRow?: boolean;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  labelName?: string;
+  name: string;
+  value?: string;
+  isRequired?: boolean;
+  autoComplete?: string;
+}
+
+export interface IDropdownInput {
+  id: string;
+  labelName: string;
+  name: string;
+  isFlexRow?: boolean;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  value?: string;
+  isRequired?: boolean;
+  isLabelNormal?: boolean;
+  autoComplete?: string;
+  allOptions: {
+    startingOption?: {
+      value: string;
+      text: string;
+    };
+    options: {
+      key?: string;
+      value: string;
+      text: string;
+    }[];
+  };
+}
+
+export interface ITelephoneInput {
+  id: string;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  value?: string;
+  isFlexRow?: boolean;
+  isRequired?: boolean;
+  placeholder?: string;
+  autoComplete?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface IFileInput {
+  id: string;
+  labelName: string;
+  name: string;
+  isFlexRow?: boolean;
+  additionalDivClassName?: string;
+  additionalLabelClassName?: string;
+  value?: string;
+  isRequired?: boolean;
+  autoComplete?: string;
+}

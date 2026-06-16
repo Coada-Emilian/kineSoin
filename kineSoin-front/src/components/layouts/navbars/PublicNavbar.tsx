@@ -63,5 +63,3 @@ export default function PublicNavbar() {
     </>
   );
 }
-
-// alternative nav-bar color bg-white/70 backdrop-blur-md
