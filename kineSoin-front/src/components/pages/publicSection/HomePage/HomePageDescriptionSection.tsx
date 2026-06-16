@@ -1,7 +1,7 @@
 import {
   homePageFirstArticles,
   homePageSecondArticles,
-} from '../../../../utils/constants/homePageArticles';
+} from '../../../../utils/constants/publicSection/page/homePageArticles';
 import HomePageArticle from './HomePageArticle';
 
 export default function HomePageDescriptionSection() {

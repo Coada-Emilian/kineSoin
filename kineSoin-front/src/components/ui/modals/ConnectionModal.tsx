@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import type { ConnectionModalProps } from '../../../@types/interfaces/customProps';
 import BaseModal from './BaseModal';
-import { publicNavbarButtonDetails } from '../../../utils/constants/publicNavbarButtonDetails';
+import { publicNavbarButtonDetails } from '../../../utils/constants/publicSection/layout/publicNavbarButtonDetails';
 import { usePatientRegistrationContext } from '../../../utils/contexts/PatientRegistrationContext/usePatientRegistrationContext';
 import CustomButton from '../buttons/CustomButton';
 

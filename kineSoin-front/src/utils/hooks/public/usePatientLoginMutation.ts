@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { handlePatientLogin } from '../../functions/apiUtils/public/handlePatientLogin';
-import { validateLoginForm } from './validators/validateLoginForm';
+import { validateLoginForm } from './validations/validateLoginForm';
 
 export const usePatientLoginMutation = (
   setPatientProfileToken: (token: string) => void,

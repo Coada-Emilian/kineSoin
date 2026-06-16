@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { publicMobileNavbarLinkDetails } from '../../../utils/constants/publicMobileNavebarLinkDetails';
+import { publicMobileNavbarLinkDetails } from '../../../utils/constants/publicSection/layout/publicMobileNavebarLinkDetails';
 import { usePatientRegistrationContext } from '../../../utils/contexts/PatientRegistrationContext/usePatientRegistrationContext';
 
 export default function PublicMobileNavbar() {

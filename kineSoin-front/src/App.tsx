@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import PublicLayout from './layouts/PublicLayout';
-import { publicRouteDetails } from './utils/constants/publicRouteDetails';
+import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
 
 function App() {
   // const location = useLocation();
