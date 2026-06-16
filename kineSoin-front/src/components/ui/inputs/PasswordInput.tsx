@@ -49,12 +49,12 @@ export default function PasswordInput({ passwordInput }: PasswordInputProps) {
         )}
       </label>
 
-      <div className="flex rounded-md shadow-sm border">
+      <div className="flex rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:border-gray-300 focus-within:border-secondaryTeal focus-within:ring-2 focus-within:ring-secondaryTeal/40">
         <input
           type={showPassword ? 'text' : 'password'}
           name={passwordInput.name}
           id={passwordInput.id}
-          className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md "
+          className="w-full px-4 py-2.5 text-xs md:text-sm xl:text-base text-gray-800 bg-transparent placeholder:text-gray-400 rounded-l-lg focus:outline-none"
           placeholder={passwordInput.placeholder}
           autoComplete={passwordInput.autoComplete}
           required
@@ -65,13 +65,13 @@ export default function PasswordInput({ passwordInput }: PasswordInputProps) {
         <button
           type="button"
           onClick={handleButtonClick}
-          className="bg-white rounded-tr-md rounded-br-md"
+          className="px-3 flex items-center justify-center rounded-r-lg hover:bg-gray-50 transition-colors"
           aria-label={showPassword ? 'Hide password' : 'Show password'}
         >
           <img
             src={showPassword ? closedEyeIcon : openedEyeIcon}
             alt={showPassword ? 'Hide password' : 'Show password'}
-            className="h-6 my-auto px-2 w-auto opacity-90 bg-white"
+            className="h-5 w-5 opacity-70 hover:opacity-100 transition-opacity"
           />
         </button>
       </div>

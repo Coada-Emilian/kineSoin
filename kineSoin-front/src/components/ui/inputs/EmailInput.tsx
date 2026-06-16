@@ -22,7 +22,7 @@ export default function EmailInput({ emailInput }: EmailInputProps) {
         type="email"
         name={emailInput.name}
         id={emailInput.id}
-        className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 text-xxs md:text-xs xl:text-sm 2xl:text-md w-full"
+        className="w-full px-4 py-2.5 text-xs md:text-sm  xl:text-base text-gray-80 bg-white border border-gray-200 rounded-lg shadow-sm placeholder:text-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondaryTeal/40 focus:border-secondaryTeal/50"
         placeholder={emailInput.placeholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}

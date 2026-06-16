@@ -1,30 +1,31 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthentificationContext } from '../../../../utils/contexts/AuthentificationContext/useAuthentificationContext';
+import { usePatientLoginMutation } from '../../../../utils/hooks/public/usePatientLoginMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
+import DNALoader from '../../../ui/DNALoader';
 import EmailInput from '../../../ui/inputs/EmailInput';
 import PasswordInput from '../../../ui/inputs/PasswordInput';
-import mainLogo from '/logos/Main-Logo.png';
+import mainLogo from '/logos/new-logo.webp';
 
 export default function PatientLoginFormSection() {
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
 
   const { setPatientProfileToken } = useAuthentificationContext();
 
-  // const handlePatientLogin = usePatientLoginMutation(
-  //   setPatientProfileToken,
-  //   navigate
-  // );
+  const handlePatientLogin = usePatientLoginMutation(
+    setPatientProfileToken,
+    navigate
+  );
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted');
-    //  const formData = new FormData(e.currentTarget);
-    //  handlePatientLogin.mutate(formData);
+    const formData = new FormData(e.currentTarget);
+    handlePatientLogin.mutate(formData);
   };
 
-  //  if (handlePatientLogin.isPending) {
-  //    return DNALoader();
-  //  }
+  if (handlePatientLogin.isPending) {
+    return DNALoader();
+  }
 
   return (
     <section className="bg-[url('/images/patientConnexionPage_mainAlt.webp')] md:p-48 xl:p-56 2xl:p-72 bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative">
@@ -36,11 +37,11 @@ export default function PatientLoginFormSection() {
 
           <img src={mainLogo} alt="Kinesoin" className="w-14 mx-auto mb-4" />
 
-          {/* {handlePatientLogin.error && (
+          {handlePatientLogin.error && (
             <p className="text-center text-red-600 font-medium mb-2">
               {handlePatientLogin.error.message}
             </p>
-          )} */}
+          )}
 
           <EmailInput
             emailInput={{
