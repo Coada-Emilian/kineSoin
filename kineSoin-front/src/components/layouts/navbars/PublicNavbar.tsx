@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CustomButton from '../../ui/buttons/CustomButton';
 import ConnectionModal from '../../ui/modals/ConnectionModal';
 import Logo2 from '/logos/new-kinesoin-logo-2.webp';
@@ -8,15 +8,26 @@ import Logo1 from '/logos/new-kinesoin-logo.webp';
 export default function PublicNavbar() {
   const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleConnectionClick = () => {
     setIsConnectionModalOpen(true);
+  };
+
+  const handleInscriptionClick = () => {
+    setIsConnectionModalOpen(false);
+    navigate('/registerPatient');
+  };
+
+  const handleLogoClick = () => {
+    setIsConnectionModalOpen(false);
   };
 
   return (
     <>
       <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1 z-10">
         <nav className="justify-center md:justify-between flex items-center w-full px-4">
-          <Link to="/">
+          <Link to="/" onClick={handleLogoClick}>
             <img
               src={Logo2}
               alt="Retour a l'accueil"
@@ -46,7 +57,8 @@ export default function PublicNavbar() {
                   type: 'basic',
                   text: 'Inscription',
                   style: 'nav',
-                  to: '/registerPatient',
+
+                  onClick: handleInscriptionClick,
                 }}
               />
             </div>
