@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { IPatientRegistrationData } from '../../../../@types/interfaces/customInterfaces';
-import type { IFormOrders } from '../../../../@types/interfaces/customTypes';
 import { useAppContext } from '../../../../utils/contexts/AppContext/useAppContext';
 import { usePatientRegistrationContext } from '../../../../utils/contexts/PatientRegistrationContext/usePatientRegistrationContext';
 import { getFormElement } from '../../../../utils/functions/public/patientRegistrationUtils/getFormElement';
+import { getSectionBackground } from '../../../../utils/functions/public/patientRegistrationUtils/getSectionBackground';
+import { getStepParagraph } from '../../../../utils/functions/public/patientRegistrationUtils/getStepParagraph';
 import { usePatientRegistrationFormMutation } from '../../../../utils/hooks/public/usePatientRegistrationFormMutation';
 import { usePatientRegistrationMutation } from '../../../../utils/hooks/public/usePatientRegistrationMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
@@ -39,7 +40,7 @@ export default function PatientRegistrationFormSection() {
     return DNALoader();
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -79,32 +80,6 @@ export default function PatientRegistrationFormSection() {
 
     if (patientRegisterMutation.isPending) {
       return DNALoader();
-    }
-  };
-
-  const getSectionBackground = (formOrder: IFormOrders) => {
-    switch (formOrder) {
-      case 'first':
-        return "bg-[url('/images/patientRegisterFirstForm_mainAlt.webp')]";
-      case 'second':
-        return "bg-[url('/images/patientRegisterSecondForm_main.webp')]";
-      case 'third':
-        return "bg-[url('/images/patientRegisterThirdForm_main.webp')]";
-      default:
-        return "bg-[url('/images/confirmationPage.webp')]";
-    }
-  };
-
-  const getStepParagraph = (formOrder: IFormOrders) => {
-    switch (formOrder) {
-      case 'first':
-        return 'Etape 1/3: Informations personnelles';
-      case 'second':
-        return 'Etape 2/3: Informations de connexion';
-      case 'third':
-        return 'Etape 3/3: Photo de profil';
-      case 'last':
-        return '';
     }
   };
 
