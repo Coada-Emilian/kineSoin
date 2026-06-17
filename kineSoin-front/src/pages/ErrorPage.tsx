@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 
+import type { IErrorPageTypes } from '../@types/types/customTypes';
 import {
   getErrorPageErrorText,
   getErrorPageLinkDestination,
   getErrorPageLinkText,
   getErrorPageStatusCode,
-} from '../../../../utils/functions/errorPage';
-import type { IErrorPageTypes } from '../@types/types/customTypes';
+} from '../utils/constants/errorPageDetails';
 
-export default function ErrorPageRefactor({ type }: IErrorPageTypes) {
+export default function ErrorPage({ type }: IErrorPageTypes) {
   const errorPageProps: IErrorPageTypes = { type };
 
   const statusCode = getErrorPageStatusCode(errorPageProps);

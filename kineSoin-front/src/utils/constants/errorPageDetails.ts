@@ -1,23 +1,22 @@
+import type { IErrorPage } from '../../@types/interfaces/customInterfaces';
 import type { IErrorPageTypes } from '../../@types/types/customTypes';
-
-interface ErrorPageConfig {
-  link: string;
-  linkText: string;
-  status?: number;
-  errorText?: string;
-}
 
 const accessDeniedText =
   'Accès refusé. Vous devez être connecté pour accéder à cette page.';
+
+const notFoundText =
+  "Page introuvable. La page que vous recherchez n'existe pas ou a été déplacée.";
 
 const dashboardText = 'Retour au Tableau de Bord';
 
 const connectionText = 'Retour à la Page de Connexion';
 
-const errorPageConfig: Record<IErrorPageTypes['type'], ErrorPageConfig> = {
+const errorPageConfig: Record<IErrorPageTypes['type'], IErrorPage> = {
   adminAuthenticated: {
     link: '/admin/therapists',
     linkText: dashboardText,
+    status: 404,
+    errorText: notFoundText,
   },
 
   adminUnauthenticated: {
@@ -30,11 +29,15 @@ const errorPageConfig: Record<IErrorPageTypes['type'], ErrorPageConfig> = {
   public: {
     link: '/',
     linkText: "Retour à l'Accueil",
+    status: 404,
+    errorText: notFoundText,
   },
 
   patientAuthenticated: {
     link: '/patient/dashboard',
     linkText: dashboardText,
+    status: 404,
+    errorText: notFoundText,
   },
 
   patientUnauthenticated: {
@@ -47,6 +50,8 @@ const errorPageConfig: Record<IErrorPageTypes['type'], ErrorPageConfig> = {
   therapistAuthenticated: {
     link: '/therapist/dashboard',
     linkText: dashboardText,
+    status: 404,
+    errorText: notFoundText,
   },
 
   therapistUnauthenticated: {
@@ -55,17 +60,14 @@ const errorPageConfig: Record<IErrorPageTypes['type'], ErrorPageConfig> = {
     status: 403,
     errorText: accessDeniedText,
   },
-} satisfies Record<IErrorPageTypes['type'], ErrorPageConfig>;
+};
 
 export const getErrorPageStatusCode = ({ type }: IErrorPageTypes) => {
-  return errorPageConfig[type].status ?? 404;
+  return errorPageConfig[type].status;
 };
 
 export const getErrorPageErrorText = ({ type }: IErrorPageTypes) => {
-  return (
-    errorPageConfig[type].errorText ??
-    "Page Introuvable. La page que vous recherchez n'existe pas ou a été déplacée."
-  );
+  return errorPageConfig[type].errorText;
 };
 
 export const getErrorPageLinkDestination = ({ type }: IErrorPageTypes) =>

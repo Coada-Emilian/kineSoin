@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import PublicLayout from './layouts/PublicLayout';
+import ErrorPage from './pages/ErrorPage';
 import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
 import { useAppContext } from './utils/contexts/AppContext/useAppContext';
 
@@ -26,7 +27,7 @@ function App() {
             />
           ))}
 
-          {/* <Route path="*" element={<ErrorPageRefactor type="public" />} /> */}
+          <Route path="*" element={<ErrorPage type="public" />} />
         </Route>
       </Routes>
     </>
