@@ -29,10 +29,10 @@ export default function TherapistLoginFormSection() {
 
   return (
     <section className="bg-[url('/images/therapistConnexionPage_main.webp')] md:p-48 xl:p-56 2xl:p-72 bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative">
-      <div className="opacity-90 max-w-80 font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-gradient-to-r from-white to-gray-200 p-6 rounded-3xl italic">
+      <div className="opacity-90 max-w-80 font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-white/95 backdrop-blur-sm shadow-xl p-8 rounded-xl italic">
         <form onSubmit={handleFormSubmit}>
           <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
-            Connexion Patient
+            Connexion Thérapeute
           </h2>
 
           <img src={mainLogo} alt="Kinesoin" className="w-14 mx-auto mb-4" />

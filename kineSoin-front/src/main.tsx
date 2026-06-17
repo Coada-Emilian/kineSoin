@@ -7,6 +7,7 @@ import './index.css';
 import { AppContextProvider } from './utils/contexts/AppContext/AppContext.tsx';
 import { AuthentificationContextProvider } from './utils/contexts/AuthentificationContext/AuthentificationContext.tsx';
 
+
 Modal.setAppElement('#root');
 
 const queryClient = new QueryClient();

@@ -18,20 +18,21 @@ export default function PhotoInput({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
-    <div className="mb-4 flex flex-col gap-2 items-start">
+    <div className="whitespace-nowrap flex flex-col gap-1 w-full text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-4">
       <div className="flex gap-2 items-center text-base ">
-        <label className="text-primaryBlue font-medium italic">
+        <label className="text-primaryBlue font-medium w-fit">
           {input.labelName}
         </label>
 
         {isFileAdded && <img src={checkIcon} alt="check" className="w-6" />}
       </div>
 
-      <div className="flex rounded-md shadow-sm border w-full">
+      <div className="flex w-full">
         <>
           <input
             type="text"
-            className="w-full px-4 py-2 border rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-secondaryTeal focus:ring-opacity-50 italic text-xxs md:text-xs xl:text-sm 2xl:text-md "
+            className="w-full px-4 py-2.5 text-xs md:text-sm xl:text-base text-gray-800 bg-white border border-gray-200  rounded-l-lg shadow-sm placeholder:text-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondaryTeal/40 focus:border-secondaryTeal/50"
+            name={input.name}
             value={fileName}
             onChange={() => {}}
             readOnly
@@ -39,15 +40,17 @@ export default function PhotoInput({
 
           <button
             type="button"
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
-            className="bg-white rounded-tr-md rounded-br-md"
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center justify-center px-4 bg-white border border-gray-200 border-l-0 rounded-r-lg shadow-sm transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondaryTeal/40 cursor-pointer"
           >
             <img
               src={addIcon}
               alt="ajouter"
-              className="h-6 my-auto px-2 w-auto opacity-90 bg-white"
+              style={{
+                width: '1.25rem',
+                height: '1.25rem',
+                opacity: 0.8,
+              }}
             />
           </button>
         </>

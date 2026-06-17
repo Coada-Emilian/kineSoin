@@ -1,15 +1,17 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import PublicLayout from './layouts/PublicLayout';
 import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
+import { useEffect } from 'react';
+import { useAppContext } from './utils/contexts/AppContext/useAppContext';
 
 function App() {
-  // const location = useLocation();
-  // const { setError } = useAppContext();
+  const location = useLocation();
+  const { setError } = useAppContext();
 
-  // useEffect(() => {
-  //   setError(null);
-  // }, [location.pathname]);
+  useEffect(() => {
+    setError(null);
+  }, [location.pathname]);
 
   return (
     <>

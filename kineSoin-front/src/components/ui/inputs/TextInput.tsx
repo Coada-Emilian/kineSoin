@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { TextInputProps } from '../../../@types/interfaces/customProps';
+import { inputBaseStyle } from '../../../styles/inputBaseStyles';
 
 export default function TextInput({ input }: TextInputProps) {
   const [value, setValue] = useState(input.value || '');
@@ -7,11 +8,11 @@ export default function TextInput({ input }: TextInputProps) {
   return (
     <>
       <div
-        className={`${input.additionalDivClassName ? input.additionalDivClassName : 'w-full'}  flex ${input.isFlexRow ? 'flex-row items-center' : 'flex-col'} mb-4 gap-2 italic`}
+        className={`${input.additionalDivClassName && input.additionalDivClassName} ${input.isFlexRow ? 'flex-row items-center' : 'flex-col'} whitespace-nowrap flex gap-1  text-xs md:text-sm xl:text-md 2xl:text-lg italic mb-4`}
       >
         <label
           htmlFor={input.id}
-          className={`${input.additionalLabelClassName && input.additionalLabelClassName} text-primaryBlue font-medium`}
+          className={`${input.additionalLabelClassName && input.additionalLabelClassName} text-primaryBlue font-medium w-fit`}
         >
           {input.labelName}
         </label>
@@ -22,7 +23,7 @@ export default function TextInput({ input }: TextInputProps) {
             placeholder={input.placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="mt-1 block text-xs text-xxs md:text-xs xl:text-sm 2xl:text-md sm:text-xs lg:text-base w-full p-1 md:p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal font-normal placeholder:text-xs md:placeholder:text-md xl:placeholder:text-lg "
+            className="w-full px-4 py-2.5 text-xs md:text-sm xl:text-base text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm placeholder:text-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondaryTeal/40 focus:border-secondaryTeal/50 resize-y"
             cols={32}
             rows={5}
           ></textarea>
@@ -32,7 +33,7 @@ export default function TextInput({ input }: TextInputProps) {
             id={input.id}
             name={input.name}
             placeholder={input.placeholder}
-            className="text-xxs md:text-xs xl:text-sm 2xl:text-md w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal"
+            className={`${inputBaseStyle}`}
             required={input.isRequired}
             value={value}
             onChange={(e) => setValue(e.target.value)}
