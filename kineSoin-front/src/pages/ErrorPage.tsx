@@ -17,15 +17,42 @@ export default function ErrorPage({ type }: IErrorPageTypes) {
   const linkText = getErrorPageLinkText(errorPageProps);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-      <h1 className="text-6xl font-bold text-red-600 mb-4">{statusCode}</h1>
-      <p className="text-2xl text-gray-800 mb-6">{errorText}</p>
-      <Link
-        to={linkDestination}
-        className="bg-primaryBlue hover:bg-secondaryBlue text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-300"
-      >
-        {linkText}
-      </Link>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-lg bg-white rounded-3xl shadow-lg p-8 md:p-10 text-center">
+        <h1 className="text-6xl md:text-7xl font-bold text-primaryRed mb-4">
+          {statusCode}
+        </h1>
+
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3">
+          Oups, une erreur est survenue
+        </h2>
+
+        <p className="text-sm md:text-base text-gray-500 mb-8 leading-relaxed">
+          {errorText}
+        </p>
+
+        <Link
+          to={linkDestination}
+          className="
+            inline-flex
+            items-center
+            justify-center
+            bg-primaryBlue
+            hover:bg-secondaryBlue
+            text-white
+            font-medium
+            px-6
+            py-3
+            rounded-xl
+            shadow-sm
+            transition-all
+            duration-200
+            hover:shadow-md
+          "
+        >
+          {linkText}
+        </Link>
+      </div>
     </div>
   );
 }
