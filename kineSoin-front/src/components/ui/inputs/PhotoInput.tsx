@@ -27,11 +27,15 @@ export default function PhotoInput({
         {isFileAdded && <img src={checkIcon} alt="check" className="w-6" />}
       </div>
 
-      <div className="flex w-full">
+      <div
+        className={
+          'flex rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:border-gray-300 focus-within:border-secondaryTeal focus-within:ring-2 focus-within:ring-secondaryTeal/40'
+        }
+      >
         <>
           <input
             type="text"
-            className="w-full px-4 py-2.5 text-xs md:text-sm xl:text-base text-gray-800 bg-white border border-gray-200  rounded-l-lg shadow-sm placeholder:text-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondaryTeal/40 focus:border-secondaryTeal/50"
+            className="w-full px-4 py-2.5 text-xs md:text-sm xl:text-base text-gray-800 bg-transparent placeholder:text-gray-400 rounded-l-lg focus:outline-none"
             name={input.name}
             value={fileName}
             onChange={() => {}}
@@ -41,7 +45,7 @@ export default function PhotoInput({
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center justify-center px-4 bg-white border border-gray-200 border-l-0 rounded-r-lg shadow-sm transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondaryTeal/40 cursor-pointer"
+            className="px-3 flex items-center justify-center rounded-r-lg hover:bg-gray-50 transition-colors cursor-pointer"
           >
             <img
               src={addIcon}

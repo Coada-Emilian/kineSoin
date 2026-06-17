@@ -64,7 +64,7 @@ export default function SecondPatientRegisterFormSection() {
           input={{
             id: 'patient-register-prefix_input',
             labelName: 'Préfixe',
-            additionalDivClassName: 'w-6/12',
+            additionalDivClassName: 'w-4/12',
             name: 'prefix',
             autoComplete: 'prefix',
             isRequired: true,

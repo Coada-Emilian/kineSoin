@@ -47,7 +47,11 @@ export default function PasswordInput({ input }: PasswordInputProps) {
         )}
       </label>
 
-      <div className="flex rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:border-gray-300 focus-within:border-secondaryTeal focus-within:ring-2 focus-within:ring-secondaryTeal/40">
+      <div
+        className={
+          'flex rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:border-gray-300 focus-within:border-secondaryTeal focus-within:ring-2 focus-within:ring-secondaryTeal/40'
+        }
+      >
         <input
           type={showPassword ? 'text' : 'password'}
           name={input.name}
@@ -63,7 +67,7 @@ export default function PasswordInput({ input }: PasswordInputProps) {
         <button
           type="button"
           onClick={handleButtonClick}
-          className="px-3 flex items-center justify-center rounded-r-lg hover:bg-gray-50 transition-colors"
+          className="px-3 flex items-center justify-center rounded-r-lg hover:bg-gray-50 transition-colors cursor-pointer"
           aria-label={showPassword ? 'Hide password' : 'Show password'}
         >
           <img
