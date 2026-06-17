@@ -85,33 +85,39 @@ export default function PatientRegistrationFormSection() {
 
   return (
     <section
-      className={`${getSectionBackground(formOrder)} md:p-48 xl:p-56 2xl:p-72 bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative`}
+      className={`${getSectionBackground(formOrder)} min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat px-4`}
     >
-      <div
-        className={`opacity-90 ${formOrder === 'last' ? 'max-w-10/12' : 'max-w-80'} font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 p-6 text-primaryBlue bg-gradient-to-r from-white to-gray-200 rounded-3xl italic`}
-      >
-        <form onSubmit={handleSubmit}>
-          <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
+      <div className="w-full max-w-md bg-white/85 backdrop-blur-sm rounded-3xl shadow-xl p-8 md:p-10">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <Link to="/" className="flex justify-center">
+            <img src={mainLogo} alt="Kinesoin" className="w-16 md:w-20" />
+          </Link>
+
+          <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic">
             Inscription Patient
           </h2>
 
-          <img src={mainLogo} alt="Kinesoin" className="w-14 mx-auto mb-4" />
+          <p className="text-center text-sm text-gray-500">
+            Créez votre espace patient
+          </p>
 
           {(errorMessage || registerPatient.error) && (
-            <p className="text-center text-red-600 font-medium mb-2">
-              {errorMessage} {registerPatient.error?.message}
-            </p>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+              <p className="text-center text-red-600 text-sm">
+                {errorMessage} {registerPatient.error?.message}
+              </p>
+            </div>
           )}
 
-          <div className="mb-6">
+          <div className="mb-2">
             {getFormElement({
               formOrder,
               setPatientImage,
             })}
           </div>
 
-          <div className="flex items-center justify-center">
-            {formOrder !== 'last' && (
+          {formOrder !== 'last' && (
+            <div className="flex justify-center mt-2">
               <CustomButton
                 btn={{
                   type: 'basic',
@@ -120,31 +126,27 @@ export default function PatientRegistrationFormSection() {
                 }}
                 type="submit"
               />
-            )}
-          </div>
-
-          <>
-            <div className="text-xs mb-4 text-center mt-4">
-              {formOrder !== 'last' && (
-                <p>
-                  Déjà membre?{' '}
-                  <Link
-                    to="/loginPatient"
-                    className="text-primaryRed"
-                    onClick={() => {
-                      setFormOrder('first');
-                    }}
-                  >
-                    Connectez-vous ici !
-                  </Link>
-                </p>
-              )}
             </div>
+          )}
 
-            <div className="text-sm mb-4 text-center mt-4">
-              {getStepParagraph(formOrder)}
-            </div>
-          </>
+          {formOrder !== 'last' && (
+            <p className="text-xs md:text-sm text-center text-gray-600">
+              Déjà membre ?{' '}
+              <Link
+                to="/loginPatient"
+                className="text-primaryRed font-medium hover:underline"
+                onClick={() => {
+                  setFormOrder('first');
+                }}
+              >
+                Connectez-vous ici !
+              </Link>
+            </p>
+          )}
+
+          <p className="text-sm text-center text-primaryBlue font-medium mt-2">
+            {getStepParagraph(formOrder)}
+          </p>
         </form>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { PublicArticleRowProps } from '../../../@types/interfaces/customProps';
+import type { PublicArticleRowProps } from '../../../@types/props/customProps';
 
 export default function ArticleRow({ article }: PublicArticleRowProps) {
   const imageStyle = 'rounded-2xl shadow-lg w-72 md:w-80 xl:w-1/3 mx-auto mb-6';

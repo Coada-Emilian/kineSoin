@@ -163,3 +163,10 @@ export interface IFileInput {
   isRequired?: boolean;
   autoComplete?: string;
 }
+
+export interface IErrorPage {
+  link: string;
+  linkText: string;
+  status: number;
+  errorText: string;
+}

@@ -5,7 +5,7 @@ import TelephoneInput from '../../../../ui/inputs/TelephoneInput';
 import TextInput from '../../../../ui/inputs/TextInput';
 
 export default function SecondPatientRegisterFormSection() {
-  const {countryPrefixes} = useAppContext();
+  const { countryPrefixes } = useAppContext();
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function SecondPatientRegisterFormSection() {
             labelName: 'N° de rue',
             name: 'street_number',
             placeholder: 'N° de rue',
-            additionalDivClassName: 'w-6/12',
+            additionalDivClassName: 'w-4/12',
             isRequired: false,
             autoComplete: 'street-number',
           }}
@@ -41,7 +41,7 @@ export default function SecondPatientRegisterFormSection() {
             labelName: 'Code postal',
             name: 'postal_code',
             placeholder: 'Code postal',
-            additionalDivClassName: 'w-6/12',
+            additionalDivClassName: 'w-4/12',
             isRequired: true,
             autoComplete: 'postal_code',
           }}

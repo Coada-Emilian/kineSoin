@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import type { DropdownInputProps } from '../../../@types/interfaces/customProps';
+import type { DropdownInputProps } from '../../../@types/props/customProps';
+import {
+  inputBaseStyle,
+  inputContainerStyle,
+  inputLabelStyle,
+} from '../../../styles/inputBaseStyles';
 
 export default function DropdownInput({ input }: DropdownInputProps) {
   const [value, setValue] = useState<string>(
@@ -8,11 +13,11 @@ export default function DropdownInput({ input }: DropdownInputProps) {
 
   return (
     <div
-      className={`${input.additionalDivClassName && input.additionalDivClassName} ${input.isLabelNormal ? 'not-italic' : 'italic'} mb-2  flex ${input.isFlexRow ? 'flex-row items-center ' : 'flex-col'} gap-2`}
+      className={`${input.additionalDivClassName && input.additionalDivClassName} ${input.isLabelNormal ? 'not-italic' : 'italic'} ${input.isFlexRow ? 'flex-row items-center ' : 'flex-col'} ${inputContainerStyle}`}
     >
       <label
         htmlFor={input.id}
-        className={`${input.additionalLabelClassName && input.additionalLabelClassName} text-primaryBlue font-medium`}
+        className={`${input.additionalLabelClassName && input.additionalLabelClassName} ${inputLabelStyle}`}
       >
         {input.labelName}
       </label>
@@ -23,7 +28,7 @@ export default function DropdownInput({ input }: DropdownInputProps) {
         onChange={(e) => {
           setValue(e.target.value);
         }}
-        className={`block p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primaryTeal focus:border-transparent text-xxs md:text-xs xl:text-sm 2xl:text-md w-full`}
+        className={inputBaseStyle}
         name={input.name}
         required={input.isRequired}
       >

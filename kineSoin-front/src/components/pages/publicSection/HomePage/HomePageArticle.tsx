@@ -1,4 +1,4 @@
-import type { IHomePageArticleProps } from '../../../../@types/interfaces/customProps';
+import type { IHomePageArticleProps } from '../../../../@types/props/customProps';
 
 export default function HomePageArticle({ article }: IHomePageArticleProps) {
   return (

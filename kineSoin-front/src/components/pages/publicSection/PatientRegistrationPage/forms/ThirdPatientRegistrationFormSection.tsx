@@ -1,4 +1,4 @@
-import type { ThirdPatientRegistrationFormSectionProps } from '../../../../../@types/interfaces/customProps';
+import type { ThirdPatientRegistrationFormSectionProps } from '../../../../../@types/props/customProps';
 import EmailInput from '../../../../ui/inputs/EmailInput';
 import PasswordInput from '../../../../ui/inputs/PasswordInput';
 import PhotoInput from '../../../../ui/inputs/PhotoInput';

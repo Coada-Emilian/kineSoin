@@ -1,13 +1,11 @@
 import axios from 'axios';
 import type {
-  CountryPrefixInterface,
+  ICountryPrefix,
   RestCountry,
 } from '../../@types/interfaces/customInterfaces';
 
 interface FunctionProps {
-  setCountryPrefixes: React.Dispatch<
-    React.SetStateAction<CountryPrefixInterface[]>
-  >;
+  setCountryPrefixes: React.Dispatch<React.SetStateAction<ICountryPrefix[]>>;
 }
 
 export const fetchCountriesData = async ({
@@ -19,8 +17,8 @@ export const fetchCountriesData = async ({
     );
 
     if (response) {
-      const data: CountryPrefixInterface[] = response.data
-        .map((country: RestCountry): CountryPrefixInterface => {
+      const data: ICountryPrefix[] = response.data
+        .map((country: RestCountry): ICountryPrefix => {
           const root = country.idd?.root || '';
           const suffixes = country.idd?.suffixes || [];
           const prefix = suffixes.length ? `${root}${suffixes[0]}` : root;
@@ -30,7 +28,7 @@ export const fetchCountriesData = async ({
             name: country.name.common,
           };
         })
-        .sort((a: CountryPrefixInterface, b: CountryPrefixInterface) =>
+        .sort((a: ICountryPrefix, b: ICountryPrefix) =>
           a.name.localeCompare(b.name)
         );
 
