@@ -29,6 +29,8 @@ function App() {
 
           <Route path="*" element={<ErrorPage type="public" />} />
         </Route>
+
+        {/* <Route path="/loginAdmin" element={<AdminLoginPage />} /> */}
       </Routes>
     </>
   );
