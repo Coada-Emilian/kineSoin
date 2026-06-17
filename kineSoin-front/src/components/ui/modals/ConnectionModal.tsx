@@ -21,28 +21,34 @@ export default function ConnectionModal({
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="space-y-4 p-8 flex flex-col items-center">
-        <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
-          Choisissez votre type de connexion
+      <div className="w-full p-8 md:p-10 flex flex-col text-center gap-6">
+        <h2 className="text-xl md:text-2xl font-semibold text-primaryBlue italic">
+          Choisissez votre espace
         </h2>
-        {details.map((button, index) => (
-          <Link
-            key={index}
-            to={button.to}
-            onClick={handleClick}
-            className="hidden md:block"
-          >
-            <CustomButton
-              btn={{
-                type: 'basic',
-                text: button.text,
-                style: 'hasIcon',
-                onClick: handleClick,
-                icon: button.icon,
-              }}
-            />
-          </Link>
-        ))}
+
+        <p className="text-sm text-gray-500 mt-2">
+          Sélectionnez votre type de connexion
+        </p>
+
+        <div className="w-full flex flex-col gap-4">
+          {details.map((button) => (
+            <Link
+              key={button.to}
+              to={button.to}
+              onClick={handleClick}
+              className="w-full flex justify-center"
+            >
+              <CustomButton
+                btn={{
+                  type: 'basic',
+                  text: button.text,
+                  style: 'hasIcon',
+                  icon: button.icon,
+                }}
+              />
+            </Link>
+          ))}
+        </div>
       </div>
     </BaseModal>
   );

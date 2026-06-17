@@ -25,6 +25,7 @@ export default function BaseModal({
           borderRadius: '16px',
           backgroundColor: 'white',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          opacity: '95%',
         },
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
