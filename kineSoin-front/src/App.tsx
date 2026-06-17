@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import PublicLayout from './layouts/PublicLayout';
 import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
-import { useEffect } from 'react';
 import { useAppContext } from './utils/contexts/AppContext/useAppContext';
 
 function App() {
