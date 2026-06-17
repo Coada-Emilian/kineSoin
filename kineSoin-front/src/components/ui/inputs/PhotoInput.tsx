@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { FileInputProps } from '../../../@types/interfaces/customProps';
+import type { FileInputProps } from '../../../@types/props/customProps';
 import ImageModal from '../modals/ImageModal';
 import checkIcon from '/icons/check.png';
 import addIcon from '/icons/plus.png';

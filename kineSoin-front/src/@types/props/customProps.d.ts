@@ -7,7 +7,8 @@ import {
   type IPasswordInput,
   type IPublicArticle,
   type ITextInput,
-} from './customInterfaces';
+} from '../interfaces/customInterfaces';
+import type { IAdminEntityTypes } from '../types/customTypes';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btn: IButtonDetails;
@@ -97,4 +98,17 @@ export interface HandleFileChangeFunctionProps {
 interface GetFormElementFunctionProps {
   formOrder: IFormOrders;
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
+}
+
+export interface AdminPageProps {
+  entityType: IAdminEntityTypes;
+}
+
+export interface FetchAdminTableDataFunctionProps {
+  entityType: IAdminEntityTypes;
+}
+
+interface FetchAdminEntityDetailsFunctionProps {
+  entityType: IAdminEntityTypes;
+  entity_id: number | null;
 }

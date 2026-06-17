@@ -8,9 +8,13 @@ import { useAdminLoginMutation } from '../../utils/hooks/admin/useAdminLoginMuta
 import logo from '/logos/new-logo.webp';
 
 export default function AdminLoginPage() {
-  const { setAdminProfileToken } = useAuthentificationContext();
+  const { setIsAdminAuthenticated, setAdminProfileToken } =
+    useAuthentificationContext();
 
-  const handleAdminLogin = useAdminLoginMutation(setAdminProfileToken);
+  const handleAdminLogin = useAdminLoginMutation(
+    setAdminProfileToken,
+    setIsAdminAuthenticated
+  );
 
   const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();

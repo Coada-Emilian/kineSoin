@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { EmailInputProps } from '../../../@types/interfaces/customProps';
+import type { EmailInputProps } from '../../../@types/props/customProps';
 
 export default function EmailInput({ input }: EmailInputProps) {
   const [email, setEmail] = useState(input.value || '');

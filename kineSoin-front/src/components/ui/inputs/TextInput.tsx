@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { TextInputProps } from '../../../@types/interfaces/customProps';
+import type { TextInputProps } from '../../../@types/props/customProps';
 import {
   inputBaseStyle,
   inputContainerStyle,

@@ -4,7 +4,8 @@ import { handleAdminLogin } from '../../functions/apiUtils/admin/handleAdminLogi
 import { validateLoginForm } from '../validateLoginForm';
 
 export const useAdminLoginMutation = (
-  setAdminProfileToken: (token: string) => void
+  setAdminProfileToken: (token: string) => void,
+  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const navigate = useNavigate();
   return useMutation({
@@ -26,7 +27,9 @@ export const useAdminLoginMutation = (
       }
     },
     onSuccess: (token) => {
+      console.log('Admin authenticated successfully');
       setAdminProfileToken(token);
+      setIsAdminAuthenticated(true);
     },
     onError: (error: Error) => {
       throw new Error(error.message);

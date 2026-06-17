@@ -32,3 +32,10 @@ export interface IErrorPageTypes {
     | 'therapistAuthenticated'
     | 'therapistUnauthenticated';
 }
+
+export type IAdminEntityTypes =
+  | 'therapist'
+  | 'patient'
+  | 'affliction'
+  | 'medic'
+  | 'insurance';

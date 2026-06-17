@@ -31,3 +31,19 @@ export interface IAuthentificationContext {
   therapistProfileToken: string | null;
   setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
+
+export type IEntities =
+  | ITherapist[]
+  | IPatient[]
+  | IAffliction[]
+  | IMedic[]
+  | IInsurance[];
+
+export type IEntity =
+  | ITherapist
+  | IPatient
+  | IAffliction
+  | IMedic
+  | IInsurance
+  | IBodyRegion
+  | null;

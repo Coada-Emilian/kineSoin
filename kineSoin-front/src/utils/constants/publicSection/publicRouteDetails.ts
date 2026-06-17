@@ -1,8 +1,8 @@
-import type { PublicRouteDetailsProps } from '../../../@types/interfaces/customProps';
-import HomePage from '../../../pages/publicSection/HomePage';
-import PatientLoginPage from '../../../pages/publicSection/PatientLoginPage';
-import PatientRegistrationPage from '../../../pages/publicSection/PatientRegistrationPage';
-import TherapistLoginPage from '../../../pages/publicSection/TherapistLoginPage';
+import type { PublicRouteDetailsProps } from '../../../@types/props/customProps';
+import HomePage from '../../../pages/public/HomePage';
+import PatientLoginPage from '../../../pages/public/PatientLoginPage';
+import PatientRegistrationPage from '../../../pages/public/PatientRegistrationPage';
+import TherapistLoginPage from '../../../pages/public/TherapistLoginPage';
 
 export const publicRouteDetails: PublicRouteDetailsProps[] = [
   {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { DateInputProps } from '../../../@types/interfaces/customProps';
+import type { DateInputProps } from '../../../@types/props/customProps';
 import {
   inputBaseStyle,
   inputContainerStyle,

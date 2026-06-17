@@ -1,4 +1,4 @@
-import type { HandleFileChangeFunctionProps } from '../../@types/interfaces/customProps';
+import type { HandleFileChangeFunctionProps } from '../../@types/props/customProps';
 
 export const handleFileChange = (
   e: React.ChangeEvent<HTMLInputElement>,
