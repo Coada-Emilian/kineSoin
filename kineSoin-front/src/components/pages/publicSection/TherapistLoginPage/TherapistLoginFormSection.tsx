@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthentificationContext } from '../../../../utils/contexts/AuthentificationContext/useAuthentificationContext';
 import { useTherapistLoginMutation } from '../../../../utils/hooks/public/useTherapistLoginMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
@@ -28,19 +28,27 @@ export default function TherapistLoginFormSection() {
   }
 
   return (
-    <section className="bg-[url('/images/therapistConnexionPage_main.webp')] md:p-48 xl:p-56 2xl:p-72 bg-cover py-24 px-4 bg-no-repeat bg-center content-center justify-center mb-6 rounded-bl-[75px] gap-12 flex md:items-center md:px-16 md:w-full md:h-fit md:relative">
-      <div className="opacity-90 max-w-80 font-normal text-sm h-fit my-auto lg:text-base w-10/12 md:w-2/3 text-primaryBlue bg-white/95 backdrop-blur-sm shadow-xl p-8 rounded-xl italic">
-        <form onSubmit={handleFormSubmit}>
-          <h2 className="text-xl font-semibold text-center text-primaryBlue mb-2">
+    <section className="min-h-screen flex items-center justify-center bg-[url('/images/therapistConnexionPage_main.webp')] bg-cover bg-center bg-no-repeat px-4">
+      <div className="w-full max-w-md bg-white/85 backdrop-blur-sm rounded-3xl shadow-xl p-8 md:p-10">
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
+          <Link to="/" className="flex justify-center">
+            <img src={mainLogo} alt="Kinesoin" className="w-16 md:w-20" />
+          </Link>
+
+          <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic">
             Connexion Thérapeute
           </h2>
 
-          <img src={mainLogo} alt="Kinesoin" className="w-14 mx-auto mb-4" />
+          <p className="text-center text-sm text-gray-500">
+            Accédez à votre espace professionnel
+          </p>
 
           {handleTherapistLogin.error && (
-            <p className="text-center text-red-600 font-medium mb-2">
-              {handleTherapistLogin.error.message}
-            </p>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+              <p className="text-center text-red-600 text-sm">
+                {handleTherapistLogin.error.message}
+              </p>
+            </div>
           )}
 
           <EmailInput
@@ -63,7 +71,7 @@ export default function TherapistLoginFormSection() {
             }}
           />
 
-          <div className="flex items-center justify-center">
+          <div className="flex justify-center mt-2">
             <CustomButton
               btn={{
                 type: 'basic',
