@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
+import { useAppContext } from './contexts/AppContext/useAppContext';
+import { useAuthentificationContext } from './contexts/AuthentificationContext/useAuthentificationContext';
+import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
+import AdminMain from './pages/admin/AdminPage';
 import ErrorPage from './pages/ErrorPage';
+import { adminRouteDetails } from './utils/constants/admin/adminRouteDetails';
 import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
-import { useAppContext } from './utils/contexts/AppContext/useAppContext';
-import { useAuthentificationContext } from './utils/contexts/AuthentificationContext/useAuthentificationContext';
 
 function App() {
   const location = useLocation();
@@ -36,7 +39,8 @@ function App() {
         </Route>
 
         <Route path="/loginAdmin" element={<AdminLoginPage />} />
-        {/* {isAdminAuthenticated && adminProfileToken ? (
+        
+        {isAdminAuthenticated && adminProfileToken ? (
           <Route path="/admin" element={<AdminLayout />}>
             {adminRouteDetails.map((route) => (
               <Route
@@ -46,19 +50,16 @@ function App() {
               />
             ))}
 
-            <Route
-              path="*"
-              element={<ErrorPageRefactor type="connectedAdmin" />}
-            />
+            <Route path="*" element={<ErrorPage type="adminAuthenticated" />} />
           </Route>
         ) : (
           <Route path="/admin" element={<AdminLayout />}>
             <Route
               path="*"
-              element={<ErrorPageRefactor type="unconnectedAdmin" />}
+              element={<ErrorPage type="adminUnauthenticated" />}
             />
           </Route>
-        )} */}
+        )}
       </Routes>
     </>
   );

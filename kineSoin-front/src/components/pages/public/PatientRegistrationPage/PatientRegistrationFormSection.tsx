@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { IPatientRegistrationData } from '../../../../@types/interfaces/customInterfaces';
-import { useAppContext } from '../../../../utils/contexts/AppContext/useAppContext';
-import { usePatientRegistrationContext } from '../../../../utils/contexts/PatientRegistrationContext/usePatientRegistrationContext';
+import { useAppContext } from '../../../../contexts/AppContext/useAppContext';
+import { usePatientRegistrationContext } from '../../../../contexts/PatientRegistrationContext/usePatientRegistrationContext';
 import { getFormElement } from '../../../../utils/functions/public/patientRegistrationUtils/getFormElement';
 import { getSectionBackground } from '../../../../utils/functions/public/patientRegistrationUtils/getSectionBackground';
 import { getStepParagraph } from '../../../../utils/functions/public/patientRegistrationUtils/getStepParagraph';

@@ -1,8 +1,8 @@
+import { usePatientRegistrationContext } from '../../../../contexts/PatientRegistrationContext/usePatientRegistrationContext';
 import {
   registerFormArticles,
   registerFormReverseArticles,
 } from '../../../../utils/constants/publicSection/page/patientRegistrationArticles';
-import { usePatientRegistrationContext } from '../../../../utils/contexts/PatientRegistrationContext/usePatientRegistrationContext';
 import ArticleRow from '../ArticleRow';
 
 export default function PatientRegistrationDescriptionSection() {

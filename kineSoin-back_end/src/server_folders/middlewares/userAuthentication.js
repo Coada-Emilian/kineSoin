@@ -38,7 +38,6 @@ export const authenticateAdmin = async (req, res, next) => {
       if (err) {
         return res.status(403).json({ message: 'Invalid token.' });
       }
-
       req.admin_id = decoded.admin_id; // Set admin_id in the request object
       next();
     });

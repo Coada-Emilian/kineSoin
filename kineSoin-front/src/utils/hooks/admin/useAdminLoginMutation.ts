@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { handleAdminLogin } from '../../functions/apiUtils/admin/handleAdminLogin';
+import { setAdminTokenAndDataInLocalStorage } from '../../localStorageUtils/adminLocalStorage';
 import { validateLoginForm } from '../validateLoginForm';
 
 export const useAdminLoginMutation = (
@@ -23,13 +24,19 @@ export const useAdminLoginMutation = (
         throw new Error('Identifiants incorrects. Veuillez réessayer.');
       } else {
         navigate('/admin/therapists');
-        return response.token;
+
+        return response;
       }
     },
-    onSuccess: (token) => {
+    onSuccess: (response) => {
       console.log('Admin authenticated successfully');
-      setAdminProfileToken(token);
+      setAdminProfileToken(response.token);
       setIsAdminAuthenticated(true);
+      setAdminTokenAndDataInLocalStorage(
+        response.token,
+        response.name,
+        response.id
+      );
     },
     onError: (error: Error) => {
       throw new Error(error.message);

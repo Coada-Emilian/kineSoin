@@ -1,4 +1,12 @@
 import { ButtonInterfaceStyles } from './customTypes';
+import type {
+  IAffliction,
+  IBodyRegion,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from './modelInterfaces';
 
 export interface ICountryPrefix {
   flag_url?: string;
@@ -170,3 +178,34 @@ export interface IErrorPage {
   status: number;
   errorText: string;
 }
+
+export interface IAdminContext {
+  selectedEntity: IEntityInterface | null;
+  openModal: string | null;
+  setOpenModal: (modal: string | null) => void;
+  setSelectedEntity: (entity: IEntityInterface | null) => void;
+  setRegionDeleteModal: (value: boolean) => void;
+  regionDeleteModal: boolean;
+  openDeleteModal: (entity: IEntityInterface, isRegionModal?: boolean) => void;
+  closeModal: () => void;
+  entityStatus: string;
+  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+  renderedEntities: IEntityInterface[];
+  setRenderedEntities: (entities: IEntityInterface[]) => void;
+}
+
+export type IAdminEntity =
+  | ITherapist
+  | IPatient
+  | IAffliction
+  | IMedic
+  | IInsurance
+  | IBodyRegion
+  | null;
+
+export type IAdminEntities =
+  | ITherapist[]
+  | IPatient[]
+  | IAffliction[]
+  | IMedic[]
+  | IInsurance[];

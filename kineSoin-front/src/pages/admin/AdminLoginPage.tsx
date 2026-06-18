@@ -3,7 +3,7 @@ import CustomButton from '../../components/ui/buttons/CustomButton';
 import DNALoader from '../../components/ui/DNALoader';
 import EmailInput from '../../components/ui/inputs/EmailInput';
 import PasswordInput from '../../components/ui/inputs/PasswordInput';
-import { useAuthentificationContext } from '../../utils/contexts/AuthentificationContext/useAuthentificationContext';
+import { useAuthentificationContext } from '../../contexts/AuthentificationContext/useAuthentificationContext';
 import { useAdminLoginMutation } from '../../utils/hooks/admin/useAdminLoginMutation';
 import logo from '/logos/new-logo.webp';
 

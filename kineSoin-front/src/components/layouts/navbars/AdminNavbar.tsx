@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../utils/contexts/AuthentificationContext/useAuthentificationContext';
 import { removeAdminTokenFromLocalStorage } from '../../../utils/localStorageUtils/adminLocalStorage';
 import CustomButton from '../../ui/buttons/CustomButton';
 import Logo2 from '/logos/kinesoin-logo-2.webp';
 import Logo1 from '/logos/kinesoin-logo.webp';
+import { useAuthentificationContext } from '../../../contexts/AuthentificationContext/useAuthentificationContext';
 
 export default function AdminNavBar() {
   // Import navigation

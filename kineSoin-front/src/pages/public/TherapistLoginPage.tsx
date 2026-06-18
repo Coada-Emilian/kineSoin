@@ -1,6 +1,6 @@
-import PublicHeadband from '../../components/pages/publicSection/PublicHeadband';
-import TherapistLoginDescriptionSection from '../../components/pages/publicSection/TherapistLoginPage/TherapistLoginDescriptionSection';
-import TherapistLoginFormSection from '../../components/pages/publicSection/TherapistLoginPage/TherapistLoginFormSection';
+import PublicHeadband from '../../components/pages/public/PublicHeadband';
+import TherapistLoginDescriptionSection from '../../components/pages/public/TherapistLoginPage/TherapistLoginDescriptionSection';
+import TherapistLoginFormSection from '../../components/pages/public/TherapistLoginPage/TherapistLoginFormSection';
 
 export default function TherapistLoginPage() {
   return (

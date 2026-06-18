@@ -1,8 +1,14 @@
-import React, { createContext, useState, type ReactNode } from 'react';
-import type { IAuthentificationContext } from '../../../@types/interfaces/contextInterfaces';
-import { getAdminTokenAndDataFromLocalStorage } from '../../localStorageUtils/adminLocalStorage';
-import { getPatientTokenAndDataFromLocalStorage } from '../../localStorageUtils/patientLocalStorage';
-import { getTherapistTokenAndDataFromLocalStorage } from '../../localStorageUtils/therapistLocalStorage';
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from 'react';
+import type { IAuthentificationContext } from '../../@types/interfaces/contextInterfaces';
+import { checkAdminAuthentification } from '../../utils/functions/authentification/checkAdminAuthentification';
+import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/adminLocalStorage';
+import { getPatientTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/patientLocalStorage';
+import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/therapistLocalStorage';
 
 const AuthentificationContext = createContext<
   IAuthentificationContext | undefined
@@ -14,41 +20,40 @@ export const AuthentificationContextProvider: React.FC<{
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
-    () => getAdminTokenAndDataFromLocalStorage()?.token || null
+    () => getAdminTokenAndDataFromLocalStorage()?.admin_token || null
   );
 
-  //   useEffect(() => {
-  //     // On component mount and every 30 seconds, re-check admin auth
-  //     checkAdminAuthentification({
-  //       setIsAdminAuthenticated,
-  //       setAdminProfileToken,
-  //     });
+  useEffect(() => {
+    // On component mount and every 30 seconds, re-check admin auth
+    checkAdminAuthentification({
+      setIsAdminAuthenticated,
+      setAdminProfileToken,
+    });
 
-  //     const handleAdminStorageChange = (event: StorageEvent) => {
-  //       if (event.key === 'token') {
-  //         checkAdminAuthentification({
-  //           setIsAdminAuthenticated,
-  //           setAdminProfileToken,
-  //         });
-  //       }
-  //     };
+    const handleAdminStorageChange = (event: StorageEvent) => {
+      if (event.key === 'token') {
+        checkAdminAuthentification({
+          setIsAdminAuthenticated,
+          setAdminProfileToken,
+        });
+      }
+    };
 
-  //     // Listen for storage changes (in case another tab logs out)
-  //     window.addEventListener('storage', handleAdminStorageChange);
+    // Listen for storage changes (in case another tab logs out)
+    window.addEventListener('storage', handleAdminStorageChange);
 
-  //     const adminIntervalId = setInterval(() => {
-  //       checkAdminAuthentification({
-  //         setIsAdminAuthenticated,
-  //         setAdminProfileToken,
-  //       });
-  //     }, 30000); // Re-check every 30s
+    const adminIntervalId = setInterval(() => {
+      checkAdminAuthentification({
+        setIsAdminAuthenticated,
+        setAdminProfileToken,
+      });
+    }, 30000); // Re-check every 30s
 
-  //     return () => {
-  //       window.removeEventListener('storage', handleAdminStorageChange);
-  //       clearInterval(adminIntervalId);
-  //     };
-  //   }, [adminProfileToken]);
-
+    return () => {
+      window.removeEventListener('storage', handleAdminStorageChange);
+      clearInterval(adminIntervalId);
+    };
+  }, [adminProfileToken]);
 
   const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
 
@@ -92,7 +97,6 @@ export const AuthentificationContextProvider: React.FC<{
   //     navigate('/admin/login');
   //   }
   // }, [isAdminAuthenticated, adminProfileToken, navigate]);
-
 
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
     useState(false);

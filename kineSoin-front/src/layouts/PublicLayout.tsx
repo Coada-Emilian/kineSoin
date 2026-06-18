@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import PublicFooter from '../components/layouts/footers/PublicFooter';
 import PublicMobileNavbar from '../components/layouts/mobileNavbars/PublicMobileNavbar';
 import PublicNavbar from '../components/layouts/navbars/PublicNavbar';
-import { PatientRegistrationContextProvider } from '../utils/contexts/PatientRegistrationContext/PatientRegistrationContext';
+import { PatientRegistrationContextProvider } from '../contexts/PatientRegistrationContext/PatientRegistrationContext';
 
 export default function PublicLayout() {
   return (

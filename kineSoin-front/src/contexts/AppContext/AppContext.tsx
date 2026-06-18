@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
-import type { IAppContext } from '../../../@types/interfaces/contextInterfaces';
-import type { AppContextProviderProps } from '../../../@types/interfaces/contextProps';
-import type { ICountryPrefix } from '../../../@types/interfaces/customInterfaces';
-import { fetchCountriesData } from '../../functions/fetchCountriesData';
+import type { IAppContext } from '../../@types/interfaces/contextInterfaces';
+import type { AppContextProviderProps } from '../../@types/interfaces/contextProps';
+import type { ICountryPrefix } from '../../@types/interfaces/customInterfaces';
+import { fetchCountriesData } from '../../utils/functions/fetchCountriesData';
 
 const AppContext = createContext<IAppContext | undefined>(undefined);
 

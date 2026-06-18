@@ -1,5 +1,6 @@
 import {
   IButtonDetails,
+  type IAdminEntities,
   type IDateInput,
   type IDropdownInput,
   type IEmailInput,
@@ -108,7 +109,62 @@ export interface FetchAdminTableDataFunctionProps {
   entityType: IAdminEntityTypes;
 }
 
-interface FetchAdminEntityDetailsFunctionProps {
+export interface FetchAdminEntityDetailsFunctionProps {
   entityType: IAdminEntityTypes;
   entity_id: number | null;
+}
+
+export interface AdminTableProps {
+  entities: IAdminEntities;
+  entityType: IAdminEntityTypes;
+}
+
+export interface GetAdminTableDetailsFunctionProps {
+  entityStatus: string;
+  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface StatusButtonsProps {
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface TableTitleProps {
+  tableTitle: string;
+  entityStatus: string;
+}
+
+export interface TableHeadProps {
+  secondHeaderContent: string;
+  thirdHeaderContent: string;
+  fourthHeaderContent?: string;
+}
+
+export interface TableBodyProps {
+  renderedEntities:
+    | ITherapist[]
+    | IPatient[]
+    | IAffliction[]
+    | IMedic[]
+    | IInsurance[];
+  entityType?: string;
+}
+
+export interface TherapistTableBodyProps {
+  renderedTherapists: ITherapist[];
+}
+
+export interface PatientTableBodyProps {
+  renderedPatients: IPatient[];
+}
+
+export interface AfflictionTableBodyProps {
+  renderedAfflictions: IAffliction[];
+}
+
+export interface MedicTableBodyProps {
+  renderedMedics: IMedic[];
+}
+
+export interface InsuranceTableBodyProps {
+  renderedInsurances: IInsurance[];
 }

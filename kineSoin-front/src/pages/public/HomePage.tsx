@@ -1,6 +1,6 @@
-import HomePageDescriptionSection from '../../components/pages/publicSection/HomePage/HomePageDescriptionSection';
-import HomePageFormSection from '../../components/pages/publicSection/HomePage/HomePageFormSection';
-import PublicHeadband from '../../components/pages/publicSection/PublicHeadband';
+import HomePageDescriptionSection from '../../components/pages/public/HomePage/HomePageDescriptionSection';
+import HomePageFormSection from '../../components/pages/public/HomePage/HomePageFormSection';
+import PublicHeadband from '../../components/pages/public/PublicHeadband';
 
 export default function HomePage() {
   return (

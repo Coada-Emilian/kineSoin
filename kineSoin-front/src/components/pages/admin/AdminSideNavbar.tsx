@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { adminSideNavbarLinkDetails } from '../../utils/constants/admin/adminSideNavbarLinkDetails';
+import { adminSideNavbarLinkDetails } from '../../../utils/constants/admin/adminSideNavbarLinkDetails';
 
 export default function AdminSideNavbar() {
   return (
