@@ -8,7 +8,11 @@ export function AdminLayout() {
     <div className="flex flex-col min-h-screen justify-between">
       <AdminNavBar />
 
-      <Outlet />
+      <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
+        <div className="flex w-full h-full p-4">
+          <Outlet />
+        </div>
+      </main>
 
       <AdminFooter />
 

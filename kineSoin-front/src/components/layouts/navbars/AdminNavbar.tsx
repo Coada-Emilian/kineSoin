@@ -1,22 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuthentificationContext } from '../../../contexts/AuthentificationContext/useAuthentificationContext';
 import { removeAdminTokenFromLocalStorage } from '../../../utils/localStorageUtils/adminLocalStorage';
 import CustomButton from '../../ui/buttons/CustomButton';
-import Logo2 from '/logos/kinesoin-logo-2.webp';
-import Logo1 from '/logos/kinesoin-logo.webp';
-import { useAuthentificationContext } from '../../../contexts/AuthentificationContext/useAuthentificationContext';
+import Logo2 from '/logos/new-kinesoin-logo-2.webp';
+import Logo1 from '/logos/new-kinesoin-logo.webp';
 
 export default function AdminNavBar() {
-  // Import navigation
   const navigate = useNavigate();
 
-  // Import authentication context
   const {
     isAdminAuthenticated,
     setIsAdminAuthenticated,
     setAdminProfileToken,
   } = useAuthentificationContext();
 
-  // Function to handle the admin logout
   const handleAdminLogout = () => {
     removeAdminTokenFromLocalStorage();
     setIsAdminAuthenticated(false);
@@ -24,24 +21,29 @@ export default function AdminNavBar() {
     navigate('/loginAdmin');
   };
 
+  const handleLogoClick = () => {
+    removeAdminTokenFromLocalStorage();
+    setIsAdminAuthenticated(false);
+    setAdminProfileToken(null);
+  };
   return (
-    <header className="sticky top-0 z-10 w-full py-1 bg-linear-to-r from-white to-gray-200 bg-opacity-70">
-      <nav className="flex w-full items-center justify-between px-4">
-        <Link to="/">
+    <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1 z-10">
+      <nav className="justify-center md:justify-between flex items-center w-full px-4">
+        <Link to="/" onClick={handleLogoClick}>
           <img
             src={Logo2}
             alt="Retour a l'accueil"
-            className="block max-w-32 md:hidden lg:max-w-40"
+            className="max-w-32 lg:max-w-40 block md:hidden"
           />
 
           <img
             src={Logo1}
             alt="Retour a l'accueil"
-            className="hidden max-w-32 md:block lg:max-w-40"
+            className="max-w-40 lg:max-w-48 hidden md:block transition-transform duration-200 hover:scale-105"
           />
         </Link>
 
-        <div className="flex items-center">
+        <div className="hidden md:flex md:items-center">
           {isAdminAuthenticated && (
             <CustomButton
               btn={{

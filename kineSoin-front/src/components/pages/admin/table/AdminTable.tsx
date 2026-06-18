@@ -6,7 +6,7 @@ import { renderAfflictions } from '../../../../utils/functions/admin/adminTable/
 import { renderPatients } from '../../../../utils/functions/admin/adminTable/renderPatients';
 import { renderTherapists } from '../../../../utils/functions/admin/adminTable/renderTherapists';
 import CustomButton from '../../../ui/buttons/CustomButton';
-import TableBodyRefactor from './body/TableBody';
+import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
 
@@ -22,11 +22,6 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
     renderedEntities,
     setRenderedEntities,
   } = useAdminContext();
-
-  useEffect(() => {
-    setRenderedEntities(entities);
-    console.log(entities, entityType);
-  }, [entityType, entities]);
 
   useEffect(() => {
     const renderFunctions: Record<string, Function> = {
@@ -64,16 +59,14 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
 
   return (
     <>
-      <div className="min-h-screen">
+      <div className="w-full px-4">
         <div
-          className={`flex flex-row ${
-            !activeEntity?.statusButtons ? 'justify-end' : 'justify-between'
-          } mb-6 md:ml-10 md:mr-10`}
+          className={`flex items-center mb-6 ${!activeEntity?.statusButtons ? 'justify-end' : 'justify-between'}`}
         >
           <>
             {activeEntity?.statusButtons}
 
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {activeEntity?.regionButton && (
                 <CustomButton
                   btn={{
@@ -105,25 +98,27 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
           </>
         </div>
 
-        <div>
+        <div className="mb-4 md:px-10">
           <TableTitle
             tableTitle={activeEntity?.tableTitle || ''}
             entityStatus={activeEntity?.entityStatus || ''}
           />
         </div>
 
-        <table className="border border-gray-300 border-separate w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
-          <TableHead
-            secondHeaderContent={activeEntity?.secondTableHeadContent || ''}
-            thirdHeaderContent={activeEntity?.thirdTableHeadContent || ''}
-            fourthHeaderContent={activeEntity?.fourthTableHeadContent || ''}
-          />
+        <div className="w-full md:w-11/12 mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <table className="w-full">
+            <TableHead
+              secondHeaderContent={activeEntity?.secondTableHeadContent || ''}
+              thirdHeaderContent={activeEntity?.thirdTableHeadContent || ''}
+              fourthHeaderContent={activeEntity?.fourthTableHeadContent || ''}
+            />
 
-          <TableBodyRefactor
-            renderedEntities={renderedEntities}
-            entityType={entityType}
-          />
-        </table>
+            <TableBody
+              renderedEntities={renderedEntities}
+              entityType={entityType}
+            />
+          </table>
+        </div>
 
         {/* <ConfirmDeleteModal
           isOpen={openModal === 'delete'}

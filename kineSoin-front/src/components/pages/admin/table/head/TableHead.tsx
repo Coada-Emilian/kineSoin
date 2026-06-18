@@ -6,34 +6,27 @@ export default function TableHead({
   fourthHeaderContent,
 }: TableHeadProps) {
   return (
-    <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base">
+    <thead className="bg-gray-50 text-gray-700 text-sm md:text-base">
       <tr>
-        <>
-          <th className="border border-gray-300 px-4 py-2 text-center rounded-tl-2xl w-1/12">
-            #id
-          </th>
+        <th className="px-4 py-3 text-center font-semibold">#id</th>
 
-          <th className="border border-gray-300 px-4 py-2 text-center">
-            {secondHeaderContent}
-          </th>
+        <th className="px-4 py-3 text-center font-semibold">
+          {secondHeaderContent}
+        </th>
 
-          <th className="border border-gray-300 px-4 py-2 text-center">
-            {thirdHeaderContent}
-          </th>
+        <th className="px-4 py-3 text-center font-semibold">
+          {thirdHeaderContent}
+        </th>
 
-          {fourthHeaderContent && (
-            <th className="border border-gray-300 px-4 py-2 text-center hidden md:table-cell  ">
-              {fourthHeaderContent}
-            </th>
-          )}
-
-          <th
-            className="border border-gray-300 px-4 py-2 text-center rounded-tr-2xl"
-            colSpan={2}
-          >
-            Action
+        {fourthHeaderContent && (
+          <th className="hidden md:table-cell px-4 py-3 text-center font-semibold">
+            {fourthHeaderContent}
           </th>
-        </>
+        )}
+
+        <th className="px-4 py-3 text-center font-semibold" colSpan={2}>
+          Action
+        </th>
       </tr>
     </thead>
   );

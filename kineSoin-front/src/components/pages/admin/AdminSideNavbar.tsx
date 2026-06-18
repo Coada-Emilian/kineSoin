@@ -3,24 +3,27 @@ import { adminSideNavbarLinkDetails } from '../../../utils/constants/admin/admin
 
 export default function AdminSideNavbar() {
   return (
-    <div className="mx-4">
-      {adminSideNavbarLinkDetails.map((link) => (
-        <NavLink
-          to={link.path}
-          className={({ isActive }) =>
-            `my-2 flex justify-start items-center ${
-              isActive
-                ? 'font-bold italic text-secondaryBlue'
-                : 'text-primaryBlue'
-            }`
-          }
-          key={link.name}
-        >
-          <p className="text-lg hover:text-secondaryBlue focus:text-red-500">
-            {link.name}
-          </p>
-        </NavLink>
-      ))}
-    </div>
+    <aside className="mx-4 p-4 rounded-xl bg-white/60 backdrop-blur-md shadow-sm">
+      <nav className="flex flex-col gap-1">
+        {adminSideNavbarLinkDetails.map((link) => (
+          <NavLink
+            to={link.path}
+            key={link.name}
+            className={({ isActive }) =>
+              `
+              flex items-center px-4 py-2 rounded-lg transition-all duration-200
+              ${
+                isActive
+                  ? 'bg-secondaryBlue/10 text-secondaryBlue font-semibold'
+                  : 'text-primaryBlue hover:bg-gray-100'
+              }
+              `
+            }
+          >
+            <span className="text-lg">{link.name}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
   );
 }

@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import type {
   IEntities,
@@ -20,54 +19,53 @@ export default function AdminMain({ entityType }: AdminPageProps) {
   // Parse the id to an integer
   const entity_id = id ? parseInt(id, 10) : null;
 
-  const { isPending: isEntitiesLoading, data: entities } = useQuery({
+  const { isFetching: isEntitiesLoading, data: entities } = useQuery({
     queryKey: ['fetchTableData', { entityType }],
     queryFn: () => fetchAdminTableDetails<IEntities>({ entityType }),
     refetchOnMount: true,
     refetchOnWindowFocus: true,
   });
 
-  const { isPending: isEntityLoading, data: entity } = useQuery({
+  const { isFetching: isEntityLoading, data: entity } = useQuery({
     queryKey: ['fetchDetailsData', { entityType, entity_id }],
-    queryFn: () =>
-      fetchAdminEntityDetails<IEntity | null>({
+    queryFn: () => {
+      console.log('🔥 FETCHING ENTITY DETAILS');
+      return fetchAdminEntityDetails<IEntity | null>({
         entityType,
         entity_id,
-      }),
+      });
+    },
     enabled: !!entity_id,
     refetchOnMount: true,
     refetchOnWindowFocus: true,
   });
 
-  useEffect(() => {
-    console.log('isEntitiesLoading', isEntitiesLoading);
-    console.log('isEntityLoading', isEntityLoading);
-  }, [isEntitiesLoading, isEntityLoading]);
-
   if (isEntitiesLoading) {
-    return DNALoader();
+    return (
+      <div className="flex items-center justify-center w-full min-h-[70vh]">
+        <DNALoader />
+      </div>
+    );
   }
 
   return (
-    <main className="w-full h-fit flex p-4 pb-2 bg-linear-to-r from-white to-gray-200">
-      <AdminContextProvider>
-        <div className="hidden h-screen w-1/4 md:block">
-          <AdminSideNavbar />
-        </div>
+    <AdminContextProvider>
+      <div className="hidden h-screen w-1/4 md:block">
+        <AdminSideNavbar />
+      </div>
 
-        <div className="w-full md:border-l-2 md:border-solid">
-          {entities && !id && (
-            <AdminTable entities={entities} entityType={entityType} />
-          )}
+      <div className="w-full md:border-l md:border-gray-300">
+        {entities && !id && (
+          <AdminTable entities={entities} entityType={entityType} />
+        )}
 
-          {/* {id && entity && (
+        {/* {id && entity && (
             <AdminProfileDetailsRefactor
               entityType={entityType}
               entity={entity}
             />
           )} */}
-        </div>
-      </AdminContextProvider>
-    </main>
+      </div>
+    </AdminContextProvider>
   );
 }

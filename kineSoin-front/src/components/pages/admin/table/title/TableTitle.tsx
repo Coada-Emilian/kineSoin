@@ -6,7 +6,7 @@ export default function TableTitle({
   entityStatus,
 }: TableTitleProps) {
   return (
-    <h2 className="ml-10 mb-4 text-center md:text-left md:text-2xl font-semibold">
+    <h2 className="mb-4 text-xl md:text-2xl font-semibold text-primaryBlue">
       {getAdminTableTitleContent({ tableTitle, entityStatus })}
     </h2>
   );

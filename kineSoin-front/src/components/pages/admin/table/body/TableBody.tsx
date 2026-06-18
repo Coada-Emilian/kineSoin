@@ -1,7 +1,7 @@
 import type { TableBodyProps } from '../../../../../@types/props/customProps';
 import { getAdminTableBodyContent } from '../../../../../utils/functions/admin/adminTable/getAdminTableBodyContent';
 
-export default function TableBodyRefactor({
+export default function TableBody({
   renderedEntities,
   entityType,
 }: TableBodyProps) {
@@ -16,7 +16,7 @@ export default function TableBodyRefactor({
   );
 
   return (
-    <tbody className="xxs:text-xs xs:text-xs md:text-sm">
+    <tbody className="xxs:text-xs xs:text-xs md:text-sm bg-gray-50 text-gray-700 text-sm font-medium">
       {currentEntity && currentEntity.component}
     </tbody>
   );
