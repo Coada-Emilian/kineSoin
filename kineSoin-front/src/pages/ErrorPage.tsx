@@ -17,7 +17,7 @@ export default function ErrorPage({ type }: IErrorPageTypes) {
   const linkText = getErrorPageLinkText(errorPageProps);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 w-full">
       <div className="w-full max-w-lg bg-white rounded-3xl shadow-lg p-8 md:p-10 text-center">
         <h1 className="text-6xl md:text-7xl font-bold text-primaryRed mb-4">
           {statusCode}
