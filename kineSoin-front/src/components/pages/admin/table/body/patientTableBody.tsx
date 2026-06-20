@@ -54,7 +54,7 @@ export default function PatientTableBody({
 
           <Link
             to={`/admin/patients/${patient.id}`}
-            className="w-25 items-center justify-center hidden md:flex hover:scale-110"
+            className="items-center justify-center hidden md:flex hover:scale-110"
           >
             <img src={editIcon} alt="edit" className="w-5 h-5 mx-1" />{' '}
             <p className="text-blue-300 font-semibold">Inspecter</p>

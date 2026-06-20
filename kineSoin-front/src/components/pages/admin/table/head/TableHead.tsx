@@ -5,26 +5,25 @@ export default function TableHead({
   thirdHeaderContent,
   fourthHeaderContent,
 }: TableHeadProps) {
+  const headerClass =
+    'px-5 py-3 text-center font-semibold text-gray-600 uppercase tracking-wide text-xs md:text-sm';
+
   return (
-    <thead className="bg-gray-50 text-gray-700 text-sm md:text-base">
+    <thead className="bg-gray-50 border-b border-gray-200">
       <tr>
-        <th className="px-4 py-3 text-center font-semibold">#id</th>
+        <th className={headerClass}>#id</th>
 
-        <th className="px-4 py-3 text-center font-semibold">
-          {secondHeaderContent}
-        </th>
+        <th className={headerClass}>{secondHeaderContent}</th>
 
-        <th className="px-4 py-3 text-center font-semibold">
-          {thirdHeaderContent}
-        </th>
+        <th className={headerClass}>{thirdHeaderContent}</th>
 
         {fourthHeaderContent && (
-          <th className="hidden md:table-cell px-4 py-3 text-center font-semibold">
+          <th className={`${headerClass} hidden md:table-cell`}>
             {fourthHeaderContent}
           </th>
         )}
 
-        <th className="px-4 py-3 text-center font-semibold" colSpan={2}>
+        <th className={headerClass} colSpan={2}>
           Action
         </th>
       </tr>

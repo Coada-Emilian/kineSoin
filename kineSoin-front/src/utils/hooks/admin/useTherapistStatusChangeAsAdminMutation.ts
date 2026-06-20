@@ -20,17 +20,17 @@ export const useTherapistStatusChangeAsAdminMutation = () => {
       if (isOnTherapistDetail) {
         queryClient.invalidateQueries({
           queryKey: [
-            'fetchDetailsDataRefactor',
+            'tableDetails',
             { entityType: 'therapist', entityId: variables.id },
           ],
         });
 
         queryClient.invalidateQueries({
-          queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],
+          queryKey: ['tableDetails', { entityType: 'therapist' }],
         });
       } else {
         queryClient.invalidateQueries({
-          queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],
+          queryKey: ['tableDetails', { entityType: 'therapist' }],
         });
       }
     },
