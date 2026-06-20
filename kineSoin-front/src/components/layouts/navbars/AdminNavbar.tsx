@@ -26,9 +26,10 @@ export default function AdminNavBar() {
     setIsAdminAuthenticated(false);
     setAdminProfileToken(null);
   };
+
   return (
     <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1 z-10">
-      <nav className="justify-center md:justify-between flex items-center w-full px-4">
+      <nav className="justify-between flex items-center w-full px-4">
         <Link to="/" onClick={handleLogoClick}>
           <img
             src={Logo2}
@@ -43,7 +44,7 @@ export default function AdminNavBar() {
           />
         </Link>
 
-        <div className="hidden md:flex md:items-center">
+        <div className="md:flex md:items-center">
           {isAdminAuthenticated && (
             <CustomButton
               btn={{
