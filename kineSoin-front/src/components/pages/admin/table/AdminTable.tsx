@@ -3,6 +3,8 @@ import type { AdminTableProps } from '../../../../@types/props/customProps';
 import { useAdminContext } from '../../../../contexts/AdminContext/useAdminContext';
 import { getAdminTableDetails } from '../../../../utils/functions/admin/adminTable/getAdminTableDetails';
 import { renderAfflictions } from '../../../../utils/functions/admin/adminTable/renderAfflictions';
+import { renderInsurances } from '../../../../utils/functions/admin/adminTable/renderInsurances';
+import { renderMedics } from '../../../../utils/functions/admin/adminTable/renderMedics';
 import { renderPatients } from '../../../../utils/functions/admin/adminTable/renderPatients';
 import { renderTherapists } from '../../../../utils/functions/admin/adminTable/renderTherapists';
 import CustomButton from '../../../ui/buttons/CustomButton';
@@ -26,8 +28,10 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
   useEffect(() => {
     const renderFunctions: Record<string, Function> = {
       therapist: renderTherapists,
-      affliction: renderAfflictions,
       patient: renderPatients,
+      affliction: renderAfflictions,
+      medic: renderMedics,
+      insurance: renderInsurances,
     };
 
     // Status map for therapists, patients, afflictions
