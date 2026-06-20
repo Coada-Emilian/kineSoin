@@ -1,4 +1,4 @@
-import type { IInsurance } from '../../../../@types/interfaces/modelInterfaces';
+import type { IInsurance } from '../../../../../@types/interfaces/modelInterfaces';
 
 export const renderInsurances = (
   allInsurances: IInsurance[],

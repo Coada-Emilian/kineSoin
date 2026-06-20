@@ -1,13 +1,14 @@
+import type { Dispatch, SetStateAction } from 'react';
 import type { FormOrderTypes } from '../types/customTypes';
-import type { CountryPrefixInterface } from './customInterfaces';
+import type { IAdminEntity, ICountryPrefix } from './customInterfaces';
 
 export interface IAppContext {
   isLoading: boolean;
   setLoading: (loading: boolean) => void;
   errorMessage: string | null;
   setError: (message: string | null) => void;
-  countryPrefixes: CountryPrefixInterface[];
-  setCountryPrefixes: Dispatch<SetStateAction<CountryPrefixInterface[]>>;
+  countryPrefixes: ICountryPrefix[];
+  setCountryPrefixes: Dispatch<SetStateAction<ICountryPrefix[]>>;
 }
 
 export interface IPatientRegistrationContext {
@@ -32,18 +33,17 @@ export interface IAuthentificationContext {
   setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export type IEntities =
-  | ITherapist[]
-  | IPatient[]
-  | IAffliction[]
-  | IMedic[]
-  | IInsurance[];
-
-export type IEntity =
-  | ITherapist
-  | IPatient
-  | IAffliction
-  | IMedic
-  | IInsurance
-  | IBodyRegion
-  | null;
+export interface IAdminContext {
+  selectedEntity: IAdminEntity | null;
+  openModal: string | null;
+  setOpenModal: (modal: string | null) => void;
+  setSelectedEntity: (entity: IAdminEntity | null) => void;
+  setRegionDeleteModal: (value: boolean) => void;
+  regionDeleteModal: boolean;
+  openDeleteModal: (entity: IAdminEntity, isRegionModal?: boolean) => void;
+  closeModal: () => void;
+  entityStatus: string;
+  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+  renderedEntities: IAdminEntity[];
+  setRenderedEntities: (entities: IAdminEntity[]) => void;
+}

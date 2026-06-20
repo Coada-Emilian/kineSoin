@@ -6,7 +6,7 @@ import { useAuthentificationContext } from './contexts/AuthentificationContext/u
 import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
-import AdminMain from './pages/admin/AdminPage';
+import AdminPage from './pages/admin/AdminPage';
 import ErrorPage from './pages/ErrorPage';
 import { adminRouteDetails } from './utils/constants/admin/adminRouteDetails';
 import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
@@ -39,14 +39,14 @@ function App() {
         </Route>
 
         <Route path="/loginAdmin" element={<AdminLoginPage />} />
-        
+
         {isAdminAuthenticated && adminProfileToken ? (
           <Route path="/admin" element={<AdminLayout />}>
             {adminRouteDetails.map((route) => (
               <Route
                 path={route.path}
                 key={route.path}
-                element={<AdminMain entityType={route.entityType} />}
+                element={<AdminPage entityType={route.entityType} />}
               />
             ))}
 

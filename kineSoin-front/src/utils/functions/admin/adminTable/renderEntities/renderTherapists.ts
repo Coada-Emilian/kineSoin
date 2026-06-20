@@ -1,4 +1,4 @@
-import type { ITherapist } from '../../../../@types/interfaces/modelInterfaces';
+import type { ITherapist } from '../../../../../@types/interfaces/modelInterfaces';
 
 export const renderTherapists = (
   allTherapists: ITherapist[],

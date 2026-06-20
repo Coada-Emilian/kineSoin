@@ -1,0 +1,50 @@
+import type { UseDeleteEntityFunctionProps } from '../../../../../@types/props/customProps';
+import { useAfflictionDeletionMutation } from '../../../../hooks/admin/useAfflictionDeletionMutation';
+import { useInsuranceDeletionMutation } from '../../../../hooks/admin/useInsuranceDeletionMutation';
+import { useMedicDeletionMutation } from '../../../../hooks/admin/useMedicDeletionMutation';
+import { usePatientDeletionMutation } from '../../../../hooks/admin/usePatientDeletionMutation';
+import { useTherapistDeletionMutation } from '../../../../hooks/admin/useTheraphistDeletionMutation';
+
+export function useDeleteEntity() {
+  const therapistMutation = useTherapistDeletionMutation();
+  const patientMutation = usePatientDeletionMutation();
+  const medicMutation = useMedicDeletionMutation();
+  const afflictionMutation = useAfflictionDeletionMutation();
+  const insuranceMutation = useInsuranceDeletionMutation();
+
+  const deleteEntity = ({ entityType, id }: UseDeleteEntityFunctionProps) => {
+    switch (entityType) {
+      case 'therapist':
+        therapistMutation.mutate({ id });
+        break;
+
+      case 'patient':
+        patientMutation.mutate({ id });
+        break;
+
+      case 'medic':
+        medicMutation.mutate({ id });
+        break;
+
+      case 'affliction':
+        afflictionMutation.mutate({ id });
+        break;
+
+      case 'insurance':
+        insuranceMutation.mutate({ id });
+        break;
+    }
+  };
+
+  const isPending =
+    therapistMutation.isPending ||
+    patientMutation.isPending ||
+    medicMutation.isPending ||
+    afflictionMutation.isPending ||
+    insuranceMutation.isPending;
+
+  return {
+    deleteEntity,
+    isPending,
+  };
+}

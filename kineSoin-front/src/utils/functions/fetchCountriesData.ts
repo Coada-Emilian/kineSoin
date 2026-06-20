@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type {
   ICountryPrefix,
-  RestCountry,
+  IRestCountry,
 } from '../../@types/interfaces/customInterfaces';
 
 interface FunctionProps {
@@ -18,7 +18,7 @@ export const fetchCountriesData = async ({
 
     if (response) {
       const data: ICountryPrefix[] = response.data
-        .map((country: RestCountry): ICountryPrefix => {
+        .map((country: IRestCountry): ICountryPrefix => {
           const root = country.idd?.root || '';
           const suffixes = country.idd?.suffixes || [];
           const prefix = suffixes.length ? `${root}${suffixes[0]}` : root;

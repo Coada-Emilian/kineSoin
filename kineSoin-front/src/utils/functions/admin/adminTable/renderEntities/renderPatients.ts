@@ -1,4 +1,4 @@
-import type { IPatient } from '../../../../@types/interfaces/modelInterfaces';
+import type { IPatient } from '../../../../../@types/interfaces/modelInterfaces';
 
 export const renderPatients = (
   allPatients: IPatient[],

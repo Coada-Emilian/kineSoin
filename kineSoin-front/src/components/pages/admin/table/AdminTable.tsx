@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
+import type { IAdminEntity } from '../../../../@types/interfaces/customInterfaces';
 import type { AdminTableProps } from '../../../../@types/props/customProps';
 import { useAdminContext } from '../../../../contexts/AdminContext/useAdminContext';
 import { getAdminTableDetails } from '../../../../utils/functions/admin/adminTable/getAdminTableDetails';
-import { renderAfflictions } from '../../../../utils/functions/admin/adminTable/renderAfflictions';
-import { renderInsurances } from '../../../../utils/functions/admin/adminTable/renderInsurances';
-import { renderMedics } from '../../../../utils/functions/admin/adminTable/renderMedics';
-import { renderPatients } from '../../../../utils/functions/admin/adminTable/renderPatients';
-import { renderTherapists } from '../../../../utils/functions/admin/adminTable/renderTherapists';
+import { renderAdminEntities } from '../../../../utils/functions/admin/adminTable/renderEntities/renderAdminEntities';
 import CustomButton from '../../../ui/buttons/CustomButton';
+import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
@@ -26,29 +24,13 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
   } = useAdminContext();
 
   useEffect(() => {
-    const renderFunctions: Record<string, Function> = {
-      therapist: renderTherapists,
-      patient: renderPatients,
-      affliction: renderAfflictions,
-      medic: renderMedics,
-      insurance: renderInsurances,
-    };
-
-    // Status map for therapists, patients, afflictions
-    const statusMap: Record<string, string> = {
-      therapist: entityStatus,
-      affliction: entityStatus,
-      patient: entityStatus,
-    };
-
-    // Get the render function for the entity type
-    const renderFunction = renderFunctions[entityType];
-
-    // If the render function exists, render the entities
-    if (renderFunction) {
-      renderFunction(entities, setRenderedEntities, statusMap[entityType]);
-    }
-  }, [entityType, entityStatus]);
+    renderAdminEntities({
+      entityType,
+      entities,
+      setRenderedEntities,
+      entityStatus,
+    });
+  }, [entityType, entityStatus, entities]);
 
   // Get the table elements for therapists, patients, afflictions
   const tableElements = getAdminTableDetails({
@@ -124,16 +106,14 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
           </table>
         </div>
 
-        {/* <ConfirmDeleteModal
+        <ConfirmDeleteModal
           isOpen={openModal === 'delete'}
           onClose={closeModal}
-          entity={
-            selectedEntity ? (selectedEntity as IEntityInterface) : undefined
-          }
+          entity={selectedEntity ? (selectedEntity as IAdminEntity) : undefined}
           entityType={entityType}
         />
 
-        <AdminAddTherapistFormGlobalProvider>
+        {/* <AdminAddTherapistFormGlobalProvider>
           <FirstAddTherapistModal
             onClose={closeModal}
             isOpen={openModal === 'addTherapistP1'}

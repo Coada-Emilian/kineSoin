@@ -1,4 +1,4 @@
-import type { IAffliction } from '../../../../@types/interfaces/modelInterfaces';
+import type { IAffliction } from '../../../../../@types/interfaces/modelInterfaces';
 
 export const renderAfflictions = (
   allAfflictions: IAffliction[],

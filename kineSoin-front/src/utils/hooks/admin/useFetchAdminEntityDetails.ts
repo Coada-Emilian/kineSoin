@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import type { IEntity } from '../../../@types/interfaces/contextInterfaces';
 import type { FetchAdminEntityDetailsFunctionProps } from '../../../@types/props/customProps';
 import { fetchAdminEntityDetails } from '../../functions/apiUtils/admin/fetchAdminEntityDetails';
+import type { IEntity } from '../../../@types/types/customTypes';
 
 export function useFetchAdminEntityDetails({
   entityType,
