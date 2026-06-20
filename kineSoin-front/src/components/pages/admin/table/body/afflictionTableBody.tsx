@@ -5,7 +5,7 @@ import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import TableCell from '../ui/TableCell';
 
-export default function AfflictionTableBodyRefactor({
+export default function AfflictionTableBody({
   renderedAfflictions,
 }: AfflictionTableBodyProps) {
   // Get the openDeleteModal function from the context
