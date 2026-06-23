@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../../contexts/AuthentificationContext/useAuthentificationContext';
+import { useAuthentificationContext } from '../../../../utils/functions/contextUtils/useAuthentificationContext';
 import { usePatientLoginMutation } from '../../../../utils/hooks/public/usePatientLoginMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import DNALoader from '../../../ui/DNALoader';

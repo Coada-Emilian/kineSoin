@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import type { TextInputProps } from '../../../@types/props/customProps';
 import {
   inputBaseStyle,
   inputContainerStyle,
   inputLabelStyle,
 } from '../../../styles/inputBaseStyles';
+import type { TextInputProps } from '../../../@types/props/inputProps';
 
 export default function TextInput({ input }: TextInputProps) {
   const [value, setValue] = useState(input.value || '');

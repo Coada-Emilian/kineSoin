@@ -26,3 +26,7 @@ export interface PublicArticleRowProps {
 export interface ErrorPageProps {
   type: ErrorPageType;
 }
+
+export interface AdminAddTherapistButtonSectionProps {
+  onClose?: () => void;
+}

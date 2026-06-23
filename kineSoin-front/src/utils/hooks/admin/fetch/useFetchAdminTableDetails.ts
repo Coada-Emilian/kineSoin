@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import type {
   IEntities,
   IEntity,
-} from '../../../@types/interfaces/contextInterfaces';
-import { fetchAdminTableDetails } from '../../functions/apiUtils/admin/fetchAdminTableDetails';
+} from '../../../../@types/interfaces/contextInterfaces';
 import type { FetchAdminTableDataFunctionProps } from '../../../@types/props/customProps';
+import { fetchAdminTableDetails } from '../../../functions/apiUtils/admin/fetchAdminTableDetails';
 
 export function useFetchAdminTableDetails({
   entityType,

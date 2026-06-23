@@ -5,10 +5,7 @@ import type {
   IPatient,
   ITherapist,
 } from '../../../../../@types/interfaces/modelInterfaces';
-import type {
-  IAdminEntities,
-  IAdminEntity,
-} from '../../../../../@types/types/adminTypes';
+import type { RenderAdminEntitiesFunctionProps } from '../../../../../@types/props/functionProps';
 import { renderAfflictions } from './renderAfflictions';
 import { renderInsurances } from './renderInsurances';
 import { renderMedics } from './renderMedics';
@@ -20,12 +17,7 @@ export function renderAdminEntities({
   entities,
   setRenderedEntities,
   entityStatus,
-}: {
-  entityType: string;
-  entities: IAdminEntities;
-  setRenderedEntities: React.Dispatch<React.SetStateAction<IAdminEntity>>;
-  entityStatus: string;
-}) {
+}: RenderAdminEntitiesFunctionProps) {
   switch (entityType) {
     case 'therapist':
       setRenderedEntities(

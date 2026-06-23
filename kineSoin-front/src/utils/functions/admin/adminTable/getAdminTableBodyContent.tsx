@@ -5,7 +5,7 @@ import type {
   IPatient,
   ITherapist,
 } from '../../../../@types/interfaces/modelInterfaces';
-import type { TableBodyProps } from '../../../../@types/props/customProps';
+import type { AdminTableBodyProps } from '../../../../@types/props/adminProps';
 import AfflictionTableBody from '../../../../components/pages/admin/table/body/AfflictionTableBody';
 import InsuranceTableBody from '../../../../components/pages/admin/table/body/InsuranceTableBody';
 import MedicTableBody from '../../../../components/pages/admin/table/body/MedicTableBody';
@@ -14,7 +14,7 @@ import TherapistTableBody from '../../../../components/pages/admin/table/body/Th
 
 export const getAdminTableBodyContent = ({
   renderedEntities,
-}: TableBodyProps) => [
+}: AdminTableBodyProps) => [
   {
     entityType: 'therapist',
     component: (

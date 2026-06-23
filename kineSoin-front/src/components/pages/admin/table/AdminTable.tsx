@@ -1,14 +1,18 @@
 import { useEffect } from 'react';
 import type { AdminTableProps } from '../../../../@types/props/adminProps';
 import type { IAdminEntity } from '../../../../@types/types/adminTypes';
-import { useAdminContext } from '../../../../contexts/AdminContext/useAdminContext';
+import { AdminAddTherapistContextProvider } from '../../../../contexts/admin/AdminAddTherapistContext/AdminAddTherapistContext';
 import { getAdminTableDetails } from '../../../../utils/functions/admin/adminTable/getAdminTableDetails';
 import { renderAdminEntities } from '../../../../utils/functions/admin/adminTable/renderEntities/renderAdminEntities';
+import { useAdminContext } from '../../../../utils/functions/contextUtils/useAdminContext';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
+import FirstAddTherapistModal from '../../../ui/modals/admin/addTherapist/FirstAddTherapistModal';
+import SecondAddTherapistModal from '../../../ui/modals/admin/addTherapist/SecondAddTherapistModal';
+import ThirdAddTherapistModal from '../../../ui/modals/admin/addTherapist/ThirdAddTherapistModal';
 
 export default function AdminTable({ entities, entityType }: AdminTableProps) {
   // Get required context values
@@ -112,6 +116,25 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
           entity={selectedEntity ? (selectedEntity as IAdminEntity) : undefined}
           entityType={entityType}
         />
+
+        <AdminAddTherapistContextProvider>
+          <FirstAddTherapistModal
+            onClose={closeModal}
+            isOpen={openModal === 'addTherapistP1'}
+            setIsAddTherapistModalP2Open={() => setOpenModal('addTherapistP2')}
+          />
+
+          <SecondAddTherapistModal
+            isOpen={openModal === 'addTherapistP2'}
+            onClose={closeModal}
+            setIsAddTherapistModalP3Open={() => setOpenModal('addTherapistP3')}
+          />
+
+          <ThirdAddTherapistModal
+            isOpen={openModal === 'addTherapistP3'}
+            onClose={closeModal}
+          />
+        </AdminAddTherapistContextProvider>
 
         {/* <AdminAddTherapistFormGlobalProvider>
           <FirstAddTherapistModal

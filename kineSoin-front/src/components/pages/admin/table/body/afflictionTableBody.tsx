@@ -1,13 +1,13 @@
 import type { IAffliction } from '../../../../../@types/interfaces/modelInterfaces';
-import type { AfflictionTableBodyProps } from '../../../../../@types/props/customProps';
-import { useAdminContext } from '../../../../../contexts/AdminContext/useAdminContext';
+import type { AdminAfflictionTableBodyProps } from '../../../../../@types/props/adminProps';
+import { useAdminContext } from '../../../../../utils/functions/contextUtils/useAdminContext';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import TableCell from '../ui/TableCell';
 
 export default function AfflictionTableBody({
   renderedAfflictions,
-}: AfflictionTableBodyProps) {
+}: AdminAfflictionTableBodyProps) {
   // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminContext();
 

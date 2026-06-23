@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import AdminContext from './AdminContext';
+import AdminContext from '../../../contexts/admin/AdminContext/AdminContext';
 
 export const useAdminContext = () => {
   const context = useContext(AdminContext);

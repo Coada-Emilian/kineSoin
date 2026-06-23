@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { handleRegionDeletionAsAdmin } from '../../functions/apiUtils/admin/therapist/handleRegionDeletionAsAdmin';
-import { validateEntityId } from './validators/validateEntityId';
+import { handleRegionDeletionAsAdmin } from '../../../functions/apiUtils/admin/therapist/handleRegionDeletionAsAdmin';
+import { validateEntityId } from '../validators/validateEntityId';
 
 export function useRegionDeletionMutation() {
   return useMutation({

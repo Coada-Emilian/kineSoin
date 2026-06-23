@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
-import { useAppContext } from './contexts/AppContext/useAppContext';
-import { useAuthentificationContext } from './contexts/AuthentificationContext/useAuthentificationContext';
 import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
@@ -10,6 +8,8 @@ import AdminPage from './pages/admin/AdminPage';
 import ErrorPage from './pages/ErrorPage';
 import { adminRouteDetails } from './utils/constants/admin/adminRouteDetails';
 import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
+import { useAppContext } from './utils/functions/contextUtils/useAppContext';
+import { useAuthentificationContext } from './utils/functions/contextUtils/useAuthentificationContext';
 
 function App() {
   const location = useLocation();

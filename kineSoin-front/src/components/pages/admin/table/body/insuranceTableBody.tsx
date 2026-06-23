@@ -1,13 +1,13 @@
 import type { IInsurance } from '../../../../../@types/interfaces/modelInterfaces';
-import type { InsuranceTableBodyProps } from '../../../../../@types/props/customProps';
-import { useAdminContext } from '../../../../../contexts/AdminContext/useAdminContext';
+import type { AdminInsuranceTableBodyProps } from '../../../../../@types/props/adminProps';
+import { useAdminContext } from '../../../../../utils/functions/contextUtils/useAdminContext';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import TableCell from '../ui/TableCell';
 
 export default function InsuranceTableBody({
   renderedInsurances,
-}: InsuranceTableBodyProps) {
+}: AdminInsuranceTableBodyProps) {
   const { openDeleteModal } = useAdminContext();
 
   return renderedInsurances.map((insurance: IInsurance) => {

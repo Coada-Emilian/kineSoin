@@ -1,6 +1,6 @@
 import type { IPatient } from '../../../../../@types/interfaces/modelInterfaces';
-import type { PatientTableBodyProps } from '../../../../../@types/props/customProps';
-import { useAdminContext } from '../../../../../contexts/AdminContext/useAdminContext';
+import type { AdminPatientTableBodyProps } from '../../../../../@types/props/adminProps';
+import { useAdminContext } from '../../../../../utils/functions/contextUtils/useAdminContext';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import AdminStatusButton from '../ui/AdminStatusButton';
@@ -8,7 +8,7 @@ import TableCell from '../ui/TableCell';
 
 export default function PatientTableBody({
   renderedPatients,
-}: PatientTableBodyProps) {
+}: AdminPatientTableBodyProps) {
   // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminContext();
 

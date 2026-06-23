@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { DropdownInputProps } from '../../../@types/props/customProps';
+import type { DropdownInputProps } from '../../../@types/props/inputProps';
 import {
   inputBaseStyle,
   inputContainerStyle,

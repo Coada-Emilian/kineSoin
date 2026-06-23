@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { TelephoneInputProps } from '../../../@types/props/customProps';
+import type { TelephoneInputProps } from '../../../@types/props/inputProps';
 import {
   inputBaseStyle,
   inputContainerStyle,

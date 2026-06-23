@@ -1,4 +1,4 @@
-import type { GetFormElementFunctionProps } from '../../../../@types/props/customProps';
+import type { GetFormElementFunctionProps } from '../../../../@types/props/functionProps';
 import FirstPatientRegisterFormSection from '../../../../components/pages/public/PatientRegistrationPage/forms/FirstPatientRegistrationFormSection';
 import PatientRegistrationConfirmationFormSection from '../../../../components/pages/public/PatientRegistrationPage/forms/PatientRegistrationConfirmationFormSection';
 import SecondPatientRegisterFormSection from '../../../../components/pages/public/PatientRegistrationPage/forms/SecondPatientRegistrationFormSection';

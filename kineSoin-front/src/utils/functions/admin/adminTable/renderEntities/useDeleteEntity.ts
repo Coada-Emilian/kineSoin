@@ -1,9 +1,9 @@
 import type { UseDeleteEntityFunctionProps } from '../../../../../@types/props/functionProps';
-import { useAfflictionDeletionMutation } from '../../../../hooks/admin/useAfflictionDeletionMutation';
-import { useInsuranceDeletionMutation } from '../../../../hooks/admin/useInsuranceDeletionMutation';
-import { useMedicDeletionMutation } from '../../../../hooks/admin/useMedicDeletionMutation';
-import { usePatientDeletionMutation } from '../../../../hooks/admin/usePatientDeletionMutation';
-import { useTherapistDeletionMutation } from '../../../../hooks/admin/useTherapistDeletionMutation';
+import { useAfflictionDeletionMutation } from '../../../../hooks/admin/deletion/useAfflictionDeletionMutation';
+import { useInsuranceDeletionMutation } from '../../../../hooks/admin/deletion/useInsuranceDeletionMutation';
+import { useMedicDeletionMutation } from '../../../../hooks/admin/deletion/useMedicDeletionMutation';
+import { usePatientDeletionMutation } from '../../../../hooks/admin/deletion/usePatientDeletionMutation';
+import { useTherapistDeletionMutation } from '../../../../hooks/admin/deletion/useTherapistDeletionMutation';
 
 export function useDeleteEntity() {
   const therapistMutation = useTherapistDeletionMutation();

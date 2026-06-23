@@ -1,4 +1,4 @@
-import type { GetAdminTableDetailsFunctionProps } from '../../../../@types/props/customProps';
+import type { GetAdminTableDetailsFunctionProps } from '../../../../@types/props/functionProps';
 import AfflictionsStatusButtons from '../../../../components/pages/admin/table/statusButtons/AfflictionStatusButtons';
 import PatientsStatusButtons from '../../../../components/pages/admin/table/statusButtons/PatientStatusButtons';
 import TherapistsStatusButtons from '../../../../components/pages/admin/table/statusButtons/TherapistStatusButtons';

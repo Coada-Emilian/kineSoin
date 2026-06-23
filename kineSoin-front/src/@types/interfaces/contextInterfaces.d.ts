@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import type { IAdminEntity } from '../types/adminTypes';
 import type { FormOrderTypes } from '../types/formTypes';
 import type { ICountryPrefix } from './apiInterfaces';
+import type { IAddTherapistFormData } from './formInterfaces';
 
 export interface IAppContext {
   isLoading: boolean;
@@ -47,4 +48,9 @@ export interface IAdminContext {
   setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
   renderedEntities: IAdminEntity[];
   setRenderedEntities: (entities: IAdminEntity[]) => void;
+}
+
+export interface IAdminAddTherapistContext {
+  addForm: IAddTherapistFormData;
+  setAddForm: (form: IAddTherapistFormData) => void;
 }

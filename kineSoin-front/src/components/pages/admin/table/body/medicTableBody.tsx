@@ -1,13 +1,13 @@
 import type { IMedic } from '../../../../../@types/interfaces/modelInterfaces';
-import type { MedicTableBodyProps } from '../../../../../@types/props/customProps';
-import { useAdminContext } from '../../../../../contexts/AdminContext/useAdminContext';
+import type { AdminMedicTableBodyProps } from '../../../../../@types/props/adminProps';
+import { useAdminContext } from '../../../../../utils/functions/contextUtils/useAdminContext';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import TableCell from '../ui/TableCell';
 
 export default function MedicTableBody({
   renderedMedics,
-}: MedicTableBodyProps) {
+}: AdminMedicTableBodyProps) {
   // Get the openDeleteModal function from the context
   const { openDeleteModal } = useAdminContext();
 

@@ -1,9 +1,9 @@
-import type { StatusButtonsProps } from '../../../../../@types/props/customProps';
+import type { AdminTableStatusButtonsProps } from '../../../../../@types/props/adminProps';
 import CustomButton from '../../../../ui/buttons/CustomButton';
 
 export default function AfflictionsStatusButtons({
   setStatus,
-}: StatusButtonsProps) {
+}: AdminTableStatusButtonsProps) {
   return (
     <div className="flex gap-2 ">
       <CustomButton

@@ -1,6 +1,6 @@
 import type { ITherapist } from '../../../../../@types/interfaces/modelInterfaces';
-import type { TherapistTableBodyProps } from '../../../../../@types/props/customProps';
-import { useAdminContext } from '../../../../../contexts/AdminContext/useAdminContext';
+import type { AdminTherapistTableBodyProps } from '../../../../../@types/props/adminProps';
+import { useAdminContext } from '../../../../../utils/functions/contextUtils/useAdminContext';
 import { useTherapistStatusChangeAsAdminMutation } from '../../../../../utils/hooks/admin/useTherapistStatusChangeAsAdminMutation';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
@@ -9,7 +9,7 @@ import TableCell from '../ui/TableCell';
 
 export default function TherapistTableBody({
   renderedTherapists,
-}: TherapistTableBodyProps) {
+}: AdminTherapistTableBodyProps) {
   const { openDeleteModal } = useAdminContext();
 
   const handleTherapistStatusChange = useTherapistStatusChangeAsAdminMutation();

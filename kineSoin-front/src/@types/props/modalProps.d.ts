@@ -28,3 +28,21 @@ export interface ConfirmDeleteModalProps {
   entity: IDeleteModalActiveEntity;
   entityType: string;
 }
+
+export interface FirstAddTherapistModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  setIsAddTherapistModalP2Open: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface SecondAddTherapistModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  setIsAddTherapistModalP3Open: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface ThirdAddTherapistModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+

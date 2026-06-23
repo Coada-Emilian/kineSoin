@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import type { IPatientRegistrationContext } from '../../../@types/interfaces/contextInterfaces';
-import PatientRegistrationContext from './PatientRegistrationContext';
+import PatientRegistrationContext from '../../../contexts/PatientRegistrationContext/PatientRegistrationContext';
 
 export const usePatientRegistrationContext =
   (): IPatientRegistrationContext => {
