@@ -26,20 +26,16 @@ export default function PatientRegistrationFormSection() {
 
   const registerPatient = usePatientRegistrationMutation();
 
-  const patientRegisterMutation = usePatientRegistrationFormMutation(
-    formOrder,
-    patientImage
-  );
-
   useEffect(() => {
     if (formOrder === 'last') {
       registerPatient.mutate(sentPatientData);
     }
   }, [sentPatientData, formOrder, registerPatient]);
 
-  if (registerPatient.isPending) {
-    return DNALoader();
-  }
+  const patientRegisterMutation = usePatientRegistrationFormMutation(
+    formOrder,
+    patientImage
+  );
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,22 +63,18 @@ export default function PatientRegistrationFormSection() {
           });
         }
 
-        setError('');
+        // setError(null);
+      },
+
+      onError: (error) => {
+        setError(error.message || 'Une erreur est survenue');
       },
     });
-
-    if (patientRegisterMutation.isError) {
-      setError(
-        patientRegisterMutation.error?.message || 'Une erreur est survenue'
-      );
-    } else {
-      setError('');
-    }
-
-    if (patientRegisterMutation.isPending) {
-      return DNALoader();
-    }
   };
+
+  if (patientRegisterMutation.isPending || registerPatient.isPending) {
+    return DNALoader();
+  }
 
   return (
     <section

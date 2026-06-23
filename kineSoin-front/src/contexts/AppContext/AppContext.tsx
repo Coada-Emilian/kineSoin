@@ -1,8 +1,8 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import type { ICountryPrefix } from '../../@types/interfaces/apiInterfaces';
 import type { IAppContext } from '../../@types/interfaces/contextInterfaces';
-import { fetchCountriesData } from '../../utils/functions/fetchCountriesData';
 import type { AppContextProviderProps } from '../../@types/props/contextProps';
+import { fetchCountriesData } from '../../utils/functions/fetchCountriesData';
 
 const AppContext = createContext<IAppContext | undefined>(undefined);
 
@@ -13,7 +13,9 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   const setLoading = (loading: boolean) => setIsLoading(loading);
 
-  const setError = (message: string | null) => setErrorMessage(message);
+  const setError = useCallback((message: string | null) => {
+    setErrorMessage(message);
+  }, []);
 
   const [countryPrefixes, setCountryPrefixes] = useState<ICountryPrefix[]>([]);
 
@@ -22,7 +24,8 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   }, []);
 
   useEffect(() => {
-    console.log(errorMessage);
+    console.log('Error changed:', errorMessage);
+    console.trace();
   }, [errorMessage]);
 
   return (

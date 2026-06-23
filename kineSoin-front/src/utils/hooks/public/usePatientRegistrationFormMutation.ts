@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import type { IFormOrders } from '../../../@types/interfaces/customTypes';
+import type { FormOrderTypes } from '../../../@types/types/formTypes';
 import { validateFirstPatientRegistrationForm } from './validators/validateFirstPatientRegistrationForm';
 import { validateSecondPatientRegistrationForm } from './validators/validateSecondPatientRegistrationForm';
 
 export const usePatientRegistrationFormMutation = (
-  formOrder: IFormOrders,
+  formOrder: FormOrderTypes,
   patientImage: Blob | null
 ) => {
   return useMutation({
@@ -49,8 +49,8 @@ export const usePatientRegistrationFormMutation = (
       }
       return;
     },
-    onError: (error: Error) => {
-      throw new Error(error.message);
-    },
+    // onError: (error: Error) => {
+    //   throw new Error(error.message);
+    // },
   });
 };

@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import type { IPatientRegistrationData } from '../../../@types/interfaces/customInterfaces';
+import type { IPatientRegistrationFormData } from '../../../@types/interfaces/formInterfaces';
 import { handlePatientRegistration } from '../../functions/apiUtils/public/handlePatientRegistration';
 
 export const usePatientRegistrationMutation = () => {
   return useMutation({
     mutationKey: ['patientRegister'],
-    mutationFn: async (sentPatientData: IPatientRegistrationData) => {
+    mutationFn: async (sentPatientData: IPatientRegistrationFormData) => {
       const formData = new FormData();
 
       if (sentPatientData) {
@@ -19,8 +19,8 @@ export const usePatientRegistrationMutation = () => {
     onSuccess: () => {
       console.log('Patient registered successfully');
     },
-    onError: (error: Error) => {
-      throw new Error(error.message);
-    },
+    // onError: (error: Error) => {
+    //   throw new Error(error.message);
+    // },
   });
 };
