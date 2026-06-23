@@ -17,16 +17,15 @@ export const handleAddTherapistStepTwoSubmit = (
     const diploma = formData.get('diploma') as string;
     const experience = formData.get('experience') as string;
     const specialty = formData.get('specialty') as string;
-    const prefix = formData.get('prefix') as string;
-    const phone_number = formData.get('phone_number') as string;
+    // const prefix = formData.get('prefix') as string;
+    // const phone_number = formData.get('phone_number') as string;
     const description = formData.get('description') as string;
 
     const validationError = validateStepTwoForm({
       diploma,
       experience,
       specialty,
-      prefix,
-      phone_number,
+
       description,
     });
 
@@ -35,17 +34,12 @@ export const handleAddTherapistStepTwoSubmit = (
       return;
     }
 
-    const full_phone_number = `${prefix}${phone_number}`;
-
     setAddForm((prev: IAddTherapistFormData) => ({
       ...prev,
       description,
       diploma,
       experience,
       specialty,
-      prefix,
-      phone_number,
-      full_phone_number,
     }));
 
     setError('');

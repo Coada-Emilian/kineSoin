@@ -17,12 +17,16 @@ export const handleAddTherapistStepThreeSubmit = async (
     const password = formData.get('password') as string;
     const repeated_password = formData.get('repeated_password') as string;
     const status = formData.get('status') as string;
+    const prefix = formData.get('prefix') as string;
+    const phone_number = formData.get('phone_number') as string;
 
     const validationError = validateStepThreeForm({
       email,
       password,
       repeated_password,
       status,
+      prefix,
+      phone_number,
     });
 
     if (validationError) {
@@ -30,12 +34,17 @@ export const handleAddTherapistStepThreeSubmit = async (
       return;
     }
 
+    const full_phone_number = `${prefix}${phone_number}`;
+
     setAddForm((prev: IAddTherapistFormData) => ({
       ...prev,
       email,
       password,
       repeated_password,
       status,
+      prefix,
+      phone_number,
+      full_phone_number,
     }));
 
     setError('');

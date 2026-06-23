@@ -67,8 +67,6 @@ export interface ValidateStepTwoFormFunctionProps {
   diploma: string;
   experience: string;
   specialty: string;
-  prefix: string;
-  phone_number: string;
   description: string;
 }
 
@@ -83,4 +81,6 @@ export interface ValidateStepThreeFormFunctionProps {
   password: string;
   repeated_password: string;
   status: string;
+  prefix: string;
+  phone_number: string;
 }

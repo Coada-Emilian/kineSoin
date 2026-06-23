@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from 'react';
+import type { ICountryPrefix } from '../../@types/interfaces/apiInterfaces';
 import type { IAppContext } from '../../@types/interfaces/contextInterfaces';
-import type { ICountryPrefix } from '../../@types/interfaces/customInterfaces';
 import { fetchCountriesData } from '../../utils/functions/fetchCountriesData';
-import type { ContextProviderProps } from '../../@types/props/contextProps';
+import type { AppContextProviderProps } from '../../@types/props/contextProps';
 
 const AppContext = createContext<IAppContext | undefined>(undefined);
 
-export const AppContextProvider = ({ children }: ContextProviderProps) => {
+export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -20,6 +20,10 @@ export const AppContextProvider = ({ children }: ContextProviderProps) => {
   useEffect(() => {
     fetchCountriesData({ setCountryPrefixes });
   }, []);
+
+  useEffect(() => {
+    console.log(errorMessage);
+  }, [errorMessage]);
 
   return (
     <AppContext.Provider

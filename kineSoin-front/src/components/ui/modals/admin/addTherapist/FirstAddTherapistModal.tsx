@@ -32,67 +32,71 @@ export default function FirstAddTherapistModal({
   }
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="space-y-4 p-8">
-        <h2 className="text-md md:text-xl font-bold mb-2 md:mb-4">
-          Ajouter un thérapeute
-        </h2>
+    <BaseModal isOpen={isOpen} onClose={onClose} variant="default" size="md">
+      <h2 className="text-xl md:text-2xl font-semibold text-primaryBlue italic">
+        Ajouter un thérapeute
+      </h2>
 
-        {errorMessage && (
-          <p className="text-red-500 text-xs text-center">{errorMessage}</p>
-        )}
+      <p className="text-sm text-gray-500">Créez un nouvel espace thérapeute</p>
 
-        <form className="space-y-4 " onSubmit={handleFormSubmit}>
-          <TextInput
-            input={{
-              id: 'therapist-register-name_input',
-              labelName: 'Nom',
-              name: 'name',
-              placeholder: 'Entrez le nom du kiné',
-              isRequired: true,
-              autoComplete: 'name',
-            }}
-          />
+      {errorMessage && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+          <p className="text-center text-red-600 text-sm">{errorMessage}</p>
+        </div>
+      )}
 
-          <TextInput
-            input={{
-              id: 'therapist-register-surname_input',
-              labelName: 'Prénom',
-              name: 'surname',
-              placeholder: 'Entrez le prénom du kiné',
-              isRequired: true,
-              autoComplete: 'surname',
-            }}
-          />
+      <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
+        <TextInput
+          input={{
+            id: 'therapist-register-name_input',
+            labelName: 'Nom',
+            name: 'name',
+            placeholder: 'Entrez le nom du kiné',
+            isRequired: true,
+            autoComplete: 'name',
+          }}
+        />
 
-          <TextInput
-            input={{
-              id: 'therapist-register-licenceCode_input',
-              labelName: 'Code ADELI',
-              name: 'licence_code',
-              placeholder: 'Entrez le code ADELI du kiné',
-              isRequired: true,
-              autoComplete: 'licence_code',
-            }}
-          />
+        <TextInput
+          input={{
+            id: 'therapist-register-surname_input',
+            labelName: 'Prénom',
+            name: 'surname',
+            placeholder: 'Entrez le prénom du kiné',
+            isRequired: true,
+            autoComplete: 'surname',
+          }}
+        />
 
-          <PhotoInput
-            input={{
-              id: 'therapist-register-image_input',
-              labelName: 'Ajouter une photo',
-              name: 'photo',
-              isRequired: true,
-            }}
-            setTherapistImage={setTherapistImage}
-          />
+        <TextInput
+          input={{
+            id: 'therapist-register-licenceCode_input',
+            labelName: 'Code ADELI',
+            name: 'licence_code',
+            placeholder: 'Entrez le code ADELI du kiné',
+            isRequired: true,
+            autoComplete: 'licence_code',
+          }}
+        />
 
-          <p className="text-red-500 text-center text-xs md:text-sm italic">
-            Etape 1 / 3 : Informations personnelles
-          </p>
+        
 
-          <ButtonSection onClose={onClose} />
-        </form>
-      </div>
+        <PhotoInput
+          input={{
+            id: 'therapist-register-image_input',
+            labelName: 'Ajouter une photo',
+            name: 'photo',
+            isRequired: true,
+          }}
+          setTherapistImage={setTherapistImage}
+        />
+
+        <p className="text-sm text-center text-primaryBlue font-medium mt-2">
+          Étape 1 / 3 : Informations personnelles
+        </p>
+
+        <ButtonSection onClose={onClose} />
+      </form>
     </BaseModal>
   );
 }

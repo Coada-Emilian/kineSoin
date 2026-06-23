@@ -5,6 +5,8 @@ export const validateStepThreeForm = ({
   password,
   repeated_password,
   status,
+  prefix,
+  phone_number,
 }: ValidateStepThreeFormFunctionProps): string | null => {
   if (!email || !password || !repeated_password || !status) {
     return 'Veuillez remplir tous les champs.';
@@ -22,6 +24,12 @@ export const validateStepThreeForm = ({
     return 'Les mots de passe ne correspondent pas.';
   } else if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
     return "L'email n'est pas valide.";
+  } else if (prefix.length > 10) {
+    return 'Le préfixe ne doit pas dépasser 10 caractères.';
+  } else if (phone_number.length > 15) {
+    return 'Le numéro de téléphone ne doit pas dépasser 15 caractères.';
+  } else if (!/^\d+$/.test(phone_number)) {
+    return 'Le numéro de téléphone ne doit contenir que des chiffres.';
   }
 
   return null;
