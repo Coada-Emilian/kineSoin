@@ -1,14 +1,19 @@
 import type { IDeleteModalActiveEntity } from '../interfaces/customInterfaces';
+import type { BaseModalSize, BaseModalVariant } from '../types/modalTypes';
 
 export interface ConnectionModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export interface BaseModalProps extends ReactModal.Props {
+export type BaseModalProps = {
   isOpen: boolean;
   onClose?: () => void;
-}
+  children: ReactNode;
+  className?: string;
+  variant?: BaseModalVariant;
+  size?: BaseModalSize;
+};
 
 export interface ImageModalProps {
   isOpen: boolean;
@@ -45,4 +50,3 @@ export interface ThirdAddTherapistModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-

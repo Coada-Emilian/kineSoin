@@ -72,25 +72,77 @@ export default function ConfirmDeleteModal({
   if (isPending) return DNALoader();
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col justify-center mx-auto text-center gap-3 w-fit p-6 text:xxs xs:text-xs md:text-sm lg:text-base xl:text-lg">
-        {regionDeleteModal ? (
-          <>
-            <p>
-              Êtes-vous sûr de vouloir supprimer la région{' '}
-              <span className="font-semibold">{entity.name}</span> ?
-            </p>
-            <span className="text-red-500 font-medium">
-              Cette action est irréversible.
-            </span>
+    <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="sm">
+      {regionDeleteModal ? (
+        <>
+          <p>
+            Êtes-vous sûr de vouloir supprimer la région{' '}
+            <span className="font-semibold">{entity.name}</span> ?
+          </p>
+          <span className="text-red-500 font-medium">
+            Cette action est irréversible.
+          </span>
 
-            <div className="flex justify-center mt-4 gap-4">
+          <div className="flex justify-center mt-4 gap-4">
+            <CustomButton
+              btn={{
+                type: 'delete',
+                text: 'Confirmer',
+                style: 'normal',
+                onClick: handleConfirmRegionDelete,
+              }}
+            />
+
+            <CustomButton
+              btn={{
+                type: 'cancel',
+                text: 'Annuler',
+                style: 'normal',
+                onClick: handleCancelRegionDelete,
+              }}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          {activeEntity?.full_name && (
+            <p>
+              Êtes-vous sûr de vouloir supprimer le profil de{' '}
+              <span className="font-semibold italic">
+                {activeEntity.full_name}
+              </span>{' '}
+              ?
+            </p>
+          )}
+
+          {activeEntity?.entityType === 'affliction' && (
+            <p>
+              Êtes-vous sûr de vouloir supprimer l'affliction{' '}
+              <span className="font-semibold italic">{activeEntity.name}</span>{' '}
+              ?
+            </p>
+          )}
+
+          {activeEntity?.entityType === 'insurance' && (
+            <p>
+              Êtes-vous sûr de vouloir supprimer l'organisme{' '}
+              <span className="font-semibold italic">{activeEntity.name}</span>{' '}
+              ?
+            </p>
+          )}
+
+          <span className="text-red-500 font-medium">
+            Cette action est irréversible.
+          </span>
+
+          <div className="flex justify-center mt-4 gap-4">
+            <>
               <CustomButton
                 btn={{
                   type: 'delete',
                   text: 'Confirmer',
                   style: 'normal',
-                  onClick: handleConfirmRegionDelete,
+                  onClick: handleConfirmEntityDelete,
                 }}
               />
 
@@ -99,71 +151,13 @@ export default function ConfirmDeleteModal({
                   type: 'cancel',
                   text: 'Annuler',
                   style: 'normal',
-                  onClick: handleCancelRegionDelete,
+                  onClick: handleCancelEntityDelete,
                 }}
               />
-            </div>
-          </>
-        ) : (
-          <>
-            {activeEntity?.full_name && (
-              <p>
-                Êtes-vous sûr de vouloir supprimer le profil de{' '}
-                <span className="font-semibold italic">
-                  {activeEntity.full_name}
-                </span>{' '}
-                ?
-              </p>
-            )}
-
-            {activeEntity?.entityType === 'affliction' && (
-              <p>
-                Êtes-vous sûr de vouloir supprimer l'affliction{' '}
-                <span className="font-semibold italic">
-                  {activeEntity.name}
-                </span>{' '}
-                ?
-              </p>
-            )}
-
-            {activeEntity?.entityType === 'insurance' && (
-              <p>
-                Êtes-vous sûr de vouloir supprimer l'organisme{' '}
-                <span className="font-semibold italic">
-                  {activeEntity.name}
-                </span>{' '}
-                ?
-              </p>
-            )}
-
-            <span className="text-red-500 font-medium">
-              Cette action est irréversible.
-            </span>
-
-            <div className="flex justify-center mt-4 gap-4">
-              <>
-                <CustomButton
-                  btn={{
-                    type: 'delete',
-                    text: 'Confirmer',
-                    style: 'normal',
-                    onClick: handleConfirmEntityDelete,
-                  }}
-                />
-
-                <CustomButton
-                  btn={{
-                    type: 'cancel',
-                    text: 'Annuler',
-                    style: 'normal',
-                    onClick: handleCancelEntityDelete,
-                  }}
-                />
-              </>
-            </div>
-          </>
-        )}
-      </div>
+            </>
+          </div>
+        </>
+      )}
     </BaseModal>
   );
 }
