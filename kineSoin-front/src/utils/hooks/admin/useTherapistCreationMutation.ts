@@ -19,7 +19,7 @@ export const useTherapistCreationMutation = (
     onSuccess: () => {
       onClose();
       queryClient.invalidateQueries({
-        queryKey: ['fetchTableDataRefactor', { entityType: 'therapist' }],
+        queryKey: ['tableDetails', { entityType: 'therapist' }],
       });
     },
     onError: (error: Error) => {

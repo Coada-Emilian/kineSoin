@@ -32,7 +32,7 @@ export default function FirstAddTherapistModal({
   }
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} variant="default" size="md">
+    <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="sm">
       <h2 className="text-xl md:text-2xl font-semibold text-primaryBlue italic">
         Ajouter un thérapeute
       </h2>
@@ -78,8 +78,6 @@ export default function FirstAddTherapistModal({
             autoComplete: 'licence_code',
           }}
         />
-
-        
 
         <PhotoInput
           input={{
