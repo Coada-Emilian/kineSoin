@@ -76,42 +76,6 @@ export default function SecondAddTherapistModal({
           }}
         />
 
-        {/* <div className="flex gap-3 items-end w-full">
-          <DropdownInput
-            input={{
-              id: 'therapist-register-prefix_input',
-              labelName: 'Préfixe',
-              additionalDivClassName: 'w-1/4',
-              name: 'prefix',
-              autoComplete: 'prefix',
-              isRequired: true,
-              allOptions: {
-                startingOption: {
-                  value: '',
-                  text: 'Préfixe',
-                },
-                options: [
-                  ...countryPrefixes.map((country) => ({
-                    key: country.name,
-                    value: country.prefix,
-                    text: `${country.name} ${country.prefix}`,
-                  })),
-                ],
-              },
-            }}
-          />
-
-          <TelephoneInput
-            input={{
-              id: 'therapist-register-phoneNumber_input',
-              isRequired: true,
-              additionalDivClassName: 'w-3/4',
-              autoComplete: 'phone-number',
-              placeholder: 'Entrez le numéro de téléphone du kiné',
-            }}
-          />
-        </div> */}
-
         <TextInput
           input={{
             id: 'therapist-register-description_input',
@@ -128,7 +92,10 @@ export default function SecondAddTherapistModal({
           Étape 2 / 3 : Études et expérience
         </p>
 
-        <ButtonSection onClose={onClose} />
+        <ButtonSection
+          onClose={onClose}
+          setIsAddTherapistModalP3Open={setIsAddTherapistModalP3Open}
+        />
       </form>
     </BaseModal>
   );

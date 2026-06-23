@@ -3,13 +3,15 @@ import CustomButton from '../../../buttons/CustomButton';
 
 export default function ButtonSection({
   onClose,
+  setIsAddTherapistModalP2Open,
+  setIsAddTherapistModalP3Open,
 }: AdminAddTherapistButtonSectionProps) {
   return (
     <div className="flex gap-2 mt-6 w-fit mx-auto">
       <CustomButton
         btn={{
           type: 'basic',
-          text: 'Créer',
+          text: `${setIsAddTherapistModalP2Open || setIsAddTherapistModalP3Open ? 'Suivant' : 'Créer'}`,
           style: 'normal',
         }}
         type="submit"

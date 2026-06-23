@@ -29,4 +29,6 @@ export interface ErrorPageProps {
 
 export interface AdminAddTherapistButtonSectionProps {
   onClose?: () => void;
+  setIsAddTherapistModalP2Open?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAddTherapistModalP3Open?: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -6,13 +6,14 @@ import { getAdminTableDetails } from '../../../../utils/functions/admin/adminTab
 import { renderAdminEntities } from '../../../../utils/functions/admin/adminTable/renderEntities/renderAdminEntities';
 import { useAdminContext } from '../../../../utils/functions/contextUtils/useAdminContext';
 import CustomButton from '../../../ui/buttons/CustomButton';
+import AddAfflictionModal from '../../../ui/modals/admin/AddAfflictionModal';
+import FirstAddTherapistModal from '../../../ui/modals/admin/addTherapist/FirstAddTherapistModal';
+import SecondAddTherapistModal from '../../../ui/modals/admin/addTherapist/SecondAddTherapistModal';
+import ThirdAddTherapistModal from '../../../ui/modals/admin/addTherapist/ThirdAddTherapistModal';
 import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
-import FirstAddTherapistModal from '../../../ui/modals/admin/addTherapist/FirstAddTherapistModal';
-import SecondAddTherapistModal from '../../../ui/modals/admin/addTherapist/SecondAddTherapistModal';
-import ThirdAddTherapistModal from '../../../ui/modals/admin/addTherapist/ThirdAddTherapistModal';
 
 export default function AdminTable({ entities, entityType }: AdminTableProps) {
   // Get required context values
@@ -136,44 +137,25 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
           />
         </AdminAddTherapistContextProvider>
 
-        {/* <AdminAddTherapistFormGlobalProvider>
-          <FirstAddTherapistModal
-            onClose={closeModal}
-            isOpen={openModal === 'addTherapistP1'}
-            setIsAddTherapistModalP2Open={() => setOpenModal('addTherapistP2')}
-          />
-
-          <SecondAddTherapistModal
-            isOpen={openModal === 'addTherapistP2'}
-            onClose={closeModal}
-            setIsAddTherapistModalP3Open={() => setOpenModal('addTherapistP3')}
-          />
-
-          <ThirdAddTherapistModal
-            isOpen={openModal === 'addTherapistP3'}
-            onClose={closeModal}
-          />
-        </AdminAddTherapistFormGlobalProvider>
-
         <AddAfflictionModal
           isOpen={openModal === 'addAffliction'}
           onClose={closeModal}
         />
 
-        <AddMedicModal isOpen={openModal === 'addMedic'} onClose={closeModal} />
+        {/* <AddMedicModal isOpen={openModal === 'addMedic'} onClose={closeModal} /> */}
 
-        <AddInsuranceModal
+        {/* <AddInsuranceModal
           isOpen={openModal === 'addInsurance'}
           onClose={closeModal}
-        />
+        /> */}
 
-        <RegionModalRefactor
+        {/* <RegionModalRefactor
           isOpen={openModal === 'region'}
           onClose={closeModal}
           setIsAddRegionModalOpen={() => setOpenModal('addRegion')}
-        />
+        /> */}
 
-        <AddRegionModal
+        {/* <AddRegionModal
           isOpen={openModal === 'addRegion'}
           onClose={closeModal}
         /> */}

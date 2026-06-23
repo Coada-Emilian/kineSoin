@@ -1,15 +1,12 @@
 import { Link } from 'react-router-dom';
-import type { ConnectionModalProps } from '../../../@types/props/modalProps';
+import type { BasicModalProps } from '../../../@types/props/modalProps';
 import type { IButtonIcon } from '../../../@types/types/buttonTypes';
 import { publicNavbarButtonDetails } from '../../../utils/constants/publicSection/layout/publicNavbarButtonDetails';
 import { usePatientRegistrationContext } from '../../../utils/functions/contextUtils/usePatientRegistrationContext';
 import CustomButton from '../buttons/CustomButton';
 import BaseModal from './BaseModal';
 
-export default function ConnectionModal({
-  isOpen,
-  onClose,
-}: ConnectionModalProps) {
+export default function ConnectionModal({ isOpen, onClose }: BasicModalProps) {
   const details = publicNavbarButtonDetails;
 
   const { setFormOrder } = usePatientRegistrationContext();

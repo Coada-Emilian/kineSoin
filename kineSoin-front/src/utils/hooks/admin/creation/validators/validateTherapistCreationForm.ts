@@ -1,4 +1,4 @@
-import type { IAddTherapistFormData } from '../../../../@types/interfaces/formInterfaces';
+import type { IAddTherapistFormData } from '../../../../../@types/interfaces/formInterfaces';
 
 export function validateTherapistCreationForm(addForm: IAddTherapistFormData) {
   const name = addForm.name as string;

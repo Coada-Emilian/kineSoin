@@ -1,23 +1,19 @@
 import type { IDeleteModalActiveEntity } from '../interfaces/customInterfaces';
 import type { BaseModalSize, BaseModalVariant } from '../types/modalTypes';
 
-export interface ConnectionModalProps {
+export interface BasicModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export type BaseModalProps = {
-  isOpen: boolean;
-  onClose?: () => void;
+export interface BaseModalProps extends BasicModalProps {
   children: ReactNode;
   className?: string;
   variant?: BaseModalVariant;
   size?: BaseModalSize;
-};
+}
 
-export interface ImageModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface ImageModalProps extends BasicModalProps {
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
   setTherapistImage?: React.Dispatch<React.SetStateAction<File | null>>;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
@@ -27,26 +23,15 @@ export interface ImageModalProps {
   setIsFileAdded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface ConfirmDeleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface ConfirmDeleteModalProps extends BasicModalProps {
   entity: IDeleteModalActiveEntity;
   entityType: string;
 }
 
-export interface FirstAddTherapistModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface FirstAddTherapistModalProps extends BasicModalProps {
   setIsAddTherapistModalP2Open: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface SecondAddTherapistModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface SecondAddTherapistModalProps extends BasicModalProps {
   setIsAddTherapistModalP3Open: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface ThirdAddTherapistModalProps {
-  isOpen: boolean;
-  onClose: () => void;
 }

@@ -32,3 +32,11 @@ export interface IAddTherapistFormData {
   phone_number: string;
   full_phone_number: string;
 }
+
+// export interface IAddAfflictionFormData {
+//   name: string;
+//   body_region_id: string;
+//   insurance_code: string;
+//   is_operated: boolean;
+//   description: string;
+// }

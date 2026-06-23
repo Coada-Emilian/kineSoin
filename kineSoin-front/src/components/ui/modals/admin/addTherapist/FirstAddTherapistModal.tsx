@@ -93,7 +93,10 @@ export default function FirstAddTherapistModal({
           Étape 1 / 3 : Informations personnelles
         </p>
 
-        <ButtonSection onClose={onClose} />
+        <ButtonSection
+          onClose={onClose}
+          setIsAddTherapistModalP2Open={setIsAddTherapistModalP2Open}
+        />
       </form>
     </BaseModal>
   );

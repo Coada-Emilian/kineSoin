@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import type { ThirdAddTherapistModalProps } from '../../../../../@types/props/modalProps';
+import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { handleAddTherapistStepThreeSubmit } from '../../../../../utils/functions/admin/addTherapist/handleAddTherapistStepThreeSubmit';
 import { useAdminAddTherapistContext } from '../../../../../utils/functions/contextUtils/useAdminAddTherapistContext';
 import { useAppContext } from '../../../../../utils/functions/contextUtils/useAppContext';
-import { useTherapistCreationMutation } from '../../../../../utils/hooks/admin/useTherapistCreationMutation';
+import { useTherapistCreationMutation } from '../../../../../utils/hooks/admin/creation/useTherapistCreationMutation';
 import DNALoader from '../../../DNALoader';
 import DropdownInput from '../../../inputs/DropdownInput';
 import EmailInput from '../../../inputs/EmailInput';
@@ -15,7 +15,7 @@ import ButtonSection from './ButtonSection';
 export default function ThirdAddTherapistModal({
   isOpen,
   onClose,
-}: ThirdAddTherapistModalProps) {
+}: BasicModalProps) {
   const { countryPrefixes } = useAppContext();
   // State to manage form validation
   const [isAdminTherapistFormValid, setIsAdminTherapistFormValid] =
