@@ -1,4 +1,3 @@
-import type { IAdminEntity } from '../../../../../@types/interfaces/customInterfaces';
 import type {
   IAffliction,
   IInsurance,
@@ -6,6 +5,10 @@ import type {
   IPatient,
   ITherapist,
 } from '../../../../../@types/interfaces/modelInterfaces';
+import type {
+  IAdminEntities,
+  IAdminEntity,
+} from '../../../../../@types/types/adminTypes';
 import { renderAfflictions } from './renderAfflictions';
 import { renderInsurances } from './renderInsurances';
 import { renderMedics } from './renderMedics';
@@ -19,53 +22,33 @@ export function renderAdminEntities({
   entityStatus,
 }: {
   entityType: string;
-  entities: unknown[];
-  setRenderedEntities: React.Dispatch<React.SetStateAction<IAdminEntity[]>>;
+  entities: IAdminEntities;
+  setRenderedEntities: React.Dispatch<React.SetStateAction<IAdminEntity>>;
   entityStatus: string;
 }) {
   switch (entityType) {
     case 'therapist':
-      renderTherapists(
-        entities as ITherapist[],
-        setRenderedEntities as React.Dispatch<
-          React.SetStateAction<ITherapist[]>
-        >,
-        entityStatus
+      setRenderedEntities(
+        renderTherapists(entities as ITherapist[], entityStatus)
       );
       break;
 
     case 'patient':
-      renderPatients(
-        entities as IPatient[],
-        setRenderedEntities as React.Dispatch<React.SetStateAction<IPatient[]>>,
-        entityStatus
-      );
+      setRenderedEntities(renderPatients(entities as IPatient[], entityStatus));
       break;
 
     case 'affliction':
-      renderAfflictions(
-        entities as IAffliction[],
-        setRenderedEntities as React.Dispatch<
-          React.SetStateAction<IAffliction[]>
-        >,
-        entityStatus
+      setRenderedEntities(
+        renderAfflictions(entities as IAffliction[], entityStatus)
       );
       break;
 
     case 'medic':
-      renderMedics(
-        entities as IMedic[],
-        setRenderedEntities as React.Dispatch<React.SetStateAction<IMedic[]>>
-      );
+      setRenderedEntities(renderMedics(entities as IMedic[]));
       break;
 
     case 'insurance':
-      renderInsurances(
-        entities as IInsurance[],
-        setRenderedEntities as React.Dispatch<
-          React.SetStateAction<IInsurance[]>
-        >
-      );
+      setRenderedEntities(renderInsurances(entities as IInsurance[]));
       break;
 
     default:

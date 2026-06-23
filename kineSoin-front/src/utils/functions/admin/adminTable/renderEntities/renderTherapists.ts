@@ -2,20 +2,23 @@ import type { ITherapist } from '../../../../../@types/interfaces/modelInterface
 
 export const renderTherapists = (
   allTherapists: ITherapist[],
-  setRenderedTherapists: React.Dispatch<React.SetStateAction<ITherapist[]>>,
   therapistStatus: string
-) => {
+): ITherapist[] => {
   if (therapistStatus === 'all') {
-    setRenderedTherapists(allTherapists ?? []);
-  } else if (therapistStatus === 'active') {
-    const activeTherapists = (allTherapists ?? []).filter(
+    return allTherapists ?? [];
+  }
+
+  if (therapistStatus === 'active') {
+    return (allTherapists ?? []).filter(
       (therapist) => therapist.status === 'active'
     );
-    setRenderedTherapists(activeTherapists);
-  } else if (therapistStatus === 'inactive') {
-    const inactiveTherapists = (allTherapists ?? []).filter(
+  }
+
+  if (therapistStatus === 'inactive') {
+    return (allTherapists ?? []).filter(
       (therapist) => therapist.status === 'inactive'
     );
-    setRenderedTherapists(inactiveTherapists);
   }
+
+  return [];
 };

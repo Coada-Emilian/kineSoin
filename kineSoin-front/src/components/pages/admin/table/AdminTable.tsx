@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import type { AdminTableProps } from '../../../../@types/props/adminProps';
 import type { IAdminEntity } from '../../../../@types/types/adminTypes';
 import { useAdminContext } from '../../../../contexts/AdminContext/useAdminContext';
 import { getAdminTableDetails } from '../../../../utils/functions/admin/adminTable/getAdminTableDetails';
@@ -8,7 +9,6 @@ import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
-import type { AdminTableProps } from '../../../../@types/props/adminProps';
 
 export default function AdminTable({ entities, entityType }: AdminTableProps) {
   // Get required context values

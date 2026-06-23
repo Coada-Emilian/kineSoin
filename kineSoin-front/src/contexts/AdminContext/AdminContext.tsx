@@ -1,8 +1,6 @@
-import { createContext, useEffect, useState, type ReactNode } from 'react';
-import type {
-  IAdminContext,
-  IAdminEntity,
-} from '../../@types/interfaces/customInterfaces';
+import { createContext, useState, type ReactNode } from 'react';
+import type { IAdminContext } from '../../@types/interfaces/contextInterfaces';
+import type { IAdminEntity } from '../../@types/types/adminTypes';
 
 const AdminContext = createContext<IAdminContext | undefined>(undefined);
 
@@ -22,16 +20,12 @@ export const AdminContextProvider = ({ children }: { children: ReactNode }) => {
   // Function to open the delete modal
   const openDeleteModal = (entity: IAdminEntity, isRegionModal?: boolean) => {
     setSelectedEntity(entity);
+    setOpenModal('delete');
+
     if (isRegionModal) {
       setRegionDeleteModal(true);
     }
   };
-
-  useEffect(() => {
-    if (selectedEntity) {
-      setOpenModal('delete');
-    }
-  }, [selectedEntity]);
 
   const closeModal = () => {
     setOpenModal(null);

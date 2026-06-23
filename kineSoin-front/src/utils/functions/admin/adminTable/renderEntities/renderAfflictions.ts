@@ -2,20 +2,23 @@ import type { IAffliction } from '../../../../../@types/interfaces/modelInterfac
 
 export const renderAfflictions = (
   allAfflictions: IAffliction[],
-  setRenderedAfflictions: React.Dispatch<React.SetStateAction<IAffliction[]>>,
   afflictionStatus: string
-) => {
+): IAffliction[] => {
   if (afflictionStatus === 'all') {
-    setRenderedAfflictions(allAfflictions ?? []);
-  } else if (afflictionStatus === 'operated') {
-    const operatedAfflictions = (allAfflictions ?? []).filter(
+    return allAfflictions ?? [];
+  }
+
+  if (afflictionStatus === 'operated') {
+    return (allAfflictions ?? []).filter(
       (affliction) => affliction.is_operated === true
     );
-    setRenderedAfflictions(operatedAfflictions);
-  } else if (afflictionStatus === 'non-operated') {
-    const nonOperatedAfflictions = (allAfflictions ?? []).filter(
+  }
+
+  if (afflictionStatus === 'non-operated') {
+    return (allAfflictions ?? []).filter(
       (affliction) => affliction.is_operated === false
     );
-    setRenderedAfflictions(nonOperatedAfflictions);
   }
+
+  return [];
 };
