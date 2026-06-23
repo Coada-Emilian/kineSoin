@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { PasswordInputProps } from '../../../@types/props/customProps';
+import type { PasswordInputProps } from '../../../@types/props/inputProps';
 import closedEyeIcon from '/icons/eye-closed.svg';
 import openedEyeIcon from '/icons/eye.svg';
 import questionIcon from '/icons/question-circle.svg';

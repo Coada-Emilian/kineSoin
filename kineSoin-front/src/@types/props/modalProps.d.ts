@@ -1,3 +1,5 @@
+import type { IDeleteModalActiveEntity } from '../interfaces/customInterfaces';
+
 export interface ConnectionModalProps {
   isOpen: boolean;
   onClose: () => void;

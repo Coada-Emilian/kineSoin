@@ -1,4 +1,4 @@
-import type { PublicRouteDetailsProps } from '../../../@types/props/customProps';
+import type { PublicRouteDetailsProps } from '../../../@types/props/componentProps';
 import HomePage from '../../../pages/public/HomePage';
 import PatientLoginPage from '../../../pages/public/PatientLoginPage';
 import PatientRegistrationPage from '../../../pages/public/PatientRegistrationPage';

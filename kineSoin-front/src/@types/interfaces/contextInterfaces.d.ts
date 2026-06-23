@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
-import type { FormOrderTypes } from '../types/customTypes';
-import type { IAdminEntity, ICountryPrefix } from './customInterfaces';
+import type { IAdminEntity } from '../types/adminTypes';
+import type { FormOrderTypes } from '../types/formTypes';
+import type { ICountryPrefix } from './apiInterfaces';
 
 export interface IAppContext {
   isLoading: boolean;

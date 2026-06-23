@@ -1,3 +1,6 @@
+import type { IAdminEntityTypes } from '../types/adminTypes';
+import type { FormOrderTypes } from '../types/formTypes';
+
 export interface HandleFileChangeFunctionProps {
   setFileName?: React.Dispatch<React.SetStateAction<string>>;
   setPreview?: React.Dispatch<React.SetStateAction<string | null>>;
@@ -8,7 +11,7 @@ export interface HandleFileChangeFunctionProps {
 }
 
 interface GetFormElementFunctionProps {
-  formOrder: IFormOrders;
+  formOrder: FormOrderTypes;
   setPatientImage?: React.Dispatch<React.SetStateAction<File | null>>;
 }
 

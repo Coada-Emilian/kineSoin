@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     setError(null);
-  }, [location.pathname]);
+  }, [location.pathname, setError]);
 
   return (
     <>

@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-
-import type { CustomButtonProps } from '../../../@types/props/customProps';
+import type { CustomButtonProps } from '../../../@types/props/componentProps';
 import {
   customButtonIconDetails,
   customButtonTypeDetails,

@@ -1,10 +1,10 @@
-import type { TableBodyProps } from '../../../../../@types/props/customProps';
+import type { AdminTableBodyProps } from '../../../../../@types/props/adminProps';
 import { getAdminTableBodyContent } from '../../../../../utils/functions/admin/adminTable/getAdminTableBodyContent';
 
 export default function TableBody({
   renderedEntities,
   entityType,
-}: TableBodyProps) {
+}: AdminTableBodyProps) {
   // Get the table bodies for the entities
   const entityTableBodies = getAdminTableBodyContent({
     renderedEntities,

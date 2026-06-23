@@ -1,3 +1,12 @@
+import type {
+  IAffliction,
+  IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
+} from '../interfaces/modelInterfaces';
+import type { IAdminEntities, IAdminEntityTypes } from '../types/adminTypes';
+
 export interface AdminPageProps {
   entityType: IAdminEntityTypes;
 }

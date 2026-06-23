@@ -1,8 +1,14 @@
+import type {
+  IButtonIcon,
+  IButtonStyle,
+  IButtonType,
+} from '../types/buttonTypes';
+
 // Interface for custom button details
 export interface IButtonDetails {
-  type: ButtonInterfaceTypes;
-  style: ButtonInterfaceStyles;
-  icon?: ButtonInterfaceIcons;
+  type: IButtonType;
+  style: IButtonStyle;
+  icon?: IButtonIcon;
   text: string | JSX.Element;
   hasBorder?: boolean;
   onClick?: () => void;

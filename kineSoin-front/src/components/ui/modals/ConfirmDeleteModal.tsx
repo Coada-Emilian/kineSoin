@@ -1,4 +1,4 @@
-import type { ConfirmDeleteModalProps } from '../../../@types/props/customProps';
+import type { ConfirmDeleteModalProps } from '../../../@types/props/modalProps';
 import { useAdminContext } from '../../../contexts/AdminContext/useAdminContext';
 import { getDeleteModalEntityDetails } from '../../../utils/functions/admin/adminTable/getDeleteModalEntityDetails';
 import { useDeleteEntity } from '../../../utils/functions/admin/adminTable/renderEntities/useDeleteEntity';
@@ -20,14 +20,15 @@ export default function ConfirmDeleteModal({
       )
     : null;
 
-  console.log(activeEntity);
-
   const { deleteEntity, isPending } = useDeleteEntity();
 
   const handleEntityDelete = () => {
     if (!activeEntity) return;
 
-    deleteEntity(activeEntity.entityType, entity.id);
+    deleteEntity({
+      entityType: activeEntity.entityType,
+      id: entity.id,
+    });
   };
 
   // Handler for confirming entity deletion

@@ -1,10 +1,10 @@
-import type { TableHeadProps } from '../../../../../@types/props/customProps';
+import type { AdminTableHeadProps } from '../../../../../@types/props/adminProps';
 
 export default function TableHead({
   secondHeaderContent,
   thirdHeaderContent,
   fourthHeaderContent,
-}: TableHeadProps) {
+}: AdminTableHeadProps) {
   const headerClass =
     'px-5 py-3 text-center font-semibold text-gray-600 uppercase tracking-wide text-xs md:text-sm';
 

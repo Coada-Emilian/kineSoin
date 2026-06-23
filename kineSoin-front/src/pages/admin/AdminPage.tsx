@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import type { AdminPageProps } from '../../@types/props/customProps';
+import type { AdminPageProps } from '../../@types/props/adminProps';
 import AdminSideNavbar from '../../components/pages/admin/AdminSideNavbar';
 import AdminTable from '../../components/pages/admin/table/AdminTable';
 import DNALoader from '../../components/ui/DNALoader';

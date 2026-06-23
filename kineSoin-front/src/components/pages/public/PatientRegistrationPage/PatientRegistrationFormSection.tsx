@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { IPatientRegistrationData } from '../../../../@types/interfaces/customInterfaces';
+import type { IPatientRegistrationFormData } from '../../../../@types/interfaces/formInterfaces';
+import type { FormOrderTypes } from '../../../../@types/types/formTypes';
 import { useAppContext } from '../../../../contexts/AppContext/useAppContext';
 import { usePatientRegistrationContext } from '../../../../contexts/PatientRegistrationContext/usePatientRegistrationContext';
 import { getFormElement } from '../../../../utils/functions/public/patientRegistrationUtils/getFormElement';
@@ -19,7 +20,7 @@ export default function PatientRegistrationFormSection() {
 
   // Sent patient data state
   const [sentPatientData, setSentPatientData] =
-    useState<IPatientRegistrationData>({});
+    useState<IPatientRegistrationFormData>({});
 
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
@@ -34,7 +35,7 @@ export default function PatientRegistrationFormSection() {
     if (formOrder === 'last') {
       registerPatient.mutate(sentPatientData);
     }
-  }, [sentPatientData]);
+  }, [sentPatientData, formOrder, registerPatient]);
 
   if (registerPatient.isPending) {
     return DNALoader();
@@ -52,7 +53,7 @@ export default function PatientRegistrationFormSection() {
         }));
 
         if (formOrder !== 'last') {
-          setFormOrder((prevOrder) => {
+          setFormOrder((prevOrder: FormOrderTypes) => {
             switch (prevOrder) {
               case 'first':
                 return 'second';

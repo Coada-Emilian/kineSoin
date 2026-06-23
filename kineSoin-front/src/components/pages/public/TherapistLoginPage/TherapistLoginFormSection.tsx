@@ -17,7 +17,7 @@ export default function TherapistLoginFormSection() {
     navigate
   );
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     handleTherapistLogin.mutate(formData);
