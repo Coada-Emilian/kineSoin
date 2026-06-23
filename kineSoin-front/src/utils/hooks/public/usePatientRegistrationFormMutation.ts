@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { FormOrderTypes } from '../../../@types/types/formTypes';
 import { validateFirstPatientRegistrationForm } from './validators/validateFirstPatientRegistrationForm';
 import { validateSecondPatientRegistrationForm } from './validators/validateSecondPatientRegistrationForm';
+import { validateThirdPatientRegistrationForm } from './validators/validateThirdPatientRegistrationForm';
 
 export const usePatientRegistrationFormMutation = (
   formOrder: FormOrderTypes,
@@ -39,6 +40,8 @@ export const usePatientRegistrationFormMutation = (
         return sentData;
       }
       if (formOrder === 'third') {
+        validateThirdPatientRegistrationForm(formData, patientImage);
+        
         const sentData = {
           email: formData.get('email') as string,
           password: formData.get('password') as string,

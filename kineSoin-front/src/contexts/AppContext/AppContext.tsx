@@ -23,11 +23,6 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     fetchCountriesData({ setCountryPrefixes });
   }, []);
 
-  useEffect(() => {
-    console.log('Error changed:', errorMessage);
-    console.trace();
-  }, [errorMessage]);
-
   return (
     <AppContext.Provider
       value={{

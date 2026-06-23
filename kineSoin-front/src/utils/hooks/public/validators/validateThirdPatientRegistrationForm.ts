@@ -19,10 +19,11 @@ export const validateThirdPatientRegistrationForm = (
   } else if (
     !/\d/.test(patientPassword) ||
     !/[a-z]/.test(patientPassword) ||
-    !/[A-Z]/.test(patientPassword)
+    !/[A-Z]/.test(patientPassword) ||
+    !/[^a-zA-Z0-9]/.test(patientPassword)
   ) {
     throw new Error(
-      'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre'
+      'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial'
     );
   } else if (
     !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(patientEmail)

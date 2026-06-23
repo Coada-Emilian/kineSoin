@@ -19,8 +19,5 @@ export const usePatientRegistrationMutation = () => {
     onSuccess: () => {
       console.log('Patient registered successfully');
     },
-    // onError: (error: Error) => {
-    //   throw new Error(error.message);
-    // },
   });
 };

@@ -24,14 +24,6 @@ export default function PatientRegistrationFormSection() {
 
   const [patientImage, setPatientImage] = useState<File | null>(null);
 
-  const registerPatient = usePatientRegistrationMutation();
-
-  useEffect(() => {
-    if (formOrder === 'last') {
-      registerPatient.mutate(sentPatientData);
-    }
-  }, [sentPatientData, formOrder, registerPatient]);
-
   const patientRegisterMutation = usePatientRegistrationFormMutation(
     formOrder,
     patientImage
@@ -63,7 +55,7 @@ export default function PatientRegistrationFormSection() {
           });
         }
 
-        // setError(null);
+        setError(null);
       },
 
       onError: (error) => {
@@ -71,6 +63,19 @@ export default function PatientRegistrationFormSection() {
       },
     });
   };
+
+  const registerPatient = usePatientRegistrationMutation();
+
+  useEffect(() => {
+    if (formOrder === 'last') {
+      console.log('register patient shoots');
+      registerPatient.mutate(sentPatientData);
+    }
+  }, [formOrder]);
+
+  useEffect(() => {
+    console.log(errorMessage);
+  }, [errorMessage]);
 
   if (patientRegisterMutation.isPending || registerPatient.isPending) {
     return DNALoader();
