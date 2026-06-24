@@ -36,3 +36,4 @@ export interface IErrorPageDetails {
   status: number;
   errorText: string;
 }
+

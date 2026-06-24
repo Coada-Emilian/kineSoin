@@ -60,3 +60,15 @@ export interface AdminMedicTableBodyProps {
 export interface AdminInsuranceTableBodyProps {
   renderedInsurances: IInsurance[];
 }
+
+export interface BaseEntityProfileProps {
+  entityType: IAdminEntityTypes;
+}
+
+export interface EntityProfileProps extends BaseEntityProfileProps {
+  entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
+}
+
+export interface EntityProfileImageProps extends BaseEntityProfileProps {
+  picture_url: string | undefined;
+}

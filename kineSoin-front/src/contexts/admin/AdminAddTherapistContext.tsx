@@ -1,6 +1,6 @@
 import { createContext, useState, type ReactNode } from 'react';
-import type { IAdminAddTherapistContext } from '../../../@types/interfaces/contextInterfaces';
-import type { IAddTherapistFormData } from '../../../@types/interfaces/formInterfaces';
+import type { IAdminAddTherapistContext } from '../../@types/interfaces/contextInterfaces';
+import type { IAddTherapistFormData } from '../../@types/interfaces/formInterfaces';
 
 const AdminAddTherapistContext = createContext<
   IAdminAddTherapistContext | undefined

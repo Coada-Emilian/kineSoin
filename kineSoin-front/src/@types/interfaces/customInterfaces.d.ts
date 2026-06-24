@@ -4,3 +4,5 @@ export interface IDeleteModalActiveEntity {
   name?: string | undefined;
   id: number;
 }
+
+

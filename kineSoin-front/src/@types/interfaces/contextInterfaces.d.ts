@@ -54,3 +54,69 @@ export interface IAdminAddTherapistContext {
   addForm: IAddTherapistFormData;
   setAddForm: (form: IAddTherapistFormData) => void;
 }
+
+interface IEntityProfileContextProps {
+  isProfileEditing: boolean;
+  setIsProfileEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  isDeleteModalOpen: boolean;
+  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isEditPhotoModalOpen: boolean;
+  setIsEditPhotoModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedFile: File | null;
+  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
+  // updateEntityForm: FormData | null;
+  // setUpdateEntityForm: React.Dispatch<React.SetStateAction<FormData | null>>;
+  // entityStatus: string;
+  // setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+  // entityName: string;
+  // setEntityName: React.Dispatch<React.SetStateAction<string>>;
+  // entitySurname: string;
+  // setEntitySurname: React.Dispatch<React.SetStateAction<string>>;
+  // entityEmail: string;
+  // setEntityEmail: React.Dispatch<React.SetStateAction<string>>;
+  // entityPrefix: string;
+  // setEntityPrefix: React.Dispatch<React.SetStateAction<string>>;
+  // entityPhoneNumber: string;
+  // setEntityPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
+  // entityLicenceCode: string;
+  // setEntityLicenceCode: React.Dispatch<React.SetStateAction<string>>;
+  // entityDiploma: string;
+  // setEntityDiploma: React.Dispatch<React.SetStateAction<string>>;
+  // entityAMCCode: string;
+  // setEntityAMCCode: React.Dispatch<React.SetStateAction<string>>;
+  // entitySpecialty: string;
+  // setEntitySpecialty: React.Dispatch<React.SetStateAction<string>>;
+  // entityExperience: string;
+  // setEntityExperience: React.Dispatch<React.SetStateAction<string>>;
+  // entityDescription: string;
+  // setEntityDescription: React.Dispatch<React.SetStateAction<string>>;
+  // entityStreetNumber: string;
+  // setEntityStreetNumber: React.Dispatch<React.SetStateAction<string>>;
+  // entityStreetName: string;
+  // setEntityStreetName: React.Dispatch<React.SetStateAction<string>>;
+  // entityCity: string;
+  // setEntityCity: React.Dispatch<React.SetStateAction<string>>;
+  // entityPostalCode: string;
+  // setEntityPostalCode: React.Dispatch<React.SetStateAction<string>>;
+  // entityId: number | null;
+  // setEntityId: React.Dispatch<React.SetStateAction<number | null>>;
+  // entityPictureUrl: string;
+  // setEntityPictureUrl: React.Dispatch<React.SetStateAction<string>>;
+  // entityAge: string;
+  // setEntityAge: React.Dispatch<React.SetStateAction<string>>;
+  // entityGender: string;
+  // setEntityGender: React.Dispatch<React.SetStateAction<string>>;
+  // entityInsuranceCode: string;
+  // setEntityInsuranceCode: React.Dispatch<React.SetStateAction<string>>;
+  // entityOperatedStatus: string;
+  // setEntityOperatedStatus: React.Dispatch<React.SetStateAction<string>>;
+  // entityBodyRegion: IBodyRegion | null;
+  // setEntityBodyRegion: React.Dispatch<React.SetStateAction<IBodyRegion | null>>;
+  // setEntityStates: (
+  //   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null
+  // ) => void;
+  inputChangeHandlers: IEntityFieldSetter[];
+  bodyRegions: IBodyRegion[];
+  previewUrl: string | null;
+  setPreviewUrl: React.Dispatch<React.SetStateAction<string | null>>;
+}

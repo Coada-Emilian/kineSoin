@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import AdminAddTherapistContext from '../../../contexts/admin/AdminAddTherapistContext/AdminAddTherapistContext';
+import AdminAddTherapistContext from '../../../contexts/admin/AdminAddTherapistContext';
 
 export const useAdminAddTherapistContext = () => {
   const context = useContext(AdminAddTherapistContext);
