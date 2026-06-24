@@ -7,6 +7,8 @@ import { renderAdminEntities } from '../../../../utils/functions/admin/adminTabl
 import { useAdminContext } from '../../../../utils/functions/contextUtils/useAdminContext';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import AddAfflictionModal from '../../../ui/modals/admin/AddAfflictionModal';
+import AddInsuranceModal from '../../../ui/modals/admin/AddInsuranceModal';
+import AddMedicModal from '../../../ui/modals/admin/AddMedicModal';
 import FirstAddTherapistModal from '../../../ui/modals/admin/addTherapist/FirstAddTherapistModal';
 import SecondAddTherapistModal from '../../../ui/modals/admin/addTherapist/SecondAddTherapistModal';
 import ThirdAddTherapistModal from '../../../ui/modals/admin/addTherapist/ThirdAddTherapistModal';
@@ -14,7 +16,6 @@ import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
-import AddMedicModal from '../../../ui/modals/admin/AddMedicModal';
 
 export default function AdminTable({ entities, entityType }: AdminTableProps) {
   // Get required context values
@@ -145,10 +146,10 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
 
         <AddMedicModal isOpen={openModal === 'addMedic'} onClose={closeModal} />
 
-        {/* <AddInsuranceModal
+        <AddInsuranceModal
           isOpen={openModal === 'addInsurance'}
           onClose={closeModal}
-        /> */}
+        />
 
         {/* <RegionModalRefactor
           isOpen={openModal === 'region'}
