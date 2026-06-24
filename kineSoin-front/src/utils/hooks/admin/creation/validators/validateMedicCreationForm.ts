@@ -1,72 +1,92 @@
 export function validateMedicCreationForm(formData: FormData) {
-  const name = formData.get('name') as string;
-  const surname = formData.get('surname') as string;
-  const street_number = formData.get('street_number') as string;
-  const street_name = formData.get('street_name') as string;
-  const postal_code = formData.get('postal_code') as string;
-  const city = formData.get('city') as string;
-  const prefix = formData.get('prefix') as string;
-  const phone_number = formData.get('phone_number') as string;
-  const licence_code = formData.get('licence_code') as string;
+  const name = String(formData.get('name')).trim();
+  const surname = String(formData.get('surname')).trim();
 
-  // Required field check
+  const streetNumber = String(formData.get('street_number')).trim();
+  const streetName = String(formData.get('street_name')).trim();
+
+  const postalCode = String(formData.get('postal_code')).trim();
+  const city = String(formData.get('city')).trim();
+
+  const prefix = String(formData.get('prefix')).trim();
+  const phoneNumber = String(formData.get('phone_number'))
+    .replace(/\s/g, '')
+    .trim();
+
+  const licenceCode = String(formData.get('licence_code')).trim();
+
+  // Required fields
   if (
     !name ||
     !surname ||
-    !street_number ||
-    !street_name ||
-    !postal_code ||
+    !streetName ||
+    !postalCode ||
     !city ||
     !prefix ||
-    !phone_number ||
-    !licence_code
+    !phoneNumber ||
+    !licenceCode
   ) {
     throw new Error('Veuillez remplir tous les champs obligatoires.');
   }
 
-  // Length checks
-  if (name.length > 50) {
-    throw new Error('Le prénom ne doit pas dépasser 50 caractères.');
+  // Names
+  const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
+
+  if (!nameRegex.test(name)) {
+    throw new Error('Le nom contient des caractères invalides.');
   }
 
-  if (surname.length > 50) {
+  if (!nameRegex.test(surname)) {
+    throw new Error('Le prénom contient des caractères invalides.');
+  }
+
+  if (name.length > 50) {
     throw new Error('Le nom ne doit pas dépasser 50 caractères.');
   }
 
-  if (street_number.length > 10) {
+  if (surname.length > 50) {
+    throw new Error('Le prénom ne doit pas dépasser 50 caractères.');
+  }
+
+  // Licence ADELI
+  if (!/^\d{9}$/.test(licenceCode)) {
+    throw new Error('Le code licence doit être composé de 9 chiffres.');
+  }
+
+  // Address
+  if (streetNumber && streetNumber.length > 10) {
     throw new Error('Le numéro de rue ne doit pas dépasser 10 caractères.');
   }
 
-  if (street_name.length > 50) {
+  if (streetName.length > 50) {
     throw new Error('Le nom de rue ne doit pas dépasser 50 caractères.');
   }
 
-  if (postal_code.length > 10) {
-    throw new Error('Le code postal ne doit pas dépasser 10 caractères.');
+  if (!/^\d{5}$/.test(postalCode)) {
+    throw new Error('Le code postal doit contenir 5 chiffres.');
   }
 
   if (city.length > 100) {
     throw new Error('La ville ne doit pas dépasser 100 caractères.');
   }
 
+  // Phone
   if (prefix.length > 10) {
     throw new Error('Le préfixe ne doit pas dépasser 10 caractères.');
   }
 
-  if (phone_number.length > 15) {
-    throw new Error(
-      'Le numéro de téléphone ne doit pas dépasser 15 caractères.'
-    );
+  if (!/^\+?\d+$/.test(prefix)) {
+    throw new Error('Le préfixe téléphonique est invalide.');
   }
 
-  if (!/^\d+$/.test(phone_number)) {
+  if (phoneNumber.length < 7 || phoneNumber.length > 15) {
+    throw new Error('Le numéro de téléphone est invalide.');
+  }
+
+  if (!/^\d+$/.test(phoneNumber)) {
     throw new Error(
       'Le numéro de téléphone doit contenir uniquement des chiffres.'
     );
-  }
-
-  if (licence_code.length > 9) {
-    throw new Error('Le code licence ne doit pas dépasser 9 caractères.');
   }
 
   return true;
