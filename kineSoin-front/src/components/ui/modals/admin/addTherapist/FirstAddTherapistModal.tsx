@@ -6,7 +6,7 @@ import { useAppContext } from '../../../../../utils/functions/contextUtils/useAp
 import PhotoInput from '../../../inputs/PhotoInput';
 import TextInput from '../../../inputs/TextInput';
 import BaseModal from '../../BaseModal';
-import ButtonSection from './ButtonSection';
+import ButtonSection from '../ButtonSection';
 
 export default function FirstAddTherapistModal({
   isOpen,

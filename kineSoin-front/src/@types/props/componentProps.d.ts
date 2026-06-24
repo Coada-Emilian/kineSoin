@@ -3,6 +3,7 @@ import type {
   IHomePageArticle,
   IPublicArticle,
 } from '../interfaces/componentInterfaces';
+import type { IBodyRegion } from '../interfaces/modelInterfaces';
 import type { ErrorPageType } from '../types/errorTypes';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,4 +32,10 @@ export interface AdminAddTherapistButtonSectionProps {
   onClose?: () => void;
   setIsAddTherapistModalP2Open?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAddTherapistModalP3Open?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRegionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAddRegionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface BodyRegionsTableBodyProps {
+  bodyRegions: IBodyRegion[];
 }

@@ -6,7 +6,7 @@ import DropdownInput from '../../inputs/DropdownInput';
 import TelephoneInput from '../../inputs/TelephoneInput';
 import TextInput from '../../inputs/TextInput';
 import BaseModal from '../BaseModal';
-import ButtonSection from './addTherapist/ButtonSection';
+import ButtonSection from './ButtonSection';
 
 export default function AddInsuranceModal({
   isOpen,

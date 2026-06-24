@@ -4,7 +4,7 @@ import { useAdminAddTherapistContext } from '../../../../../utils/functions/cont
 import { useAppContext } from '../../../../../utils/functions/contextUtils/useAppContext';
 import TextInput from '../../../inputs/TextInput';
 import BaseModal from '../../BaseModal';
-import ButtonSection from './ButtonSection';
+import ButtonSection from '../ButtonSection';
 
 export default function SecondAddTherapistModal({
   isOpen,

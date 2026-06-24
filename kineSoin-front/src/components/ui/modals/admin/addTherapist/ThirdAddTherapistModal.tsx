@@ -10,7 +10,7 @@ import EmailInput from '../../../inputs/EmailInput';
 import PasswordInput from '../../../inputs/PasswordInput';
 import TelephoneInput from '../../../inputs/TelephoneInput';
 import BaseModal from '../../BaseModal';
-import ButtonSection from './ButtonSection';
+import ButtonSection from '../ButtonSection';
 
 export default function ThirdAddTherapistModal({
   isOpen,

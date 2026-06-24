@@ -6,7 +6,7 @@ import DNALoader from '../../DNALoader';
 import DropdownInput from '../../inputs/DropdownInput';
 import TextInput from '../../inputs/TextInput';
 import BaseModal from '../BaseModal';
-import ButtonSection from './addTherapist/ButtonSection';
+import ButtonSection from './ButtonSection';
 
 export default function AddAfflictionModal({
   isOpen,

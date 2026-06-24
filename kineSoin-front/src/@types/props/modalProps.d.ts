@@ -35,3 +35,9 @@ export interface FirstAddTherapistModalProps extends BasicModalProps {
 export interface SecondAddTherapistModalProps extends BasicModalProps {
   setIsAddTherapistModalP3Open: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface BodyRegionsModalProps extends BasicModalProps {
+  setIsAddRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
