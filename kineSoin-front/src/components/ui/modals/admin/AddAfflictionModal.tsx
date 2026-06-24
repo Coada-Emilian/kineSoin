@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import type { IBodyRegion } from '../../../../@types/interfaces/modelInterfaces';
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
 import { useAfflictionCreationMutation } from '../../../../utils/hooks/admin/creation/useAfflictionCreationMutation';
-import { useFetchAdminBodyRegionsMutation } from '../../../../utils/hooks/admin/fetch/useFetchAdminBodyRegionsMutation';
+import { useFetchAdminBodyRegionsQuery } from '../../../../utils/hooks/admin/fetch/useFetchAdminBodyRegionsQuery';
 import DNALoader from '../../DNALoader';
 import DropdownInput from '../../inputs/DropdownInput';
 import TextInput from '../../inputs/TextInput';
@@ -20,15 +19,13 @@ export default function AddAfflictionModal({
     submitAfflictionMutation.mutate(new FormData(e.currentTarget));
   };
 
-  const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
+  const {
+    data: bodyRegions = [],
+    isPending: bodyRegionsFetchIsPending,
+    error: bodyRegionFetchError,
+  } = useFetchAdminBodyRegionsQuery();
 
-  const regionFetchMutation = useFetchAdminBodyRegionsMutation(setBodyRegions);
-
-  useEffect(() => {
-    regionFetchMutation.mutate();
-  }, []);
-
-  if (regionFetchMutation.isPending || submitAfflictionMutation.isPending) {
+  if (bodyRegionsFetchIsPending || submitAfflictionMutation.isPending) {
     return DNALoader();
   }
 
@@ -40,10 +37,10 @@ export default function AddAfflictionModal({
 
       <p className="text-sm text-gray-500">Créez une nouvelle affliction</p>
 
-      {(regionFetchMutation.error || submitAfflictionMutation.error) && (
+      {(bodyRegionFetchError || submitAfflictionMutation.error) && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-3">
           <p className="text-center text-red-600 text-sm">
-            {regionFetchMutation.error?.message ||
+            {bodyRegionFetchError?.message ||
               submitAfflictionMutation.error?.message}
           </p>
         </div>
@@ -73,7 +70,7 @@ export default function AddAfflictionModal({
                 value: '',
                 text: 'Choisissez une région',
               },
-              options: bodyRegions.map((region) => ({
+              options: bodyRegions.map((region: IBodyRegion) => ({
                 key: region.id.toString(),
                 value: region.id.toString(),
                 text: region.name,

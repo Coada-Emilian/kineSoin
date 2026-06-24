@@ -1,17 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
+import type { FetchAdminTableDataFunctionProps } from '../../../../@types/props/functionProps';
 import type {
-  IEntities,
-  IEntity,
-} from '../../../../@types/interfaces/contextInterfaces';
-import type { FetchAdminTableDataFunctionProps } from '../../../@types/props/customProps';
+  IAdminEntities,
+  IAdminEntity,
+} from '../../../../@types/types/adminTypes';
 import { fetchAdminTableDetails } from '../../../functions/apiUtils/admin/fetchAdminTableDetails';
 
 export function useFetchAdminTableDetails({
   entityType,
 }: FetchAdminTableDataFunctionProps) {
-  return useQuery<IEntity | null>({
+  return useQuery<IAdminEntity | null>({
     queryKey: ['tableDetails', { entityType }],
-    queryFn: () => fetchAdminTableDetails<IEntities>({ entityType }),
+    queryFn: () => fetchAdminTableDetails<IAdminEntities>({ entityType }),
     refetchOnMount: true,
     refetchOnWindowFocus: true,
   });

@@ -33,6 +33,7 @@
  * - Creates a new affliction record in the database.
  */
 
+import { findOrThrow } from '../../middlewares/findOrThrow.js';
 import { getValidId } from '../../middlewares/getValidId.js';
 import { Admin, Affliction } from '../../models/index.js';
 import createdAfflictionSchema from '../joi_validations/creation_validations/createdAfflictionSchema.js';
