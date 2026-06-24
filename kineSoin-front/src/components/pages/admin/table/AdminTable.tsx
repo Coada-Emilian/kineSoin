@@ -14,6 +14,7 @@ import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
+import AddMedicModal from '../../../ui/modals/admin/AddMedicModal';
 
 export default function AdminTable({ entities, entityType }: AdminTableProps) {
   // Get required context values
@@ -142,7 +143,7 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
           onClose={closeModal}
         />
 
-        {/* <AddMedicModal isOpen={openModal === 'addMedic'} onClose={closeModal} /> */}
+        <AddMedicModal isOpen={openModal === 'addMedic'} onClose={closeModal} />
 
         {/* <AddInsuranceModal
           isOpen={openModal === 'addInsurance'}

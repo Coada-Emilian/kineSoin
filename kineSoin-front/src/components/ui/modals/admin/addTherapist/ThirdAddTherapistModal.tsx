@@ -55,124 +55,126 @@ export default function ThirdAddTherapistModal({
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="sm">
-      <h2 className="text-xl md:text-2xl font-semibold text-primaryBlue italic">
-        Ajouter un thérapeute
-      </h2>
+      <div className="bg-white/85 backdrop-blur-sm rounded-3xl p-2 md:p-4">
+        <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-4">
+          Ajouter un thérapeute
+        </h2>
 
-      <p className="text-sm text-gray-500">
-        Créez les identifiants du compte thérapeute
-      </p>
+        <p className="text-center text-sm text-gray-500 mb-2">
+          Créez les identifiants du compte thérapeute
+        </p>
 
-      {(handleTherapistCreation.error || errorMessage) && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-          <p className="text-center text-red-600 text-sm">
-            {handleTherapistCreation.error?.message || errorMessage}
-          </p>
-        </div>
-      )}
+        {(handleTherapistCreation.error || errorMessage) && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+            <p className="text-center text-red-600 text-sm">
+              {handleTherapistCreation.error?.message || errorMessage}
+            </p>
+          </div>
+        )}
 
-      <form className="flex flex-col gap-5" onSubmit={handleFormSubmit}>
-        <EmailInput
-          input={{
-            id: 'therapist-register-email_input',
-            placeholder: "Entrez l'email du kiné",
-            name: 'email',
-            autoComplete: 'email',
-            labelName: 'E-mail',
-          }}
-        />
-
-        <PasswordInput
-          input={{
-            id: 'therapist-register-password_input',
-            name: 'password',
-            placeholder: 'Entrez le mot de passe du kiné',
-            labelName: 'Mot de passe',
-            autoComplete: 'current-password',
-            hasInfoIcon: true,
-          }}
-        />
-
-        <PasswordInput
-          input={{
-            id: 'therapist-register-confirmPassword_input',
-            name: 'repeated_password',
-            placeholder: 'Confirmez le mot de passe',
-            labelName: 'Confirmation mot de passe',
-            autoComplete: 'repeated-password',
-          }}
-        />
-
-        <div className="flex gap-3 items-end w-full">
-          <DropdownInput
+        <form className="flex flex-col gap-5" onSubmit={handleFormSubmit}>
+          <EmailInput
             input={{
-              id: 'therapist-register-prefix_input',
-              labelName: 'Préfixe',
-              additionalDivClassName: 'w-1/4',
-              name: 'prefix',
-              autoComplete: 'prefix',
-              isRequired: true,
-              allOptions: {
-                startingOption: {
-                  value: '',
-                  text: 'Préfixe',
-                },
-                options: [
-                  ...countryPrefixes.map((country) => ({
+              id: 'therapist-register-email_input',
+              placeholder: "Entrez l'email du kiné",
+              name: 'email',
+              autoComplete: 'email',
+              labelName: 'E-mail',
+            }}
+          />
+
+          <PasswordInput
+            input={{
+              id: 'therapist-register-password_input',
+              name: 'password',
+              placeholder: 'Entrez le mot de passe du kiné',
+              labelName: 'Mot de passe',
+              autoComplete: 'current-password',
+              hasInfoIcon: true,
+            }}
+          />
+
+          <PasswordInput
+            input={{
+              id: 'therapist-register-confirmPassword_input',
+              name: 'repeated_password',
+              placeholder: 'Confirmez le mot de passe',
+              labelName: 'Confirmation mot de passe',
+              autoComplete: 'repeated-password',
+            }}
+          />
+
+          <div className="flex gap-3 items-end w-full">
+            <DropdownInput
+              input={{
+                id: 'therapist-register-prefix_input',
+                labelName: 'Préfixe',
+                additionalDivClassName: 'w-1/4',
+                name: 'prefix',
+                autoComplete: 'prefix',
+                isRequired: true,
+                allOptions: {
+                  startingOption: {
+                    value: '',
+                    text: 'Préfixe',
+                  },
+                  options: countryPrefixes.map((country) => ({
                     key: country.name,
                     value: country.prefix,
                     text: `${country.name} ${country.prefix}`,
                   })),
+                },
+              }}
+            />
+
+            <TelephoneInput
+              input={{
+                id: 'therapist-register-phoneNumber_input',
+                isRequired: true,
+                additionalDivClassName: 'w-3/4',
+                autoComplete: 'phone-number',
+                placeholder: 'Entrez le numéro de téléphone du kiné',
+              }}
+            />
+          </div>
+
+          <DropdownInput
+            input={{
+              id: 'therapist-register-status_input',
+              labelName: 'Statut',
+              name: 'status',
+              autoComplete: 'status',
+              isRequired: true,
+              allOptions: {
+                startingOption: {
+                  value: '',
+                  text: 'Choisissez le statut',
+                },
+                options: [
+                  {
+                    key: '1',
+                    value: 'active',
+                    text: 'Actif',
+                  },
+                  {
+                    key: '2',
+                    value: 'inactive',
+                    text: 'Inactif',
+                  },
                 ],
               },
             }}
           />
 
-          <TelephoneInput
-            input={{
-              id: 'therapist-register-phoneNumber_input',
-              isRequired: true,
-              additionalDivClassName: 'w-3/4',
-              autoComplete: 'phone-number',
-              placeholder: 'Entrez le numéro de téléphone du kiné',
-            }}
-          />
-        </div>
+          <p className="text-sm text-center text-primaryBlue font-medium mt-2">
+            Étape 3 / 3 : Informations compte
+          </p>
 
-        <DropdownInput
-          input={{
-            id: 'therapist-register-status_input',
-            labelName: 'Statut',
-            name: 'status',
-            autoComplete: 'status',
-            isRequired: true,
-            allOptions: {
-              startingOption: {
-                value: '',
-                text: 'Choisissez le statut',
-              },
-              options: [
-                {
-                  key: '1',
-                  value: 'active',
-                  text: 'Actif',
-                },
-                {
-                  key: '2',
-                  value: 'inactive',
-                  text: 'Inactif',
-                },
-              ],
-            },
-          }}
-        />
-
-        <p className="text-sm text-center text-primaryBlue font-medium mt-2">
-          Étape 3 / 3 : Informations compte
-        </p>
-
-        <ButtonSection onClose={onClose} />
-      </form>
+          <div className="flex justify-center">
+            <ButtonSection onClose={onClose} />
+          </div>
+        </form>
+      </div>
     </BaseModal>
   );
 }

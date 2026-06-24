@@ -28,7 +28,7 @@ export default function AdminNavBar() {
   };
 
   return (
-    <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1 z-10">
+    <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1">
       <nav className="justify-between flex items-center w-full px-4">
         <Link to="/" onClick={handleLogoClick}>
           <img
