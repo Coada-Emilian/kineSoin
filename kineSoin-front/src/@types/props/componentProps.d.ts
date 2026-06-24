@@ -4,6 +4,7 @@ import type {
   IPublicArticle,
 } from '../interfaces/componentInterfaces';
 import type { IBodyRegion } from '../interfaces/modelInterfaces';
+import type { ModalButtonSectionMode } from '../types/buttonTypes';
 import type { ErrorPageType } from '../types/errorTypes';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -38,4 +39,10 @@ export interface AdminAddTherapistButtonSectionProps {
 
 export interface BodyRegionsTableBodyProps {
   bodyRegions: IBodyRegion[];
+}
+
+export interface ModalButtonSectionProps {
+  onClose?: () => void;
+  setNextModal?: () => void;
+  mode: ModalButtonSectionMode;
 }

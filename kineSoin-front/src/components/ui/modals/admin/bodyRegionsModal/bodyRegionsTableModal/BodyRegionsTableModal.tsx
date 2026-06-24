@@ -14,35 +14,33 @@ export default function BodyRegionsTableModal() {
   }
 
   return (
-    <div className=" flex flex-col gap-6 items-end md:mx-2 md:py-5 overflow-x-auto mx-auto max-h-[450px] md:max-h-[600px">
+    <div className="w-full flex flex-col gap-6 items-end overflow-x-auto mx-auto max-h-[450px] md:max-h-[600px]">
       {bodyRegionFetchError && (
-        <p className="text-red-500 text-xs text-center">
-          {bodyRegionFetchError.message}
-        </p>
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3 w-full">
+          <p className="text-center text-red-600 text-sm">
+            {bodyRegionFetchError.message}
+          </p>
+        </div>
       )}
 
-      <table className="border-separate border border-gray-300 w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl">
-        <thead className="bg-gray-100 xxs:text-xs text-sm md:text-base">
+      <table className="w-full md:w-11/12 mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <thead className="bg-gray-50 border-b border-gray-200">
           <tr>
-            <>
-              <th className="border border-gray-300 px-4 py-2 text-center rounded-tl-2xl w-1/12">
-                #id
-              </th>
+            <th className="px-5 py-3 text-center font-semibold text-gray-600 uppercase tracking-wide text-xs md:text-sm">
+              #id
+            </th>
 
-              <th className="border border-gray-300 px-4 py-2 text-center">
-                Nom région
-              </th>
+            <th className="px-5 py-3 text-center font-semibold text-gray-600 uppercase tracking-wide text-xs md:text-sm">
+              Nom région
+            </th>
 
-              <th
-                className="border border-gray-300 px-4 py-2 text-center rounded-tr-2xl"
-                colSpan={2}
-              >
-                Action
-              </th>
-            </>
+            <th className="px-5 py-3 text-center font-semibold text-gray-600 uppercase tracking-wide text-xs md:text-sm">
+              Action
+            </th>
           </tr>
         </thead>
-        <tbody>
+
+        <tbody className="xxs:text-xs xs:text-xs md:text-sm bg-gray-50 text-gray-700 text-sm font-medium">
           <BodyRegionsTableBody bodyRegions={bodyRegions} />
         </tbody>
       </table>

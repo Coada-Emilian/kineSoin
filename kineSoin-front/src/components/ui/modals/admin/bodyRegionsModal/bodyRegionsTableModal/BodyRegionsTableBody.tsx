@@ -13,7 +13,7 @@ export default function BodyRegionsTableBody({
     return (
       <tr
         key={region.id}
-        className="odd:bg-white even:bg-gray-50 text-xs md:text-md h-fit"
+        className="odd:bg-white even:bg-gray-100 text-xs md:text-md h-fit"
       >
         <TableCell> {region.id}</TableCell>
         <TableCell> {region.name}</TableCell>

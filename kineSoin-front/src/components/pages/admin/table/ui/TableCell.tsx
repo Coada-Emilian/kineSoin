@@ -8,7 +8,9 @@ export default function TableCell({
   className = '',
 }: TableCellProps) {
   return (
-    <td className={`border border-gray-200 px-4 py-3 text-center ${className}`}>
+    <td
+      className={`border border-gray-200 px-2 md:px-4 py-1 md:py-3 text-center ${className}`}
+    >
       {children}
     </td>
   );

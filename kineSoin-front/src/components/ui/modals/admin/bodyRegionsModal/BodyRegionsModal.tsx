@@ -1,6 +1,6 @@
 import type { BodyRegionsModalProps } from '../../../../../@types/props/modalProps';
+import CustomButton from '../../../buttons/CustomButton';
 import BaseModal from '../../BaseModal';
-import ButtonSection from '../ButtonSection';
 import BodyRegionsTableModal from './bodyRegionsTableModal/BodyRegionsTableModal';
 
 export default function BodyRegionsModal({
@@ -21,10 +21,31 @@ export default function BodyRegionsModal({
 
         <BodyRegionsTableModal />
 
-        <ButtonSection
-          setIsRegionModalOpen={onClose}
-          setIsAddRegionModalOpen={setIsAddRegionModalOpen}
-        />
+        <div className="flex gap-2 mt-6 w-fit mx-auto">
+          <CustomButton
+            btn={{
+              type: 'basic',
+              text: 'Créer',
+              style: 'normal',
+              onClick: () => {
+                onClose();
+                setIsAddRegionModalOpen(true);
+              },
+            }}
+          />
+          <CustomButton
+            btn={{
+              type: 'cancel',
+              text: 'Annuler',
+              style: 'normal',
+              onClick: () => {
+                if (onClose) {
+                  onClose();
+                }
+              },
+            }}
+          />
+        </div>
       </div>
     </BaseModal>
   );

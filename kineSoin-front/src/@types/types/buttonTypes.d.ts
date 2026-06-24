@@ -9,7 +9,8 @@ export type IButtonType =
   | 'add'
   | 'pending'
   | 'banned'
-  | 'send';
+  | 'send'
+  | 'active';
 
 export type IButtonIcon =
   | 'notification'
@@ -17,3 +18,5 @@ export type IButtonIcon =
   | 'admin'
   | 'patient'
   | 'therapist';
+
+export type ModalButtonSectionMode = 'create' | 'next' | 'switchModal';

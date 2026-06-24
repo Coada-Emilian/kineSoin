@@ -6,7 +6,7 @@ export default function TableHead({
   fourthHeaderContent,
 }: AdminTableHeadProps) {
   const headerClass =
-    'px-5 py-3 text-center font-semibold text-gray-600 uppercase tracking-wide text-xs md:text-sm';
+    'px-5 py-3 text-center font-semibold text-gray-600 uppercase tracking-wide text-xxs md:text-sm';
 
   return (
     <thead className="bg-gray-50 border-b border-gray-200">

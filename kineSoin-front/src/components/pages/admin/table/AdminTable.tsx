@@ -7,6 +7,7 @@ import { renderAdminEntities } from '../../../../utils/functions/admin/adminTabl
 import { useAdminContext } from '../../../../utils/functions/contextUtils/useAdminContext';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import AddAfflictionModal from '../../../ui/modals/admin/AddAfflictionModal';
+import AddBodyRegionModal from '../../../ui/modals/admin/AddBodyRegionModal';
 import AddInsuranceModal from '../../../ui/modals/admin/AddInsuranceModal';
 import AddMedicModal from '../../../ui/modals/admin/AddMedicModal';
 import FirstAddTherapistModal from '../../../ui/modals/admin/addTherapist/FirstAddTherapistModal';
@@ -17,7 +18,6 @@ import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import TableBody from './body/TableBody';
 import TableHead from './head/TableHead';
 import TableTitle from './title/TableTitle';
-import AddBodyRegionModal from '../../../ui/modals/admin/AddBodyRegionModal';
 
 export default function AdminTable({ entities, entityType }: AdminTableProps) {
   // Get required context values
@@ -67,7 +67,7 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
                   btn={{
                     type: 'add',
                     text: 'Voir les regions',
-                    style: 'nav',
+                    style: 'status',
                     onClick: () => {
                       setOpenModal('region');
                     },
@@ -81,7 +81,7 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
                     btn={{
                       type: 'add',
                       text: activeEntity.customBtnText,
-                      style: 'nav',
+                      style: 'status',
                       onClick: () => {
                         setOpenModal(activeEntity.modalName);
                       },
@@ -114,13 +114,6 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
             />
           </table>
         </div>
-
-        <ConfirmDeleteModal
-          isOpen={openModal === 'delete'}
-          onClose={closeModal}
-          entity={selectedEntity ? (selectedEntity as IAdminEntity) : undefined}
-          entityType={entityType}
-        />
 
         <AdminAddTherapistContextProvider>
           <FirstAddTherapistModal
@@ -162,6 +155,14 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
         <AddBodyRegionModal
           isOpen={openModal === 'addRegion'}
           onClose={closeModal}
+          setIsRegionModalOpen={() => setOpenModal('region')}
+        />
+
+        <ConfirmDeleteModal
+          isOpen={openModal === 'delete'}
+          onClose={closeModal}
+          entity={selectedEntity ? (selectedEntity as IAdminEntity) : undefined}
+          entityType={entityType}
         />
       </div>
     </>

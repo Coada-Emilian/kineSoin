@@ -16,7 +16,7 @@ export default function TableBody({
   );
 
   return (
-    <tbody className="xxs:text-xs xs:text-xs md:text-sm bg-gray-50 text-gray-700 text-sm font-medium">
+    <tbody className=" text-xxs md:text-sm bg-gray-50 text-gray-700 font-medium">
       {currentEntity && currentEntity.component}
     </tbody>
   );

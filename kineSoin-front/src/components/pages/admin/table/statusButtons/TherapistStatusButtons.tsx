@@ -5,7 +5,7 @@ export default function TherapistsStatusButtons({
   setStatus,
 }: AdminTableStatusButtonsProps) {
   return (
-    <div className="flex gap-2 ">
+    <div className="flex gap-2">
       <CustomButton
         btn={{
           type: 'basic',

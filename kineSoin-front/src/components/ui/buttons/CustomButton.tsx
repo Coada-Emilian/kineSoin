@@ -38,7 +38,7 @@ export default function CustomButton({ btn, type }: CustomButtonProps) {
       normal: `${sizeStyles.normal} ${textSizes.md}`,
       nav: `${sizeStyles.normal} ${widthStyles} ${textSizes.sm}`,
       status: `${sizeStyles.compact} ${widthStyles} ${textSizes.sm}`,
-      mobile: `${sizeStyles.normal} ${widthStyles} ${textSizes.sm}`,
+      mobile: `${sizeStyles.normal} ${widthStyles} ${textSizes.xs}`,
       hasIcon: `${sizeStyles.wide} w-36 lg:w-40 xl:w-44 ${textSizes.sm}`,
     }[btn.style]
   );

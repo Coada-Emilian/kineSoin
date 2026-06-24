@@ -40,4 +40,6 @@ export interface BodyRegionsModalProps extends BasicModalProps {
   setIsAddRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
+export interface AddBodyRegionModalProps extends BasicModalProps {
+  setIsRegionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
