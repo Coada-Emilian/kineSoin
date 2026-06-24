@@ -73,10 +73,6 @@ export default function PatientRegistrationFormSection() {
     }
   }, [formOrder]);
 
-  useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
-
   if (patientRegisterMutation.isPending || registerPatient.isPending) {
     return DNALoader();
   }
@@ -95,9 +91,11 @@ export default function PatientRegistrationFormSection() {
             Inscription Patient
           </h2>
 
-          <p className="text-center text-sm text-gray-500">
-            Créez votre espace patient
-          </p>
+          {formOrder !== 'last' && (
+            <p className="text-center text-sm text-gray-500">
+              Créez votre espace patient
+            </p>
+          )}
 
           {(errorMessage || registerPatient.error) && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-3">

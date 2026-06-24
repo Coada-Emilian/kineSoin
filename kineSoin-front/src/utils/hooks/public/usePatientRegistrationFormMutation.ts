@@ -6,7 +6,7 @@ import { validateThirdPatientRegistrationForm } from './validators/validateThird
 
 export const usePatientRegistrationFormMutation = (
   formOrder: FormOrderTypes,
-  patientImage: Blob | null
+  patientImage: File | null
 ) => {
   return useMutation({
     mutationKey: ['patientRegister', formOrder],
@@ -41,19 +41,16 @@ export const usePatientRegistrationFormMutation = (
       }
       if (formOrder === 'third') {
         validateThirdPatientRegistrationForm(formData, patientImage);
-        
+
         const sentData = {
           email: formData.get('email') as string,
           password: formData.get('password') as string,
           repeated_password: formData.get('confirm-password') as string,
-          photo: patientImage,
+          picture: patientImage as File,
         };
         return sentData;
       }
       return;
     },
-    // onError: (error: Error) => {
-    //   throw new Error(error.message);
-    // },
   });
 };

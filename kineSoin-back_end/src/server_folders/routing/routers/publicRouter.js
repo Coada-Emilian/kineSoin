@@ -44,7 +44,7 @@ export const publicRouter = Router();
 // Route to register a new patient
 publicRouter.post(
   '/registerPatient',
-  uploadPatientPhoto.single('photo'),
+  uploadPatientPhoto.single('picture'),
   wrapper(registrationController.registerPatient)
 );
 
