@@ -1,4 +1,4 @@
-import type { AdminEntityStatusProps } from '../../../../../@types/props/componentProps';
+import type { AdminEntityStatusProps } from '../../../../../@types/props/adminProps';
 import { getEntityStatusClassName } from '../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusClassName';
 import { getEntityStatusText } from '../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusText';
 

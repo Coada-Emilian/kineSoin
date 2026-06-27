@@ -47,22 +47,4 @@ export interface ModalButtonSectionProps {
   mode: ModalButtonSectionMode;
 }
 
-export interface AdminEntityStatusProps {
-  status: string | undefined;
-}
 
-export interface AdminEntityProfileOutputProps {
-  label: string;
-  value: string | number | undefined;
-  isTextArea?: boolean;
-  isOneThirdWidth?: boolean;
-}
-
-export interface AdminEntityIdProps {
-  id: number | null;
-}
-
-export interface AdminEntityNameProps {
-  name: string | undefined;
-  surname: string | undefined;
-}

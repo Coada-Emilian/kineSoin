@@ -11,9 +11,8 @@ export interface AdminPageProps {
   entityType: IAdminEntityTypes;
 }
 
-export interface AdminTableProps {
+export interface AdminTableProps extends AdminPageProps {
   entities: IAdminEntities;
-  entityType: IAdminEntityTypes;
 }
 
 export interface AdminTableTitleProps {
@@ -34,7 +33,7 @@ export interface AdminTableBodyProps {
     | IAffliction[]
     | IMedic[]
     | IInsurance[];
-  entityType?: string;
+  entityType?: IAdminEntityTypes;
 }
 
 export interface AdminTableStatusButtonsProps {
@@ -72,3 +71,24 @@ export interface AdminEntityProfileProps extends BaseAdminEntityProfileProps {
 export interface AdminEntityProfileImageProps extends BaseAdminEntityProfileProps {
   picture_url: string | undefined;
 }
+
+export interface AdminEntityProfileOutputProps {
+  label: string;
+  value: string | number | undefined;
+  isTextArea?: boolean;
+  isOneThirdWidth?: boolean;
+}
+
+export interface AdminEntityStatusProps {
+  status: string | undefined;
+}
+
+export interface AdminEntityIdProps {
+  id: number | null;
+}
+
+export interface AdminEntityNameProps {
+  name: string | undefined;
+  surname: string | undefined;
+}
+

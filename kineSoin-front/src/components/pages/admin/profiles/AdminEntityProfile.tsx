@@ -3,6 +3,7 @@ import type { AdminEntityProfileProps } from '../../../../@types/props/adminProp
 import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
 import AdminEntityProfileImage from './AdminEntityProfileImage';
 import EntityProfileTitle from './AdminEntityProfileTitle';
+import AdminEntityProfileIdentitySection from './entityProfileIdentitySection/AdminEntityProfileIdentitySection';
 import mainLogo from '/logos/Main-Logo.png';
 
 export default function AdminEntityProfile({
@@ -127,7 +128,7 @@ export default function AdminEntityProfile({
           <div className="w-full p-4 md:py-10 md:px-24">
             {entity && (
               <>
-                <CommonSectionRefactor entityType={entityType} />
+                <AdminEntityProfileIdentitySection entityType={entityType} />
 
                 <ProfileSectionRefactor
                   entity={entity}
