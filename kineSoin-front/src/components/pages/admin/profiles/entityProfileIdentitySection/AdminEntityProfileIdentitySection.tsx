@@ -1,9 +1,9 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
 import { useAdminEntityProfileContext } from '../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
 import TextInput from '../../../../ui/inputs/TextInput';
-import AdminEntityId from './outputs/AdminEntityIdOutput';
-import AdminEntityName from './outputs/AdminEntityNameOutput';
-import AdminEntityStatus from './outputs/AdminEntityStatusOutput';
+import AdminEntityIdOutput from './outputs/AdminEntityIdOutput';
+import AdminEntityNameOutput from './outputs/AdminEntityNameOutput';
+import AdminEntityStatusOutput from './outputs/AdminEntityStatusOutput';
 
 export default function AdminEntityProfileIdentitySection({
   entityType,
@@ -30,12 +30,12 @@ export default function AdminEntityProfileIdentitySection({
 
   return (
     <section className="md:text-2xl">
-      <AdminEntityStatus status={editedEntity.status} />
+      <AdminEntityStatusOutput status={editedEntity.status} />
 
-      <AdminEntityId id={editedEntity.id} />
+      <AdminEntityIdOutput id={editedEntity.id} />
 
       {!isProfileEditing ? (
-        <AdminEntityName
+        <AdminEntityNameOutput
           name={editedEntity.name}
           surname={editedEntity.surname}
         />

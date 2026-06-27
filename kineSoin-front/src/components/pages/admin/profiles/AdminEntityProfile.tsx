@@ -1,20 +1,34 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { AdminEntityProfileProps } from '../../../../@types/props/adminProps';
 import { mapEntityToEditedEntity } from '../../../../utils/functions/admin/adminEntityProfile/mapEntityToEditedEntity';
 import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
+import CustomButton from '../../../ui/buttons/CustomButton';
 import AdminEntityProfileImage from './AdminEntityProfileImage';
 import EntityProfileTitle from './AdminEntityProfileTitle';
 import AdminEntityProfileContactSection from './entityProfileContactSection/AdminEntityProfileContactSection';
 import AdminEntityProfileIdentitySection from './entityProfileIdentitySection/AdminEntityProfileIdentitySection';
+import AdminEntityStatusButtons from './statusMenu/AdminEntityStatusButtons';
+import { AdminEntityStatusMenu } from './statusMenu/AdminEntityStatusMenu';
+import messageIcon from '/icons/message3.png';
+import phoneIcon from '/icons/phone-call.png';
 import mainLogo from '/logos/new-logo.webp';
 
 export default function AdminEntityProfile({
   entity,
   entityType,
 }: AdminEntityProfileProps) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const { editedEntity, setEditedEntity } = useAdminEntityProfileContext();
+  const {
+    editedEntity,
+    setEditedEntity,
+    isProfileEditing,
+    setIsProfileEditing,
+    setIsDeleteModalOpen,
+    setSelectedFile,
+    setPreviewUrl,
+  } = useAdminEntityProfileContext();
 
   useEffect(() => {
     if (entity) {
@@ -23,8 +37,12 @@ export default function AdminEntityProfile({
   }, [entity, setEditedEntity]);
 
   useEffect(() => {
-    console.log(editedEntity);
+    console.log('Edited entity is ', editedEntity);
   }, [editedEntity]);
+
+  useEffect(() => {
+    console.log('Entity is ', entity);
+  }, [entity]);
 
   //   const mutationEntry = entityUpdateMutations().find(
   //     (entry) => entry.entityType === entityType && entry.updateFunction
@@ -58,34 +76,31 @@ export default function AdminEntityProfile({
   //     setEntityStatus,
   //   } = useAdminProfileDetailsGlobalContext();
 
-  // Set the initial entity states when the component mounts
-  //   useEffect(() => {
-  //     setEntityStates(entity);
-  //   }, [entity]);
+  const handleModifyClick = () => {
+    setIsProfileEditing(true);
+  };
 
-  //   const handleModifyClick = () => {
-  //     setIsProfileEditing(true);
-  //   };
+  const handleDeleteClick = () => {
+    setIsDeleteModalOpen(true);
+  };
 
-  //   const handleDeleteClick = () => {
-  //     setIsDeleteModalOpen(true);
-  //   };
+  const handleCancelClick = () => {
+    setIsProfileEditing(false);
+    setSelectedFile(null);
+    setPreviewUrl(
+      editedEntity && 'picture_url' in editedEntity
+        ? (editedEntity as { picture_url?: string }).picture_url || null
+        : null
+    );
+    setEditedEntity((prev) => ({
+      ...prev,
+      status: editedEntity.status,
+    }));
+  };
 
-  //   const handleCancelClick = () => {
-  //     setIsProfileEditing(false);
-  //     setSelectedFile(null);
-  //     setPreviewUrl(
-  //       entity && 'picture_url' in entity
-  //         ? (entity as { picture_url?: string }).picture_url || null
-  //         : null
-  //     );
-  //     setEntityStatus(entity && 'status' in entity ? entity.status : '');
-  //   };
-
-  // Cancel click handler to return to the list of entities
-  // const handleCancelClickToReturn = () => {
-  //   navigate(`/admin/${entityType}s`);
-  // };
+  const handleCancelClickToReturn = () => {
+    navigate(`/admin/${entityType}s`);
+  };
 
   // Handle form submission for profile updates
   //   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -152,11 +167,11 @@ export default function AdminEntityProfile({
             )}
           </div>
 
-          {/* <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
+          <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
             <div className="flex gap-2">
-              {entityEmail && (
+              {editedEntity.email && (
                 <a
-                  href={`mailto:${entityEmail}`}
+                  href={`mailto:${editedEntity.email}`}
                   className="hover:animate-pulse hover:ease-in-out hover:delay-200 hover:scale-110"
                 >
                   <img
@@ -167,8 +182,10 @@ export default function AdminEntityProfile({
                 </a>
               )}
 
-              {entityPhoneNumber && (
-                <a href={`tel:${entityPhoneNumber}`}>
+              {editedEntity.phone_number && editedEntity.prefix && (
+                <a
+                  href={`tel:${editedEntity.prefix + editedEntity.phone_number}`}
+                >
                   <img
                     src={phoneIcon}
                     alt="send mail"
@@ -179,16 +196,16 @@ export default function AdminEntityProfile({
             </div>
 
             <div>
-              <p className="text-white italic">{`/ ${entityName.toLowerCase()}${entitySurname && `.${entitySurname.toLowerCase()}`}`}</p>
+              <p className="text-white italic">{`/ ${editedEntity.name?.toLowerCase()}${editedEntity.surname?.toLowerCase()}`}</p>
             </div>
-          </div> */}
+          </div>
 
-          {/* <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl">
+          <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl">
             <div className="flex gap-1 items-center ">
               {!isProfileEditing ? (
                 <>
                   <>
-                    <CustomBtn
+                    <CustomButton
                       btn={{
                         type: 'modify',
                         text: 'Modifier',
@@ -197,7 +214,7 @@ export default function AdminEntityProfile({
                         onClick: handleModifyClick,
                       }}
                     />
-                    <CustomBtn
+                    <CustomButton
                       btn={{
                         type: 'delete',
                         text: 'Supprimer',
@@ -210,17 +227,18 @@ export default function AdminEntityProfile({
                 </>
               ) : (
                 <>
-                  {entityStatus && (
-                    <StatusMenu>
-                      <StatusButtonsRefactor
+                  {editedEntity.status && (
+                    <AdminEntityStatusMenu>
+                      <AdminEntityStatusButtons
                         entityType={entityType}
-                        id={entityId}
-                        entityStatus={entityStatus}
-                        setEntityStatus={setEntityStatus}
+                        id={editedEntity.id}
+                        entityStatus={editedEntity.status}
+                        setEntityStatus={setEditedEntity}
                       />
-                    </StatusMenu>
+                    </AdminEntityStatusMenu>
                   )}
-                  <CustomBtn
+
+                  <CustomButton
                     btn={{
                       type: 'active',
                       text: 'Enregistrer',
@@ -233,7 +251,7 @@ export default function AdminEntityProfile({
               )}
 
               <>
-                <CustomBtn
+                <CustomButton
                   btn={{
                     type: 'cancel',
                     text: 'Annuler',
@@ -246,7 +264,7 @@ export default function AdminEntityProfile({
                 />
               </>
             </div>
-          </div> */}
+          </div>
         </div>
       </form>
 

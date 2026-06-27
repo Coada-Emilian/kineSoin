@@ -1,6 +1,6 @@
-import type { AdminEntityAgeAndGenderOutputProps } from '../../../../../../@types/props/adminProps';
-import { getEntityFrenchGender } from '../../../../../../utils/functions/admin/adminEntityProfile/getEntityFrenchGender';
-import AdminEntityProfileOutput from '../../AdminEntityProfileOutput';
+import type { AdminEntityAgeAndGenderOutputProps } from '../../../../../@types/props/adminProps';
+import { getEntityFrenchGender } from '../../../../../utils/functions/admin/adminEntityProfile/getEntityFrenchGender';
+import AdminEntityProfileOutput from '../AdminEntityProfileOutput';
 
 export default function AdminEntityAgeAndGenderOutput({
   age,

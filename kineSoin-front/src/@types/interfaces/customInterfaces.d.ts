@@ -1,3 +1,5 @@
+import type { IBodyRegion } from './modelInterfaces';
+
 export interface IDeleteModalActiveEntity {
   entityType: string;
   full_name?: string | undefined;
@@ -33,7 +35,9 @@ export interface IAdminEditedEntity {
   postal_code?: string;
 
   insurance_code?: string;
-  is_operated?: boolean;
+  is_operated?: string;
 
   picture_url?: string;
+
+  body_region?: IBodyRegion;
 }

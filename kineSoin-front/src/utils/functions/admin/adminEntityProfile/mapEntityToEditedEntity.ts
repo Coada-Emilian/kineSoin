@@ -1,10 +1,10 @@
 import type { IAdminEditedEntity } from '../../../../@types/interfaces/customInterfaces';
 import type {
-  ITherapist,
-  IPatient,
   IAffliction,
-  IMedic,
   IInsurance,
+  IMedic,
+  IPatient,
+  ITherapist,
 } from '../../../../@types/interfaces/modelInterfaces';
 
 export const mapEntityToEditedEntity = (
@@ -46,5 +46,17 @@ export const mapEntityToEditedEntity = (
       'insurance_code' in entity ? (entity.insurance_code ?? '') : '',
 
     picture_url: 'picture_url' in entity ? (entity.picture_url ?? '') : '',
+
+    // "If this entity has a body_region property, put its value into my edited entity. If that value is null, store undefined instead. If the entity doesn't have the property, store undefined."
+
+    body_region:
+      'body_region' in entity ? (entity.body_region ?? undefined) : undefined,
+
+    is_operated:
+      'is_operated' in entity
+        ? entity.is_operated === true
+          ? 'Oui'
+          : 'Non'
+        : '',
   };
 };

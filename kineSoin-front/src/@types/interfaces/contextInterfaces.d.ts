@@ -153,5 +153,11 @@ export interface IAdminEntityProfileContextProps {
   editedEntity: IAdminEditedEntity;
   setEditedEntity: React.Dispatch<React.SetStateAction<IAdminEditedEntity>>;
 
+  isDeleteModalOpen: boolean;
+  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  selectedFile: File | null;
+  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
+
   // updateEditedEntityField: (field: keyof IAdminEntity, value: unknown) => void;
 }

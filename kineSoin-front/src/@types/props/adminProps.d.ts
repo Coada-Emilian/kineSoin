@@ -118,3 +118,24 @@ export interface AdminEntityCodeOutputProps {
   insurance_code?: string | undefined;
   licence_code?: string | undefined;
 }
+
+export interface AdminEntityBodyRegionAndOperatedStatusOutputProps {
+  body_region: IBodyRegion;
+  is_operated: string | undefined;
+}
+
+export interface AdminEntityStudiesOutputProps {
+  diploma?: string | undefined;
+  experience?: string | undefined;
+  specialty?: string | undefined;
+}
+
+export interface AdminEntityDescriptionOutputProps {
+  description: string | undefined;
+}
+
+export interface AdminEntityStatusButtonsProps extends BaseAdminEntityProfileProps {
+  id?: number | null | undefined;
+  entityStatus: string;
+  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+}

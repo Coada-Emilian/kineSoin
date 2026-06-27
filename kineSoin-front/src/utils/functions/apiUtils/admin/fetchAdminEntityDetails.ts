@@ -1,4 +1,4 @@
-import type { FetchAdminEntityDetailsFunctionProps } from '../../../../@types/props/customProps';
+import type { FetchAdminEntityDetailsFunctionProps } from '../../../../@types/props/functionProps';
 import { fetchAdminEntityDataFunctionDetails } from '../../../constants/admin/fetchAdminEntityDataFunctionDetails';
 
 export const fetchAdminEntityDetails = async <T>({

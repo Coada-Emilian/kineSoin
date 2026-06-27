@@ -2,8 +2,11 @@ import { hasValues } from '../../../../../../utils/functions/admin/adminEntityPr
 import { useAdminEntityProfileContext } from '../../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
 import AdminEntityAddressOutput from './AdminEntityAddressOutput';
 import AdminEntityAgeAndGenderOutput from './AdminEntityAgeAndGenderOutput';
+import AdminEntityBodyRegionAndOperatedStatusOutput from './AdminEntityBodyRegionAndOperatedStatusOutput';
 import AdminEntityCodeOutput from './AdminEntityCodeOutput';
+import AdminEntityDescriptionOutput from './AdminEntityDescriptionOutput';
 import AdminEntityEmailOutput from './AdminEntityEmailOutput';
+import AdminEntityStudiesOutput from './AdminEntityStudiesOutput';
 import AdminEntityTelephoneNumberOutput from './AdminEntityTelephoneNumberOutput';
 
 export default function AdminEntityProfileContactSectionOutputs() {
@@ -56,26 +59,28 @@ export default function AdminEntityProfileContactSectionOutputs() {
         <AdminEntityCodeOutput insurance_code={editedEntity.insurance_code} />
       )}
 
-      {/* {entityOperatedStatus && entityBodyRegion && (
-        <BodyRegionAndOperatedStatusOutputRefactor
-          body_region={entityBodyRegion}
-          is_operated={entityOperatedStatus}
+      {hasValues(editedEntity.is_operated, editedEntity.body_region) && (
+        <AdminEntityBodyRegionAndOperatedStatusOutput
+          body_region={editedEntity.body_region}
+          is_operated={editedEntity.is_operated}
         />
-      )} */}
+      )}
 
-      {/* {entityDiploma && <DiplomaOutputRefactor diploma={entityDiploma} />} */}
+      {hasValues(editedEntity.diploma) && (
+        <AdminEntityStudiesOutput diploma={editedEntity.diploma} />
+      )}
 
-      {/* {entitySpecialty && (
-        <SpecialtyOutputRefactor specialty={entitySpecialty} />
-      )} */}
+      {hasValues(editedEntity.specialty) && (
+        <AdminEntityStudiesOutput specialty={editedEntity.specialty} />
+      )}
 
-      {/* {entityExperience && (
-        <ExperienceOutputRefactor experience={entityExperience} />
-      )} */}
+      {hasValues(editedEntity.experience) && (
+        <AdminEntityStudiesOutput experience={editedEntity.experience} />
+      )}
 
-      {/* {entityDescription && (
-        <DescriptionOutputRefactor description={entityDescription} />
-      )} */}
+      {hasValues(editedEntity.description) && (
+        <AdminEntityDescriptionOutput description={editedEntity.description} />
+      )}
     </>
   );
 }
