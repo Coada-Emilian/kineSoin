@@ -61,3 +61,8 @@ export interface AdminEntityProfileOutputProps {
 export interface AdminEntityIdProps {
   id: number | null;
 }
+
+export interface AdminEntityNameProps {
+  name: string | undefined;
+  surname: string | undefined;
+}

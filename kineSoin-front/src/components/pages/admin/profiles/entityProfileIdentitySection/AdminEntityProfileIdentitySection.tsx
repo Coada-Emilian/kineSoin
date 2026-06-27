@@ -1,6 +1,8 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
 import { useAdminEntityProfileContext } from '../../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
+import TextInput from '../../../../ui/inputs/TextInput';
 import AdminEntityId from './AdminEntityId';
+import AdminEntityName from './AdminEntityName';
 import AdminEntityStatus from './AdminEntityStatus';
 
 export default function AdminEntityProfileIdentitySection({
@@ -36,12 +38,12 @@ export default function AdminEntityProfileIdentitySection({
       <AdminEntityId id={entityId} />
 
       {!isProfileEditing || isPatientProfile ? (
-        <NameOutputRefactor name={entityName} surname={entitySurname} />
+        <AdminEntityName name={entityName} surname={entitySurname} />
       ) : (
         <>
           <div className="w-full flex gap-4 mb-2 ">
-            <StandardTextInputRefactor
-              textInput={{
+            <TextInput
+              input={{
                 id: `admin-${entityType}-edit-name_input`,
                 labelName: 'Nom',
                 name: 'name',
@@ -55,8 +57,8 @@ export default function AdminEntityProfileIdentitySection({
             />
 
             {entitySurname && (
-              <StandardTextInputRefactor
-                textInput={{
+              <TextInput
+                input={{
                   id: `admin-${entityType}-edit-surname_input`,
                   labelName: 'Prénom',
                   name: 'surname',
