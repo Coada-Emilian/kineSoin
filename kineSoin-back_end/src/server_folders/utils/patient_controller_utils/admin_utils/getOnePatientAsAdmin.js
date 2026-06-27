@@ -147,6 +147,7 @@ export default async function getOnePatientAsAdmin(req, res) {
         : null,
       status: foundPatient.status,
       picture_url: foundPatient.picture_url,
+      email: foundPatient.email,
     };
 
     return res.status(200).json(sentPatient);

@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
+import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
+import AdminPage from './pages/admin/AdminPage';
 import ErrorPage from './pages/ErrorPage';
+import { adminRouteDetails } from './utils/constants/admin/adminRouteDetails';
 import { publicRouteDetails } from './utils/constants/publicSection/publicRouteDetails';
-import { useAppContext } from './utils/contexts/AppContext/useAppContext';
-import { useAuthentificationContext } from './utils/contexts/AuthentificationContext/useAuthentificationContext';
+import { useAppContext } from './utils/functions/contextUtils/useAppContext';
+import { useAuthentificationContext } from './utils/functions/contextUtils/useAuthentificationContext';
 
 function App() {
   const location = useLocation();
@@ -17,7 +20,7 @@ function App() {
 
   useEffect(() => {
     setError(null);
-  }, [location.pathname]);
+  }, [location.pathname, setError]);
 
   return (
     <>
@@ -36,29 +39,27 @@ function App() {
         </Route>
 
         <Route path="/loginAdmin" element={<AdminLoginPage />} />
-        {/* {isAdminAuthenticated && adminProfileToken ? (
+
+        {isAdminAuthenticated && adminProfileToken ? (
           <Route path="/admin" element={<AdminLayout />}>
             {adminRouteDetails.map((route) => (
               <Route
                 path={route.path}
                 key={route.path}
-                element={<AdminMain entityType={route.entityType} />}
+                element={<AdminPage entityType={route.entityType} />}
               />
             ))}
 
-            <Route
-              path="*"
-              element={<ErrorPageRefactor type="connectedAdmin" />}
-            />
+            <Route path="*" element={<ErrorPage type="adminAuthenticated" />} />
           </Route>
         ) : (
           <Route path="/admin" element={<AdminLayout />}>
             <Route
               path="*"
-              element={<ErrorPageRefactor type="unconnectedAdmin" />}
+              element={<ErrorPage type="adminUnauthenticated" />}
             />
           </Route>
-        )} */}
+        )}
       </Routes>
     </>
   );

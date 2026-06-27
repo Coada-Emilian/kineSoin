@@ -1,11 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import type { IFormOrders } from '../../../@types/interfaces/customTypes';
+import type { FormOrderTypes } from '../../../@types/types/formTypes';
 import { validateFirstPatientRegistrationForm } from './validators/validateFirstPatientRegistrationForm';
 import { validateSecondPatientRegistrationForm } from './validators/validateSecondPatientRegistrationForm';
+import { validateThirdPatientRegistrationForm } from './validators/validateThirdPatientRegistrationForm';
 
 export const usePatientRegistrationFormMutation = (
-  formOrder: IFormOrders,
-  patientImage: Blob | null
+  formOrder: FormOrderTypes,
+  patientImage: File | null
 ) => {
   return useMutation({
     mutationKey: ['patientRegister', formOrder],
@@ -39,18 +40,17 @@ export const usePatientRegistrationFormMutation = (
         return sentData;
       }
       if (formOrder === 'third') {
+        validateThirdPatientRegistrationForm(formData, patientImage);
+
         const sentData = {
           email: formData.get('email') as string,
           password: formData.get('password') as string,
           repeated_password: formData.get('confirm-password') as string,
-          photo: patientImage,
+          picture: patientImage as File,
         };
         return sentData;
       }
       return;
-    },
-    onError: (error: Error) => {
-      throw new Error(error.message);
     },
   });
 };

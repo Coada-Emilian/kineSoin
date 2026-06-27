@@ -1,172 +1,43 @@
-import { ButtonInterfaceStyles } from './customTypes';
+import type { IBodyRegion } from './modelInterfaces';
 
-export interface ICountryPrefix {
-  flag_url?: string;
-  prefix: string;
-  name: string;
+export interface IDeleteModalActiveEntity {
+  entityType: string;
+  full_name?: string | undefined;
+  name?: string | undefined;
+  id: number;
 }
 
-// Type for the country data coming from https://restcountries.com/v3.1/all?fields=name,idd when fetching prefixes data
-export interface RestCountry {
-  name: {
-    common: string;
-  };
-  idd?: {
-    root?: string;
-    suffixes?: string[];
-  };
-}
+export interface IAdminEditedEntity {
+  id?: number | null;
 
-// Interface for custom button details
-export interface IButtonDetails {
-  type: ButtonInterfaceTypes;
-  text: string | JSX.Element;
-  style: ButtonInterfaceStyles;
-  icon?: ButtonInterfaceIcons;
-  hasBorder?: boolean;
-  onClick?: () => void;
-  to?: string;
-}
-
-export interface IHomePageArticle {
-  icon: string;
-  alt: string;
-  title: string;
-  description: string;
-}
-
-export interface IEmailInput {
-  id: string;
-  name: string;
-  labelName: string;
-  placeholder?: string;
-  additionalDivClassName?: string;
-  additionalLabelClassName?: string;
-  value?: string;
-  isFlexRow?: boolean;
-  autoComplete?: string;
-  isRequired?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-export interface IPasswordInput {
-  id: string;
-  name: string;
-  labelName: string;
-  placeholder: string;
-  additionalDivClassName?: string;
-  additionalLabelClassName?: string;
-  oldPassword?: string;
-  value?: boolean;
-  autoComplete?: string;
-  hasInfoIcon?: boolean;
-  isFlexRow?: boolean;
-}
-
-export interface IPublicArticle {
-  isReversed?: boolean;
-  image: string;
-  title: string;
-  paragraph: string;
-  alt: string;
-}
-
-export interface IPatientRegistrationData {
   name?: string;
-  birth_name?: string;
   surname?: string;
+  age?: string;
   gender?: string;
-  birth_date?: string;
-  street_number?: string;
-  street_name?: string;
-  postal_code?: string;
-  city?: string;
+
+  email?: string;
+  status?: string;
+
   prefix?: string;
   phone_number?: string;
-  email?: string;
-  password?: string;
-  picture?: File;
-}
 
-export interface ITextInput {
-  id: string;
-  labelName: string;
-  name: string;
-  placeholder?: string;
-  additionalDivClassName?: string;
-  additionalLabelClassName?: string;
-  value?: string;
-  isFlexRow?: boolean;
-  autoComplete?: string;
-  isTextArea?: boolean;
-  isRequired?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+  licence_code?: string;
+  diploma?: string;
+  amc_code?: string;
 
-export interface IDateInput {
-  id: string;
-  labelName: string;
-  isFlexRow?: boolean;
-  additionalDivClassName?: string;
-  additionalLabelClassName?: string;
-  labelName?: string;
-  name: string;
-  value?: string;
-  isRequired?: boolean;
-  autoComplete?: string;
-}
+  specialty?: string;
+  experience?: string;
+  description?: string;
 
-export interface IDropdownInput {
-  id: string;
-  labelName: string;
-  name: string;
-  isFlexRow?: boolean;
-  additionalDivClassName?: string;
-  additionalLabelClassName?: string;
-  value?: string;
-  isRequired?: boolean;
-  isLabelNormal?: boolean;
-  autoComplete?: string;
-  allOptions: {
-    startingOption?: {
-      value: string;
-      text: string;
-    };
-    options: {
-      key?: string;
-      value: string;
-      text: string;
-    }[];
-  };
-}
+  street_number?: string;
+  street_name?: string;
+  city?: string;
+  postal_code?: string;
 
-export interface ITelephoneInput {
-  id: string;
-  additionalDivClassName?: string;
-  additionalLabelClassName?: string;
-  value?: string;
-  isFlexRow?: boolean;
-  isRequired?: boolean;
-  placeholder?: string;
-  autoComplete?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+  insurance_code?: string;
+  is_operated?: string;
 
-export interface IFileInput {
-  id: string;
-  labelName: string;
-  name: string;
-  isFlexRow?: boolean;
-  additionalDivClassName?: string;
-  additionalLabelClassName?: string;
-  value?: string;
-  isRequired?: boolean;
-  autoComplete?: string;
-}
+  picture_url?: string;
 
-export interface IErrorPage {
-  link: string;
-  linkText: string;
-  status: number;
-  errorText: string;
+  body_region?: IBodyRegion;
 }

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-
-import type { IErrorPageTypes } from '../@types/types/customTypes';
+import type { ErrorPageProps } from '../@types/props/componentProps';
 import {
   getErrorPageErrorText,
   getErrorPageLinkDestination,
@@ -8,8 +7,8 @@ import {
   getErrorPageStatusCode,
 } from '../utils/constants/errorPageDetails';
 
-export default function ErrorPage({ type }: IErrorPageTypes) {
-  const errorPageProps: IErrorPageTypes = { type };
+export default function ErrorPage({ type }: ErrorPageProps) {
+  const errorPageProps: ErrorPageProps = { type };
 
   const statusCode = getErrorPageStatusCode(errorPageProps);
   const errorText = getErrorPageErrorText(errorPageProps);
@@ -17,7 +16,7 @@ export default function ErrorPage({ type }: IErrorPageTypes) {
   const linkText = getErrorPageLinkText(errorPageProps);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 w-full">
       <div className="w-full max-w-lg bg-white rounded-3xl shadow-lg p-8 md:p-10 text-center">
         <h1 className="text-6xl md:text-7xl font-bold text-primaryRed mb-4">
           {statusCode}

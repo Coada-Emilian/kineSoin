@@ -1,4 +1,4 @@
-import type { IErrorPage } from '../../@types/interfaces/customInterfaces';
+import type { IErrorPageDetails } from '../../@types/interfaces/componentInterfaces';
 import type { IErrorPageTypes } from '../../@types/types/customTypes';
 
 const accessDeniedText =
@@ -11,7 +11,7 @@ const dashboardText = 'Retour au Tableau de Bord';
 
 const connectionText = 'Retour à la Page de Connexion';
 
-const errorPageConfig: Record<IErrorPageTypes['type'], IErrorPage> = {
+const errorPageConfig: Record<IErrorPageTypes['type'], IErrorPageDetails> = {
   adminAuthenticated: {
     link: '/admin/therapists',
     linkText: dashboardText,

@@ -11,6 +11,7 @@ export const fetchAdminTableDetails = async <T>({
 
     if (fetchFunction) {
       const data = await fetchFunction();
+
       return data;
     } else {
       console.error('No fetch function found for entity type:', entityType);

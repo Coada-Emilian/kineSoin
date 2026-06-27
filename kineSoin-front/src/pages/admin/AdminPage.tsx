@@ -1,65 +1,57 @@
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import type {
-  IEntities,
-  IEntity,
-} from '../../@types/interfaces/contextInterfaces';
-import type { AdminPageProps } from '../../@types/props/customProps';
-import AdminSideNavbar from '../../components/admin/AdminSideNavbar';
+import type { AdminPageProps } from '../../@types/props/adminProps';
+import AdminSideNavbar from '../../components/pages/admin/AdminSideNavbar';
+import AdminEntityProfile from '../../components/pages/admin/profiles/AdminEntityProfile';
+import AdminTable from '../../components/pages/admin/table/AdminTable';
 import DNALoader from '../../components/ui/DNALoader';
-import { fetchAdminEntityDetails } from '../../utils/functions/apiUtils/admin/fetchAdminEntityDetails';
-import { fetchAdminTableDetails } from '../../utils/functions/apiUtils/admin/fetchAdminTableDetails';
+import { AdminContextProvider } from '../../contexts/admin/AdminContext';
+import { AdminEntityProfileContextProvider } from '../../contexts/admin/AdminEntityProfileContext';
+import { useFetchAdminEntityDetails } from '../../utils/hooks/admin/fetch/useFetchAdminEntityDetails';
+import { useFetchAdminTableDetails } from '../../utils/hooks/admin/fetch/useFetchAdminTableDetails';
 
-export default function AdminMain({ entityType }: AdminPageProps) {
+export default function AdminPage({ entityType }: AdminPageProps) {
   // Get the id from the URL
   const { id } = useParams();
 
   // Parse the id to an integer
   const entity_id = id ? parseInt(id, 10) : null;
 
-  const { isPending: isEntityLoading, data: entity } = useQuery({
-    queryKey: ['fetchDetailsDataRefactor', { entityType, entity_id }],
-    queryFn: () =>
-      fetchAdminEntityDetails<IEntity | null>({
-        entityType,
-        entity_id,
-      }),
-    enabled: !!entity_id,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-  });
+  const { data: entity, isFetching: isEntityLoading } =
+    useFetchAdminEntityDetails({
+      entityType,
+      entity_id,
+    });
 
-  const { isPending: isEntitiesLoading, data: entities } = useQuery({
-    queryKey: ['fetchTableDataRefactor', { entityType }],
-    queryFn: () => fetchAdminTableDetails<IEntities>({ entityType }),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-  });
+  const { data: entities, isFetching: isEntitiesLoading } =
+    useFetchAdminTableDetails({
+      entityType,
+    });
 
   if (isEntitiesLoading || isEntityLoading) {
-    return DNALoader();
+    return (
+      <div className="flex items-center justify-center w-full min-h-[70vh]">
+        <DNALoader />
+      </div>
+    );
   }
 
   return (
-    <main className="w-full h-fit flex p-4 pb-2 bg-linear-to-r from-white to-gray-200">
+    <AdminContextProvider>
       <div className="hidden h-screen w-1/4 md:block">
         <AdminSideNavbar />
       </div>
 
-      {/* <div className="w-full md:border-l-2 md:border-solid">
+      <div className="w-full md:border-l md:border-gray-300">
         {entities && !id && (
-          <AdminTableRefactor entities={entities} entityType={entityType} />
+          <AdminTable entities={entities} entityType={entityType} />
         )}
 
         {id && entity && (
-     
-            <AdminProfileDetailsRefactor
-              entityType={entityType}
-              entity={entity}
-            />
-       
+          <AdminEntityProfileContextProvider>
+            <AdminEntityProfile entityType={entityType} entity={entity} />
+          </AdminEntityProfileContextProvider>
         )}
-      </div> */}
-    </main>
+      </div>
+    </AdminContextProvider>
   );
 }

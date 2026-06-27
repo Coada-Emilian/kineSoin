@@ -22,7 +22,7 @@ import { getProfileStatusClassName } from '../../../../utils/functions/adminSect
 import { getProfileStatusText } from '../../../../utils/functions/adminSection/adminProfileDetails/getProfileStatusText';
 
 interface StatusOutputRefactorProps {
-  status: string | undefined;
+
 }
 export default function StatusOutputRefactor({
   status,

@@ -5,10 +5,14 @@ import AdminNavBar from '../components/layouts/navbars/AdminNavbar';
 
 export function AdminLayout() {
   return (
-    <div className="flex flex-col min-h-screen justify-between">
+    <div className="flex flex-col min-h-screen w-full">
       <AdminNavBar />
 
-      <Outlet />
+      <main className="flex-1 flex items-center justify-center w-full bg-gray-100">
+        <div className="flex w-full h-full p-4">
+          <Outlet />
+        </div>
+      </main>
 
       <AdminFooter />
 
