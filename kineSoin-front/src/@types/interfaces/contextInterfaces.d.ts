@@ -55,15 +55,22 @@ export interface IAdminAddTherapistContext {
   setAddForm: (form: IAddTherapistFormData) => void;
 }
 
-interface IEntityProfileContextProps {
+export interface IAdminEntityProfileContextProps {
   isProfileEditing: boolean;
   setIsProfileEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  isDeleteModalOpen: boolean;
-  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
   isEditPhotoModalOpen: boolean;
   setIsEditPhotoModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedFile: File | null;
-  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
+
+  previewUrl: string | null;
+  setPreviewUrl: React.Dispatch<React.SetStateAction<string | null>>;
+
+  entityPictureUrl: string;
+  setEntityPictureUrl: React.Dispatch<React.SetStateAction<string>>;
+  // isDeleteModalOpen: boolean;
+  // setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  // selectedFile: File | null;
+  // setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
   // updateEntityForm: FormData | null;
   // setUpdateEntityForm: React.Dispatch<React.SetStateAction<FormData | null>>;
   // entityStatus: string;
@@ -100,8 +107,7 @@ interface IEntityProfileContextProps {
   // setEntityPostalCode: React.Dispatch<React.SetStateAction<string>>;
   // entityId: number | null;
   // setEntityId: React.Dispatch<React.SetStateAction<number | null>>;
-  // entityPictureUrl: string;
-  // setEntityPictureUrl: React.Dispatch<React.SetStateAction<string>>;
+
   // entityAge: string;
   // setEntityAge: React.Dispatch<React.SetStateAction<string>>;
   // entityGender: string;
@@ -115,8 +121,6 @@ interface IEntityProfileContextProps {
   // setEntityStates: (
   //   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null
   // ) => void;
-  inputChangeHandlers: IEntityFieldSetter[];
-  bodyRegions: IBodyRegion[];
-  previewUrl: string | null;
-  setPreviewUrl: React.Dispatch<React.SetStateAction<string | null>>;
+  // inputChangeHandlers: IEntityFieldSetter[];
+  // bodyRegions: IBodyRegion[];
 }

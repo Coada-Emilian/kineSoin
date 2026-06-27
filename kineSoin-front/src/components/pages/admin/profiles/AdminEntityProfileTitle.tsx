@@ -1,9 +1,9 @@
-import type { BaseEntityProfileProps } from '../../../../@types/props/adminProps';
+import type { BaseAdminEntityProfileProps } from '../../../../@types/props/adminProps';
 import { adminEntityProfileTitleDetails } from '../../../../utils/constants/admin/adminEntityProfileTitleDetails';
 
-export default function EntityProfileTitle({
+export default function AdminEntityProfileTitle({
   entityType,
-}: BaseEntityProfileProps) {
+}: BaseAdminEntityProfileProps) {
   const activeEntity = adminEntityProfileTitleDetails.find(
     (entityDetail) => entityDetail.entityType === entityType
   );

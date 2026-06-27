@@ -1,23 +1,22 @@
 import { useNavigate } from 'react-router-dom';
-import type { ITherapist } from '../../../../@types/interfaces/modelInterfaces';
-import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
-import EntityProfileTitle from './EntityProfileTitle';
-import messageIcon from '/icons/message3.png';
-import phoneIcon from '/icons/phone-call.png';
+import type { AdminEntityProfileProps } from '../../../../@types/props/adminProps';
+import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
+import EntityProfileTitle from './AdminEntityProfileTitle';
 import mainLogo from '/logos/Main-Logo.png';
-import type { EntityProfileProps } from '../../../../@types/props/adminProps';
+import AdminEntityProfileImage from './AdminEntityProfileImage';
 
-export default function EntityProfile({
+export default function AdminEntityProfile({
   entity,
   entityType,
-}: EntityProfileProps) {
+}: AdminEntityProfileProps) {
+  const navigate = useNavigate();
+
+  const { entityPictureUrl } = useAdminEntityProfileContext();
   //   const mutationEntry = entityUpdateMutations().find(
   //     (entry) => entry.entityType === entityType && entry.updateFunction
   //   );
 
   //   const activeMutation = mutationEntry?.updateFunction?.();
-
-  const navigate = useNavigate();
 
   // Define mutations for therapist and patient status changes
   //   const handleTherapistStatusChange = useTherapistStatusChangeMutation();
@@ -70,9 +69,9 @@ export default function EntityProfile({
   //   };
 
   // Cancel click handler to return to the list of entities
-  const handleCancelClickToReturn = () => {
-    navigate(`/admin/${entityType}s`);
-  };
+  // const handleCancelClickToReturn = () => {
+  //   navigate(`/admin/${entityType}s`);
+  // };
 
   // Handle form submission for profile updates
   //   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,7 +109,7 @@ export default function EntityProfile({
 
   return (
     <>
-      <form onSubmit={handleFormSubmit} className="flex justify-center">
+      <form className="flex justify-center">
         <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-4/6 items-center md:items-start">
           <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center">
             <EntityProfileTitle entityType={entityType} />
@@ -118,14 +117,14 @@ export default function EntityProfile({
 
           <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
             <div className="absolute top-3 md:top-8 left-0 w-full h-full rounded-xl">
-              <ImageOutputRefactor
+              <AdminEntityProfileImage
                 picture_url={entityPictureUrl ? entityPictureUrl : mainLogo}
                 entityType={entityType}
               />
             </div>
           </div>
 
-          <div className="w-full p-4 md:py-10 md:px-24">
+          {/* <div className="w-full p-4 md:py-10 md:px-24">
             {entity && (
               <>
                 <CommonSectionRefactor entityType={entityType} />
@@ -136,9 +135,9 @@ export default function EntityProfile({
                 />
               </>
             )}
-          </div>
+          </div> */}
 
-          <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
+          {/* <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
             <div className="flex gap-2">
               {entityEmail && (
                 <a
@@ -167,9 +166,9 @@ export default function EntityProfile({
             <div>
               <p className="text-white italic">{`/ ${entityName.toLowerCase()}${entitySurname && `.${entitySurname.toLowerCase()}`}`}</p>
             </div>
-          </div>
+          </div> */}
 
-          <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl">
+          {/* <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl">
             <div className="flex gap-1 items-center ">
               {!isProfileEditing ? (
                 <>
@@ -232,27 +231,27 @@ export default function EntityProfile({
                 />
               </>
             </div>
-          </div>
+          </div> */}
         </div>
       </form>
 
-      {isDeleteModalOpen && (
+      {/* {isDeleteModalOpen && (
         <ConfirmDeleteModal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
           entityType={entityType}
           entity={entity}
         />
-      )}
+      )} */}
 
-      {isEditPhotoModalOpen && entityType === 'therapist' && (
+      {/* {isEditPhotoModalOpen && entityType === 'therapist' && (
         <EditPhotoModalRefactor
           isOpen={isEditPhotoModalOpen}
           onClose={() => setIsEditPhotoModalOpen(false)}
           therapist={entity as ITherapist}
           setSelectedFile={setSelectedFile}
         />
-      )}
+      )} */}
     </>
   );
 }

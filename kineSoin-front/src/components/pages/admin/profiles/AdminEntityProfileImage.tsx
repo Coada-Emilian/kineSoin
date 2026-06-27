@@ -1,22 +1,21 @@
-import type { Button } from '@headlessui/react';
-import type { EntityProfileImageProps } from '../../../../@types/props/adminProps';
+import { Button } from '@headlessui/react';
+import type { AdminEntityProfileImageProps } from '../../../../@types/props/adminProps';
+import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
+import editIcon from '/icons/edit.svg';
 
-export default function ImageOutputRefactor({
+export default function AdminEntityProfileImage({
   picture_url,
   entityType,
-}: EntityProfileImageProps) {
-  if (!picture_url) return null;
+}: AdminEntityProfileImageProps) {
+  const { isProfileEditing, setIsEditPhotoModalOpen, previewUrl } =
+    useAdminEntityProfileContext();
 
-  const { isProfileEditing, setIsEditPhotoModalOpen } =
-    useAdminProfileDetailsGlobalContext();
+  if (!picture_url) return null;
 
   // Function to handle the click event for editing the photo
   const handleClick = () => {
     setIsEditPhotoModalOpen(true);
   };
-
-  // Get the preview URL from the context
-  const { previewUrl } = useAdminProfileDetailsGlobalContext();
 
   return (
     <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto flex justify-center items-center">

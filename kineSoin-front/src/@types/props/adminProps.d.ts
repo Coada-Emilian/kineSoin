@@ -61,14 +61,14 @@ export interface AdminInsuranceTableBodyProps {
   renderedInsurances: IInsurance[];
 }
 
-export interface BaseEntityProfileProps {
+export interface BaseAdminEntityProfileProps {
   entityType: IAdminEntityTypes;
 }
 
-export interface EntityProfileProps extends BaseEntityProfileProps {
+export interface AdminEntityProfileProps extends BaseAdminEntityProfileProps {
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance | null;
 }
 
-export interface EntityProfileImageProps extends BaseEntityProfileProps {
+export interface AdminEntityProfileImageProps extends BaseAdminEntityProfileProps {
   picture_url: string | undefined;
 }

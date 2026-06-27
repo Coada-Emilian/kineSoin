@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import type { AdminPageProps } from '../../@types/props/adminProps';
 import AdminSideNavbar from '../../components/pages/admin/AdminSideNavbar';
+import AdminEntityProfile from '../../components/pages/admin/profiles/AdminEntityProfile';
 import AdminTable from '../../components/pages/admin/table/AdminTable';
 import DNALoader from '../../components/ui/DNALoader';
 import { AdminContextProvider } from '../../contexts/admin/AdminContext';
+import { AdminEntityProfileContextProvider } from '../../contexts/admin/AdminEntityProfileContext';
 import { useFetchAdminEntityDetails } from '../../utils/hooks/admin/fetch/useFetchAdminEntityDetails';
 import { useFetchAdminTableDetails } from '../../utils/hooks/admin/fetch/useFetchAdminTableDetails';
 
@@ -44,12 +46,11 @@ export default function AdminPage({ entityType }: AdminPageProps) {
           <AdminTable entities={entities} entityType={entityType} />
         )}
 
-        {/* {id && entity && (
-            <AdminProfileDetailsRefactor
-              entityType={entityType}
-              entity={entity}
-            />
-          )} */}
+        {id && entity && (
+          <AdminEntityProfileContextProvider>
+            <AdminEntityProfile entityType={entityType} entity={entity} />
+          </AdminEntityProfileContextProvider>
+        )}
       </div>
     </AdminContextProvider>
   );
