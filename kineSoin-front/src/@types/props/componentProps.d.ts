@@ -46,3 +46,7 @@ export interface ModalButtonSectionProps {
   setNextModal?: () => void;
   mode: ModalButtonSectionMode;
 }
+
+export interface AdminEntityStatusProps {
+  status: string | undefined;
+}

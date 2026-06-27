@@ -18,17 +18,21 @@ export const AdminEntityProfileContextProvider = ({
 
   const [entityPictureUrl, setEntityPictureUrl] = useState<string>('');
 
+  const [entityName, setEntityName] = useState<string>('');
+
+  const [entitySurname, setEntitySurname] = useState<string>('');
+
+  const [entityId, setEntityId] = useState<number | null>(null);
+
+  const [entityStatus, setEntityStatus] = useState<string>('');
+
   // const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   // Form state variables
   // const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   // const [updateEntityForm, setUpdateEntityForm] = useState<FormData | null>(
   //   null
   // );
-
-  //   const [entityName, setEntityName] = useState<string>('');
-  //   const [entitySurname, setEntitySurname] = useState<string>('');
   //   const [entityEmail, setEntityEmail] = useState<string>('');
   //   const [entityPrefix, setEntityPrefix] = useState<string>('');
   //   const [entityPhoneNumber, setEntityPhoneNumber] = useState<string>('');
@@ -42,9 +46,6 @@ export const AdminEntityProfileContextProvider = ({
   //   const [entityStreetName, setEntityStreetName] = useState<string>('');
   //   const [entityCity, setEntityCity] = useState<string>('');
   //   const [entityPostalCode, setEntityPostalCode] = useState<string>('');
-  //   const [entityId, setEntityId] = useState<number | null>(null);
-
-  //   const [entityStatus, setEntityStatus] = useState<string>('');
   //   const [entityAge, setEntityAge] = useState<string>('');
   //   const [entityGender, setEntityGender] = useState<string>('');
   //   const [entityInsuranceCode, setEntityInsuranceCode] = useState<string>('');
@@ -53,7 +54,6 @@ export const AdminEntityProfileContextProvider = ({
   //     null
   //   );
   //   const [bodyRegions, setBodyRegions] = useState<IBodyRegion[]>([]);
-
   //   const fetchBodyRegionsMutation = useGetBodyRegionsMutation();
 
   //   useEffect(() => {
@@ -179,16 +179,25 @@ export const AdminEntityProfileContextProvider = ({
 
         entityPictureUrl,
         setEntityPictureUrl,
+
+        entityName,
+        setEntityName,
+
+        entitySurname,
+        setEntitySurname,
+
+        entityId,
+        setEntityId,
+
+        entityStatus,
+        setEntityStatus,
+
         // isDeleteModalOpen,
         // setIsDeleteModalOpen,
         // selectedFile,
         // setSelectedFile,
         // updateEntityForm,
         // setUpdateEntityForm,
-        //   entityName,
-        //   setEntityName,
-        //   entitySurname,
-        //   setEntitySurname,
         //   entityEmail,
         //   setEntityEmail,
         //   entityPrefix,
@@ -215,11 +224,6 @@ export const AdminEntityProfileContextProvider = ({
         //   setEntityCity,
         //   entityPostalCode,
         //   setEntityPostalCode,
-        //   entityId,
-        //   setEntityId,
-
-        //   entityStatus,
-        //   setEntityStatus,
         //   entityAge,
         //   setEntityAge,
         //   entityGender,

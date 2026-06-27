@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import type { AdminEntityProfileProps } from '../../../../@types/props/adminProps';
 import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
+import AdminEntityProfileImage from './AdminEntityProfileImage';
 import EntityProfileTitle from './AdminEntityProfileTitle';
 import mainLogo from '/logos/Main-Logo.png';
-import AdminEntityProfileImage from './AdminEntityProfileImage';
 
 export default function AdminEntityProfile({
   entity,
@@ -124,7 +124,7 @@ export default function AdminEntityProfile({
             </div>
           </div>
 
-          {/* <div className="w-full p-4 md:py-10 md:px-24">
+          <div className="w-full p-4 md:py-10 md:px-24">
             {entity && (
               <>
                 <CommonSectionRefactor entityType={entityType} />
@@ -135,7 +135,7 @@ export default function AdminEntityProfile({
                 />
               </>
             )}
-          </div> */}
+          </div>
 
           {/* <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
             <div className="flex gap-2">

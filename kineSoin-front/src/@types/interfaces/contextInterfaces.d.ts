@@ -67,18 +67,26 @@ export interface IAdminEntityProfileContextProps {
 
   entityPictureUrl: string;
   setEntityPictureUrl: React.Dispatch<React.SetStateAction<string>>;
+
+  entityName: string;
+  setEntityName: React.Dispatch<React.SetStateAction<string>>;
+
+  entitySurname: string;
+  setEntitySurname: React.Dispatch<React.SetStateAction<string>>;
+
+  entityId: number | null;
+  setEntityId: React.Dispatch<React.SetStateAction<number | null>>;
+  
+  entityStatus: string;
+  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+
   // isDeleteModalOpen: boolean;
   // setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   // selectedFile: File | null;
   // setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
   // updateEntityForm: FormData | null;
   // setUpdateEntityForm: React.Dispatch<React.SetStateAction<FormData | null>>;
-  // entityStatus: string;
-  // setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
-  // entityName: string;
-  // setEntityName: React.Dispatch<React.SetStateAction<string>>;
-  // entitySurname: string;
-  // setEntitySurname: React.Dispatch<React.SetStateAction<string>>;
+
   // entityEmail: string;
   // setEntityEmail: React.Dispatch<React.SetStateAction<string>>;
   // entityPrefix: string;
@@ -105,8 +113,6 @@ export interface IAdminEntityProfileContextProps {
   // setEntityCity: React.Dispatch<React.SetStateAction<string>>;
   // entityPostalCode: string;
   // setEntityPostalCode: React.Dispatch<React.SetStateAction<string>>;
-  // entityId: number | null;
-  // setEntityId: React.Dispatch<React.SetStateAction<number | null>>;
 
   // entityAge: string;
   // setEntityAge: React.Dispatch<React.SetStateAction<string>>;
