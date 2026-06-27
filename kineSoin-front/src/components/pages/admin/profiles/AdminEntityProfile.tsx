@@ -1,18 +1,31 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import type { AdminEntityProfileProps } from '../../../../@types/props/adminProps';
-import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
+import { mapEntityToEditedEntity } from '../../../../utils/functions/admin/adminEntityProfile/mapEntityToEditedEntity';
+import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
 import AdminEntityProfileImage from './AdminEntityProfileImage';
 import EntityProfileTitle from './AdminEntityProfileTitle';
+import AdminEntityProfileContactSection from './entityProfileContactSection/AdminEntityProfileContactSection';
 import AdminEntityProfileIdentitySection from './entityProfileIdentitySection/AdminEntityProfileIdentitySection';
-import mainLogo from '/logos/Main-Logo.png';
+import mainLogo from '/logos/new-logo.webp';
 
 export default function AdminEntityProfile({
   entity,
   entityType,
 }: AdminEntityProfileProps) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const { entityPictureUrl } = useAdminEntityProfileContext();
+  const { editedEntity, setEditedEntity } = useAdminEntityProfileContext();
+
+  useEffect(() => {
+    if (entity) {
+      setEditedEntity(mapEntityToEditedEntity(entity));
+    }
+  }, [entity, setEditedEntity]);
+
+  useEffect(() => {
+    console.log(editedEntity);
+  }, [editedEntity]);
+
   //   const mutationEntry = entityUpdateMutations().find(
   //     (entry) => entry.entityType === entityType && entry.updateFunction
   //   );
@@ -119,7 +132,11 @@ export default function AdminEntityProfile({
           <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
             <div className="absolute top-3 md:top-8 left-0 w-full h-full rounded-xl">
               <AdminEntityProfileImage
-                picture_url={entityPictureUrl ? entityPictureUrl : mainLogo}
+                picture_url={
+                  entityType === 'therapist' || entityType === 'patient'
+                    ? editedEntity.picture_url
+                    : mainLogo
+                }
                 entityType={entityType}
               />
             </div>
@@ -130,10 +147,7 @@ export default function AdminEntityProfile({
               <>
                 <AdminEntityProfileIdentitySection entityType={entityType} />
 
-                <ProfileSectionRefactor
-                  entity={entity}
-                  entityType={entityType}
-                />
+                <AdminEntityProfileContactSection entityType={entityType} />
               </>
             )}
           </div>

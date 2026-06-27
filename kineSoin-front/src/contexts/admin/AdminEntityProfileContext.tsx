@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import type { IAdminEntityProfileContextProps } from '../../@types/interfaces/contextInterfaces';
+import type { IAdminEditedEntity } from '../../@types/interfaces/customInterfaces';
 
 const AdminEntityProfileContext = createContext<
   IAdminEntityProfileContextProps | undefined
@@ -16,21 +17,44 @@ export const AdminEntityProfileContextProvider = ({
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const [entityPictureUrl, setEntityPictureUrl] = useState<string>('');
+  // const [entityPictureUrl, setEntityPictureUrl] = useState<string>('');
 
-  const [entityName, setEntityName] = useState<string>('');
+  // const [entityName, setEntityName] = useState<string>('');
 
-  const [entitySurname, setEntitySurname] = useState<string>('');
+  // const [entitySurname, setEntitySurname] = useState<string>('');
 
-  const [entityId, setEntityId] = useState<number | null>(null);
+  // const [entityId, setEntityId] = useState<number | null>(null);
 
-  const [entityStatus, setEntityStatus] = useState<string>('');
+  // const [entityStatus, setEntityStatus] = useState<string>('');
 
-  const [entityAge, setEntityAge] = useState<string>('');
+  // const [entityAge, setEntityAge] = useState<string>('');
 
-  const [entityGender, setEntityGender] = useState<string>('');
+  // const [entityGender, setEntityGender] = useState<string>('');
 
-  const [entityEmail, setEntityEmail] = useState<string>('');
+  // const [entityEmail, setEntityEmail] = useState<string>('');
+
+  const [editedEntity, setEditedEntity] = useState<IAdminEditedEntity>({
+    name: '',
+    surname: '',
+    age: '',
+    gender: '',
+    email: '',
+    status: '',
+    prefix: '',
+    phone_number: '',
+    licence_code: '',
+    diploma: '',
+    amc_code: '',
+    specialty: '',
+    experience: '',
+    description: '',
+    street_number: '',
+    street_name: '',
+    city: '',
+    postal_code: '',
+    insurance_code: '',
+    picture_url: '',
+  });
 
   // const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -182,29 +206,32 @@ export const AdminEntityProfileContextProvider = ({
         previewUrl,
         setPreviewUrl,
 
-        entityPictureUrl,
-        setEntityPictureUrl,
+        // entityPictureUrl,
+        // setEntityPictureUrl,
 
-        entityName,
-        setEntityName,
+        // entityName,
+        // setEntityName,
 
-        entitySurname,
-        setEntitySurname,
+        // entitySurname,
+        // setEntitySurname,
 
-        entityId,
-        setEntityId,
+        // entityId,
+        // setEntityId,
 
-        entityStatus,
-        setEntityStatus,
+        // entityStatus,
+        // setEntityStatus,
 
-        entityAge,
-        setEntityAge,
+        // entityAge,
+        // setEntityAge,
 
-        entityGender,
-        setEntityGender,
+        // entityGender,
+        // setEntityGender,
 
-        entityEmail,
-        setEntityEmail,
+        // entityEmail,
+        // setEntityEmail,
+
+        editedEntity,
+        setEditedEntity,
 
         // isDeleteModalOpen,
         // setIsDeleteModalOpen,

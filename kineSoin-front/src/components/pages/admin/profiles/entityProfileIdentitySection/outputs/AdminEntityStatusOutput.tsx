@@ -1,8 +1,10 @@
-import type { AdminEntityStatusProps } from '../../../../../@types/props/adminProps';
-import { getEntityStatusClassName } from '../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusClassName';
-import { getEntityStatusText } from '../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusText';
+import type { AdminEntityStatusOutputProps } from '../../../../../../@types/props/adminProps';
+import { getEntityStatusClassName } from '../../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusClassName';
+import { getEntityStatusText } from '../../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusText';
 
-export default function AdminEntityStatus({ status }: AdminEntityStatusProps) {
+export default function AdminEntityStatusOutput({
+  status,
+}: AdminEntityStatusOutputProps) {
   if (!status) {
     return null;
   }

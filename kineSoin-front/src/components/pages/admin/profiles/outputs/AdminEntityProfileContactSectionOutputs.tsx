@@ -1,36 +1,21 @@
-import { useAdminEntityProfileContext } from '../../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
-import AdminEntityAgeAndGender from './AdminEntityAgeAndGender';
+import { useAdminEntityProfileContext } from '../../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
+import AdminEntityAgeAndGenderOutput from './AdminEntityAgeAndGenderOutput';
+import EmailOutputRefactor from './AdminEntityEmailOutput';
 
-export default function AdminEntityProfileSectionOutputs() {
+export default function AdminEntityProfileContactSectionOutputs() {
   // Destructure the necessary data from the global context
-  const {
-    entityAge,
-    entityGender,
-    entityEmail,
-    //     entityPhoneNumber,
-    //     entityPrefix,
-    //     entityStreetName,
-    //     entityStreetNumber,
-    //     entityCity,
-    //     entityPostalCode,
-    //     entityAMCCode,
-    //     entityInsuranceCode,
-    //     entityLicenceCode,
-    //     entityOperatedStatus,
-    //     entityBodyRegion,
-    //     entityDiploma,
-    //     entitySpecialty,
-    //     entityExperience,
-    //     entityDescription,
-  } = useAdminEntityProfileContext();
+  const { editedEntity } = useAdminEntityProfileContext();
 
   return (
     <>
-      {entityAge && entityGender && (
-        <AdminEntityAgeAndGender age={entityAge} gender={entityGender} />
+      {editedEntity.age && editedEntity.gender && (
+        <AdminEntityAgeAndGenderOutput
+          age={editedEntity.age}
+          gender={editedEntity.gender}
+        />
       )}
 
-      {entityEmail && <EmailOutputRefactor email={entityEmail} />}
+      {editedEntity.email && <EmailOutputRefactor email={editedEntity.email} />}
 
       {/* {entityPhoneNumber && entityPrefix && (
         <PhoneNumberOutputRefactor

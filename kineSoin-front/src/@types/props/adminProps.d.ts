@@ -79,24 +79,29 @@ export interface AdminEntityProfileOutputProps {
   isOneThirdWidth?: boolean;
 }
 
-export interface AdminEntityStatusProps {
+export interface AdminEntityStatusOutputProps {
   status: string | undefined;
 }
 
-export interface AdminEntityIdProps {
-  id: number | null;
+export interface AdminEntityIdOutputProps {
+  id?: number | null;
 }
 
-export interface AdminEntityNameProps {
+export interface AdminEntityNameOutputProps {
   name: string | undefined;
   surname: string | undefined;
 }
 
-export interface AdminEntityAgeAndGenderProps {
+export interface AdminEntityAgeAndGenderOutputProps {
   age: string | undefined;
   gender: string | undefined;
 }
 
-export interface AdminEntityEmailProps {
+export interface AdminEntityEmailOutputProps {
   email: string | undefined;
+}
+
+export interface AdminEntityTelephoneNumberOutputProps {
+  prefix: string | undefined;
+  phone_number: string | undefined;
 }

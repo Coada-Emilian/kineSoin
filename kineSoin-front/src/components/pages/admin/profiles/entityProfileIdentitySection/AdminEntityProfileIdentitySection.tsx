@@ -1,44 +1,44 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
-import { useAdminEntityProfileContext } from '../../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
+import { useAdminEntityProfileContext } from '../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
 import TextInput from '../../../../ui/inputs/TextInput';
-import AdminEntityId from './AdminEntityId';
-import AdminEntityName from './AdminEntityName';
-import AdminEntityStatus from './AdminEntityStatus';
+import AdminEntityId from './outputs/AdminEntityIdOutput';
+import AdminEntityName from './outputs/AdminEntityNameOutput';
+import AdminEntityStatus from './outputs/AdminEntityStatusOutput';
 
 export default function AdminEntityProfileIdentitySection({
   entityType,
 }: BaseAdminEntityProfileProps) {
-  const isPatientProfile = entityType === 'patient';
-
   // Get the necessary state and functions from the global context
-  const {
-    isProfileEditing,
-    entityName,
-    setEntityName,
-    entitySurname,
-    setEntitySurname,
-    entityStatus,
-    entityId,
-  } = useAdminEntityProfileContext();
+  const { isProfileEditing, editedEntity, setEditedEntity } =
+    useAdminEntityProfileContext();
 
   // Handlers for name change
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEntityName(e.target.value);
+    setEditedEntity((prev) => ({
+      ...prev,
+      name: e.target.value,
+    }));
   };
 
   // Handler for surname change
   const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEntitySurname(e.target.value);
+    setEditedEntity((prev) => ({
+      ...prev,
+      surname: e.target.value,
+    }));
   };
 
   return (
     <section className="md:text-2xl">
-      <AdminEntityStatus status={entityStatus} />
+      <AdminEntityStatus status={editedEntity.status} />
 
-      <AdminEntityId id={entityId} />
+      <AdminEntityId id={editedEntity.id} />
 
-      {!isProfileEditing || isPatientProfile ? (
-        <AdminEntityName name={entityName} surname={entitySurname} />
+      {!isProfileEditing ? (
+        <AdminEntityName
+          name={editedEntity.name}
+          surname={editedEntity.surname}
+        />
       ) : (
         <>
           <div className="w-full flex gap-4 mb-2 ">
@@ -47,7 +47,7 @@ export default function AdminEntityProfileIdentitySection({
                 id: `admin-${entityType}-edit-name_input`,
                 labelName: 'Nom',
                 name: 'name',
-                value: entityName,
+                value: editedEntity.name,
                 isRequired: true,
                 autoComplete: 'name',
                 onChange: handleNameChange,
@@ -56,13 +56,13 @@ export default function AdminEntityProfileIdentitySection({
               }}
             />
 
-            {entitySurname && (
+            {editedEntity.surname && (
               <TextInput
                 input={{
                   id: `admin-${entityType}-edit-surname_input`,
                   labelName: 'Prénom',
                   name: 'surname',
-                  value: entitySurname,
+                  value: editedEntity.surname,
                   isRequired: true,
                   autoComplete: 'surname',
                   onChange: handleSurnameChange,
