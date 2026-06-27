@@ -1,5 +1,6 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
 import { useAdminEntityProfileContext } from '../../../../../utils/functions/contextUtils/useAdminEntityProfileCOntext';
+import AdminEntityId from './AdminEntityId';
 import AdminEntityStatus from './AdminEntityStatus';
 
 export default function AdminEntityProfileIdentitySection({
@@ -32,7 +33,7 @@ export default function AdminEntityProfileIdentitySection({
     <section className="md:text-2xl">
       <AdminEntityStatus status={entityStatus} />
 
-      <IdOutputRefactor id={entityId} />
+      <AdminEntityId id={entityId} />
 
       {!isProfileEditing || isPatientProfile ? (
         <NameOutputRefactor name={entityName} surname={entitySurname} />
