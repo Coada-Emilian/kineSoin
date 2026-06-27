@@ -2,6 +2,7 @@ import { hasValues } from '../../../../../../utils/functions/admin/adminEntityPr
 import { useAdminEntityProfileContext } from '../../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
 import AdminEntityAddressOutput from './AdminEntityAddressOutput';
 import AdminEntityAgeAndGenderOutput from './AdminEntityAgeAndGenderOutput';
+import AdminEntityCodeOutput from './AdminEntityCodeOutput';
 import AdminEntityEmailOutput from './AdminEntityEmailOutput';
 import AdminEntityTelephoneNumberOutput from './AdminEntityTelephoneNumberOutput';
 
@@ -43,15 +44,17 @@ export default function AdminEntityProfileContactSectionOutputs() {
         />
       )}
 
-      {/* {entityAMCCode && <AMCCodeOutputRefactor amc_code={entityAMCCode} />} */}
+      {hasValues(editedEntity.amc_code) && (
+        <AdminEntityCodeOutput amc_code={editedEntity.amc_code} />
+      )}
 
-      {/* {entityInsuranceCode && (
-        <InsuranceCodeOutputRefactor insurance_code={entityInsuranceCode} />
-      )} */}
+      {hasValues(editedEntity.licence_code) && (
+        <AdminEntityCodeOutput licence_code={editedEntity.licence_code} />
+      )}
 
-      {/* {entityLicenceCode && (
-        <LicenceCodeOutputRefactor licence_code={entityLicenceCode} />
-      )} */}
+      {hasValues(editedEntity.insurance_code) && (
+        <AdminEntityCodeOutput insurance_code={editedEntity.insurance_code} />
+      )}
 
       {/* {entityOperatedStatus && entityBodyRegion && (
         <BodyRegionAndOperatedStatusOutputRefactor

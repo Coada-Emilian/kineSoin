@@ -112,3 +112,9 @@ export interface AdminEntityAddressOutputProps {
   street_number: string | undefined;
   street_name: string | undefined;
 }
+
+export interface AdminEntityCodeOutputProps {
+  amc_code?: string | undefined;
+  insurance_code?: string | undefined;
+  licence_code?: string | undefined;
+}
