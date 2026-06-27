@@ -92,3 +92,7 @@ export interface AdminEntityNameProps {
   surname: string | undefined;
 }
 
+export interface AdminEntityAgeAndGenderProps {
+  age: string | undefined;
+  gender: string | undefined;
+}

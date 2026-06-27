@@ -26,6 +26,9 @@ export const AdminEntityProfileContextProvider = ({
 
   const [entityStatus, setEntityStatus] = useState<string>('');
 
+  const [entityAge, setEntityAge] = useState<string>('');
+  const [entityGender, setEntityGender] = useState<string>('');
+
   // const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   // Form state variables
@@ -46,8 +49,7 @@ export const AdminEntityProfileContextProvider = ({
   //   const [entityStreetName, setEntityStreetName] = useState<string>('');
   //   const [entityCity, setEntityCity] = useState<string>('');
   //   const [entityPostalCode, setEntityPostalCode] = useState<string>('');
-  //   const [entityAge, setEntityAge] = useState<string>('');
-  //   const [entityGender, setEntityGender] = useState<string>('');
+
   //   const [entityInsuranceCode, setEntityInsuranceCode] = useState<string>('');
   //   const [entityOperatedStatus, setEntityOperatedStatus] = useState<string>('');
   //   const [entityBodyRegion, setEntityBodyRegion] = useState<IBodyRegion | null>(
@@ -192,6 +194,12 @@ export const AdminEntityProfileContextProvider = ({
         entityStatus,
         setEntityStatus,
 
+        entityAge,
+        setEntityAge,
+        
+        entityGender,
+        setEntityGender,
+
         // isDeleteModalOpen,
         // setIsDeleteModalOpen,
         // selectedFile,
@@ -224,10 +232,7 @@ export const AdminEntityProfileContextProvider = ({
         //   setEntityCity,
         //   entityPostalCode,
         //   setEntityPostalCode,
-        //   entityAge,
-        //   setEntityAge,
-        //   entityGender,
-        //   setEntityGender,
+
         //   entityInsuranceCode,
         //   setEntityInsuranceCode,
         //   entityOperatedStatus,

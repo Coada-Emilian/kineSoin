@@ -76,9 +76,15 @@ export interface IAdminEntityProfileContextProps {
 
   entityId: number | null;
   setEntityId: React.Dispatch<React.SetStateAction<number | null>>;
-  
+
   entityStatus: string;
   setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+
+  entityAge: string;
+  setEntityAge: React.Dispatch<React.SetStateAction<string>>;
+
+  entityGender: string;
+  setEntityGender: React.Dispatch<React.SetStateAction<string>>;
 
   // isDeleteModalOpen: boolean;
   // setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -114,10 +120,6 @@ export interface IAdminEntityProfileContextProps {
   // entityPostalCode: string;
   // setEntityPostalCode: React.Dispatch<React.SetStateAction<string>>;
 
-  // entityAge: string;
-  // setEntityAge: React.Dispatch<React.SetStateAction<string>>;
-  // entityGender: string;
-  // setEntityGender: React.Dispatch<React.SetStateAction<string>>;
   // entityInsuranceCode: string;
   // setEntityInsuranceCode: React.Dispatch<React.SetStateAction<string>>;
   // entityOperatedStatus: string;

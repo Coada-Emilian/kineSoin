@@ -1,5 +1,5 @@
 import type { AdminEntityNameProps } from '../../../../../@types/props/adminProps';
-import AdminEntityProfileOutput from './AdminEntityProfileOutput';
+import AdminEntityProfileOutput from '../AdminEntityProfileOutput';
 
 export default function AdminEntityName({
   name,
