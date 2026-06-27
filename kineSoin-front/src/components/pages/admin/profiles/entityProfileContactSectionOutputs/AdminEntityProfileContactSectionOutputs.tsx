@@ -6,7 +6,7 @@ export default function AdminEntityProfileSectionOutputs() {
   const {
     entityAge,
     entityGender,
-    //     entityEmail,
+    entityEmail,
     //     entityPhoneNumber,
     //     entityPrefix,
     //     entityStreetName,
@@ -30,16 +30,16 @@ export default function AdminEntityProfileSectionOutputs() {
         <AdminEntityAgeAndGender age={entityAge} gender={entityGender} />
       )}
 
-      {/* {entityEmail && <EmailOutputRefactor email={entityEmail} />}
+      {entityEmail && <EmailOutputRefactor email={entityEmail} />}
 
-      {entityPhoneNumber && entityPrefix && (
+      {/* {entityPhoneNumber && entityPrefix && (
         <PhoneNumberOutputRefactor
           prefix={entityPrefix}
           phone_number={entityPhoneNumber}
         />
-      )}
+      )} */}
 
-      {entityStreetName &&
+      {/* {entityStreetName &&
         entityStreetNumber &&
         entityPostalCode &&
         entityCity && (
@@ -49,36 +49,36 @@ export default function AdminEntityProfileSectionOutputs() {
             street_number={entityStreetNumber}
             street_name={entityStreetName}
           />
-        )}
+        )} */}
 
-      {entityAMCCode && <AMCCodeOutputRefactor amc_code={entityAMCCode} />}
+      {/* {entityAMCCode && <AMCCodeOutputRefactor amc_code={entityAMCCode} />} */}
 
-      {entityInsuranceCode && (
+      {/* {entityInsuranceCode && (
         <InsuranceCodeOutputRefactor insurance_code={entityInsuranceCode} />
-      )}
+      )} */}
 
-      {entityLicenceCode && (
+      {/* {entityLicenceCode && (
         <LicenceCodeOutputRefactor licence_code={entityLicenceCode} />
-      )}
+      )} */}
 
-      {entityOperatedStatus && entityBodyRegion && (
+      {/* {entityOperatedStatus && entityBodyRegion && (
         <BodyRegionAndOperatedStatusOutputRefactor
           body_region={entityBodyRegion}
           is_operated={entityOperatedStatus}
         />
-      )}
+      )} */}
 
-      {entityDiploma && <DiplomaOutputRefactor diploma={entityDiploma} />}
+      {/* {entityDiploma && <DiplomaOutputRefactor diploma={entityDiploma} />} */}
 
-      {entitySpecialty && (
+      {/* {entitySpecialty && (
         <SpecialtyOutputRefactor specialty={entitySpecialty} />
-      )}
+      )} */}
 
-      {entityExperience && (
+      {/* {entityExperience && (
         <ExperienceOutputRefactor experience={entityExperience} />
-      )}
+      )} */}
 
-      {entityDescription && (
+      {/* {entityDescription && (
         <DescriptionOutputRefactor description={entityDescription} />
       )} */}
     </>

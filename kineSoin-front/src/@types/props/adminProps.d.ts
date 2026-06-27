@@ -96,3 +96,7 @@ export interface AdminEntityAgeAndGenderProps {
   age: string | undefined;
   gender: string | undefined;
 }
+
+export interface AdminEntityEmailProps {
+  email: string | undefined;
+}

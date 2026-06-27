@@ -27,7 +27,10 @@ export const AdminEntityProfileContextProvider = ({
   const [entityStatus, setEntityStatus] = useState<string>('');
 
   const [entityAge, setEntityAge] = useState<string>('');
+
   const [entityGender, setEntityGender] = useState<string>('');
+
+  const [entityEmail, setEntityEmail] = useState<string>('');
 
   // const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -36,7 +39,7 @@ export const AdminEntityProfileContextProvider = ({
   // const [updateEntityForm, setUpdateEntityForm] = useState<FormData | null>(
   //   null
   // );
-  //   const [entityEmail, setEntityEmail] = useState<string>('');
+
   //   const [entityPrefix, setEntityPrefix] = useState<string>('');
   //   const [entityPhoneNumber, setEntityPhoneNumber] = useState<string>('');
   //   const [entityLicenceCode, setEntityLicenceCode] = useState<string>('');
@@ -196,9 +199,12 @@ export const AdminEntityProfileContextProvider = ({
 
         entityAge,
         setEntityAge,
-        
+
         entityGender,
         setEntityGender,
+
+        entityEmail,
+        setEntityEmail,
 
         // isDeleteModalOpen,
         // setIsDeleteModalOpen,
@@ -206,8 +212,7 @@ export const AdminEntityProfileContextProvider = ({
         // setSelectedFile,
         // updateEntityForm,
         // setUpdateEntityForm,
-        //   entityEmail,
-        //   setEntityEmail,
+
         //   entityPrefix,
         //   setEntityPrefix,
         //   entityPhoneNumber,

@@ -1,4 +1,4 @@
-import type { AdminEntityProfileOutputProps } from '../../../../../@types/props/componentProps';
+import type { AdminEntityProfileOutputProps } from '../../../../@types/props/adminProps';
 
 export default function AdminEntityProfileOutput({
   label,

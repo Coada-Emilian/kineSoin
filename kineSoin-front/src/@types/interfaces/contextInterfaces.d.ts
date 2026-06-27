@@ -86,6 +86,9 @@ export interface IAdminEntityProfileContextProps {
   entityGender: string;
   setEntityGender: React.Dispatch<React.SetStateAction<string>>;
 
+  entityEmail: string;
+  setEntityEmail: React.Dispatch<React.SetStateAction<string>>;
+
   // isDeleteModalOpen: boolean;
   // setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   // selectedFile: File | null;
@@ -93,8 +96,6 @@ export interface IAdminEntityProfileContextProps {
   // updateEntityForm: FormData | null;
   // setUpdateEntityForm: React.Dispatch<React.SetStateAction<FormData | null>>;
 
-  // entityEmail: string;
-  // setEntityEmail: React.Dispatch<React.SetStateAction<string>>;
   // entityPrefix: string;
   // setEntityPrefix: React.Dispatch<React.SetStateAction<string>>;
   // entityPhoneNumber: string;
