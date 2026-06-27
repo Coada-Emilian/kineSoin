@@ -105,3 +105,10 @@ export interface AdminEntityTelephoneNumberOutputProps {
   prefix: string | undefined;
   phone_number: string | undefined;
 }
+
+export interface AdminEntityAddressOutputProps {
+  city: string | undefined;
+  postal_code: string | undefined;
+  street_number: string | undefined;
+  street_name: string | undefined;
+}
