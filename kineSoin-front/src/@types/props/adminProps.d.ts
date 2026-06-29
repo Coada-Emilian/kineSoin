@@ -137,5 +137,5 @@ export interface AdminEntityDescriptionOutputProps {
 export interface AdminEntityStatusButtonsProps extends BaseAdminEntityProfileProps {
   id?: number | null | undefined;
   entityStatus: string;
-  setEntityStatus: React.Dispatch<React.SetStateAction<string>>;
+  setEditedEntity: React.Dispatch<React.SetStateAction<IAdminEditedEntity>>;
 }

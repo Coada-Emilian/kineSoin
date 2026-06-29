@@ -6,11 +6,11 @@ import type {
   ITherapist,
 } from '../../../../@types/interfaces/modelInterfaces';
 import type { AdminTableBodyProps } from '../../../../@types/props/adminProps';
-import AfflictionTableBody from '../../../../components/pages/admin/table/body/AfflictionTableBody';
-import InsuranceTableBody from '../../../../components/pages/admin/table/body/InsuranceTableBody';
-import MedicTableBody from '../../../../components/pages/admin/table/body/MedicTableBody';
-import PatientTableBody from '../../../../components/pages/admin/table/body/PatientTableBody';
-import TherapistTableBody from '../../../../components/pages/admin/table/body/TherapistTableBody';
+import AfflictionTableBody from '../../../../components/pages/admin/table/body/afflictionTableBody';
+import InsuranceTableBody from '../../../../components/pages/admin/table/body/insuranceTableBody';
+import MedicTableBody from '../../../../components/pages/admin/table/body/medicTableBody';
+import PatientTableBody from '../../../../components/pages/admin/table/body/patientTableBody';
+import TherapistTableBody from '../../../../components/pages/admin/table/body/therapistTableBody';
 
 export const getAdminTableBodyContent = ({
   renderedEntities,

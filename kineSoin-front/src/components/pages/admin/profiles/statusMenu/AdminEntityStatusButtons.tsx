@@ -1,11 +1,12 @@
 import { Button, MenuItem } from '@headlessui/react';
+import type { IAdminEditedEntity } from '../../../../../@types/interfaces/customInterfaces';
 import type { AdminEntityStatusButtonsProps } from '../../../../../@types/props/adminProps';
 import { getAdminEntityStatusButtonsDetails } from '../../../../../utils/functions/admin/adminEntityProfile/getAdminEntityStatusButtonsDetails';
 
 export default function AdminEntityStatusButtons({
   entityType,
   entityStatus,
-  setEntityStatus,
+  setEditedEntity,
 }: AdminEntityStatusButtonsProps) {
   const buttonDetails = getAdminEntityStatusButtonsDetails();
 
@@ -16,7 +17,10 @@ export default function AdminEntityStatusButtons({
   );
 
   const handleClick = (status: string) => {
-    setEntityStatus(status);
+    setEditedEntity((prev: IAdminEditedEntity) => ({
+      ...prev,
+      status,
+    }));
   };
 
   return (

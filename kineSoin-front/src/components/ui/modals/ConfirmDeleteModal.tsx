@@ -27,7 +27,7 @@ export default function ConfirmDeleteModal({
 
     deleteEntity({
       entityType: activeEntity.entityType,
-      id: entity.id,
+      id: activeEntity.id,
     });
   };
 
@@ -57,7 +57,9 @@ export default function ConfirmDeleteModal({
     if (onClose) {
       onClose();
     }
-    regionDeleteMutation.mutate({ id: entity.id });
+    const region_id = entity.id;
+
+    if (region_id) regionDeleteMutation.mutate({ id: region_id });
     setRegionDeleteModal(false);
   };
 
@@ -77,7 +79,7 @@ export default function ConfirmDeleteModal({
         <>
           <p>
             Êtes-vous sûr de vouloir supprimer la région{' '}
-            <span className="font-semibold">{entity.name}</span> ?
+            <span className="font-semibold">{entity?.name}</span> ?
           </p>
           <span className="text-red-500 font-medium">
             Cette action est irréversible.

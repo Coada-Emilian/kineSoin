@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { AdminEntityProfileProps } from '../../../../@types/props/adminProps';
+import type { IAdminEntity } from '../../../../@types/types/adminTypes';
 import { mapEntityToEditedEntity } from '../../../../utils/functions/admin/adminEntityProfile/mapEntityToEditedEntity';
 import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
 import CustomButton from '../../../ui/buttons/CustomButton';
+import AdminProfileImageEditModal from '../../../ui/modals/AdminProfileImageEditModal';
+import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import AdminEntityProfileImage from './AdminEntityProfileImage';
 import EntityProfileTitle from './AdminEntityProfileTitle';
 import AdminEntityProfileContactSection from './entityProfileContactSection/AdminEntityProfileContactSection';
@@ -25,9 +28,12 @@ export default function AdminEntityProfile({
     setEditedEntity,
     isProfileEditing,
     setIsProfileEditing,
+    isDeleteModalOpen,
     setIsDeleteModalOpen,
     setSelectedFile,
     setPreviewUrl,
+    isEditPhotoModalOpen,
+    setIsEditPhotoModalOpen,
   } = useAdminEntityProfileContext();
 
   useEffect(() => {
@@ -233,7 +239,7 @@ export default function AdminEntityProfile({
                         entityType={entityType}
                         id={editedEntity.id}
                         entityStatus={editedEntity.status}
-                        setEntityStatus={setEditedEntity}
+                        setEditedEntity={setEditedEntity}
                       />
                     </AdminEntityStatusMenu>
                   )}
@@ -268,23 +274,21 @@ export default function AdminEntityProfile({
         </div>
       </form>
 
-      {/* {isDeleteModalOpen && (
+      {isDeleteModalOpen && (
         <ConfirmDeleteModal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
           entityType={entityType}
-          entity={entity}
+          entity={entity as IAdminEntity}
         />
-      )} */}
+      )}
 
-      {/* {isEditPhotoModalOpen && entityType === 'therapist' && (
-        <EditPhotoModalRefactor
+      {isEditPhotoModalOpen && entityType === 'therapist' && (
+        <AdminProfileImageEditModal
           isOpen={isEditPhotoModalOpen}
           onClose={() => setIsEditPhotoModalOpen(false)}
-          therapist={entity as ITherapist}
-          setSelectedFile={setSelectedFile}
         />
-      )} */}
+      )}
     </>
   );
 }

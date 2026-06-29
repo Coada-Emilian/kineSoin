@@ -1,6 +1,6 @@
 import { createContext, useState, type ReactNode } from 'react';
-import type { IAdminContext } from '../../../@types/interfaces/contextInterfaces';
-import type { IAdminEntity } from '../../../@types/types/adminTypes';
+import type { IAdminContext } from '../../@types/interfaces/contextInterfaces';
+import type { IAdminEntity } from '../../@types/types/adminTypes';
 
 const AdminContext = createContext<IAdminContext | undefined>(undefined);
 

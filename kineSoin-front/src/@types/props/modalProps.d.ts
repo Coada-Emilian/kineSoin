@@ -1,4 +1,4 @@
-import type { IDeleteModalActiveEntity } from '../interfaces/customInterfaces';
+import type { IAdminEditedEntity } from '../interfaces/customInterfaces';
 import type { BaseModalSize, BaseModalVariant } from '../types/modalTypes';
 
 export interface BasicModalProps {
@@ -24,7 +24,7 @@ export interface ImageModalProps extends BasicModalProps {
 }
 
 export interface ConfirmDeleteModalProps extends BasicModalProps {
-  entity: IDeleteModalActiveEntity;
+  entity: IAdminEditedEntity;
   entityType: string;
 }
 

@@ -18,7 +18,9 @@ export default function BodyRegionsTableBody({
         <TableCell> {region.id}</TableCell>
         <TableCell> {region.name}</TableCell>
         <TableCell>
-          <AdminDeleteButton onDelete={() => openDeleteModal(region)} />
+          <AdminDeleteButton
+            onDelete={() => openDeleteModal(region as IBodyRegion, true)}
+          />
         </TableCell>
       </tr>
     );
