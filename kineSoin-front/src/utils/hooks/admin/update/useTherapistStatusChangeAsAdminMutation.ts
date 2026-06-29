@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { handleTherapistStatusChangeAsAdmin } from '../../functions/apiUtils/admin/therapist/handleTherapistStatusChangeAsAdmin';
-import { validateTherapistStatusChangeAsAdmin } from './validators/validateTherapistStautsChangeAsAdmin';
+import { handleTherapistStatusChangeAsAdmin } from '../../../functions/apiUtils/admin/therapist/handleTherapistStatusChangeAsAdmin';
+import { validateTherapistStatusChangeAsAdmin } from './validators/validateTherapistStatusChangeAsAdmin';
 
 export const useTherapistStatusChangeAsAdminMutation = () => {
   const queryClient = useQueryClient();
@@ -13,24 +13,17 @@ export const useTherapistStatusChangeAsAdminMutation = () => {
       return handleTherapistStatusChangeAsAdmin(id, status);
     },
     onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ['tableDetails', { entityType: 'therapist' }],
+      });
+
       const isOnTherapistDetail = /\/admin\/therapists\/\d+/.test(
         location.pathname
       );
 
       if (isOnTherapistDetail) {
         queryClient.invalidateQueries({
-          queryKey: [
-            'tableDetails',
-            { entityType: 'therapist', entityId: variables.id },
-          ],
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: ['tableDetails', { entityType: 'therapist' }],
-        });
-      } else {
-        queryClient.invalidateQueries({
-          queryKey: ['tableDetails', { entityType: 'therapist' }],
+          queryKey: ['entityDetails', 'therapist', variables.id],
         });
       }
     },

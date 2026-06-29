@@ -38,7 +38,7 @@ export const AdminEntityProfileContextProvider = ({
     postal_code: '',
     insurance_code: '',
     picture_url: '',
-    is_operated: '',
+    id: '',
   });
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -49,69 +49,6 @@ export const AdminEntityProfileContextProvider = ({
   // const [updateEntityForm, setUpdateEntityForm] = useState<FormData | null>(
   //   null
   // );
-
-  //   const inputChangeHandlers = [
-  //     {
-  //       stateName: 'entityName',
-  //       setState: setEntityName,
-  //     },
-  //     {
-  //       stateName: 'entitySurname',
-  //       setState: setEntitySurname,
-  //     },
-  //     {
-  //       stateName: 'entityEmail',
-  //       setState: setEntityEmail,
-  //     },
-  //     {
-  //       stateName: 'entityPrefix',
-  //       setState: setEntityPrefix,
-  //     },
-  //     {
-  //       stateName: 'entityPhoneNumber',
-  //       setState: setEntityPhoneNumber,
-  //     },
-  //     {
-  //       stateName: 'entityLicenceCode',
-  //       setState: setEntityLicenceCode,
-  //     },
-  //     {
-  //       stateName: 'entityDiploma',
-  //       setState: setEntityDiploma,
-  //     },
-  //     {
-  //       stateName: 'entityAMCCode',
-  //       setState: setEntityAMCCode,
-  //     },
-  //     {
-  //       stateName: 'entitySpecialty',
-  //       setState: setEntitySpecialty,
-  //     },
-  //     {
-  //       stateName: 'entityExperience',
-  //       setState: setEntityExperience,
-  //     },
-  //     {
-  //       stateName: 'entityDescription',
-  //       setState: setEntityDescription,
-  //     },
-  //     {
-  //       stateName: 'entityStreetNumber',
-  //       setState: setEntityStreetNumber,
-  //     },
-  //     {
-  //       stateName: 'entityStreetName',
-  //       setState: setEntityStreetName,
-  //     },
-  //     {
-  //       stateName: 'entityCity',
-  //       setState: setEntityCity,
-  //     },
-  //     {
-  //       stateName: 'entityPostalCode',
-  //       setState: setEntityPostalCode,
-  //     },
-  //   ];
 
   return (
     <AdminEntityProfileContext.Provider
@@ -133,7 +70,7 @@ export const AdminEntityProfileContextProvider = ({
 
         selectedFile,
         setSelectedFile,
-        
+
         // updateEntityForm,
         // setUpdateEntityForm,
         //   setEntityStates, // Function to set entity states based on the provided entity

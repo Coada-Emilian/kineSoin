@@ -11,6 +11,7 @@ export const mapEntityToEditedEntity = (
   entity: ITherapist | IPatient | IAffliction | IMedic | IInsurance
 ): IAdminEditedEntity => {
   return {
+    id: 'id' in entity ? entity.id : undefined,
     name: 'name' in entity ? entity.name : '',
     surname: 'surname' in entity ? (entity.surname ?? '') : '',
     age: 'age' in entity ? String(entity.age ?? '') : '',

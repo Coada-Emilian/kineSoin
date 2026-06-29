@@ -139,3 +139,8 @@ export interface AdminEntityStatusButtonsProps extends BaseAdminEntityProfilePro
   entityStatus: string;
   setEditedEntity: React.Dispatch<React.SetStateAction<IAdminEditedEntity>>;
 }
+
+export interface AdminUpdateMutationProps {
+  id: number;
+  formData: FormData;
+}

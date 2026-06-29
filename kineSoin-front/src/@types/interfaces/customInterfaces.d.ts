@@ -8,9 +8,9 @@ export interface IDeleteModalActiveEntity {
 }
 
 export interface IAdminEditedEntity {
-  id?: number | null;
+  id: number | undefined;
 
-  name?: string;
+  name: string;
   surname?: string;
   age?: string;
   gender?: string;
@@ -35,7 +35,7 @@ export interface IAdminEditedEntity {
   postal_code?: string;
 
   insurance_code?: string;
-  is_operated?: string;
+  is_operated?: boolean | string;
 
   picture_url?: string;
 

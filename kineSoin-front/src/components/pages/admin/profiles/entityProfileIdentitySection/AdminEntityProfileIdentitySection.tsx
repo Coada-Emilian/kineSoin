@@ -13,7 +13,9 @@ export default function AdminEntityProfileIdentitySection({
     useAdminEntityProfileContext();
 
   // Handlers for name change
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setEditedEntity((prev) => ({
       ...prev,
       name: e.target.value,
@@ -21,7 +23,9 @@ export default function AdminEntityProfileIdentitySection({
   };
 
   // Handler for surname change
-  const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSurnameChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setEditedEntity((prev) => ({
       ...prev,
       surname: e.target.value,
@@ -34,12 +38,7 @@ export default function AdminEntityProfileIdentitySection({
 
       <AdminEntityIdOutput id={editedEntity.id} />
 
-      {!isProfileEditing ? (
-        <AdminEntityNameOutput
-          name={editedEntity.name}
-          surname={editedEntity.surname}
-        />
-      ) : (
+      {isProfileEditing && entityType !== 'patient' ? (
         <>
           <div className="w-full flex gap-4 mb-2 ">
             <TextInput
@@ -73,6 +72,11 @@ export default function AdminEntityProfileIdentitySection({
             )}
           </div>
         </>
+      ) : (
+        <AdminEntityNameOutput
+          name={editedEntity.name}
+          surname={editedEntity.surname}
+        />
       )}
     </section>
   );

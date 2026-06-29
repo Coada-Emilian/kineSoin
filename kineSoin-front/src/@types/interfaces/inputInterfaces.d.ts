@@ -38,7 +38,9 @@ export interface ITextInput {
   autoComplete?: string;
   isTextArea?: boolean;
   isRequired?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 export interface IDateInput {

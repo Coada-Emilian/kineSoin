@@ -2,7 +2,7 @@ import axios from 'axios';
 import type {
   ICountryPrefix,
   IRestCountry,
-} from '../../@types/interfaces/customInterfaces';
+} from '../../@types/interfaces/apiInterfaces';
 
 interface FunctionProps {
   setCountryPrefixes: React.Dispatch<React.SetStateAction<ICountryPrefix[]>>;

@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import type { TextInputProps } from '../../../@types/props/inputProps';
 import {
   inputBaseStyle,
   inputContainerStyle,
   inputLabelStyle,
 } from '../../../styles/inputBaseStyles';
-import type { TextInputProps } from '../../../@types/props/inputProps';
 
 export default function TextInput({ input }: TextInputProps) {
-  const [value, setValue] = useState(input.value || '');
+  // const [value, setValue] = useState(input.value || '');
 
   return (
     <>
@@ -25,8 +24,8 @@ export default function TextInput({ input }: TextInputProps) {
             name={input.name}
             id={`${input.id}-textarea`}
             placeholder={input.placeholder}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            value={input.value}
+            onChange={input.onChange}
             className={inputBaseStyle}
             cols={32}
             rows={5}
@@ -39,8 +38,8 @@ export default function TextInput({ input }: TextInputProps) {
             placeholder={input.placeholder}
             className={inputBaseStyle}
             required={input.isRequired}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            value={input.value}
+            onChange={input.onChange}
             autoComplete={input.autoComplete}
           />
         )}

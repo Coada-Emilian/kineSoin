@@ -2,8 +2,11 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { AdminEntityProfileProps } from '../../../../@types/props/adminProps';
 import type { IAdminEntity } from '../../../../@types/types/adminTypes';
+import { entityUpdateMutations } from '../../../../utils/constants/admin/entityUpdateMutations';
 import { mapEntityToEditedEntity } from '../../../../utils/functions/admin/adminEntityProfile/mapEntityToEditedEntity';
 import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
+import { usePatientStatusChangeAsAdminMutation } from '../../../../utils/hooks/admin/update/usePatientStatusChangeAsAdminMutation';
+import { useTherapistStatusChangeAsAdminMutation } from '../../../../utils/hooks/admin/update/useTherapistStatusChangeAsAdminMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import AdminProfileImageEditModal from '../../../ui/modals/AdminProfileImageEditModal';
 import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
@@ -34,53 +37,17 @@ export default function AdminEntityProfile({
     setPreviewUrl,
     isEditPhotoModalOpen,
     setIsEditPhotoModalOpen,
+    selectedFile,
   } = useAdminEntityProfileContext();
 
   useEffect(() => {
     if (entity) {
       setEditedEntity(mapEntityToEditedEntity(entity));
     }
-  }, [entity, setEditedEntity]);
-
-  useEffect(() => {
-    console.log('Edited entity is ', editedEntity);
-  }, [editedEntity]);
-
-  useEffect(() => {
-    console.log('Entity is ', entity);
+    // setEditedEntity is a stable state setter from context.
+    // We only want to remap when the entity changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entity]);
-
-  //   const mutationEntry = entityUpdateMutations().find(
-  //     (entry) => entry.entityType === entityType && entry.updateFunction
-  //   );
-
-  //   const activeMutation = mutationEntry?.updateFunction?.();
-
-  // Define mutations for therapist and patient status changes
-  //   const handleTherapistStatusChange = useTherapistStatusChangeMutation();
-  //   const handlePatientStatusChange = usePatientStatusChangeMutation();
-
-  // Destructure global context for admin profile details
-  //   const {
-  //     setIsProfileEditing,
-  //     setIsDeleteModalOpen,
-  //     isDeleteModalOpen,
-  //     setEntityStates,
-  //     entityPictureUrl,
-  //     entityEmail,
-  //     entityPhoneNumber,
-  //     entityName,
-  //     entitySurname,
-  //     entityId,
-  //     entityStatus,
-  //     isProfileEditing,
-  //     isEditPhotoModalOpen,
-  //     setSelectedFile,
-  //     setIsEditPhotoModalOpen,
-  //     setPreviewUrl,
-  //     selectedFile,
-  //     setEntityStatus,
-  //   } = useAdminProfileDetailsGlobalContext();
 
   const handleModifyClick = () => {
     setIsProfileEditing(true);
@@ -108,43 +75,67 @@ export default function AdminEntityProfile({
     navigate(`/admin/${entityType}s`);
   };
 
+  const mutationEntry = entityUpdateMutations().find(
+    (entry) => entry.entityType === entityType && entry.updateFunction
+  );
+
+  const activeMutation = mutationEntry?.updateFunction?.();
+
+  // Define mutations for therapist and patient status changes
+  const handleTherapistStatusChange = useTherapistStatusChangeAsAdminMutation();
+  const handlePatientStatusChange = usePatientStatusChangeAsAdminMutation();
+
   // Handle form submission for profile updates
-  //   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-  //     if (entityType !== 'patient') {
-  //       if (!activeMutation || !entityId) return;
+  const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  //       const formData = new FormData(e.currentTarget);
-  //       if (selectedFile) {
-  //         formData.append('file', selectedFile);
-  //       }
+    const entityId = editedEntity.id;
 
-  //       activeMutation.mutate({ id: entityId, formData });
+    if (!entityId) return;
 
-  //       if (activeMutation.isPending) {
-  //         return DNALoader();
-  //       }
-  //     }
+    if (entityType !== 'patient') {
+      if (!activeMutation) return;
 
-  //     if (entityType === 'therapist' && entityId !== null) {
-  //       handleTherapistStatusChange.mutate({
-  //         id: entityId,
-  //         status: entityStatus,
-  //       });
-  //     } else if (entityType === 'patient' && entityId !== null) {
-  //       handlePatientStatusChange.mutate({
-  //         id: entityId,
-  //         status: entityStatus,
-  //       });
-  //     }
+      const formData = new FormData(e.currentTarget);
 
-  //     setIsProfileEditing(false);
-  //     setSelectedFile(null);
-  //   };
+      if (selectedFile) {
+        formData.append('file', selectedFile);
+      }
+
+      activeMutation.mutate(
+        {
+          id: entityId,
+          formData,
+        },
+        {
+          onSuccess: () => {
+            setIsProfileEditing(false);
+            setSelectedFile(null);
+            console.log('editedEntity', editedEntity);
+            console.log('entity', entity);
+          },
+        }
+      );
+    }
+
+    if (entityType === 'therapist' && editedEntity.status) {
+      handleTherapistStatusChange.mutate({
+        id: entityId,
+        status: editedEntity.status,
+      });
+    }
+
+    if (entityType === 'patient' && editedEntity.status) {
+      handlePatientStatusChange.mutate({
+        id: entityId,
+        status: editedEntity.status,
+      });
+    }
+  };
 
   return (
     <>
-      <form className="flex justify-center">
+      <form className="flex justify-center" onSubmit={handleFormSubmit}>
         <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-4/6 items-center md:items-start">
           <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center">
             <EntityProfileTitle entityType={entityType} />

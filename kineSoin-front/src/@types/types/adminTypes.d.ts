@@ -29,3 +29,18 @@ export type IAdminEntityTypes =
   | 'affliction'
   | 'medic'
   | 'insurance';
+
+export type IAdminEntityProfileInputTypes =
+  | 'email'
+  | 'phone_number'
+  | 'street_number'
+  | 'street_name'
+  | 'postal_code'
+  | 'city'
+  | 'amc_code'
+  | 'insurance_code'
+  | 'licence_code'
+  | 'diploma'
+  | 'specialty'
+  | 'experience'
+  | 'description';

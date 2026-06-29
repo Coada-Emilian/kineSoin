@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import './App.css';
 import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
@@ -61,6 +62,7 @@ function App() {
           </Route>
         )}
       </Routes>
+      <ToastContainer />
     </>
   );
 }
