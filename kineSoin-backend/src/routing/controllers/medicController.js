@@ -12,11 +12,11 @@
  *   controller lightweight and focused on structure rather than implementation.
  */
 
-import getAllMedicsAsAdmin from '../../services/medic/admin/getAllMedicsAsAdmin.js';
-import getOneMedicAsAdmin from '../../services/medic/admin/getOneMedicAsAdmin.js';
-import updateMedicAsAdmin from '../../services/medic/admin/updateMedicAsAdmin.js';
 import createMedicAsAdmin from './handlers/medic/createMedicAsAdmin.js';
 import deleteMedicAsAdmin from './handlers/medic/deleteMedicAsAdmin.js';
+import getAllMedicsAsAdmin from './handlers/medic/getAllMedicsAsAdmin.js';
+import getOneMedicAsAdmin from './handlers/medic/getOneMedicAsAdmin.js';
+import updateMedicAsAdmin from './handlers/medic/updateMedicAsAdmin.js';
 
 const medicController = {
   // Function to get all medics as admin

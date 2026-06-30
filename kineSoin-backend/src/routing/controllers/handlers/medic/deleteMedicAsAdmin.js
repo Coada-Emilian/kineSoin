@@ -1,4 +1,4 @@
-import deleteMedicService from '../../../../services/medic/admin/deleteMedic2AsAdmin.js';
+import deleteMedicService from '../../../../services/medic/admin/deleteMedicAsAdmin.js';
 
 export default async function deleteMedicAsAdmin(req, res) {
   try {
