@@ -14,21 +14,21 @@
  */
 
 import 'dotenv/config';
-import loginAdmin from '../../services/authentication/admin/loginAdmin.js';
-import loginTherapist from '../../services/authentication/therapist/loginTherapist.js';
+import loginAdmin from './handlers/authentication/loginAdmin.js';
+import loginTherapist from './handlers/authentication/loginTherapist.js';
 
 const authenticationController = {
-    // Function to login admin
+  // Function to login admin
   loginAdmin,
 
   // Function to login therapist
   loginTherapist,
 
-//   // Function to check patient password
-//   checkPatientPassword,
+  //   // Function to check patient password
+  //   checkPatientPassword,
 
-//     // Function to login patient
-//   loginPatient,
+  //     // Function to login patient
+  //   loginPatient,
 };
 
 export default authenticationController;

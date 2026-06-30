@@ -1,14 +1,14 @@
 import createAfflictionService from '../../../../services/affliction/admin/createAfflictionAsAdmin.js';
+import createdAfflictionSchema from '../../../../validations/joi/creation/createdAfflictionSchema.js';
 
 export default async function createAfflictionAsAdmin(req, res) {
-  try {
-    if (!req.body) {
-      return res.status(400).json({
-        message:
-          'The request body cannot be empty. Please provide the necessary data.',
-      });
-    }
+  const { error } = createdAfflictionSchema.validate(afflictionData);
 
+  if (error) {
+    return res.status(400).json({ message: error.message });
+  }
+
+  try {
     const createdAffliction = await createAfflictionService({
       adminId: req.admin_id,
       afflictionData: req.body,
