@@ -16,9 +16,9 @@
  *   and unexpected server errors.
  */
 
-import { Admin, Body_region } from '../../../models/index.js';
-import { findOrThrow } from '../../../utils/findOrThrow.js';
-import { getValidId } from '../../../utils/getValidId.js';
+import { Admin, Body_region } from '../../models/index.js';
+import { findOrThrow } from '../../utils/findOrThrow.js';
+import { getValidId } from '../../utils/getValidId.js';
 
 export default async function getAllBodyRegionsAsAdmin(req, res) {
   const admin_id = getValidId(req.admin_id, 'Admin ID');

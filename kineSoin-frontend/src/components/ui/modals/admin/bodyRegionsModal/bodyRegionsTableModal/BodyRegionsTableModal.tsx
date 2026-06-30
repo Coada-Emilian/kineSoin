@@ -7,7 +7,7 @@ export default function BodyRegionsTableModal() {
     data: bodyRegions = [],
     isPending: bodyRegionsFetchIsPending,
     error: bodyRegionFetchError,
-  } = useFetchAdminBodyRegionsQuery();
+  } = useFetchAdminBodyRegionsQuery(true);
 
   if (bodyRegionsFetchIsPending) {
     return DNALoader();
@@ -41,7 +41,7 @@ export default function BodyRegionsTableModal() {
         </thead>
 
         <tbody className="xxs:text-xs xs:text-xs md:text-sm bg-gray-50 text-gray-700 text-sm font-medium">
-          <BodyRegionsTableBody bodyRegions={bodyRegions}  />
+          <BodyRegionsTableBody bodyRegions={bodyRegions} />
         </tbody>
       </table>
     </div>

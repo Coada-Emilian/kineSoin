@@ -19,7 +19,9 @@ export default async function createAfflictionAsAdmin(req, res) {
         .status(500)
         .json({ message: 'Error while creating affliction.' });
     }
-    return res.status(201).json(createdAffliction);
+    return res.status(201).json({
+      message: 'Affliction created.',
+    });
   } catch (error) {
     console.error('Error creating affliction:', error);
 

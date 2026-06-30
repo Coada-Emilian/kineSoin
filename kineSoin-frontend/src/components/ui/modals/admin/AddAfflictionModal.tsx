@@ -23,7 +23,7 @@ export default function AddAfflictionModal({
     data: bodyRegions = [],
     isPending: bodyRegionsFetchIsPending,
     error: bodyRegionFetchError,
-  } = useFetchAdminBodyRegionsQuery();
+  } = useFetchAdminBodyRegionsQuery(isOpen);
 
   if (bodyRegionsFetchIsPending || submitAfflictionMutation.isPending) {
     return DNALoader();

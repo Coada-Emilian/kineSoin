@@ -21,7 +21,6 @@ export default async function updateMedicAsAdmin(req, res) {
 
     return res.status(200).json({
       message: 'Medic updated successfully.',
-      updatedMedic,
     });
   } catch (error) {
     console.error('Error updating medic:', error);

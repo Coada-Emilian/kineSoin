@@ -12,14 +12,14 @@
  *   and making future extensions (e.g., patient‑side queries) straightforward.
  */
 
-import createBodyRegionAsAdmin from '../../services/affliction/body_region/createBodyRegionAsAdmin.js';
-import deleteBodyRegionAsAdmin from '../../services/affliction/body_region/deleteBodyRegionAsAdmin.js';
-import getAllBodyRegionsAsAdmin from '../../services/affliction/body_region/getAllBodyRegionsAsAdmin.js';
-import getAllAfflictionsAsAdmin from '../../services/affliction/getAllAfflictionsAsAdmin.js';
-import getOneAfflictionAsAdmin from '../../services/affliction/getOneAfflictionAsAdmin.js';
-import updateAfflictionAsAdmin from '../../services/affliction/updateAfflictionAsAdmin.js';
 import createAfflictionAsAdmin from './handlers/affliction/createAfflictionAsAdmin.js';
 import deleteAfflictionAsAdmin from './handlers/affliction/deleteAfflictionAsAdmin.js';
+import getAllAfflictionsAsAdmin from './handlers/affliction/getAllAfflictionsAsAdmin.js';
+import getOneAfflictionAsAdmin from './handlers/affliction/getOneAfflictionAsAdmin.js';
+import updateAfflictionAsAdmin from './handlers/affliction/updateAfflictionAsAdmin.js';
+import createBodyRegionAsAdmin from './handlers/bodyRegion/createBodyRegionAsAdmin.js';
+import deleteBodyRegionAsAdmin from './handlers/bodyRegion/deleteBodyRegionAsAdmin.js';
+import getAllBodyRegionsAsAdmin from './handlers/bodyRegion/getAllBodyRegionsAsAdmin.js';
 
 const afflictionController = {
   // Function to get all afflictions as admin

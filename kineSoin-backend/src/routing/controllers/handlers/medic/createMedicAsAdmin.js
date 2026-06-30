@@ -15,17 +15,24 @@ import createMedicService from '../../../../services/medic/admin/createMedicAsAd
 
 export default async function createMedicAsAdmin(req, res) {
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
+
     const createdMedic = await createMedicService({
       adminId: req.admin_id,
       medicData: req.body,
     });
+
     if (!createdMedic) {
       return res.status(500).json({ message: 'Error while creating medic.' });
     }
-  
+
     return res.status(201).json({
       message: 'Medic created.',
-      createdMedic,
     });
   } catch (error) {
     return res.status(500).json({
