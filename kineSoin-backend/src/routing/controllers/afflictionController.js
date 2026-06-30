@@ -15,11 +15,11 @@
 import createBodyRegionAsAdmin from '../../services/affliction/body_region/createBodyRegionAsAdmin.js';
 import deleteBodyRegionAsAdmin from '../../services/affliction/body_region/deleteBodyRegionAsAdmin.js';
 import getAllBodyRegionsAsAdmin from '../../services/affliction/body_region/getAllBodyRegionsAsAdmin.js';
-import deleteAfflictionAsAdmin from '../../services/affliction/deleteAfflictionAsAdmin.js';
 import getAllAfflictionsAsAdmin from '../../services/affliction/getAllAfflictionsAsAdmin.js';
 import getOneAfflictionAsAdmin from '../../services/affliction/getOneAfflictionAsAdmin.js';
 import updateAfflictionAsAdmin from '../../services/affliction/updateAfflictionAsAdmin.js';
 import createAfflictionAsAdmin from './handlers/affliction/createAfflictionAsAdmin.js';
+import deleteAfflictionAsAdmin from './handlers/affliction/deleteAfflictionAsAdmin.js';
 
 const afflictionController = {
   // Function to get all afflictions as admin
