@@ -12,13 +12,6 @@ export default async function updateMedicAsAdmin({
 
   await findOrThrow(Admin, admin_id, 'Admin');
 
-  if (!medicData) {
-    return res.status(400).json({
-      message:
-        'The request body cannot be empty. Please provide the necessary data.',
-    });
-  }
-
   const medic_id = getValidId(medicId, 'Medic ID');
 
   const foundMedic = await Medic.findByPk(medic_id);

@@ -19,7 +19,10 @@ export default async function createMedicAsAdmin(req, res) {
       adminId: req.admin_id,
       medicData: req.body,
     });
-
+    if (!createdMedic) {
+      return res.status(500).json({ message: 'Error while creating medic.' });
+    }
+  
     return res.status(201).json({
       message: 'Medic created.',
       createdMedic,

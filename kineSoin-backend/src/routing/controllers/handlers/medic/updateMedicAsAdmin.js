@@ -2,6 +2,13 @@ import updateMedicService from '../../../../services/medic/admin/updateMedicAsAd
 
 export default async function updateMedicAsAdmin(req, res) {
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        message:
+          'The request body cannot be empty. Please provide the necessary data.',
+      });
+    }
+
     const updatedMedic = updateMedicService({
       adminId: req.admin_id,
       medicId: req.params.medic_id,
