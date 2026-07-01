@@ -1,9 +1,9 @@
 import type { UseDeleteEntityFunctionProps } from '../../../../@types/props/functionProps';
-import { useAfflictionDeletionMutation } from './useAfflictionDeletionMutation';
-import { useInsuranceDeletionMutation } from './useInsuranceDeletionMutation';
-import { useMedicDeletionMutation } from './useMedicDeletionMutation';
-import { usePatientDeletionMutation } from './usePatientDeletionMutation';
-import { useTherapistDeletionMutation } from './useTherapistDeletionMutation';
+import { useAfflictionDeletionMutation } from '../deletion/useAfflictionDeletionMutation';
+import { useInsuranceDeletionMutation } from '../deletion/useInsuranceDeletionMutation';
+import { useMedicDeletionMutation } from '../deletion/useMedicDeletionMutation';
+import { usePatientDeletionMutation } from '../deletion/usePatientDeletionMutation';
+import { useTherapistDeletionMutation } from '../deletion/useTherapistDeletionMutation';
 
 export function useDeleteEntity() {
   const therapistMutation = useTherapistDeletionMutation();
