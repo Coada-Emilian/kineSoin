@@ -13,7 +13,7 @@
  */
 
 import 'dotenv/config';
-import registerPatient from '../../services/registration/registerPatient.js';
+import registerPatient from './handlers/registration/registerPatient.js';
 
 const registrationController = {
   // Function to register a new patient
