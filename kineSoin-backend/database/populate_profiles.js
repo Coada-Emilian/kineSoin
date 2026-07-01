@@ -11,7 +11,7 @@
  * - Direct SQL inserts are used for speed and to avoid ORM overhead during bulk setup.
  */
 
-import { Scrypt } from '../src/server_folders/authentification/Scrypt.js';
+import { Scrypt } from '../src/authentication/Scrypt.js';
 import admins from './data/admin_data.json' with { type: 'json' };
 import medics from './data/medic_data.json' with { type: 'json' };
 import patients from './data/patient_data.json' with { type: 'json' };

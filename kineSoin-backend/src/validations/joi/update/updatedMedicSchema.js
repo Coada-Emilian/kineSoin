@@ -19,7 +19,7 @@
 import Joi from 'joi';
 
 const updatedMedicSchema = Joi.object({
-  admin_id: Joi.number().required(),
+  admin_id: Joi.number().optional(),
   name: Joi.string().optional(),
   surname: Joi.string().optional(),
   street_number: Joi.string().optional(),

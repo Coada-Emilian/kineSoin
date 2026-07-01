@@ -14,18 +14,11 @@
 import { Admin, Medic } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';
-import createdMedicSchema from '../../../validations/joi/creation/createdMedicSchema.js';
 
 export default async function createMedicAsAdmin({ adminId, medicData }) {
   const admin_id = getValidId(adminId, 'Admin ID');
 
   await findOrThrow(Admin, admin_id, 'Admin');
-
-  const { error } = createdMedicSchema.validate(medicData);
-
-  if (error) {
-    throw new Error(error.message);
-  }
 
   const newMedic = {
     admin_id,

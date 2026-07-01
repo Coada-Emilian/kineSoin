@@ -8,7 +8,7 @@ export const handleInsuranceCreationAsAdmin = async (formData: FormData) => {
         'Content-Type': 'application/json',
       },
     });
-    if (response.status === 200) {
+    if (response.status === 201) {
       console.log('Insurance organism created successfully');
       return true;
     } else {

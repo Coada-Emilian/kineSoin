@@ -1,13 +1,12 @@
 import updateAfflictionService from '../../../../services/affliction/admin/updateAfflictionAsAdmin.js';
+import updatedAfflictionSchema from '../../../../validations/joi/update/updatedAfflictionSchema.js';
 
 export default async function updateAfflictionAsAdmin(req, res) {
   try {
-    if (!req.body) {
-      console.error('Request body is empty or invalid');
-      return res.status(400).json({
-        message:
-          'The request body cannot be empty. Please provide the necessary data.',
-      });
+    const { error } = updatedAfflictionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
     }
 
     const updatedAffliction = updateAfflictionService({
@@ -25,7 +24,6 @@ export default async function updateAfflictionAsAdmin(req, res) {
     return res.status(200).json({
       message: 'Affliction updated successfully',
     });
-    
   } catch (error) {
     console.error('Error updating affliction:', error);
 

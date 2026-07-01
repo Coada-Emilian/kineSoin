@@ -12,14 +12,14 @@
  */
 
 import createMedicService from '../../../../services/medic/admin/createMedicAsAdmin.js';
+import createdMedicSchema from '../../../../validations/joi/creation/createdMedicSchema.js';
 
 export default async function createMedicAsAdmin(req, res) {
   try {
-    if (!req.body) {
-      return res.status(400).json({
-        message:
-          'The request body cannot be empty. Please provide the necessary data.',
-      });
+    const { error } = createdMedicSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
     }
 
     const createdMedic = await createMedicService({

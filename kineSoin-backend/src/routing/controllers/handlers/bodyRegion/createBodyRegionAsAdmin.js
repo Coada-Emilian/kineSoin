@@ -1,13 +1,14 @@
 import createBodyRegionService from '../../../../services/body_region/admin/createBodyRegionAsAdmin.js';
+import createdBodyRegionSchema from '../../../../validations/joi/creation/createdBodyRegionSchema.js';
 
 export default async function createBodyRegionAsAdmin(req, res) {
   try {
-    if (!req.body) {
-      return res.status(400).json({
-        message:
-          'The request body cannot be empty. Please provide the necessary data.',
-      });
+    const { error } = createdBodyRegionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
     }
+    
     const createdBodyRegion = await createBodyRegionService({
       adminId: req.admin_id,
       bodyRegionData: req.body,
@@ -22,7 +23,6 @@ export default async function createBodyRegionAsAdmin(req, res) {
     return res.status(201).json({
       message: 'Body region created.',
     });
-    
   } catch (error) {
     console.error('Error creating body region:', error);
 

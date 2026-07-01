@@ -2,13 +2,12 @@ import createAfflictionService from '../../../../services/affliction/admin/creat
 import createdAfflictionSchema from '../../../../validations/joi/creation/createdAfflictionSchema.js';
 
 export default async function createAfflictionAsAdmin(req, res) {
-  const { error } = createdAfflictionSchema.validate(afflictionData);
-
-  if (error) {
-    return res.status(400).json({ message: error.message });
-  }
-
   try {
+    const { error } = createdAfflictionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
     const createdAffliction = await createAfflictionService({
       adminId: req.admin_id,
       afflictionData: req.body,
@@ -19,6 +18,7 @@ export default async function createAfflictionAsAdmin(req, res) {
         .status(500)
         .json({ message: 'Error while creating affliction.' });
     }
+
     return res.status(201).json({
       message: 'Affliction created.',
     });

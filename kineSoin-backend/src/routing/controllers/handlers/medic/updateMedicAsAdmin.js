@@ -1,12 +1,12 @@
 import updateMedicService from '../../../../services/medic/admin/updateMedicAsAdmin.js';
+import updatedMedicSchema from '../../../../validations/joi/update/updatedMedicSchema.js';
 
 export default async function updateMedicAsAdmin(req, res) {
   try {
-    if (!req.body) {
-      return res.status(400).json({
-        message:
-          'The request body cannot be empty. Please provide the necessary data.',
-      });
+    const { error } = updatedMedicSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
     }
 
     const updatedMedic = updateMedicService({

@@ -1,7 +1,6 @@
 import { Admin, Medic } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';
-import updatedMedicSchema from '../../../validations/joi/update/updatedMedicSchema.js';
 
 export default async function updateMedicAsAdmin({
   adminId,
@@ -43,12 +42,6 @@ export default async function updateMedicAsAdmin({
     prefix: prefix || foundMedic.prefix,
     full_phone_number: prefix + phone_number || foundMedic.full_phone_number,
   };
-
-  const { error } = updatedMedicSchema.validate(newMedic);
-
-  if (error) {
-    throw new Error(error.message);
-  }
 
   const updatedMedic = await foundMedic.update(newMedic);
 

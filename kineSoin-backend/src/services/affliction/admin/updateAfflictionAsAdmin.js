@@ -1,7 +1,7 @@
 import { Admin, Affliction } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';
-import updatedAfflictionSchema from '../../../validations/joi/update/updatedAfflictionSchema.js';
+
 
 export default async function updateAfflictionAsAdmin({
   adminId,
@@ -28,11 +28,7 @@ export default async function updateAfflictionAsAdmin({
     admin_id,
   };
 
-  const { error } = updatedAfflictionSchema.validate(newAffliction);
 
-  if (error) {
-    throw new Error(error.message);
-  }
 
   const updatedAffliction = await foundAffliction.update(newAffliction);
 
