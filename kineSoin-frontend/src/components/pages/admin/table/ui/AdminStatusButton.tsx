@@ -1,6 +1,6 @@
 import { Button } from '@headlessui/react';
-import { adminTableStatusButtonDetails } from '../../../../../utils/constants/admin/adminTableStatusButtonDetails';
 import refreshIcon from '/icons/refresh.png';
+import { adminTableStatusButtonDetails } from '../../../../../utils/config/admin/adminTableStatusButtonDetails';
 
 interface Props {
   status: string;

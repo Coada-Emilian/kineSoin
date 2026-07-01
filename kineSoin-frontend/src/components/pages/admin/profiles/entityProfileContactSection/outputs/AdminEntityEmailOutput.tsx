@@ -1,8 +1,18 @@
 import type { AdminEntityEmailOutputProps } from '../../../../../../@types/props/adminProps';
-import AdminEntityProfileOutput from '../../AdminEntityProfileOutput';
+import AdminEntityProfileInfoOutput from './AdminOutputContainer';
+import readIcon from '/icons/envelope.png';
 
 export default function AdminEntityEmailOutput({
   email,
 }: AdminEntityEmailOutputProps) {
-  return <AdminEntityProfileOutput label="E-mail" value={email} />;
+  return (
+    <>
+      <AdminEntityProfileInfoOutput
+        icon={readIcon}
+        iconAlt="email"
+        label="Email"
+        value={email as string}
+      ></AdminEntityProfileInfoOutput>
+    </>
+  );
 }

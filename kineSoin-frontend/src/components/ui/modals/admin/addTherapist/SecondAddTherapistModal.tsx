@@ -1,7 +1,7 @@
 import type { SecondAddTherapistModalProps } from '../../../../../@types/props/modalProps';
 import { handleAddTherapistStepTwoSubmit } from '../../../../../utils/functions/admin/addTherapist/handleAddTherapistStepTwoSubmit';
-import { useAdminAddTherapistContext } from '../../../../../utils/functions/contextUtils/useAdminAddTherapistContext';
-import { useAppContext } from '../../../../../utils/functions/contextUtils/useAppContext';
+import { useAdminAddTherapistContext } from '../../../../../utils/hooks/context/useAdminAddTherapistContext';
+import { useAppContext } from '../../../../../utils/hooks/context/useAppContext';
 import TextInput from '../../../inputs/TextInput';
 import BaseModal from '../../BaseModal';
 import ButtonSection from '../ButtonSection';

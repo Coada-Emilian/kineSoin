@@ -1,5 +1,6 @@
 import type { AdminEntityAddressOutputProps } from '../../../../../../@types/props/adminProps';
-import AdminEntityProfileOutput from '../../AdminEntityProfileOutput';
+import AdminEntityProfileInfoOutput from './AdminOutputContainer';
+import addressIcon from '/icons/address.png';
 
 export default function AdminEntityAddressOutput({
   street_number,
@@ -10,7 +11,14 @@ export default function AdminEntityAddressOutput({
   if (street_number && street_name && postal_code && city) {
     const fullAddress = `${street_number} ${street_name}, ${postal_code} ${city}`;
 
-    return <AdminEntityProfileOutput value={fullAddress} label="Adresse" />;
+    return (
+      <AdminEntityProfileInfoOutput
+        icon={addressIcon}
+        iconAlt="adresse"
+        label="Adresse"
+        value={fullAddress as string}
+      ></AdminEntityProfileInfoOutput>
+    );
   } else {
     return null;
   }

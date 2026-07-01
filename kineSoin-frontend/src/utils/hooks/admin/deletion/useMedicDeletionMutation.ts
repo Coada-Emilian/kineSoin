@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { handleMedicDeletionAsAdmin } from '../../../functions/apiUtils/admin/medic/handleMedicDeletionAsAdmin';
 import { validateEntityId } from '../validators/validateEntityId';
+import { handleMedicDeletionAsAdmin } from '../../../api/admin/medic/handleMedicDeletionAsAdmin';
 
 export function useMedicDeletionMutation() {
   const location = useLocation();

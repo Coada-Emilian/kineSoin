@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { AdminEntityProfileProps } from '../../../../@types/props/adminProps';
 import type { IAdminEntity } from '../../../../@types/types/adminTypes';
-import { entityUpdateMutations } from '../../../../utils/constants/admin/entityUpdateMutations';
+import { entityUpdateMutations } from '../../../../utils/config/admin/entityUpdateMutations';
 import { mapEntityToEditedEntity } from '../../../../utils/functions/admin/adminEntityProfile/mapEntityToEditedEntity';
-import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
 import { usePatientStatusChangeAsAdminMutation } from '../../../../utils/hooks/admin/update/usePatientStatusChangeAsAdminMutation';
 import { useTherapistStatusChangeAsAdminMutation } from '../../../../utils/hooks/admin/update/useTherapistStatusChangeAsAdminMutation';
+import { useAdminEntityProfileContext } from '../../../../utils/hooks/context/useAdminEntityProfileContext';
 import CustomButton from '../../../ui/buttons/CustomButton';
-import AdminProfileImageEditModal from '../../../ui/modals/AdminProfileImageEditModal';
+import AdminProfileImageEditModal from '../../../ui/modals/admin/AdminProfileImageEditModal';
 import ConfirmDeleteModal from '../../../ui/modals/ConfirmDeleteModal';
 import AdminEntityProfileImage from './AdminEntityProfileImage';
 import EntityProfileTitle from './AdminEntityProfileTitle';
@@ -136,8 +136,8 @@ export default function AdminEntityProfile({
   return (
     <>
       <form className="flex justify-center" onSubmit={handleFormSubmit}>
-        <div className="flex flex-col md:m-2 border border-gray-300 text-primaryBlue rounded-xl shadow-2xl w-5/6 md:w-4/6 items-center md:items-start">
-          <div className="w-full p-6 bg-primaryBlue rounded-t-xl flex justify-center">
+        <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white text-primaryBlue shadow-lg transition-shadow duration-300 hover:shadow-xl mx-4 my-8">
+          <div className="flex w-full items-center justify-center border-b border-gray-200 bg-primaryBlue px-6 py-5">
             <EntityProfileTitle entityType={entityType} />
           </div>
 
@@ -154,7 +154,7 @@ export default function AdminEntityProfile({
             </div>
           </div>
 
-          <div className="w-full p-4 md:py-10 md:px-24">
+          <div className="w-full p-4 md:py-10 md:px-20">
             {entity && (
               <>
                 <AdminEntityProfileIdentitySection entityType={entityType} />
@@ -164,7 +164,7 @@ export default function AdminEntityProfile({
             )}
           </div>
 
-          <div className="bg-primaryBlue p-3 w-full flex items-center gap-4 justify-center">
+          <div className="bg-primaryBlue p-4 w-full flex items-center gap-5 justify-center">
             <div className="flex gap-2">
               {editedEntity.email && (
                 <a
@@ -193,7 +193,7 @@ export default function AdminEntityProfile({
             </div>
 
             <div>
-              <p className="text-white italic">{`/ ${editedEntity.name?.toLowerCase()}${editedEntity.surname?.toLowerCase()}`}</p>
+              <p className="text-white italic flex items-center">{`/ ${editedEntity.name?.toLowerCase()}.${editedEntity.surname?.toLowerCase()}`}</p>
             </div>
           </div>
 
@@ -201,26 +201,24 @@ export default function AdminEntityProfile({
             <div className="flex gap-1 items-center ">
               {!isProfileEditing ? (
                 <>
-                  <>
-                    <CustomButton
-                      btn={{
-                        type: 'modify',
-                        text: 'Modifier',
-                        style: 'normal',
-                        hasBorder: true,
-                        onClick: handleModifyClick,
-                      }}
-                    />
-                    <CustomButton
-                      btn={{
-                        type: 'delete',
-                        text: 'Supprimer',
-                        style: 'normal',
-                        hasBorder: true,
-                        onClick: handleDeleteClick,
-                      }}
-                    />
-                  </>
+                  <CustomButton
+                    btn={{
+                      type: 'modify',
+                      text: 'Modifier',
+                      style: 'normal',
+                      hasBorder: true,
+                      onClick: handleModifyClick,
+                    }}
+                  />
+                  <CustomButton
+                    btn={{
+                      type: 'delete',
+                      text: 'Supprimer',
+                      style: 'normal',
+                      hasBorder: true,
+                      onClick: handleDeleteClick,
+                    }}
+                  />
                 </>
               ) : (
                 <>
@@ -247,19 +245,17 @@ export default function AdminEntityProfile({
                 </>
               )}
 
-              <>
-                <CustomButton
-                  btn={{
-                    type: 'cancel',
-                    text: 'Annuler',
-                    style: 'normal',
-                    hasBorder: true,
-                    onClick: isProfileEditing
-                      ? handleCancelClick
-                      : handleCancelClickToReturn,
-                  }}
-                />
-              </>
+              <CustomButton
+                btn={{
+                  type: 'cancel',
+                  text: isProfileEditing ? 'Annuler' : 'Retour',
+                  style: 'normal',
+                  hasBorder: true,
+                  onClick: isProfileEditing
+                    ? handleCancelClick
+                    : handleCancelClickToReturn,
+                }}
+              />
             </div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { adminMobileNavbarLinkDetails } from '../../../utils/constants/admin/layout/adminMobileNavbarLinkDetails';
+import { adminMobileNavbarLinkDetails } from '../../../utils/config/admin/layout/adminMobileNavbarLinkDetails';
 
 export default function AdminMobileNav() {
   return (
-    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 rounded  md:hidden">
+    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 rounded md:hidden">
       {adminMobileNavbarLinkDetails.map((link, index) => (
         <NavLink
           to={link.path}

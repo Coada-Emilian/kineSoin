@@ -5,7 +5,7 @@ import React, {
   type ReactNode,
 } from 'react';
 import type { IAuthentificationContext } from '../../@types/interfaces/contextInterfaces';
-import { checkAdminAuthentification } from '../../utils/functions/authentification/checkAdminAuthentification';
+import { checkAdminAuthentication } from '../../utils/functions/authentication/checkAdminAuthentification';
 import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/adminLocalStorage';
 import { getPatientTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/patientLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/therapistLocalStorage';
@@ -25,14 +25,14 @@ export const AuthentificationContextProvider: React.FC<{
 
   useEffect(() => {
     // On component mount and every 30 seconds, re-check admin auth
-    checkAdminAuthentification({
+    checkAdminAuthentication({
       setIsAdminAuthenticated,
       setAdminProfileToken,
     });
 
     const handleAdminStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
-        checkAdminAuthentification({
+        checkAdminAuthentication({
           setIsAdminAuthenticated,
           setAdminProfileToken,
         });
@@ -43,7 +43,7 @@ export const AuthentificationContextProvider: React.FC<{
     window.addEventListener('storage', handleAdminStorageChange);
 
     const adminIntervalId = setInterval(() => {
-      checkAdminAuthentification({
+      checkAdminAuthentication({
         setIsAdminAuthenticated,
         setAdminProfileToken,
       });

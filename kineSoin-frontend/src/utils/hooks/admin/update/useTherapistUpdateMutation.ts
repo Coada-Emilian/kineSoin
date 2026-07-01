@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import type { AdminUpdateMutationProps } from '../../../../@types/props/adminProps';
-import { handleTherapistUpdateAsAdmin } from '../../../functions/apiUtils/admin/therapist/handleTherapistUpdateAsAdmin';
 import { validateTherapistUpdateForm } from './validators/validateTherapistUpdateForm';
+import { handleTherapistUpdateAsAdmin } from '../../../api/admin/therapist/handleTherapistUpdateAsAdmin';
 
 export const useTherapistUpdateMutation = () => {
   const clientQuery = useQueryClient();

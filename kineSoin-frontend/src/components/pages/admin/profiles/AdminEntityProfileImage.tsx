@@ -1,6 +1,6 @@
 import { Button } from '@headlessui/react';
 import type { AdminEntityProfileImageProps } from '../../../../@types/props/adminProps';
-import { useAdminEntityProfileContext } from '../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../utils/hooks/context/useAdminEntityProfileContext';
 import editIcon from '/icons/edit.svg';
 
 export default function AdminEntityProfileImage({

@@ -1,6 +1,6 @@
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useAppContext } from '../../../../utils/functions/contextUtils/useAppContext';
 import { useInsuranceCreationMutation } from '../../../../utils/hooks/admin/creation/useInsuranceCreationMutation';
+import { useAppContext } from '../../../../utils/hooks/context/useAppContext';
 import DNALoader from '../../DNALoader';
 import DropdownInput from '../../inputs/DropdownInput';
 import TelephoneInput from '../../inputs/TelephoneInput';

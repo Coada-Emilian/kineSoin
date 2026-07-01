@@ -1,8 +1,8 @@
 import type { GetFormElementFunctionProps } from '../../../../@types/props/functionProps';
-import FirstPatientRegisterFormSection from '../../../../components/pages/public/PatientRegistrationPage/forms/FirstPatientRegistrationFormSection';
-import PatientRegistrationConfirmationFormSection from '../../../../components/pages/public/PatientRegistrationPage/forms/PatientRegistrationConfirmationFormSection';
-import SecondPatientRegisterFormSection from '../../../../components/pages/public/PatientRegistrationPage/forms/SecondPatientRegistrationFormSection';
-import ThirdPatientRegisterFormSection from '../../../../components/pages/public/PatientRegistrationPage/forms/ThirdPatientRegistrationFormSection';
+import FirstPatientRegisterFormSection from '../../../../components/pages/public/patientRegistration/forms/FirstPatientRegistrationFormSection';
+import PatientRegistrationConfirmationFormSection from '../../../../components/pages/public/patientRegistration/forms/PatientRegistrationConfirmationFormSection';
+import SecondPatientRegisterFormSection from '../../../../components/pages/public/patientRegistration/forms/SecondPatientRegistrationFormSection';
+import ThirdPatientRegisterFormSection from '../../../../components/pages/public/patientRegistration/forms/ThirdPatientRegistrationFormSection';
 
 export const getFormElement = ({
   formOrder,

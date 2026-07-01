@@ -1,5 +1,6 @@
 import type { AdminEntityTelephoneNumberOutputProps } from '../../../../../../@types/props/adminProps';
-import AdminEntityProfileOutput from '../../AdminEntityProfileOutput';
+import AdminEntityProfileInfoOutput from './AdminOutputContainer';
+import phoneIcon from '/icons/smartphone.png';
 
 export default function AdminEntityTelephoneNumberOutput({
   prefix,
@@ -10,6 +11,11 @@ export default function AdminEntityTelephoneNumberOutput({
     prefix && phone_number ? prefix + phone_number : undefined;
 
   return (
-    <AdminEntityProfileOutput value={full_phone_number} label="Téléphone" />
+    <AdminEntityProfileInfoOutput
+      icon={phoneIcon}
+      iconAlt="telephone"
+      label="Téléphone"
+      value={full_phone_number as string}
+    ></AdminEntityProfileInfoOutput>
   );
 }

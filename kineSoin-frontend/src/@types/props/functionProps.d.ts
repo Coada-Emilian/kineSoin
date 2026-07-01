@@ -84,3 +84,8 @@ export interface ValidateStepThreeFormFunctionProps {
   prefix: string;
   phone_number: string;
 }
+
+interface CheckAdminAuthenticationFunctionProps {
+  setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAdminProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+}

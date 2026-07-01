@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { handleAfflictionDeletionAsAdmin } from '../../../functions/apiUtils/admin/affliction/handleAfflictionDeletionAsAdmin';
+import { handleAfflictionDeletionAsAdmin } from '../../../api/admin/affliction/handleAfflictionDeletionAsAdmin';
 import { validateEntityId } from '../validators/validateEntityId';
 
 export function useAfflictionDeletionMutation() {

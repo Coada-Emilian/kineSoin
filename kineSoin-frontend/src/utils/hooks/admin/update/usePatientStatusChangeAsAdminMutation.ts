@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { handlePatientStatusChangeAsAdmin } from '../../../functions/apiUtils/admin/patient/handlePatientStatusChangeAsAdmin';
+import { handlePatientStatusChangeAsAdmin } from '../../../api/admin/patient/handlePatientStatusChangeAsAdmin';
 import { validatePatientStatusChangeAsAdmin } from './validators/validatePatientStatusChangeAsAdmin';
 
 export const usePatientStatusChangeAsAdminMutation = () => {

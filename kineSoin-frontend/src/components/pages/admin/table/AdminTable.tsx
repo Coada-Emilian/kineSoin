@@ -4,7 +4,7 @@ import type { IAdminEntity } from '../../../../@types/types/adminTypes';
 import { AdminAddTherapistContextProvider } from '../../../../contexts/admin/AdminAddTherapistContext';
 import { getAdminTableDetails } from '../../../../utils/functions/admin/adminTable/getAdminTableDetails';
 import { renderAdminEntities } from '../../../../utils/functions/admin/adminTable/renderEntities/renderAdminEntities';
-import { useAdminContext } from '../../../../utils/functions/contextUtils/useAdminContext';
+import { useAdminContext } from '../../../../utils/hooks/context/useAdminContext';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import AddAfflictionModal from '../../../ui/modals/admin/AddAfflictionModal';
 import AddBodyRegionModal from '../../../ui/modals/admin/AddBodyRegionModal';

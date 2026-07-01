@@ -1,6 +1,6 @@
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useAppContext } from '../../../../utils/functions/contextUtils/useAppContext';
 import { useSubmitMedicMutation } from '../../../../utils/hooks/admin/creation/useMedicCreationMutation';
+import { useAppContext } from '../../../../utils/hooks/context/useAppContext';
 import DNALoader from '../../DNALoader';
 import DropdownInput from '../../inputs/DropdownInput';
 import EmailInput from '../../inputs/EmailInput';

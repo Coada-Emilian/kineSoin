@@ -6,8 +6,8 @@ import AdminTable from '../../components/pages/admin/table/AdminTable';
 import DNALoader from '../../components/ui/DNALoader';
 import { AdminContextProvider } from '../../contexts/admin/AdminContext';
 import { AdminEntityProfileContextProvider } from '../../contexts/admin/AdminEntityProfileContext';
-import { useFetchAdminEntityDetails } from '../../utils/hooks/admin/fetch/useFetchAdminEntityDetails';
-import { useFetchAdminTableDetails } from '../../utils/hooks/admin/fetch/useFetchAdminTableDetails';
+import { useFetchAdminEntityDetails } from '../../utils/hooks/admin/queries/useFetchAdminEntityDetails';
+import { useFetchAdminTableDetails } from '../../utils/hooks/admin/queries/useFetchAdminTableDetails';
 
 export default function AdminPage({ entityType }: AdminPageProps) {
   // Get the id from the URL

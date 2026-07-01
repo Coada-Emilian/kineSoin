@@ -1,6 +1,6 @@
 import type { IPatient } from '../../../../../@types/interfaces/modelInterfaces';
 import type { AdminPatientTableBodyProps } from '../../../../../@types/props/adminProps';
-import { useAdminContext } from '../../../../../utils/functions/contextUtils/useAdminContext';
+import { useAdminContext } from '../../../../../utils/hooks/context/useAdminContext';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import AdminStatusButton from '../ui/AdminStatusButton';
