@@ -1,465 +1,284 @@
-# React + TypeScript + Vite
+# KineSoin Backend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The backend application of KineSoin is built with Node.js and Express and provides the API layer responsible for handling business logic, authentication, database interactions, and communication with the frontend application.
 
-Currently, two official plugins are available:
+The backend follows a structured architecture focused on separation of concerns, maintainability, and scalability.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application separates HTTP request handling from business logic through a handler/service architecture, allowing each layer to have a clear responsibility.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Backend
 
-- Configure the top-level `parserOptions` property like this:
+- Node.js
+- Express.js
+- JavaScript
+- Sequelize ORM
+- PostgreSQL
+- JWT authentication
+- Multer for file uploads
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Development tools
+
+- Git / GitHub
+- npm
+- Environment-based configuration
+- ESLint and code formatting tools
+
+## 🏗️ Backend architecture
+
+The backend follows a layered architecture designed to separate responsibilities and keep the codebase easier to maintain and evolve.
+
+The main responsibilities are divided between:
+
+- **Routes**: Define API endpoints and connect requests to the appropriate handlers.
+- **Handlers**: Manage HTTP request handling, input validation, and response formatting.
+- **Services**: Contain business logic and database operations.
+- **Models**: Define database entities and relationships using Sequelize.
+- **Middlewares**: Handle reusable request processing such as authentication and validation.
+- **Utils**: Contain shared helper functions and reusable logic.
+
+This separation prevents controllers/handlers from becoming overloaded and keeps business logic independent from HTTP-specific concerns.
+
+## 📂 Folder structure
+
+The backend source code is organized by responsibility:
+
+```text
+src
+│
+├── authentication
+│   └── Authentication logic and user authorization handling
+│
+├── cloudinary
+│   └── File upload and image management configuration
+│
+├── middlewares
+│   └── Reusable request processing middleware
+│
+├── models
+│   └── Sequelize models and database relationships
+│
+├── routing
+│   ├── controllers
+│   │   └── HTTP request handling and response formatting
+│   │
+│   └── routers
+│       └── API endpoint definitions
+│
+├── services
+│   └── Business logic and database operations
+│
+├── utils
+│   └── Shared utility functions
+│
+└── validations
+    └── Input validation rules and schemas
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 🔄 Request flow
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Requests follow a structured flow through the different backend layers:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-
-# kineSoin-backend
-
-Backend API for a medical and therapy management platform supporting patients, therapists, administrators, and medics.
-
-The API provides authentication, appointment management, affliction tracking, messaging, insurance management, and prescription handling.
-
-The backend follows a modular architecture with a strong separation of responsibilities between routing, controllers, services, models, validation, and infrastructure.
-
----
-
-# 📌 Table of Contents
-
-- [React + TypeScript + Vite](#react--typescript--vite)
-  - [Expanding the ESLint configuration](#expanding-the-eslint-configuration)
-- [kineSoin-backend](#kinesoin-backend)
-- [📌 Table of Contents](#-table-of-contents)
-- [🩺 Project Overview](#-project-overview)
-- [🧱 Architecture Overview](#-architecture-overview)
-    - [Controllers](#controllers)
-    - [Services](#services)
-    - [Models](#models)
-    - [Middlewares](#middlewares)
-    - [Validation Layer](#validation-layer)
-    - [Routing](#routing)
-    - [Database](#database)
-- [🛠️ Tech Stack](#️-tech-stack)
-  - [Backend](#backend)
-  - [Validation \& Security](#validation--security)
-  - [External Services](#external-services)
-  - [Development Tools](#development-tools)
-- [📁 Folder Structure](#-folder-structure)
-- [🔧 Environment Variables](#-environment-variables)
-- [📥 Installation](#-installation)
-  - [Requirements](#requirements)
-  - [Steps](#steps)
-- [🗄️ Database Setup](#️-database-setup)
-  - [Create database tables](#create-database-tables)
-  - [Populate database](#populate-database)
-  - [Sequelize](#sequelize)
-- [🚀 Running the Server](#-running-the-server)
-  - [Development](#development)
-  - [Production](#production)
-- [📚 API Documentation](#-api-documentation)
-- [🧩 Validation Layer](#-validation-layer)
-- [🧰 Services and Utilities](#-services-and-utilities)
-  - [Services](#services-1)
-  - [Utilities](#utilities)
-- [⚠️ Error Handling](#️-error-handling)
-- [🔐 Security](#-security)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👤 Authors](#-authors)
-
----
-
-# 🩺 Project Overview
-
-The kineSoin backend powers a multi-role healthcare platform allowing:
-
-* Patient registration, profile management, and messaging
-* Therapist dashboards, patient management, and prescription handling
-* Administrator management of therapists, medics, and insurance providers
-* Secure authentication with role-based access
-* Structured medical data management:
-
-  * Afflictions
-  * Body regions
-  * Prescriptions
-  * Appointments
-  * Insurance information
-
-The backend is designed with a separation of concerns to keep HTTP handling, business logic, and database access clearly separated.
-
----
-
-# 🧱 Architecture Overview
-
-The backend follows a modular architecture:
-
-```
-Request
-   |
-   ↓
+```text
+Client request
+      │
+      ▼
 Router
-   |
-   ↓
+      │
+      ▼
+Middleware
+      │
+      ▼
 Controller
-   |
-   ↓
+      │
+      ▼
 Service
-   |
-   ↓
-Model (Sequelize)
-   |
-   ↓
-Database
+      │
+      ▼
+Model / Database
+      │
+      ▼
+Response
 ```
 
-Responsibilities are separated as follows:
+Each layer has a specific responsibility:
 
-### Controllers
+- **Routers** define available API endpoints.
+- **Middlewares** handle reusable operations such as authentication checks.
+- **Controllers** handle HTTP-specific concerns, validate requests, and format responses.
+- **Services** contain business logic and interact with the database.
+- **Models** manage database entities and relationships through Sequelize.
 
-Handle HTTP-related logic:
+This separation keeps the backend easier to understand, maintain, and extend.
 
-* Receive requests
-* Extract parameters/body data
-* Call services
-* Return responses
+## 🗄️ Database and ORM
 
-### Services
+The backend uses PostgreSQL as its relational database and Sequelize as the ORM for managing database interactions.
 
-Contain application/business logic:
+Sequelize is used for:
 
-* Therapist management
-* Patient operations
-* Appointment handling
-* Authentication workflows
+- Defining database models
+- Managing relationships between entities
+- Performing database queries
+- Structuring data access through a consistent interface
 
-Services keep controllers lightweight and avoid mixing business rules with HTTP concerns.
+The database layer is separated from business logic through services, allowing controllers to remain focused on handling HTTP requests and responses.
 
-### Models
+This approach improves maintainability and makes future changes to the data layer easier to manage.
 
-Define Sequelize entities and database relationships.
+## 🔐 Authentication and authorization
 
-### Middlewares
+The backend implements authentication mechanisms to secure access to protected resources.
 
-Handle cross-cutting concerns:
+Authentication is responsible for:
 
-* Authentication
-* Authorization
-* Request sanitization
-* Controller error handling
+- Identifying users
+- Validating credentials
+- Managing authenticated sessions
+- Protecting restricted API endpoints
 
-### Validation Layer
+Authorization rules are applied to ensure that users can only access resources according to their permissions and roles.
 
-Joi schemas ensure incoming data respects expected formats.
+Authentication-related logic is separated from business logic to keep security concerns isolated and easier to maintain.
 
-### Routing
+## ✅ Validation and error handling
 
-Organizes API endpoints by:
+The backend uses dedicated validation logic to ensure that incoming data respects application rules before being processed.
 
-* User roles
-* Domain entities
-* Application features
+Validation is used for:
 
-### Database
+- Checking required fields
+- Validating user input
+- Preventing invalid data from reaching the database
+- Ensuring consistent API behavior
 
-SQL scripts manage:
+Error handling is organized to provide predictable responses and keep error management separate from business logic.
 
-* Table creation
-* Database population
-* Development initialization
+This approach improves reliability and makes debugging easier during development.
 
----
+## ☁️ File management
 
-# 🛠️ Tech Stack
+The backend uses Cloudinary for managing uploaded files, such as profile images.
 
-## Backend
+The file management layer is responsible for:
 
-* Node.js — JavaScript runtime
-* Express.js — HTTP server framework
-* PostgreSQL — relational database
-* Sequelize — ORM
+- Uploading files to external storage
+- Managing image URLs
+- Keeping file-related logic separated from the rest of the application
 
-## Validation & Security
+This allows the application to handle user-uploaded content without coupling storage logic directly to business logic.
 
-* Joi — request validation
-* Scrypt — password hashing
-* Authentication middleware
-* Request sanitization
+## 🌱 Development choices
 
-## External Services
+The backend architecture was designed with maintainability, readability, and separation of responsibilities in mind.
 
-* Cloudinary — image/media storage
+### Separation of concerns
 
-## Development Tools
+Each layer has a specific responsibility:
 
-* ESLint
-* Prettier
-* dotenv
+- Routers handle endpoint definitions.
+- Controllers handle HTTP requests and responses.
+- Services contain business logic and database operations.
+- Models manage data representation and relationships.
 
----
+This prevents individual files from becoming too complex and makes the application easier to evolve.
 
-# 📁 Folder Structure
+### Service-oriented business logic
 
-Simplified overview:
+Business logic is centralized in services instead of being handled directly inside controllers.
 
+This approach improves:
+
+- Code readability
+- Reusability
+- Maintainability
+- Testability
+
+### Code quality principles
+
+The project follows principles such as:
+
+- DRY (Don't Repeat Yourself)
+- Separation of concerns
+- Reusable logic
+- Clear naming conventions
+- Consistent project organization
+
+## ⚙️ Installation and setup
+
+### Requirements
+
+Make sure you have installed:
+
+- Node.js
+- npm
+- PostgreSQL
+
+### Install dependencies
+
+From the backend folder:
+
+```bash
+npm install
 ```
-src/
-├── authentication/
-├── cloudinary/
-├── middlewares/
-├── models/
-├── routing/
-├── services/
-├── utils/
-└── validations/
 
-database/
-├── create_tables.sql
-├── populate_tables.sql
-└── database utilities
+### Environment variables
 
-docs/
-```
-
-The complete project tree is available in the repository documentation.
-
----
-
-# 🔧 Environment Variables
-
-Create a `.env` file based on `.env.example`.
+Create a `.env` file in the backend folder and add the required environment variables.
 
 Example:
 
 ```env
-DATABASE_URL=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-CLOUDINARY_CLOUD_NAME=
-JWT_SECRET=
 PORT=
+DATABASE_URL=
+JWT_SECRET=
 ```
 
----
+### Run the development server
 
-# 📥 Installation
-
-## Requirements
-
-* Node.js
-* PostgreSQL
-* Cloudinary account
-
-## Steps
-
-```bash
-git clone <repository-url>
-
-cd kineSoin-backend
-
-npm install
-```
-
----
-
-# 🗄️ Database Setup
-
-## Create database tables
-
-```bash
-psql -f database/create_tables.sql
-```
-
-## Populate database
-
-```bash
-psql -f database/populate_tables.sql
-```
-
-## Sequelize
-
-Database models and relationships are initialized through:
-
-```
-src/models/sequelize_client.js
-```
-
----
-
-# 🚀 Running the Server
-
-## Development
+Start the backend with:
 
 ```bash
 npm run dev
 ```
 
-## Production
+The API will start on the configured server port.
+
+## 📜 Available scripts
+
+The following commands are available from the backend folder:
+
+### Start development server
+
+```bash
+npm run dev
+```
+
+Runs the backend server in development mode.
+
+### Start production server
 
 ```bash
 npm start
 ```
 
----
+Starts the backend server using the production configuration.
 
-# 📚 API Documentation
+### Linting
 
-Main API domains:
-
-* Authentication
-* Patients
-* Therapists
-* Administrators
-* Medics
-* Afflictions
-* Appointments
-* Insurance
-* Messaging
-* Prescriptions
-
-Routes and controllers are organized under:
-
-```
-src/routing/
-├── controllers/
-└── routers/
+```bash
+npm run lint
 ```
 
-Possible future documentation:
+Checks the codebase for potential issues and enforces code quality rules.
 
-* Postman collection
-* Swagger/OpenAPI specification
+## 🔮 Future improvements
 
----
+Possible improvements for future versions of the backend:
 
-# 🧩 Validation Layer
-
-Input validation is handled using Joi schemas.
-
-Location:
-
-```
-src/validations/
-```
-
-Validation categories include:
-
-* Creation schemas
-* Update schemas
-* Registration schemas
-* Authentication schemas
-
----
-
-# 🧰 Services and Utilities
-
-## Services
-
-Business operations are organized by domain:
-
-Examples:
-
-* Patient management
-* Therapist management
-* Appointment management
-* Insurance management
-* Prescription management
-* Messaging workflows
-
-## Utilities
-
-Reusable helper functions:
-
-Examples:
-
-* ID validation
-* Date formatting
-* Database helper functions
-
----
-
-# ⚠️ Error Handling
-
-The backend centralizes error handling through:
-
-* Controller wrappers
-* Error propagation
-* Input validation
-* Authentication error handling
-
-This avoids duplicating error management logic throughout controllers.
-
----
-
-# 🔐 Security
-
-Implemented security measures:
-
-* Password hashing with Scrypt
-* Authentication middleware
-* Role-based access control
-* Request body sanitization
-* Joi validation schemas
-* Protected API routes
-
----
-
-# 🤝 Contributing
-
-Guidelines:
-
-* Follow ESLint and Prettier rules
-* Use feature branches
-* Write clear commit messages
-* Keep controllers focused on HTTP logic
-* Keep business logic separated inside services
-
----
-
-# 📄 License
-
-Specify license here:
-
-* MIT
-* Proprietary
-* Other
-
----
-
-# 👤 Authors
-
-Emilian
+- Add automated backend testing
+- Improve API documentation
+- Add more advanced logging and monitoring
+- Improve error tracking and observability
+- Further improve scalability and deployment configuration
