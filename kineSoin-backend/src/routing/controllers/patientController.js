@@ -13,10 +13,10 @@
  *   controller lightweight and focused on structure rather than implementation.
  */
 
-import changePatientStatusAsAdmin from '../../services/patient/admin/changePatientStatusAsAdmin.js';
-import deletePatientAsAdmin from '../../services/patient/admin/deletePatientAsAdmin.js';
-import getAllPatientsAsAdmin from '../../services/patient/admin/getAllPatientsAsAdmin.js';
-import getOnePatientAsAdmin from '../../services/patient/admin/getOnePatientAsAdmin.js';
+import changePatientStatusAsAdmin from './handlers/patient/admin/changePatientStatusAsAdmin.js';
+import deletePatientAsAdmin from './handlers/patient/admin/deletePatientAsAdmin.js';
+import getAllPatientsAsAdmin from './handlers/patient/admin/getAllPatientsAsAdmin.js';
+import getOnePatientAsAdmin from './handlers/patient/admin/getOnePatientAsAdmin.js';
 
 const patientController = {
   // Function to get all patients as an admin

@@ -15,3 +15,5 @@
 ## Therapist dashboard - Modal state
 
 - [ ] Fix patient modal persistence issue. When opening a patient modal → clicking "Gérer RDV" → navigating back to the dashboard, the modal remains open unexpectedly.
+
+## Add therapist info on admin patient profile page
