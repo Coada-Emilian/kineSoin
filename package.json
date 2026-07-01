@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev1": "concurrently \"pnpm --filter kineSoin-back_end dev\" \"pnpm --filter kineSoin-front dev\"",
-    "dev2": "concurrently \"pnpm --filter kineSoin-back_end dev\" \"pnpm --filter kineSoin-front_end dev\"",
+    "dev": "concurrently \"pnpm --filter kineSoin-backend dev\" \"pnpm --filter kineSoin-frontend dev\"",
+    "dev:legacy": "concurrently \"pnpm --dir archive/kineSoin-frontend-v1 dev\" \"pnpm --filter kineSoin-backend dev\"",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "lint_front": "pnpm --filter kineSoin-front lint",
-    "lint_back": "pnpm --filter kineSoin-back_end lint",
+    "lint_front": "pnpm --filter kineSoin-frontend lint",
+    "lint_back": "pnpm --filter kineSoin-backend lint",
     "lint_both": "pnpm lint_front && pnpm lint_back",
-    "db:reset": "pnpm --filter kineSoin-back_end db:reset"
+    "db:reset": "pnpm --filter kineSoin-backend db:reset"
   },
   "keywords": [],
   "author": "Emilian Coada",

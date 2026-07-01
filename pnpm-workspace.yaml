@@ -1,7 +1,6 @@
 packages:
-  - 'kineSoin-back_end'
-  - 'kineSoin-front'
-  - 'kineSoin-front_end'
+  - 'kineSoin-backend'
+  - 'kineSoin-frontend'
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true

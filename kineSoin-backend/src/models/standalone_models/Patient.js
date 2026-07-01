@@ -1,0 +1,113 @@
+/**
+ * @description Sequelize model for patient records.
+ *
+ * Rationale:
+ * - Centralizes all patient identity, contact, and account data so treatment,
+ *   messaging, scheduling, and insurance workflows can rely on a single source
+ *   of truth.
+ * - Keeps role boundaries clear by linking patients to therapists without mixing
+ *   authentication logic across user types.
+ *
+ * Notes:
+ * - Uses strict validation and unique constraints (email, phone formats) to
+ *   maintain reliable onboarding and login flows.
+ * - Stores picture metadata to support profile management and secure media handling.
+ */
+
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../sequelize_client.js';
+
+export class Patient extends Model {}
+
+Patient.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    therapist_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'therapists',
+        key: 'id',
+      },
+    },
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    birth_name: {
+      type: DataTypes.STRING(50),
+    },
+    surname: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    gender: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
+    birth_date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    street_number: {
+      type: DataTypes.STRING(10),
+    },
+    street_name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    postal_code: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
+    city: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    prefix: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
+    phone_number: {
+      type: DataTypes.STRING(15),
+      allowNull: false,
+    },
+    full_phone_number: {
+      type: DataTypes.STRING(25),
+      allowNull: true,
+    },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true,
+    },
+    password: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.STRING(10),
+      defaultValue: 'pending',
+      allowNull: false,
+    },
+    picture_url: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    picture_id: {
+      type: DataTypes.STRING(255),
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+    },
+  },
+  { sequelize, modelName: 'Patient', tableName: 'patients' }
+);
