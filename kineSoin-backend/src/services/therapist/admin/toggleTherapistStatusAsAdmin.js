@@ -1,57 +1,44 @@
 /**
- * @description Toggles a therapist’s status (`active` ↔ `inactive`) for the
- *              authenticated admin, validating identities before applying the
- *              update.
+ * @description Toggles the active status of an existing therapist account.
  *
- * Rationale:
- * - Ensures only verified admins can modify therapist availability, protecting
- *   system integrity and preventing unauthorized administrative actions.
- * - Keeps the controller focused on validation, simple state transitions, and
- *   predictable response formatting while delegating persistence to Sequelize models.
+ * Responsibilities:
+ * - Validates the provided admin identifier.
+ * - Ensures the admin exists before modifying data.
+ * - Validates the therapist identifier.
+ * - Ensures the therapist exists.
+ * - Switches the therapist status between active and inactive.
+ * - Persists the updated therapist status.
  *
  * Notes:
- * - Validates admin and therapist IDs before performing any write operation.
- * - Performs a direct toggle between `active` and `inactive` without requiring
- *   additional payload or schema validation.
- * - Returns consistent HTTP status codes for missing records, successful updates,
- *   and unexpected server errors.
+ * - This service contains business logic and database operations only.
+ * - It does not depend on Express request/response objects.
  */
 
 import { Admin, Therapist } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';
 
-export default async function toggleTherapistStatusAsAdmin(req, res) {
-  const admin_id = getValidId(req.admin_id, 'Admin ID');
+export default async function toggleTherapistStatusAsAdmin({
+  adminId,
+  therapistId,
+}) {
+  const admin_id = getValidId(adminId, 'Admin ID');
 
   await findOrThrow(Admin, admin_id, 'Admin');
 
-  try {
-    const therapist_id = getValidId(req.params.therapist_id, 'Therapist ID');
+  const therapist_id = getValidId(therapistId, 'Therapist ID');
 
-    const foundTherapist = await Therapist.findByPk(therapist_id);
+  const foundTherapist = await findOrThrow(
+    Therapist,
+    therapist_id,
+    'Therapist'
+  );
 
-    if (!foundTherapist) {
-      return res.status(400).json({ message: 'Therapist not found' });
-    }
-
-    if (foundTherapist.status === 'active') {
-      foundTherapist.status = 'inactive';
-    } else {
-      foundTherapist.status = 'active';
-    }
-
-    await foundTherapist.save();
-
-    return res
-      .status(200)
-      .json({ message: 'Therapist status updated successfully!' });
-  } catch (error) {
-    console.error('Error toggling therapist status:', error);
-
-    return res.status(500).json({
-      message: 'Error toggling therapist status:',
-      error: error.message,
-    });
+  if (foundTherapist.status === 'active') {
+    foundTherapist.status = 'inactive';
+  } else {
+    foundTherapist.status = 'active';
   }
+
+  await foundTherapist.save();
 }

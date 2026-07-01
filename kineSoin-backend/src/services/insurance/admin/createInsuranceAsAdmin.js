@@ -1,3 +1,18 @@
+/**
+ * @description Creates a new insurance organization associated with an authenticated admin.
+ *
+ * Responsibilities:
+ * - Validates the provided admin identifier.
+ * - Ensures the admin exists before creating data.
+ * - Builds the insurance organization creation payload.
+ * - Generates the full phone number from the provided prefix and phone number.
+ * - Persists the new insurance organization in the database.
+ *
+ * Notes:
+ * - This service contains business logic and database operations only.
+ * - It does not depend on Express request/response objects.
+ */
+
 import { Admin, Insurance } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';

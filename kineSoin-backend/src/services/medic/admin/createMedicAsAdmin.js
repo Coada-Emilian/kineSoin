@@ -1,14 +1,16 @@
 /**
- * @description Creates a new medic record associated with an administrator.
+ * @description Creates a new medic associated with an authenticated admin.
  *
  * Responsibilities:
- * - Validates the admin context and incoming medic data.
- * - Applies business rules required before creating a medic.
- * - Persists the new medic through the database model layer.
+ * - Validates the provided admin identifier.
+ * - Ensures the admin exists before creating data.
+ * - Builds the medic creation payload.
+ * - Generates the full phone number from the provided prefix and phone number.
+ * - Persists the new medic in the database.
  *
  * Notes:
- * - This layer is independent from HTTP concerns.
- * - Request handling and response formatting are managed by the handler.
+ * - This service contains business logic and database operations only.
+ * - It does not depend on Express request/response objects.
  */
 
 import { Admin, Medic } from '../../../models/index.js';

@@ -13,13 +13,13 @@
  *   lightweight and focused on structure rather than implementation.
  */
 
-import changeTherapistStatusAsAdmin from '../../services/therapist/admin/changeTherapistStatusAsAdmin.js';
-import createTherapistAsAdmin from '../../services/therapist/admin/createTherapistAsAdmin.js';
-import deleteTherapistAsAdmin from '../../services/therapist/admin/deleteTherapistAsAdmin.js';
-import getAllTherapistsAsAdmin from '../../services/therapist/admin/getAllTherapistsAsAdmin.js';
-import getOneTherapistAsAdmin from '../../services/therapist/admin/getOneTherapistAsAdmin.js';
-import toggleTherapistStatusAsAdmin from '../../services/therapist/admin/toggleTherapistStatusAsAdmin.js';
-import updateTherapistAsAdmin from '../../services/therapist/admin/updateTherapistAsAdmin.js';
+import changeTherapistStatusAsAdmin from './handlers/therapist/admin/changeTherapistStatusAsAdmin.js';
+import createTherapistAsAdmin from './handlers/therapist/admin/createTherapistAsAdmin.js';
+import deleteTherapistAsAdmin from './handlers/therapist/admin/deleteTherapistAsAdmin.js';
+import getAllTherapistsAsAdmin from './handlers/therapist/admin/getAllTherapistsAsAdmin.js';
+import getOneTherapistAsAdmin from './handlers/therapist/admin/getOneTherapistAsAdmin.js';
+import toggleTherapistStatusAsAdmin from './handlers/therapist/admin/toggleTherapistStatusAsAdmin.js';
+import updateTherapistAsAdmin from './handlers/therapist/admin/updateTherapistAsAdmin.js';
 
 const therapistController = {
   // Function to get all therapists as admin

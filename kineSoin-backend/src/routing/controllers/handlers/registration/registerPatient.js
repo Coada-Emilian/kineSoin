@@ -1,4 +1,18 @@
-import registerPatientService from '../../../../services/registration/registerPatient2.js';
+/**
+ * @description Handles patient registration requests and creates a new patient account.
+ *
+ * Responsibilities:
+ * - Validates incoming registration data.
+ * - Retrieves uploaded file information from the request.
+ * - Delegates patient creation logic to the service layer.
+ * - Returns the appropriate HTTP response with created patient information.
+ *
+ * Notes:
+ * - This handler only manages HTTP concerns.
+ * - Registration rules, data processing, and persistence are handled by the service layer.
+ */
+
+import registerPatientService from '../../../../services/registration/registerPatient.js';
 import registeredPatientSchema from '../../../../validations/joi/registration/registeredPatientSchema.js';
 
 export default async function registerPatient(req, res) {
@@ -30,8 +44,8 @@ export default async function registerPatient(req, res) {
   } catch (error) {
     console.error('Error registering patient:', error);
 
-    return res.status(500).json({
-      message: error.message,
+    return res.status(error.statusCode || 500).json({
+      message: error.message || 'Error registering patient.',
     });
   }
 }

@@ -1,3 +1,18 @@
+/**
+ * @description Deletes an existing insurance organization associated with an authenticated admin.
+ *
+ * Responsibilities:
+ * - Validates the provided admin identifier.
+ * - Ensures the admin exists before performing the operation.
+ * - Validates the insurance identifier.
+ * - Ensures the insurance organization exists.
+ * - Removes the insurance organization from the database.
+ *
+ * Notes:
+ * - This service contains business logic and database operations only.
+ * - It does not depend on Express request/response objects.
+ */
+
 import { Admin, Insurance } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';

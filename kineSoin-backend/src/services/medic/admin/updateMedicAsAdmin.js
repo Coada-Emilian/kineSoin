@@ -1,3 +1,20 @@
+/**
+ * @description Updates an existing medic associated with an authenticated admin.
+ *
+ * Responsibilities:
+ * - Validates the provided admin identifier.
+ * - Ensures the admin exists before modifying data.
+ * - Validates the medic identifier.
+ * - Retrieves the existing medic record.
+ * - Applies provided changes while preserving existing values.
+ * - Updates generated fields such as the full phone number.
+ * - Persists the updated medic information.
+ *
+ * Notes:
+ * - This service contains business logic and database operations only.
+ * - It does not depend on Express request/response objects.
+ */
+
 import { Admin, Medic } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';
@@ -29,18 +46,21 @@ export default async function updateMedicAsAdmin({
   } = medicData;
 
   const newMedic = {
-    admin_id: admin_id || foundMedic.admin_id,
-    name: name || foundMedic.name,
-    surname: surname || foundMedic.surname,
-    street_number: street_number || foundMedic.street_number,
-    street_name: street_name || foundMedic.street_name,
-    postal_code: postal_code || foundMedic.postal_code,
-    city: city || foundMedic.city,
-    phone_number: phone_number || foundMedic.phone_number,
-    licence_code: licence_code || foundMedic.licence_code,
-    email: email || foundMedic.email,
-    prefix: prefix || foundMedic.prefix,
-    full_phone_number: prefix + phone_number || foundMedic.full_phone_number,
+    admin_id: admin_id ?? foundMedic.admin_id,
+    name: name ?? foundMedic.name,
+    surname: surname ?? foundMedic.surname,
+    street_number: street_number ?? foundMedic.street_number,
+    street_name: street_name ?? foundMedic.street_name,
+    postal_code: postal_code ?? foundMedic.postal_code,
+    city: city ?? foundMedic.city,
+    phone_number: phone_number ?? foundMedic.phone_number,
+    licence_code: licence_code ?? foundMedic.licence_code,
+    email: email ?? foundMedic.email,
+    prefix: prefix ?? foundMedic.prefix,
+    full_phone_number:
+      prefix && phone_number
+        ? `${prefix}${phone_number}`
+        : foundMedic.full_phone_number,
   };
 
   const updatedMedic = await foundMedic.update(newMedic);

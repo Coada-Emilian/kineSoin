@@ -12,17 +12,12 @@
  *   controller lightweight and easy to extend as the messaging system evolves.
  */
 
-import sendMessageToPatientAsTherapist from '../../services/message/therapist/sendMessageToPatientAsTherapist.js';
-
 const messageController = {
-  // Function to send a message to the patient as the therapist
-  sendMessageToPatientAsTherapist,
-
+  // // Function to send a message to the patient as the therapist
+  // sendMessageToPatientAsTherapist,
   // unused functions
-
   // // Function to get all messages for a patient
   // getAllMessagesAsPatient,
-
   // // Function to send a message to the therapist
   // sendMessageToTherapist,
 };
