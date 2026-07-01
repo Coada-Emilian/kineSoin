@@ -1,5 +1,8 @@
 import type { AdminEntityStudiesOutputProps } from '../../../../../../@types/props/adminProps';
-import AdminEntityProfileOutput from '../../AdminEntityProfileOutput';
+import AdminEntityProfileInfoOutput from './AdminOutputContainer';
+import educationIcon from '/icons/education.png';
+import experienceIcon from '/icons/experience.png';
+import specialtyIcon from '/icons/quality.png';
 
 export default function AdminEntityStudiesOutput({
   diploma,
@@ -7,9 +10,19 @@ export default function AdminEntityStudiesOutput({
   specialty,
 }: AdminEntityStudiesOutputProps) {
   return (
-    <AdminEntityProfileOutput
-      value={diploma ? diploma : experience ? experience : specialty}
+    <AdminEntityProfileInfoOutput
+      icon={
+        diploma ? educationIcon : experience ? experienceIcon : specialtyIcon
+      }
+      iconAlt={diploma ? 'diplôme' : experience ? 'experience' : 'spécialité'}
       label={diploma ? 'Diplôme' : experience ? 'Experience' : 'Spécialité'}
-    />
+      value={
+        diploma
+          ? (diploma as string)
+          : experience
+            ? (experience as string)
+            : (specialty as string)
+      }
+    ></AdminEntityProfileInfoOutput>
   );
 }

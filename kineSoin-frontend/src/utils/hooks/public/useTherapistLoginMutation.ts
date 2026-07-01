@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-
-import { handleTherapistLogin } from '../../functions/apiUtils/public/handleTherapistLogin';
+import { handleTherapistLogin } from '../../api/public/handleTherapistLogin';
 import { validateLoginForm } from '../validateLoginForm';
 
 export const useTherapistLoginMutation = (

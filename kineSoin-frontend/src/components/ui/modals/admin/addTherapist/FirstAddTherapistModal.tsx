@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { FirstAddTherapistModalProps } from '../../../../../@types/props/modalProps';
 import { handleAddTherapistStepOneSubmit } from '../../../../../utils/functions/admin/addTherapist/handleAddTherapistStepOneSubmit';
-import { useAdminAddTherapistContext } from '../../../../../utils/functions/contextUtils/useAdminAddTherapistContext';
-import { useAppContext } from '../../../../../utils/functions/contextUtils/useAppContext';
+import { useAdminAddTherapistContext } from '../../../../../utils/hooks/context/useAdminAddTherapistContext';
+import { useAppContext } from '../../../../../utils/hooks/context/useAppContext';
 import PhotoInput from '../../../inputs/PhotoInput';
 import TextInput from '../../../inputs/TextInput';
 import BaseModal from '../../BaseModal';

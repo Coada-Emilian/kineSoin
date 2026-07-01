@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import type { ErrorPageProps } from '../@types/props/componentProps';
 import {
+  getErrorPageStatusCode,
   getErrorPageErrorText,
   getErrorPageLinkDestination,
   getErrorPageLinkText,
-  getErrorPageStatusCode,
-} from '../utils/constants/errorPageDetails';
+} from '../utils/config/errorPageDetails';
 
 export default function ErrorPage({ type }: ErrorPageProps) {
   const errorPageProps: ErrorPageProps = { type };

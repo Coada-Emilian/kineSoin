@@ -1,9 +1,10 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
-import { useAdminEntityProfileContext } from '../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../../utils/hooks/context/useAdminEntityProfileContext';
 import TextInput from '../../../../ui/inputs/TextInput';
+import AdminEntityProfileInfoOutput from '../entityProfileContactSection/outputs/AdminOutputContainer';
 import AdminEntityIdOutput from './outputs/AdminEntityIdOutput';
-import AdminEntityNameOutput from './outputs/AdminEntityNameOutput';
 import AdminEntityStatusOutput from './outputs/AdminEntityStatusOutput';
+import userIcon from '/icons/user.png';
 
 export default function AdminEntityProfileIdentitySection({
   entityType,
@@ -33,10 +34,12 @@ export default function AdminEntityProfileIdentitySection({
   };
 
   return (
-    <section className="md:text-2xl">
-      <AdminEntityStatusOutput status={editedEntity.status} />
+    <section>
+      <div className="flex w-full justify-between">
+        <AdminEntityStatusOutput status={editedEntity.status} />
 
-      <AdminEntityIdOutput id={editedEntity.id} />
+        <AdminEntityIdOutput id={editedEntity.id} />
+      </div>
 
       {isProfileEditing && entityType !== 'patient' ? (
         <>
@@ -73,10 +76,14 @@ export default function AdminEntityProfileIdentitySection({
           </div>
         </>
       ) : (
-        <AdminEntityNameOutput
-          name={editedEntity.name}
-          surname={editedEntity.surname}
-        />
+        <>
+          <AdminEntityProfileInfoOutput
+            icon={userIcon}
+            iconAlt="user"
+            label="Nom"
+            value={`${editedEntity.name} ${editedEntity.surname}`}
+          ></AdminEntityProfileInfoOutput>
+        </>
       )}
     </section>
   );

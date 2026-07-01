@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import type { AdminUpdateMutationProps } from '../../../../@types/props/adminProps';
-import { handleMedicUpdateAsAdmin } from '../../../functions/apiUtils/admin/medic/handleMedicUpdateAsADmin';
+import { handleMedicUpdateAsAdmin } from '../../../api/admin/medic/handleMedicUpdateAsAdmin';
 import { validateMedicUpdateForm } from './validators/validateMedicUpdateForm';
 
 export const useMedicUpdateMutation = () => {

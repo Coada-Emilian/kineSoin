@@ -3,9 +3,9 @@ import type { IBodyRegion } from '../../../../../../@types/interfaces/modelInter
 import type { AdminPageProps } from '../../../../../../@types/props/adminProps';
 import type { IAdminEntityProfileInputTypes } from '../../../../../../@types/types/adminTypes';
 import { hasValues } from '../../../../../../utils/functions/admin/adminEntityProfile/hasValues';
-import { useAdminEntityProfileContext } from '../../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
-import { useAppContext } from '../../../../../../utils/functions/contextUtils/useAppContext';
-import { useFetchAdminBodyRegionsQuery } from '../../../../../../utils/hooks/admin/fetch/useFetchAdminBodyRegionsQuery';
+import { useFetchAdminBodyRegionsQuery } from '../../../../../../utils/hooks/admin/queries/useFetchAdminBodyRegionsQuery';
+import { useAdminEntityProfileContext } from '../../../../../../utils/hooks/context/useAdminEntityProfileContext';
+import { useAppContext } from '../../../../../../utils/hooks/context/useAppContext';
 import DropdownInput from '../../../../../ui/inputs/DropdownInput';
 import EmailInput from '../../../../../ui/inputs/EmailInput';
 import TelephoneInput from '../../../../../ui/inputs/TelephoneInput';
@@ -39,7 +39,7 @@ export default function AdminEntityProfileContactSectionInputs({
     }));
   };
 
-  const { data: body_regions = [] } = useFetchAdminBodyRegionsQuery();
+  const { data: body_regions = [] } = useFetchAdminBodyRegionsQuery(true);
 
   // Filter the body regions to exclude the one already selected or if no region is selected
   const remainingBodyRegions: IBodyRegion[] = body_regions.filter(

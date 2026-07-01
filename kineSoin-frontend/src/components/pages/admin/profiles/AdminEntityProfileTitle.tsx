@@ -1,5 +1,5 @@
 import type { BaseAdminEntityProfileProps } from '../../../../@types/props/adminProps';
-import { adminEntityProfileTitleDetails } from '../../../../utils/constants/admin/adminEntityProfileTitleDetails';
+import { adminEntityProfileTitleDetails } from '../../../../utils/config/admin/adminEntityProfileTitleDetails';
 
 export default function AdminEntityProfileTitle({
   entityType,
@@ -9,9 +9,9 @@ export default function AdminEntityProfileTitle({
   );
 
   return (
-    <div className=" font-semibold md:w-full flex justify-center">
-      <h1 className=" text-md md:text-lg lg:text-xl xl:text-2xl text-white italic">
-        Inspection {activeEntity?.title}
+    <div className="flex w-full justify-center">
+      <h1 className="text-xl font-semibold tracking-wide text-white sm:text-2xl italic">
+        Profil {activeEntity?.title}
       </h1>
     </div>
   );

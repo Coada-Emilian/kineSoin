@@ -1,5 +1,7 @@
 import type { AdminEntityBodyRegionAndOperatedStatusOutputProps } from '../../../../../../@types/props/adminProps';
-import AdminEntityProfileOutput from '../../AdminEntityProfileOutput';
+import AdminEntityProfileInfoOutput from './AdminOutputContainer';
+import regionIcon from '/icons/body-check.png';
+import surgeryIcon from '/icons/surgery.png';
 
 export default function AdminEntityBodyRegionAndOperatedStatusOutput({
   body_region,
@@ -13,18 +15,20 @@ export default function AdminEntityBodyRegionAndOperatedStatusOutput({
   }
 
   return (
-    <div className="flex flex-row justify-between">
-      <AdminEntityProfileOutput
-        value={body_region_name}
+    <div className="flex justify-between">
+      <AdminEntityProfileInfoOutput
+        icon={regionIcon}
+        iconAlt="region corps"
         label="Region corps"
-        isOneThirdWidth
-      />
+        value={body_region_name}
+      ></AdminEntityProfileInfoOutput>
 
-      <AdminEntityProfileOutput
-        value={is_operated}
+      <AdminEntityProfileInfoOutput
+        icon={surgeryIcon}
+        iconAlt="est opérée?"
         label="Est opérée?"
-        isOneThirdWidth
-      />
+        value={is_operated}
+      ></AdminEntityProfileInfoOutput>
     </div>
   );
 }

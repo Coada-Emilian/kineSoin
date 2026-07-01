@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { handleBodyRegionCreationAsAdmin } from '../../../functions/apiUtils/admin/region/handleBodyRegionCreationAsAdmin';
+import { handleBodyRegionCreationAsAdmin } from '../../../api/admin/region/handleBodyRegionCreationAsAdmin';
 import { validateBodyRegionCreationForm } from './validators/validateBodyRegionCreationForm';
 
 export const useBodyRegionCreationMutation = (

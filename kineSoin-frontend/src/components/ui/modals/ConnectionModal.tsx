@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import type { BasicModalProps } from '../../../@types/props/modalProps';
 import type { IButtonIcon } from '../../../@types/types/buttonTypes';
-import { publicNavbarButtonDetails } from '../../../utils/constants/publicSection/layout/publicNavbarButtonDetails';
-import { usePatientRegistrationContext } from '../../../utils/functions/contextUtils/usePatientRegistrationContext';
+import { publicNavbarButtonDetails } from '../../../utils/config/public/config/publicNavbarButtonDetails';
+import { usePatientRegistrationContext } from '../../../utils/hooks/context/usePatientRegistrationContext';
 import CustomButton from '../buttons/CustomButton';
 import BaseModal from './BaseModal';
 

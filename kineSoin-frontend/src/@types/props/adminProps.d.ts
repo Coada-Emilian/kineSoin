@@ -144,3 +144,10 @@ export interface AdminUpdateMutationProps {
   id: number;
   formData: FormData;
 }
+
+export interface AdminEntityProfileInfoOutputProps {
+  icon: string;
+  iconAlt: string;
+  label: string;
+  value: string;
+}

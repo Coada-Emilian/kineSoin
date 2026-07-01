@@ -1,6 +1,6 @@
-import PatientLoginDescriptionSection from '../../components/pages/public/PatientLoginPage/PatientLoginDescriptionSection';
-import PatientLoginFormSection from '../../components/pages/public/PatientLoginPage/PatientLoginFormSection';
-import PublicHeadband from '../../components/pages/public/PublicHeadband';
+import PublicHeadband from '../../components/pages/public/common/PublicHeadband';
+import PatientLoginDescriptionSection from '../../components/pages/public/patientLogin/PatientLoginDescriptionSection';
+import PatientLoginFormSection from '../../components/pages/public/patientLogin/PatientLoginFormSection';
 
 export default function PatientLoginPage() {
   return (

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { handleInsuranceCreationAsAdmin } from '../../../functions/apiUtils/admin/insurance/handleInsuranceCreationAsAdmin';
+import { handleInsuranceCreationAsAdmin } from '../../../api/admin/insurance/handleInsuranceCreationAsAdmin';
 import { validateInsuranceCreationForm } from './validators/validateInsuranceCreationForm';
 
 export const useInsuranceCreationMutation = (onClose: () => void) => {

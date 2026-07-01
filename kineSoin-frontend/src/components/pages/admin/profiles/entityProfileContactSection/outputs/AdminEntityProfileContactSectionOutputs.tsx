@@ -1,5 +1,5 @@
 import { hasValues } from '../../../../../../utils/functions/admin/adminEntityProfile/hasValues';
-import { useAdminEntityProfileContext } from '../../../../../../utils/functions/contextUtils/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../../../utils/hooks/context/useAdminEntityProfileContext';
 import AdminEntityAddressOutput from './AdminEntityAddressOutput';
 import AdminEntityAgeAndGenderOutput from './AdminEntityAgeAndGenderOutput';
 import AdminEntityBodyRegionAndOperatedStatusOutput from './AdminEntityBodyRegionAndOperatedStatusOutput';
@@ -62,7 +62,7 @@ export default function AdminEntityProfileContactSectionOutputs() {
       {hasValues(editedEntity.is_operated, editedEntity.body_region) && (
         <AdminEntityBodyRegionAndOperatedStatusOutput
           body_region={editedEntity.body_region}
-          is_operated={editedEntity.is_operated}
+          is_operated={editedEntity.is_operated as string}
         />
       )}
 

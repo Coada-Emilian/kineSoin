@@ -1,6 +1,6 @@
-import PatientRegistrationDescriptionSection from '../../components/pages/public/PatientRegistrationPage/PatientRegistrationDescriptionSection';
-import PatientRegistrationFormSection from '../../components/pages/public/PatientRegistrationPage/PatientRegistrationFormSection';
-import PublicHeadband from '../../components/pages/public/PublicHeadband';
+import PublicHeadband from '../../components/pages/public/common/PublicHeadband';
+import PatientRegistrationDescriptionSection from '../../components/pages/public/patientRegistration/PatientRegistrationDescriptionSection';
+import PatientRegistrationFormSection from '../../components/pages/public/patientRegistration/PatientRegistrationFormSection';
 import { PatientRegistrationContextProvider } from '../../contexts/PatientRegistrationContext/PatientRegistrationContext';
 
 export default function PatientRegistrationPage() {

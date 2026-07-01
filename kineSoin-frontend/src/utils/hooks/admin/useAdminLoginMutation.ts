@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { handleAdminLogin } from '../../functions/apiUtils/admin/handleAdminLogin';
 import { setAdminTokenAndDataInLocalStorage } from '../../localStorageUtils/adminLocalStorage';
 import { validateLoginForm } from '../validateLoginForm';
+import { handleAdminLogin } from '../../api/admin/handleAdminLogin';
 
 export const useAdminLoginMutation = (
   setAdminProfileToken: (token: string) => void,

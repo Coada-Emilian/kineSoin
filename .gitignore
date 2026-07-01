@@ -86,3 +86,9 @@ backend/tmp/
 # =========================
 
 front/src/styles/output.css
+
+# =========================
+# Personal documentation
+# =========================
+
+/docs/

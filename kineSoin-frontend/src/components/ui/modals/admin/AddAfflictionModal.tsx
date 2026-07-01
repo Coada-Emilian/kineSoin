@@ -1,7 +1,7 @@
 import type { IBodyRegion } from '../../../../@types/interfaces/modelInterfaces';
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
 import { useAfflictionCreationMutation } from '../../../../utils/hooks/admin/creation/useAfflictionCreationMutation';
-import { useFetchAdminBodyRegionsQuery } from '../../../../utils/hooks/admin/fetch/useFetchAdminBodyRegionsQuery';
+import { useFetchAdminBodyRegionsQuery } from '../../../../utils/hooks/admin/queries/useFetchAdminBodyRegionsQuery';
 import DNALoader from '../../DNALoader';
 import DropdownInput from '../../inputs/DropdownInput';
 import TextInput from '../../inputs/TextInput';
@@ -19,13 +19,10 @@ export default function AddAfflictionModal({
     submitAfflictionMutation.mutate(new FormData(e.currentTarget));
   };
 
-  const {
-    data: bodyRegions = [],
-    isPending: bodyRegionsFetchIsPending,
-    error: bodyRegionFetchError,
-  } = useFetchAdminBodyRegionsQuery(isOpen);
+  const { data: bodyRegions = [], error: bodyRegionFetchError } =
+    useFetchAdminBodyRegionsQuery(isOpen);
 
-  if (bodyRegionsFetchIsPending || submitAfflictionMutation.isPending) {
+  if (submitAfflictionMutation.isPending) {
     return DNALoader();
   }
 

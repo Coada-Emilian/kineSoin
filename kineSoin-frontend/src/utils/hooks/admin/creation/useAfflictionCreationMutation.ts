@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { handleAfflictionCreationAsAdmin } from '../../../functions/apiUtils/admin/affliction/handleAfflictionCreationAsAdmin';
 import { validateAfflictionCreationForm } from './validators/validateAfflictionCreationForm';
+import { handleAfflictionCreationAsAdmin } from '../../../api/admin/affliction/handleAfflictionCreationAsAdmin';
 
 export const useAfflictionCreationMutation = (onClose: () => void) => {
   const queryClient = useQueryClient();

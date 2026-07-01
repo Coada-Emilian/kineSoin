@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { handleMedicCreationAsAdmin } from '../../../functions/apiUtils/admin/medic/handleMedicCreationAsAdmin';
+import { handleMedicCreationAsAdmin } from '../../../api/admin/medic/handleMedicCreationAsAdmin';
 import { validateMedicCreationForm } from './validators/validateMedicCreationForm';
 
 export const useSubmitMedicMutation = (onClose: () => void) => {

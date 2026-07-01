@@ -1,4 +1,4 @@
-import { useFetchAdminBodyRegionsQuery } from '../../../../../../utils/hooks/admin/fetch/useFetchAdminBodyRegionsQuery';
+import { useFetchAdminBodyRegionsQuery } from '../../../../../../utils/hooks/admin/queries/useFetchAdminBodyRegionsQuery';
 import DNALoader from '../../../../DNALoader';
 import BodyRegionsTableBody from './BodyRegionsTableBody';
 
