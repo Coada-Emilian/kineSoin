@@ -1,26 +1,32 @@
-import appointmentIcon from '/icons/appointment.png';
-import graphIcon from '/icons/health-graph.png';
-import healthcareIcon from '/icons/healthcare.png';
-import priorityIcon from '/icons/priority.png';
-import therapistIcon from '/icons/therapist.png';
-
 export const homePageFirstArticles = [
   {
-    icon: graphIcon,
+    src: '/logos/healthGraph_48.webp',
+    srcSet:
+      '/logos/healthGraph_48.webp 48w, /logos/healthGraph_92.webp 92w, /logos/healthGraph_192.webp 192w',
+    sizes:
+      '(min-width: 1280px) 96px, (min-width: 1024px) 80px, (min-width: 768px) 64px, 48px',
     alt: 'graph',
     title: 'Un suivi adapté à vos besoins',
     description:
       'Prenez rendez-vous à tout moment, gérez vos consultations en quelques clics, et retrouvez vos informations de soin en toute simplicité.',
   },
   {
-    icon: appointmentIcon,
+    src: '/logos/appointment_48.webp',
+    srcSet:
+      '/logos/appointment_48.webp 48w, /logos/appointment_92.webp 92w, /logos/appointment_192.webp 192w',
+    sizes:
+      '(min-width: 1280px) 96px, (min-width: 1024px) 80px, (min-width: 768px) 64px, 48px',
     alt: 'rendez-vous',
     title: 'Des rendez-vous à portée de main',
     description:
       'Choisissez entre des consultations en cabinet ou à distance, selon vos préférences, et organisez votre emploi du temps sans stress.',
   },
   {
-    icon: healthcareIcon,
+    src: '/logos/healthcare_48.webp',
+    srcSet:
+      '/logos/healthcare_48.webp 48w, /logos/healthcare_92.webp 92w, /logos/healthcare_192.webp 192w',
+    sizes:
+      '(min-width: 1280px) 96px, (min-width: 1024px) 80px, (min-width: 768px) 64px, 48px',
     alt: 'soins',
     title: 'Vos soins accessibles en un clic',
     description:
@@ -30,14 +36,22 @@ export const homePageFirstArticles = [
 
 export const homePageSecondArticles = [
   {
-    icon: priorityIcon,
+    src: '/logos/priority_48.webp',
+    srcSet:
+      '/logos/priority_48.webp 48w, /logos/priority_92.webp 92w, /logos/priority_192.webp 192w',
+    sizes:
+      '(min-width: 1280px) 96px, (min-width: 1024px) 80px, (min-width: 768px) 64px, 48px',
     alt: 'priorité',
     title: 'Votre santé, notre priorité',
     description:
       'Profitez de conseils personnalisés, suivez vos progrès et restez connecté à vos praticiens pour des soins continus.',
   },
   {
-    icon: therapistIcon,
+    src: '/logos/therapist_48.webp',
+    srcSet:
+      '/logos/therapist_48.webp 48w, /logos/therapist_92.webp 92w, /logos/therapist_192.webp 192w',
+    sizes:
+      '(min-width: 1280px) 96px, (min-width: 1024px) 80px, (min-width: 768px) 64px, 48px',
     alt: 'therapeute',
     title: 'Des praticiens à votre écoute',
     description:

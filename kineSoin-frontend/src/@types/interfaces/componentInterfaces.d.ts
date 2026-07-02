@@ -16,7 +16,9 @@ export interface IButtonDetails {
 }
 
 export interface IHomePageArticle {
-  icon: string;
+  src: string;
+  srcSet: string;
+  sizes: string;
   alt: string;
   title: string;
   description: string;
@@ -36,4 +38,3 @@ export interface IErrorPageDetails {
   status: number;
   errorText: string;
 }
-

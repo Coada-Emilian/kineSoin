@@ -1,5 +1,3 @@
-import logo from '/logos/new-logo.webp';
-
 export default function PublicHeadband() {
   return (
     <div className="flex flex-col justify-center items-center mb-6">
@@ -8,7 +6,9 @@ export default function PublicHeadband() {
       </p>
 
       <img
-        src={logo}
+        src="/logos/newLogo_64.webp"
+        srcSet="/logos/newLogo_64.webp 64w, /logos/newLogo_128.webp 128w"
+        sizes="80px"
         alt="kinesoin"
         className="w-14 md:w-20 xl:w-24 2xl:w-28"
       />

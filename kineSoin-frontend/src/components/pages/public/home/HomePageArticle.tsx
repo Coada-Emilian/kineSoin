@@ -5,7 +5,9 @@ export default function HomePageArticle({ article }: IHomePageArticleProps) {
     <div>
       <article className="flex flex-col gap-4 mb-6 w-24 md:w-32 xl:w-56 2xl:w-72">
         <img
-          src={article.icon}
+          src={article.src}
+          srcSet={article.srcSet}
+          sizes={article.sizes}
           alt={article.alt}
           className="w-12 object-cover mx-auto md:w-16 lg:w-20 xl:w-24"
         />
