@@ -1,5 +1,5 @@
 import type { ICountryPrefix } from '../../../../../@types/interfaces/apiInterfaces';
-import { useAppContext } from '../../../../../utils/hooks/context/useAppContext';
+import { useAppContext } from '../../../../../hooks/context/useAppContext';
 import DropdownInput from '../../../../ui/inputs/DropdownInput';
 import TelephoneInput from '../../../../ui/inputs/TelephoneInput';
 import TextInput from '../../../../ui/inputs/TextInput';

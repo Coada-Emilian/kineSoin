@@ -1,8 +1,8 @@
-import { fetchAfflictionAsAdmin } from '../../api/admin/affliction/fetchAfflictionAsAdmin';
-import { fetchInsuranceAsAdmin } from '../../api/admin/insurance/fetchInsuranceAsAdmin';
-import { fetchMedicAsAdmin } from '../../api/admin/medic/fetchMedicAsAdmin';
-import { fetchPatientAsAdmin } from '../../api/admin/patient/fetchPatientAsAdmin';
-import { fetchTherapistAsAdmin } from '../../api/admin/therapist/fetchTherapistAsAdmin';
+import { fetchAfflictionAsAdmin } from '../../../api/admin/affliction/fetchAfflictionAsAdmin';
+import { fetchInsuranceAsAdmin } from '../../../api/admin/insurance/fetchInsuranceAsAdmin';
+import { fetchMedicAsAdmin } from '../../../api/admin/medic/fetchMedicAsAdmin';
+import { fetchPatientAsAdmin } from '../../../api/admin/patient/fetchPatientAsAdmin';
+import { fetchTherapistAsAdmin } from '../../../api/admin/therapist/fetchTherapistAsAdmin';
 
 export const fetchAdminEntityDataFunctionDetails = [
   { entityType: 'therapist', fetchFunction: fetchTherapistAsAdmin },

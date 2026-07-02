@@ -1,6 +1,6 @@
-import type { IFormOrders } from '../../../../@types/interfaces/customTypes';
+import type { FormOrderTypes } from '../../../../@types/types/formTypes';
 
-export const getStepParagraph = (formOrder: IFormOrders) => {
+export const getStepParagraph = (formOrder: FormOrderTypes) => {
   switch (formOrder) {
     case 'first':
       return 'Étape 1/3 : Informations personnelles';

@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
+import { useAppContext } from './hooks/context/useAppContext';
+import { useAuthentificationContext } from './hooks/context/useAuthentificationContext';
 import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
@@ -9,8 +11,6 @@ import AdminPage from './pages/admin/AdminPage';
 import ErrorPage from './pages/ErrorPage';
 import { adminRouteDetails } from './utils/config/admin/adminRouteDetails';
 import { publicRouteDetails } from './utils/config/public/publicRouteDetails';
-import { useAppContext } from './utils/hooks/context/useAppContext';
-import { useAuthentificationContext } from './utils/hooks/context/useAuthentificationContext';
 
 function App() {
   const location = useLocation();

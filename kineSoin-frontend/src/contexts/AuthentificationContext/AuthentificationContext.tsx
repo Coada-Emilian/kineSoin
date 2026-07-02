@@ -6,9 +6,9 @@ import React, {
 } from 'react';
 import type { IAuthentificationContext } from '../../@types/interfaces/contextInterfaces';
 import { checkAdminAuthentication } from '../../utils/functions/authentication/checkAdminAuthentification';
-import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/adminLocalStorage';
-import { getPatientTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/patientLocalStorage';
-import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorageUtils/therapistLocalStorage';
+import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorage/adminLocalStorage';
+import { getPatientTokenAndDataFromLocalStorage } from '../../utils/localStorage/patientLocalStorage';
+import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
 const AuthentificationContext = createContext<
   IAuthentificationContext | undefined

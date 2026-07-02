@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../utils/hooks/context/useAuthentificationContext';
-import { removeAdminTokenFromLocalStorage } from '../../../utils/localStorageUtils/adminLocalStorage';
+import { useAuthentificationContext } from '../../../hooks/context/useAuthentificationContext';
+import { removeAdminTokenFromLocalStorage } from '../../../utils/localStorage/adminLocalStorage';
 import CustomButton from '../../ui/buttons/CustomButton';
 import Logo2 from '/logos/new-kinesoin-logo-2.webp';
 import Logo1 from '/logos/new-kinesoin-logo.webp';

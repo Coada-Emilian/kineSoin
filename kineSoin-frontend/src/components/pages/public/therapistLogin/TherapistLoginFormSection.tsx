@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../../utils/hooks/context/useAuthentificationContext';
-import { useTherapistLoginMutation } from '../../../../utils/hooks/public/useTherapistLoginMutation';
+import { useAuthentificationContext } from '../../../../hooks/context/useAuthentificationContext';
+import { useTherapistLoginMutation } from '../../../../hooks/public/useTherapistLoginMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import DNALoader from '../../../ui/DNALoader';
 import EmailInput from '../../../ui/inputs/EmailInput';
@@ -28,7 +28,7 @@ export default function TherapistLoginFormSection() {
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-[url('/images/therapistConnexionPage_main.webp')] bg-cover bg-center bg-no-repeat px-4">
+    <section className="relative flex items-center justify-center bg-[url('/images/therapistConnexionPage_main.webp')] bg-cover bg-center bg-no-repeat py-24 px-4 md:p-32 md:px-16 md:w-full md:h-fit mb-6 rounded-bl-[75px] shadow-2xl">
       <div className="w-full max-w-md bg-white/85 backdrop-blur-sm rounded-3xl shadow-xl p-8 md:p-10">
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
           <Link to="/" className="flex justify-center">

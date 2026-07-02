@@ -1,6 +1,6 @@
 import type { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import type { BodyRegionsTableBodyProps } from '../../../../../../@types/props/componentProps';
-import { useAdminContext } from '../../../../../../utils/hooks/context/useAdminContext';
+import { useAdminContext } from '../../../../../../hooks/context/useAdminContext';
 import AdminDeleteButton from '../../../../../pages/admin/table/ui/AdminDeleteButton';
 import TableCell from '../../../../../pages/admin/table/ui/TableCell';
 

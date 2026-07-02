@@ -1,7 +1,7 @@
 import type { IBodyRegion } from '../../../../@types/interfaces/modelInterfaces';
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useAfflictionCreationMutation } from '../../../../utils/hooks/admin/creation/useAfflictionCreationMutation';
-import { useFetchAdminBodyRegionsQuery } from '../../../../utils/hooks/admin/queries/useFetchAdminBodyRegionsQuery';
+import { useAfflictionCreationMutation } from '../../../../hooks/admin/creation/useAfflictionCreationMutation';
+import { useFetchAdminBodyRegionsQuery } from '../../../../hooks/admin/queries/useFetchAdminBodyRegionsQuery';
 import DNALoader from '../../DNALoader';
 import DropdownInput from '../../inputs/DropdownInput';
 import TextInput from '../../inputs/TextInput';

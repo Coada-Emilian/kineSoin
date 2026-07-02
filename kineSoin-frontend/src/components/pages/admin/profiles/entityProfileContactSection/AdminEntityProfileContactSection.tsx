@@ -1,5 +1,5 @@
 import type { AdminPageProps } from '../../../../../@types/props/adminProps';
-import { useAdminEntityProfileContext } from '../../../../../utils/hooks/context/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../../hooks/context/useAdminEntityProfileContext';
 import AdminEntityProfileContactSectionInputs from './inputs/AdminEntityProfileContactSectionInputs';
 import AdminEntityProfileContactSectionOutputs from './outputs/AdminEntityProfileContactSectionOutputs';
 

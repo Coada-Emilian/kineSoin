@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { IPatientRegistrationFormData } from '../../../../@types/interfaces/formInterfaces';
 import type { FormOrderTypes } from '../../../../@types/types/formTypes';
+import { useAppContext } from '../../../../hooks/context/useAppContext';
+import { usePatientRegistrationContext } from '../../../../hooks/context/usePatientRegistrationContext';
+import { usePatientRegistrationFormMutation } from '../../../../hooks/public/usePatientRegistrationFormMutation';
+import { usePatientRegistrationMutation } from '../../../../hooks/public/usePatientRegistrationMutation';
 import { getFormElement } from '../../../../utils/functions/public/patientRegistrationUtils/getFormElement';
 import { getSectionBackground } from '../../../../utils/functions/public/patientRegistrationUtils/getSectionBackground';
 import { getStepParagraph } from '../../../../utils/functions/public/patientRegistrationUtils/getStepParagraph';
-import { useAppContext } from '../../../../utils/hooks/context/useAppContext';
-import { usePatientRegistrationContext } from '../../../../utils/hooks/context/usePatientRegistrationContext';
-import { usePatientRegistrationFormMutation } from '../../../../utils/hooks/public/usePatientRegistrationFormMutation';
-import { usePatientRegistrationMutation } from '../../../../utils/hooks/public/usePatientRegistrationMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import DNALoader from '../../../ui/DNALoader';
 import mainLogo from '/logos/new-logo.webp';
@@ -79,7 +79,7 @@ export default function PatientRegistrationFormSection() {
 
   return (
     <section
-      className={`${getSectionBackground(formOrder)} min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat px-4`}
+      className={`${getSectionBackground(formOrder)} relative flex items-center justify-center bg-cover bg-center bg-no-repeat py-16 px-4 md:p-32 md:w-full md:h-fit mb-6 rounded-bl-[75px] shadow-2xl`}
     >
       <div className="w-full max-w-md bg-white/85 backdrop-blur-sm rounded-3xl shadow-xl p-8 md:p-10">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">

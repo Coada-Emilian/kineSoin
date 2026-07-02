@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import type { PublicArticleRowProps } from '../../../../@types/props/componentProps';
 
 export default function ArticleRow({ article }: PublicArticleRowProps) {
-  const imageStyle = 'rounded-2xl shadow-lg w-72 md:w-80 xl:w-1/3 mx-auto mb-6';
+  const imageStyle =
+    'rounded-3xl shadow-2xl w-72 md:w-80 xl:w-1/3 mx-auto mb-6';
 
   const contentStyle =
     'text-primaryBlue text-sm md:text-lg md:w-1/2 font-medium px-4';

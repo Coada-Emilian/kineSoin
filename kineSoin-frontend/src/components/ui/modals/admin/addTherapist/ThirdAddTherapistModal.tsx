@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
+import { useTherapistCreationMutation } from '../../../../../hooks/admin/creation/useTherapistCreationMutation';
+import { useAdminAddTherapistContext } from '../../../../../hooks/context/useAdminAddTherapistContext';
+import { useAppContext } from '../../../../../hooks/context/useAppContext';
 import { handleAddTherapistStepThreeSubmit } from '../../../../../utils/functions/admin/addTherapist/handleAddTherapistStepThreeSubmit';
-import { useTherapistCreationMutation } from '../../../../../utils/hooks/admin/creation/useTherapistCreationMutation';
-import { useAdminAddTherapistContext } from '../../../../../utils/hooks/context/useAdminAddTherapistContext';
-import { useAppContext } from '../../../../../utils/hooks/context/useAppContext';
 import DNALoader from '../../../DNALoader';
 import DropdownInput from '../../../inputs/DropdownInput';
 import EmailInput from '../../../inputs/EmailInput';

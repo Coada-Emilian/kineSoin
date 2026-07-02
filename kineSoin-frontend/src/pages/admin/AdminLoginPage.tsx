@@ -3,8 +3,8 @@ import CustomButton from '../../components/ui/buttons/CustomButton';
 import DNALoader from '../../components/ui/DNALoader';
 import EmailInput from '../../components/ui/inputs/EmailInput';
 import PasswordInput from '../../components/ui/inputs/PasswordInput';
-import { useAdminLoginMutation } from '../../utils/hooks/admin/useAdminLoginMutation';
-import { useAuthentificationContext } from '../../utils/hooks/context/useAuthentificationContext';
+import { useAdminLoginMutation } from '../../hooks/admin/useAdminLoginMutation';
+import { useAuthentificationContext } from '../../hooks/context/useAuthentificationContext';
 import logo from '/logos/new-logo.webp';
 
 export default function AdminLoginPage() {

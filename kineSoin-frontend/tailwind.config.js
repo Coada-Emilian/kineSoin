@@ -12,13 +12,13 @@ export default {
         roboto: ['Roboto', 'sans-serif'],
       },
       backgroundImage: {
-        homePage: "url('/images/homepage_main_photo.webp')",
+        homePage: "url('/images/homepage_main_photo1.webp')",
         patientConnectionPage:
           "url('/images/patientConnexionPage_mainAlt.webp')",
         therapistConnectionPage:
           "url('/images/therapistConnexionPage_main.webp')",
         patientFirstRegisterPage:
-          "url('/images/patientRegisterFirstForm_mainAlt.webp')",
+          "url('/images/patientRegisterFirstForm_mainAlt1.webp')",
         patientSecondRegisterPage:
           "url('/images/patientRegisterSecondForm_main.webp')",
         patientThirdRegisterPage:

@@ -1,5 +1,5 @@
 import type { AddBodyRegionModalProps } from '../../../../@types/props/modalProps';
-import { useBodyRegionCreationMutation } from '../../../../utils/hooks/admin/creation/useBodyRegionCreationMutation';
+import { useBodyRegionCreationMutation } from '../../../../hooks/admin/creation/useBodyRegionCreationMutation';
 import CustomButton from '../../buttons/CustomButton';
 import DNALoader from '../../DNALoader';
 import TextInput from '../../inputs/TextInput';

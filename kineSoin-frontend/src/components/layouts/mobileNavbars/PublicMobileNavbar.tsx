@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { publicMobileNavbarLinkDetails } from '../../../utils/config/public/config/publicMobileNavbarLinkDetails';
-import { usePatientRegistrationContext } from '../../../utils/hooks/context/usePatientRegistrationContext';
+import { usePatientRegistrationContext } from '../../../hooks/context/usePatientRegistrationContext';
 
 export default function PublicMobileNavbar() {
   const { setFormOrder } = usePatientRegistrationContext();

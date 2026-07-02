@@ -1,6 +1,6 @@
 import type { IAffliction } from '../../../../../@types/interfaces/modelInterfaces';
 import type { AdminAfflictionTableBodyProps } from '../../../../../@types/props/adminProps';
-import { useAdminContext } from '../../../../../utils/hooks/context/useAdminContext';
+import { useAdminContext } from '../../../../../hooks/context/useAdminContext';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import TableCell from '../ui/TableCell';

@@ -9,7 +9,7 @@ export default function TherapistLoginDescriptionSection() {
 
   const reverseArticle = therapistLoginPageReverseArticle;
   return (
-    <div className="bg-container py-12 rounded-tr-[75px]">
+    <div className="bg-container py-12 flex flex-col px-2 rounded-tr-[75px] shadow-2xl">
       <div className="flex flex-col md:gap-4">
         <ArticleRow article={article} />
 

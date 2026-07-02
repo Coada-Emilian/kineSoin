@@ -1,7 +1,7 @@
-import { useAfflictionUpdateMutation } from '../../hooks/admin/update/useAfflictionUpdateMutation';
-import { useInsuranceUpdateMutation } from '../../hooks/admin/update/useInsuranceUpdateMutation';
-import { useMedicUpdateMutation } from '../../hooks/admin/update/useMedicUpdateMutation';
-import { useTherapistUpdateMutation } from '../../hooks/admin/update/useTherapistUpdateMutation';
+import { useAfflictionUpdateMutation } from '../../../hooks/admin/update/useAfflictionUpdateMutation';
+import { useInsuranceUpdateMutation } from '../../../hooks/admin/update/useInsuranceUpdateMutation';
+import { useMedicUpdateMutation } from '../../../hooks/admin/update/useMedicUpdateMutation';
+import { useTherapistUpdateMutation } from '../../../hooks/admin/update/useTherapistUpdateMutation';
 
 export const entityUpdateMutations = () => [
   {

@@ -1,7 +1,7 @@
 import type { ITherapist } from '../../../../../@types/interfaces/modelInterfaces';
 import type { AdminTherapistTableBodyProps } from '../../../../../@types/props/adminProps';
-import { useTherapistStatusChangeAsAdminMutation } from '../../../../../utils/hooks/admin/update/useTherapistStatusChangeAsAdminMutation';
-import { useAdminContext } from '../../../../../utils/hooks/context/useAdminContext';
+import { useTherapistStatusChangeAsAdminMutation } from '../../../../../hooks/admin/update/useTherapistStatusChangeAsAdminMutation';
+import { useAdminContext } from '../../../../../hooks/context/useAdminContext';
 import AdminDeleteButton from '../ui/AdminDeleteButton';
 import AdminEditButton from '../ui/AdminEditButton';
 import AdminStatusButton from '../ui/AdminStatusButton';

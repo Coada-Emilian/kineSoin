@@ -1,5 +1,5 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
-import { useAdminEntityProfileContext } from '../../../../../utils/hooks/context/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../../hooks/context/useAdminEntityProfileContext';
 import TextInput from '../../../../ui/inputs/TextInput';
 import AdminEntityProfileInfoOutput from '../entityProfileContactSection/outputs/AdminOutputContainer';
 import AdminEntityIdOutput from './outputs/AdminEntityIdOutput';

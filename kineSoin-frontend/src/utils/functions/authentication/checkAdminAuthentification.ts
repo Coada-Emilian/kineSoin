@@ -1,6 +1,6 @@
 import type { CheckAdminAuthenticationFunctionProps } from '../../../@types/props/functionProps';
 import axios from '../../../axios';
-import { getAdminTokenAndDataFromLocalStorage } from '../../localStorageUtils/adminLocalStorage';
+import { getAdminTokenAndDataFromLocalStorage } from '../../localStorage/adminLocalStorage';
 
 export const checkAdminAuthentication = ({
   setIsAdminAuthenticated,

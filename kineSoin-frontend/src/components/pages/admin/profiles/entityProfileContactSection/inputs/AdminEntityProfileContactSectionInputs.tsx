@@ -2,10 +2,10 @@ import type { ICountryPrefix } from '../../../../../../@types/interfaces/apiInte
 import type { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
 import type { AdminPageProps } from '../../../../../../@types/props/adminProps';
 import type { IAdminEntityProfileInputTypes } from '../../../../../../@types/types/adminTypes';
+import { useFetchAdminBodyRegionsQuery } from '../../../../../../hooks/admin/queries/useFetchAdminBodyRegionsQuery';
+import { useAdminEntityProfileContext } from '../../../../../../hooks/context/useAdminEntityProfileContext';
+import { useAppContext } from '../../../../../../hooks/context/useAppContext';
 import { hasValues } from '../../../../../../utils/functions/admin/adminEntityProfile/hasValues';
-import { useFetchAdminBodyRegionsQuery } from '../../../../../../utils/hooks/admin/queries/useFetchAdminBodyRegionsQuery';
-import { useAdminEntityProfileContext } from '../../../../../../utils/hooks/context/useAdminEntityProfileContext';
-import { useAppContext } from '../../../../../../utils/hooks/context/useAppContext';
 import DropdownInput from '../../../../../ui/inputs/DropdownInput';
 import EmailInput from '../../../../../ui/inputs/EmailInput';
 import TelephoneInput from '../../../../../ui/inputs/TelephoneInput';
