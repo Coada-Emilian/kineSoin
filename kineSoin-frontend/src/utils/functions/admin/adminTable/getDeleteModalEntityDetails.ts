@@ -1,8 +1,6 @@
 import type {
   IAffliction,
   IInsurance,
-  IMedic,
-  IPatient,
   ITherapist,
 } from '../../../../@types/interfaces/modelInterfaces';
 import type { IAdminEntity } from '../../../../@types/types/adminTypes';
@@ -10,12 +8,12 @@ import type { IAdminEntity } from '../../../../@types/types/adminTypes';
 export const getDeleteModalEntityDetails = (entity: IAdminEntity) => [
   {
     entityType: 'therapist',
-    full_name: (entity as ITherapist).fullName,
+    full_name: `${(entity as ITherapist).name} ${(entity as ITherapist).surname}`,
     id: entity.id,
   },
   {
     entityType: 'patient',
-    full_name: (entity as IPatient).fullName,
+    full_name: `${(entity as ITherapist).name} ${(entity as ITherapist).surname}`,
     id: entity.id,
   },
   {
@@ -25,7 +23,9 @@ export const getDeleteModalEntityDetails = (entity: IAdminEntity) => [
   },
   {
     entityType: 'medic',
-    full_name: (entity as IMedic).fullName,
+    full_name:
+      `${(entity as ITherapist).name ?? ''} ${(entity as ITherapist).surname ?? ''}`.trim() ||
+      (entity as ITherapist).fullName,
     id: entity.id,
   },
   {

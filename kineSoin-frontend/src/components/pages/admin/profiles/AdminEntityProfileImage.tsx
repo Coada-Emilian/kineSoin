@@ -18,7 +18,7 @@ export default function AdminEntityProfileImage({
   };
 
   return (
-    <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto flex justify-center items-center">
+    <div className="relative w-24 h-24 md:w-48 md:h-48 mx-auto flex justify-center items-center">
       <img
         src={picture_url}
         alt="profile"
@@ -27,7 +27,7 @@ export default function AdminEntityProfileImage({
 
       {isProfileEditing && entityType === 'therapist' && (
         <Button
-          className="absolute top-0 left-0 md:top-2 bg-white rounded-full p-1 w-8 h-8 shadow-md"
+          className="absolute top-0 left-0 md:top-6 bg-white rounded-full p-1 w-8 h-8 shadow-md"
           onClick={handleClick}
         >
           <img src={editIcon} alt="edit profile" className="w-full h-full" />

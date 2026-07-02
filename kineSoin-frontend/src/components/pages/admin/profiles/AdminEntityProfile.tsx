@@ -141,7 +141,7 @@ export default function AdminEntityProfile({
             <EntityProfileTitle entityType={entityType} />
           </div>
 
-          <div className="bg-primaryTeal p-8 md:p-12 w-full relative mb-8">
+          <div className="bg-primaryTeal p-8 md:p-16 w-full relative mb-8">
             <div className="absolute top-3 md:top-8 left-0 w-full h-full rounded-xl">
               <AdminEntityProfileImage
                 picture_url={
@@ -266,7 +266,7 @@ export default function AdminEntityProfile({
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
           entityType={entityType}
-          entity={entity as IAdminEntity}
+          entity={editedEntity as IAdminEntity}
         />
       )}
 
