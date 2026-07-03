@@ -8,7 +8,7 @@ export interface IDeleteModalActiveEntity {
 }
 
 export interface IAdminEditedEntity {
-  id: number | undefined ;
+  id: number | undefined;
 
   name: string;
   surname?: string;
@@ -40,4 +40,12 @@ export interface IAdminEditedEntity {
   picture_url?: string;
 
   body_region?: IBodyRegion;
+}
+
+export interface IBasicUser {
+  fullName: string | null;
+  picture_url: string | null;
+  id: number;
+  token?: string | null;
+  status?: string | undefined;
 }

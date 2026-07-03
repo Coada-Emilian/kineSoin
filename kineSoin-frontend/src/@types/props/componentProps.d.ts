@@ -3,6 +3,7 @@ import type {
   IHomePageArticle,
   IPublicArticle,
 } from '../interfaces/componentInterfaces';
+import type { IBasicUser } from '../interfaces/customInterfaces';
 import type { IBodyRegion } from '../interfaces/modelInterfaces';
 import type { ModalButtonSectionMode } from '../types/buttonTypes';
 import type { ErrorPageType } from '../types/errorTypes';
@@ -49,4 +50,10 @@ export interface ModalButtonSectionProps {
 
 export interface NavbarLogoProps {
   onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
+}
+
+export interface UserHeadbandProps {
+  userProfile?: IBasicUser | undefined;
+  profileUrl: string;
+  dashboardUrl: string;
 }
