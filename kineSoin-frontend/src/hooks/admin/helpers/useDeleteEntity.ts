@@ -1,4 +1,4 @@
-import type { UseDeleteEntityFunctionProps } from '../../../../@types/props/functionProps';
+import type { UseDeleteEntityFunctionProps } from '../../../@types/props/functionProps';
 import { useAfflictionDeletionMutation } from '../deletion/useAfflictionDeletionMutation';
 import { useInsuranceDeletionMutation } from '../deletion/useInsuranceDeletionMutation';
 import { useMedicDeletionMutation } from '../deletion/useMedicDeletionMutation';

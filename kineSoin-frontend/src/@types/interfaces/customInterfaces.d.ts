@@ -8,7 +8,7 @@ export interface IDeleteModalActiveEntity {
 }
 
 export interface IAdminEditedEntity {
-  id: number | undefined;
+  id: number | undefined ;
 
   name: string;
   surname?: string;

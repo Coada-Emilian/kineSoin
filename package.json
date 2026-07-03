@@ -5,6 +5,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"pnpm --filter kineSoin-backend dev\" \"pnpm --filter kineSoin-frontend dev\"",
     "dev:legacy": "concurrently \"pnpm --dir archive/kineSoin-frontend-v1 dev\" \"pnpm --filter kineSoin-backend dev\"",
+    "build": "pnpm --filter kineSoin-frontend build",
+    "preview": "concurrently \"pnpm --filter kineSoin-backend dev\" \"pnpm --filter kineSoin-frontend preview\"",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "lint_front": "pnpm --filter kineSoin-frontend lint",

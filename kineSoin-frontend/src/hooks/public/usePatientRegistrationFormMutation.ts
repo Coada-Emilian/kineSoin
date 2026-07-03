@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import type { FormOrderTypes } from '../../../@types/types/formTypes';
 import { validateFirstPatientRegistrationForm } from './validators/validateFirstPatientRegistrationForm';
 import { validateSecondPatientRegistrationForm } from './validators/validateSecondPatientRegistrationForm';
 import { validateThirdPatientRegistrationForm } from './validators/validateThirdPatientRegistrationForm';
+import type { FormOrderTypes } from '../../@types/types/formTypes';
 
 export const usePatientRegistrationFormMutation = (
   formOrder: FormOrderTypes,

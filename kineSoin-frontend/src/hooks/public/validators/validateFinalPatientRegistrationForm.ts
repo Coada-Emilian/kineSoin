@@ -1,4 +1,4 @@
-import type { IPatientRegistrationFormData } from '../../../../@types/interfaces/formInterfaces';
+import type { IPatientRegistrationFormData } from '../../../@types/interfaces/formInterfaces';
 
 export function validateFinalPatientRegistrationForm(
   patientForm: IPatientRegistrationFormData

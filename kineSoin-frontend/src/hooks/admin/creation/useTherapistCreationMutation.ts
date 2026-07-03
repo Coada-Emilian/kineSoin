@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { IAddTherapistFormData } from '../../../../@types/interfaces/formInterfaces';
 import { handleTherapistCreationAsAdmin } from '../../../api/admin/therapist/handleTherapistCreationAsAdmin';
 import { validateTherapistCreationForm } from './validators/validateTherapistCreationForm';
+import type { IAddTherapistFormData } from '../../../@types/interfaces/formInterfaces';
 
 export const useTherapistCreationMutation = (
   addForm: IAddTherapistFormData,

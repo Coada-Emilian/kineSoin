@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import type { FetchAdminTableDataFunctionProps } from '../../../../@types/props/functionProps';
+import type { FetchAdminTableDataFunctionProps } from '../../../@types/props/functionProps';
 import type {
   IAdminEntities,
   IAdminEntity,
-} from '../../../../@types/types/adminTypes';
+} from '../../../@types/types/adminTypes';
 import { fetchAdminTableDetails } from '../../../api/admin/fetchAdminTableDetails';
 
 export function useFetchAdminTableDetails({

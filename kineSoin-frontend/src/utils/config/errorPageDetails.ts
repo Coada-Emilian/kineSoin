@@ -1,5 +1,6 @@
 import type { IErrorPageDetails } from '../../@types/interfaces/componentInterfaces';
-import type { IErrorPageTypes } from '../../@types/types/customTypes';
+import type { ErrorPageProps } from '../../@types/props/componentProps';
+import type { ErrorPageType } from '../../@types/types/errorTypes';
 
 const accessDeniedText =
   'Accès refusé. Vous devez être connecté pour accéder à cette page.';
@@ -11,7 +12,7 @@ const dashboardText = 'Retour au Tableau de Bord';
 
 const connectionText = 'Retour à la Page de Connexion';
 
-const errorPageConfig: Record<IErrorPageTypes['type'], IErrorPageDetails> = {
+const errorPageConfig: Record<ErrorPageProps['type'], IErrorPageDetails> = {
   adminAuthenticated: {
     link: '/admin/therapists',
     linkText: dashboardText,
@@ -62,16 +63,16 @@ const errorPageConfig: Record<IErrorPageTypes['type'], IErrorPageDetails> = {
   },
 };
 
-export const getErrorPageStatusCode = ({ type }: IErrorPageTypes) => {
+export const getErrorPageStatusCode = (type: ErrorPageType) => {
   return errorPageConfig[type].status;
 };
 
-export const getErrorPageErrorText = ({ type }: IErrorPageTypes) => {
+export const getErrorPageErrorText = (type: ErrorPageType) => {
   return errorPageConfig[type].errorText;
 };
 
-export const getErrorPageLinkDestination = ({ type }: IErrorPageTypes) =>
+export const getErrorPageLinkDestination = (type: ErrorPageType) =>
   errorPageConfig[type].link;
 
-export const getErrorPageLinkText = ({ type }: IErrorPageTypes) =>
+export const getErrorPageLinkText = (type: ErrorPageType) =>
   errorPageConfig[type].linkText;

@@ -1,6 +1,6 @@
-import type { IFormOrders } from '../../../../@types/interfaces/customTypes';
+import type { FormOrderTypes } from '../../../../@types/types/formTypes';
 
-export const getSectionBackground = (formOrder: IFormOrders) => {
+export const getSectionBackground = (formOrder: FormOrderTypes) => {
   switch (formOrder) {
     case 'first':
       return "bg-[url('/images/patientRegisterFirstForm_mainAlt.webp')]";

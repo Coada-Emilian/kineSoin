@@ -38,7 +38,7 @@ export const AdminEntityProfileContextProvider = ({
     postal_code: '',
     insurance_code: '',
     picture_url: '',
-    id: '',
+    id: undefined,
   });
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

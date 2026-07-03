@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import type { AdminUpdateMutationProps } from '../../../../@types/props/adminProps';
+import type { AdminUpdateMutationProps } from '../../../@types/props/adminProps';
 import { handleAfflictionUpdateAsAdmin } from '../../../api/admin/affliction/handleAfflictionUpdateAsAdmin';
 import { validateAfflictionUpdateForm } from './validators/validateAfflictionUpdateForm';
 

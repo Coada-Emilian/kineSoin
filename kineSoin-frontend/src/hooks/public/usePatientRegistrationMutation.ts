@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import type { IPatientRegistrationFormData } from '../../../@types/interfaces/formInterfaces';
 import { handlePatientRegistration } from '../../api/public/handlePatientRegistration';
 import { validateFinalPatientRegistrationForm } from './validators/validateFinalPatientRegistrationForm';
+import type { IPatientRegistrationFormData } from '../../@types/interfaces/formInterfaces';
 
 export const usePatientRegistrationMutation = () => {
   return useMutation({
