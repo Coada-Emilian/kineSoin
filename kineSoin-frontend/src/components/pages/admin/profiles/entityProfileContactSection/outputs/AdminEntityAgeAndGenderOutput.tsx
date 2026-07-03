@@ -9,7 +9,7 @@ export default function AdminEntityAgeAndGenderOutput({
   gender,
 }: AdminEntityAgeAndGenderOutputProps) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between mb-0">
       <AdminEntityProfileInfoOutput
         icon={cakeIcon}
         iconAlt="age"

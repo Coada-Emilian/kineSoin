@@ -1,23 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthentificationContext } from '../../../hooks/context/useAuthentificationContext';
-import { removeAdminTokenFromLocalStorage } from '../../../utils/localStorage/adminLocalStorage';
+import { removeTherapistTokenFromLocalStorage } from '../../../utils/localStorage/therapistLocalStorage';
 import CustomButton from '../../ui/buttons/CustomButton';
 import NavbarLogo from '../../ui/logos/navbarLogo';
 
-export default function AdminNavBar() {
+export default function TherapistNavbar() {
   const navigate = useNavigate();
 
   const {
-    isAdminAuthenticated,
-    setIsAdminAuthenticated,
-    setAdminProfileToken,
+    isTherapistAuthenticated,
+    setIsTherapistAuthenticated,
+    setTherapistProfileToken,
   } = useAuthentificationContext();
 
-  const handleAdminLogout = () => {
-    removeAdminTokenFromLocalStorage();
-    setIsAdminAuthenticated(false);
-    setAdminProfileToken(null);
-    navigate('/loginAdmin');
+  const handleTherapistLogout = () => {
+    removeTherapistTokenFromLocalStorage();
+    setIsTherapistAuthenticated(false);
+    setTherapistProfileToken(null);
+    navigate('/loginTherapist');
   };
 
   return (
@@ -26,14 +26,14 @@ export default function AdminNavBar() {
         <NavbarLogo />
 
         <div className="md:flex md:items-center">
-          {isAdminAuthenticated && (
+          {isTherapistAuthenticated && (
             <CustomButton
               btn={{
                 type: 'basic',
                 text: 'Déconnexion',
                 style: 'nav',
                 icon: 'logout',
-                onClick: handleAdminLogout,
+                onClick: handleTherapistLogout,
               }}
             />
           )}

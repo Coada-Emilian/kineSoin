@@ -19,10 +19,10 @@
  *   and unexpected server errors.
  */
 
-import { Appointment, Patient, Therapist } from '../../../models/index.js';
-import { findOrThrow } from '../../../utils/findOrThrow.js';
-import getAppointmentDateTime from '../../../utils/getAppointmentDateTime.js';
-import { getValidId } from '../../../utils/getValidId.js';
+import { Appointment, Patient, Therapist } from '../../../../models/index.js';
+import { findOrThrow } from '../../../../utils/findOrThrow.js';
+import getAppointmentDateTime from '../../../../utils/getAppointmentDateTime.js';
+import { getValidId } from '../../../../utils/getValidId.js';
 
 export default async function getPatientAppointmentsAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');

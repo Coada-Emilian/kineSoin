@@ -15,7 +15,7 @@ export default function AdminEntityBodyRegionAndOperatedStatusOutput({
   }
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between mb-0">
       <AdminEntityProfileInfoOutput
         icon={regionIcon}
         iconAlt="region corps"

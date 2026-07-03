@@ -85,7 +85,14 @@ export interface ValidateStepThreeFormFunctionProps {
   phone_number: string;
 }
 
-interface CheckAdminAuthenticationFunctionProps {
+export interface CheckAdminAuthenticationFunctionProps {
   setIsAdminAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   setAdminProfileToken?: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export interface CheckTherapistAuthenticationFunctionProps {
+  setIsTherapistAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setTherapistProfileToken?: React.Dispatch<
+    React.SetStateAction<string | null>
+  >;
 }

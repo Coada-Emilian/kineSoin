@@ -47,4 +47,6 @@ export interface ModalButtonSectionProps {
   mode: ModalButtonSectionMode;
 }
 
-
+export interface NavbarLogoProps {
+  onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
+}

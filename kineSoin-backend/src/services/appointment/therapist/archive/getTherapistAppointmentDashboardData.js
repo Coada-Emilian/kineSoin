@@ -16,9 +16,9 @@
  * - Returns clear, consistent HTTP status codes for empty results and unexpected errors.
  */
 
-import { Appointment, Therapist } from '../../../models/index.js';
-import { findOrThrow } from '../../../utils/findOrThrow.js';
-import { getValidId } from '../../../utils/getValidId.js';
+import { Appointment, Therapist } from '../../../../models/index.js';
+import { findOrThrow } from '../../../../utils/findOrThrow.js';
+import { getValidId } from '../../../../utils/getValidId.js';
 
 export default async function getTherapistAppointmentDashboardData(req, res) {
   const therapist_id = getValidId(req.therapist_id, 'Therapist ID');

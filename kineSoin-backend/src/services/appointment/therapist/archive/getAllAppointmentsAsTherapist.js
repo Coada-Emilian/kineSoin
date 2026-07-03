@@ -17,9 +17,9 @@
  *   and unexpected server errors.
  */
 
-import { Appointment, Therapist } from '../../../models/index.js';
-import { findOrThrow } from '../../../utils/findOrThrow.js';
-import { getValidId } from '../../../utils/getValidId.js';
+import { Appointment, Therapist } from '../../../../models/index.js';
+import { findOrThrow } from '../../../../utils/findOrThrow.js';
+import { getValidId } from '../../../../utils/getValidId.js';
 
 export default async function getAllAppointmentsAsTherapist(req, res) {
   const therapist_id = getValidId(req.therapist_id, 10);

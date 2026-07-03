@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../ui/buttons/CustomButton';
+import NavbarLogo from '../../ui/logos/navbarLogo';
 import ConnectionModal from '../../ui/modals/ConnectionModal';
 
 export default function PublicNavbar() {
@@ -25,23 +26,7 @@ export default function PublicNavbar() {
     <>
       <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1 z-10">
         <nav className="justify-center md:justify-between flex items-center w-full px-4">
-          <Link to="/" onClick={handleLogoClick}>
-            <img
-              src="/logos/kineLogo2_160.webp"
-              srcSet="/logos/kineLogo2_160.webp 160w, /logos/kineLogo2_320.webp 320w, /logos/kineLogo2_480.webp 480w"
-              sizes="160px"
-              alt="Retour a l'accueil"
-              className="max-w-32 lg:max-w-40 block md:hidden"
-            />
-
-            <img
-              src="/logos/kineLogo_160.webp"
-              srcSet="/logos/kineLogo_160.webp 160w, /logos/kineLogo_320.webp 320w, /logos/kineLogo_480.webp 480w"
-              sizes="160px"
-              alt="Retour a l'accueil"
-              className="max-w-40 lg:max-w-48 hidden md:block transition-transform duration-200 hover:scale-105"
-            />
-          </Link>
+          <NavbarLogo onClick={handleLogoClick} />
 
           <div className="hidden md:flex md:items-center ">
             <div className="flex gap-2">

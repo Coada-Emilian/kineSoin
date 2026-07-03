@@ -16,8 +16,13 @@ function App() {
   const location = useLocation();
   const { setError } = useAppContext();
 
-  const { isAdminAuthenticated, adminProfileToken } =
-    useAuthentificationContext();
+  const {
+    isAdminAuthenticated,
+    adminProfileToken,
+    
+    isTherapistAuthenticated,
+    therapistProfileToken,
+  } = useAuthentificationContext();
 
   useEffect(() => {
     setError(null);
