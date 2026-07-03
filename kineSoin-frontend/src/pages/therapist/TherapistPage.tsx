@@ -1,20 +1,35 @@
-import { useState } from 'react';
-import type { IBasicUser } from '../../@types/interfaces/customInterfaces';
 import type { TherapistPageProps } from '../../@types/props/therapistProps';
-import TherapistSideNavbar from '../../components/pages/therapist/TherapistSedeNavbar';
+import TherapistDashboardTable from '../../components/pages/therapist/dashboard/TherapistDashboardTable';
+import TherapistSideNavbar from '../../components/pages/therapist/TherapistSideNavbar';
+import DNALoader from '../../components/ui/DNALoader';
 import UserHeadband from '../../components/ui/UserHeadband';
+import TherapistDataProvider from '../../contexts/therapist/TherapistDataProvider';
 import { useFetchTherapistBasicDataQuery } from '../../hooks/therapist/useFetchTherapistBasicData';
+import { getTherapistPageTitle } from '../../utils/functions/therapist/getTherapistPageTitle';
 
 export default function TherapistPage({ pathName }: TherapistPageProps) {
-  const [basicTherapistDetails, setBasicTherapistDetails] =
-    useState<IBasicUser>();
+  const {
+    data: therapist,
+    isLoading: isTherapistLoading,
+    isError,
+  } = useFetchTherapistBasicDataQuery();
 
-  useFetchTherapistBasicDataQuery({ setTherapist: setBasicTherapistDetails });
+  if (isTherapistLoading) {
+    return DNALoader();
+  }
+
+  if (isError || !therapist) {
+    return (
+      <main className="bg-gray-200">
+        <div className="p-4 text-red-500">Error loading therapist data</div>
+      </main>
+    );
+  }
 
   return (
     <main className={`bg-gray-200 `}>
       <UserHeadband
-        userProfile={basicTherapistDetails}
+        userProfile={therapist}
         profileUrl={'/therapist/my-profile'}
         dashboardUrl={'/therapist/dashboard'}
       />
@@ -24,15 +39,15 @@ export default function TherapistPage({ pathName }: TherapistPageProps) {
           <TherapistSideNavbar />
         </div>
 
-        {/* <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
+        <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
           <p className="text-2xl font-semibold italic mb-2 ">
-            {fetchTherapistPageTitle(pathName)}
+            {getTherapistPageTitle(pathName)}
           </p>
 
-          <TherapistSectionProvider>
-            {pathName === 'dashboard' && <TherapistDayTable />}
+          <TherapistDataProvider>
+            {pathName === 'dashboard' && <TherapistDashboardTable />}
 
-            {pathName === 'patients' && basicTherapistDetails && (
+            {/* {pathName === 'patients' && basicTherapistDetails && (
               <TherapistPatientsTable therapist={basicTherapistDetails} />
             )}
 
@@ -46,9 +61,9 @@ export default function TherapistPage({ pathName }: TherapistPageProps) {
 
             {pathName === 'patient/:patientId/appointments/:appointmentId' && (
               <div>Do the appointment page</div>
-            )}
-          </TherapistSectionProvider>
-        </div> */}
+            )} */}
+          </TherapistDataProvider>
+        </div>
       </div>
     </main>
   );

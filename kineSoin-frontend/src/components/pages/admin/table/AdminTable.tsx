@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import type { AdminTableProps } from '../../../../@types/props/adminProps';
 import type { IAdminEntity } from '../../../../@types/types/adminTypes';
 import { AdminAddTherapistContextProvider } from '../../../../contexts/admin/AdminAddTherapistContext';
-import { useAdminContext } from '../../../../hooks/context/useAdminContext';
+import { useAdminContext } from '../../../../hooks/context/admin/useAdminContext';
 import { getAdminTableDetails } from '../../../../utils/functions/admin/adminTable/getAdminTableDetails';
 import { renderAdminEntities } from '../../../../utils/functions/admin/adminTable/renderEntities/renderAdminEntities';
 import CustomButton from '../../../ui/buttons/CustomButton';

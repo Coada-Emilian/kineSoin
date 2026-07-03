@@ -6,11 +6,14 @@ import { useAppContext } from './hooks/context/useAppContext';
 import { useAuthentificationContext } from './hooks/context/useAuthentificationContext';
 import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
+import TherapistLayout from './layouts/TherapistLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import AdminPage from './pages/admin/AdminPage';
 import ErrorPage from './pages/ErrorPage';
+import TherapistPage from './pages/therapist/TherapistPage';
 import { adminRouteDetails } from './utils/config/admin/adminRouteDetails';
 import { publicRouteDetails } from './utils/config/public/publicRouteDetails';
+import { therapistRouteDetails } from './utils/config/therapist/therapistRouteDetails';
 
 function App() {
   const location = useLocation();
@@ -19,7 +22,7 @@ function App() {
   const {
     isAdminAuthenticated,
     adminProfileToken,
-    
+
     isTherapistAuthenticated,
     therapistProfileToken,
   } = useAuthentificationContext();
@@ -63,6 +66,30 @@ function App() {
             <Route
               path="*"
               element={<ErrorPage type="adminUnauthenticated" />}
+            />
+          </Route>
+        )}
+
+        {isTherapistAuthenticated && therapistProfileToken ? (
+          <Route path="/therapist" element={<TherapistLayout />}>
+            {therapistRouteDetails.map((route) => (
+              <Route
+                path={route.path}
+                key={route.path}
+                element={<TherapistPage pathName={route.path} />}
+              />
+            ))}
+
+            <Route
+              path="*"
+              element={<ErrorPage type="therapistAuthenticated" />}
+            />
+          </Route>
+        ) : (
+          <Route path="/therapist" element={<TherapistLayout />}>
+            <Route
+              path="*"
+              element={<ErrorPage type="therapistUnauthenticated" />}
             />
           </Route>
         )}

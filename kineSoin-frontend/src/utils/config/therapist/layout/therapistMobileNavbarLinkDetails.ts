@@ -1,8 +1,8 @@
-import appointmentLogo from '/icons/appointment.png';
 import conversationLogo from '/icons/conversation.png';
 import patientsIcon from '/icons/patients.png';
 import prescriptionIcon from '/icons/prescription.png';
-import therapistIcon from '/icons/therapist.png';
+import appointmentLogo from '/logos/appointment_192.webp';
+import therapistIcon from '/logos/therapist_192.webp';
 
 export const therapistMobileNavbarLinkDetails = [
   {

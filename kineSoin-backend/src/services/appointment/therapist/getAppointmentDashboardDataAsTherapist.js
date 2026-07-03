@@ -5,7 +5,7 @@ import { getValidId } from '../../../utils/getValidId.js';
 export default async function getAppointmentDashboardDataAsTherapist({
   therapistId,
 }) {
-  const therapist_id = getValidId(req.therapist_id, 'Therapist ID');
+  const therapist_id = getValidId(therapistId, 'Therapist ID');
 
   await findOrThrow(Therapist, therapist_id, 'Therapist');
 

@@ -4,7 +4,7 @@ import type { AdminEntityProfileProps } from '../../../../@types/props/adminProp
 import type { IAdminEntity } from '../../../../@types/types/adminTypes';
 import { usePatientStatusChangeAsAdminMutation } from '../../../../hooks/admin/update/usePatientStatusChangeAsAdminMutation';
 import { useTherapistStatusChangeAsAdminMutation } from '../../../../hooks/admin/update/useTherapistStatusChangeAsAdminMutation';
-import { useAdminEntityProfileContext } from '../../../../hooks/context/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../hooks/context/admin/useAdminEntityProfileContext';
 import { entityUpdateMutations } from '../../../../utils/config/admin/entityUpdateMutations';
 import { mapEntityToEditedEntity } from '../../../../utils/functions/admin/adminEntityProfile/mapEntityToEditedEntity';
 import CustomButton from '../../../ui/buttons/CustomButton';

@@ -7,6 +7,7 @@ export const handleAdminLogin = async (email: string, password: string) => {
       email,
       password,
     });
+    
     if (response.status === 200) {
       return response.data;
     } else {

@@ -1,6 +1,5 @@
-import axios from 'axios';
 import type { CheckTherapistAuthenticationFunctionProps } from '../../../@types/props/functionProps';
-import '../../../axios';
+import axios from '../../../axios';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../localStorage/therapistLocalStorage';
 
 export const checkTherapistAuthentication = ({
@@ -15,6 +14,7 @@ export const checkTherapistAuthentication = ({
     if (setIsTherapistAuthenticated) {
       setIsTherapistAuthenticated(true);
     }
+
     axios.defaults.headers.common.Authorization = `Bearer ${therapist_token}`;
   } else {
     if (setIsTherapistAuthenticated) {

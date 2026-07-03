@@ -1,5 +1,4 @@
 import axios from '../../axios';
-import { setTherapistTokenAndDataInLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
 export const handleTherapistLogin = async (email: string, password: string) => {
   try {
@@ -9,15 +8,9 @@ export const handleTherapistLogin = async (email: string, password: string) => {
     });
 
     if (response.status === 200) {
-      setTherapistTokenAndDataInLocalStorage(
-        response.data.token,
-        response.data.fullName,
-        response.data.picture_url,
-        response.data.id
-      );
-      return response.data.token;
+      return response.data;
     } else {
-      console.error('Failed to connect therapist', response.data);
+      console.error('Failed to connect admin', response.data);
       return false;
     }
   } catch (error) {

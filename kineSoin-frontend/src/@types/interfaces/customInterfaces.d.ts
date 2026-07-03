@@ -46,6 +46,4 @@ export interface IBasicUser {
   fullName: string | null;
   picture_url: string | null;
   id: number;
-  token?: string | null;
-  status?: string | undefined;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistCreationMutation } from '../../../../../hooks/admin/creation/useTherapistCreationMutation';
-import { useAdminAddTherapistContext } from '../../../../../hooks/context/useAdminAddTherapistContext';
+import { useAdminAddTherapistContext } from '../../../../../hooks/context/admin/useAdminAddTherapistContext';
 import { useAppContext } from '../../../../../hooks/context/useAppContext';
 import { handleAddTherapistStepThreeSubmit } from '../../../../../utils/functions/admin/addTherapist/handleAddTherapistStepThreeSubmit';
 import DNALoader from '../../../DNALoader';

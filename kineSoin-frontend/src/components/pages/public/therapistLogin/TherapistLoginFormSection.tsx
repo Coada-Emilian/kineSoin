@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthentificationContext } from '../../../../hooks/context/useAuthentificationContext';
 import { useTherapistLoginMutation } from '../../../../hooks/public/useTherapistLoginMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
@@ -8,13 +8,12 @@ import PasswordInput from '../../../ui/inputs/PasswordInput';
 import mainLogo from '/logos/new-logo.webp';
 
 export default function TherapistLoginFormSection() {
-  const navigate = useNavigate();
-
-  const { setTherapistProfileToken } = useAuthentificationContext();
+  const { setTherapistProfileToken, setIsTherapistAuthenticated } =
+    useAuthentificationContext();
 
   const handleTherapistLogin = useTherapistLoginMutation(
     setTherapistProfileToken,
-    navigate
+    setIsTherapistAuthenticated
   );
 
   const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {

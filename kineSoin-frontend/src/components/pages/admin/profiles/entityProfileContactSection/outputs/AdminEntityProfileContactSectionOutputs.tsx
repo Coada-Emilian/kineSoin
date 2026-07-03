@@ -1,4 +1,4 @@
-import { useAdminEntityProfileContext } from '../../../../../../hooks/context/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../../../hooks/context/admin/useAdminEntityProfileContext';
 import { hasValues } from '../../../../../../utils/functions/admin/adminEntityProfile/hasValues';
 import AdminEntityAddressOutput from './AdminEntityAddressOutput';
 import AdminEntityAgeAndGenderOutput from './AdminEntityAgeAndGenderOutput';

@@ -1,5 +1,5 @@
 import type { SecondAddTherapistModalProps } from '../../../../../@types/props/modalProps';
-import { useAdminAddTherapistContext } from '../../../../../hooks/context/useAdminAddTherapistContext';
+import { useAdminAddTherapistContext } from '../../../../../hooks/context/admin/useAdminAddTherapistContext';
 import { useAppContext } from '../../../../../hooks/context/useAppContext';
 import { handleAddTherapistStepTwoSubmit } from '../../../../../utils/functions/admin/addTherapist/handleAddTherapistStepTwoSubmit';
 

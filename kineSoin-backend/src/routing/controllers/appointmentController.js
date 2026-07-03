@@ -13,11 +13,13 @@
  *   separate or commented out to avoid mixing responsibilities during development.
  */
 
+import getAppointmentDashboardDataAsTherapist from './handlers/appointment/getAppointmentDashboardDataAsTherapist.js';
+
 const appointmentController = {
   // // Function to delete an appointment as a therapist
   // deleteAppointmentAsTherapist,
   // // Get the therapist dashboard data consisting of existing appointments on the day
-  // getTherapistAppointmentDashboardData,
+  getAppointmentDashboardDataAsTherapist,
   // // Get all appointments as a therapist
   // getAllAppointmentsAsTherapist,
   // // Get all appointments for a patient as a therapist

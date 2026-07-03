@@ -3,7 +3,7 @@ import type { IBodyRegion } from '../../../../../../@types/interfaces/modelInter
 import type { AdminPageProps } from '../../../../../../@types/props/adminProps';
 import type { IAdminEntityProfileInputTypes } from '../../../../../../@types/types/adminTypes';
 import { useFetchAdminBodyRegionsQuery } from '../../../../../../hooks/admin/queries/useFetchAdminBodyRegionsQuery';
-import { useAdminEntityProfileContext } from '../../../../../../hooks/context/useAdminEntityProfileContext';
+import { useAdminEntityProfileContext } from '../../../../../../hooks/context/admin/useAdminEntityProfileContext';
 import { useAppContext } from '../../../../../../hooks/context/useAppContext';
 import { hasValues } from '../../../../../../utils/functions/admin/adminEntityProfile/hasValues';
 import DropdownInput from '../../../../../ui/inputs/DropdownInput';

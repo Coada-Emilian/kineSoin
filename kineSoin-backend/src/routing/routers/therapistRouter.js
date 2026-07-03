@@ -19,7 +19,11 @@ import { Router } from 'express';
 // import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import { authenticateTherapist } from '../../middlewares/userAuthentication.js';
-import { appointmentController, messageController, patientController } from "../controllers/index.js";
+import {
+  appointmentController,
+  messageController,
+  patientController,
+} from '../controllers/index.js';
 
 // const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -29,7 +33,7 @@ export const therapistRouter = Router();
 therapistRouter.get(
   '/me/dashboard',
   authenticateTherapist,
-  wrapper(appointmentController.getTherapistAppointmentDashboardData)
+  wrapper(appointmentController.getAppointmentDashboardDataAsTherapist)
 );
 
 // Route to delete an appointment as a therapist

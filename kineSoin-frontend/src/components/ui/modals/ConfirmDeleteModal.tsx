@@ -1,7 +1,7 @@
 import type { ConfirmDeleteModalProps } from '../../../@types/props/modalProps';
 import { useRegionDeletionMutation } from '../../../hooks/admin/deletion/useRegionDeletionMutation';
 import { useDeleteEntity } from '../../../hooks/admin/helpers/useDeleteEntity';
-import { useAdminContext } from '../../../hooks/context/useAdminContext';
+import { useAdminContext } from '../../../hooks/context/admin/useAdminContext';
 import { getDeleteModalEntityDetails } from '../../../utils/functions/admin/adminTable/getDeleteModalEntityDetails';
 import CustomButton from '../buttons/CustomButton';
 import DNALoader from '../DNALoader';

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import AdminEntityProfileContext from '../../contexts/admin/AdminEntityProfileContext';
+import AdminEntityProfileContext from '../../../contexts/admin/AdminEntityProfileContext';
 
 export const useAdminEntityProfileContext = () => {
   const context = useContext(AdminEntityProfileContext);

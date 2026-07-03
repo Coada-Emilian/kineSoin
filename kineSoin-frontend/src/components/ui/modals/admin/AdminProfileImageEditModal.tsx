@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
+import { useAdminEntityProfileContext } from '../../../../hooks/context/admin/useAdminEntityProfileContext';
 import CustomButton from '../../buttons/CustomButton';
 import BaseModal from '../BaseModal';
-import { useAdminEntityProfileContext } from '../../../../hooks/context/useAdminEntityProfileContext';
 
 export default function AdminProfileImageEditModal({
   isOpen,

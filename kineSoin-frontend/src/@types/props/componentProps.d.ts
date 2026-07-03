@@ -53,7 +53,7 @@ export interface NavbarLogoProps {
 }
 
 export interface UserHeadbandProps {
-  userProfile?: IBasicUser | undefined;
+  userProfile: IBasicUser;
   profileUrl: string;
   dashboardUrl: string;
 }

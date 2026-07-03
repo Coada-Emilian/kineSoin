@@ -25,10 +25,10 @@ export interface IAuthentificationContext {
   adminProfileToken: string | null;
   setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 
-  isPatientAuthenticated: boolean;
-  setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  patientProfileToken: string | null;
-  setPatientProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
+  // isPatientAuthenticated: boolean;
+  // setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  // patientProfileToken: string | null;
+  // setPatientProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 
   isTherapistAuthenticated: boolean;
   setIsTherapistAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;

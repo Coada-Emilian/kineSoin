@@ -1,35 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import type { IBasicUser } from '../../@types/interfaces/customInterfaces';
-import type { UseFetchTherapistBasicDataQueryProps } from '../../@types/props/therapistProps';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
-export const useFetchTherapistBasicDataQuery = ({
-  setTherapist,
-}: UseFetchTherapistBasicDataQueryProps) => {
-  const queryResult = useQuery({
-    queryKey: ['fetchTherapistBasicData'],
-    queryFn: async () => {
+export const useFetchTherapistBasicDataQuery = () => {
+  return useQuery({
+    queryKey: ['therapist-basic-data'],
+    queryFn: () => {
       const response = getTherapistTokenAndDataFromLocalStorage();
 
       if (!response) {
         throw new Error('No therapist data found in local storage');
       }
       return {
-        token: response.token,
         fullName: response.fullName,
         picture_url: response.picture_url,
         id: response.id,
       };
     },
   });
-
-  useEffect(() => {
-    if (queryResult.isSuccess) {
-      setTherapist(queryResult.data as IBasicUser);
-      console.log('Therapist data fetched successfully');
-    } else if (queryResult.isError) {
-      console.error('Error fetching therapist data:', queryResult.error);
-    }
-  }, [queryResult, setTherapist]);
 };
