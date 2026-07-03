@@ -2,7 +2,7 @@ import afflictionIcon from '/icons/affliction.png';
 import doctorIcon from '/icons/doctor.png';
 import insuranceIcon from '/icons/insurance.png';
 import patientIcon from '/icons/patient.png';
-import therapistIcon from '/icons/therapist.png';
+import therapistIcon from '/logos/therapist_192.webp';
 
 export const adminMobileNavbarLinkDetails = [
   {

@@ -2,7 +2,7 @@ import adminLogo from '/icons/administrator.png';
 import LogoutIcon from '/icons/logout.png';
 import NotificationIcon from '/icons/notification.png';
 import patientLogo from '/icons/patient.png';
-import therapistLogo from '/icons/therapist.png';
+import therapistLogo from '/logos/therapist_192.webp';
 
 export const customButtonTypeDetails = [
   {

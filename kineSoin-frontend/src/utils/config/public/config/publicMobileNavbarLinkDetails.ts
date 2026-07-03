@@ -1,6 +1,6 @@
 import patientIcon from '/icons/patient.png';
-import therapistIcon from '/icons/therapist.png';
 import mainLogo from '/logos/new-logo.webp';
+import therapistIcon from '/logos/therapist_192.webp';
 
 export const publicMobileNavbarLinkDetails = [
   {

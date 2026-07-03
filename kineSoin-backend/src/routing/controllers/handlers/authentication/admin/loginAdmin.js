@@ -43,8 +43,6 @@ export default async function loginAdmin(req, res) {
       }
     );
 
-    req.session.admin_id = admin.id;
-
     return res.status(200).json({
       message: 'Admin logged in successfully.',
       id: admin.id,

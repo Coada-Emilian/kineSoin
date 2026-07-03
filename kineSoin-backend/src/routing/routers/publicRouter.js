@@ -13,12 +13,14 @@
  *   in protected routers.
  */
 
-
 import { Router } from 'express';
 import multer from 'multer';
 import { patientPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
-import { authenticationController, registrationController } from "../controllers/index.js";
+import {
+  authenticationController,
+  registrationController,
+} from '../controllers/index.js';
 
 const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 
@@ -31,14 +33,14 @@ publicRouter.post(
   wrapper(registrationController.registerPatient)
 );
 
-// Route to login a patient
-publicRouter.post(
-  '/loginPatient',
-  wrapper(authenticationController.loginPatient)
-);
-
 // Route to login a therapist
 publicRouter.post(
   '/loginTherapist',
   wrapper(authenticationController.loginTherapist)
+);
+
+// Route to login a patient
+publicRouter.post(
+  '/loginPatient',
+  wrapper(authenticationController.loginPatient)
 );

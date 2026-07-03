@@ -26,7 +26,6 @@
 import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
-import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -34,7 +33,6 @@ import { sanitizeRequestBody } from './src/middlewares/sanitizeRequestBody.js';
 import { adminRouter } from './src/routing/routers/adminRouter.js';
 import { publicRouter } from './src/routing/routers/publicRouter.js';
 import { therapistRouter } from './src/routing/routers/therapistRouter.js';
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -47,18 +45,6 @@ const corsOptions = {
   origin: process.env.ALLOWED_DOMAINS,
   optionsSuccessStatus: 200,
 };
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false,
-      maxAge: 1000 * 60 * 60,
-    },
-  })
-);
 
 app.use(cors(corsOptions));
 
