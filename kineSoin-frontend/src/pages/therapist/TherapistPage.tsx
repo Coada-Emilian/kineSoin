@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { IBasicUser } from '../../@types/interfaces/customInterfaces';
 import type { TherapistPageProps } from '../../@types/props/therapistProps';
+import TherapistSideNavbar from '../../components/pages/therapist/TherapistSedeNavbar';
 import UserHeadband from '../../components/ui/UserHeadband';
 import { useFetchTherapistBasicDataQuery } from '../../hooks/therapist/useFetchTherapistBasicData';
 
@@ -18,12 +19,12 @@ export default function TherapistPage({ pathName }: TherapistPageProps) {
         dashboardUrl={'/therapist/dashboard'}
       />
 
-      {/* <div className="h-fit md:flex gap-4 mb-2 ">
+      <div className="h-fit md:flex gap-4 mb-2 ">
         <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
-          <TherapistSideNav />
+          <TherapistSideNavbar />
         </div>
 
-        <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
+        {/* <div className="flex gap-4 flex-col text-center bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
           <p className="text-2xl font-semibold italic mb-2 ">
             {fetchTherapistPageTitle(pathName)}
           </p>
@@ -47,8 +48,8 @@ export default function TherapistPage({ pathName }: TherapistPageProps) {
               <div>Do the appointment page</div>
             )}
           </TherapistSectionProvider>
-        </div>
-      </div> */}
+        </div> */}
+      </div>
     </main>
   );
 }

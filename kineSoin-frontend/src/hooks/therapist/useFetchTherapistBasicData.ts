@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import type { IBasicUser } from '../../@types/interfaces/customInterfaces';
 import type { UseFetchTherapistBasicDataQueryProps } from '../../@types/props/therapistProps';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
