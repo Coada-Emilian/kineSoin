@@ -17,31 +17,24 @@ import createTherapistService from '../../../../../services/therapist/admin/crea
 import createdTherapistSchema from '../../../../../validations/joi/creation/createdTherapistSchema.js';
 
 export default async function createTherapistAsAdmin(req, res) {
-  try {
-    const { error } = createdTherapistSchema.validate(req.body);
+  const { error } = createdTherapistSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({ message: error.message });
-    }
-
-    const therapistData = {
-      ...req.body,
-      file: req.file,
-    };
-
-    const newTherapist = await createTherapistService({
-      adminId: req.admin_id,
-      therapistData,
-    });
-
-    return res.status(201).json({
-      message: 'Therapist created successfully!',
-    });
-  } catch (error) {
-    console.error('Error creating therapist:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error creating therapist.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+  const therapistData = {
+    ...req.body,
+    file: req.file,
+  };
+
+  const newTherapist = await createTherapistService({
+    adminId: req.admin_id,
+    therapistData,
+  });
+
+  return res.status(201).json({
+    message: 'Therapist created successfully!',
+  });
 }

@@ -14,7 +14,7 @@
  */
 
 import 'dotenv/config';
-import loginAdmin from './handlers/authentication//admin/loginAdmin.js';
+import loginAdmin from './handlers/authentication/admin/loginAdmin.js';
 import loginTherapist from './handlers/authentication/therapist/loginTherapist.js';
 
 const authenticationController = {

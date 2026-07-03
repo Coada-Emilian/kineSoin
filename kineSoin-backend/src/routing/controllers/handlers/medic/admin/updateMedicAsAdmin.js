@@ -16,31 +16,27 @@ import updateMedicService from '../../../../../services/medic/admin/updateMedicA
 import updatedMedicSchema from '../../../../../validations/joi/update/updatedMedicSchema.js';
 
 export default async function updateMedicAsAdmin(req, res) {
-  try {
-    const { error } = updatedMedicSchema.validate(req.body);
+  const { error } = updatedMedicSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({ message: error.message });
-    }
-
-    const updatedMedic = await updateMedicService({
-      adminId: req.admin_id,
-      medicId: req.params.medic_id,
-      medicData: req.body,
-    });
-
-    if (!updatedMedic) {
-      return res.status(500).json({ message: 'Error while updating medic.' });
-    }
-
-    return res.status(200).json({
-      message: 'Medic updated successfully.',
-    });
-  } catch (error) {
-    console.error('Error updating medic:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error updating medic.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+
+  const updatedMedic = await updateMedicService({
+    adminId: req.admin_id,
+    medicId: req.params.medic_id,
+    medicData: req.body,
+  });
+
+  if (!updatedMedic) {
+    const err = new Error('Error while updating medic.');
+    err.statusCode = 500;
+    throw err;
+  }
+
+  return res.status(200).json({
+    message: 'Medic updated successfully.',
+  });
 }

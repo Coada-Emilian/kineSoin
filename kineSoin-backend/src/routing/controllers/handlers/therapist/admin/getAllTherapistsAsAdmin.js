@@ -14,19 +14,13 @@
 import getAllTherapistsService from '../../../../../services/therapist/admin/getAllTherapistsAsAdmin.js';
 
 export default async function getAllTherapistsAsAdmin(req, res) {
-  try {
-    const therapists = await getAllTherapistsService({ adminId: req.admin_id });
+  const therapists = await getAllTherapistsService({ adminId: req.admin_id });
 
-    if (therapists.length === 0) {
-      return res.status(404).json({ message: 'No therapists found.' });
-    }
-
-    return res.status(200).json(therapists);
-  } catch (error) {
-    console.error('Error fetching therapists:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error fetching therapists.',
-    });
+  if (therapists.length === 0) {
+    const err = new Error('No therapists found.');
+    err.statusCode = 404;
+    throw err;
   }
+
+  return res.status(200).json(therapists);
 }

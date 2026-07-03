@@ -14,18 +14,13 @@
 import getAllInsurancesService from '../../../../../services/insurance/admin/getAllInsurancesAsAdmin.js';
 
 export default async function getAllInsurancesAsAdmin(req, res) {
-  try {
-    const insurances = await getAllInsurancesService({ adminId: req.admin_id });
+  const insurances = await getAllInsurancesService({ adminId: req.admin_id });
 
-    if (insurances.length === 0) {
-      return res.status(404).json({ message: 'No insurances found.' });
-    }
-    return res.status(200).json(insurances);
-  } catch (error) {
-    console.error('Error fetching insurances:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error fetching insurances.',
-    });
+  if (insurances.length === 0) {
+    const err = new Error('Insurances not found.');
+    err.statusCode = 404;
+    throw err;
   }
+
+  return res.status(200).json(insurances);
 }

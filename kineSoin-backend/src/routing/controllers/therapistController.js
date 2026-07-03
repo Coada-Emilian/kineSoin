@@ -13,13 +13,15 @@
  *   lightweight and focused on structure rather than implementation.
  */
 
-import changeTherapistStatusAsAdmin from './handlers/therapist/admin/changeTherapistStatusAsAdmin.js';
-import createTherapistAsAdmin from './handlers/therapist/admin/createTherapistAsAdmin.js';
-import deleteTherapistAsAdmin from './handlers/therapist/admin/deleteTherapistAsAdmin.js';
-import getAllTherapistsAsAdmin from './handlers/therapist/admin/getAllTherapistsAsAdmin.js';
-import getOneTherapistAsAdmin from './handlers/therapist/admin/getOneTherapistAsAdmin.js';
-import toggleTherapistStatusAsAdmin from './handlers/therapist/admin/toggleTherapistStatusAsAdmin.js';
-import updateTherapistAsAdmin from './handlers/therapist/admin/updateTherapistAsAdmin.js';
+import {
+  changeTherapistStatusAsAdmin,
+  createTherapistAsAdmin,
+  deleteTherapistAsAdmin,
+  getAllTherapistsAsAdmin,
+  getOneTherapistAsAdmin,
+  toggleTherapistStatusAsAdmin,
+  updateTherapistAsAdmin,
+} from './handlers/therapist/admin/index.js';
 
 const therapistController = {
   // Function to get all therapists as admin

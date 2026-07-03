@@ -33,6 +33,7 @@ import { sanitizeRequestBody } from './src/middlewares/sanitizeRequestBody.js';
 import { adminRouter } from './src/routing/routers/adminRouter.js';
 import { publicRouter } from './src/routing/routers/publicRouter.js';
 import { therapistRouter } from './src/routing/routers/therapistRouter.js';
+import { errorHandler } from './src/utils/errorHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,6 +58,8 @@ app.use('/api/public', publicRouter);
 app.use('/api/therapist', therapistRouter);
 
 // app.use('/api/patient', patientRouter);
+
+app.use(errorHandler);
 
 app.disable('x-powered-by');
 

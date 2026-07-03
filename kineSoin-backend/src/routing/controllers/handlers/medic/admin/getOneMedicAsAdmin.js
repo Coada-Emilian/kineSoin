@@ -14,21 +14,15 @@
 import getOneMedicService from '../../../../../services/medic/admin/getOneMedicAsAdmin.js';
 
 export default async function getOneMedicAsAdmin(req, res) {
-  try {
-    const foundMedic = await getOneMedicService({
-      adminId: req.admin_id,
-      medicId: req.params.medic_id,
-    });
+  const foundMedic = await getOneMedicService({
+    adminId: req.admin_id,
+    medicId: req.params.medic_id,
+  });
 
-    if (!foundMedic) {
-      return res.status(404).json({ message: 'No medic found.' });
-    }
-    return res.status(200).json(foundMedic);
-  } catch (error) {
-    console.error('Error fetching medic:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error fetching medic.',
-    });
+  if (!foundMedic) {
+    const err = new Error('Medic not found.');
+    err.statusCode = 404;
+    throw err;
   }
+  return res.status(200).json(foundMedic);
 }

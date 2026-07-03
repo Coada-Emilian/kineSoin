@@ -14,21 +14,15 @@
 import getAllBodyRegionsService from '../../../../../services/bodyRegion/admin/getAllBodyRegionsAsAdmin.js';
 
 export default async function getAllBodyRegionsAsAdmin(req, res) {
-  try {
-    const body_regions = await getAllBodyRegionsService({
-      adminId: req.admin_id,
-    });
+  const body_regions = await getAllBodyRegionsService({
+    adminId: req.admin_id,
+  });
 
-    if (body_regions.length === 0) {
-      return res.status(404).json({ message: 'No body regions found.' });
-    }
-
-    return res.status(200).json(body_regions);
-  } catch (error) {
-    console.error('Error fetching body regions:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error fetching body regions.',
-    });
+  if (body_regions.length === 0) {
+    const err = new Error('No body regions found.');
+    err.statusCode = 404;
+    throw err;
   }
+
+  return res.status(200).json(body_regions);
 }

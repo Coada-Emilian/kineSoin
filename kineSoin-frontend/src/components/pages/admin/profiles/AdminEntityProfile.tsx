@@ -136,7 +136,7 @@ export default function AdminEntityProfile({
   return (
     <>
       <form className="flex justify-center" onSubmit={handleFormSubmit}>
-        <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white text-primaryBlue shadow-lg transition-shadow duration-300 hover:shadow-xl mx-4 my-8">
+        <div className="flex w-full max-w-5xl flex-col rounded-2xl border border-gray-200 bg-white text-primaryBlue shadow-lg transition-shadow duration-300 hover:shadow-xl mx-4 my-8 overflow-visible">
           <div className="flex w-full items-center justify-center border-b border-gray-200 bg-primaryBlue px-6 py-5">
             <EntityProfileTitle entityType={entityType} />
           </div>
@@ -197,7 +197,7 @@ export default function AdminEntityProfile({
             </div>
           </div>
 
-          <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl">
+          <div className="bg-primaryTeal p-4 w-full flex flex-col gap-2 md:flex-row justify-around items-center rounded-b-xl ">
             <div className="flex gap-1 items-center ">
               {!isProfileEditing ? (
                 <>

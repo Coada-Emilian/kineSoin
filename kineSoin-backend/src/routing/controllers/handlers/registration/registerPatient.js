@@ -16,36 +16,28 @@ import registerPatientService from '../../../../services/registration/registerPa
 import registeredPatientSchema from '../../../../validations/joi/registration/registeredPatientSchema.js';
 
 export default async function registerPatient(req, res) {
-  try {
-    const { error } = registeredPatientSchema.validate(req.body);
+  const { error } = registeredPatientSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({
-        message: error.message,
-      });
-    }
-
-    const patientData = {
-      ...req.body,
-      file: req.file,
-    };
-
-    const newPatient = await registerPatientService(patientData);
-
-    return res.status(201).json({
-      message: 'Patient registered successfully.',
-      patient: {
-        id: newPatient.id,
-        fullName: `${newPatient.name} ${newPatient.surname}`,
-        email: newPatient.email,
-        picture_url: newPatient.picture_url,
-      },
-    });
-  } catch (error) {
-    console.error('Error registering patient:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error registering patient.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+
+  const patientData = {
+    ...req.body,
+    file: req.file,
+  };
+
+  const newPatient = await registerPatientService(patientData);
+
+  return res.status(201).json({
+    message: 'Patient registered successfully.',
+    patient: {
+      id: newPatient.id,
+      fullName: `${newPatient.name} ${newPatient.surname}`,
+      email: newPatient.email,
+      picture_url: newPatient.picture_url,
+    },
+  });
 }

@@ -11,21 +11,26 @@
  *   for unified logging or custom error middleware.
  */
 
+// export function controllerWrapper(
+//   callback,
+//   errorMessage = 'An error occurred. Please try again later.'
+// ) {
+//   return async (req, res, next) => {
+//     try {
+//       await callback(req, res, next);
+//     } catch (error) {
+//       if (process.env.NODE_ENV === 'development') {
+//         console.error('Controller error:', error);
+//       }
+//       res.status(500).json({ message: errorMessage });
 
-export function controllerWrapper(
-  callback,
-  errorMessage = 'An error occurred. Please try again later.'
-) {
-  return async (req, res, next) => {
-    try {
-      await callback(req, res, next);
-    } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Controller error:', error);
-      }
-      res.status(500).json({ message: errorMessage });
+//       next(error);
+//     }
+//   };
+// }
 
-      next(error);
-    }
+export const controllerWrapper = (fn) => {
+  return (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
   };
-}
+};

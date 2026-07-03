@@ -17,30 +17,24 @@ import updateTherapistService from '../../../../../services/therapist/admin/upda
 import updatedTherapistSchema from '../../../../../validations/joi/update/updatedTherapistSchema.js';
 
 export default async function updateTherapistAsAdmin(req, res) {
-  try {
-    const { error } = updatedTherapistSchema.validate(req.body);
+  const { error } = updatedTherapistSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({ message: error.message });
-    }
-
-    const therapistData = {
-      ...req.body,
-      file: req.file,
-    };
-
-    const updatedTherapist = await updateTherapistService({
-      adminId: req.admin_id,
-      therapistId: req.params.therapist_id,
-      therapistData,
-    });
-
-    return res.status(200).json({ message: 'Therapist updated successfully!' });
-  } catch (error) {
-    console.error('Error updating therapist:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error updating therapist.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+
+  const therapistData = {
+    ...req.body,
+    file: req.file,
+  };
+
+  const updatedTherapist = await updateTherapistService({
+    adminId: req.admin_id,
+    therapistId: req.params.therapist_id,
+    therapistData,
+  });
+
+  return res.status(200).json({ message: 'Therapist updated successfully!' });
 }

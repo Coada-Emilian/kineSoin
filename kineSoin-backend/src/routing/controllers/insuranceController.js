@@ -12,11 +12,13 @@
  *   controller lightweight and focused on structure rather than implementation.
  */
 
-import createInsuranceOrganismAsAdmin from './handlers/insurance/admin/createInsuranceAsAdmin.js';
-import deleteInsuranceOrganismAsAdmin from './handlers/insurance/admin/deleteInsuranceAsAdmin.js';
-import getAllInsuranceOrganismsAsAdmin from './handlers/insurance/admin/getAllInsurancesAsAdmin.js';
-import getOneInsuranceOrganismAsAdmin from './handlers/insurance/admin/getOneInsuranceAsAdmin.js';
-import updateInsuranceOrganismAsAdmin from './handlers/insurance/admin/updateInsuranceAsAdmin.js';
+import {
+  createInsuranceOrganismAsAdmin,
+  deleteInsuranceOrganismAsAdmin,
+  getAllInsuranceOrganismsAsAdmin,
+  getOneInsuranceOrganismAsAdmin,
+  updateInsuranceOrganismAsAdmin,
+} from './handlers/insurance/admin/index.js';
 
 const insuranceController = {
   // Function to get all insurance organisms as admin

@@ -16,28 +16,26 @@ import createMedicService from '../../../../../services/medic/admin/createMedicA
 import createdMedicSchema from '../../../../../validations/joi/creation/createdMedicSchema.js';
 
 export default async function createMedicAsAdmin(req, res) {
-  try {
-    const { error } = createdMedicSchema.validate(req.body);
+  const { error } = createdMedicSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({ message: error.message });
-    }
-
-    const createdMedic = await createMedicService({
-      adminId: req.admin_id,
-      medicData: req.body,
-    });
-
-    if (!createdMedic) {
-      return res.status(500).json({ message: 'Error while creating medic.' });
-    }
-
-    return res.status(201).json({
-      message: 'Medic created.',
-    });
-  } catch (error) {
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error creating medic.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+
+  const createdMedic = await createMedicService({
+    adminId: req.admin_id,
+    medicData: req.body,
+  });
+
+  if (!createdMedic) {
+    const err = new Error('Error while creating medic.');
+    err.statusCode = 401;
+    throw err;
+  }
+
+  return res.status(201).json({
+    message: 'Medic created.',
+  });
 }

@@ -18,42 +18,34 @@ import loginAdminService from '../../../../../services/authentication/admin/logi
 import loggedInAdminSchema from '../../../../../validations/joi/authentication/loggedInEntitySchema.js';
 
 export default async function loginAdmin(req, res) {
-  try {
-    const { error } = loggedInAdminSchema.validate(req.body);
+  const { error } = loggedInAdminSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({
-        message: error.message,
-      });
-    }
-    const admin = await loginAdminService(req.body);
-
-    if (!admin) {
-      return res.status(401).json({
-        message: 'Invalid email or password.',
-      });
-    }
-
-    const token = jsonwebtoken.sign(
-      { admin_id: admin.id },
-      process.env.TOKEN_KEY,
-      {
-        expiresIn: '3h',
-        algorithm: 'HS256',
-      }
-    );
-
-    return res.status(200).json({
-      message: 'Admin logged in successfully.',
-      id: admin.id,
-      name: admin.name,
-      token,
-    });
-  } catch (error) {
-    console.error('Error logging in:', error);
-
-    return res.status(500).json({
-      message: 'Error logging in.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+  const admin = await loginAdminService(req.body);
+
+  if (!admin) {
+    const err = new Error('Invalid email or password.');
+    err.statusCode = 401;
+    throw err;
+  }
+
+  const token = jsonwebtoken.sign(
+    { admin_id: admin.id },
+    process.env.TOKEN_KEY,
+    {
+      expiresIn: '3h',
+      algorithm: 'HS256',
+    }
+  );
+
+  return res.status(200).json({
+    message: 'Admin logged in successfully.',
+    id: admin.id,
+    name: admin.name,
+    token,
+  });
 }

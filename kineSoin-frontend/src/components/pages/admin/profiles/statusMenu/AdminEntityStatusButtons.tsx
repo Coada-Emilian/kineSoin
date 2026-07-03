@@ -29,14 +29,16 @@ export default function AdminEntityStatusButtons({
         <>
           {activeEntityDetails.map((item) => (
             <MenuItem key={item.status}>
-              <Button
-                className={`block px-4 py-2 w-full text-sm text-gray-700 ${item.background} font-medium data-[focus]:${item.hoverBackground} data-focus:text-gray-900`}
-                onClick={() => {
-                  handleClick(item.status);
-                }}
-              >
-                {item.text}
-              </Button>
+              {({ focus }) => (
+                <Button
+                  className={`block px-4 py-2 w-full text-sm font-medium rounded-b cursor-pointer ${
+                    focus ? item.hoverBackground : item.background
+                  }`}
+                  onClick={() => handleClick(item.status)}
+                >
+                  {item.text}
+                </Button>
+              )}
             </MenuItem>
           ))}
         </>

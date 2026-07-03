@@ -12,14 +12,13 @@
  *   and making future extensions (e.g., patient‑side queries) straightforward.
  */
 
-import createAfflictionAsAdmin from './handlers/affliction/admin/createAfflictionAsAdmin.js';
-import deleteAfflictionAsAdmin from './handlers/affliction/admin/deleteAfflictionAsAdmin.js';
-import getAllAfflictionsAsAdmin from './handlers/affliction/admin/getAllAfflictionsAsAdmin.js';
-import getOneAfflictionAsAdmin from './handlers/affliction/admin/getOneAfflictionAsAdmin.js';
-import updateAfflictionAsAdmin from './handlers/affliction/admin/updateAfflictionAsAdmin.js';
-import createBodyRegionAsAdmin from './handlers/bodyRegion/admin/createBodyRegionAsAdmin.js';
-import deleteBodyRegionAsAdmin from './handlers/bodyRegion/admin/deleteBodyRegionAsAdmin.js';
-import getAllBodyRegionsAsAdmin from './handlers/bodyRegion/admin/getAllBodyRegionsAsAdmin.js';
+import {
+  createAfflictionAsAdmin,
+  deleteAfflictionAsAdmin,
+  getAllAfflictionsAsAdmin,
+  getOneAfflictionAsAdmin,
+  updateAfflictionAsAdmin,
+} from './handlers/affliction/admin/index.js';
 
 const afflictionController = {
   // Function to get all afflictions as admin
@@ -36,15 +35,6 @@ const afflictionController = {
 
   // Function to delete an affliction as admin
   deleteAfflictionAsAdmin,
-
-  // Function to get all body regions as admin
-  getAllBodyRegionsAsAdmin,
-
-  // Function to create a new body region as admin
-  createBodyRegionAsAdmin,
-
-  // Function to delete one body region as admin
-  deleteBodyRegionAsAdmin,
 
   // // Function to get affliction names as a patient
   // getAfflictionNamesAsPatient,

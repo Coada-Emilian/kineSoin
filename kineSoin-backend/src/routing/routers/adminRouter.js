@@ -20,7 +20,15 @@ import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import { authenticateAdmin } from '../../middlewares/userAuthentication.js';
-import { afflictionController, authenticationController, insuranceController, medicController, patientController, therapistController } from "../controllers/index.js";
+import bodyRegionController from '../controllers/bodyRegionController.js';
+import {
+  afflictionController,
+  authenticationController,
+  insuranceController,
+  medicController,
+  patientController,
+  therapistController,
+} from '../controllers/index.js';
 
 const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
@@ -143,6 +151,27 @@ adminRouter.put(
   wrapper(afflictionController.updateAfflictionAsAdmin)
 );
 
+// Route to get all body regions as admin
+adminRouter.get(
+  '/bodyRegions',
+  authenticateAdmin,
+  wrapper(bodyRegionController.getAllBodyRegionsAsAdmin)
+);
+
+// Route to create a new body region as admin
+adminRouter.post(
+  '/bodyRegions',
+  authenticateAdmin,
+  wrapper(bodyRegionController.createBodyRegionAsAdmin)
+);
+
+// Route to delete a body region as admin
+adminRouter.delete(
+  '/bodyRegions/:body_region_id',
+  authenticateAdmin,
+  wrapper(bodyRegionController.deleteBodyRegionAsAdmin)
+);
+
 // Route to get all medics as admin
 adminRouter.get(
   '/medics',
@@ -176,27 +205,6 @@ adminRouter.delete(
   '/medics/:medic_id',
   authenticateAdmin,
   wrapper(medicController.deleteMedicAsAdmin)
-);
-
-// Route to get all body regions as admin
-adminRouter.get(
-  '/bodyRegions',
-  authenticateAdmin,
-  wrapper(afflictionController.getAllBodyRegionsAsAdmin)
-);
-
-// Route to create a new body region as admin
-adminRouter.post(
-  '/bodyRegions',
-  authenticateAdmin,
-  wrapper(afflictionController.createBodyRegionAsAdmin)
-);
-
-// Route to delete a body region as admin
-adminRouter.delete(
-  '/bodyRegions/:body_region_id',
-  authenticateAdmin,
-  wrapper(afflictionController.deleteBodyRegionAsAdmin)
 );
 
 // Route to get all insurance organisms as admin

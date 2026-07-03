@@ -16,30 +16,24 @@ import createInsuranceService from '../../../../../services/insurance/admin/crea
 import createdInsuranceSchema from '../../../../../validations/joi/creation/createdInsuranceSchema.js';
 
 export default async function createInsuranceAsAdmin(req, res) {
-  try {
-    const { error } = createdInsuranceSchema.validate(req.body);
+  const { error } = createdInsuranceSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({ message: error.message });
-    }
-
-    const createdInsurance = await createInsuranceService({
-      adminId: req.admin_id,
-      insuranceData: req.body,
-    });
-
-    if (!createdInsurance) {
-      return res
-        .status(500)
-        .json({ message: 'Error while creating insurance.' });
-    }
-
-    return res.status(201).json({ message: 'Insurance created successfully' });
-  } catch (error) {
-    console.error('Error creating insurance:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error creating insurance.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+
+  const createdInsurance = await createInsuranceService({
+    adminId: req.admin_id,
+    insuranceData: req.body,
+  });
+
+  if (!createdInsurance) {
+    const err = new Error('Error while creating insurance.');
+    err.statusCode = 500;
+    throw err;
+  }
+
+  return res.status(201).json({ message: 'Insurance created successfully' });
 }

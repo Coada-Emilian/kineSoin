@@ -14,18 +14,10 @@
 import getOneTherapistService from '../../../../../services/therapist/admin/getOneTherapistAsAdmin.js';
 
 export default async function getOneTherapistAsAdmin(req, res) {
-  try {
-    const foundTherapist = await getOneTherapistService({
-      adminId: req.admin_id,
-      therapistId: req.params.therapist_id,
-    });
+  const foundTherapist = await getOneTherapistService({
+    adminId: req.admin_id,
+    therapistId: req.params.therapist_id,
+  });
 
-    return res.status(200).json(foundTherapist);
-  } catch (error) {
-    console.error('Error fetching therapist:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error fetching therapist.',
-    });
-  }
+  return res.status(200).json(foundTherapist);
 }

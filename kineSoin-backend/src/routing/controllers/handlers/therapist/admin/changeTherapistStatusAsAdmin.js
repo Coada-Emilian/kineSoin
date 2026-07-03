@@ -16,27 +16,21 @@ import changeTherapistStatusService from '../../../../../services/therapist/admi
 import updatedTherapistStatusSchema from '../../../../../validations/joi/update/updatedTherapistStatusSchema.js';
 
 export default async function changeTherapistStatusAsAdmin(req, res) {
-  try {
-    const { error } = updatedTherapistStatusSchema.validate(req.body);
+  const { error } = updatedTherapistStatusSchema.validate(req.body);
 
-    if (error) {
-      return res.status(400).json({ message: error.message });
-    }
-
-    await changeTherapistStatusService({
-      adminId: req.admin_id,
-      therapistId: req.params.therapist_id,
-      statusData: req.body,
-    });
-
-    return res
-      .status(200)
-      .json({ message: 'Therapist status updated successfully!' });
-  } catch (error) {
-    console.error('Error changing therapist status:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error changing therapist status.',
-    });
+  if (error) {
+    const err = new Error(error.message);
+    err.statusCode = 400;
+    throw err;
   }
+
+  await changeTherapistStatusService({
+    adminId: req.admin_id,
+    therapistId: req.params.therapist_id,
+    statusData: req.body,
+  });
+
+  return res
+    .status(200)
+    .json({ message: 'Therapist status updated successfully!' });
 }

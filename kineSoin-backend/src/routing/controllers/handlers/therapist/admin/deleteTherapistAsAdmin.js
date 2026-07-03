@@ -14,20 +14,12 @@
 import deleteTherapistService from '../../../../../services/therapist/admin/deleteTherapistAsAdmin.js';
 
 export default async function deleteTherapistAsAdmin(req, res) {
-  try {
-    await deleteTherapistService({
-      adminId: req.admin_id,
-      therapistId: req.params.therapist_id,
-    });
+  await deleteTherapistService({
+    adminId: req.admin_id,
+    therapistId: req.params.therapist_id,
+  });
 
-    return res.status(200).json({
-      message: 'Therapist deleted successfully!',
-    });
-  } catch (error) {
-    console.error('Error deleting therapist:', error);
-
-    return res.status(error.statusCode || 500).json({
-      message: error.message || 'Error deleting therapist.',
-    });
-  }
+  return res.status(200).json({
+    message: 'Therapist deleted successfully!',
+  });
 }
