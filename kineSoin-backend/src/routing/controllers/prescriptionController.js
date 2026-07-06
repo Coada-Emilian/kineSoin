@@ -12,16 +12,17 @@
  *   roadmap for upcoming patient and therapist features.
  */
 
+import incrementPrescriptionAppointmentQuantityAsTherapist from './handlers/prescription/therapist/incrementPrescriptionAppointmentQuantityAsTherapist.js';
+
 const prescriptionController = {
+  // // Increment the prescription appointment quantity as a therapist
+  incrementPrescriptionAppointmentQuantityAsTherapist,
   // // Function to get all prescriptions for a patient
   // getAllPrescriptionsAsPatient,
-
   // // Function to add a new prescription by a patient
   // addNewPrescription,
-
   // // Get one prescription
   // getOnePrescription,
-
   // getPatientPrescriptionsAsTherapist,
 };
 

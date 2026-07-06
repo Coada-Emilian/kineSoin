@@ -39,11 +39,6 @@ export default function TherapistDashboardTableBody() {
   };
 
   const handlePatientNameClick = (appointment: ISameDayAppointment) => {
-    console.log(
-      'Patient name clicked:',
-      appointment.patientFullName,
-      appointment.patient
-    );
     setOpenModal('patientDetails');
     setSelectedPatient(appointment.patient);
   };

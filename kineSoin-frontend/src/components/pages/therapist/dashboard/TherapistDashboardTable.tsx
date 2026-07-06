@@ -5,6 +5,7 @@ import { useTherapistAppointmentsContext } from '../../../../hooks/context/thera
 import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
 import { formatCurrentDate } from '../../../../utils/functions/formatCurrentDate';
 import DNALoader from '../../../ui/DNALoader';
+import CancelAppointmentModal from '../../../ui/modals/therapist/CancelAppointmentModal';
 import SendMessageModal from '../../../ui/modals/therapist/SendMessageModal';
 import TherapistDashboardTableBody from './table/TherapistDashboardTableBody';
 import TherapistDashboardTableHead from './table/TherapistDashboardTableHead';
@@ -16,13 +17,8 @@ export default function TherapistDashboardTable() {
   const { tableAppointments, setTableAppointments } =
     useTherapistAppointmentsContext();
 
-  const {
-    isDynamicModeOn,
-    handleDynamicModeClick,
-    openModal,
-    closeModal,
-   
-  } = useUTherapistUiContext();
+  const { isDynamicModeOn, handleDynamicModeClick, openModal, closeModal } =
+    useUTherapistUiContext();
 
   const formattedDate = formatCurrentDate();
 
@@ -69,14 +65,10 @@ export default function TherapistDashboardTable() {
 
       <SendMessageModal isOpen={openModal === 'message'} onClose={closeModal} />
 
-      {/* {isCancelAppointmentModalOpen && (
-        <CancelAppointmentModal
-          isOpen={isCancelAppointmentModalOpen}
-          onClose={() => {
-            setIsCancelAppointmentModalOpen(false);
-          }}
-        />
-      )} */}
+      <CancelAppointmentModal
+        isOpen={openModal === 'cancel'}
+        onClose={closeModal}
+      />
 
       {/* {isPatientDetailsModalOpen && (
         <PatientDetailsModal

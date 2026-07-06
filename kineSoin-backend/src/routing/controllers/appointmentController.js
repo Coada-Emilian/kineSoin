@@ -13,11 +13,12 @@
  *   separate or commented out to avoid mixing responsibilities during development.
  */
 
+import deleteAppointmentAsTherapist from './handlers/appointment/deleteAppointmentAsTherapist.js';
 import getAppointmentDashboardDataAsTherapist from './handlers/appointment/getAppointmentDashboardDataAsTherapist.js';
 
 const appointmentController = {
   // // Function to delete an appointment as a therapist
-  // deleteAppointmentAsTherapist,
+  deleteAppointmentAsTherapist,
   // // Get the therapist dashboard data consisting of existing appointments on the day
   getAppointmentDashboardDataAsTherapist,
   // // Get all appointments as a therapist
@@ -47,8 +48,7 @@ const appointmentController = {
   // // decrementPrescriptionAppointmentQuantityAsTherapist,
   // // Increment the completed appointment quantity as a therapist
   // incrementCompletedAppointmentQuantityAsTherapist,
-  // // Increment the prescription appointment quantity as a therapist
-  // // incrementPrescriptionAppointmentQuantityAsTherapist,
+ 
 };
 
 export default appointmentController;

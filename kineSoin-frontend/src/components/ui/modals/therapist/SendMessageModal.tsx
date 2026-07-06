@@ -40,6 +40,7 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
     setSelectedPatient(null);
     onClose();
   };
+  
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div>

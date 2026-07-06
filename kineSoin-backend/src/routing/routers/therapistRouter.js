@@ -23,6 +23,7 @@ import {
   appointmentController,
   messageController,
   patientController,
+  prescriptionController,
 } from '../controllers/index.js';
 
 // const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
@@ -104,15 +105,15 @@ therapistRouter.patch(
   wrapper(patientController.updatePatientAsTherapist)
 );
 
-// Unused routes
+therapistRouter.patch(
+  '/me/prescriptions/:prescription_id/increaseQuantity',
+  authenticateTherapist,
+  wrapper(
+    prescriptionController.incrementPrescriptionAppointmentQuantityAsTherapist
+  )
+);
 
-// therapistRouter.patch(
-//   '/me/prescriptions/:prescription_id/increaseQuantity',
-//   authenticateTherapist,
-//   wrapper(
-//     appointmentController.incrementPrescriptionAppointmentQuantityAsTherapist
-//   )
-// );
+// Unused routes
 
 // therapistRouter.patch(
 //   '/me/prescriptions/:prescription_id/reduceQuantity',

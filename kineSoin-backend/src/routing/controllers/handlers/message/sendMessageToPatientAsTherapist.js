@@ -2,7 +2,7 @@ import sendMessageToPatientService from '../../../../services/message/therapist/
 import createdMessageSchema from '../../../../validations/joi/creation/createdMessageSchema.js';
 
 export default async function sendMessageToPatientAsTherapist(req, res) {
-  const { error } = createdMessageSchema.validate(req.body);
+  const { error } = createdMessageSchema.validate(req.body.content);
 
   if (error) {
     const err = new Error(error.message);
@@ -22,5 +22,6 @@ export default async function sendMessageToPatientAsTherapist(req, res) {
     throw err;
   }
 
+  console.log('Message sent successfully:', sentMessage);
   return res.status(201).json({ message: 'Message sent successfully' });
 }
