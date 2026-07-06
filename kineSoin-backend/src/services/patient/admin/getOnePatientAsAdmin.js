@@ -23,30 +23,6 @@ export default async function getOnePatientAsADmin({ adminId, patientId }) {
       ],
     },
     include: [
-      //     {
-      //       association: 'prescriptions',
-      //       attributes: [
-      //         'id',
-      //         'appointment_quantity',
-      //         'is_completed',
-      //         'at_home_care',
-      //         'date',
-      //       ],
-      //       include: [
-      //         {
-      //           association: 'medic',
-      //           attributes: ['id', 'name', 'surname'],
-      //         },
-      //         {
-      //           association: 'affliction',
-      //           attributes: ['id', 'name', 'description'],
-      //         },
-      //         {
-      //           association: 'appointments',
-      //           attributes: ['id', 'is_canceled', 'date', 'time'],
-      //         },
-      //       ],
-      //     },
       { association: 'therapist', attributes: ['id', 'name', 'surname'] },
     ],
   });

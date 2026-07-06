@@ -6,6 +6,7 @@ import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useT
 import { formatCurrentDate } from '../../../../utils/functions/formatCurrentDate';
 import DNALoader from '../../../ui/DNALoader';
 import CancelAppointmentModal from '../../../ui/modals/therapist/CancelAppointmentModal';
+import PatientDetailsModal from '../../../ui/modals/therapist/patientDetails/PatientDetailsModal';
 import SendMessageModal from '../../../ui/modals/therapist/SendMessageModal';
 import TherapistDashboardTableBody from './table/TherapistDashboardTableBody';
 import TherapistDashboardTableHead from './table/TherapistDashboardTableHead';
@@ -70,14 +71,10 @@ export default function TherapistDashboardTable() {
         onClose={closeModal}
       />
 
-      {/* {isPatientDetailsModalOpen && (
-        <PatientDetailsModal
-          isOpen={isPatientDetailsModalOpen}
-          onClose={() => {
-            setIsPatientDetailsModalOpen(false);
-          }}
-        />
-      )} */}
+      <PatientDetailsModal
+        isOpen={openModal === 'patientDetails'}
+        onClose={closeModal}
+      />
 
       {/* {isAfflictionDetailsModalOpen && (
         <AfflictionDetailsModal

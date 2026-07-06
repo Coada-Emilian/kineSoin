@@ -1,7 +1,7 @@
 import type { AdminPageProps } from '../../../../../@types/props/adminProps';
 import { useAdminEntityProfileContext } from '../../../../../hooks/context/admin/useAdminEntityProfileContext';
-import AdminEntityProfileContactSectionInputs from './inputs/AdminEntityProfileContactSectionInputs';
-import AdminEntityProfileContactSectionOutputs from './outputs/AdminEntityProfileContactSectionOutputs';
+import AdminEntityProfileContactSectionInputs from './AdminEntityProfileContactSectionInputs';
+import AdminEntityProfileContactSectionOutputs from './EntityProfileContactSectionOutputs';
 
 export default function AdminEntityProfileContactSection({
   entityType,

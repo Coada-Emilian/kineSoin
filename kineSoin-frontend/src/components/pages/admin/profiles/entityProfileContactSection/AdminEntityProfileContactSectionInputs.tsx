@@ -1,15 +1,15 @@
-import type { ICountryPrefix } from '../../../../../../@types/interfaces/apiInterfaces';
-import type { IBodyRegion } from '../../../../../../@types/interfaces/modelInterfaces';
-import type { AdminPageProps } from '../../../../../../@types/props/adminProps';
-import type { IAdminEntityProfileInputTypes } from '../../../../../../@types/types/adminTypes';
-import { useFetchAdminBodyRegionsQuery } from '../../../../../../hooks/admin/queries/useFetchAdminBodyRegionsQuery';
-import { useAdminEntityProfileContext } from '../../../../../../hooks/context/admin/useAdminEntityProfileContext';
-import { useAppContext } from '../../../../../../hooks/context/useAppContext';
-import { hasValues } from '../../../../../../utils/functions/admin/adminEntityProfile/hasValues';
-import DropdownInput from '../../../../../ui/inputs/DropdownInput';
-import EmailInput from '../../../../../ui/inputs/EmailInput';
-import TelephoneInput from '../../../../../ui/inputs/TelephoneInput';
-import TextInput from '../../../../../ui/inputs/TextInput';
+import type { ICountryPrefix } from '../../../../../@types/interfaces/apiInterfaces';
+import type { IBodyRegion } from '../../../../../@types/interfaces/modelInterfaces';
+import type { AdminPageProps } from '../../../../../@types/props/adminProps';
+import type { IAdminEntityProfileInputTypes } from '../../../../../@types/types/adminTypes';
+import { useFetchAdminBodyRegionsQuery } from '../../../../../hooks/admin/queries/useFetchAdminBodyRegionsQuery';
+import { useAdminEntityProfileContext } from '../../../../../hooks/context/admin/useAdminEntityProfileContext';
+import { useAppContext } from '../../../../../hooks/context/useAppContext';
+import { hasValues } from '../../../../../utils/functions/admin/adminEntityProfile/hasValues';
+import DropdownInput from '../../../../ui/inputs/DropdownInput';
+import EmailInput from '../../../../ui/inputs/EmailInput';
+import TelephoneInput from '../../../../ui/inputs/TelephoneInput';
+import TextInput from '../../../../ui/inputs/TextInput';
 
 export default function AdminEntityProfileContactSectionInputs({
   entityType,

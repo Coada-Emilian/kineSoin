@@ -1,11 +1,11 @@
-import type { AdminEntityProfileOutputProps } from '../../../../@types/props/adminProps';
+import type { BaseEntityProfileOutputProps } from '../../../@types/props/componentProps';
 
-export default function AdminEntityProfileOutput({
+export default function BaseEntityProfileOutput({
   label,
   value,
   isTextArea,
   isOneThirdWidth,
-}: AdminEntityProfileOutputProps) {
+}: BaseEntityProfileOutputProps) {
   if (!value) {
     return null;
   }

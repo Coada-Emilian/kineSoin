@@ -1,8 +1,8 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
 import { useAdminEntityProfileContext } from '../../../../../hooks/context/admin/useAdminEntityProfileContext';
 import TextInput from '../../../../ui/inputs/TextInput';
-import AdminEntityProfileInfoOutput from '../entityProfileContactSection/outputs/AdminOutputContainer';
-import AdminEntityIdOutput from './outputs/AdminEntityIdOutput';
+import BaseEntityOutputContainer from '../../../../ui/outputs/BaseEntityOutputContainer';
+import EntityIdOutput from '../../../../ui/outputs/EntityIdOutput';
 import AdminEntityStatusOutput from './outputs/AdminEntityStatusOutput';
 import userIcon from '/icons/user.png';
 
@@ -38,7 +38,7 @@ export default function AdminEntityProfileIdentitySection({
       <div className="flex w-full justify-between">
         <AdminEntityStatusOutput status={editedEntity.status} />
 
-        <AdminEntityIdOutput id={editedEntity.id} />
+        <EntityIdOutput id={editedEntity.id} />
       </div>
 
       {isProfileEditing && entityType !== 'patient' ? (
@@ -77,12 +77,12 @@ export default function AdminEntityProfileIdentitySection({
         </>
       ) : (
         <>
-          <AdminEntityProfileInfoOutput
+          <BaseEntityOutputContainer
             icon={userIcon}
             iconAlt="user"
             label="Nom"
             value={`${editedEntity.name} ${editedEntity.surname}`}
-          ></AdminEntityProfileInfoOutput>
+          ></BaseEntityOutputContainer>
         </>
       )}
     </section>

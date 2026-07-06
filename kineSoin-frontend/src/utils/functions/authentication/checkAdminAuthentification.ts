@@ -7,24 +7,19 @@ export const checkAdminAuthentication = ({
   setAdminProfileToken,
 }: CheckAdminAuthenticationFunctionProps) => {
   const response = getAdminTokenAndDataFromLocalStorage();
-
   const admin_token = response?.admin_token;
 
-  if (admin_token) {
-    if (setIsAdminAuthenticated) {
-      setIsAdminAuthenticated(true);
-    }
-
-    axios.defaults.headers.common.Authorization = `Bearer ${admin_token}`;
-  } else {
-    if (setIsAdminAuthenticated) {
-      setIsAdminAuthenticated(false);
-    }
-
-    if (setAdminProfileToken) {
-      setAdminProfileToken(null);
-    }
-
-    delete axios.defaults.headers.common.Authorization;
+  if (!admin_token) {
+    return;
   }
+
+  if (setIsAdminAuthenticated) {
+    setIsAdminAuthenticated(true);
+  }
+
+  if (setAdminProfileToken) {
+    setAdminProfileToken(admin_token);
+  }
+
+  axios.defaults.headers.common.Authorization = `Bearer ${admin_token}`;
 };

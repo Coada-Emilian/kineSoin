@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
+import AdminGuard from './components/authentification/AdminGuard';
+import TherapistGuard from './components/authentification/TherapistGuard';
 import { useAppContext } from './hooks/context/useAppContext';
-import { useAuthentificationContext } from './hooks/context/useAuthentificationContext';
 import { AdminLayout } from './layouts/AdminLayout';
 import PublicLayout from './layouts/PublicLayout';
 import TherapistLayout from './layouts/TherapistLayout';
@@ -18,14 +19,6 @@ import { therapistRouteDetails } from './utils/config/therapist/therapistRouteDe
 function App() {
   const location = useLocation();
   const { setError } = useAppContext();
-
-  const {
-    isAdminAuthenticated,
-    adminProfileToken,
-
-    isTherapistAuthenticated,
-    therapistProfileToken,
-  } = useAuthentificationContext();
 
   useEffect(() => {
     setError(null);
@@ -49,50 +42,46 @@ function App() {
 
         <Route path="/loginAdmin" element={<AdminLoginPage />} />
 
-        {isAdminAuthenticated && adminProfileToken ? (
-          <Route path="/admin" element={<AdminLayout />}>
-            {adminRouteDetails.map((route) => (
-              <Route
-                path={route.path}
-                key={route.path}
-                element={<AdminPage entityType={route.entityType} />}
-              />
-            ))}
-
-            <Route path="*" element={<ErrorPage type="adminAuthenticated" />} />
-          </Route>
-        ) : (
-          <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <AdminGuard>
+              <AdminLayout />
+            </AdminGuard>
+          }
+        >
+          {adminRouteDetails.map((route) => (
             <Route
-              path="*"
-              element={<ErrorPage type="adminUnauthenticated" />}
+              path={route.path}
+              key={route.path}
+              element={<AdminPage entityType={route.entityType} />}
             />
-          </Route>
-        )}
+          ))}
 
-        {isTherapistAuthenticated && therapistProfileToken ? (
-          <Route path="/therapist" element={<TherapistLayout />}>
-            {therapistRouteDetails.map((route) => (
-              <Route
-                path={route.path}
-                key={route.path}
-                element={<TherapistPage pathName={route.path} />}
-              />
-            ))}
+          <Route path="*" element={<ErrorPage type="adminAuthenticated" />} />
+        </Route>
 
+        <Route
+          path="/therapist"
+          element={
+            <TherapistGuard>
+              <TherapistLayout />
+            </TherapistGuard>
+          }
+        >
+          {therapistRouteDetails.map((route) => (
             <Route
-              path="*"
-              element={<ErrorPage type="therapistAuthenticated" />}
+              path={route.path}
+              key={route.path}
+              element={<TherapistPage pathName={route.path} />}
             />
-          </Route>
-        ) : (
-          <Route path="/therapist" element={<TherapistLayout />}>
-            <Route
-              path="*"
-              element={<ErrorPage type="therapistUnauthenticated" />}
-            />
-          </Route>
-        )}
+          ))}
+
+          <Route
+            path="*"
+            element={<ErrorPage type="therapistAuthenticated" />}
+          />
+        </Route>
       </Routes>
       <ToastContainer />
     </>

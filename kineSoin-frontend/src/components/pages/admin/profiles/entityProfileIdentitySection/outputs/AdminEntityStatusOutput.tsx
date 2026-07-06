@@ -1,11 +1,11 @@
-import type { AdminEntityStatusOutputProps } from '../../../../../../@types/props/adminProps';
-import { getEntityStatusClassName } from '../../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusClassName';
-import { getEntityStatusText } from '../../../../../../utils/functions/admin/adminEntityProfile/getEntityStatusText';
+import type { EntityStatusOutputProps } from '../../../../../../@types/props/componentProps';
+import { getEntityStatusClassName } from '../../../../../../utils/functions/getEntityStatusClassName';
+import { getEntityStatusText } from '../../../../../../utils/functions/getEntityStatusText';
 import statusIcon from '/icons/approve.png';
 
 export default function AdminEntityStatusOutput({
   status,
-}: AdminEntityStatusOutputProps) {
+}: EntityStatusOutputProps) {
   if (!status) {
     return null;
   }

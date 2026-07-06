@@ -72,67 +72,9 @@ export interface AdminEntityProfileImageProps extends BaseAdminEntityProfileProp
   picture_url: string | undefined;
 }
 
-export interface AdminEntityProfileOutputProps {
-  label: string;
-  value: string | number | undefined;
-  isTextArea?: boolean;
-  isOneThirdWidth?: boolean;
-}
 
-export interface AdminEntityStatusOutputProps {
-  status: string | undefined;
-}
 
-export interface AdminEntityIdOutputProps {
-  id?: number | null;
-}
 
-export interface AdminEntityNameOutputProps {
-  name: string | undefined;
-  surname: string | undefined;
-}
-
-export interface AdminEntityAgeAndGenderOutputProps {
-  age: string | undefined;
-  gender: string | undefined;
-}
-
-export interface AdminEntityEmailOutputProps {
-  email: string | undefined;
-}
-
-export interface AdminEntityTelephoneNumberOutputProps {
-  prefix: string | undefined;
-  phone_number: string | undefined;
-}
-
-export interface AdminEntityAddressOutputProps {
-  city: string | undefined;
-  postal_code: string | undefined;
-  street_number: string | undefined;
-  street_name: string | undefined;
-}
-
-export interface AdminEntityCodeOutputProps {
-  amc_code?: string | undefined;
-  insurance_code?: string | undefined;
-  licence_code?: string | undefined;
-}
-
-export interface AdminEntityBodyRegionAndOperatedStatusOutputProps {
-  body_region: IBodyRegion;
-  is_operated: string | undefined;
-}
-
-export interface AdminEntityStudiesOutputProps {
-  diploma?: string | undefined;
-  experience?: string | undefined;
-  specialty?: string | undefined;
-}
-
-export interface AdminEntityDescriptionOutputProps {
-  description: string | undefined;
-}
 
 export interface AdminEntityStatusButtonsProps extends BaseAdminEntityProfileProps {
   id?: number | null | undefined;
@@ -145,9 +87,4 @@ export interface AdminUpdateMutationProps {
   formData: FormData;
 }
 
-export interface AdminEntityProfileInfoOutputProps {
-  icon: string;
-  iconAlt: string;
-  label: string;
-  value: string;
-}
+

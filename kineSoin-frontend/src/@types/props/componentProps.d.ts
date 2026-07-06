@@ -57,3 +57,72 @@ export interface UserHeadbandProps {
   profileUrl: string;
   dashboardUrl: string;
 }
+
+export interface BaseEntityOutputContainerProps {
+  icon: string;
+  iconAlt: string;
+  label: string;
+  value: string;
+}
+
+export interface BaseEntityProfileOutputProps {
+  label: string;
+  value: string | number | undefined;
+  isTextArea?: boolean;
+  isOneThirdWidth?: boolean;
+}
+
+export interface EntityIdOutputProps {
+  id?: number | null;
+}
+
+export interface EntityAgeAndGenderOutputProps {
+  age: string | undefined;
+  gender: string | undefined;
+}
+
+export interface EntityStatusOutputProps {
+  status: string | undefined;
+}
+
+export interface EntityNameOutputProps {
+  name: string | undefined;
+  surname: string | undefined;
+}
+
+export interface EntityEmailOutputProps {
+  email: string | undefined;
+}
+
+export interface EntityTelephoneNumberOutputProps {
+  prefix: string | undefined;
+  phone_number: string | undefined;
+}
+
+export interface EntityAddressOutputProps {
+  city: string | undefined;
+  postal_code: string | undefined;
+  street_number: string | undefined;
+  street_name: string | undefined;
+}
+
+export interface EntityCodeOutputProps {
+  amc_code?: string | undefined;
+  insurance_code?: string | undefined;
+  licence_code?: string | undefined;
+}
+
+export interface EntityBodyRegionAndOperatedStatusOutputProps {
+  body_region: IBodyRegion | undefined;
+  is_operated: string | undefined;
+}
+
+export interface EntityStudiesOutputProps {
+  diploma?: string | undefined;
+  experience?: string | undefined;
+  specialty?: string | undefined;
+}
+
+export interface EntityDescriptionOutputProps {
+  description: string | undefined;
+}

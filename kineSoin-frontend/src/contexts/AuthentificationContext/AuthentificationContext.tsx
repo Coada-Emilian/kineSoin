@@ -7,7 +7,6 @@ import React, {
 import type { IAuthentificationContext } from '../../@types/interfaces/contextInterfaces';
 import { checkAdminAuthentication } from '../../utils/functions/authentication/checkAdminAuthentification';
 import { checkTherapistAuthentication } from '../../utils/functions/authentication/checkTherapistAuthentication';
-import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorage/adminLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
 const AuthentificationContext = createContext<
@@ -20,7 +19,7 @@ export const AuthentificationContextProvider: React.FC<{
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
-    () => getAdminTokenAndDataFromLocalStorage()?.admin_token || null
+    null
   );
 
   useEffect(() => {
@@ -31,7 +30,8 @@ export const AuthentificationContextProvider: React.FC<{
     });
 
     const handleAdminStorageChange = (event: StorageEvent) => {
-      if (event.key === 'token') {
+      console.log('Storage event detected:', event);
+      if (event.key === 'admin_token') {
         checkAdminAuthentication({
           setIsAdminAuthenticated,
           setAdminProfileToken,

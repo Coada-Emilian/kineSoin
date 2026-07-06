@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { cancelAppointmentAsTherapist } from '../../utils/functions/therapist/cancelAppointmentAsTherapist';
-import { incrementPrescriptionAppointmentQuantity } from '../../utils/functions/therapist/incrementPrescriptionAppointmentQuantity';
+import { cancelAppointmentAsTherapist } from '../../api/therapist/cancelAppointmentAsTherapist';
+import { incrementPrescriptionAppointmentQuantity } from '../../api/therapist/incrementPrescriptionAppointmentQuantity';
 
 export const useCancelAppointmentAsTherapistMutation = (
   onClose: () => void

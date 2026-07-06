@@ -19,6 +19,7 @@ import {
   getAllPatientsAsAdmin,
   getOnePatientAsAdmin,
 } from './handlers/patient/admin/index.js';
+import  getOnePatientAsTherapist  from './handlers/patient/therapist/getOnePatientAsTherapist.js';
 
 const patientController = {
   // Function to get all patients as an admin
@@ -40,7 +41,7 @@ const patientController = {
   // getAllPatientsAsTherapist,
 
   // // Function to get one patients data as a therapist
-  // getOnePatientAsTherapist,
+  getOnePatientAsTherapist,
 
   // // Function to delete a patient as a therapist
   // deletePatientAsTherapist,
