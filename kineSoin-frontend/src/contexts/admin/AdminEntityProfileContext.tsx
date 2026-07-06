@@ -46,10 +46,6 @@ export const AdminEntityProfileContextProvider = ({
   // Form state variables
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  // const [updateEntityForm, setUpdateEntityForm] = useState<FormData | null>(
-  //   null
-  // );
-
   return (
     <AdminEntityProfileContext.Provider
       value={{
@@ -70,11 +66,6 @@ export const AdminEntityProfileContextProvider = ({
 
         selectedFile,
         setSelectedFile,
-
-        // updateEntityForm,
-        // setUpdateEntityForm,
-        //   setEntityStates, // Function to set entity states based on the provided entity
-        //   inputChangeHandlers,
       }}
     >
       {children}

@@ -11,14 +11,9 @@ import messageIcon from '/icons/message.png';
 import messageIcon2 from '/icons/message2.png';
 
 export default function TherapistDashboardTableBody() {
-  const { setSelectedPatient } = useTherapistPatientsContext();
+  const { setOpenModal } = useUTherapistUiContext();
 
-  const {
-    setIsSendMessageModalOpen,
-    setIsCancelAppointmentModalOpen,
-    setIsPatientDetailsModalOpen,
-    setIsAfflictionDetailsModalOpen,
-  } = useUTherapistUiContext();
+  const { setSelectedPatient } = useTherapistPatientsContext();
 
   const { setSelectedAppointment, tableAppointments } =
     useTherapistAppointmentsContext();
@@ -30,7 +25,7 @@ export default function TherapistDashboardTableBody() {
   const handleMessageIconClick = (appointment: ISameDayAppointment) => {
     if (!appointment.isTimePassed) {
       setSelectedPatient(appointment.patient);
-      setIsSendMessageModalOpen(true);
+      setOpenModal('message');
     }
   };
 
@@ -39,18 +34,23 @@ export default function TherapistDashboardTableBody() {
       setSelectedAppointment(appointment);
       setSelectedPatient(appointment.patient);
       setSelectedPrescription(appointment.prescription);
-      setIsCancelAppointmentModalOpen(true);
+      setOpenModal('cancel');
     }
   };
 
   const handlePatientNameClick = (appointment: ISameDayAppointment) => {
-    setIsPatientDetailsModalOpen(true);
+    console.log(
+      'Patient name clicked:',
+      appointment.patientFullName,
+      appointment.patient
+    );
+    setOpenModal('patientDetails');
     setSelectedPatient(appointment.patient);
   };
 
   const handleAfflictionNameClick = (appointment: ISameDayAppointment) => {
     setSelectedAppointment(appointment);
-    setIsAfflictionDetailsModalOpen(true);
+    setOpenModal('afflictionDetails');
   };
 
   return (
@@ -78,7 +78,7 @@ export default function TherapistDashboardTableBody() {
                     </span>
                   ) : (
                     <button
-                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium"
+                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer"
                       onClick={() => handlePatientNameClick(appointment)}
                     >
                       <p>{appointment.patientFullName}</p>
@@ -93,7 +93,7 @@ export default function TherapistDashboardTableBody() {
                     </span>
                   ) : (
                     <button
-                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium"
+                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer"
                       onClick={() => handleAfflictionNameClick(appointment)}
                     >
                       <p>{appointment.afflictionName}</p>
@@ -114,14 +114,14 @@ export default function TherapistDashboardTableBody() {
                       className={
                         appointment.isTimePassed
                           ? 'w-3 md:w-6'
-                          : 'w-3 md:w-6 hover:transform hover:scale-125'
+                          : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
                       }
                     />
                   </Button>
                 </td>
 
                 <td
-                  className={`${isLastRow && 'rounded-br-2xl'} border border-gray-300 px-4 py-2 text-center w-2/12`}
+                  className={`${isLastRow && 'rounded-br-2xl'} border border-gray-300 px-4 py-2 text-center w-2/12 `}
                 >
                   <Button
                     onClick={() => handleCancelIconClick(appointment)}
@@ -133,7 +133,7 @@ export default function TherapistDashboardTableBody() {
                       className={
                         appointment.isTimePassed
                           ? 'w-3 md:w-6'
-                          : 'w-3 md:w-6 hover:transform hover:scale-125'
+                          : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
                       }
                     />
                   </Button>

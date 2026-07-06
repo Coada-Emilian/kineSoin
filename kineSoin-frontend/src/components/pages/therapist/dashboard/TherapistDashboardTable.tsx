@@ -5,11 +5,12 @@ import { useTherapistAppointmentsContext } from '../../../../hooks/context/thera
 import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
 import { formatCurrentDate } from '../../../../utils/functions/formatCurrentDate';
 import DNALoader from '../../../ui/DNALoader';
-import TherapistDashboardTableHead from './table/TherapistDashboardTableHead';
+import SendMessageModal from '../../../ui/modals/therapist/SendMessageModal';
 import TherapistDashboardTableBody from './table/TherapistDashboardTableBody';
+import TherapistDashboardTableHead from './table/TherapistDashboardTableHead';
 import TherapistDashboardDynamicParagraph from './TherapistDashboardDynamicParagraph';
-import dynamicIcon from '/icons/dynamic.png';
-import dynamicIcon2 from '/icons/dynamic2.png';
+import dynamicIcon from '/icons/dynamic2_32.webp';
+import dynamicIcon2 from '/icons/dynamic_32.webp';
 
 export default function TherapistDashboardTable() {
   const { tableAppointments, setTableAppointments } =
@@ -18,14 +19,9 @@ export default function TherapistDashboardTable() {
   const {
     isDynamicModeOn,
     handleDynamicModeClick,
-    // isSendMessageModalOpen,
-    // setIsSendMessageModalOpen,
-    // isCancelAppointmentModalOpen,
-    // setIsCancelAppointmentModalOpen,
-    // isPatientDetailsModalOpen,
-    // setIsPatientDetailsModalOpen,
-    // isAfflictionDetailsModalOpen,
-    // setIsAfflictionDetailsModalOpen,
+    openModal,
+    closeModal,
+   
   } = useUTherapistUiContext();
 
   const formattedDate = formatCurrentDate();
@@ -54,7 +50,7 @@ export default function TherapistDashboardTable() {
           <img
             src={!isDynamicModeOn ? dynamicIcon : dynamicIcon2}
             alt={isDynamicModeOn ? 'dynamic mode on' : 'dynamic mode off'}
-            className={`${isDynamicModeOn ? 'animate-spin' : ''} w-6 h-6 md:w-8 md:h-8 hover:animate-spin`}
+            className={`${isDynamicModeOn ? 'animate-spin' : ''} w-6 h-6 md:w-8 md:h-8 cursor-pointer`}
           />
         </Button>
 
@@ -71,34 +67,27 @@ export default function TherapistDashboardTable() {
         </table>
       </div>
 
-      {/* {isSendMessageModalOpen && (
-        <SendMessageModal
-          isOpen={isSendMessageModalOpen}
-          onClose={() => {
-            setIsSendMessageModalOpen(false);
-          }}
-        />
-      )}
+      <SendMessageModal isOpen={openModal === 'message'} onClose={closeModal} />
 
-      {isCancelAppointmentModalOpen && (
+      {/* {isCancelAppointmentModalOpen && (
         <CancelAppointmentModal
           isOpen={isCancelAppointmentModalOpen}
           onClose={() => {
             setIsCancelAppointmentModalOpen(false);
           }}
         />
-      )}
+      )} */}
 
-      {isPatientDetailsModalOpen && (
+      {/* {isPatientDetailsModalOpen && (
         <PatientDetailsModal
           isOpen={isPatientDetailsModalOpen}
           onClose={() => {
             setIsPatientDetailsModalOpen(false);
           }}
         />
-      )}
+      )} */}
 
-      {isAfflictionDetailsModalOpen && (
+      {/* {isAfflictionDetailsModalOpen && (
         <AfflictionDetailsModal
           isOpen={isAfflictionDetailsModalOpen}
           onClose={() => {

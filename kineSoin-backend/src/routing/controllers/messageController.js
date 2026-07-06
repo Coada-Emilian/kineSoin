@@ -11,10 +11,11 @@
  * - Delegates actual messaging logic to dedicated service modules, keeping this
  *   controller lightweight and easy to extend as the messaging system evolves.
  */
+import sendMessageToPatientAsTherapist from './handlers/message/sendMessageToPatientAsTherapist.js';
 
 const messageController = {
   // // Function to send a message to the patient as the therapist
-  // sendMessageToPatientAsTherapist,
+  sendMessageToPatientAsTherapist,
   // unused functions
   // // Function to get all messages for a patient
   // getAllMessagesAsPatient,

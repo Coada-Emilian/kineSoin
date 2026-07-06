@@ -48,7 +48,6 @@ export const useFetchTherapistDashboardDataQuery = ({
       // Return the cleaned and formatted list of appointments
       return formattedAppointments;
     },
-    // Note: In React Query v5+, error handling is usually done outside useQuery options
   });
 
   // useEffect to sync the query result data with local state in the component
