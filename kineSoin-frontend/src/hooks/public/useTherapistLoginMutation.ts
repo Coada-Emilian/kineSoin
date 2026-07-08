@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { handleTherapistLogin } from '../../api/public/handleTherapistLogin';
+import axios from '../../axios';
 import { setTherapistTokenAndDataInLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 import { validateLoginForm } from '../validateLoginForm';
 
@@ -35,6 +36,7 @@ export const useTherapistLoginMutation = (
       console.log('Therapist authenticated successfully');
       setTherapistProfileToken(response.token);
       setIsTherapistAuthenticated(true);
+      axios.defaults.headers.common.Authorization = `Bearer ${response.token}`;
       setTherapistTokenAndDataInLocalStorage(
         response.token,
         response.fullName,

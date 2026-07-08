@@ -4,20 +4,22 @@ import React, {
   useState,
   type ReactNode,
 } from 'react';
-import type { IAuthentificationContext } from '../../@types/interfaces/contextInterfaces';
+import type { IAuthenticationContext } from '../../@types/interfaces/contextInterfaces';
 import { checkAdminAuthentication } from '../../utils/functions/authentication/checkAdminAuthentification';
 import { checkTherapistAuthentication } from '../../utils/functions/authentication/checkTherapistAuthentication';
 import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorage/adminLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
-const AuthentificationContext = createContext<
-  IAuthentificationContext | undefined
->(undefined);
+const AuthenticationContext = createContext<IAuthenticationContext | undefined>(
+  undefined
+);
 
-export const AuthentificationContextProvider: React.FC<{
+export const AuthenticationContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
     () => getAdminTokenAndDataFromLocalStorage()?.admin_token || null
@@ -29,6 +31,8 @@ export const AuthentificationContextProvider: React.FC<{
       setIsAdminAuthenticated,
       setAdminProfileToken,
     });
+
+    setIsAuthLoading(false);
 
     const handleAdminStorageChange = (event: StorageEvent) => {
       if (event.key === 'admin_token') {
@@ -68,6 +72,8 @@ export const AuthentificationContextProvider: React.FC<{
       setIsTherapistAuthenticated,
       setTherapistProfileToken,
     });
+
+    setIsAuthLoading(false);
 
     const handleTherapistStorageChange = (event: StorageEvent) => {
       if (event.key === 'token') {
@@ -139,7 +145,7 @@ export const AuthentificationContextProvider: React.FC<{
 
   // Provide all states and setters via context
   return (
-    <AuthentificationContext.Provider
+    <AuthenticationContext.Provider
       value={{
         isAdminAuthenticated,
         setIsAdminAuthenticated,
@@ -155,11 +161,14 @@ export const AuthentificationContextProvider: React.FC<{
         setIsTherapistAuthenticated,
         therapistProfileToken,
         setTherapistProfileToken,
+
+        isAuthLoading,
+        setIsAuthLoading,
       }}
     >
       {children}
-    </AuthentificationContext.Provider>
+    </AuthenticationContext.Provider>
   );
 };
 
-export default AuthentificationContext;
+export default AuthenticationContext;

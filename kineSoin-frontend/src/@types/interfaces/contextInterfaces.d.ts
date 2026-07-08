@@ -19,7 +19,7 @@ export interface IPatientRegistrationContext {
   setFormOrder: React.Dispatch<React.SetStateAction<FormOrderTypes>>;
 }
 
-export interface IAuthentificationContext {
+export interface IAuthenticationContext {
   isAdminAuthenticated: boolean;
   setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   adminProfileToken: string | null;
@@ -34,6 +34,10 @@ export interface IAuthentificationContext {
   setIsTherapistAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   therapistProfileToken: string | null;
   setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
+
+  isAuthLoading;
+  boolean;
+  setIsAuthLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IAdminContext {

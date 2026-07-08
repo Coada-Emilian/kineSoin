@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { handleAdminLogin } from '../../api/admin/handleAdminLogin';
+import axios from '../../axios';
 import { setAdminTokenAndDataInLocalStorage } from '../../utils/localStorage/adminLocalStorage';
 import { validateLoginForm } from '../validateLoginForm';
 
@@ -32,6 +33,7 @@ export const useAdminLoginMutation = (
       console.log('Admin authenticated successfully');
       setAdminProfileToken(response.token);
       setIsAdminAuthenticated(true);
+      axios.defaults.headers.common.Authorization = `Bearer ${response.token}`;
       setAdminTokenAndDataInLocalStorage(
         response.token,
         response.name,

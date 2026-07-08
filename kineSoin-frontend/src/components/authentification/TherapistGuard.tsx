@@ -7,8 +7,12 @@ export default function TherapistGuard({
 }: {
   children: JSX.Element;
 }) {
-  const { isTherapistAuthenticated, therapistProfileToken } =
+  const { isTherapistAuthenticated, therapistProfileToken, isAuthLoading } =
     useAuthentificationContext();
+
+  if (isAuthLoading) {
+    return null;
+  }
 
   if (!isTherapistAuthenticated || !therapistProfileToken) {
     return <Navigate to="/loginTherapist" replace />;

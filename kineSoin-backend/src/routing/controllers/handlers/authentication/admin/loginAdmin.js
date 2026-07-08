@@ -13,8 +13,8 @@
  * - Credential verification logic is handled by the service layer.
  */
 
-import jsonwebtoken from 'jsonwebtoken';
 import loginAdminService from '../../../../../services/authentication/admin/loginAdmin.js';
+import { createAccessToken } from '../../../../../services/authentication/token/tokenService.js';
 import loggedInAdminSchema from '../../../../../validations/joi/authentication/loggedInEntitySchema.js';
 
 export default async function loginAdmin(req, res) {
@@ -33,14 +33,11 @@ export default async function loginAdmin(req, res) {
     throw err;
   }
 
-  const token = jsonwebtoken.sign(
-    { admin_id: admin.id },
-    process.env.TOKEN_KEY,
-    {
-      expiresIn: '3h',
-      algorithm: 'HS256',
-    }
-  );
+  const token = createAccessToken({
+    admin_id: admin.id,
+    id: admin.id,
+    role: 'ADMIN',
+  });
 
   return res.status(200).json({
     message: 'Admin logged in successfully.',

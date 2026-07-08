@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import { AppContextProvider } from './contexts/AppContext/AppContext.tsx';
-import { AuthentificationContextProvider } from './contexts/AuthentificationContext/AuthentificationContext.tsx';
+import { AuthenticationContextProvider } from './contexts/AuthentificationContext/AuthentificationContext.tsx';
 import './index.css';
 
 Modal.setAppElement('#root');
@@ -15,9 +15,9 @@ createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <AppContextProvider>
-        <AuthentificationContextProvider>
+        <AuthenticationContextProvider>
           <App />
-        </AuthentificationContextProvider>
+        </AuthenticationContextProvider>
       </AppContextProvider>
     </BrowserRouter>
   </QueryClientProvider>

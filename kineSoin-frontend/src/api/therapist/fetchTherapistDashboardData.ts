@@ -3,6 +3,10 @@ import axios from '../../axios';
 export const fetchTherapistDashboardData = async () => {
   try {
     const response = await axios.get('/therapist/me/dashboard');
+    console.log(
+      'Axios auth header before therapist dashboard request:',
+      axios.defaults.headers.common.Authorization
+    );
     if (response.status === 200) {
       return response.data;
     } else {
