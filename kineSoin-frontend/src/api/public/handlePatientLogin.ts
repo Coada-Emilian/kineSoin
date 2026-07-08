@@ -4,7 +4,7 @@ import { setPatientTokenAndDataInLocalStorage } from '../../utils/localStorage/p
 // Function to handle patient connection
 export const handlePatientLogin = async (email: string, password: string) => {
   try {
-    const response = await axios.post('/public/loginPatient', {
+    const response = await axios.post('/auth/patient/login', {
       email,
       password,
     });

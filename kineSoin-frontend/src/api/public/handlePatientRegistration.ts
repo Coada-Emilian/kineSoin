@@ -3,7 +3,7 @@ import axios from '../../axios';
 // Function to handle patient registration
 export const handlePatientRegistration = async (formData: FormData) => {
   try {
-    const response = await axios.post('/public/registerPatient', formData, {
+    const response = await axios.post('/auth/patient/register', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

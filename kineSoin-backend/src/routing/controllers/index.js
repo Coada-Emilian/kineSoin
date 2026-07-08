@@ -12,27 +12,28 @@
  *   own domain logic, while this index file simply exposes them for use in routes.
  */
 
-import afflictionController from "./afflictionController.js";
-import appointmentController from "./appointmentController.js";
-import authenticationController from "./authenticationController.js";
-import insuranceController from "./insuranceController.js";
-import medicController from "./medicController.js";
-import messageController from "./messageController.js";
-import patientController from "./patientController.js";
-import prescriptionController from "./prescriptionController.js";
-import registrationController from "./registrationController.js";
-import therapistController from "./therapistController.js";
+import afflictionController from './afflictionController.js';
+import appointmentController from './appointmentController.js';
+import authenticationController from './authenticationController.js';
+import bodyRegionController from './bodyRegionController.js';
+import insuranceController from './insuranceController.js';
+import medicController from './medicController.js';
+import messageController from './messageController.js';
+import patientController from './patientController.js';
+import prescriptionController from './prescriptionController.js';
+import registrationController from './registrationController.js';
+import therapistController from './therapistController.js';
 
 export {
-      afflictionController,
-      appointmentController,
-      authenticationController,
-      insuranceController,
-      medicController,
-      messageController,
-      patientController,
-      prescriptionController,
-      registrationController,
-      therapistController
+  afflictionController,
+  appointmentController,
+  authenticationController,
+  bodyRegionController,
+  insuranceController,
+  medicController,
+  messageController,
+  patientController,
+  prescriptionController,
+  registrationController,
+  therapistController,
 };
-

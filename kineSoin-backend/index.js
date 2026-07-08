@@ -31,7 +31,7 @@ import { fileURLToPath } from 'url';
 
 import { sanitizeRequestBody } from './src/middlewares/sanitizeRequestBody.js';
 import { adminRouter } from './src/routing/routers/adminRouter.js';
-import { publicRouter } from './src/routing/routers/publicRouter.js';
+import { authenticationRouter } from './src/routing/routers/authenticationRouter.js';
 import { therapistRouter } from './src/routing/routers/therapistRouter.js';
 import { errorHandler } from './src/utils/errorHandler.js';
 
@@ -51,9 +51,9 @@ app.use(cors(corsOptions));
 
 app.use(sanitizeRequestBody);
 
-app.use('/api/admin', adminRouter);
+app.use('/api/auth', authenticationRouter);
 
-app.use('/api/public', publicRouter);
+app.use('/api/admin', adminRouter);
 
 app.use('/api/therapist', therapistRouter);
 
