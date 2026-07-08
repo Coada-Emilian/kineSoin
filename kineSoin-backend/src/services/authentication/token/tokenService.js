@@ -10,3 +10,10 @@ export function createAccessToken(payload) {
 export function verifyAccessToken(token) {
   return jsonwebtoken.verify(token, process.env.TOKEN_KEY);
 }
+
+export function createRefreshToken(payload) {
+  return jsonwebtoken.sign(payload, process.env.REFRESH_TOKEN_KEY, {
+    expiresIn: '30d',
+    algorithm: 'HS256',
+  });
+}

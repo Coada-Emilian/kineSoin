@@ -23,12 +23,12 @@
  * - Starts the server and listens on the specified port from environment variables.
  */
 
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
 import { sanitizeRequestBody } from './src/middlewares/sanitizeRequestBody.js';
 import { adminRouter } from './src/routing/routers/adminRouter.js';
 import { authenticationRouter } from './src/routing/routers/authenticationRouter.js';
@@ -41,9 +41,11 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 const corsOptions = {
   origin: process.env.ALLOWED_DOMAINS,
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
