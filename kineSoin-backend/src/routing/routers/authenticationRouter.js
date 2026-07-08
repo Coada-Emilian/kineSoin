@@ -40,3 +40,9 @@ authenticationRouter.post(
   '/patient/login',
   wrapper(authenticationController.loginPatient)
 );
+
+// Route to logout a user
+authenticationRouter.post(
+  '/logout',
+  wrapper(authenticationController.logoutUser)
+);
