@@ -35,7 +35,7 @@ SET client_encoding = 'UTF8';
 BEGIN;
 
 -- Drop all existing tables
-DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators", "insurance_organisms", "patient_insurances" CASCADE;
+DROP TABLE IF EXISTS "patients", "therapists", "medics", "prescriptions", "body_regions", "afflictions", "appointments", "patient_messages", "therapist_messages", "administrators", "insurance_organisms", "patient_insurances", "refresh_sessions" CASCADE;
 
 -- Create administrators table
 CREATE TABLE IF NOT EXISTS "administrators" (
@@ -110,6 +110,32 @@ CREATE TABLE IF NOT EXISTS "patients" (
     "picture_id" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
+);
+
+CREATE TABLE IF NOT EXISTS "refresh_sessions" (
+    "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    "admin_id" INT REFERENCES "administrators"("id") ON DELETE CASCADE,
+    "therapist_id" INT REFERENCES "therapists"("id") ON DELETE CASCADE,
+    "patient_id" INT REFERENCES "patients"("id") ON DELETE CASCADE,
+
+    "token_hash" VARCHAR(255) NOT NULL UNIQUE,
+
+    "expires_at" TIMESTAMPTZ NOT NULL,
+    "last_used_at" TIMESTAMPTZ,
+    "revoked_at" TIMESTAMPTZ,
+
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ,
+
+    CONSTRAINT "refresh_sessions_single_owner_check"
+    CHECK (
+        (
+            ("admin_id" IS NOT NULL)::int +
+            ("therapist_id" IS NOT NULL)::int +
+            ("patient_id" IS NOT NULL)::int
+        ) = 1
+    )
 );
 
 -- Create medics table

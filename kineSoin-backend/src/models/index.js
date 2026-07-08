@@ -23,6 +23,7 @@ import {
   Patient_Insurance,
   Patient_message,
   Prescription,
+  Refresh_session,
   Therapist,
   Therapist_message,
 } from './associations.js';
@@ -39,8 +40,8 @@ export {
   Patient_Insurance,
   Patient_message,
   Prescription,
+  Refresh_session,
   sequelize,
   Therapist,
-  Therapist_message
+  Therapist_message,
 };
-

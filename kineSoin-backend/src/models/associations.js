@@ -24,6 +24,7 @@ import { Medic } from './standalone_models/Medic.js';
 import { Patient } from './standalone_models/Patient.js';
 import { Patient_message } from './standalone_models/Patient_message.js';
 import { Prescription } from './standalone_models/Prescription.js';
+import { Refresh_session } from './standalone_models/Refresh_session.js';
 import { Therapist } from './standalone_models/Therapist.js';
 import { Therapist_message } from './standalone_models/Therapist_message.js';
 
@@ -237,8 +238,40 @@ Appointment.belongsTo(Prescription, {
   foreignKey: 'prescription_id',
   as: 'prescription',
 });
-
 Patient_Insurance.associate({ Patient, Insurance });
+
+Admin.hasMany(Refresh_session, {
+  foreignKey: 'admin_id',
+  as: 'refresh_sessions',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Refresh_session.belongsTo(Admin, {
+  foreignKey: 'admin_id',
+  as: 'admin',
+});
+
+Therapist.hasMany(Refresh_session, {
+  foreignKey: 'therapist_id',
+  as: 'refresh_sessions',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Refresh_session.belongsTo(Therapist, {
+  foreignKey: 'therapist_id',
+  as: 'therapist',
+});
+
+Patient.hasMany(Refresh_session, {
+  foreignKey: 'patient_id',
+  as: 'refresh_sessions',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+Refresh_session.belongsTo(Patient, {
+  foreignKey: 'patient_id',
+  as: 'patient',
+});
 
 export {
   Admin,
@@ -251,7 +284,7 @@ export {
   Patient_Insurance,
   Patient_message,
   Prescription,
+  Refresh_session,
   Therapist,
-  Therapist_message
+  Therapist_message,
 };
-
