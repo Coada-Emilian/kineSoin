@@ -15,9 +15,12 @@
 
 import 'dotenv/config';
 import loginAdmin from './handlers/authentication/admin/loginAdmin.js';
+import refreshAccessToken from './handlers/authentication/refreshAccessToken.js';
 import loginTherapist from './handlers/authentication/therapist/loginTherapist.js';
 
 const authenticationController = {
+  refreshAccessToken,
+  
   // Function to login admin
   loginAdmin,
 

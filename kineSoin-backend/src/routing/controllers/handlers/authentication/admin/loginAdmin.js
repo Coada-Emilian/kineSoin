@@ -14,7 +14,10 @@
  */
 
 import loginAdminService from '../../../../../services/authentication/admin/loginAdmin.js';
-import { createAccessToken } from '../../../../../services/authentication/token/tokenService.js';
+import {
+  createAccessToken,
+  createRefreshToken,
+} from '../../../../../services/authentication/token/tokenService.js';
 import loggedInAdminSchema from '../../../../../validations/joi/authentication/loggedInEntitySchema.js';
 
 export default async function loginAdmin(req, res) {
@@ -33,15 +36,25 @@ export default async function loginAdmin(req, res) {
     throw err;
   }
 
-  const token = createAccessToken({
+  const payload = {
     id: admin.id,
     role: 'ADMIN',
+  };
+
+  const accessToken = createAccessToken(payload);
+  const refreshToken = createRefreshToken(payload);
+
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
   return res.status(200).json({
     message: 'Admin logged in successfully.',
     id: admin.id,
     name: admin.name,
-    token,
+    token: accessToken,
   });
 }

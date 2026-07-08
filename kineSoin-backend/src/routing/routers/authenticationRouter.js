@@ -11,6 +11,11 @@ const uploadPatientPhoto = multer({ storage: patientPhotoStorage });
 
 export const authenticationRouter = Router();
 
+authenticationRouter.post(
+  '/refresh',
+  wrapper(authenticationController.refreshAccessToken)
+);
+
 // Route to login an admin
 authenticationRouter.post(
   '/admin/login',
