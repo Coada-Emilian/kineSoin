@@ -13,13 +13,8 @@
  * - Credential verification logic is handled by the service layer.
  */
 
-import { Refresh_session } from '../../../../../models/standalone_models/Refresh_session.js';
 import loginAdminService from '../../../../../services/authentication/admin/loginAdmin.js';
-import hashRefreshToken from '../../../../../services/authentication/token/hasRefreshToken.js';
-import {
-  createAccessToken,
-  createRefreshToken,
-} from '../../../../../services/authentication/token/tokenService.js';
+import createAuthSession from '../../../../../services/authentication/token/createAuthSession.js';
 import loggedInAdminSchema from '../../../../../validations/joi/authentication/loggedInEntitySchema.js';
 
 export default async function loginAdmin(req, res) {
@@ -38,20 +33,10 @@ export default async function loginAdmin(req, res) {
     throw err;
   }
 
-  const payload = {
+  const { accessToken, refreshToken } = await createAuthSession({
     id: admin.id,
     role: 'ADMIN',
-  };
-
-  const accessToken = createAccessToken(payload);
-  const refreshToken = createRefreshToken(payload);
-
-  const refreshTokenHash = hashRefreshToken(refreshToken);
-
-  await Refresh_session.create({
     admin_id: admin.id,
-    token_hash: refreshTokenHash,
-    expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   });
 
   res.cookie('refreshToken', refreshToken, {
