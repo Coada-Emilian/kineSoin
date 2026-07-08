@@ -10,7 +10,7 @@ export default async function changePatientStatusAsAdmin(req, res) {
     throw err;
   }
   await changePatientStatusService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     patientId: req.params.patient_id,
     statusData: req.body,
   });

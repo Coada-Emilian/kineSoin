@@ -15,7 +15,7 @@ import deleteTherapistService from '../../../../../services/therapist/admin/dele
 
 export default async function deleteTherapistAsAdmin(req, res) {
   await deleteTherapistService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     therapistId: req.params.therapist_id,
   });
 

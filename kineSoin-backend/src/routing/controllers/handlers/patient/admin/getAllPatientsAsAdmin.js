@@ -2,7 +2,7 @@ import getAllPatientsService from '../../../../../services/patient/admin/getAllP
 
 export default async function getAllPatientsAsAdmin(req, res) {
   const patients = await getAllPatientsService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
   });
 
   if (patients.length === 0) {

@@ -15,7 +15,7 @@ import deleteInsuranceService from '../../../../../services/insurance/admin/dele
 
 export default async function deleteInsuranceAsAdmin(req, res) {
   await deleteInsuranceService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     insuranceId: req.params.insurance_id,
   });
 

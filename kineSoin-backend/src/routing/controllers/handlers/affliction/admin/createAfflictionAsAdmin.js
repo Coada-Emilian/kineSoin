@@ -25,7 +25,7 @@ export default async function createAfflictionAsAdmin(req, res) {
   }
 
   const createdAffliction = await createAfflictionService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     afflictionData: req.body,
   });
 

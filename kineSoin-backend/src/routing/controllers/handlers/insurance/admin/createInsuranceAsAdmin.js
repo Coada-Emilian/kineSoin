@@ -25,7 +25,7 @@ export default async function createInsuranceAsAdmin(req, res) {
   }
 
   const createdInsurance = await createInsuranceService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     insuranceData: req.body,
   });
 

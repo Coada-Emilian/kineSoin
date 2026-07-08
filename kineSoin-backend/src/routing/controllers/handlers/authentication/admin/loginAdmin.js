@@ -34,7 +34,6 @@ export default async function loginAdmin(req, res) {
   }
 
   const token = createAccessToken({
-    admin_id: admin.id,
     id: admin.id,
     role: 'ADMIN',
   });

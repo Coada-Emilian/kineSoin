@@ -15,7 +15,7 @@ import deleteBodyRegionService from '../../../../../services/bodyRegion/admin/de
 
 export default async function deleteBodyRegionAsAdmin(req, res) {
   await deleteBodyRegionService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     bodyRegionId: req.params.body_region_id,
   });
 

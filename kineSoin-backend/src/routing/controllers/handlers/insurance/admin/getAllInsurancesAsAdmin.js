@@ -14,7 +14,7 @@
 import getAllInsurancesService from '../../../../../services/insurance/admin/getAllInsurancesAsAdmin.js';
 
 export default async function getAllInsurancesAsAdmin(req, res) {
-  const insurances = await getAllInsurancesService({ adminId: req.admin_id });
+  const insurances = await getAllInsurancesService({ adminId: req.user.id });
 
   if (insurances.length === 0) {
     const err = new Error('Insurances not found.');

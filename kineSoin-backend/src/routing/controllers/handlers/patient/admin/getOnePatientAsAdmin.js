@@ -2,7 +2,7 @@ import getOnePatientService from '../../../../../services/patient/admin/getOnePa
 
 export default async function getOnePatientAsAdmin(req, res) {
   const patient = await getOnePatientService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     patientId: req.params.patient_id,
   });
 

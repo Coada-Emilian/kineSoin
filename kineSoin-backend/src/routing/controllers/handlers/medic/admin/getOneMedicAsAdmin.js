@@ -15,7 +15,7 @@ import getOneMedicService from '../../../../../services/medic/admin/getOneMedicA
 
 export default async function getOneMedicAsAdmin(req, res) {
   const foundMedic = await getOneMedicService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     medicId: req.params.medic_id,
   });
 

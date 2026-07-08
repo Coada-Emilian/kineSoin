@@ -25,7 +25,7 @@ export default async function updateAfflictionAsAdmin(req, res) {
   }
 
   const updatedAffliction = await updateAfflictionService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     afflictionId: req.params.affliction_id,
     afflictionData: req.body,
   });

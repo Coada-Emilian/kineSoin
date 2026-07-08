@@ -30,7 +30,7 @@ export default async function createTherapistAsAdmin(req, res) {
   };
 
   const newTherapist = await createTherapistService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     therapistData,
   });
 

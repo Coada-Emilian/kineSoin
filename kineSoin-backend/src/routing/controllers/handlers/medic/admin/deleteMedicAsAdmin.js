@@ -16,7 +16,7 @@ import deleteMedicService from '../../../../../services/medic/admin/deleteMedicA
 
 export default async function deleteMedicAsAdmin(req, res) {
   await deleteMedicService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     medicId: req.params.medic_id,
   });
 

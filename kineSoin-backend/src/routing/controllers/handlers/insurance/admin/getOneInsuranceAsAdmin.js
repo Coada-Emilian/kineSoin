@@ -15,7 +15,7 @@ import getOneInsuranceService from '../../../../../services/insurance/admin/getO
 
 export default async function getOneInsuranceAsAdmin(req, res) {
   const foundInsurance = await getOneInsuranceService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     insuranceId: req.params.insurance_id,
   });
 

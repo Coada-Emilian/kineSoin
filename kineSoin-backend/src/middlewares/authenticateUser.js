@@ -15,9 +15,9 @@ export default function authenticateUser(req, res, next) {
     req.user = decoded;
 
     // Temporary compatibility layer
-    if (decoded.admin_id) {
-      req.admin_id = decoded.admin_id;
-    }
+    // if (decoded.admin_id) {
+    //   req.admin_id = decoded.admin_id;
+    // }
 
     if (decoded.patient_id) {
       req.patient_id = decoded.patient_id;

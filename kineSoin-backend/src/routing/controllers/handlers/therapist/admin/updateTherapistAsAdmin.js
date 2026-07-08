@@ -31,7 +31,7 @@ export default async function updateTherapistAsAdmin(req, res) {
   };
 
   const updatedTherapist = await updateTherapistService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     therapistId: req.params.therapist_id,
     therapistData,
   });

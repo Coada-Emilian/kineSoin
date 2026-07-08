@@ -19,6 +19,7 @@ import { Router } from 'express';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import authenticateUser from '../../middlewares/authenticateUser.js';
+import authorizeUserRole from '../../middlewares/authorizeUserRole.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import {
   afflictionController,
@@ -33,7 +34,7 @@ const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
 export const adminRouter = Router();
 
-adminRouter.use(authenticateUser);
+adminRouter.use(authenticateUser).use(authorizeUserRole('ADMIN'));
 
 // Route to get all therapists as admin
 adminRouter.get(

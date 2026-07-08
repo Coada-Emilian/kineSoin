@@ -25,7 +25,7 @@ export default async function createBodyRegionAsAdmin(req, res) {
   }
 
   const createdBodyRegion = await createBodyRegionService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     bodyRegionData: req.body,
   });
 

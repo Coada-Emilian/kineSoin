@@ -12,8 +12,8 @@
  * - Credential verification logic is handled by the service layer.
  */
 
-import jsonwebtoken from 'jsonwebtoken';
 import loginTherapistService from '../../../../../services/authentication/therapist/loginTherapist.js';
+import { createAccessToken } from '../../../../../services/authentication/token/tokenService.js';
 import loggedInTherapistSchema from '../../../../../validations/joi/authentication/loggedInEntitySchema.js';
 
 export default async function loginTherapist(req, res) {
@@ -33,14 +33,11 @@ export default async function loginTherapist(req, res) {
     throw err;
   }
 
-  const token = jsonwebtoken.sign(
-    { therapist_id: therapist.id },
-    process.env.TOKEN_KEY,
-    {
-      expiresIn: '3h',
-      algorithm: 'HS256',
-    }
-  );
+  const token = createAccessToken({
+    therapist_id: therapist.id,
+    id: therapist.id,
+    role: 'THERAPIST',
+  });
 
   return res.status(200).json({
     message: 'Therapist logged in successfully.',

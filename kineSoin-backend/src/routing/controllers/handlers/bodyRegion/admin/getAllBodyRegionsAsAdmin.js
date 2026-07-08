@@ -15,7 +15,7 @@ import getAllBodyRegionsService from '../../../../../services/bodyRegion/admin/g
 
 export default async function getAllBodyRegionsAsAdmin(req, res) {
   const body_regions = await getAllBodyRegionsService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
   });
 
   if (body_regions.length === 0) {

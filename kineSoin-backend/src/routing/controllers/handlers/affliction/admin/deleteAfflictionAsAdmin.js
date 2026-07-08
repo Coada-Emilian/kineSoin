@@ -15,7 +15,7 @@ import deleteAfflictionService from '../../../../../services/affliction/admin/de
 
 export default async function deleteAfflictionAsAdmin(req, res) {
   await deleteAfflictionService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     afflictionId: req.params.affliction_id,
   });
 

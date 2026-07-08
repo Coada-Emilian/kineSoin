@@ -15,7 +15,7 @@ import toggleTherapistStatusService from '../../../../../services/therapist/admi
 
 export default async function toggleTherapistStatusAsAdmin(req, res) {
   await toggleTherapistStatusService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     therapistId: req.params.therapist_id,
   });
 

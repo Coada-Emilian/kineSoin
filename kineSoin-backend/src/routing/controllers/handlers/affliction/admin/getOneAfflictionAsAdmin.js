@@ -15,7 +15,7 @@ import getOneAfflictionService from '../../../../../services/affliction/admin/ge
 
 export default async function getOneAfflictionAsAdmin(req, res) {
   const affliction = await getOneAfflictionService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     afflictionId: req.params.affliction_id,
   });
 

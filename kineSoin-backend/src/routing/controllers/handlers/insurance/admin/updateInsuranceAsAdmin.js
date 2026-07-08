@@ -25,7 +25,7 @@ export default async function updateInsuranceAsAdmin(req, res) {
   }
 
   const updatedInsurance = await updateInsuranceService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     insuranceId: req.params.insurance_id,
     insuranceData: req.body,
   });

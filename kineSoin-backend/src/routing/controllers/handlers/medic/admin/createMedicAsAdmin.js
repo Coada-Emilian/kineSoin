@@ -25,7 +25,7 @@ export default async function createMedicAsAdmin(req, res) {
   }
 
   const createdMedic = await createMedicService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     medicData: req.body,
   });
 

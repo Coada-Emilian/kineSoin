@@ -25,7 +25,7 @@ export default async function updateMedicAsAdmin(req, res) {
   }
 
   const updatedMedic = await updateMedicService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     medicId: req.params.medic_id,
     medicData: req.body,
   });

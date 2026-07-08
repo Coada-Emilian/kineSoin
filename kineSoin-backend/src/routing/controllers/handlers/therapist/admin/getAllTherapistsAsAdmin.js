@@ -14,7 +14,7 @@
 import getAllTherapistsService from '../../../../../services/therapist/admin/getAllTherapistsAsAdmin.js';
 
 export default async function getAllTherapistsAsAdmin(req, res) {
-  const therapists = await getAllTherapistsService({ adminId: req.admin_id });
+  const therapists = await getAllTherapistsService({ adminId: req.user.id });
 
   if (therapists.length === 0) {
     const err = new Error('No therapists found.');

@@ -25,7 +25,7 @@ export default async function changeTherapistStatusAsAdmin(req, res) {
   }
 
   await changeTherapistStatusService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     therapistId: req.params.therapist_id,
     statusData: req.body,
   });

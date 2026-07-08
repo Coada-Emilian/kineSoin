@@ -14,7 +14,7 @@
 import getAllMedicsService from '../../../../../services/medic/admin/getAllMedicsAsAdmin.js';
 
 export default async function getAllMedicsAsAdmin(req, res) {
-  const medics = await getAllMedicsService({ adminId: req.admin_id });
+  const medics = await getAllMedicsService({ adminId: req.user.id });
 
   if (medics.length === 0) {
     const err = new Error('No medics found.');

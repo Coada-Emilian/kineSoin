@@ -15,7 +15,7 @@ import getOneTherapistService from '../../../../../services/therapist/admin/getO
 
 export default async function getOneTherapistAsAdmin(req, res) {
   const foundTherapist = await getOneTherapistService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
     therapistId: req.params.therapist_id,
   });
 

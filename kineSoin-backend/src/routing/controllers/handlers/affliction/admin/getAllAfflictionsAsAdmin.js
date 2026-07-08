@@ -15,7 +15,7 @@ import getAllAfflictionsService from '../../../../../services/affliction/admin/g
 
 export default async function getAllAfflictionsAsAdmin(req, res) {
   const afflictions = await getAllAfflictionsService({
-    adminId: req.admin_id,
+    adminId: req.user.id,
   });
 
   if (afflictions.length === 0) {
