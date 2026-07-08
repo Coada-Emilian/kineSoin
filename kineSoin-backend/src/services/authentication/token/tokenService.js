@@ -2,7 +2,7 @@ import jsonwebtoken from 'jsonwebtoken';
 
 export function createAccessToken(payload) {
   return jsonwebtoken.sign(payload, process.env.TOKEN_KEY, {
-    expiresIn: '3h',
+    expiresIn: '15m',
     algorithm: 'HS256',
   });
 }
@@ -16,4 +16,8 @@ export function createRefreshToken(payload) {
     expiresIn: '30d',
     algorithm: 'HS256',
   });
+}
+
+export function verifyRefreshToken(token) {
+  return jsonwebtoken.verify(token, process.env.REFRESH_TOKEN_KEY);
 }
