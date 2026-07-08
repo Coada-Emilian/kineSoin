@@ -18,6 +18,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { therapistPhotoStorage } from '../../cloudinary/index.js';
+import authenticateUser from '../../middlewares/authenticateUser.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import { authenticateAdmin } from '../../middlewares/userAuthentication.js';
 import bodyRegionController from '../controllers/bodyRegionController.js';
@@ -40,7 +41,7 @@ adminRouter.post('/login', wrapper(authenticationController.loginAdmin));
 // Route to get all therapists as admin
 adminRouter.get(
   '/therapists',
-  authenticateAdmin,
+  authenticateUser,
   wrapper(therapistController.getAllTherapistsAsAdmin)
 );
 
