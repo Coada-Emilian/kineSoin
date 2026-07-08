@@ -1,22 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthentificationContext } from '../../../hooks/context/useAuthentificationContext';
-import { removeAdminTokenFromLocalStorage } from '../../../utils/localStorage/adminLocalStorage';
 import CustomButton from '../../ui/buttons/CustomButton';
-import NavbarLogo from '../../ui/logos/navbarLogo';
+import NavbarLogo from '../../ui/logos/NavbarLogo';
 
 export default function AdminNavBar() {
   const navigate = useNavigate();
 
-  const {
-    isAdminAuthenticated,
-    setIsAdminAuthenticated,
-    setAdminProfileToken,
-  } = useAuthentificationContext();
+  const { user, logout } = useAuthentificationContext();
 
-  const handleAdminLogout = () => {
-    removeAdminTokenFromLocalStorage();
-    setIsAdminAuthenticated(false);
-    setAdminProfileToken(null);
+  const handleAdminLogout = async () => {
+    await logout();
     navigate('/loginAdmin');
   };
 
@@ -26,7 +19,7 @@ export default function AdminNavBar() {
         <NavbarLogo />
 
         <div className="md:flex md:items-center">
-          {isAdminAuthenticated && (
+          {user?.role === 'ADMIN' && (
             <CustomButton
               btn={{
                 type: 'basic',
