@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { handleAdminLogin } from '../../api/admin/handleAdminLogin';
 import axios from '../../axios';
 import { validateLoginForm } from '../validateLoginForm';
+import type { AuthenticatedUser } from '../../@types/interfaces/contextInterfaces';
 
 export const useAdminLoginMutation = (
-  setUser: (user: { id: number; role: string }) => void,
+  setUser: (user: AuthenticatedUser) => void,
   setAccessToken: (token: string) => void
 ) => {
   const navigate = useNavigate();

@@ -33,9 +33,9 @@ export interface IAuthenticationContext {
   isAuthLoading: boolean;
   setIsAuthLoading: React.Dispatch<React.SetStateAction<boolean>>;
 
-  user: IAuthenticatedUser | null;
+  user: AuthenticatedUser | null;
 
-  setUser: React.Dispatch<React.SetStateAction<IAuthenticatedUser | null>>;
+  setUser: React.Dispatch<React.SetStateAction<AuthenticatedUser | null>>;
 
   accessToken: string | null;
 
@@ -60,11 +60,6 @@ export interface IAdminContext {
 export interface IAdminAddTherapistContext {
   addForm: IAddTherapistFormData;
   setAddForm: (form: IAddTherapistFormData) => void;
-}
-
-export interface IAuthenticatedUser {
-  id: number;
-  role: string;
 }
 
 export interface AuthenticatedUser {
