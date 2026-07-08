@@ -3,14 +3,13 @@ import type { JSX } from 'react/jsx-runtime';
 import { useAuthentificationContext } from '../../hooks/context/useAuthentificationContext';
 
 export default function AdminGuard({ children }: { children: JSX.Element }) {
-  const { isAdminAuthenticated, adminProfileToken, isAuthLoading } =
-    useAuthentificationContext();
+  const { user, isAuthLoading } = useAuthentificationContext();
 
   if (isAuthLoading) {
     return null;
   }
 
-  if (!isAdminAuthenticated || !adminProfileToken) {
+  if (user?.role !== 'ADMIN') {
     return <Navigate to="/loginAdmin" replace />;
   }
 

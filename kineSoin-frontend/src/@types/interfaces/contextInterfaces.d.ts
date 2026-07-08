@@ -20,11 +20,6 @@ export interface IPatientRegistrationContext {
 }
 
 export interface IAuthenticationContext {
-  isAdminAuthenticated: boolean;
-  setIsAdminAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  adminProfileToken: string | null;
-  setAdminProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
-
   // isPatientAuthenticated: boolean;
   // setIsPatientAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   // patientProfileToken: string | null;
@@ -35,9 +30,16 @@ export interface IAuthenticationContext {
   therapistProfileToken: string | null;
   setTherapistProfileToken: React.Dispatch<React.SetStateAction<string | null>>;
 
-  isAuthLoading;
-  boolean;
+  isAuthLoading: boolean;
   setIsAuthLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
+  user: IAuthenticatedUser | null;
+
+  setUser: React.Dispatch<React.SetStateAction<IAuthenticatedUser | null>>;
+
+  accessToken: string | null;
+
+  setAccessToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface IAdminContext {
@@ -60,6 +62,15 @@ export interface IAdminAddTherapistContext {
   setAddForm: (form: IAddTherapistFormData) => void;
 }
 
+export interface IAuthenticatedUser {
+  id: number;
+  role: string;
+}
+
+export interface AuthenticatedUser {
+  id: number;
+  role: 'ADMIN' | 'THERAPIST' | 'PATIENT';
+}
 // export interface IAdminEntityProfileContextProps {
 //   isProfileEditing: boolean;
 //   setIsProfileEditing: React.Dispatch<React.SetStateAction<boolean>>;

@@ -30,8 +30,16 @@ export default async function refreshAccessToken(refreshToken) {
     last_used_at: new Date(),
   });
 
-  return createAccessToken({
+  const accessToken = createAccessToken({
     id: decoded.id,
     role: decoded.role,
   });
+
+  return {
+    accessToken,
+    user: {
+      id: decoded.id,
+      role: decoded.role,
+    },
+  };
 }

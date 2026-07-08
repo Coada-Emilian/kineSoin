@@ -4,10 +4,12 @@ import React, {
   useState,
   type ReactNode,
 } from 'react';
-import type { IAuthenticationContext } from '../../@types/interfaces/contextInterfaces';
-import { checkAdminAuthentication } from '../../utils/functions/authentication/checkAdminAuthentification';
-import { checkTherapistAuthentication } from '../../utils/functions/authentication/checkTherapistAuthentication';
-import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorage/adminLocalStorage';
+import type {
+  AuthenticatedUser,
+  IAuthenticationContext,
+} from '../../@types/interfaces/contextInterfaces';
+import axios from '../../axios';
+import { refreshAuthentication } from '../../utils/functions/authentication/refreshAuthentication';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
 const AuthenticationContext = createContext<IAuthenticationContext | undefined>(
@@ -17,46 +19,26 @@ const AuthenticationContext = createContext<IAuthenticationContext | undefined>(
 export const AuthenticationContextProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [user, setUser] = useState<AuthenticatedUser | null>(null);
+
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-  const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
-    () => getAdminTokenAndDataFromLocalStorage()?.admin_token || null
-  );
-
   useEffect(() => {
     // On component mount and every 30 seconds, re-check admin auth
-    checkAdminAuthentication({
-      setIsAdminAuthenticated,
-      setAdminProfileToken,
-    });
+    refreshAuthentication()
+      .then((auth) => {
+        if (!auth) return;
 
-    setIsAuthLoading(false);
+        setUser(auth.user);
+        setAccessToken(auth.token);
 
-    const handleAdminStorageChange = (event: StorageEvent) => {
-      if (event.key === 'admin_token') {
-        checkAdminAuthentication({
-          setIsAdminAuthenticated,
-          setAdminProfileToken,
-        });
-      }
-    };
-
-    // // Listen for storage changes (in case another tab logs out)
-    window.addEventListener('storage', handleAdminStorageChange);
-
-    // const adminIntervalId = setInterval(() => {
-    //   checkAdminAuthentication({
-    //     setIsAdminAuthenticated,
-    //     setAdminProfileToken,
-    //   });
-    // }, 30000); // Re-check every 30s
-
-    return () => {
-      window.removeEventListener('storage', handleAdminStorageChange);
-      //   clearInterval(adminIntervalId);
-    };
+        axios.defaults.headers.common.Authorization = `Bearer ${auth.token}`;
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
+      });
   }, []);
 
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
@@ -66,39 +48,39 @@ export const AuthenticationContextProvider: React.FC<{
     string | null
   >(() => getTherapistTokenAndDataFromLocalStorage()?.token || null);
 
-  useEffect(() => {
-    // On component mount and every 30 seconds, re-check admin auth
-    checkTherapistAuthentication({
-      setIsTherapistAuthenticated,
-      setTherapistProfileToken,
-    });
+  // useEffect(() => {
+  //   // On component mount and every 30 seconds, re-check admin auth
+  //   checkTherapistAuthentication({
+  //     setIsTherapistAuthenticated,
+  //     setTherapistProfileToken,
+  //   });
 
-    setIsAuthLoading(false);
+  //   setIsAuthLoading(false);
 
-    const handleTherapistStorageChange = (event: StorageEvent) => {
-      if (event.key === 'token') {
-        checkTherapistAuthentication({
-          setIsTherapistAuthenticated,
-          setTherapistProfileToken,
-        });
-      }
-    };
+  //   const handleTherapistStorageChange = (event: StorageEvent) => {
+  //     if (event.key === 'token') {
+  //       checkTherapistAuthentication({
+  //         setIsTherapistAuthenticated,
+  //         setTherapistProfileToken,
+  //       });
+  //     }
+  //   };
 
-    // // Listen for storage changes (in case another tab logs out)
-    window.addEventListener('storage', handleTherapistStorageChange);
+  //   // // Listen for storage changes (in case another tab logs out)
+  //   window.addEventListener('storage', handleTherapistStorageChange);
 
-    // const therapistIntervalId = setInterval(() => {
-    //   checkTherapistAuthentication({
-    //     setIsTherapistAuthenticated,
-    //     setTherapistProfileToken,
-    //   });
-    // }, 30000); // Re-check every 30s
+  //   // const therapistIntervalId = setInterval(() => {
+  //   //   checkTherapistAuthentication({
+  //   //     setIsTherapistAuthenticated,
+  //   //     setTherapistProfileToken,
+  //   //   });
+  //   // }, 30000); // Re-check every 30s
 
-    return () => {
-      window.removeEventListener('storage', handleTherapistStorageChange);
-      //   clearInterval(therapistIntervalId);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('storage', handleTherapistStorageChange);
+  //     //   clearInterval(therapistIntervalId);
+  //   };
+  // }, []);
 
   // const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
 
@@ -147,11 +129,6 @@ export const AuthenticationContextProvider: React.FC<{
   return (
     <AuthenticationContext.Provider
       value={{
-        isAdminAuthenticated,
-        setIsAdminAuthenticated,
-        adminProfileToken,
-        setAdminProfileToken,
-
         // isPatientAuthenticated,
         // setIsPatientAuthenticated,
         // patientProfileToken,
@@ -164,6 +141,12 @@ export const AuthenticationContextProvider: React.FC<{
 
         isAuthLoading,
         setIsAuthLoading,
+
+        user,
+        setUser,
+
+        accessToken,
+        setAccessToken,
       }}
     >
       {children}

@@ -51,5 +51,9 @@ export default async function loginAdmin(req, res) {
     id: admin.id,
     name: admin.name,
     token: accessToken,
+    user: {
+      id: admin.id,
+      role: 'ADMIN',
+    },
   });
 }

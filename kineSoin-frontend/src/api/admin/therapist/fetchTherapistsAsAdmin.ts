@@ -2,10 +2,6 @@ import axios from '../../../axios';
 
 export const fetchTherapistsAsAdmin = async () => {
   try {
-    console.log(
-      'Axios auth header:',
-      axios.defaults.headers.common.Authorization
-    );
     const response = await axios.get('/admin/therapists', {
       headers: {
         Authorization: axios.defaults.headers.common.Authorization,

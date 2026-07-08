@@ -3,11 +3,11 @@ import axios from '../../axios';
 // Function to handle admin login
 export const handleAdminLogin = async (email: string, password: string) => {
   try {
-    const response = await axios.post('auth/admin/login', {
+    const response = await axios.post('/auth/admin/login', {
       email,
       password,
     });
-    
+
     if (response.status === 200) {
       return response.data;
     } else {

@@ -9,9 +9,10 @@ export default async function refreshAccessToken(req, res) {
     throw err;
   }
 
-  const accessToken = await refreshAccessTokenService(refreshToken);
+  const { accessToken, user } = await refreshAccessTokenService(refreshToken);
 
   return res.status(200).json({
     token: accessToken,
+    user,
   });
 }
