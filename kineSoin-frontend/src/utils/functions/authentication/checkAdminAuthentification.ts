@@ -10,6 +10,13 @@ export const checkAdminAuthentication = ({
   const admin_token = response?.admin_token;
 
   if (!admin_token) {
+    if (setIsAdminAuthenticated) {
+      setIsAdminAuthenticated(false);
+    }
+
+    if (setAdminProfileToken) {
+      setAdminProfileToken(null);
+    }
     return;
   }
 

@@ -7,6 +7,7 @@ import React, {
 import type { IAuthentificationContext } from '../../@types/interfaces/contextInterfaces';
 import { checkAdminAuthentication } from '../../utils/functions/authentication/checkAdminAuthentification';
 import { checkTherapistAuthentication } from '../../utils/functions/authentication/checkTherapistAuthentication';
+import { getAdminTokenAndDataFromLocalStorage } from '../../utils/localStorage/adminLocalStorage';
 import { getTherapistTokenAndDataFromLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 
 const AuthentificationContext = createContext<
@@ -19,7 +20,7 @@ export const AuthentificationContextProvider: React.FC<{
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   const [adminProfileToken, setAdminProfileToken] = useState<string | null>(
-    null
+    () => getAdminTokenAndDataFromLocalStorage()?.admin_token || null
   );
 
   useEffect(() => {
@@ -30,7 +31,6 @@ export const AuthentificationContextProvider: React.FC<{
     });
 
     const handleAdminStorageChange = (event: StorageEvent) => {
-      console.log('Storage event detected:', event);
       if (event.key === 'admin_token') {
         checkAdminAuthentication({
           setIsAdminAuthenticated,
@@ -39,21 +39,21 @@ export const AuthentificationContextProvider: React.FC<{
       }
     };
 
-    // Listen for storage changes (in case another tab logs out)
+    // // Listen for storage changes (in case another tab logs out)
     window.addEventListener('storage', handleAdminStorageChange);
 
-    const adminIntervalId = setInterval(() => {
-      checkAdminAuthentication({
-        setIsAdminAuthenticated,
-        setAdminProfileToken,
-      });
-    }, 30000); // Re-check every 30s
+    // const adminIntervalId = setInterval(() => {
+    //   checkAdminAuthentication({
+    //     setIsAdminAuthenticated,
+    //     setAdminProfileToken,
+    //   });
+    // }, 30000); // Re-check every 30s
 
     return () => {
       window.removeEventListener('storage', handleAdminStorageChange);
-      clearInterval(adminIntervalId);
+      //   clearInterval(adminIntervalId);
     };
-  }, [adminProfileToken]);
+  }, []);
 
   const [isTherapistAuthenticated, setIsTherapistAuthenticated] =
     useState(false);
@@ -78,21 +78,21 @@ export const AuthentificationContextProvider: React.FC<{
       }
     };
 
-    // Listen for storage changes (in case another tab logs out)
+    // // Listen for storage changes (in case another tab logs out)
     window.addEventListener('storage', handleTherapistStorageChange);
 
-    const therapistIntervalId = setInterval(() => {
-      checkTherapistAuthentication({
-        setIsTherapistAuthenticated,
-        setTherapistProfileToken,
-      });
-    }, 30000); // Re-check every 30s
+    // const therapistIntervalId = setInterval(() => {
+    //   checkTherapistAuthentication({
+    //     setIsTherapistAuthenticated,
+    //     setTherapistProfileToken,
+    //   });
+    // }, 30000); // Re-check every 30s
 
     return () => {
       window.removeEventListener('storage', handleTherapistStorageChange);
-      clearInterval(therapistIntervalId);
+      //   clearInterval(therapistIntervalId);
     };
-  }, [therapistProfileToken]);
+  }, []);
 
   // const [isPatientAuthenticated, setIsPatientAuthenticated] = useState(false);
 
