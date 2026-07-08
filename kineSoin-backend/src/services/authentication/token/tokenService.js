@@ -6,3 +6,7 @@ export function createAccessToken(payload) {
     algorithm: 'HS256',
   });
 }
+
+export function verifyAccessToken(token) {
+  return jsonwebtoken.verify(token, process.env.TOKEN_KEY);
+}
