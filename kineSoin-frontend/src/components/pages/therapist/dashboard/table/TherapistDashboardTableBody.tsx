@@ -10,12 +10,16 @@ import cancelIcon2 from '/icons/cancel2.png';
 import messageIcon from '/icons/message.png';
 import messageIcon2 from '/icons/message2.png';
 
-export default function TherapistDashboardTableBody() {
+export default function TherapistDashboardTableBody({
+  appointments,
+}: {
+  appointments: ISameDayAppointment[];
+}) {
   const { setOpenModal } = useUTherapistUiContext();
 
   const { setSelectedPatient } = useTherapistPatientsContext();
 
-  const { setSelectedAppointment, tableAppointments } =
+  const { setSelectedAppointment } =
     useTherapistAppointmentsContext();
 
   const { setSelectedPrescription } = useTherapistPrescriptionsContext();
@@ -52,7 +56,7 @@ export default function TherapistDashboardTableBody() {
     <tbody className="xs:text-xxs sm:text-xs md:text-sm">
       {timeSlots.map((time, index) => {
         const isLastRow = index === timeSlots.length - 1;
-        const appointment = tableAppointments.find(
+        const appointment = appointments.find(
           (appointment: ISameDayAppointment) => appointment.time === time
         );
 

@@ -1,9 +1,5 @@
 import { createContext, useState } from 'react';
-import type {
-  ICalendarAppointment,
-  IPatientAppointmentDetails,
-  ISameDayAppointment,
-} from '../../@types/interfaces/therapistInterfaces';
+import type { ISameDayAppointment } from '../../@types/interfaces/therapistInterfaces';
 import type { TherapistAppointmentsContextTypes } from '../../@types/types/therapistTypes';
 
 const TherapistAppointmentsContext = createContext<
@@ -15,40 +11,33 @@ export const TherapistAppointmentsContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [tableAppointments, setTableAppointments] = useState<
-    ISameDayAppointment[]
-  >([]);
-
   const [selectedAppointment, setSelectedAppointment] =
     useState<ISameDayAppointment | null>(null);
 
-  const [allAppointments, setAllAppointments] = useState<
-    ICalendarAppointment[]
-  >([]);
+  // const [allAppointments, setAllAppointments] = useState<
+  //   ICalendarAppointment[]
+  // >([]);
 
-  const [previousPatientAppointments, setPreviousPatientAppointments] =
-    useState<IPatientAppointmentDetails[]>([]);
-    
-  const [upcomingPatientAppointments, setUpcomingPatientAppointments] =
-    useState<IPatientAppointmentDetails[]>([]);
+  // const [previousPatientAppointments, setPreviousPatientAppointments] =
+  //   useState<IPatientAppointmentDetails[]>([]);
+
+  // const [upcomingPatientAppointments, setUpcomingPatientAppointments] =
+  //   useState<IPatientAppointmentDetails[]>([]);
 
   return (
     <TherapistAppointmentsContext.Provider
       value={{
-        tableAppointments,
-        setTableAppointments,
-
         selectedAppointment,
         setSelectedAppointment,
 
-        allAppointments,
-        setAllAppointments,
+        // allAppointments,
+        // setAllAppointments,
 
-        previousPatientAppointments,
-        setPreviousPatientAppointments,
+        // previousPatientAppointments,
+        // setPreviousPatientAppointments,
 
-        upcomingPatientAppointments,
-        setUpcomingPatientAppointments,
+        // upcomingPatientAppointments,
+        // setUpcomingPatientAppointments,
       }}
     >
       {children}

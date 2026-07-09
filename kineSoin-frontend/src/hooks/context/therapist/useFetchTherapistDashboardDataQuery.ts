@@ -1,23 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-interface QueryProps {
-  tableAppointments: ISameDayAppointment[]; // Current list of appointments in state
-  setTableAppointments: React.Dispatch<
-    React.SetStateAction<ISameDayAppointment[]>
-  >; // Setter function to update appointments state
-}
-
-import { useEffect } from 'react';
 import type { ISameDayAppointment } from '../../../@types/interfaces/therapistInterfaces';
 import { fetchTherapistDashboardData } from '../../../api/therapist/fetchTherapistDashboardData';
 
 // Custom hook to fetch same-day therapist appointments and update local state
-export const useFetchTherapistDashboardDataQuery = ({
-  setTableAppointments,
-  tableAppointments,
-}: QueryProps) => {
+export const useFetchTherapistDashboardDataQuery = () => {
   // useQuery automatically fetches data and tracks loading, errors, etc.
-  const queryResult = useQuery({
+  return useQuery({
     queryKey: ['fetchSameDayAppointments'], // Unique key for caching/query management
     queryFn: fetchTherapistDashboardData, // API call function returning data
     select: (response) => {
@@ -49,35 +38,4 @@ export const useFetchTherapistDashboardDataQuery = ({
       return formattedAppointments;
     },
   });
-
-  // useEffect to sync the query result data with local state in the component
-  useEffect(() => {
-    if (queryResult.error) {
-      console.error('Error fetching appointments:', queryResult.error);
-      return;
-    }
-
-    if (queryResult.data) {
-      // 1. Remove appointments that no longer exist in the new data
-      const updatedAppointments = tableAppointments.filter((existing) =>
-        queryResult.data.some((newApp) => newApp.id === existing.id)
-      );
-
-      // 2. Add any new appointments that aren't already in the local state
-      const newAppointments = queryResult.data.filter(
-        (newApp) =>
-          !updatedAppointments.some((existing) => existing.id === newApp.id)
-      );
-
-      if (
-        updatedAppointments.length !== tableAppointments.length ||
-        newAppointments.length > 0
-      ) {
-        setTableAppointments([...updatedAppointments, ...newAppointments]);
-      }
-    }
-  }, [queryResult.data, queryResult.error]);
-
-  // Return the full query result so consuming component can use loading, error, and data states
-  return queryResult;
 };
