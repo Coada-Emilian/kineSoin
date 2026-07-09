@@ -72,7 +72,7 @@ function App() {
             <Route
               path={route.path}
               key={route.path}
-              element={<route.element pathName={route.path} />}
+              element={<route.element/>}
             />
           ))}
 
