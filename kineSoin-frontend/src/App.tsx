@@ -11,7 +11,6 @@ import TherapistLayout from './layouts/TherapistLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import AdminPage from './pages/admin/AdminPage';
 import ErrorPage from './pages/ErrorPage';
-import TherapistPage from './pages/therapist/TherapistPage';
 import { adminRouteDetails } from './utils/config/admin/adminRouteDetails';
 import { publicRouteDetails } from './utils/config/public/publicRouteDetails';
 import { therapistRouteDetails } from './utils/config/therapist/therapistRouteDetails';
@@ -73,7 +72,7 @@ function App() {
             <Route
               path={route.path}
               key={route.path}
-              element={<TherapistPage pathName={route.path} />}
+              element={<route.element pathName={route.path} />}
             />
           ))}
 

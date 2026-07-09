@@ -18,13 +18,17 @@ export const TherapistAppointmentsContextProvider = ({
   const [tableAppointments, setTableAppointments] = useState<
     ISameDayAppointment[]
   >([]);
+
   const [selectedAppointment, setSelectedAppointment] =
     useState<ISameDayAppointment | null>(null);
+
   const [allAppointments, setAllAppointments] = useState<
     ICalendarAppointment[]
   >([]);
+
   const [previousPatientAppointments, setPreviousPatientAppointments] =
     useState<IPatientAppointmentDetails[]>([]);
+    
   const [upcomingPatientAppointments, setUpcomingPatientAppointments] =
     useState<IPatientAppointmentDetails[]>([]);
 
@@ -33,12 +37,16 @@ export const TherapistAppointmentsContextProvider = ({
       value={{
         tableAppointments,
         setTableAppointments,
+
         selectedAppointment,
         setSelectedAppointment,
+
         allAppointments,
         setAllAppointments,
+
         previousPatientAppointments,
         setPreviousPatientAppointments,
+
         upcomingPatientAppointments,
         setUpcomingPatientAppointments,
       }}

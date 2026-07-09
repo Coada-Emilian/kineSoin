@@ -6,6 +6,7 @@ import TherapistSideNavbar from '../components/pages/therapist/TherapistSideNavb
 import DNALoader from '../components/ui/DNALoader';
 import UserHeadband from '../components/ui/UserHeadband';
 import { useFetchTherapistDataQuery } from '../hooks/therapist/useFetchTherapistData';
+import TherapistDataProvider from '../contexts/therapist/TherapistDataProvider';
 
 export default function TherapistLayout() {
   const {
@@ -42,8 +43,9 @@ export default function TherapistLayout() {
             <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
               <TherapistSideNavbar />
             </div>
-            
-            <Outlet />
+            <TherapistDataProvider>
+              <Outlet />
+            </TherapistDataProvider>
           </div>
         </div>
       </main>
