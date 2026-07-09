@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchConnectedTherapistData } from '../../api/therapist/fetchConnectedTherapistData';
 
-export const useFetchTherapistBasicDataQuery = () => {
+export const useFetchTherapistDataQuery = () => {
   return useQuery({
     queryKey: ['therapistBasicData'],
     queryFn: async () => {

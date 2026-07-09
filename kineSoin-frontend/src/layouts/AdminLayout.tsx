@@ -4,6 +4,7 @@ import AdminMobileNav from '../components/layouts/mobileNavbars/AdminMobileNavba
 import AdminNavBar from '../components/layouts/navbars/AdminNavbar';
 
 export function AdminLayout() {
+  
   return (
     <div className="flex flex-col min-h-screen w-full">
       <AdminNavBar />

@@ -4,7 +4,7 @@ import TherapistSideNavbar from '../../components/pages/therapist/TherapistSideN
 import DNALoader from '../../components/ui/DNALoader';
 import UserHeadband from '../../components/ui/UserHeadband';
 import TherapistDataProvider from '../../contexts/therapist/TherapistDataProvider';
-import { useFetchTherapistBasicDataQuery } from '../../hooks/therapist/useFetchTherapistBasicData';
+import { useFetchTherapistDataQuery } from '../../hooks/therapist/useFetchTherapistData';
 import { getTherapistPageTitle } from '../../utils/functions/therapist/getTherapistPageTitle';
 
 export default function TherapistPage({ pathName }: TherapistPageProps) {
@@ -12,7 +12,7 @@ export default function TherapistPage({ pathName }: TherapistPageProps) {
     data: therapist,
     isLoading: isTherapistLoading,
     isError,
-  } = useFetchTherapistBasicDataQuery();
+  } = useFetchTherapistDataQuery();
 
   if (isTherapistLoading) {
     return DNALoader();
