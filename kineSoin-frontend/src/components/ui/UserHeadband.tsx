@@ -6,19 +6,20 @@ export default function UserHeadband({
   profileUrl,
   dashboardUrl,
 }: UserHeadbandProps) {
+  const userFullName = `${userProfile?.surname} ${userProfile?.name}`;
   return (
     <div className="flex justify-around md:justify-start md:gap-5 md:px-10 bg-gray-200 p-5 items-center ">
       <Link to={profileUrl}>
         <img
           src={userProfile?.picture_url ?? undefined}
-          alt={userProfile?.fullName ?? 'User profile'}
+          alt={userFullName ?? 'User profile'}
           className="w-16 h-16 md:w-24 md:h-24 xl:w-30 xl:h-30 rounded-full object-cover shadow-2xl"
         />
       </Link>
 
       <div className="flex flex-col gap-1 items-center">
         <p className="text-primaryBlue text-sm font-semibold md:text-sm xl:text-base italic">
-          Bienvenue {userProfile?.fullName} !
+          Bienvenue {userFullName} !
         </p>
 
         <Link to={dashboardUrl}>

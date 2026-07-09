@@ -43,7 +43,8 @@ export interface IAdminEditedEntity {
 }
 
 export interface IBasicUser {
-  fullName: string | null;
+  surname: string | null;
+  name: string | null;
   picture_url: string | null;
   id: number;
 }

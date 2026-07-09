@@ -48,8 +48,6 @@ export default async function loginTherapist(req, res) {
   return res.status(200).json({
     message: 'Therapist logged in successfully.',
     id: therapist.id,
-    fullName: `${therapist.name} ${therapist.surname}`,
-    picture_url: therapist.picture_url,
     token: accessToken,
     user: {
       id: therapist.id,

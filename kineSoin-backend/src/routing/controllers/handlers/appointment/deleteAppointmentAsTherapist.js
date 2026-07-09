@@ -2,7 +2,7 @@ import deleteAppointmentService from '../../../../services/appointment/therapist
 
 export default async function deleteAppointmentAsTherapist(req, res) {
   const deletedAppointment = await deleteAppointmentService({
-    therapistId: req.therapist_id,
+    therapistId: req.user.id,
     appointmentId: req.params.appointment_id,
   });
 

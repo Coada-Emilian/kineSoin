@@ -18,19 +18,21 @@ import { Router } from 'express';
 // import multer from 'multer';
 // import { therapistPhotoStorage } from '../../cloudinary/index.js';
 import authenticateUser from '../../middlewares/authenticateUser.js';
+import authorizeUserRole from '../../middlewares/authorizeUserRole.js';
 import { controllerWrapper as wrapper } from '../../middlewares/controllerWrapper.js';
 import {
   appointmentController,
   messageController,
   patientController,
   prescriptionController,
+  therapistController,
 } from '../controllers/index.js';
 
 // const uploadTherapistPhoto = multer({ storage: therapistPhotoStorage });
 
 export const therapistRouter = Router();
 
-therapistRouter.use(authenticateUser);
+therapistRouter.use(authenticateUser).use(authorizeUserRole('THERAPIST'));
 
 // Route to retrieve the connected therapist dashboard data
 therapistRouter.get(
@@ -104,6 +106,11 @@ therapistRouter.patch(
   )
 );
 
+therapistRouter.get(
+  '/me',
+  wrapper(therapistController.getConnectedTherapistData)
+);
+
 // Unused routes
 
 // therapistRouter.patch(
@@ -130,11 +137,6 @@ therapistRouter.patch(
 //   '/me/patient/:patient_id/prescriptions',
 //
 //   wrapper(prescriptionController.getPatientPrescriptionsAsTherapist)
-// );
-
-// therapistRouter.get(
-//   '/me',
-//   wrapper(therapistController.getConnectedTherapistData)
 // );
 
 // therapistRouter.delete(

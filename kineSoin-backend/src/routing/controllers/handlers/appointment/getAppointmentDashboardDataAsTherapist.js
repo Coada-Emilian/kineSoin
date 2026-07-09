@@ -2,7 +2,7 @@ import getAppointmentDashboardDataService from '../../../../services/appointment
 
 export default async function getAppointmentDashboardDataAsTherapist(req, res) {
   const sameDayAppointments = await getAppointmentDashboardDataService({
-    therapistId: req.therapist_id,
+    therapistId: req.user.id,
   });
 
   if (sameDayAppointments.length === 0) {

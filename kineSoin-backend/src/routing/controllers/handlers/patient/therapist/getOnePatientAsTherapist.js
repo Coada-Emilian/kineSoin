@@ -2,7 +2,7 @@ import getOnePatientService from '../../../../../services/patient/therapist/getO
 
 export default async function getOnePatientAsTherapist(req, res) {
   const patient = await getOnePatientService({
-    therapistId: req.therapist_id,
+    therapistId: req.user.id,
     patientId: req.params.patient_id,
   });
 

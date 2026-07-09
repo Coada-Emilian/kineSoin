@@ -11,7 +11,7 @@ export default async function sendMessageToPatientAsTherapist(req, res) {
   }
 
   const sentMessage = await sendMessageToPatientService({
-    therapistId: req.therapist_id,
+    therapistId: req.user.id,
     patientId: req.params.patient_id,
     messageData: req.body,
   });

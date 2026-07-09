@@ -18,6 +18,7 @@ import {
   createTherapistAsAdmin,
   deleteTherapistAsAdmin,
   getAllTherapistsAsAdmin,
+  getConnectedTherapistData,
   getOneTherapistAsAdmin,
   toggleTherapistStatusAsAdmin,
   updateTherapistAsAdmin,
@@ -46,7 +47,7 @@ const therapistController = {
   toggleTherapistStatusAsAdmin,
 
   // // Get therapist's data
-  // getConnectedTherapistData,
+  getConnectedTherapistData,
 
   // // Delete therapist
   // deleteConnectedTherapist,

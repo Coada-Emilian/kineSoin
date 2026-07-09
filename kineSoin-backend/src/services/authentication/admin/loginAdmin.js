@@ -17,7 +17,7 @@ import { Admin } from '../../../models/index.js';
 export default async function loginAdminService({ email, password }) {
   const admin = await Admin.findOne({
     where: { email },
-    attributes: ['id', 'name', 'password'],
+    attributes: ['id', 'password'],
   });
 
   if (!admin) {

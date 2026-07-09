@@ -47,8 +47,6 @@ export default async function loginAdmin(req, res) {
 
   return res.status(200).json({
     message: 'Admin logged in successfully.',
-    id: admin.id,
-    name: admin.name,
     token: accessToken,
     user: {
       id: admin.id,

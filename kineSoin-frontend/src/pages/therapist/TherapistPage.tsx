@@ -29,7 +29,7 @@ export default function TherapistPage({ pathName }: TherapistPageProps) {
   return (
     <main className={`bg-gray-200 `}>
       <UserHeadband
-        userProfile={therapist}
+        userProfile={therapist.response}
         profileUrl={'/therapist/my-profile'}
         dashboardUrl={'/therapist/dashboard'}
       />
