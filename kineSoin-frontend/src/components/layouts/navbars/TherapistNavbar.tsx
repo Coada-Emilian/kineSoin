@@ -1,22 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../hooks/context/useAuthentificationContext';
-import { removeTherapistTokenFromLocalStorage } from '../../../utils/localStorage/therapistLocalStorage';
+import { useAuthenticationContext } from '../../../hooks/context/useAuthenticationContext';
 import CustomButton from '../../ui/buttons/CustomButton';
-import NavbarLogo from '../../ui/logos/navbarLogo';
+import NavbarLogo from '../../ui/logos/NavbarLogo';
 
 export default function TherapistNavbar() {
   const navigate = useNavigate();
 
-  const {
-    isTherapistAuthenticated,
-    setIsTherapistAuthenticated,
-    setTherapistProfileToken,
-  } = useAuthentificationContext();
+  const { user, logout } = useAuthenticationContext();
 
-  const handleTherapistLogout = () => {
-    removeTherapistTokenFromLocalStorage();
-    setIsTherapistAuthenticated(false);
-    setTherapistProfileToken(null);
+  const handleTherapistLogout = async () => {
+    await logout();
     navigate('/loginTherapist');
   };
 
@@ -26,7 +19,7 @@ export default function TherapistNavbar() {
         <NavbarLogo />
 
         <div className="md:flex md:items-center">
-          {isTherapistAuthenticated && (
+          {user?.role === 'THERAPIST' && (
             <CustomButton
               btn={{
                 type: 'basic',

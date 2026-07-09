@@ -1,15 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import type { UserLoginMutationProps } from '../../@types/props/mutationProps';
 import { handleTherapistLogin } from '../../api/public/handleTherapistLogin';
 import axios from '../../axios';
-import { setTherapistTokenAndDataInLocalStorage } from '../../utils/localStorage/therapistLocalStorage';
 import { validateLoginForm } from '../validateLoginForm';
 
-export const useTherapistLoginMutation = (
-  setTherapistProfileToken: (token: string) => void,
-  setIsTherapistAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+export const useTherapistLoginMutation = ({
+  setUser,
+  setAccessToken,
+}: UserLoginMutationProps) => {
   const navigate = useNavigate();
+
   return useMutation({
     mutationKey: ['therapistLogin'],
     mutationFn: async (formData: FormData) => {
@@ -34,15 +35,12 @@ export const useTherapistLoginMutation = (
     },
     onSuccess: (response) => {
       console.log('Therapist authenticated successfully');
-      setTherapistProfileToken(response.token);
-      setIsTherapistAuthenticated(true);
+
+      setUser(response.user);
+
+      setAccessToken(response.token);
+
       axios.defaults.headers.common.Authorization = `Bearer ${response.token}`;
-      setTherapistTokenAndDataInLocalStorage(
-        response.token,
-        response.fullName,
-        response.picture_url,
-        response.id.toString()
-      );
     },
     onError: (error: Error) => {
       throw new Error(error.message);

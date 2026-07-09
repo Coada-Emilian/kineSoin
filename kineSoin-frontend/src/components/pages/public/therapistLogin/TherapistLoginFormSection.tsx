@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../../hooks/context/useAuthentificationContext';
+import { useAuthenticationContext } from '../../../../hooks/context/useAuthenticationContext';
 import { useTherapistLoginMutation } from '../../../../hooks/public/useTherapistLoginMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import DNALoader from '../../../ui/DNALoader';
@@ -8,13 +8,12 @@ import PasswordInput from '../../../ui/inputs/PasswordInput';
 import mainLogo from '/logos/new-logo.webp';
 
 export default function TherapistLoginFormSection() {
-  const { setTherapistProfileToken, setIsTherapistAuthenticated } =
-    useAuthentificationContext();
+  const { setUser, setAccessToken } = useAuthenticationContext();
 
-  const handleTherapistLogin = useTherapistLoginMutation(
-    setTherapistProfileToken,
-    setIsTherapistAuthenticated
-  );
+  const handleTherapistLogin = useTherapistLoginMutation({
+    setUser,
+    setAccessToken,
+  });
 
   const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();

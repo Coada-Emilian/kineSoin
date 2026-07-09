@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../../hooks/context/useAuthentificationContext';
+import { useAuthenticationContext } from '../../../../hooks/context/useAuthenticationContext';
 import { usePatientLoginMutation } from '../../../../hooks/public/usePatientLoginMutation';
 import CustomButton from '../../../ui/buttons/CustomButton';
 import DNALoader from '../../../ui/DNALoader';
@@ -10,7 +10,7 @@ import mainLogo from '/logos/new-logo.webp';
 export default function PatientLoginFormSection() {
   const navigate = useNavigate();
 
-  const { setPatientProfileToken } = useAuthentificationContext();
+  const { setPatientProfileToken } = useAuthenticationContext();
 
   const handlePatientLogin = usePatientLoginMutation(
     setPatientProfileToken,

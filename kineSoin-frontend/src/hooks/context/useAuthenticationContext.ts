@@ -1,8 +1,8 @@
 import React from 'react';
-import AuthentificationContext from '../../contexts/AuthentificationContext/AuthentificationContext';
+import AuthentificationContext from '../../contexts/AuthenticationContext/AuthenticationContext';
 
 // Custom hook for easy use of the authentication context
-export const useAuthentificationContext = () => {
+export const useAuthenticationContext = () => {
   const context = React.useContext(AuthentificationContext);
 
   if (!context) {

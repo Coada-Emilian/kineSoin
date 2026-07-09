@@ -1,15 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import type { UserLoginMutationProps } from '../../@types/props/mutationProps';
 import { handleAdminLogin } from '../../api/admin/handleAdminLogin';
 import axios from '../../axios';
 import { validateLoginForm } from '../validateLoginForm';
-import type { AuthenticatedUser } from '../../@types/interfaces/contextInterfaces';
 
-export const useAdminLoginMutation = (
-  setUser: (user: AuthenticatedUser) => void,
-  setAccessToken: (token: string) => void
-) => {
+export const useAdminLoginMutation = ({
+  setUser,
+  setAccessToken,
+}: UserLoginMutationProps) => {
   const navigate = useNavigate();
+  
   return useMutation({
     mutationKey: ['adminLogin'],
     mutationFn: async (formData: FormData) => {

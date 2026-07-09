@@ -1,20 +1,19 @@
 import { Navigate } from 'react-router-dom';
 import type { JSX } from 'react/jsx-runtime';
-import { useAuthentificationContext } from '../../hooks/context/useAuthentificationContext';
+import { useAuthenticationContext } from '../../hooks/context/useAuthenticationContext';
 
 export default function TherapistGuard({
   children,
 }: {
   children: JSX.Element;
 }) {
-  const { isTherapistAuthenticated, therapistProfileToken, isAuthLoading } =
-    useAuthentificationContext();
+  const { user, isAuthLoading } = useAuthenticationContext();
 
   if (isAuthLoading) {
     return null;
   }
 
-  if (!isTherapistAuthenticated || !therapistProfileToken) {
+  if (user?.role !== 'THERAPIST') {
     return <Navigate to="/loginTherapist" replace />;
   }
 

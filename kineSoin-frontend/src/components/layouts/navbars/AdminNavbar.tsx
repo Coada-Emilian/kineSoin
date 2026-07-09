@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuthentificationContext } from '../../../hooks/context/useAuthentificationContext';
+import { useAuthenticationContext } from '../../../hooks/context/useAuthenticationContext';
 import CustomButton from '../../ui/buttons/CustomButton';
 import NavbarLogo from '../../ui/logos/NavbarLogo';
 
 export default function AdminNavBar() {
   const navigate = useNavigate();
 
-  const { user, logout } = useAuthentificationContext();
+  const { user, logout } = useAuthenticationContext();
 
   const handleAdminLogout = async () => {
     await logout();
