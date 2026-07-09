@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import type { AdminPageProps } from '../../@types/props/adminProps';
-import AdminSideNavbar from '../../components/pages/admin/AdminSideNavbar';
 import AdminEntityProfile from '../../components/pages/admin/profiles/AdminEntityProfile';
 import AdminTable from '../../components/pages/admin/table/AdminTable';
 import DNALoader from '../../components/ui/DNALoader';
@@ -37,10 +36,6 @@ export default function AdminPage({ entityType }: AdminPageProps) {
 
   return (
     <AdminContextProvider>
-      <div className="hidden h-screen w-1/4 md:block">
-        <AdminSideNavbar />
-      </div>
-
       <div className="w-full md:border-l md:border-gray-300">
         {entities && !id && (
           <AdminTable entities={entities} entityType={entityType} />
