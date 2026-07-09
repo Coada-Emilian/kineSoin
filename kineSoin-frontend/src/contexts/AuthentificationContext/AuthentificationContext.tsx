@@ -37,7 +37,6 @@ export const AuthenticationContextProvider: React.FC<{
   };
 
   useEffect(() => {
-    // On component mount and every 30 seconds, re-check admin auth
     refreshAuthentication()
       .then((auth) => {
         if (!auth) return;

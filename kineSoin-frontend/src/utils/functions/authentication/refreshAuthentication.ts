@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios';
 import axios from '../../../axios';
 
 export async function refreshAuthentication() {
@@ -14,7 +15,12 @@ export async function refreshAuthentication() {
     };
   } catch (error) {
     delete axios.defaults.headers.common.Authorization;
-    console.error('Error refreshing authentication:', error);
+
+    if (isAxiosError(error) && error.response?.status === 401) {
+      return null;
+    }
+
+    console.error('Unexpected error refreshing authentication:', error);
     return null;
   }
 }
