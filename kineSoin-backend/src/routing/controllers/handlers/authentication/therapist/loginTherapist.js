@@ -13,7 +13,7 @@
  */
 
 import loginTherapistService from '../../../../../services/authentication/therapist/loginTherapist.js';
-import { createAccessToken } from '../../../../../services/authentication/token/tokenService.js';
+import createAuthSession from '../../../../../services/authentication/token/createAuthSession.js';
 import loggedInTherapistSchema from '../../../../../validations/joi/authentication/loggedInEntitySchema.js';
 
 export default async function loginTherapist(req, res) {
@@ -33,10 +33,16 @@ export default async function loginTherapist(req, res) {
     throw err;
   }
 
-  const token = createAccessToken({
-    therapist_id: therapist.id,
+  const { accessToken, refreshToken } = await createAuthSession({
     id: therapist.id,
     role: 'THERAPIST',
+  });
+
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
   return res.status(200).json({
@@ -44,6 +50,10 @@ export default async function loginTherapist(req, res) {
     id: therapist.id,
     fullName: `${therapist.name} ${therapist.surname}`,
     picture_url: therapist.picture_url,
-    token,
+    token: accessToken,
+    user: {
+      id: therapist.id,
+      role: 'THERAPIST',
+    },
   });
 }
