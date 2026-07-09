@@ -36,7 +36,6 @@ export default async function loginAdmin(req, res) {
   const { accessToken, refreshToken } = await createAuthSession({
     id: admin.id,
     role: 'ADMIN',
-    admin_id: admin.id,
   });
 
   res.cookie('refreshToken', refreshToken, {

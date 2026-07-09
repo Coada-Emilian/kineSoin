@@ -19,13 +19,29 @@ export default async function createAuthSession({
 
   const tokenHash = hashRefreshToken(refreshToken);
 
-  await Refresh_session.create({
-    admin_id,
-    therapist_id,
-    patient_id,
+  const sessionData = {
     token_hash: tokenHash,
     expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-  });
+  };
+
+  switch (role) {
+    case 'ADMIN':
+      sessionData.admin_id = id;
+      break;
+
+    case 'THERAPIST':
+      sessionData.therapist_id = id;
+      break;
+
+    case 'PATIENT':
+      sessionData.patient_id = id;
+      break;
+
+    default:
+      throw new Error(`Unsupported role: ${role}`);
+  }
+
+  await Refresh_session.create(sessionData);
 
   return {
     accessToken,
