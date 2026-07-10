@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { ISameDayAppointment } from '../../../@types/interfaces/therapistInterfaces';
-import { fetchTherapistDashboardData } from '../../../api/therapist/fetchTherapistDashboardData';
+import type { ISameDayAppointment } from '../../@types/interfaces/therapistInterfaces';
+import { fetchTherapistDashboardData } from '../../api/therapist/fetchTherapistDashboardData';
 
 // Custom hook to fetch same-day therapist appointments and update local state
 export const useFetchTherapistDashboardDataQuery = () => {

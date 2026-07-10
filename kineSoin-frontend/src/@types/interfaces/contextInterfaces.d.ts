@@ -58,7 +58,7 @@ export interface AuthenticatedUser {
   role: 'ADMIN' | 'THERAPIST' | 'PATIENT';
 }
 
-export interface IAdminEntityProfileContextProps {
+export interface IAdminEntityProfileContext {
   // UI state
   isProfileEditing: boolean;
   setIsProfileEditing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -78,6 +78,21 @@ export interface IAdminEntityProfileContextProps {
 
   selectedFile: File | null;
   setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
+}
 
-  // updateEditedEntityField: (field: keyof IAdminEntity, value: unknown) => void;
+export interface ITherapistSelectionContext {
+  selectedPatient: ISameDayAppointment['patient'] | null;
+  setSelectedPatient: React.Dispatch<
+    React.SetStateAction<ISameDayAppointment['patient'] | null>
+  >;
+
+  selectedAppointment: ISameDayAppointment | null;
+  setSelectedAppointment: React.Dispatch<
+    React.SetStateAction<ISameDayAppointment | null>
+  >;
+
+  selectedPrescription: ISameDayAppointment['prescription'] | null;
+  setSelectedPrescription: React.Dispatch<
+    React.SetStateAction<ISameDayAppointment['prescription'] | null>
+  >;
 }

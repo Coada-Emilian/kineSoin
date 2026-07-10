@@ -1,8 +1,6 @@
 import { Button } from '@headlessui/react';
 import type { ISameDayAppointment } from '../../../../../@types/interfaces/therapistInterfaces';
-import { useTherapistAppointmentsContext } from '../../../../../hooks/context/therapist/useTherapistAppointmentsContext';
-import { useTherapistPatientsContext } from '../../../../../hooks/context/therapist/useTherapistPatientsContext';
-import { useTherapistPrescriptionsContext } from '../../../../../hooks/context/therapist/useTherapistPrescriptionContext';
+import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { generateTimeSlots } from '../../../../../utils/functions/generateTimeSlots';
 import cancelIcon from '/icons/cancel.png';
@@ -17,11 +15,11 @@ export default function TherapistDashboardTableBody({
 }) {
   const { setOpenModal } = useUTherapistUiContext();
 
-  const { setSelectedPatient } = useTherapistPatientsContext();
-
-  const { setSelectedAppointment } = useTherapistAppointmentsContext();
-
-  const { setSelectedPrescription } = useTherapistPrescriptionsContext();
+  const {
+    setSelectedPatient,
+    setSelectedAppointment,
+    setSelectedPrescription,
+  } = useTherapistSelectionContext();
 
   const timeSlots = generateTimeSlots();
 

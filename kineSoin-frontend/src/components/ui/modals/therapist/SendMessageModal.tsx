@@ -1,6 +1,6 @@
 import type React from 'react';
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useTherapistPatientsContext } from '../../../../hooks/context/therapist/useTherapistPatientsContext';
+import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useSendMessageToPatientAsTherapistMutation } from '../../../../hooks/therapist/useSendMessageToPatientAsTherapistMutation';
 import CustomButton from '../../buttons/CustomButton';
 import DNALoader from '../../DNALoader';
@@ -9,7 +9,7 @@ import BaseModal from '../BaseModal';
 
 export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
   const { selectedPatient: patient, setSelectedPatient } =
-    useTherapistPatientsContext();
+    useTherapistSelectionContext();
 
   const handleMessageSubmitMutation =
     useSendMessageToPatientAsTherapistMutation(onClose);
@@ -40,7 +40,7 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
     setSelectedPatient(null);
     onClose();
   };
-  
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div>

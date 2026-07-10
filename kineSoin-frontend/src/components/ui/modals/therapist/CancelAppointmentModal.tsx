@@ -1,7 +1,5 @@
 import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useTherapistAppointmentsContext } from '../../../../hooks/context/therapist/useTherapistAppointmentsContext';
-import { useTherapistPatientsContext } from '../../../../hooks/context/therapist/useTherapistPatientsContext';
-import { useTherapistPrescriptionsContext } from '../../../../hooks/context/therapist/useTherapistPrescriptionContext';
+import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useCancelAppointmentAsTherapistMutation } from '../../../../hooks/therapist/useCancelAppointmentAsTherapistMutation';
 import CustomButton from '../../buttons/CustomButton';
 import DNALoader from '../../DNALoader';
@@ -11,13 +9,11 @@ export default function CancelAppointmentModal({
   isOpen,
   onClose,
 }: BasicModalProps) {
-  const { selectedAppointment: appointment } =
-    useTherapistAppointmentsContext();
-
-  const { selectedPrescription: prescription } =
-    useTherapistPrescriptionsContext();
-
-  const { selectedPatient: patient } = useTherapistPatientsContext();
+  const {
+    selectedAppointment: appointment,
+    selectedPrescription: prescription,
+    selectedPatient: patient,
+  } = useTherapistSelectionContext();
 
   const handleAppointmentCancellationMutation =
     useCancelAppointmentAsTherapistMutation(onClose);

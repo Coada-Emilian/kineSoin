@@ -1,9 +1,7 @@
 // TherapistSectionProvider.tsx
 
 import type { ReactNode } from 'react';
-import { TherapistAppointmentsContextProvider } from './TherapistAppointmentsContext';
-import { TherapistPatientsContextProvider } from './TherapistPatientsContext';
-import { TherapistPrescriptionsContextProvider } from './TherapistPrescriptionContext';
+import { TherapistSelectionContextProvider } from './TherapistSelectionContext';
 import { TherapistUiContextProvider } from './TherapistUiContext';
 
 interface TherapistSectionProviderProps {
@@ -13,13 +11,9 @@ interface TherapistSectionProviderProps {
 const TherapistDataProvider = ({ children }: TherapistSectionProviderProps) => {
   return (
     <TherapistUiContextProvider>
-      <TherapistAppointmentsContextProvider>
-        <TherapistPatientsContextProvider>
-          <TherapistPrescriptionsContextProvider>
-            {children}
-          </TherapistPrescriptionsContextProvider>
-        </TherapistPatientsContextProvider>
-      </TherapistAppointmentsContextProvider>
+      <TherapistSelectionContextProvider>
+        {children}
+      </TherapistSelectionContextProvider>
     </TherapistUiContextProvider>
   );
 };

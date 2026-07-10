@@ -1,9 +1,9 @@
 import { createContext, useState } from 'react';
-import type { IAdminEntityProfileContextProps } from '../../@types/interfaces/contextInterfaces';
+import type { IAdminEntityProfileContext } from '../../@types/interfaces/contextInterfaces';
 import type { IAdminEditedEntity } from '../../@types/interfaces/customInterfaces';
 
 const AdminEntityProfileContext = createContext<
-  IAdminEntityProfileContextProps | undefined
+  IAdminEntityProfileContext | undefined
 >(undefined);
 
 export const AdminEntityProfileContextProvider = ({

@@ -1,5 +1,5 @@
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
-import { useTherapistPatientsContext } from '../../../../../hooks/context/therapist/useTherapistPatientsContext';
+import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useFetchPatientDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPatientDetailsAsTherapistMutation';
 import { getEntityStatusClassName } from '../../../../../utils/functions/getEntityStatusClassName';
 import { getEntityStatusText } from '../../../../../utils/functions/getEntityStatusText';
@@ -16,7 +16,7 @@ export default function PatientDetailsModal({
   isOpen,
   onClose,
 }: BasicModalProps) {
-  const { selectedPatient } = useTherapistPatientsContext();
+  const { selectedPatient } = useTherapistSelectionContext();
 
   const {
     data: patientDetails,
