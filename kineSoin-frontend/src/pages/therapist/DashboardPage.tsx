@@ -20,18 +20,19 @@ export default function DashboardPage() {
   const { setHeroMessage } = useOutletContext<{
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   }>();
+  const remainingAppointmentsCount = remainingAppointments.length;
 
   useEffect(() => {
     setHeroMessage(
       <>
         Vous avez{' '}
         <span className="font-semibold text-slate-800">
-          {remainingAppointments.length}
+          {remainingAppointmentsCount}
         </span>{' '}
         rendez-vous aujourd'hui.
       </>
     );
-  }, [tableAppointments, setHeroMessage]);
+  }, [remainingAppointmentsCount, setHeroMessage]);
 
   if (isLoading) {
     return (

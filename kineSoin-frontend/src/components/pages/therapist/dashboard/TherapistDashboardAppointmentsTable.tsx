@@ -1,10 +1,10 @@
-import type { TherapistDashboardAppointmentsProps } from '../../../../@types/props/therapistProps';
+import type { TherapistDashboardAppointmentsTableProps } from '../../../../@types/props/therapistProps';
 import TherapistDashboardTableBody from './table/TherapistDashboardTableBody';
 import TherapistDashboardTableHead from './table/TherapistDashboardTableHead';
 
 export default function TherapistDashboardAppointmentsTable({
   appointments,
-}: TherapistDashboardAppointmentsProps) {
+}: TherapistDashboardAppointmentsTableProps) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-separate border-spacing-0 text-xxs md:text-base">
