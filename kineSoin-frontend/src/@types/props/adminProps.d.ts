@@ -15,9 +15,12 @@ export interface AdminTableProps extends AdminPageProps {
   entities: IAdminEntities;
 }
 
-export interface AdminTableTitleProps {
+export interface GetAdminTableTitleContentProps {
   tableTitle: string;
   entityStatus: string;
+}
+export interface AdminTableTitleProps extends GetAdminTableTitleContentProps {
+  tableSubtitle: string;
 }
 
 export interface AdminTableHeadProps {
@@ -72,10 +75,6 @@ export interface AdminEntityProfileImageProps extends BaseAdminEntityProfileProp
   picture_url: string | undefined;
 }
 
-
-
-
-
 export interface AdminEntityStatusButtonsProps extends BaseAdminEntityProfileProps {
   id?: number | null | undefined;
   entityStatus: string;
@@ -86,5 +85,3 @@ export interface AdminUpdateMutationProps {
   id: number;
   formData: FormData;
 }
-
-

@@ -3,7 +3,6 @@ import type { AdminPageProps } from '../../@types/props/adminProps';
 import AdminEntityProfile from '../../components/pages/admin/profiles/AdminEntityProfile';
 import AdminTable from '../../components/pages/admin/table/AdminTable';
 import DNALoader from '../../components/ui/DNALoader';
-import { AdminContextProvider } from '../../contexts/admin/AdminContext';
 import { AdminEntityProfileContextProvider } from '../../contexts/admin/AdminEntityProfileContext';
 import { useFetchAdminEntityDetails } from '../../hooks/admin/queries/useFetchAdminEntityDetails';
 import { useFetchAdminTableDetails } from '../../hooks/admin/queries/useFetchAdminTableDetails';
@@ -35,18 +34,16 @@ export default function AdminPage({ entityType }: AdminPageProps) {
   }
 
   return (
-    <AdminContextProvider>
-      <div className="w-full md:border-l md:border-gray-300">
-        {entities && !id && (
-          <AdminTable entities={entities} entityType={entityType} />
-        )}
+    <div className="w-full md:border-l md:border-gray-300">
+      {entities && !id && (
+        <AdminTable entities={entities} entityType={entityType} />
+      )}
 
-        {id && entity && (
-          <AdminEntityProfileContextProvider>
-            <AdminEntityProfile entityType={entityType} entity={entity} />
-          </AdminEntityProfileContextProvider>
-        )}
-      </div>
-    </AdminContextProvider>
+      {id && entity && (
+        <AdminEntityProfileContextProvider>
+          <AdminEntityProfile entityType={entityType} entity={entity} />
+        </AdminEntityProfileContextProvider>
+      )}
+    </div>
   );
 }

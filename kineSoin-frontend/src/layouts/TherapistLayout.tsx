@@ -4,7 +4,7 @@ import TherapistMobileNavbar from '../components/layouts/mobileNavbars/Therapist
 import TherapistNavbar from '../components/layouts/navbars/TherapistNavbar';
 import TherapistSideNavbar from '../components/pages/therapist/TherapistSideNavbar';
 import DNALoader from '../components/ui/DNALoader';
-import UserHeadband from '../components/ui/UserHeadband';
+import TherapistHero from '../components/ui/TherapistHero';
 import TherapistDataProvider from '../contexts/therapist/TherapistDataProvider';
 import { useFetchTherapistDataQuery } from '../hooks/therapist/useFetchTherapistData';
 import { getTherapistPageTitle } from '../utils/functions/therapist/getTherapistPageTitle';
@@ -37,11 +37,7 @@ export default function TherapistLayout() {
 
       <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
         <div className="flex flex-col w-full h-full">
-          <UserHeadband
-            userProfile={therapist.response}
-            profileUrl={'/therapist/my-profile'}
-            dashboardUrl={'/therapist/dashboard'}
-          />
+          <TherapistHero userProfile={therapist.response} />
 
           <div className="h-fit md:flex gap-4 mb-2 ">
             <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">

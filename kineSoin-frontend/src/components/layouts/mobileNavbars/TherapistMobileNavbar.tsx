@@ -3,22 +3,22 @@ import { therapistMobileNavbarLinkDetails } from '../../../utils/config/therapis
 
 export default function TherapistMobileNavbar() {
   return (
-    <div className="flex w-full justify-around gap-2 bg-primaryTeal px-4 py-3 md:hidden">
+    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 rounded md:hidden">
       {therapistMobileNavbarLinkDetails.map((link, index) => (
         <NavLink
           to={link.path}
           key={index}
           className={({ isActive }) =>
-            `flex w-16 flex-col items-center justify-center rounded-2xl border bg-white bg-opacity-50 p-2 text-center shadow-2xl ${
+            `flex flex-col w-3/12 items-center bg-white/40 justify-center text-center border border-slate-200 shadow-2xl rounded-2xl p-1 ${
               isActive
-                ? 'text-md scale-105 font-bold italic animate-pulse text-secondaryBlue ring-1 ring-primaryTeal'
+                ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal scale-105 text-base animate-pulse'
                 : 'text-primaryBlue'
             }`
           }
         >
-          <img src={link.icon} alt={link.name} className="mb-1 w-8" />
+          <img src={link.icon} alt={link.name} className="mb-1 w-6" />
 
-          <p className="text-xxs font-medium">{link.name}</p>
+          <p className="text-xs font-medium">{link.name}</p>
         </NavLink>
       ))}
     </div>

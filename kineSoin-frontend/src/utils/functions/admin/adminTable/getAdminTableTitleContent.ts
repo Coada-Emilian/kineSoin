@@ -1,9 +1,9 @@
-import type { AdminTableTitleProps } from '../../../../@types/props/adminProps';
+import type { GetAdminTableTitleContentProps } from '../../../../@types/props/adminProps';
 
 export const getAdminTableTitleContent = ({
   tableTitle,
   entityStatus,
-}: AdminTableTitleProps) => {
+}: GetAdminTableTitleContentProps) => {
   const statusSuffixes: Record<string, string> = {
     active: 'actifs',
     inactive: 'inactifs',

@@ -52,10 +52,8 @@ export interface NavbarLogoProps {
   onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
 }
 
-export interface UserHeadbandProps {
+export interface TherapistHeroProps {
   userProfile: IBasicUser;
-  profileUrl: string;
-  dashboardUrl: string;
 }
 
 export interface BaseEntityOutputContainerProps {
