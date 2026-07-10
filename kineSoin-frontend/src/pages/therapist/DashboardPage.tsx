@@ -1,7 +1,7 @@
 import { Button } from '@headlessui/react';
-import TherapistDashboardTableBody from '../../components/pages/therapist/dashboard/table/TherapistDashboardTableBody';
-import TherapistDashboardTableHead from '../../components/pages/therapist/dashboard/table/TherapistDashboardTableHead';
+import TherapistDashboardAppointmentsTable from '../../components/pages/therapist/dashboard/TherapistDashboardAppointmentsTable';
 import TherapistDashboardDynamicParagraph from '../../components/pages/therapist/dashboard/TherapistDashboardDynamicParagraph';
+import TherapistDashboardModals from '../../components/pages/therapist/dashboard/TherapistDashboardModals';
 import DNALoader from '../../components/ui/DNALoader';
 import { useUTherapistUiContext } from '../../hooks/context/therapist/useTherapistUiContext';
 import { useDynamicAppointmentCheck } from '../../hooks/therapist/useDynamicAppointmentCheck';
@@ -9,14 +9,12 @@ import { useFetchTherapistDashboardDataQuery } from '../../hooks/therapist/useFe
 import { formatCurrentDate } from '../../utils/functions/formatCurrentDate';
 import dynamicIcon from '/icons/dynamic2_32.webp';
 import dynamicIcon2 from '/icons/dynamic_32.webp';
-import TherapistDashboardModals from '../../components/pages/therapist/dashboard/TherapistDashboardModals';
 
 export default function DashboardPage() {
   const { data: tableAppointments = [], isLoading } =
     useFetchTherapistDashboardDataQuery();
 
-  const { isDynamicModeOn, handleDynamicModeClick, openModal, closeModal } =
-    useUTherapistUiContext();
+  const { isDynamicModeOn, handleDynamicModeClick } = useUTherapistUiContext();
 
   const formattedDate = formatCurrentDate();
 
@@ -48,13 +46,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <div className="w-full rounded-xl ">
-        <table className="border border-gray-300 border-separate w-full mx-auto md:w-11/12 md:my-auto mb-6 rounded-2xl shadow-2xl text-xxs md:text-base">
-          <TherapistDashboardTableHead />
-
-          <TherapistDashboardTableBody appointments={tableAppointments} />
-        </table>
-      </div>
+      <TherapistDashboardAppointmentsTable appointments={tableAppointments} />
 
       <TherapistDashboardModals />
     </div>

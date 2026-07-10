@@ -10,9 +10,7 @@ import messageIcon2 from '/icons/message2.png';
 
 export default function TherapistDashboardTableBody({
   appointments,
-}: {
-  appointments: ISameDayAppointment[];
-}) {
+}: TherapistDashboardAppointmentsTableProps) {
   const { setOpenModal } = useUTherapistUiContext();
 
   const {

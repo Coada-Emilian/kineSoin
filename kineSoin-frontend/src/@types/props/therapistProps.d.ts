@@ -7,3 +7,7 @@ export interface TherapistPageProps {
 export interface UseFetchTherapistBasicDataQueryProps {
   setTherapist: React.Dispatch<React.SetStateAction<IBasicUser | undefined>>;
 }
+
+export interface TherapistDashboardAppointmentsTableProps {
+  appointments: ISameDayAppointment[];
+}
