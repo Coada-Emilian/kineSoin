@@ -1,4 +1,5 @@
 import { Button } from '@headlessui/react';
+import { useEffect } from 'react';
 import TherapistDashboardTableBody from '../../components/pages/therapist/dashboard/table/TherapistDashboardTableBody';
 import TherapistDashboardTableHead from '../../components/pages/therapist/dashboard/table/TherapistDashboardTableHead';
 import TherapistDashboardDynamicParagraph from '../../components/pages/therapist/dashboard/TherapistDashboardDynamicParagraph';
@@ -6,9 +7,9 @@ import DNALoader from '../../components/ui/DNALoader';
 import CancelAppointmentModal from '../../components/ui/modals/therapist/CancelAppointmentModal';
 import PatientDetailsModal from '../../components/ui/modals/therapist/patientDetails/PatientDetailsModal';
 import SendMessageModal from '../../components/ui/modals/therapist/SendMessageModal';
-import { useDynamicAppointmentCheck } from '../../hooks/context/therapist/useDynamicAppointmentCheck';
 import { useFetchTherapistDashboardDataQuery } from '../../hooks/context/therapist/useFetchTherapistDashboardDataQuery';
 import { useUTherapistUiContext } from '../../hooks/context/therapist/useTherapistUiContext';
+import { useDynamicAppointmentCheck } from '../../hooks/therapist/useDynamicAppointmentCheck';
 import { formatCurrentDate } from '../../utils/functions/formatCurrentDate';
 import dynamicIcon from '/icons/dynamic2_32.webp';
 import dynamicIcon2 from '/icons/dynamic_32.webp';
@@ -23,6 +24,10 @@ export default function DashboardPage() {
   const formattedDate = formatCurrentDate();
 
   useDynamicAppointmentCheck(tableAppointments, isDynamicModeOn);
+
+  useEffect(() => {
+    console.log(tableAppointments);
+  }, [tableAppointments]);
 
   if (isLoading) {
     return (

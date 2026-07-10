@@ -1,14 +1,11 @@
-// React's built-in hook to manage side effects (like timers, API calls, etc.)
 import { useEffect } from 'react';
-import type { ISameDayAppointment } from '../../../@types/interfaces/therapistInterfaces';
-// Custom interface describing a same-day appointment's structure
+import type { ISameDayAppointment } from '../../@types/interfaces/therapistInterfaces';
 
 // Custom hook to check whether appointments have already passed based on current time
 export const useDynamicAppointmentCheck = (
-  appointments: ISameDayAppointment[], // Array of current day's appointments
-  isDynamicModeOn: boolean // Boolean indicating whether "dynamic mode" is enabled
+  appointments: ISameDayAppointment[],
+  isDynamicModeOn: boolean
 ) => {
-  // Run this effect when either appointments or dynamic mode status changes
   useEffect(() => {
     // Helper function to format the current time as HH:MM (24-hour format, no AM/PM)
     const formatTime = (date: Date) =>

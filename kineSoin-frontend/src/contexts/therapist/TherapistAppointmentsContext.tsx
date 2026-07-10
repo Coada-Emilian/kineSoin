@@ -14,30 +14,11 @@ export const TherapistAppointmentsContextProvider = ({
   const [selectedAppointment, setSelectedAppointment] =
     useState<ISameDayAppointment | null>(null);
 
-  // const [allAppointments, setAllAppointments] = useState<
-  //   ICalendarAppointment[]
-  // >([]);
-
-  // const [previousPatientAppointments, setPreviousPatientAppointments] =
-  //   useState<IPatientAppointmentDetails[]>([]);
-
-  // const [upcomingPatientAppointments, setUpcomingPatientAppointments] =
-  //   useState<IPatientAppointmentDetails[]>([]);
-
   return (
     <TherapistAppointmentsContext.Provider
       value={{
         selectedAppointment,
         setSelectedAppointment,
-
-        // allAppointments,
-        // setAllAppointments,
-
-        // previousPatientAppointments,
-        // setPreviousPatientAppointments,
-
-        // upcomingPatientAppointments,
-        // setUpcomingPatientAppointments,
       }}
     >
       {children}

@@ -19,8 +19,7 @@ export default function TherapistDashboardTableBody({
 
   const { setSelectedPatient } = useTherapistPatientsContext();
 
-  const { setSelectedAppointment } =
-    useTherapistAppointmentsContext();
+  const { setSelectedAppointment } = useTherapistAppointmentsContext();
 
   const { setSelectedPrescription } = useTherapistPrescriptionsContext();
 
