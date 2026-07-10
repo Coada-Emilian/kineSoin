@@ -11,3 +11,7 @@ export interface UseFetchTherapistBasicDataQueryProps {
 export interface TherapistDashboardAppointmentsTableProps {
   appointments: ISameDayAppointment[];
 }
+
+export interface TherapistHeaderProps {
+  page: string;
+}

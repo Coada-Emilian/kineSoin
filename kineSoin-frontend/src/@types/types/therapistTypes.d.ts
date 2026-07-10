@@ -4,3 +4,8 @@ export interface TherapistAppointmentsContextTypes {
     React.SetStateAction<ISameDayAppointment | null>
   >;
 }
+
+export interface TherapistPageHeader {
+  title: string;
+  subtitle?: string;
+}
