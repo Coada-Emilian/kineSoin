@@ -1,18 +1,15 @@
 import { Button } from '@headlessui/react';
-import { useEffect } from 'react';
 import TherapistDashboardTableBody from '../../components/pages/therapist/dashboard/table/TherapistDashboardTableBody';
 import TherapistDashboardTableHead from '../../components/pages/therapist/dashboard/table/TherapistDashboardTableHead';
 import TherapistDashboardDynamicParagraph from '../../components/pages/therapist/dashboard/TherapistDashboardDynamicParagraph';
 import DNALoader from '../../components/ui/DNALoader';
-import CancelAppointmentModal from '../../components/ui/modals/therapist/CancelAppointmentModal';
-import PatientDetailsModal from '../../components/ui/modals/therapist/patientDetails/PatientDetailsModal';
-import SendMessageModal from '../../components/ui/modals/therapist/SendMessageModal';
 import { useUTherapistUiContext } from '../../hooks/context/therapist/useTherapistUiContext';
 import { useDynamicAppointmentCheck } from '../../hooks/therapist/useDynamicAppointmentCheck';
 import { useFetchTherapistDashboardDataQuery } from '../../hooks/therapist/useFetchTherapistDashboardDataQuery';
 import { formatCurrentDate } from '../../utils/functions/formatCurrentDate';
 import dynamicIcon from '/icons/dynamic2_32.webp';
 import dynamicIcon2 from '/icons/dynamic_32.webp';
+import TherapistDashboardModals from '../../components/pages/therapist/dashboard/TherapistDashboardModals';
 
 export default function DashboardPage() {
   const { data: tableAppointments = [], isLoading } =
@@ -25,14 +22,10 @@ export default function DashboardPage() {
 
   useDynamicAppointmentCheck(tableAppointments, isDynamicModeOn);
 
-  useEffect(() => {
-    console.log(tableAppointments);
-  }, [tableAppointments]);
-
   if (isLoading) {
     return (
       <div className="flex w-full items-center justify-center">
-        {DNALoader()};
+        <DNALoader />
       </div>
     );
   }
@@ -63,26 +56,7 @@ export default function DashboardPage() {
         </table>
       </div>
 
-      <SendMessageModal isOpen={openModal === 'message'} onClose={closeModal} />
-
-      <CancelAppointmentModal
-        isOpen={openModal === 'cancel'}
-        onClose={closeModal}
-      />
-
-      <PatientDetailsModal
-        isOpen={openModal === 'patientDetails'}
-        onClose={closeModal}
-      />
-
-      {/* {isAfflictionDetailsModalOpen && (
-        <AfflictionDetailsModal
-          isOpen={isAfflictionDetailsModalOpen}
-          onClose={() => {
-            setIsAfflictionDetailsModalOpen(false);
-          }}
-        />
-      )} */}
+      <TherapistDashboardModals />
     </div>
   );
 }
