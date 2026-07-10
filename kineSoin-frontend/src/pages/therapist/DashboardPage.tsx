@@ -4,7 +4,7 @@ import TherapistDashboardDynamicParagraph from '../../components/pages/therapist
 import TherapistDashboardModals from '../../components/pages/therapist/dashboard/TherapistDashboardModals';
 import DNALoader from '../../components/ui/DNALoader';
 import { useUTherapistUiContext } from '../../hooks/context/therapist/useTherapistUiContext';
-import { useDynamicAppointmentCheck } from '../../hooks/therapist/useDynamicAppointmentCheck';
+import { useDynamicDashboardRefresh } from '../../hooks/therapist/useDynamicAppointmentRefresh';
 import { useFetchTherapistDashboardDataQuery } from '../../hooks/therapist/useFetchTherapistDashboardDataQuery';
 import { formatCurrentDate } from '../../utils/functions/formatCurrentDate';
 import dynamicIcon from '/icons/dynamic2_32.webp';
@@ -16,9 +16,9 @@ export default function DashboardPage() {
 
   const { isDynamicModeOn, handleDynamicModeClick } = useUTherapistUiContext();
 
-  const formattedDate = formatCurrentDate();
+  useDynamicDashboardRefresh(isDynamicModeOn);
 
-  useDynamicAppointmentCheck(tableAppointments, isDynamicModeOn);
+  const currentDate = formatCurrentDate();
 
   if (isLoading) {
     return (
@@ -42,7 +42,7 @@ export default function DashboardPage() {
         </Button>
 
         <p className="border border-gray-200 p-2 rounded-xl shadow-xl italic font-semibold text-xxs md:text-base">
-          Date: {formattedDate}
+          Date: {currentDate}
         </p>
       </div>
 

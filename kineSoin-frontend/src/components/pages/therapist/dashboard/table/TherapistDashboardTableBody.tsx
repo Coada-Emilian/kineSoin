@@ -1,8 +1,10 @@
 import { Button } from '@headlessui/react';
 import type { ISameDayAppointment } from '../../../../../@types/interfaces/therapistInterfaces';
+import type { TherapistDashboardAppointmentsTableProps } from '../../../../../@types/props/therapistProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { generateTimeSlots } from '../../../../../utils/functions/generateTimeSlots';
+import { getCurrentTime } from '../../../../../utils/functions/getCurrentTime';
 import cancelIcon from '/icons/cancel.png';
 import cancelIcon2 from '/icons/cancel2.png';
 import messageIcon from '/icons/message.png';
@@ -11,7 +13,7 @@ import messageIcon2 from '/icons/message2.png';
 export default function TherapistDashboardTableBody({
   appointments,
 }: TherapistDashboardAppointmentsTableProps) {
-  const { setOpenModal } = useUTherapistUiContext();
+  const { setOpenModal, isDynamicModeOn } = useUTherapistUiContext();
 
   const {
     setSelectedPatient,
@@ -20,6 +22,8 @@ export default function TherapistDashboardTableBody({
   } = useTherapistSelectionContext();
 
   const timeSlots = generateTimeSlots();
+
+  const currentTime = getCurrentTime();
 
   const handleMessageIconClick = (appointment: ISameDayAppointment) => {
     if (!appointment.isTimePassed) {
@@ -55,6 +59,8 @@ export default function TherapistDashboardTableBody({
           (appointment: ISameDayAppointment) => appointment.time === time
         );
 
+        const isTimePassed = currentTime > time;
+
         return (
           <tr key={index}>
             <td
@@ -66,7 +72,7 @@ export default function TherapistDashboardTableBody({
             {appointment ? (
               <>
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  {appointment.isTimePassed ? (
+                  {isTimePassed && isDynamicModeOn ? (
                     <span className="italic text-gray-500">
                       {appointment.patientFullName}
                     </span>
@@ -81,7 +87,7 @@ export default function TherapistDashboardTableBody({
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  {appointment.isTimePassed ? (
+                  {isTimePassed && isDynamicModeOn ? (
                     <span className="italic text-gray-500">
                       {appointment.afflictionName}
                     </span>
@@ -102,11 +108,13 @@ export default function TherapistDashboardTableBody({
                   >
                     <img
                       src={
-                        appointment.isTimePassed ? messageIcon2 : messageIcon
+                        isTimePassed && isDynamicModeOn
+                          ? messageIcon2
+                          : messageIcon
                       }
                       alt="message"
                       className={
-                        appointment.isTimePassed
+                        isTimePassed && isDynamicModeOn
                           ? 'w-3 md:w-6'
                           : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
                       }
@@ -122,10 +130,14 @@ export default function TherapistDashboardTableBody({
                     className="flex justify-center items-center w-full"
                   >
                     <img
-                      src={appointment.isTimePassed ? cancelIcon2 : cancelIcon}
+                      src={
+                        isTimePassed && isDynamicModeOn
+                          ? cancelIcon2
+                          : cancelIcon
+                      }
                       alt="cancel"
                       className={
-                        appointment.isTimePassed
+                        isTimePassed && isDynamicModeOn
                           ? 'w-3 md:w-6'
                           : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
                       }
