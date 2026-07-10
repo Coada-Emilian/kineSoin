@@ -12,6 +12,10 @@ export interface TherapistDashboardAppointmentsTableProps {
   appointments: ISameDayAppointment[];
 }
 
+export interface TherapistDashboardAppointmentsCardProps {
+  appointment: ISameDayAppointment;
+}
+
 export interface TherapistHeaderProps {
   page: string;
 }

@@ -10,7 +10,7 @@ export default function TherapistHero({
   const greeting = getGreeting();
   const currentDate = capitalizeFirstLetter(formatCurrentDate());
   return (
-    <div className="flex flex-col-reverse items-center justify-between gap-6 rounded-b-2xl border border-slate-100 bg-linear-to-r from-teal-50 to-white p-6 shadow-sm md:flex-row">
+    <div className="flex flex-col-reverse items-center justify-between gap-6 border border-slate-100 bg-linear-to-r from-teal-50 to-white p-6 shadow-sm md:flex-row">
       <div className="space-y-2 text-center md:text-left">
         <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-800">
           {greeting}, {userProfile?.surname} 👋

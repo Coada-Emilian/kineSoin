@@ -13,7 +13,7 @@ import messageIcon2 from '/icons/message2.png';
 export default function TherapistDashboardTableBody({
   appointments,
 }: TherapistDashboardAppointmentsTableProps) {
-  const { setOpenModal, isDynamicModeOn } = useUTherapistUiContext();
+  const { setOpenModal } = useUTherapistUiContext();
 
   const {
     setSelectedPatient,
@@ -54,7 +54,6 @@ export default function TherapistDashboardTableBody({
   return (
     <tbody className="xs:text-xxs sm:text-xs md:text-sm">
       {timeSlots.map((time, index) => {
-        const isLastRow = index === timeSlots.length - 1;
         const appointment = appointments.find(
           (appointment: ISameDayAppointment) => appointment.time === time
         );
@@ -62,17 +61,20 @@ export default function TherapistDashboardTableBody({
         const isTimePassed = currentTime > time;
 
         return (
-          <tr key={index}>
+          <tr
+            key={index}
+            className="transition-colors duration-150 hover:bg-teal-50/40"
+          >
             <td
-              className={`${isLastRow && 'rounded-bl-2xl'} border border-gray-300 px-4 py-2 text-center`}
+              className={`border-b border-slate-200 font-medium text-slate-700 px-4 py-3 text-center`}
             >
               {time}
             </td>
 
             {appointment ? (
               <>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {isTimePassed && isDynamicModeOn ? (
+                <td className="border-b border-slate-200 px-4 py-3 text-center font-medium text-slate-700">
+                  {isTimePassed ? (
                     <span className="italic text-gray-500">
                       {appointment.patientFullName}
                     </span>
@@ -86,8 +88,8 @@ export default function TherapistDashboardTableBody({
                   )}
                 </td>
 
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {isTimePassed && isDynamicModeOn ? (
+                <td className="border-b border-slate-200 px-4 py-3 text-center">
+                  {isTimePassed ? (
                     <span className="italic text-gray-500">
                       {appointment.afflictionName}
                     </span>
@@ -101,20 +103,16 @@ export default function TherapistDashboardTableBody({
                   )}
                 </td>
 
-                <td className="border border-gray-300 px-4 py-2 text-center w-2/12 ">
+                <td className="border-b border-slate-200 px-4 py-3 text-center w-2/12 ">
                   <Button
                     onClick={() => handleMessageIconClick(appointment)}
                     className="flex justify-center items-center w-full"
                   >
                     <img
-                      src={
-                        isTimePassed && isDynamicModeOn
-                          ? messageIcon2
-                          : messageIcon
-                      }
+                      src={isTimePassed ? messageIcon2 : messageIcon}
                       alt="message"
                       className={
-                        isTimePassed && isDynamicModeOn
+                        isTimePassed
                           ? 'w-3 md:w-6'
                           : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
                       }
@@ -123,21 +121,17 @@ export default function TherapistDashboardTableBody({
                 </td>
 
                 <td
-                  className={`${isLastRow && 'rounded-br-2xl'} border border-gray-300 px-4 py-2 text-center w-2/12 `}
+                  className={`border-b border-slate-200 px-4 py-3 text-center w-2/12 `}
                 >
                   <Button
                     onClick={() => handleCancelIconClick(appointment)}
                     className="flex justify-center items-center w-full"
                   >
                     <img
-                      src={
-                        isTimePassed && isDynamicModeOn
-                          ? cancelIcon2
-                          : cancelIcon
-                      }
+                      src={isTimePassed ? cancelIcon2 : cancelIcon}
                       alt="cancel"
                       className={
-                        isTimePassed && isDynamicModeOn
+                        isTimePassed
                           ? 'w-3 md:w-6'
                           : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
                       }
@@ -147,10 +141,10 @@ export default function TherapistDashboardTableBody({
               </>
             ) : (
               <td
-                className="border border-gray-300 px-4 py-2 text-center font-medium italic text-gray-500"
+                className="border-b border-slate-200 px-4 py-3 text-center font-medium italic text-gray-500"
                 colSpan={4}
               >
-                Pas de RDV
+                Aucun rendez-vous
               </td>
             )}
           </tr>

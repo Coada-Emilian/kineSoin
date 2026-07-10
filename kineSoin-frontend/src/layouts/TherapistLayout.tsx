@@ -40,19 +40,19 @@ export default function TherapistLayout() {
     <div className="flex flex-col justify-between min-h-screen">
       <TherapistNavbar />
 
-      <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
+      <main className="flex items-center w-full justify-center h-fit md:h-fit ">
         <div className="flex flex-col w-full h-full">
           <TherapistHero
             userProfile={therapist.response}
             message={heroMessage}
           />
 
-          <div className="h-fit md:flex gap-4 mb-2 ">
-            <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
+          <div className="h-fit md:flex gap-4 mb-2 bg-linear-to-r from-teal-50 to-white p-6 ">
+            <div className="w-1/4 h-full border-r-2 border-r-slate-100 border-solid hidden md:block md:h-auto ">
               <TherapistSideNavbar />
             </div>
 
-            <div className="flex gap-4 flex-col bg-white bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-6 md:min-h-screen">
+            <div className="flex flex-col bg-linear-to-r from-teal-50 to-white p-6 bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-2 md:min-h-screen">
               <TherapistHeader page={page} />
 
               <TherapistDataProvider>

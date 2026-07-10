@@ -1,26 +1,21 @@
-import { Button } from '@headlessui/react';
 import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import TherapistDashboardAppointmentsMobile from '../../components/pages/therapist/dashboard/TherapistDashboardAppointmentsMobile';
 import TherapistDashboardAppointmentsTable from '../../components/pages/therapist/dashboard/TherapistDashboardAppointmentsTable';
-import TherapistDashboardDynamicParagraph from '../../components/pages/therapist/dashboard/TherapistDashboardDynamicParagraph';
 import TherapistDashboardModals from '../../components/pages/therapist/dashboard/TherapistDashboardModals';
+import TherapistCard from '../../components/pages/therapist/TherapistCard';
 import DNALoader from '../../components/ui/DNALoader';
-import { useUTherapistUiContext } from '../../hooks/context/therapist/useTherapistUiContext';
-import { useDynamicDashboardRefresh } from '../../hooks/therapist/useDynamicAppointmentRefresh';
+import { useDashboardRefresh } from '../../hooks/therapist/useDashboardRefresh';
 import { useFetchTherapistDashboardDataQuery } from '../../hooks/therapist/useFetchTherapistDashboardDataQuery';
-import { formatCurrentDate } from '../../utils/functions/formatCurrentDate';
-import dynamicIcon from '/icons/dynamic2_32.webp';
-import dynamicIcon2 from '/icons/dynamic_32.webp';
+import { getRemainingAppointments } from '../../utils/functions/therapist/getRemainingAppointments';
 
 export default function DashboardPage() {
   const { data: tableAppointments = [], isLoading } =
     useFetchTherapistDashboardDataQuery();
 
-  const { isDynamicModeOn, handleDynamicModeClick } = useUTherapistUiContext();
+  useDashboardRefresh();
 
-  useDynamicDashboardRefresh(isDynamicModeOn);
-
-  const currentDate = formatCurrentDate();
+  const remainingAppointments = getRemainingAppointments(tableAppointments);
 
   const { setHeroMessage } = useOutletContext<{
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
@@ -31,7 +26,7 @@ export default function DashboardPage() {
       <>
         Vous avez{' '}
         <span className="font-semibold text-slate-800">
-          {tableAppointments.length}
+          {remainingAppointments.length}
         </span>{' '}
         rendez-vous aujourd'hui.
       </>
@@ -47,26 +42,25 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex flex-col items-center w-11/12">
-      <div className="w-full flex justify-end mb-6 gap-4 items-center">
-        <TherapistDashboardDynamicParagraph />
-
-        <Button onClick={handleDynamicModeClick}>
-          <img
-            src={!isDynamicModeOn ? dynamicIcon : dynamicIcon2}
-            alt={isDynamicModeOn ? 'dynamic mode on' : 'dynamic mode off'}
-            className={`${isDynamicModeOn ? 'animate-spin' : ''} w-6 h-6 md:w-8 md:h-8 cursor-pointer`}
-          />
-        </Button>
-
-        <p className="border border-gray-200 p-2 rounded-xl shadow-xl italic font-semibold text-xxs md:text-base">
-          Date: {currentDate}
-        </p>
+    <>
+      <div className="block md:hidden">
+        <TherapistDashboardAppointmentsMobile
+          appointments={tableAppointments}
+        />
       </div>
 
-      <TherapistDashboardAppointmentsTable appointments={tableAppointments} />
+      <div className="hidden md:flex md:flex-col md:items-center md:w-11/12  ">
+        <TherapistCard
+          title="Planning du jour"
+          subtitle={"Les consultations prévues pour aujourd'hui."}
+        >
+          <TherapistDashboardAppointmentsTable
+            appointments={tableAppointments}
+          />
+        </TherapistCard>
 
-      <TherapistDashboardModals />
-    </div>
+        <TherapistDashboardModals />
+      </div>
+    </>
   );
 }
