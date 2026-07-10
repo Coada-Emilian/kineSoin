@@ -3,17 +3,20 @@ import { capitalizeFirstLetter } from '../../utils/functions/capitalizeFirstLett
 import { formatCurrentDate } from '../../utils/functions/formatCurrentDate';
 import { getGreeting } from '../../utils/functions/therapist/getGreeting';
 
-export default function TherapistHero({ userProfile }: TherapistHeroProps) {
+export default function TherapistHero({
+  userProfile,
+  message,
+}: TherapistHeroProps) {
   const greeting = getGreeting();
   const currentDate = capitalizeFirstLetter(formatCurrentDate());
   return (
-    <div className="flex flex-col-reverse items-center justify-between gap-6 rounded-b-2xl border border-slate-200 bg-linear-to-r from-teal-50 to-white p-6 shadow-sm md:flex-row">
+    <div className="flex flex-col-reverse items-center justify-between gap-6 rounded-b-2xl border border-slate-100 bg-linear-to-r from-teal-50 to-white p-6 shadow-sm md:flex-row">
       <div className="space-y-2 text-center md:text-left">
         <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-800">
           {greeting}, {userProfile?.surname} 👋
         </h1>
         <p className=" text-sm md:text-base text-slate-500">{currentDate}</p>
-        <p className="mt-1 text-sm text-slate-600">Ravi de vous retrouver.</p>
+        <p className="mt-1 text-sm text-slate-600">{message}</p>
       </div>
 
       <img

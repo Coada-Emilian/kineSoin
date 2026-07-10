@@ -54,6 +54,7 @@ export interface NavbarLogoProps {
 
 export interface TherapistHeroProps {
   userProfile: IBasicUser;
+  message: React.ReactNode;
 }
 
 export interface BaseEntityOutputContainerProps {

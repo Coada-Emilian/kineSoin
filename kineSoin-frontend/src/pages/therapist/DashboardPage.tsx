@@ -1,4 +1,6 @@
 import { Button } from '@headlessui/react';
+import { useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import TherapistDashboardAppointmentsTable from '../../components/pages/therapist/dashboard/TherapistDashboardAppointmentsTable';
 import TherapistDashboardDynamicParagraph from '../../components/pages/therapist/dashboard/TherapistDashboardDynamicParagraph';
 import TherapistDashboardModals from '../../components/pages/therapist/dashboard/TherapistDashboardModals';
@@ -19,6 +21,22 @@ export default function DashboardPage() {
   useDynamicDashboardRefresh(isDynamicModeOn);
 
   const currentDate = formatCurrentDate();
+
+  const { setHeroMessage } = useOutletContext<{
+    setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
+  }>();
+
+  useEffect(() => {
+    setHeroMessage(
+      <>
+        Vous avez{' '}
+        <span className="font-semibold text-slate-800">
+          {tableAppointments.length}
+        </span>{' '}
+        rendez-vous aujourd'hui.
+      </>
+    );
+  }, [tableAppointments, setHeroMessage]);
 
   if (isLoading) {
     return (

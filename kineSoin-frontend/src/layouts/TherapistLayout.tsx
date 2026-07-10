@@ -1,3 +1,4 @@
+import { useState, type ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
 import PublicFooter from '../components/layouts/footers/PublicFooter';
 import TherapistMobileNavbar from '../components/layouts/mobileNavbars/TherapistMobileNavbar';
@@ -15,6 +16,10 @@ export default function TherapistLayout() {
     isLoading: isTherapistLoading,
     isError,
   } = useFetchTherapistDataQuery();
+
+  const [heroMessage, setHeroMessage] = useState<ReactNode>(
+    'Ravi de vous retrouver.'
+  );
 
   if (isTherapistLoading) {
     return DNALoader();
@@ -37,7 +42,10 @@ export default function TherapistLayout() {
 
       <main className="flex items-center w-full justify-center h-fit md:h-fit bg-gray-100">
         <div className="flex flex-col w-full h-full">
-          <TherapistHero userProfile={therapist.response} />
+          <TherapistHero
+            userProfile={therapist.response}
+            message={heroMessage}
+          />
 
           <div className="h-fit md:flex gap-4 mb-2 ">
             <div className="w-1/4 h-full border-r-2 border-r-lightGrey border-solid hidden md:block md:h-auto ">
@@ -49,7 +57,7 @@ export default function TherapistLayout() {
               </p>
 
               <TherapistDataProvider>
-                <Outlet />
+                <Outlet context={{ setHeroMessage }} />
               </TherapistDataProvider>
             </div>
           </div>
