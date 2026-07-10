@@ -5,7 +5,7 @@ export default function TherapistHeader({ page }: TherapistHeaderProps) {
   const { title, subtitle } = getTherapistPageHeader(page);
 
   return (
-    <header className="mb-6">
+    <header className="mb-6 text-center md:text-left">
       <h2 className="text-2xl font-semibold text-slate-800">{title}</h2>
 
       {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}

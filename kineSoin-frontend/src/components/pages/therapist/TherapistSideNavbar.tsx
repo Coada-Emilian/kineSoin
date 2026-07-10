@@ -3,24 +3,28 @@ import { therapistSideNavbarLinkDetails } from '../../../utils/config/therapist/
 
 export default function TherapistSideNavbar() {
   return (
-    <div className="mx-4 ">
-      {therapistSideNavbarLinkDetails.map((link) => (
-        <NavLink
-          to={link.path}
-          className={({ isActive }) =>
-            `flex items-center justify-start my-2 ${
-              isActive
-                ? 'text-secondaryBlue font-bold italic'
-                : 'text-primaryBlue'
-            }`
-          }
-          key={link.name}
-        >
-          <p className="hover:text-secondaryBlue focus:text-red-500 text-lg">
+    <aside className="sticky top-6 px-4 py-6">
+      <h2 className="mb-6 px-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
+        Navigation
+      </h2>
+
+      <nav className="space-y-2">
+        {therapistSideNavbarLinkDetails.map((link) => (
+          <NavLink
+            key={link.name}
+            to={link.path}
+            className={({ isActive }) =>
+              `flex items-center rounded-xl px-4 py-3 text-base font-medium transition-all duration-200 ${
+                isActive
+                  ? 'bg-teal-100 text-teal-700 shadow-sm'
+                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800'
+              }`
+            }
+          >
             {link.name}
-          </p>
-        </NavLink>
-      ))}
-    </div>
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
   );
 }

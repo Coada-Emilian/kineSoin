@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
-import PublicFooter from '../components/layouts/footers/PublicFooter';
+import TherapistFooter from '../components/layouts/footers/TherapistFooter';
 import TherapistMobileNavbar from '../components/layouts/mobileNavbars/TherapistMobileNavbar';
 import TherapistNavbar from '../components/layouts/navbars/TherapistNavbar';
 import TherapistHeader from '../components/pages/therapist/TherapistHeader';
@@ -48,7 +48,7 @@ export default function TherapistLayout() {
           />
 
           <div className="h-fit md:flex gap-4 mb-2 bg-linear-to-r from-teal-50 to-white p-6 ">
-            <div className="w-1/4 h-full border-r-2 border-r-slate-100 border-solid hidden md:block md:h-auto ">
+            <div className="hidden w-72 shrink-0 border-r border-slate-100 md:block">
               <TherapistSideNavbar />
             </div>
 
@@ -63,7 +63,7 @@ export default function TherapistLayout() {
         </div>
       </main>
 
-      <PublicFooter />
+      <TherapistFooter />
 
       <TherapistMobileNavbar />
     </div>

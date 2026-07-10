@@ -14,7 +14,7 @@ export default function TherapistNavbar() {
   };
 
   return (
-    <header className="bg-white/60 backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1">
+    <header className="bg-linear-to-r from-teal-50 to-white backdrop-blur-md bg-opacity-70 sticky top-0 w-full py-1">
       <nav className="justify-between flex items-center w-full px-4">
         <NavbarLogo />
 

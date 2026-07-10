@@ -30,7 +30,7 @@ export const therapistMobileNavbarLinkDetails = [
     onChange: () => {},
   },
   {
-    name: 'Ordonnances',
+    name: 'Ordos',
     path: '/therapist/prescriptions',
     icon: prescriptionIcon,
     onChange: () => {},

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { TherapistHeroProps } from '../../@types/props/componentProps';
 import { capitalizeFirstLetter } from '../../utils/functions/capitalizeFirstLetter';
 import { formatCurrentDate } from '../../utils/functions/formatCurrentDate';
@@ -11,6 +12,15 @@ export default function TherapistHero({
   const currentDate = capitalizeFirstLetter(formatCurrentDate());
   return (
     <div className="flex flex-col-reverse items-center justify-between gap-6 border border-slate-100 bg-linear-to-r from-teal-50 to-white p-6 shadow-sm md:flex-row">
+      <div className="md:hidden">
+        <Link
+          to="/therapist/dashboard"
+          className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 transition-colors hover:text-teal-800"
+        >
+          ← Tableau de bord
+        </Link>
+      </div>
+      
       <div className="space-y-2 text-center md:text-left">
         <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-800">
           {greeting}, {userProfile?.surname} 👋
