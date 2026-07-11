@@ -10,6 +10,7 @@ import TherapistModal from '../therapist/TherapistModal';
 export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
   const { selectedPatient: patient, setSelectedPatient } =
     useTherapistSelectionContext();
+
   const handleClose = () => {
     setSelectedPatient(null);
     onClose();
@@ -48,10 +49,10 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
       header="Messagerie patient"
       message={
         <>
-          <span className="block font-normal not-italic text-lg md:text-xl">
+          <span className="block font-normal not-italic text-lg">
             Envoyez un message à
           </span>
-          <span className="block font-semibold text-xl md:text-2xl">
+          <span className="block font-semibold text-xl">
             {patient?.name} {patient?.surname}
           </span>
         </>

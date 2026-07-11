@@ -19,7 +19,7 @@ export const customButtonTypeDetails = [
   },
   {
     type: 'delete',
-    background: 'bg-red-300 hover:bg-red-500 ',
+    background: 'bg-red-400 hover:bg-red-600 ',
   },
   {
     type: 'active',

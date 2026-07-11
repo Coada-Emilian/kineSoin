@@ -32,7 +32,7 @@ export default function TherapistModal({
           </h2>
 
           {isDestructive && (
-            <p className="mt-2 text-center text-sm font-medium text-red-600">
+            <p className="mt-2 text-center text-sm  text-red-700 px-2">
               Cette action est définitive et ne peut pas être annulée.
             </p>
           )}

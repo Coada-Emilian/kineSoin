@@ -5,6 +5,7 @@ const modalVariants = {
   form: 'p-6 md:p-8 gap-6',
   compact: 'p-5 gap-3',
   spacious: 'p-8 md:p-10 gap-8',
+  tight: 'p-0 gap-0',
 };
 
 const modalMaxSizes = {
