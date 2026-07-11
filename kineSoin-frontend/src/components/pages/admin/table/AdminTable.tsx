@@ -49,7 +49,7 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
   return (
     <>
       <div className="w-full px-4 md:px-8 py-6">
-        <div className="mb-8">
+        <div className="mb-4 md:mb-8">
           <TableTitle
             tableTitle={activeEntity?.tableTitle || ''}
             tableSubtitle={activeEntity?.tableSubtitle || ''}
@@ -58,41 +58,41 @@ export default function AdminTable({ entities, entityType }: AdminTableProps) {
         </div>
 
         <div
-          className={`flex flex-wrap items-center gap-4 mb-4 ${!activeEntity?.statusButtons ? 'justify-end' : 'justify-between'}`}
+          className={`flex flex-wrap items-center ${!activeEntity?.statusButtons ? 'justify-end mb-4' : 'justify-between gap-4 mb-4'}`}
         >
-          <>
+          <div className="flex w-full md:w-fit justify-center">
             {activeEntity?.statusButtons}
+          </div>
 
-            <div className="flex gap-3">
-              {activeEntity?.regionButton && (
+          <div className="flex gap-3 w-full md:w-fit justify-center">
+            {activeEntity?.regionButton && (
+              <CustomButton
+                btn={{
+                  type: 'add',
+                  text: 'Voir regions',
+                  style: 'status',
+                  onClick: () => {
+                    setOpenModal('region');
+                  },
+                }}
+              />
+            )}
+
+            {activeEntity?.customBtnText && (
+              <>
                 <CustomButton
                   btn={{
                     type: 'add',
-                    text: 'Voir les regions',
+                    text: activeEntity.customBtnText,
                     style: 'status',
                     onClick: () => {
-                      setOpenModal('region');
+                      setOpenModal(activeEntity.modalName);
                     },
                   }}
                 />
-              )}
-
-              {activeEntity?.customBtnText && (
-                <>
-                  <CustomButton
-                    btn={{
-                      type: 'add',
-                      text: activeEntity.customBtnText,
-                      style: 'status',
-                      onClick: () => {
-                        setOpenModal(activeEntity.modalName);
-                      },
-                    }}
-                  />
-                </>
-              )}
-            </div>
-          </>
+              </>
+            )}
+          </div>
         </div>
 
         <div className="w-full md:w-11/12 mx-auto bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">

@@ -21,9 +21,11 @@ export default function AfflictionTableBody({
 
         <TableCell> {affliction.name}</TableCell>
 
-        <TableCell>{affliction.body_region?.name ?? 'N/A'}</TableCell>
-
         <TableCell> {affliction.insurance_code}</TableCell>
+
+        <TableCell className="hidden md:table-cell">
+          {affliction.body_region?.name ?? 'N/A'}
+        </TableCell>
 
         <TableCell>
           <AdminEditButton
