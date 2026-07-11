@@ -10,7 +10,7 @@ export default function BodyRegionsModal({
 }: BodyRegionsModalProps) {
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="xs">
-      <div className="bg-white/85 backdrop-blur-sm rounded-3xl">
+      <div className=" backdrop-blur-sm rounded-3xl">
         <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-4">
           Toutes les régions
         </h2>
@@ -21,7 +21,7 @@ export default function BodyRegionsModal({
 
         <BodyRegionsTableModal />
 
-        <div className="flex gap-2 mt-6 w-fit mx-auto">
+        <div className="flex gap-2 mt-2 w-fit mx-auto">
           <CustomButton
             btn={{
               type: 'basic',

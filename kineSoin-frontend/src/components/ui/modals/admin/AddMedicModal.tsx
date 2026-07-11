@@ -26,8 +26,8 @@ export default function AddMedicModal({ isOpen, onClose }: BasicModalProps) {
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} variant="form" size="md">
-      <div className="bg-white/85 backdrop-blur-sm rounded-3xl p-2 md:p-4">
-        <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-4">
+      <div className="backdrop-blur-sm rounded-3xl p-2 md:p-4">
+        <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-2">
           Ajouter un médecin
         </h2>
 
@@ -43,7 +43,7 @@ export default function AddMedicModal({ isOpen, onClose }: BasicModalProps) {
           </div>
         )}
 
-        <form className="flex flex-col gap-5" onSubmit={handleFormSubmit}>
+        <form className="flex flex-col md:gap-2" onSubmit={handleFormSubmit}>
           <TextInput
             input={{
               id: 'medic-register-name_input',

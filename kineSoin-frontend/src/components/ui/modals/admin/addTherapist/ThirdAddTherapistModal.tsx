@@ -55,8 +55,8 @@ export default function ThirdAddTherapistModal({
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="sm">
-      <div className="bg-white/85 backdrop-blur-sm rounded-3xl p-2 md:p-4">
-        <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-4">
+      <div className=" backdrop-blur-sm rounded-3xl p-2 md:p-4">
+        <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-2">
           Ajouter un thérapeute
         </h2>
 
@@ -72,7 +72,7 @@ export default function ThirdAddTherapistModal({
           </div>
         )}
 
-        <form className="flex flex-col gap-5" onSubmit={handleFormSubmit}>
+        <form className="flex flex-col md:gap-2" onSubmit={handleFormSubmit}>
           <EmailInput
             input={{
               id: 'therapist-register-email_input',

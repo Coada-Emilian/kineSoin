@@ -9,7 +9,7 @@ export default function ButtonSection({
   setIsAddRegionModalOpen,
 }: AdminAddTherapistButtonSectionProps) {
   return (
-    <div className="flex gap-2 mt-6 w-fit mx-auto">
+    <div className="flex gap-2 mt-4 w-fit mx-auto">
       {setIsRegionModalOpen && setIsAddRegionModalOpen ? (
         <CustomButton
           btn={{

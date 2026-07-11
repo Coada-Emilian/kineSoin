@@ -136,8 +136,8 @@ export default function AdminEntityProfile({
   return (
     <>
       <form className="flex justify-center" onSubmit={handleFormSubmit}>
-        <div className="flex w-full max-w-5xl flex-col rounded-2xl border border-gray-200 bg-white text-primaryBlue shadow-lg transition-shadow duration-300 hover:shadow-xl mx-4 my-8 overflow-visible">
-          <div className="flex w-full items-center justify-center border-b border-gray-200 bg-primaryBlue px-6 py-5">
+        <div className="flex w-full max-w-5xl flex-col rounded-2xl border border-gray-200 bg-white text-primaryBlue shadow-lg transition-shadow duration-300 hover:shadow-xl  my-4 overflow-visible ">
+          <div className="flex w-full items-center justify-center border-b border-gray-200 bg-primaryBlue px-6 py-5 rounded-t-xl">
             <EntityProfileTitle entityType={entityType} />
           </div>
 
