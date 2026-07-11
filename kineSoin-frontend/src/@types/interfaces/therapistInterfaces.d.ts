@@ -131,3 +131,11 @@ export interface IPatientPrescription {
   at_home_care: boolean;
   picture_url: string;
 }
+
+export interface IPatientsTableRowData {
+  id: number;
+  fullName: string;
+  picture_url: string;
+  status: string;
+  therapist: ITherapist | null;
+}

@@ -20,6 +20,7 @@ export default function DashboardPage() {
   const { setHeroMessage } = useOutletContext<{
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   }>();
+  
   const remainingAppointmentsCount = remainingAppointments.length;
 
   useEffect(() => {

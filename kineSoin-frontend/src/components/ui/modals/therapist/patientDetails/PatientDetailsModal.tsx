@@ -1,6 +1,6 @@
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
-import { useFetchPatientDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPatientDetailsAsTherapistMutation';
+import { useFetchPatientDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPatientDetailsAsTherapistQuery';
 import CustomButton from '../../../buttons/CustomButton';
 import DNALoader from '../../../DNALoader';
 import EntityIdOutput from '../../../outputs/EntityIdOutput';

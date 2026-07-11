@@ -1,8 +1,9 @@
 import DashboardPage from '../../../pages/therapist/DashboardPage';
+import PatientsPage from '../../../pages/therapist/PatientsPage';
 
 export const therapistRouteDetails = [
   { path: 'dashboard', element: DashboardPage },
-  //   { path: 'patients' },
+  { path: 'patients', element: PatientsPage },
   //   { path: 'agenda' },
   //   { path: 'messages' },
   //   { path: 'my-profile' },
