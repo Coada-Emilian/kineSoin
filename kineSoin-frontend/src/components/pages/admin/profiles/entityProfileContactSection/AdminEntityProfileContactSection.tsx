@@ -10,7 +10,7 @@ export default function AdminEntityProfileContactSection({
   const { isProfileEditing } = useAdminEntityProfileContext();
 
   return (
-    <section className="mb-2 w-full space-y-3">
+    <section className="mb-2 w-full space-y-3 text-sm md:text-md lg:text-lg xl:text-xl">
       {isProfileEditing && entityType !== 'patient' ? (
         <AdminEntityProfileContactSectionInputs entityType={entityType} />
       ) : (

@@ -9,9 +9,10 @@ export default function TherapistModal({
   patient,
   children,
   isDestructive,
+  size,
 }: TherapistModalProps) {
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} size="sm" variant="tight">
+    <BaseModal isOpen={isOpen} onClose={onClose} size={size} variant="tight">
       <div className="relative">
         <div className="bg-linear-to-r from-teal-300 to-slate-200 rounded-t-xl p-6 text-center text-slate-800 uppercase font-semibold drop-shadow-sm tracking-wide pb-16 ">
           <p className="text-base md:text-xl bg-linear-to-r from-slate-800 to-slate-500 bg-clip-text text-transparent">
@@ -27,7 +28,7 @@ export default function TherapistModal({
         </div>
 
         <div>
-          <h2 className="mb-6 text-center italic text-primaryBlue pt-16">
+          <h2 className="mb-6 text-center italic text-slate-600 pt-16">
             {message}
           </h2>
 

@@ -9,10 +9,12 @@ const modalVariants = {
 };
 
 const modalMaxSizes = {
-  xs: '300px',
-  sm: '400px',
-  md: '500px',
-  lg: '800px',
+  xs: '20rem',
+  sm: '26rem',
+  md: '35rem',
+  lg: '45rem',
+  xl: '56rem',
+  xxl: '67.5rem',
 };
 
 export default function BaseModal({

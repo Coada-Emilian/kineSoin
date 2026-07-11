@@ -27,8 +27,6 @@ export default async function getOnePatientAsTherapist({
         'updated_at',
         'picture_id',
         'birth_name',
-        'full_phone_number',
-        'gender',
       ],
     },
     include: [

@@ -3,7 +3,7 @@ import { useAdminEntityProfileContext } from '../../../../../hooks/context/admin
 import TextInput from '../../../../ui/inputs/TextInput';
 import BaseEntityOutputContainer from '../../../../ui/outputs/BaseEntityOutputContainer';
 import EntityIdOutput from '../../../../ui/outputs/EntityIdOutput';
-import AdminEntityStatusOutput from './outputs/AdminEntityStatusOutput';
+import EntityStatusOutput from '../../../../ui/outputs/EntityStatusOutput';
 import userIcon from '/icons/user.png';
 
 export default function AdminEntityProfileIdentitySection({
@@ -35,8 +35,8 @@ export default function AdminEntityProfileIdentitySection({
 
   return (
     <section>
-      <div className="flex w-full justify-between">
-        <AdminEntityStatusOutput status={editedEntity.status} />
+      <div className="flex w-full justify-between text-sm md:text-md lg:text-lg xl:text-xl">
+        <EntityStatusOutput status={editedEntity.status} />
 
         <EntityIdOutput id={editedEntity.id} />
       </div>

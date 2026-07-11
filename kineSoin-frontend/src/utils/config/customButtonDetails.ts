@@ -7,7 +7,7 @@ import therapistLogo from '/logos/therapist_192.webp';
 export const customButtonTypeDetails = [
   {
     type: 'basic',
-    background: 'bg-primaryTeal hover:bg-secondaryTeal',
+    background: 'bg-teal-300 hover:bg-secondaryTeal',
   },
   {
     type: 'cancel',

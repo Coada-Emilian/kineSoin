@@ -47,6 +47,7 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
       onClose={handleClose}
       patient={patient}
       header="Messagerie patient"
+      size="sm"
       message={
         <>
           <span className="block font-normal not-italic text-lg">

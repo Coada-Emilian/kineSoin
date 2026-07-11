@@ -46,6 +46,7 @@ export default function CancelAppointmentModal({
         onClose={onClose}
         patient={patient}
         header="Annulation de rendez-vous"
+        size="sm"
         message={
           <>
             <span className="block font-normal not-italic text-lg">
@@ -57,7 +58,11 @@ export default function CancelAppointmentModal({
               {patient?.name} {patient?.surname}
             </span>
             <span className="block font-normal not-italic text-lg">
-              prévu à {appointment?.time}?
+              prévu à
+              <span className="font-semibold text-xl">
+                {' '}
+                {appointment?.time}?
+              </span>
             </span>
           </>
         }

@@ -107,6 +107,7 @@ export interface ITherapistPatientDetails {
   picture_url: string;
   email: string;
   insurance_details: IPatientInsuranceExtended;
+  gender: string;
   // patient_insurance: {
   //   id: number;
   //   patient_id: number;

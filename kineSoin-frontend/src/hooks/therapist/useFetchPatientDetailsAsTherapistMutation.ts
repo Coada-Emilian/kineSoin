@@ -30,6 +30,7 @@ export const useFetchPatientDetailsAsTherapistQuery = ({
       email: data.email,
       insurance_details: data.insurance_details,
       therapist: data.therapist,
+      gender: data.gender,
     }),
   });
   return queryResult;
