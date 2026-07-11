@@ -12,30 +12,33 @@ export default function TherapistModal({
 }: TherapistModalProps) {
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} size="sm" variant="tight">
-      <div className="bg-primaryBlue rounded-t-xl p-6 text-center text-white">
-        <p className="text-base md:text-lg">{header}</p>
-      </div>
-
-      <div className="relative mb-10 flex flex-col items-center bg-primaryTeal py-8">
-        <img
-          src={patient?.picture_url}
-          alt={patient?.name}
-          className="absolute top-4 h-24 w-24 rounded-full border-4 border-white object-cover"
-        />
-      </div>
-
-      <div>
-        <h2 className="mb-6 text-center text-xl font-semibold italic text-primaryBlue">
-          {message}
-        </h2>
-
-        {isDestructive && (
-          <p className="mt-2 text-center text-sm font-medium text-red-600">
-            Cette action est définitive et ne peut pas être annulée.
+      <div className="relative">
+        <div className="bg-linear-to-r from-teal-300 to-slate-200 rounded-t-xl p-6 text-center text-slate-800 uppercase font-semibold drop-shadow-sm tracking-wide pb-16 ">
+          <p className="text-base md:text-xl bg-linear-to-r from-slate-800 to-slate-500 bg-clip-text text-transparent">
+            {header}
           </p>
-        )}
+        </div>
+        <div className="flex justify-center mt-2">
+          <img
+            src={patient?.picture_url}
+            alt={patient?.name}
+            className="h-24 w-24 md:h-28 md:w-28 rounded-full border-4 border-slate-100 object-cover absolute top-15"
+          />
+        </div>
 
-        {children}
+        <div>
+          <h2 className="mb-6 text-center italic text-primaryBlue pt-16">
+            {message}
+          </h2>
+
+          {isDestructive && (
+            <p className="mt-2 text-center text-sm font-medium text-red-600">
+              Cette action est définitive et ne peut pas être annulée.
+            </p>
+          )}
+
+          {children}
+        </div>
       </div>
     </BaseModal>
   );

@@ -48,8 +48,10 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
       header="Messagerie patient"
       message={
         <>
-          <span className="block">Envoyez un message à</span>
-          <span className="block text-2xl font-semibold not-italic">
+          <span className="block font-normal not-italic text-lg md:text-xl">
+            Envoyez un message à
+          </span>
+          <span className="block font-semibold text-xl md:text-2xl">
             {patient?.name} {patient?.surname}
           </span>
         </>
@@ -79,10 +81,10 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
           />
         </div>
 
-        <div className="flex justify-center gap-4 py-6">
+        <div className="flex justify-center gap-4 py-4">
           <CustomButton
             btn={{
-              type: 'send',
+              type: 'basic',
               text: 'Envoyer',
               style: 'normal',
             }}

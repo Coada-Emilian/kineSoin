@@ -2,7 +2,6 @@ import ReactModal from 'react-modal';
 import type { BaseModalProps } from '../../../@types/props/modalProps';
 
 const modalVariants = {
-  tight: 'p-6',
   form: 'p-6 md:p-8 gap-6',
   compact: 'p-5 gap-3',
   spacious: 'p-8 md:p-10 gap-8',
