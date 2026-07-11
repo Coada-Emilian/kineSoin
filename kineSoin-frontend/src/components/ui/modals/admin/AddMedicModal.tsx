@@ -25,7 +25,7 @@ export default function AddMedicModal({ isOpen, onClose }: BasicModalProps) {
   }
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} variant="default" size="md">
+    <BaseModal isOpen={isOpen} onClose={onClose} variant="form" size="md">
       <div className="bg-white/85 backdrop-blur-sm rounded-3xl p-2 md:p-4">
         <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-4">
           Ajouter un médecin

@@ -3,7 +3,7 @@ import { therapistMobileNavbarLinkDetails } from '../../../utils/config/therapis
 
 export default function TherapistMobileNavbar() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white shadow-lg md:hidden">
+    <nav className="sticky bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white shadow-lg md:hidden">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-around">
         {therapistMobileNavbarLinkDetails.map((link) => (
           <NavLink

@@ -11,12 +11,12 @@ export default function TherapistModal({
   isDestructive,
 }: TherapistModalProps) {
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-primaryBlue rounded-t-xl py-8 px-6 text-center text-white">
+    <BaseModal isOpen={isOpen} onClose={onClose} size="sm" variant="tight">
+      <div className="bg-primaryBlue rounded-t-xl p-6 text-center text-white">
         <p className="text-base md:text-lg">{header}</p>
       </div>
 
-      <div className="relative mb-16 flex flex-col items-center bg-primaryTeal py-8">
+      <div className="relative mb-10 flex flex-col items-center bg-primaryTeal py-8">
         <img
           src={patient?.picture_url}
           alt={patient?.name}
@@ -24,19 +24,19 @@ export default function TherapistModal({
         />
       </div>
 
-      <div className="px-6">
+      <div>
         <h2 className="mb-6 text-center text-xl font-semibold italic text-primaryBlue">
           {message}
         </h2>
 
+        {isDestructive && (
+          <p className="mt-2 text-center text-sm font-medium text-red-600">
+            Cette action est définitive et ne peut pas être annulée.
+          </p>
+        )}
+
         {children}
       </div>
-
-      {isDestructive && (
-        <p className="mt-2 text-center text-sm font-medium text-red-600">
-          Cette action est définitive et ne peut pas être annulée.
-        </p>
-      )}
     </BaseModal>
   );
 }

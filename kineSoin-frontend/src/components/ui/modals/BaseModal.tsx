@@ -2,12 +2,14 @@ import ReactModal from 'react-modal';
 import type { BaseModalProps } from '../../../@types/props/modalProps';
 
 const modalVariants = {
-  default: 'p-6 md:p-8 gap-6',
+  tight: 'p-6',
+  form: 'p-6 md:p-8 gap-6',
   compact: 'p-5 gap-3',
-  large: 'p-8 md:p-10 gap-8',
+  spacious: 'p-8 md:p-10 gap-8',
 };
 
 const modalMaxSizes = {
+  xs: '300px',
   sm: '400px',
   md: '500px',
   lg: '800px',
@@ -18,7 +20,7 @@ export default function BaseModal({
   onClose,
   children,
   className = '',
-  variant = 'default',
+  variant = 'form',
   size = 'md',
   ...props
 }: BaseModalProps) {
@@ -28,18 +30,34 @@ export default function BaseModal({
       onRequestClose={onClose}
       style={{
         content: {
-          width: '80vw',
-          height: 'fit-content',
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          transform: 'translate(-50%, -50%)',
+
+          width: 'min(92vw, 800px)',
           maxWidth: modalMaxSizes[size],
-          margin: 'auto',
-          padding: '0px',
-          borderRadius: '16px',
-          backgroundColor: 'rgba(255,255,255,.95)',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          opacity: '95%',
+          maxHeight: '90vh',
+
+          margin: 0,
+          padding: 0,
+
+          display: 'flex',
+          flexDirection: 'column',
+
+          overflow: 'hidden',
+          overflowY: 'auto',
+
+          borderRadius: '20px',
+          border: '1px solid rgba(226, 232, 240, 0.8)',
+
+          backgroundColor: '#FDFDFD',
+          boxShadow: '0 24px 48px rgba(15, 23, 42, 0.18)',
         },
         overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(15, 23, 42, 0.45)',
+          zIndex: 1000,
         },
       }}
       {...props}

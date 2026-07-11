@@ -3,24 +3,30 @@ import { adminMobileNavbarLinkDetails } from '../../../utils/config/admin/layout
 
 export default function AdminMobileNav() {
   return (
-    <div className="flex gap-2 justify-around w-full px-4 bg-primaryTeal py-3 rounded md:hidden">
-      {adminMobileNavbarLinkDetails.map((link, index) => (
-        <NavLink
-          to={link.path}
-          key={index}
-          className={({ isActive }) =>
-            `flex flex-col w-3/12 items-center bg-white/40 justify-center text-center border border-slate-200 shadow-2xl rounded-2xl p-2 ${
-              isActive
-                ? 'text-secondaryBlue font-bold italic ring-1 ring-primaryTeal scale-105 text-base animate-pulse'
-                : 'text-primaryBlue'
-            }`
-          }
-        >
-          <img src={link.icon} alt={link.name} className="mb-1 w-8" />
+    <nav className="sticky bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white shadow-lg md:hidden">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-around">
+        {adminMobileNavbarLinkDetails.map((link) => (
+          <NavLink
+            key={link.name}
+            to={link.path}
+            className={({ isActive }) =>
+              `flex h-full flex-1 flex-col items-center justify-center transition-colors ${
+                isActive
+                  ? 'text-teal-700'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`
+            }
+          >
+            <img
+              src={link.icon}
+              alt={link.name}
+              className="mb-1 h-6 w-6 object-contain"
+            />
 
-          <p className="text-xs font-medium">{link.name}</p>
-        </NavLink>
-      ))}
-    </div>
+            <span className="mt-1 text-[11px] font-medium">{link.name}</span>
+          </NavLink>
+        ))}
+      </div>
+    </nav>
   );
 }

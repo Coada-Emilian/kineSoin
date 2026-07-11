@@ -5,7 +5,7 @@ import { useSendMessageToPatientAsTherapistMutation } from '../../../../hooks/th
 import CustomButton from '../../buttons/CustomButton';
 import DNALoader from '../../DNALoader';
 import TextInput from '../../inputs/TextInput';
-import BaseModal from '../BaseModal';
+import TherapistModal from '../therapist/TherapistModal';
 
 export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
   const { selectedPatient: patient, setSelectedPatient } =
@@ -19,6 +19,10 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
 
   const handleMessageSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!patient) {
+      return;
+    }
 
     const formData = new FormData(e.currentTarget);
 
@@ -37,75 +41,65 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
   }
 
   return (
-    <BaseModal isOpen={isOpen} onClose={handleClose}>
-      <div>
-        <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full text-center">
-          <p className="text-base md:text-lg">Cabinet kinésithérapie Ruffec</p>
-        </div>
+    <TherapistModal
+      isOpen={isOpen}
+      onClose={handleClose}
+      patient={patient}
+      header="Messagerie patient"
+      message={
+        <>
+          <span className="block">Envoyez un message à</span>
+          <span className="block text-2xl font-semibold not-italic">
+            {patient?.name} {patient?.surname}
+          </span>
+        </>
+      }
+    >
+      {mutation.isError && (
+        <p className="text-center text-sm font-medium text-red-500 md:text-md xl:text-xl">
+          {mutation.error.message || "Erreur lors de l'envoi du message."}
+        </p>
+      )}
 
-        <div className="bg-primaryTeal py-8 w-full flex flex-col items-center relative mb-14">
-          <img
-            src={patient?.picture_url}
-            alt={patient?.name}
-            className="w-24 h-24 object-cover rounded-full border-4 border-white absolute top-4"
+      <form
+        className="mt-2 flex flex-col gap-2 italic font-medium text-primaryBlue"
+        onSubmit={handleMessageSubmit}
+      >
+        <div className="mx-auto w-11/12">
+          <TextInput
+            input={{
+              id: `send-message-${patient?.id}`,
+              labelName: '',
+              name: 'content',
+              placeholder: 'Tapez votre message ici',
+              isRequired: true,
+              autoComplete: 'message',
+              additionalLabelClassName: 'text-sm',
+            }}
           />
         </div>
 
-        {mutation.isError && (
-          <p className="text-red-500 text-center text-sm md:text-md xl:text-xl font-medium">
-            {mutation.error.message || "Erreur lors de l'envoi du message."}
-          </p>
-        )}
+        <div className="flex justify-center gap-4 py-6">
+          <CustomButton
+            btn={{
+              type: 'send',
+              text: 'Envoyer',
+              style: 'normal',
+            }}
+            type="submit"
+            disabled={mutation.isPending}
+          />
 
-        <form
-          className="flex flex-col gap-2 mt-2 italic text-primaryBlue font-medium"
-          onSubmit={handleMessageSubmit}
-        >
-          <h3 className="text-sm md:text-md xl:text-xl text-center font-medium text-primaryBlue italic flex flex-col items-center">
-            <span>
-              {'Envoyez un message à '}
-              <span className="font-semibold">
-                {patient?.name} {patient?.surname}
-              </span>
-            </span>
-          </h3>
-
-          <div className="w-11/12 mx-auto">
-            <TextInput
-              input={{
-                id: `send-message-${patient?.id}`,
-                labelName: '',
-                name: 'content',
-                placeholder: 'Tapez votre message ici',
-                isRequired: true,
-                autoComplete: 'message',
-                additionalLabelClassName: 'text-sm',
-              }}
-            />
-          </div>
-
-          <div className="flex gap-4 justify-center py-4  bg-primaryTeal">
-            <CustomButton
-              btn={{
-                type: 'send',
-                text: 'Envoyer',
-                style: 'normal',
-              }}
-              type="submit"
-              disabled={mutation.isPending}
-            />
-
-            <CustomButton
-              btn={{
-                type: 'cancel',
-                text: 'Annuler',
-                style: 'normal',
-                onClick: handleClose,
-              }}
-            />
-          </div>
-        </form>
-      </div>
-    </BaseModal>
+          <CustomButton
+            btn={{
+              type: 'cancel',
+              text: 'Annuler',
+              style: 'normal',
+              onClick: handleClose,
+            }}
+          />
+        </div>
+      </form>
+    </TherapistModal>
   );
 }

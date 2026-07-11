@@ -1,5 +1,8 @@
 import { Button } from '@headlessui/react';
+import type { ISameDayAppointment } from '../../../../@types/interfaces/therapistInterfaces';
 import type { TherapistDashboardAppointmentsCardProps } from '../../../../@types/props/therapistProps';
+import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
+import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
 import { getCurrentTime } from '../../../../utils/functions/getCurrentTime';
 import { getRemainingAppointmentTime } from '../../../../utils/functions/therapist/getRemainingAppointmentTime';
 import cancelIcon from '/icons/cancel.png';
@@ -12,6 +15,30 @@ export default function TherapistDashboardAppointmentCard({
   const isTimePassed = appointment.time < currentTime;
 
   const { label, isPassed } = getRemainingAppointmentTime(appointment.time);
+
+  const { setOpenModal } = useUTherapistUiContext();
+
+  const {
+    setSelectedPatient,
+    setSelectedAppointment,
+    setSelectedPrescription,
+  } = useTherapistSelectionContext();
+
+  const handleMessageIconClick = (appointment: ISameDayAppointment) => {
+    if (!appointment.isTimePassed) {
+      setSelectedPatient(appointment.patient);
+      setOpenModal('message');
+    }
+  };
+
+  const handleCancelIconClick = (appointment: ISameDayAppointment) => {
+    if (!appointment.isTimePassed) {
+      setSelectedAppointment(appointment);
+      setSelectedPatient(appointment.patient);
+      setSelectedPrescription(appointment.prescription);
+      setOpenModal('cancel');
+    }
+  };
 
   return (
     <div
@@ -67,7 +94,10 @@ export default function TherapistDashboardAppointmentCard({
 
       {!isTimePassed && (
         <div className="mt-5 flex justify-end gap-2 border-t border-slate-100 pt-4">
-          <Button className="rounded-full p-2 transition-colors hover:bg-slate-100">
+          <Button
+            className="rounded-full p-2 transition-colors hover:bg-slate-100"
+            onClick={() => handleMessageIconClick(appointment)}
+          >
             <img
               src={messageIcon}
               alt="Envoyer un message"
@@ -75,7 +105,10 @@ export default function TherapistDashboardAppointmentCard({
             />
           </Button>
 
-          <Button className="rounded-full p-2 transition-colors hover:bg-red-50">
+          <Button
+            className="rounded-full p-2 transition-colors hover:bg-red-50"
+            onClick={() => handleCancelIconClick(appointment)}
+          >
             <img
               src={cancelIcon}
               alt="Annuler le rendez-vous"

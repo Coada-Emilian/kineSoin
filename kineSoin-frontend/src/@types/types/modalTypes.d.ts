@@ -1,3 +1,3 @@
-export type BaseModalVariant = 'default' | 'compact' | 'large';
+export type BaseModalVariant = 'tight' | 'form' | 'compact' | 'spacious';
 
-export type BaseModalSize = 'sm' | 'md' | 'lg';
+export type BaseModalSize = 'xs' | 'sm' | 'md' | 'lg';

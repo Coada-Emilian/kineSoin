@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import type { BasicModalProps } from '../../../@types/props/modalProps';
 import type { IButtonIcon } from '../../../@types/types/buttonTypes';
+import { usePatientRegistrationContext } from '../../../hooks/context/usePatientRegistrationContext';
 import { publicNavbarButtonDetails } from '../../../utils/config/public/config/publicNavbarButtonDetails';
 import CustomButton from '../buttons/CustomButton';
 import BaseModal from './BaseModal';
-import { usePatientRegistrationContext } from '../../../hooks/context/usePatientRegistrationContext';
 
 export default function ConnectionModal({ isOpen, onClose }: BasicModalProps) {
   const details = publicNavbarButtonDetails;
@@ -17,7 +17,7 @@ export default function ConnectionModal({ isOpen, onClose }: BasicModalProps) {
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="md">
+    <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="sm">
       <h2 className="text-xl md:text-2xl font-semibold text-primaryBlue italic">
         Choisissez votre espace
       </h2>

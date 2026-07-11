@@ -9,8 +9,8 @@ export default function BodyRegionsModal({
   setIsAddRegionModalOpen,
 }: BodyRegionsModalProps) {
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="sm">
-      <div className="bg-white/85 backdrop-blur-sm rounded-3xl p-4 md:p-6">
+    <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="xs">
+      <div className="bg-white/85 backdrop-blur-sm rounded-3xl">
         <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-4">
           Toutes les régions
         </h2>
