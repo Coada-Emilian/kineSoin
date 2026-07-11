@@ -14,7 +14,7 @@ export default function EntityNameOutput({
       icon={details?.icon ?? ''}
       iconAlt={details?.iconAlt ?? ''}
       label={details?.label ?? ''}
-      value={name && surname ? `${name} ${surname}` : 'Non renseigné'}
+      value={name && surname ? `${name} ${surname}` : `${name}`}
     ></BaseEntityOutputContainer>
   );
 }

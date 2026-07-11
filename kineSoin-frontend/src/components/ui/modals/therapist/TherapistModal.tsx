@@ -1,5 +1,6 @@
 import type { TherapistModalProps } from '../../../../@types/props/therapistProps';
 import BaseModal from '../BaseModal';
+import mainLogo from '/logos/newLogo_64.webp';
 
 export default function TherapistModal({
   isOpen,
@@ -21,8 +22,8 @@ export default function TherapistModal({
         </div>
         <div className="flex justify-center mt-2">
           <img
-            src={patient?.picture_url}
-            alt={patient?.name}
+            src={patient?.picture_url || mainLogo}
+            alt={patient?.name || 'profile'}
             className="h-24 w-24 md:h-28 md:w-28 rounded-full border-4 border-slate-100 object-cover absolute top-15"
           />
         </div>

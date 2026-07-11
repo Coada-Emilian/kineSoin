@@ -1,12 +1,10 @@
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useFetchPatientDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPatientDetailsAsTherapistMutation';
-
 import CustomButton from '../../../buttons/CustomButton';
 import DNALoader from '../../../DNALoader';
 import EntityIdOutput from '../../../outputs/EntityIdOutput';
 import EntityStatusOutput from '../../../outputs/EntityStatusOutput';
-
 import TherapistModal from '../TherapistModal';
 import PatientDetailsOutputs from './PatientDetailsOutputs';
 
@@ -35,7 +33,6 @@ export default function PatientDetailsModal({
   };
 
   return (
-    <>
       <TherapistModal
         isOpen={isOpen}
         onClose={handleClose}
@@ -87,6 +84,5 @@ export default function PatientDetailsModal({
           </div>
         </div>
       </TherapistModal>
-    </>
   );
 }
