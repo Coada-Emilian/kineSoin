@@ -34,7 +34,7 @@ export default function BaseModal({
           margin: 'auto',
           padding: '0px',
           borderRadius: '16px',
-          backgroundColor: 'white/60',
+          backgroundColor: 'rgba(255,255,255,.95)',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
           opacity: '95%',
         },
@@ -52,4 +52,3 @@ export default function BaseModal({
     </ReactModal>
   );
 }
-

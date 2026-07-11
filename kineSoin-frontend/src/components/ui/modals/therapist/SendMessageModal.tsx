@@ -10,39 +10,34 @@ import BaseModal from '../BaseModal';
 export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
   const { selectedPatient: patient, setSelectedPatient } =
     useTherapistSelectionContext();
+  const handleClose = () => {
+    setSelectedPatient(null);
+    onClose();
+  };
 
-  const handleMessageSubmitMutation =
-    useSendMessageToPatientAsTherapistMutation(onClose);
+  const mutation = useSendMessageToPatientAsTherapistMutation(handleClose);
 
   const handleMessageSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!patient?.id) {
-      console.error('Patient ID is invalid');
-      return;
-    }
+
     const formData = new FormData(e.currentTarget);
 
-    handleMessageSubmitMutation.mutate({
+    mutation.mutate({
       id: patient.id,
       formData,
     });
   };
 
-  if (handleMessageSubmitMutation.isPending) {
+  if (mutation.isPending) {
     return (
       <div className="flex w-full items-center justify-center">
-        {DNALoader()};
+        <DNALoader />
       </div>
     );
   }
 
-  const handleCancelClick = () => {
-    setSelectedPatient(null);
-    onClose();
-  };
-
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={handleClose}>
       <div>
         <div className="bg-primaryBlue text-white py-8 px-6 md:py-10 md:px-8 rounded-t-xl rounded-tl-xl w-full text-center">
           <p className="text-base md:text-lg">Cabinet kinésithérapie Ruffec</p>
@@ -56,10 +51,9 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
           />
         </div>
 
-        {handleMessageSubmitMutation.isError && (
+        {mutation.isError && (
           <p className="text-red-500 text-center text-sm md:text-md xl:text-xl font-medium">
-            {handleMessageSubmitMutation.error.message ||
-              "Erreur lors de l'envoi du message."}
+            {mutation.error.message || "Erreur lors de l'envoi du message."}
           </p>
         )}
 
@@ -79,7 +73,7 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
           <div className="w-11/12 mx-auto">
             <TextInput
               input={{
-                id: `therapist-${patient?.name}_${patient?.surname}-send-message_input`,
+                id: `send-message-${patient?.id}`,
                 labelName: '',
                 name: 'content',
                 placeholder: 'Tapez votre message ici',
@@ -98,6 +92,7 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
                 style: 'normal',
               }}
               type="submit"
+              disabled={mutation.isPending}
             />
 
             <CustomButton
@@ -105,7 +100,7 @@ export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
                 type: 'cancel',
                 text: 'Annuler',
                 style: 'normal',
-                onClick: handleCancelClick,
+                onClick: handleClose,
               }}
             />
           </div>
