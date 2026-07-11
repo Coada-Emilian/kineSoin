@@ -17,7 +17,7 @@ export default function HomePageArticle({ article }: IHomePageArticleProps) {
             {article.title}
           </h4>
 
-          <div className="text-gray-600 text-center text-xxxs mx-auto md:text-xs lg:text-sm xl:text-base md:font-semibold ">
+          <div className="text-gray-600 text-center text-xxs mx-auto md:text-xs lg:text-sm xl:text-base md:font-semibold ">
             {article.description}
           </div>
         </div>
