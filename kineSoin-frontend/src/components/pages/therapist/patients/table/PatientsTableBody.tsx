@@ -3,10 +3,8 @@ import type { IPatientsTableRowData } from '../../../../../@types/interfaces/the
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { getEntityStatusText } from '../../../../../utils/functions/getEntityStatusText';
-import { getPatientStatusBackgroundColor } from '../../../../../utils/functions/therapist/dashboard/getPatientStatusBackgroundColor';
 import deleteIcon from '/icons/delete.png';
 import messageIcon from '/icons/message.png';
-import refreshIcon from '/icons/refresh.png';
 
 export default function PatientsTableBody({
   patients,
@@ -52,28 +50,30 @@ export default function PatientsTableBody({
                   className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer"
                   onClick={() => handlePatientNameClick(patient)}
                 >
-                  {' '}
                   {patient.fullName}
                 </button>
               </td>
 
-              <td
-                className={`border-b border-slate-200 p-4 text-center ${getPatientStatusBackgroundColor(patient.status ?? '')} flex gap-1 items-center justify-center font-semibold`}
-              >
-                {(patient.status === 'active' ||
-                  patient.status === 'inactive') && (
-                  <Button
-                    className=" md:block"
-                    // onClick={() => handleStatusChangeClick(patient.id)}
-                  >
-                    <img
-                      src={refreshIcon}
-                      alt="change status"
-                      className="max-w-4 md:max-w-6 hover:animate-spin cursor-pointer"
-                    />
-                  </Button>
-                )}
-                <p>{getEntityStatusText(patient.status ?? '')}</p>
+              <td className="border-b border-slate-200 px-4 py-3 text-center">
+                <div
+                  className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1`}
+                >
+                  <span
+                    className={`h-4 w-4 rounded-full ${
+                      patient.status === 'active'
+                        ? 'bg-green-500'
+                        : patient.status === 'inactive'
+                          ? 'bg-slate-400'
+                          : patient.status === 'pending'
+                            ? 'bg-yellow-500'
+                            : 'bg-red-500'
+                    }`}
+                  />
+
+                  <span className="text-sm font-medium tracking-wide">
+                    {getEntityStatusText(patient.status ?? '')}
+                  </span>
+                </div>
               </td>
 
               <td className="border-b border-slate-200 px-4 py-3 text-center font-medium text-slate-700">
