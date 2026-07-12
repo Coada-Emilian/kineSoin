@@ -48,17 +48,17 @@ export default function TherapistLayout() {
           />
 
           <div className="h-fit md:flex gap-4 mb-2 bg-linear-to-r from-teal-50 to-white p-6 ">
-            <div className="hidden w-72 shrink-0 border-r border-slate-100 md:block">
-              <TherapistSideNavbar />
-            </div>
+            <TherapistDataProvider>
+              <div className="hidden w-72 shrink-0 border-r border-slate-100 md:block">
+                <TherapistSideNavbar />
+              </div>
 
-            <div className="flex flex-col bg-linear-to-r from-teal-50 to-white p-6 bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-2 md:min-h-screen">
-              <TherapistHeader page={page} />
+              <div className="flex flex-col bg-linear-to-r from-teal-50 to-white p-6 bg-opacity-50 rounded-3xl py-4 justify-center md:justify-start items-center md:items-start w-full md:px-8 md:py-2 md:min-h-screen">
+                <TherapistHeader page={page} />
 
-              <TherapistDataProvider>
                 <Outlet context={{ setHeroMessage }} />
-              </TherapistDataProvider>
-            </div>
+              </div>
+            </TherapistDataProvider>
           </div>
         </div>
       </main>

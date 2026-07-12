@@ -1,7 +1,13 @@
 import { NavLink } from 'react-router-dom';
+import { useUTherapistUiContext } from '../../../hooks/context/therapist/useTherapistUiContext';
 import { therapistSideNavbarLinkDetails } from '../../../utils/config/therapist/therapistSideNavbarLinkDetails';
 
 export default function TherapistSideNavbar() {
+  const { closeModal } = useUTherapistUiContext();
+
+  const handleNavLinkClick = () => {
+    closeModal();
+  };
   return (
     <aside className="sticky top-6 px-4 py-6">
       <h2 className="mb-6 px-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -20,6 +26,7 @@ export default function TherapistSideNavbar() {
                   : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800'
               }`
             }
+            onClick={handleNavLinkClick}
           >
             {link.name}
           </NavLink>

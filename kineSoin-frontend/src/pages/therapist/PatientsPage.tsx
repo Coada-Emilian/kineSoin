@@ -1,9 +1,11 @@
+import { Button } from '@headlessui/react';
 import { useEffect, useMemo, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import PatientsLinkButtons from '../../components/pages/therapist/patients/PatientsLinkButtons';
 import PatientsTable from '../../components/pages/therapist/patients/PatientsTable';
 import TherapistCard from '../../components/pages/therapist/TherapistCard';
 import DNALoader from '../../components/ui/DNALoader';
+import EmptyState from '../../components/ui/EmptyState';
 import SearchBar from '../../components/ui/SearchBar';
 import { useFetchAllPatientsAsTherapistQuery } from '../../hooks/therapist/useFetchAllPatientsAsTherapistQuery';
 
@@ -59,7 +61,21 @@ export default function PatientsPage() {
           'Sélectionnez un patient pour consulter ses informations ou effectuer une action.'
         }
       >
-        <PatientsTable allPatients={filteredPatients} />
+        {filteredPatients.length ? (
+          <PatientsTable allPatients={filteredPatients} />
+        ) : (
+          <EmptyState
+            title="Aucun patient trouvé"
+            description="Aucun patient ne correspond à votre recherche."
+          >
+            <Button
+              onClick={() => setSearchTerm('')}
+              className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600 cursor-pointer"
+            >
+              Effacer la recherche
+            </Button>
+          </EmptyState>
+        )}
       </TherapistCard>
     </>
   );

@@ -1,10 +1,4 @@
-interface SearchBarProps {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  className?: string;
-}
-
+import type { SearchBarProps } from '../../@types/props/componentProps';
 import searchIcon from '/icons/search.png';
 
 export default function SearchBar({

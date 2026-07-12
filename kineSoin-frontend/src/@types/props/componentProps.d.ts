@@ -125,3 +125,16 @@ export interface EntityStudiesOutputProps {
 export interface EntityDescriptionOutputProps {
   description: string | undefined;
 }
+
+export interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  className?: string;
+}
+
+export interface EmptyStateProps {
+  title: string;
+  description: string;
+  children?: React.ReactNode;
+}
