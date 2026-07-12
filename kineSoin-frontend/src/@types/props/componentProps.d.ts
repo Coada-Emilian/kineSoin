@@ -11,6 +11,7 @@ import type { TherapistPatientQuickFilterTypes } from '../types/therapistTypes';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btn: IButtonDetails;
+  
 }
 
 export interface PublicRouteDetailsProps {

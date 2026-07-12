@@ -78,16 +78,24 @@ export default function PatientsTableBody({
 
               <td className="border-b border-slate-200 px-4 py-3 text-center font-medium text-slate-700">
                 <button className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer flex items-center justify-center gap-2 w-full">
-                  {patient.therapist?.picture_url && (
-                    <img
-                      src={patient.therapist?.picture_url}
-                      alt={patient.therapist?.fullName ?? 'Therapist'}
-                      className="w-6 h-6 rounded-full"
-                    />
+                  {patient.therapist ? (
+                    <>
+                      {patient.therapist?.picture_url && (
+                        <img
+                          src={patient.therapist?.picture_url}
+                          alt={patient.therapist?.fullName ?? 'Therapist'}
+                          className="w-6 h-6 rounded-full"
+                        />
+                      )}
+                      <p className="text-sm font-medium ">
+                        {patient.therapist?.fullName ?? ''}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-sm font-medium text-slate-400">
+                      Aucun thérapeute assigné
+                    </p>
                   )}
-                  <p className="text-sm font-medium ">
-                    {patient.therapist?.fullName ?? ''}
-                  </p>
                 </button>
               </td>
 

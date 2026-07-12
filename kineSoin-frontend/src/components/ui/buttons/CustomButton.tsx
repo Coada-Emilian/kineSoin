@@ -14,7 +14,9 @@ export default function CustomButton({ btn, type }: CustomButtonProps) {
   const baseStyles = clsx(
     'rounded-xl text-slate-600 shadow-sm transition-all duration-200 ease-out hover:text-white hover:shadow-md hover:-translate-y-0.5 active:scale-95  font-medium cursor-pointer text-slate-700',
     background,
-    btn.hasBorder && 'border border-slate-200'
+    btn.hasBorder && 'border border-slate-200',
+    btn.isSelected &&
+      'border-b-2 border-secondaryTeal shadow-md shadow-teal-300/30 brightness-105 '
   );
 
   const sizeStyles = {

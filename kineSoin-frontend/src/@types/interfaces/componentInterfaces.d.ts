@@ -13,6 +13,7 @@ export interface IButtonDetails {
   hasBorder?: boolean;
   onClick?: () => void;
   to?: string;
+  isSelected?: boolean;
 }
 
 export interface IHomePageArticle {
