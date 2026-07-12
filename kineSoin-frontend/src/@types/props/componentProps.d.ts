@@ -7,6 +7,7 @@ import type { IBasicUser } from '../interfaces/customInterfaces';
 import type { IBodyRegion } from '../interfaces/modelInterfaces';
 import type { ModalButtonSectionMode } from '../types/buttonTypes';
 import type { ErrorPageType } from '../types/errorTypes';
+import type { TherapistPatientQuickFilterTypes } from '../types/therapistTypes';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btn: IButtonDetails;
@@ -137,4 +138,15 @@ export interface EmptyStateProps {
   title: string;
   description: string;
   children?: React.ReactNode;
+}
+
+export interface PatientsLinkButtonsProps {
+  counts: {
+    all: number;
+    active: number;
+    inactive: number;
+    pending: number;
+  };
+  selectedFilter: TherapistPatientQuickFilterTypes;
+  onSelect: (filter: TherapistPatientQuickFilterTypes) => void;
 }

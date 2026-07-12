@@ -9,3 +9,14 @@ export interface TherapistPageHeader {
   title: string;
   subtitle?: string;
 }
+
+export type TherapistPatientQuickFilterTypes =
+  | 'all'
+  | 'active'
+  | 'inactive'
+  | 'pending';
+
+export type TherapistPatientQuickFilterCounts = Record<
+  TherapistPatientQuickFilter,
+  number
+>;

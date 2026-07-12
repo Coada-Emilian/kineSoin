@@ -32,3 +32,4 @@ export interface TherapistModalProps extends BasicModalProps {
   size?: BaseModalSize;
   children: ReactNode;
 }
+

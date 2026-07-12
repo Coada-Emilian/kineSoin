@@ -1,6 +1,7 @@
 import { Button } from '@headlessui/react';
 import { useEffect, useMemo, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import type { TherapistPatientQuickFilterTypes } from '../../@types/types/therapistTypes';
 import PatientsLinkButtons from '../../components/pages/therapist/patients/PatientsLinkButtons';
 import PatientsTable from '../../components/pages/therapist/patients/PatientsTable';
 import TherapistCard from '../../components/pages/therapist/TherapistCard';
@@ -17,23 +18,47 @@ export default function PatientsPage() {
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   }>();
 
+  useEffect(() => {
+    setHeroMessage(<>Retrouvez rapidement les informations de vos patients.</>);
+  }, [setHeroMessage]);
+
+  const [selectedFilter, setSelectedFilter] =
+    useState<TherapistPatientQuickFilterTypes>('all');
+
+  const statusFilteredPatients = useMemo(() => {
+    if (selectedFilter === 'all') {
+      return allPatients;
+    }
+
+    return allPatients.filter((patient) => patient.status === selectedFilter);
+  }, [allPatients, selectedFilter]);
+
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredPatients = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
 
     if (!query) {
-      return allPatients;
+      return statusFilteredPatients;
     }
 
-    return allPatients.filter((patient) =>
+    return statusFilteredPatients.filter((patient) =>
       patient.fullName.trim().toLowerCase().includes(query)
     );
-  }, [allPatients, searchTerm]);
+  }, [statusFilteredPatients, searchTerm]);
 
-  useEffect(() => {
-    setHeroMessage(<>Retrouvez rapidement les informations de vos patients.</>);
-  }, [setHeroMessage]);
+  const patientCounts = useMemo(
+    () => ({
+      all: allPatients.length,
+      active: allPatients.filter((patient) => patient.status === 'active')
+        .length,
+      inactive: allPatients.filter((patient) => patient.status === 'inactive')
+        .length,
+      pending: allPatients.filter((patient) => patient.status === 'pending')
+        .length,
+    }),
+    [allPatients]
+  );
 
   if (isLoading) {
     return (
@@ -46,8 +71,12 @@ export default function PatientsPage() {
   return (
     <>
       <div className="flex items-center justify-between w-full gap-4 mb-4">
-        {' '}
-        <PatientsLinkButtons />
+        <PatientsLinkButtons
+          counts={patientCounts}
+          selectedFilter={selectedFilter}
+          onSelect={setSelectedFilter}
+        />
+
         <SearchBar
           value={searchTerm}
           onChange={setSearchTerm}

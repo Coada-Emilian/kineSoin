@@ -1,3 +1,5 @@
+import type { TherapistPatientQuickFilterTypes } from '../types/therapistTypes';
+
 export interface ICalendarAppointment {
   id: number;
   date: string;
@@ -108,16 +110,6 @@ export interface ITherapistPatientDetails {
   email: string;
   insurance_details: IPatientInsuranceExtended;
   gender: string;
-  // patient_insurance: {
-  //   id: number;
-  //   patient_id: number;
-  //   insurance_id: number;
-  //   adherent_code: string;
-  //   contract_number: string;
-  //   start_date: string;
-  //   end_date: string;
-  // };
-
   therapist: ITherapist;
 }
 
@@ -138,4 +130,10 @@ export interface IPatientsTableRowData {
   picture_url: string;
   status: string;
   therapist: ITherapist | null;
+}
+
+export interface TherapistPatientQuickNavFilter {
+  key: TherapistPatientQuickFilterTypes;
+  label: string;
+  buttonType: string;
 }
