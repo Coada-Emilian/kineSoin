@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import PatientsLinkButtons from '../../components/pages/therapist/patients/PatientsLinkButtons';
 import PatientsTable from '../../components/pages/therapist/patients/PatientsTable';
@@ -14,6 +14,20 @@ export default function PatientsPage() {
   const { setHeroMessage } = useOutletContext<{
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   }>();
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredPatients = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+
+    if (!query) {
+      return allPatients;
+    }
+
+    return allPatients.filter((patient) =>
+      patient.fullName.trim().toLowerCase().includes(query)
+    );
+  }, [allPatients, searchTerm]);
 
   useEffect(() => {
     setHeroMessage(<>Retrouvez rapidement les informations de vos patients.</>);
@@ -32,7 +46,11 @@ export default function PatientsPage() {
       <div className="flex items-center justify-between w-full gap-4 mb-4">
         {' '}
         <PatientsLinkButtons />
-        <SearchBar />
+        <SearchBar
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Rechercher un patient..."
+        />
       </div>
 
       <TherapistCard
@@ -41,7 +59,7 @@ export default function PatientsPage() {
           'Sélectionnez un patient pour consulter ses informations ou effectuer une action.'
         }
       >
-        <PatientsTable allPatients={allPatients} />
+        <PatientsTable allPatients={filteredPatients} />
       </TherapistCard>
     </>
   );

@@ -35,7 +35,7 @@ export default function PatientsTableBody({
   return (
     <>
       <tbody className="xxs:text-xxs text-xs md:text-sm">
-        {patients.map((patient, index) => {
+        {patients.map((patient) => {
           return (
             <tr
               key={patient.id}
@@ -44,7 +44,7 @@ export default function PatientsTableBody({
               <td
                 className={`border-b border-slate-200 font-medium text-slate-700 px-4 py-3 text-center`}
               >
-                {index + 1}
+                {patient.id}
               </td>
 
               <td className="border-b border-slate-200 px-4 py-3 text-center font-medium text-slate-700">
