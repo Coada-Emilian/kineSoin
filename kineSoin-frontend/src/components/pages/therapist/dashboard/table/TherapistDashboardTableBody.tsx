@@ -1,14 +1,20 @@
-import { Button } from '@headlessui/react';
 import type { ISameDayAppointment } from '../../../../../@types/interfaces/therapistInterfaces';
 import type { TherapistDashboardAppointmentsTableProps } from '../../../../../@types/props/therapistProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { generateTimeSlots } from '../../../../../utils/functions/generateTimeSlots';
 import { getCurrentTime } from '../../../../../utils/functions/getCurrentTime';
-import cancelIcon from '/icons/cancel.png';
-import cancelIcon2 from '/icons/cancel2.png';
-import messageIcon from '/icons/message.png';
-import messageIcon2 from '/icons/message2.png';
+import { formatDashboardAppointment } from '../../../../../utils/functions/therapist/dashboard/formatDashboardAppointment';
+import calendarIcon from '/icons/calendar_128.png';
+import calendarClosedIcon from '/icons/calendarClosed_128.png';
+import cancelIcon from '/icons/cancel_128.png';
+import cancelClosedIcon from '/icons/cancelClosed_128.png';
+import messageIcon from '/icons/message_128.png';
+import messageClosedIcon from '/icons/messageClosed_128.png';
+import moreIcon from '/icons/more_128.png';
+import moreClosedIcon from '/icons/moreClosed_128.png';
+import viewIcon from '/icons/view_128.png';
+import viewClosedIcon from '/icons/viewClosed_128.png';
 
 export default function TherapistDashboardTableBody({
   appointments,
@@ -41,14 +47,24 @@ export default function TherapistDashboardTableBody({
     }
   };
 
-  const handlePatientNameClick = (appointment: ISameDayAppointment) => {
-    setOpenModal('patientDetails');
-    setSelectedPatient(appointment.patient);
+  const handlePatientDetailsClick = (appointment: ISameDayAppointment) => {
+    if (!appointment.isTimePassed) {
+      setSelectedPatient(appointment.patient);
+      setOpenModal('patientDetails');
+    }
   };
 
   const handleAfflictionNameClick = (appointment: ISameDayAppointment) => {
-    setSelectedAppointment(appointment);
-    setOpenModal('afflictionDetails');
+    if (!appointment.isTimePassed) {
+      setSelectedAppointment(appointment);
+      setOpenModal('afflictionDetails');
+    }
+  };
+
+  const handleMoreIconClick = (appointment: ISameDayAppointment) => {
+    if (!appointment.isTimePassed) {
+      console.log('More icon clicked', appointment.patient);
+    }
   };
 
   return (
@@ -59,6 +75,12 @@ export default function TherapistDashboardTableBody({
         );
 
         const isTimePassed = currentTime > time;
+
+        if (appointment) {
+          appointment.isTimePassed = isTimePassed;
+        }
+
+        const data = formatDashboardAppointment(appointment, isTimePassed);
 
         return (
           <tr
@@ -73,70 +95,121 @@ export default function TherapistDashboardTableBody({
 
             {appointment ? (
               <>
-                <td className="border-b border-slate-200 px-4 py-3 text-center font-medium text-slate-700">
-                  {isTimePassed ? (
-                    <span className="italic text-gray-500">
-                      {appointment.patientFullName}
-                    </span>
-                  ) : (
-                    <button
-                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer"
-                      onClick={() => handlePatientNameClick(appointment)}
+                <td className="border-b border-slate-200 px-4 py-3">
+                  <button
+                    onClick={() => handlePatientDetailsClick(appointment)}
+                    className={`group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left ${isTimePassed ? '' : 'cursor-pointer'} transition-all duration-150`}
+                  >
+                    <div
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-semibold transition-all duration-150 ${data?.classes.avatar}`}
                     >
-                      <p>{appointment.patientFullName}</p>
-                    </button>
-                  )}
+                      {data?.patientNameInitials}
+                    </div>
+
+                    <div className="min-w-0">
+                      <p className={`${data?.classes.primaryText}`}>
+                        {data?.patientFullName}
+                      </p>
+
+                      <p className={`text-xs ${data?.classes.secondaryText}`}>
+                        {data?.patientEmail}
+                      </p>
+
+                      <p className={`text-xs ${data?.classes.secondaryText}`}>
+                        {data?.patientFullPhoneNumber}
+                      </p>
+                    </div>
+                  </button>
                 </td>
 
-                <td className="border-b border-slate-200 px-4 py-3 text-center">
-                  {isTimePassed ? (
-                    <span className="italic text-gray-500">
-                      {appointment.afflictionName}
+                <td className="border-b border-slate-200 px-4 py-3">
+                  <div className="flex flex-col items-start">
+                    <span className={`${data?.classes.primaryText}`}>
+                      {data?.afflictionBodyRegion?.toUpperCase()}
                     </span>
-                  ) : (
+
                     <button
-                      className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer"
+                      className={`${isTimePassed ? 'italic text-gray-500 font-normal' : 'hover:text-secondaryBlue hover:transform hover:scale-105 cursor-pointer'}`}
                       onClick={() => handleAfflictionNameClick(appointment)}
                     >
-                      <p>{appointment.afflictionName}</p>
+                      <span className={` ${data?.classes.secondaryText}`}>
+                        {data?.afflictionName}
+                      </span>
                     </button>
+                  </div>
+                </td>
+
+                <td className="border-b border-slate-200 px-4 py-3">
+                  {data?.lastAppointment ? (
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={isTimePassed ? calendarClosedIcon : calendarIcon}
+                        alt="appointment"
+                        className="w-4 md:w-5 shrink-0"
+                      />
+
+                      <div className="text-left">
+                        <p className={`${data?.classes.primaryText}`}>
+                          {data?.lastAppointment.date}
+                        </p>
+                        <p
+                          className={`${data?.classes.secondaryText} text-xs tracking-wide`}
+                        >
+                          {data?.lastAppointment.time}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-center text-sm italic text-slate-400">
+                      —
+                    </p>
                   )}
                 </td>
 
-                <td className="border-b border-slate-200 px-4 py-3 text-center w-2/12 ">
-                  <Button
-                    onClick={() => handleMessageIconClick(appointment)}
-                    className="flex justify-center items-center w-full"
-                  >
-                    <img
-                      src={isTimePassed ? messageIcon2 : messageIcon}
-                      alt="message"
-                      className={
-                        isTimePassed
-                          ? 'w-3 md:w-6'
-                          : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
-                      }
-                    />
-                  </Button>
-                </td>
+                <td className="border-b border-slate-200 px-4 py-3">
+                  <div className="flex items-center justify-center gap-3">
+                    <button
+                      onClick={() => handlePatientDetailsClick(appointment)}
+                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
+                    >
+                      <img
+                        src={isTimePassed ? viewClosedIcon : viewIcon}
+                        alt="view"
+                        className={data?.classes.icon}
+                      />
+                    </button>
+                    <button
+                      onClick={() => handleMessageIconClick(appointment)}
+                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
+                    >
+                      <img
+                        src={isTimePassed ? messageClosedIcon : messageIcon}
+                        alt="message"
+                        className={data?.classes.icon}
+                      />
+                    </button>
+                    <button
+                      onClick={() => handleCancelIconClick(appointment)}
+                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
+                    >
+                      <img
+                        src={isTimePassed ? cancelClosedIcon : cancelIcon}
+                        alt="appointment"
+                        className={data?.classes.icon}
+                      />
+                    </button>
 
-                <td
-                  className={`border-b border-slate-200 px-4 py-3 text-center w-2/12 `}
-                >
-                  <Button
-                    onClick={() => handleCancelIconClick(appointment)}
-                    className="flex justify-center items-center w-full"
-                  >
-                    <img
-                      src={isTimePassed ? cancelIcon2 : cancelIcon}
-                      alt="cancel"
-                      className={
-                        isTimePassed
-                          ? 'w-3 md:w-6'
-                          : 'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
-                      }
-                    />
-                  </Button>
+                    <button
+                      onClick={() => handleMoreIconClick(appointment)}
+                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
+                    >
+                      <img
+                        src={isTimePassed ? moreClosedIcon : moreIcon}
+                        alt="more"
+                        className={data?.classes.icon}
+                      />
+                    </button>
+                  </div>
                 </td>
               </>
             ) : (

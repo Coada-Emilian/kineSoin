@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { Appointment, Therapist } from '../../../models/index.js';
 import { findOrThrow } from '../../../utils/findOrThrow.js';
 import { getValidId } from '../../../utils/getValidId.js';
@@ -23,7 +24,15 @@ export default async function getAppointmentDashboardDataAsTherapist({
     include: [
       {
         association: 'patient',
-        attributes: ['id', 'name', 'surname', 'picture_url'],
+        attributes: [
+          'id',
+          'name',
+          'surname',
+          'picture_url',
+          'email',
+          'prefix',
+          'phone_number',
+        ],
       },
       {
         association: 'prescription',
@@ -32,11 +41,48 @@ export default async function getAppointmentDashboardDataAsTherapist({
           {
             association: 'affliction',
             attributes: ['id', 'name', 'description', 'insurance_code'],
+            include: [
+              { association: 'body_region', attributes: ['id', 'name'] },
+            ],
           },
         ],
       },
     ],
   });
+
+  for (const appointment of sameDayAppointments) {
+    const lastAppointmentForPatient = await Appointment.findOne({
+      attributes: ['date', 'time'],
+      where: {
+        patient_id: appointment.patient.id,
+        is_accepted: true,
+        is_canceled: false,
+        [Op.or]: [
+          {
+            date: {
+              [Op.lt]: appointment.date,
+            },
+          },
+          {
+            date: appointment.date,
+            time: {
+              [Op.lt]: appointment.time,
+            },
+          },
+        ],
+      },
+      order: [
+        ['date', 'DESC'],
+        ['time', 'DESC'],
+      ],
+    });
+
+    appointment.dataValues.lastAppointmentAt = lastAppointmentForPatient
+      ? new Date(
+          `${lastAppointmentForPatient.date}T${lastAppointmentForPatient.time}`
+        )
+      : null;
+  }
 
   return sameDayAppointments;
 }

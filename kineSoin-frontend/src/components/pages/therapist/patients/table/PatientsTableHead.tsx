@@ -16,15 +16,7 @@ export default function PatientsTableHead() {
 
           <th className={`${baseClassName}`}>Dernier rendez-vous</th>
 
-          <th className={`${baseClassName} md:p-2 w-fit`}>
-            <span className="block md:hidden">Message</span>
-            <span className="hidden md:block">Envoyer un message</span>
-          </th>
-
-          <th className={`${baseClassName} md:p-2`}>
-            <span className="block md:hidden">Supprimer</span>
-            <span className="hidden md:block">Supprimer patient</span>
-          </th>
+          <th className={`${baseClassName} col-span-4`}>Actions</th>
         </>
       </tr>
     </thead>

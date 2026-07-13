@@ -27,8 +27,8 @@ export const useFetchTherapistDashboardDataQuery = () => {
             time: formattedTime,
             patient: appointment.patient,
             prescription: appointment.prescription,
-            patientFullName: `${appointment.patient.name} ${appointment.patient.surname}`, // Combined full name
             afflictionName: appointment.prescription.affliction.name,
+            lastAppointmentAt: appointment.lastAppointmentAt,
             // Affliction's name for display
           };
         }

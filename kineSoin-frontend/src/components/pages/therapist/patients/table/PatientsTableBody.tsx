@@ -1,13 +1,14 @@
-import { Button } from '@headlessui/react';
 import type { IPatientsTableRowData } from '../../../../../@types/interfaces/therapistInterfaces';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { therapistPatientStatusConfig } from '../../../../../utils/config/therapist/therapistPatientStatusStyles';
 import { getFormattedAppointmentDate } from '../../../../../utils/functions/getFormattedAppointmentDate';
 import { getNameInitials } from '../../../../../utils/functions/therapist/getNameInitials';
-import deleteIcon from '/icons/delete.png';
-import messageIcon from '/icons/message.png';
-import appointmentIcon from '/logos/appointment_48.webp';
+import appointmentIcon from '/icons/appointment_128.png';
+import messageIcon from '/icons/message_128.png';
+import moreIcon from '/icons/more_128.png';
+import viewIcon from '/icons/view_128.png';
+import calendarIcon from '/logos/appointment_48.webp';
 
 export default function PatientsTableBody({
   patients,
@@ -23,9 +24,22 @@ export default function PatientsTableBody({
     setOpenModal('message');
   };
 
-  const handleDeleteIconClick = (patient: IPatientsTableRowData) => {
+  // const handleDeleteIconClick = (patient: IPatientsTableRowData) => {
+  //   setSelectedPatient(patient);
+  //   setOpenModal('delete');
+  // };
+
+  const handleViewIconClick = (patient: IPatientsTableRowData) => {
     setSelectedPatient(patient);
-    setOpenModal('delete');
+    setOpenModal('patientDetails');
+  };
+
+  const handleAppointmentIconClick = (patient: IPatientsTableRowData) => {
+    console.log('Appointment icon clicked', patient);
+  };
+
+  const handleMoreIconClick = (patient: IPatientsTableRowData) => {
+    console.log('More icon clicked', patient);
   };
 
   const handlePatientNameClick = (patient: IPatientsTableRowData) => {
@@ -118,7 +132,7 @@ export default function PatientsTableBody({
                 {lastAppointment ? (
                   <div className="flex items-center gap-3">
                     <img
-                      src={appointmentIcon}
+                      src={calendarIcon}
                       alt="appointment"
                       className="w-4 md:w-5 shrink-0"
                     />
@@ -138,38 +152,50 @@ export default function PatientsTableBody({
                 )}
               </td>
 
-              <td className="border-b border-slate-200 px-4 py-3 text-center w-2/12 ">
-                <Button
-                  onClick={() => handleMessageIconClick(patient)}
-                  className="flex justify-center items-center w-full"
-                >
-                  <img
-                    src={messageIcon}
-                    alt="message"
-                    className={
-                      'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
-                    }
-                  />
-                </Button>
-              </td>
+              <td className="border-b border-slate-200 px-4 py-3">
+                <div className="flex items-center justify-center gap-3">
+                  <button
+                    onClick={() => handleViewIconClick(patient)}
+                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
+                  >
+                    <img
+                      src={viewIcon}
+                      alt="view"
+                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
+                    />
+                  </button>
+                  <button
+                    onClick={() => handleMessageIconClick(patient)}
+                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
+                  >
+                    <img
+                      src={messageIcon}
+                      alt="message"
+                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
+                    />
+                  </button>
+                  <button
+                    onClick={() => handleAppointmentIconClick(patient)}
+                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
+                  >
+                    <img
+                      src={appointmentIcon}
+                      alt="appointment"
+                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
+                    />
+                  </button>
 
-              <td
-                className={`border-b border-slate-200 px-4 py-3 text-center w-2/12 `}
-              >
-                <Button
-                  className="flex justify-center items-center w-full"
-                  onClick={() => {
-                    handleDeleteIconClick(patient);
-                  }}
-                >
-                  <img
-                    src={deleteIcon}
-                    alt="supprimer"
-                    className={
-                      'w-3 md:w-6 hover:transform hover:scale-125 cursor-pointer'
-                    }
-                  />
-                </Button>
+                  <button
+                    onClick={() => handleMoreIconClick(patient)}
+                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
+                  >
+                    <img
+                      src={moreIcon}
+                      alt="more"
+                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
+                    />
+                  </button>
+                </div>
               </td>
             </tr>
           );

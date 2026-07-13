@@ -37,7 +37,6 @@ export interface ICalendarAppointment {
 export interface ISameDayAppointment {
   id: number;
   time: string;
-  patientFullName: string;
   afflictionName: string;
   isTimePassed?: boolean;
   patient: {
@@ -45,6 +44,9 @@ export interface ISameDayAppointment {
     name: string;
     surname: string;
     picture_url: string;
+    email: string;
+    prefix: string;
+    phone_number: string;
   };
   prescription: {
     id: number;
@@ -53,8 +55,13 @@ export interface ISameDayAppointment {
       name: string;
       description: string;
       insurance_code: string;
+      body_region?: {
+        id: number;
+        name: string;
+      };
     };
   };
+  lastAppointmentAt?: string | null;
 }
 
 export interface IPatientAppointmentDetails {
@@ -141,4 +148,17 @@ export interface TherapistPatientQuickNavFilter {
   key: TherapistPatientQuickFilterTypes;
   label: string;
   buttonType: string;
+}
+
+export interface IFormattedDashboardAppointment {
+  patientFullName: string;
+  patientEmail: string;
+  patientFullPhoneNumber: string;
+  patientNameInitials: string;
+  afflictionName: string;
+  afflictionBodyRegion?: string;
+  lastAppointment: {
+    date: string;
+    time: string;
+  } | null;
 }
