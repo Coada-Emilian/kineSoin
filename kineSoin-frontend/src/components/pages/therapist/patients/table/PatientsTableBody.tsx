@@ -57,11 +57,11 @@ export default function PatientsTableBody({
                       {patient.fullName}
                     </p>
 
-                    <p className="truncate text-xs text-slate-500 transition-colors duration-150 group-hover:text-slate-600">
+                    <p className="truncate text-xs text-slate-400 transition-colors duration-150 group-hover:text-slate-600 font-medium">
                       {patient.email}
                     </p>
 
-                    <p className="text-xs text-slate-500 transition-colors duration-150 group-hover:text-slate-600">
+                    <p className="text-xs text-slate-400 transition-colors duration-150 group-hover:text-slate-600 tracking-wide font-medium">
                       {patient.fullPhoneNumber}
                     </p>
                   </div>
@@ -82,27 +82,30 @@ export default function PatientsTableBody({
                 </div>
               </td>
 
-              <td className="border-b border-slate-200 px-4 py-3 text-center font-medium text-slate-700">
-                <button className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer flex items-center justify-center gap-2 w-full">
-                  {patient.therapist ? (
-                    <>
-                      {patient.therapist?.picture_url && (
-                        <img
-                          src={patient.therapist?.picture_url}
-                          alt={patient.therapist?.fullName ?? 'Therapist'}
-                          className="w-6 h-6 rounded-full"
-                        />
-                      )}
-                      <p className="text-sm font-medium ">
-                        {patient.therapist?.fullName ?? ''}
+              <td className="border-b border-slate-200 px-4 py-3">
+                {patient.therapist ? (
+                  <button className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 cursor-pointer">
+                    <img
+                      src={patient.therapist.picture_url}
+                      alt={patient.therapist.fullName}
+                      className="h-10 w-10 shrink-0 rounded-full object-cover transition-all duration-150 group-hover:ring-2 group-hover:ring-teal-200"
+                    />
+
+                    <div className="min-w-0">
+                      <p className="font-semibold text-slate-700 transition-colors duration-150 group-hover:text-secondaryBlue">
+                        {patient.therapist.fullName}
                       </p>
-                    </>
-                  ) : (
-                    <p className="text-sm font-medium text-slate-400">
-                      Aucun thérapeute assigné
-                    </p>
-                  )}
-                </button>
+
+                      <p className="text-xs text-slate-400 transition-colors duration-150 group-hover:text-slate-600 font-medium tracking-wide">
+                        Kinésithérapeute
+                      </p>
+                    </div>
+                  </button>
+                ) : (
+                  <div className="px-2 py-2">
+                    <p className="text-sm italic text-slate-400">Non assigné</p>
+                  </div>
+                )}
               </td>
 
               <td className="border-b border-slate-200 px-4 py-3 text-center w-2/12 ">
