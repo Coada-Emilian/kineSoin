@@ -14,7 +14,8 @@ export const useFetchAllPatientsAsTherapistQuery = () => {
       return patients.map((patient: IPatientsTableRowData) => ({
         id: patient.id,
         fullName: patient.fullName,
-        picture_url: patient.picture_url,
+        email: patient.email,
+        fullPhoneNumber: patient.fullPhoneNumber,
         status: patient.status,
         therapist: patient.therapist || null,
       }));

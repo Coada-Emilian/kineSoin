@@ -3,6 +3,7 @@ import type { IPatientsTableRowData } from '../../../../../@types/interfaces/the
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { therapistPatientStatusConfig } from '../../../../../utils/config/therapist/therapistPatientStatusStyles';
+import { getNameInitials } from '../../../../../utils/functions/therapist/getNameInitials';
 import deleteIcon from '/icons/delete.png';
 import messageIcon from '/icons/message.png';
 
@@ -42,18 +43,28 @@ export default function PatientsTableBody({
               key={patient.id}
               className="transition-colors duration-150 hover:bg-teal-50/40"
             >
-              <td
-                className={`border-b border-slate-200 font-medium text-slate-700 px-4 py-3 text-center`}
-              >
-                {patient.id}
-              </td>
-
-              <td className="border-b border-slate-200 px-4 py-3 text-center font-medium text-slate-700">
+              <td className="border-b border-slate-200 px-4 py-3">
                 <button
-                  className="hover:text-secondaryBlue hover:font-semibold hover:transform hover:scale-105 hover:italic font-medium cursor-pointer"
                   onClick={() => handlePatientNameClick(patient)}
+                  className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left cursor-pointer transition-all duration-150"
                 >
-                  {patient.fullName}
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-50 font-semibold text-slate-600 transition-all duration-150 group-hover:bg-teal-100 group-hover:text-secondaryBlue">
+                    {getNameInitials(patient.fullName)}
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="font-semibold text-slate-700 transition-colors duration-150 group-hover:text-secondaryBlue">
+                      {patient.fullName}
+                    </p>
+
+                    <p className="truncate text-xs text-slate-500 transition-colors duration-150 group-hover:text-slate-600">
+                      {patient.email}
+                    </p>
+
+                    <p className="text-xs text-slate-500 transition-colors duration-150 group-hover:text-slate-600">
+                      {patient.fullPhoneNumber}
+                    </p>
+                  </div>
                 </button>
               </td>
 

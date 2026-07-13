@@ -130,7 +130,8 @@ export interface IPatientPrescription {
 export interface IPatientsTableRowData {
   id: number;
   fullName: string;
-  picture_url: string;
+  email: string;
+  fullPhoneNumber: string;
   status: PatientStatusType;
   therapist: ITherapist | null;
 }

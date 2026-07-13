@@ -13,7 +13,16 @@ export default async function getAllPatientsAsTherapist({ therapistId }) {
       ['therapist_id', 'ASC'],
       ['name', 'ASC'],
     ],
-    attributes: ['id', 'name', 'surname', 'status', 'picture_url'],
+    attributes: [
+      'id',
+      'name',
+      'surname',
+      'status',
+      'picture_url',
+      'email',
+      'prefix',
+      'phone_number',
+    ],
     include: [
       {
         association: 'therapist',
@@ -27,6 +36,8 @@ export default async function getAllPatientsAsTherapist({ therapistId }) {
     status: patient.status,
     fullName: `${patient.name} ${patient.surname}`,
     picture_url: patient.picture_url,
+    email: patient.email,
+    fullPhoneNumber: `${patient.prefix} ${patient.phone_number}`,
     therapist: patient.therapist
       ? {
           id: patient.therapist.id,

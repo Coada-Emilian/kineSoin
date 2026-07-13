@@ -6,11 +6,8 @@ export default function PatientsTableHead() {
     <thead>
       <tr className="bg-linear-to-r from-teal-50 to-white">
         <>
-          <th className={`${baseClassName} w-1/12`}>#Id</th>
-
           <th className={`${baseClassName} md:p-2 w-fit`}>
-            <span className="block md:hidden">Patient</span>
-            <span className="hidden md:block">Nom patient</span>
+            <span className="block">Patient</span>
           </th>
 
           <th className={`${baseClassName}`}>Statut</th>
