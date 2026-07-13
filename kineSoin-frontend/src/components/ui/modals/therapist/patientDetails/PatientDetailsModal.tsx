@@ -33,56 +33,56 @@ export default function PatientDetailsModal({
   };
 
   return (
-      <TherapistModal
-        isOpen={isOpen}
-        onClose={handleClose}
-        patient={patientDetails}
-        header="Détails du patient"
-        size="md"
-        message={
-          <>
-            <span className="block font-normal not-italic text-lg">
-              Informations personnelles de
-            </span>
-            <span className="block font-semibold text-xl">
-              {patientDetails?.name} {patientDetails?.surname}
-            </span>
-          </>
-        }
-      >
-        <div className="w-full p-4 text-slate-600  text-xs md:text-sm lg:text-base xl:text-lg">
-          <div className="flex w-full justify-between items-center">
-            <EntityStatusOutput status={patientDetails?.status} />
+    <TherapistModal
+      isOpen={isOpen}
+      onClose={handleClose}
+      patient={patientDetails}
+      header="Détails du patient"
+      size="lg"
+      message={
+        <>
+          <span className="block font-normal not-italic text-lg">
+            Informations personnelles de
+          </span>
+          <span className="block font-semibold text-xl">
+            {patientDetails?.name} {patientDetails?.surname}
+          </span>
+        </>
+      }
+    >
+      <div className="w-full p-4 text-slate-600  text-xs md:text-sm lg:text-base xl:text-lg">
+        <div className="flex w-full justify-between items-center">
+          <EntityStatusOutput status={patientDetails?.status} />
 
-            <EntityIdOutput id={patientDetails?.id ?? null} />
-          </div>
-
-          <PatientDetailsOutputs patientDetails={patientDetails} />
+          <EntityIdOutput id={patientDetails?.id ?? null} />
         </div>
 
-        <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
-          <div className="flex gap-1 items-center ">
-            <CustomButton
-              btn={{
-                type: 'basic',
-                text: 'Gérer rendez-vous',
-                style: 'normal',
-                hasBorder: true,
-                to: `/therapist/patient/${patientDetails?.id}/appointments`,
-              }}
-            />
+        <PatientDetailsOutputs patientDetails={patientDetails} />
+      </div>
 
-            <CustomButton
-              btn={{
-                type: 'cancel',
-                text: 'Retour',
-                style: 'normal',
-                hasBorder: true,
-                onClick: handleClose,
-              }}
-            />
-          </div>
+      <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
+        <div className="flex gap-1 items-center ">
+          <CustomButton
+            btn={{
+              type: 'basic',
+              text: 'Gérer rendez-vous',
+              style: 'normal',
+              hasBorder: true,
+              to: `/therapist/patient/${patientDetails?.id}/appointments`,
+            }}
+          />
+
+          <CustomButton
+            btn={{
+              type: 'cancel',
+              text: 'Retour',
+              style: 'normal',
+              hasBorder: true,
+              onClick: handleClose,
+            }}
+          />
         </div>
-      </TherapistModal>
+      </div>
+    </TherapistModal>
   );
 }

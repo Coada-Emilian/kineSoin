@@ -5,13 +5,13 @@ import type {
 } from '../interfaces/componentInterfaces';
 import type { IBasicUser } from '../interfaces/customInterfaces';
 import type { IBodyRegion } from '../interfaces/modelInterfaces';
+import type { IDropdownAction } from '../interfaces/therapistInterfaces';
 import type { ModalButtonSectionMode } from '../types/buttonTypes';
 import type { ErrorPageType } from '../types/errorTypes';
 import type { TherapistPatientQuickFilterTypes } from '../types/therapistTypes';
 
 export interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btn: IButtonDetails;
-  
 }
 
 export interface PublicRouteDetailsProps {
@@ -150,4 +150,14 @@ export interface PatientsLinkButtonsProps {
   };
   selectedFilter: TherapistPatientQuickFilterTypes;
   onSelect: (filter: TherapistPatientQuickFilterTypes) => void;
+}
+
+export interface ActionDropdownProps {
+  actions: IDropdownAction[];
+}
+
+export interface ActionButtonProps {
+  onClick: () => void;
+  imgSrc: string;
+  altText: string;
 }

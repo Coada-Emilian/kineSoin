@@ -1,12 +1,14 @@
+import { Ban, FileText, History, UserPen } from 'lucide-react';
 import type { IPatientsTableRowData } from '../../../../../@types/interfaces/therapistInterfaces';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { therapistPatientStatusConfig } from '../../../../../utils/config/therapist/therapistPatientStatusStyles';
 import { getFormattedAppointmentDate } from '../../../../../utils/functions/getFormattedAppointmentDate';
 import { getNameInitials } from '../../../../../utils/functions/therapist/getNameInitials';
+import ActionDropdown from '../../../../ui/ActionDropdown';
+import ActionButton from '../../../../ui/buttons/ActionButton';
 import appointmentIcon from '/icons/appointment_128.png';
 import messageIcon from '/icons/message_128.png';
-import moreIcon from '/icons/more_128.png';
 import viewIcon from '/icons/view_128.png';
 import calendarIcon from '/logos/appointment_48.webp';
 
@@ -24,11 +26,6 @@ export default function PatientsTableBody({
     setOpenModal('message');
   };
 
-  // const handleDeleteIconClick = (patient: IPatientsTableRowData) => {
-  //   setSelectedPatient(patient);
-  //   setOpenModal('delete');
-  // };
-
   const handleViewIconClick = (patient: IPatientsTableRowData) => {
     setSelectedPatient(patient);
     setOpenModal('patientDetails');
@@ -38,13 +35,25 @@ export default function PatientsTableBody({
     console.log('Appointment icon clicked', patient);
   };
 
-  const handleMoreIconClick = (patient: IPatientsTableRowData) => {
-    console.log('More icon clicked', patient);
-  };
-
   const handlePatientNameClick = (patient: IPatientsTableRowData) => {
     setSelectedPatient(patient);
     setOpenModal('patientDetails');
+  };
+
+  const handleHistoryClick = () => {
+    console.log('History clicked');
+  };
+
+  const handlePrescriptionsClick = () => {
+    console.log('Prescriptions clicked');
+  };
+
+  const handleDeleteClick = () => {
+    console.log('Delete clicked');
+  };
+
+  const handleEditClick = () => {
+    console.log('Edit clicked');
   };
 
   return (
@@ -154,47 +163,52 @@ export default function PatientsTableBody({
 
               <td className="border-b border-slate-200 px-4 py-3">
                 <div className="flex items-center justify-center gap-3">
-                  <button
+                  <ActionButton
                     onClick={() => handleViewIconClick(patient)}
-                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
-                  >
-                    <img
-                      src={viewIcon}
-                      alt="view"
-                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
-                    />
-                  </button>
-                  <button
-                    onClick={() => handleMessageIconClick(patient)}
-                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
-                  >
-                    <img
-                      src={messageIcon}
-                      alt="message"
-                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
-                    />
-                  </button>
-                  <button
-                    onClick={() => handleAppointmentIconClick(patient)}
-                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
-                  >
-                    <img
-                      src={appointmentIcon}
-                      alt="appointment"
-                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
-                    />
-                  </button>
+                    imgSrc={viewIcon}
+                    altText="view"
+                  />
 
-                  <button
-                    onClick={() => handleMoreIconClick(patient)}
-                    className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
-                  >
-                    <img
-                      src={moreIcon}
-                      alt="more"
-                      className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
-                    />
-                  </button>
+                  <ActionButton
+                    onClick={() => handleMessageIconClick(patient)}
+                    imgSrc={messageIcon}
+                    altText="message"
+                  />
+
+                  <ActionButton
+                    onClick={() => handleAppointmentIconClick(patient)}
+                    imgSrc={appointmentIcon}
+                    altText="appointment"
+                  />
+
+                  <ActionDropdown
+                    actions={[
+                      {
+                        label: 'Historique',
+                        icon: <History className="h-4 w-4 shrink-0" />,
+                        onClick: handleHistoryClick,
+                      },
+                      {
+                        label: 'Ordonnances',
+                        icon: <FileText size={16} />,
+                        onClick: handlePrescriptionsClick,
+                      },
+                      {
+                        label: 'Modifier',
+                        icon: <UserPen size={16} />,
+                        onClick: handleEditClick,
+                      },
+                      {
+                        separator: true,
+                      },
+                      {
+                        label: 'Supprimer',
+                        icon: <Ban size={16} />,
+                        danger: true,
+                        onClick: handleDeleteClick,
+                      },
+                    ]}
+                  />
                 </div>
               </td>
             </tr>

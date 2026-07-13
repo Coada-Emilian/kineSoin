@@ -162,3 +162,11 @@ export interface IFormattedDashboardAppointment {
     time: string;
   } | null;
 }
+
+export interface IDropdownAction {
+  label?: string;
+  onClick?: () => void;
+  danger?: boolean;
+  separator?: boolean;
+  icon?: ReactNode;
+}
