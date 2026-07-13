@@ -33,3 +33,11 @@ export interface TherapistModalProps extends BasicModalProps {
   children: ReactNode;
 }
 
+export interface PatientStatisticsProps {
+  patientsStatistics: {
+    total: number;
+    active: number;
+    pending: number;
+    newThisMonth: number;
+  };
+}
