@@ -22,6 +22,7 @@ export default async function getAllPatientsAsTherapist({ therapistId }) {
       'email',
       'prefix',
       'phone_number',
+      'created_at',
     ],
     include: [
       {
@@ -42,6 +43,7 @@ export default async function getAllPatientsAsTherapist({ therapistId }) {
     picture_url: patient.picture_url,
     email: patient.email,
     fullPhoneNumber: `${patient.prefix} ${patient.phone_number}`,
+    createdAt: patient.created_at,
     therapist: patient.therapist
       ? {
           id: patient.therapist.id,

@@ -12,13 +12,15 @@ export interface TherapistPageHeader {
 
 export type TherapistPatientQuickFilterTypes =
   | 'all'
-  | 'active'
+  | 'self'
   | 'inactive'
   | 'pending';
 
 export type TherapistPatientQuickFilterCounts = Record<
-  TherapistPatientQuickFilter,
+  TherapistPatientQuickFilterTypes,
   number
 >;
 
 export type PatientStatusType = 'active' | 'inactive' | 'pending' | 'banned';
+
+type StatisticCardVariant = 'teal' | 'green' | 'yellow' | 'blue';

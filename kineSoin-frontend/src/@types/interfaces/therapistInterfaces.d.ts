@@ -142,6 +142,7 @@ export interface IPatientsTableRowData {
   status: PatientStatusType;
   therapist: ITherapist | null;
   lastAppointmentAt: string | null;
+  createdAt: Date;
 }
 
 export interface TherapistPatientQuickNavFilter {

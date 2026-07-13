@@ -2,6 +2,7 @@ import { Ban, FileText, History, UserPen } from 'lucide-react';
 import type { IPatientsTableRowData } from '../../../../../@types/interfaces/therapistInterfaces';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
+import { useAuthenticationContext } from '../../../../../hooks/context/useAuthenticationContext';
 import { therapistPatientStatusConfig } from '../../../../../utils/config/therapist/therapistPatientStatusStyles';
 import { getFormattedAppointmentDate } from '../../../../../utils/functions/getFormattedAppointmentDate';
 import { getNameInitials } from '../../../../../utils/functions/therapist/getNameInitials';
@@ -56,6 +57,8 @@ export default function PatientsTableBody({
     console.log('Edit clicked');
   };
 
+  const { user } = useAuthenticationContext();
+
   return (
     <>
       <tbody className="xxs:text-xxs text-xs md:text-sm">
@@ -67,6 +70,8 @@ export default function PatientsTableBody({
           const lastAppointment = getFormattedAppointmentDate(
             patient.lastAppointmentAt
           );
+
+          const isSameTherapist = patient.therapist?.id === user?.id;
           return (
             <tr
               key={patient.id}
@@ -122,7 +127,9 @@ export default function PatientsTableBody({
 
                     <div className="min-w-0">
                       <p className="font-semibold text-slate-700 transition-colors duration-150 group-hover:text-secondaryBlue">
-                        {patient.therapist.fullName}
+                        {isSameTherapist
+                          ? 'Vous'
+                          : `${patient.therapist.fullName}`}
                       </p>
 
                       <p className="text-xs text-slate-400 transition-colors duration-150 group-hover:text-slate-600 font-medium tracking-wide">
@@ -131,8 +138,10 @@ export default function PatientsTableBody({
                     </div>
                   </button>
                 ) : (
-                  <div className="px-2 py-2">
-                    <p className="text-sm italic text-slate-400">Non assigné</p>
+                  <div className="px-2 py-2 text-center">
+                    <p className="text-sm italic text-slate-400 font-semibold">
+                      Non assigné
+                    </p>
                   </div>
                 )}
               </td>
@@ -190,20 +199,21 @@ export default function PatientsTableBody({
                       },
                       {
                         label: 'Ordonnances',
-                        icon: <FileText size={16} />,
+                        icon: <FileText className="h-4 w-4 shrink-0" />,
                         onClick: handlePrescriptionsClick,
-                      },
-                      {
-                        label: 'Modifier',
-                        icon: <UserPen size={16} />,
-                        onClick: handleEditClick,
                       },
                       {
                         separator: true,
                       },
                       {
+                        label: 'Modifier',
+                        icon: <UserPen className="h-4 w-4 shrink-0" />,
+                        onClick: handleEditClick,
+                      },
+
+                      {
                         label: 'Supprimer',
-                        icon: <Ban size={16} />,
+                        icon: <Ban className="h-4 w-4 shrink-0" />,
                         danger: true,
                         onClick: handleDeleteClick,
                       },

@@ -1,18 +1,23 @@
 import { Button } from '@headlessui/react';
+import { Clock3, UserCheck, UserPlus, Users } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import type { TherapistPatientQuickFilterTypes } from '../../@types/types/therapistTypes';
 import PatientsLinkButtons from '../../components/pages/therapist/patients/PatientsLinkButtons';
 import PatientsTable from '../../components/pages/therapist/patients/PatientsTable';
+import PatientStatisticCard from '../../components/pages/therapist/patients/PatientStatisticCard';
 import TherapistCard from '../../components/pages/therapist/TherapistCard';
 import DNALoader from '../../components/ui/DNALoader';
 import EmptyState from '../../components/ui/EmptyState';
 import SearchBar from '../../components/ui/SearchBar';
+import { useAuthenticationContext } from '../../hooks/context/useAuthenticationContext';
 import { useFetchAllPatientsAsTherapistQuery } from '../../hooks/therapist/useFetchAllPatientsAsTherapistQuery';
 
 export default function PatientsPage() {
   const { data: allPatients = [], isLoading } =
     useFetchAllPatientsAsTherapistQuery();
+
+  const { user } = useAuthenticationContext();
 
   const { setHeroMessage } = useOutletContext<{
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
@@ -30,8 +35,14 @@ export default function PatientsPage() {
       return allPatients;
     }
 
+    if (selectedFilter === 'self') {
+      return allPatients.filter(
+        (patient) => patient.therapist?.id === user?.id
+      );
+    }
+
     return allPatients.filter((patient) => patient.status === selectedFilter);
-  }, [allPatients, selectedFilter]);
+  }, [allPatients, selectedFilter, user?.id]);
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -47,18 +58,28 @@ export default function PatientsPage() {
     );
   }, [statusFilteredPatients, searchTerm]);
 
-  const patientCounts = useMemo(
-    () => ({
-      all: allPatients.length,
+  const patientStatistics = useMemo(() => {
+    const now = new Date();
+
+    return {
+      total: allPatients.length,
+
       active: allPatients.filter((patient) => patient.status === 'active')
         .length,
-      inactive: allPatients.filter((patient) => patient.status === 'inactive')
-        .length,
+
       pending: allPatients.filter((patient) => patient.status === 'pending')
         .length,
-    }),
-    [allPatients]
-  );
+
+      newThisMonth: allPatients.filter((patient) => {
+        const createdAt = new Date(patient.createdAt);
+
+        return (
+          createdAt.getMonth() === now.getMonth() &&
+          createdAt.getFullYear() === now.getFullYear()
+        );
+      }).length,
+    };
+  }, [allPatients]);
 
   if (isLoading) {
     return (
@@ -70,9 +91,38 @@ export default function PatientsPage() {
 
   return (
     <>
+      <div className="flex w-full justify-between gap-4 mb-4">
+        <PatientStatisticCard
+          title="Patients"
+          value={patientStatistics.total}
+          icon={<Users className="h-6 w-6" />}
+          variant="teal"
+        />
+
+        <PatientStatisticCard
+          title="Actifs"
+          value={patientStatistics.active}
+          icon={<UserCheck className="h-6 w-6" />}
+          variant="green"
+        />
+
+        <PatientStatisticCard
+          title="En attente"
+          value={patientStatistics.pending}
+          icon={<Clock3 className="h-6 w-6" />}
+          variant="yellow"
+        />
+
+        <PatientStatisticCard
+          title="Nouveaux ce mois"
+          value={patientStatistics.newThisMonth}
+          icon={<UserPlus className="h-6 w-6" />}
+          variant="blue"
+        />
+      </div>
+
       <div className="flex items-center justify-between w-full gap-4 mb-4">
         <PatientsLinkButtons
-          counts={patientCounts}
           selectedFilter={selectedFilter}
           onSelect={setSelectedFilter}
         />

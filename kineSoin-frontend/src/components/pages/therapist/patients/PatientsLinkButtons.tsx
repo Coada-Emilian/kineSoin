@@ -4,7 +4,6 @@ import therapistPatientsQuickNavFilters from '../../../../utils/config/therapist
 import CustomButton from '../../../ui/buttons/CustomButton';
 
 export default function PatientsLinkButtons({
-  counts,
   selectedFilter,
   onSelect,
 }: PatientsLinkButtonsProps) {
@@ -16,7 +15,7 @@ export default function PatientsLinkButtons({
             key={filter.key}
             btn={{
               type: filter.buttonType as IButtonType,
-              text: `${filter.label} (${counts[filter.key] ?? 0})`,
+              text: `${filter.label}`,
               style: 'status',
               onClick: () => onSelect(filter.key),
               isSelected: selectedFilter === filter.key,

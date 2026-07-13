@@ -142,12 +142,6 @@ export interface EmptyStateProps {
 }
 
 export interface PatientsLinkButtonsProps {
-  counts: {
-    all: number;
-    active: number;
-    inactive: number;
-    pending: number;
-  };
   selectedFilter: TherapistPatientQuickFilterTypes;
   onSelect: (filter: TherapistPatientQuickFilterTypes) => void;
 }
