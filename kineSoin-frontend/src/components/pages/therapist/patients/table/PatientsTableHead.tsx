@@ -14,6 +14,8 @@ export default function PatientsTableHead() {
 
           <th className={`${baseClassName}`}>Thérapeute</th>
 
+          <th className={`${baseClassName}`}>Dernier rendez-vous</th>
+
           <th className={`${baseClassName} md:p-2 w-fit`}>
             <span className="block md:hidden">Message</span>
             <span className="hidden md:block">Envoyer un message</span>

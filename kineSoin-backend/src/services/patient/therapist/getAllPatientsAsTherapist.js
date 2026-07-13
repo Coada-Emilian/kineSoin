@@ -28,6 +28,10 @@ export default async function getAllPatientsAsTherapist({ therapistId }) {
         association: 'therapist',
         attributes: ['id', 'name', 'surname', 'picture_url'],
       },
+      {
+        association: 'appointments',
+        attributes: ['date', 'time'],
+      },
     ],
   });
 
@@ -45,6 +49,19 @@ export default async function getAllPatientsAsTherapist({ therapistId }) {
           picture_url: patient.therapist.picture_url || null,
         }
       : null,
+    lastAppointmentAt:
+      patient.appointments.length > 0
+        ? patient.appointments
+            .reduce((latest, appointment) => {
+              const appointmentDateTime = new Date(
+                `${appointment.date}T${appointment.time}`
+              );
+              return appointmentDateTime > latest
+                ? appointmentDateTime
+                : latest;
+            }, new Date(0))
+            .toISOString()
+        : null,
   }));
 
   return sentPatients;

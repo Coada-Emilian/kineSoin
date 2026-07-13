@@ -18,6 +18,7 @@ export const useFetchAllPatientsAsTherapistQuery = () => {
         fullPhoneNumber: patient.fullPhoneNumber,
         status: patient.status,
         therapist: patient.therapist || null,
+        lastAppointmentAt: patient.lastAppointmentAt || null,
       }));
     },
   });

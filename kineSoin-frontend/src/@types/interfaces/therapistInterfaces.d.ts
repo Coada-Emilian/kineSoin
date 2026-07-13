@@ -134,6 +134,7 @@ export interface IPatientsTableRowData {
   fullPhoneNumber: string;
   status: PatientStatusType;
   therapist: ITherapist | null;
+  lastAppointmentAt: string | null;
 }
 
 export interface TherapistPatientQuickNavFilter {

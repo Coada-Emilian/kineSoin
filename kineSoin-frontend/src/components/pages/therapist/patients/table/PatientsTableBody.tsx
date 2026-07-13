@@ -3,9 +3,11 @@ import type { IPatientsTableRowData } from '../../../../../@types/interfaces/the
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { therapistPatientStatusConfig } from '../../../../../utils/config/therapist/therapistPatientStatusStyles';
+import { getFormattedAppointmentDate } from '../../../../../utils/functions/getFormattedAppointmentDate';
 import { getNameInitials } from '../../../../../utils/functions/therapist/getNameInitials';
 import deleteIcon from '/icons/delete.png';
 import messageIcon from '/icons/message.png';
+import appointmentIcon from '/logos/appointment_48.webp';
 
 export default function PatientsTableBody({
   patients,
@@ -38,6 +40,10 @@ export default function PatientsTableBody({
           const status =
             therapistPatientStatusConfig[patient.status] ??
             therapistPatientStatusConfig.inactive;
+
+          const lastAppointment = getFormattedAppointmentDate(
+            patient.lastAppointmentAt
+          );
           return (
             <tr
               key={patient.id}
@@ -105,6 +111,30 @@ export default function PatientsTableBody({
                   <div className="px-2 py-2">
                     <p className="text-sm italic text-slate-400">Non assigné</p>
                   </div>
+                )}
+              </td>
+
+              <td className="border-b border-slate-200 px-4 py-3">
+                {lastAppointment ? (
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={appointmentIcon}
+                      alt="appointment"
+                      className="w-4 md:w-5 shrink-0"
+                    />
+
+                    <div className="text-left">
+                      <p className="font-medium text-slate-700">
+                        {lastAppointment.date}
+                      </p>
+
+                      <p className="text-xs font-medium tracking-wide text-slate-400">
+                        {lastAppointment.time}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-center text-sm italic text-slate-400">—</p>
                 )}
               </td>
 
