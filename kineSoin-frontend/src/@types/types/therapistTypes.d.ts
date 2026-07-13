@@ -20,3 +20,5 @@ export type TherapistPatientQuickFilterCounts = Record<
   TherapistPatientQuickFilter,
   number
 >;
+
+export type PatientStatusType = 'active' | 'inactive' | 'pending' | 'banned';

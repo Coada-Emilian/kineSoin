@@ -2,7 +2,7 @@ import { Button } from '@headlessui/react';
 import type { IPatientsTableRowData } from '../../../../../@types/interfaces/therapistInterfaces';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
-import { getEntityStatusText } from '../../../../../utils/functions/getEntityStatusText';
+import { therapistPatientStatusConfig } from '../../../../../utils/config/therapist/therapistPatientStatusStyles';
 import deleteIcon from '/icons/delete.png';
 import messageIcon from '/icons/message.png';
 
@@ -34,6 +34,9 @@ export default function PatientsTableBody({
     <>
       <tbody className="xxs:text-xxs text-xs md:text-sm">
         {patients.map((patient) => {
+          const status =
+            therapistPatientStatusConfig[patient.status] ??
+            therapistPatientStatusConfig.inactive;
           return (
             <tr
               key={patient.id}
@@ -56,22 +59,14 @@ export default function PatientsTableBody({
 
               <td className="border-b border-slate-200 px-4 py-3 text-center">
                 <div
-                  className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1`}
+                  className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1 ${status.background}`}
                 >
-                  <span
-                    className={`h-4 w-4 rounded-full ${
-                      patient.status === 'active'
-                        ? 'bg-green-500'
-                        : patient.status === 'inactive'
-                          ? 'bg-slate-400'
-                          : patient.status === 'pending'
-                            ? 'bg-yellow-500'
-                            : 'bg-red-500'
-                    }`}
-                  />
+                  <span className={`h-2.5 w-2.5 rounded-full ${status.dot}`} />
 
-                  <span className="text-sm font-medium tracking-wide">
-                    {getEntityStatusText(patient.status ?? '')}
+                  <span
+                    className={`text-sm font-medium tracking-wide ${status.text}`}
+                  >
+                    {status.label}
                   </span>
                 </div>
               </td>

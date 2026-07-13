@@ -1,4 +1,7 @@
-import type { TherapistPatientQuickFilterTypes } from '../types/therapistTypes';
+import type {
+  PatientStatusType,
+  TherapistPatientQuickFilterTypes,
+} from '../types/therapistTypes';
 
 export interface ICalendarAppointment {
   id: number;
@@ -128,7 +131,7 @@ export interface IPatientsTableRowData {
   id: number;
   fullName: string;
   picture_url: string;
-  status: string;
+  status: PatientStatusType;
   therapist: ITherapist | null;
 }
 
