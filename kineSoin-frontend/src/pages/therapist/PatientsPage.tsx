@@ -85,6 +85,7 @@ export default function PatientsPage() {
         active: 0,
         pending: 1,
         inactive: 2,
+        banned: 3,
       };
 
       sorted.sort((a, b) => {
