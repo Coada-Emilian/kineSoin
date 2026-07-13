@@ -16,20 +16,29 @@ instance.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as RetryAxiosRequestConfig;
 
-    if (
-      error.response?.status === 401 &&
-      originalRequest &&
-      !originalRequest._retry
-    ) {
+    // Ignore requests without a config
+    if (!originalRequest) {
+      return Promise.reject(error);
+    }
+
+    // Never attempt to refresh if the refresh endpoint itself failed
+    if (originalRequest.url === '/auth/refresh') {
+      return Promise.reject(error);
+    }
+
+    // Only attempt a refresh once for 401 responses
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       const auth = await refreshAuthentication();
 
-      if (auth) {
-        originalRequest.headers.Authorization = `Bearer ${auth.token}`;
-
-        return instance(originalRequest);
+      if (!auth) {
+        return Promise.reject(error);
       }
+
+      originalRequest.headers.set('Authorization', `Bearer ${auth.token}`);
+
+      return instance(originalRequest);
     }
 
     return Promise.reject(error);
