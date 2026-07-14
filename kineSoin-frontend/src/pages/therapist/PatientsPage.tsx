@@ -80,10 +80,6 @@ export default function PatientsPage() {
     };
   }, []);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, selectedFilter, rowsPerPage]);
-
   // -----------------------------------------------------------------------------
   // Patient processing pipeline
   // -----------------------------------------------------------------------------
@@ -212,6 +208,25 @@ export default function PatientsPage() {
     }
   };
 
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
+  const handleFilterChange = (filter: TherapistPatientQuickFilterTypes) => {
+    setSelectedFilter(filter);
+    setCurrentPage(1);
+  };
+
+  const handleRowsPerPageChange = (rows: number) => {
+    setRowsPerPage(rows);
+    setCurrentPage(1);
+  };
+
+  // -----------------------------------------------------------------------------
+  // Loader display
+  // -----------------------------------------------------------------------------
+
   if (isLoading) {
     return (
       <div className="flex w-full items-center justify-center">
@@ -227,13 +242,13 @@ export default function PatientsPage() {
       <div className="flex items-center justify-between w-full gap-4 mb-4">
         <PatientsLinkButtons
           selectedFilter={selectedFilter}
-          onSelect={setSelectedFilter}
+          onSelect={handleFilterChange}
         />
 
         <div className="flex items-center justify-end w-full gap-4">
           <SearchBar
             value={searchTerm}
-            onChange={setSearchTerm}
+            onChange={handleSearchChange}
             placeholder="Rechercher un patient..."
           />
         </div>
@@ -283,7 +298,7 @@ export default function PatientsPage() {
             description="Aucun patient ne correspond à votre recherche."
           >
             <Button
-              onClick={() => setSearchTerm('')}
+              onClick={() => handleSearchChange('')}
               className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600 cursor-pointer"
             >
               Effacer la recherche
@@ -317,7 +332,7 @@ export default function PatientsPage() {
           </div>
           <select
             value={rowsPerPage}
-            onChange={(e) => setRowsPerPage(Number(e.target.value))}
+            onChange={(e) => handleRowsPerPageChange(Number(e.target.value))}
             className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-xs outline-none transition hover:border-teal-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 cursor-pointer"
           >
             <option value={10}>10 par page</option>
