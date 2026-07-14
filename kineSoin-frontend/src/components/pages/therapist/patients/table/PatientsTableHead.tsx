@@ -1,27 +1,26 @@
-import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import type { PatientsTableHeadProps } from '../../../../../@types/props/therapistProps';
 
 export default function PatientsTableHead({
   onSort,
   sortBy,
   sortOrder,
-}: {
-  onSort: (sortBy: 'patient' | 'status' | 'therapist') => void;
-  sortBy: 'patient' | 'status' | 'therapist';
-  sortOrder: 'asc' | 'desc';
-}) {
+}: PatientsTableHeadProps) {
   const baseClassName =
     'border-b border-slate-200 px-4 py-3 text-center text-sm font-semibold uppercase tracking-wide text-slate-600 md:text-sm ';
+
   const buttonClassName =
     'flex items-center gap-2 transition hover:text-teal-600 text-center justify-center cursor-pointer uppercase tracking-wide text-slate-600 font-semibold text-sm w-full';
+
   const getSortIcon = (column: 'patient' | 'status' | 'therapist') => {
     if (sortBy !== column) {
-      return <ArrowUpDown className="h-4 w-4 opacity-60" />;
+      return <ChevronsUpDown className="h-4 w-4 opacity-60" />;
     }
 
     return sortOrder === 'asc' ? (
-      <ArrowUp className="h-4 w-4 text-teal-600" />
+      <ChevronUp className="h-4 w-4 " />
     ) : (
-      <ArrowDown className="h-4 w-4 text-teal-600" />
+      <ChevronDown className="h-4 w-4 " />
     );
   };
 

@@ -14,6 +14,10 @@ import PatientStatistics from './PatientStatistics';
 import filterIcon from '/icons/filter_128.png';
 
 export default function PatientsPage() {
+  // -----------------------------------------------------------------------------
+  // Data & Context
+  // -----------------------------------------------------------------------------
+
   const { data: allPatients = [], isLoading } =
     useFetchAllPatientsAsTherapistQuery();
 
@@ -23,14 +27,68 @@ export default function PatientsPage() {
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   }>();
 
+  // -----------------------------------------------------------------------------
+  // UI State
+  // -----------------------------------------------------------------------------
+
+  // Filtering
+  const [selectedFilter, setSelectedFilter] =
+    useState<TherapistPatientQuickFilterTypes>('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Sorting
+  const [sortBy, setSortBy] = useState<
+    'patient' | 'status' | 'therapist' | null
+  >(null);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // Popover
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = useState(false);
+
+  // -----------------------------------------------------------------------------
+  // Refs
+  // -----------------------------------------------------------------------------
+
+  const filterPopoverRef = useRef<HTMLDivElement>(null);
+
+  // -----------------------------------------------------------------------------
+  // Effects
+  // -----------------------------------------------------------------------------
+
   useEffect(() => {
     setHeroMessage(<>Retrouvez rapidement les informations de vos patients.</>);
   }, [setHeroMessage]);
 
-  const [selectedFilter, setSelectedFilter] =
-    useState<TherapistPatientQuickFilterTypes>('all');
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        filterPopoverRef.current &&
+        !filterPopoverRef.current.contains(event.target as Node)
+      ) {
+        setIsFilterPopoverOpen(false);
+      }
+    }
 
-  const statusFilteredPatients = useMemo(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedFilter, rowsPerPage]);
+
+  // -----------------------------------------------------------------------------
+  // Patient processing pipeline
+  // -----------------------------------------------------------------------------
+
+  const filteredPatients = useMemo(() => {
     if (selectedFilter === 'all') {
       return allPatients;
     }
@@ -44,28 +102,17 @@ export default function PatientsPage() {
     return allPatients.filter((patient) => patient.status === selectedFilter);
   }, [allPatients, selectedFilter, user?.id]);
 
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [sortBy, setSortBy] = useState<'patient' | 'status' | 'therapist'>(
-    'patient'
-  );
-
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-
   const searchedPatients = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
 
     if (!query) {
-      return statusFilteredPatients;
+      return filteredPatients;
     }
 
-    return statusFilteredPatients.filter((patient) =>
+    return filteredPatients.filter((patient) =>
       patient.fullName.trim().toLowerCase().includes(query)
     );
-  }, [statusFilteredPatients, searchTerm]);
+  }, [filteredPatients, searchTerm]);
 
   const sortedPatients = useMemo(() => {
     const sorted = [...searchedPatients];
@@ -111,7 +158,9 @@ export default function PatientsPage() {
     return sorted;
   }, [searchedPatients, sortBy, sortOrder]);
 
-  const totalPages = Math.ceil(sortedPatients.length / rowsPerPage);
+  // -----------------------------------------------------------------------------
+  // Statistics
+  // -----------------------------------------------------------------------------
 
   const patientStatistics = useMemo(() => {
     const now = new Date();
@@ -136,48 +185,24 @@ export default function PatientsPage() {
     };
   }, [allPatients]);
 
-  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = useState(false);
-
-  const filterPopoverRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        filterPopoverRef.current &&
-        !filterPopoverRef.current.contains(event.target as Node)
-      ) {
-        setIsFilterPopoverOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  // -----------------------------------------------------------------------------
+  // Pagination calculations
+  // -----------------------------------------------------------------------------
 
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
+  const totalPages = Math.ceil(sortedPatients.length / rowsPerPage);
   const displayedPatients = sortedPatients.slice(startIndex, endIndex);
 
   const displayStart = displayedPatients.length === 0 ? 0 : startIndex + 1;
-
   const displayEnd = startIndex + displayedPatients.length;
   const displayTotal = sortedPatients.length;
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, selectedFilter, rowsPerPage]);
+  // -----------------------------------------------------------------------------
+  // Event handlers
+  // -----------------------------------------------------------------------------
 
-  if (isLoading) {
-    return (
-      <div className="flex w-full items-center justify-center">
-        <DNALoader />
-      </div>
-    );
-  }
   const handleSort = (column: 'patient' | 'status' | 'therapist') => {
     if (column === sortBy) {
       setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
@@ -186,6 +211,14 @@ export default function PatientsPage() {
       setSortOrder('asc');
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full items-center justify-center">
+        <DNALoader />
+      </div>
+    );
+  }
 
   return (
     <>
