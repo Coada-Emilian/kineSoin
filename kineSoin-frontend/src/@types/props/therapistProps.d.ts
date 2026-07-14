@@ -54,3 +54,15 @@ export interface PatientsTableHeadProps {
 export interface PatientsTableProps extends PatientsTableHeadProps {
   allPatients: IPatientsTableRowData[];
 }
+
+export interface AfflictionDetailsOutputsProps {
+  selectedAffliction: {
+    id: number;
+    name: string;
+    insurance_code: string;
+    description: string;
+    body_region: {
+      name: string;
+    };
+  };
+}

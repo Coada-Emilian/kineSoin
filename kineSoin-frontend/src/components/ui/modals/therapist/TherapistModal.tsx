@@ -20,6 +20,7 @@ export default function TherapistModal({
             {header}
           </p>
         </div>
+        
         <div className="flex justify-center mt-2">
           <img
             src={patient?.picture_url || mainLogo}

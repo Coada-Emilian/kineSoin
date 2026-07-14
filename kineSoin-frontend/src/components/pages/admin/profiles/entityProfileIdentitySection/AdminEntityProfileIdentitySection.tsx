@@ -1,10 +1,9 @@
 import type { BaseAdminEntityProfileProps } from '../../../../../@types/props/adminProps';
 import { useAdminEntityProfileContext } from '../../../../../hooks/context/admin/useAdminEntityProfileContext';
 import TextInput from '../../../../ui/inputs/TextInput';
-import BaseEntityOutputContainer from '../../../../ui/outputs/BaseEntityOutputContainer';
 import EntityIdOutput from '../../../../ui/outputs/EntityIdOutput';
+import EntityNameOutput from '../../../../ui/outputs/EntityNameOutput';
 import EntityStatusOutput from '../../../../ui/outputs/EntityStatusOutput';
-import userIcon from '/icons/user.png';
 
 export default function AdminEntityProfileIdentitySection({
   entityType,
@@ -76,14 +75,12 @@ export default function AdminEntityProfileIdentitySection({
           </div>
         </>
       ) : (
-        <>
-          <BaseEntityOutputContainer
-            icon={userIcon}
-            iconAlt="user"
-            label="Nom"
-            value={`${editedEntity.name} ${editedEntity.surname}`}
-          ></BaseEntityOutputContainer>
-        </>
+        <div className="text-sm md:text-md lg:text-lg xl:text-xl">
+          <EntityNameOutput
+            name={editedEntity.name}
+            surname={editedEntity.surname ?? ''}
+          />
+        </div>
       )}
     </section>
   );

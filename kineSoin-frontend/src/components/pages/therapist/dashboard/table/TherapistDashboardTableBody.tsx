@@ -197,7 +197,7 @@ export default function TherapistDashboardTableBody({
                       <ActionDropdown
                         actions={[
                           {
-                            label: 'Affliction',
+                            label: 'Affection',
                             icon: <Activity className="h-4 w-4 shrink-0" />,
                             onClick: () => handleAfflictionClick(appointment),
                           },

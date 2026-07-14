@@ -50,7 +50,7 @@ export default function PatientDetailsModal({
         </>
       }
     >
-      <div className="w-full p-4 text-slate-600  text-xs md:text-sm lg:text-base xl:text-lg">
+      <div className="w-full p-8 text-slate-600  text-xs md:text-sm lg:text-base xl:text-lg">
         <div className="flex w-full justify-between items-center">
           <EntityStatusOutput status={patientDetails?.status} />
 
@@ -61,7 +61,7 @@ export default function PatientDetailsModal({
       </div>
 
       <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
-        <div className="flex gap-1 items-center ">
+        <div className="flex gap-3 items-center ">
           <CustomButton
             btn={{
               type: 'basic',

@@ -20,7 +20,7 @@ export default function BaseEntityProfileOutput({
         <span className="font-normal">{value}</span>
       ) : (
         <textarea
-          className="w-full h-32 p-2 rounded-lg bg-gray-200 italic focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal "
+          className="w-full h-32 p-2 rounded-xl bg-slate-100 border border-slate-100 italic focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-secondaryTeal "
           value={value}
           readOnly
         ></textarea>

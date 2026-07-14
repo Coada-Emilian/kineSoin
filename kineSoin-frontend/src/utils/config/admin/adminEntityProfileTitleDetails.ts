@@ -6,7 +6,7 @@ export const adminEntityProfileTitleDetails = [
   { entityType: 'patient', title: 'patient' },
   {
     entityType: 'affliction',
-    title: 'affliction',
+    title: 'affection',
   },
   { entityType: 'medic', title: 'médecin' },
   {

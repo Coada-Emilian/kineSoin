@@ -16,6 +16,7 @@ export default function EntityBodyRegionAndOperatedStatusOutput({
   const regionDetails = outputDetails.find(
     (detail) => detail.type === 'body_region'
   );
+  
   const operatedDetails = outputDetails.find(
     (detail) => detail.type === 'is_operated'
   );
@@ -33,7 +34,7 @@ export default function EntityBodyRegionAndOperatedStatusOutput({
         icon={operatedDetails?.icon || ''}
         iconAlt={operatedDetails?.iconAlt || ''}
         label={operatedDetails?.label || ''}
-        value={body_region_name}
+        value={is_operated ? 'Oui' : 'Non'}
       ></BaseEntityOutputContainer>
     </div>
   );

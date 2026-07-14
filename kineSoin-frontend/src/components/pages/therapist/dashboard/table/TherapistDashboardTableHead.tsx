@@ -9,7 +9,7 @@ export default function TherapistDashboardTableHead() {
 
           <th className={`${baseClassName}`}>Patient</th>
 
-          <th className={`${baseClassName} `}>Affliction</th>
+          <th className={`${baseClassName} `}>Affection</th>
 
           <th className={`${baseClassName}`}>Dernier rendez-vous</th>
 

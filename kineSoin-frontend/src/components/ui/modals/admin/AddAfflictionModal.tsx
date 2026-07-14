@@ -30,11 +30,11 @@ export default function AddAfflictionModal({
     <BaseModal isOpen={isOpen} onClose={onClose} variant="compact" size="sm">
       <div className="backdrop-blur-sm rounded-3xl p-2 md:p-4">
         <h2 className="text-xl md:text-2xl font-semibold text-center text-primaryBlue italic mb-2">
-          Ajouter une affliction
+          Ajouter une affection
         </h2>
 
         <p className="text-center text-sm text-gray-500 mb-2">
-          Créez une nouvelle affliction
+          Créez une nouvelle affection
         </p>
 
         {(bodyRegionFetchError || submitAfflictionMutation.error) && (
@@ -52,7 +52,7 @@ export default function AddAfflictionModal({
               id: 'affliction-register-name_input',
               labelName: 'Nom',
               name: 'name',
-              placeholder: "Entrez le nom de l'affliction",
+              placeholder: "Entrez le nom de l'affection",
               isRequired: true,
               autoComplete: 'name',
             }}
@@ -85,7 +85,7 @@ export default function AddAfflictionModal({
                 id: 'affliction-register-licenceCode_input',
                 labelName: 'Cotation',
                 name: 'insurance_code',
-                placeholder: "Entrez la cotation de l'affliction",
+                placeholder: 'Entrez la cotation',
                 isRequired: true,
                 autoComplete: 'insurance-code',
                 additionalDivClassName: 'w-1/2',
@@ -127,7 +127,7 @@ export default function AddAfflictionModal({
               id: 'affliction-register-description_input',
               labelName: 'Description',
               name: 'description',
-              placeholder: "Entrez la description de l'affliction",
+              placeholder: "Entrez la description de l'affection",
               isRequired: true,
               isTextArea: true,
               autoComplete: 'description',
