@@ -154,5 +154,6 @@ export interface ActionButtonProps {
   onClick: () => void;
   imgSrc: string;
   altText: string;
+  isTimePassed?: boolean;
+  altImgSrc?: string;
 }
- 

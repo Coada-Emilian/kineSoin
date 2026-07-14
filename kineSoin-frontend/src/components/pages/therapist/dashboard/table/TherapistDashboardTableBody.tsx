@@ -5,14 +5,13 @@ import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/u
 import { generateTimeSlots } from '../../../../../utils/functions/generateTimeSlots';
 import { getCurrentTime } from '../../../../../utils/functions/getCurrentTime';
 import { formatDashboardAppointment } from '../../../../../utils/functions/therapist/dashboard/formatDashboardAppointment';
+import ActionButton from '../../../../ui/buttons/ActionButton';
 import calendarIcon from '/icons/calendar_128.png';
 import calendarClosedIcon from '/icons/calendarClosed_128.png';
 import cancelIcon from '/icons/cancel_128.png';
 import cancelClosedIcon from '/icons/cancelClosed_128.png';
 import messageIcon from '/icons/message_128.png';
 import messageClosedIcon from '/icons/messageClosed_128.png';
-import moreIcon from '/icons/more_128.png';
-import moreClosedIcon from '/icons/moreClosed_128.png';
 import viewIcon from '/icons/view_128.png';
 import viewClosedIcon from '/icons/viewClosed_128.png';
 
@@ -58,12 +57,6 @@ export default function TherapistDashboardTableBody({
     if (!appointment.isTimePassed) {
       setSelectedAppointment(appointment);
       setOpenModal('afflictionDetails');
-    }
-  };
-
-  const handleMoreIconClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      console.log('More icon clicked', appointment.patient);
     }
   };
 
@@ -141,7 +134,7 @@ export default function TherapistDashboardTableBody({
 
                 <td className="border-b border-slate-200 px-4 py-3">
                   {data?.lastAppointment ? (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 justify-center">
                       <img
                         src={isTimePassed ? calendarClosedIcon : calendarIcon}
                         alt="appointment"
@@ -168,47 +161,31 @@ export default function TherapistDashboardTableBody({
 
                 <td className="border-b border-slate-200 px-4 py-3">
                   <div className="flex items-center justify-center gap-3">
-                    <button
-                      onClick={() => handlePatientDetailsClick(appointment)}
-                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
-                    >
-                      <img
-                        src={isTimePassed ? viewClosedIcon : viewIcon}
-                        alt="view"
-                        className={data?.classes.icon}
+                    <>
+                      <ActionButton
+                        onClick={() => handlePatientDetailsClick(appointment)}
+                        imgSrc={viewIcon}
+                        altText="view"
+                        isTimePassed={isTimePassed}
+                        altImgSrc={viewClosedIcon}
                       />
-                    </button>
-                    <button
-                      onClick={() => handleMessageIconClick(appointment)}
-                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
-                    >
-                      <img
-                        src={isTimePassed ? messageClosedIcon : messageIcon}
-                        alt="message"
-                        className={data?.classes.icon}
-                      />
-                    </button>
-                    <button
-                      onClick={() => handleCancelIconClick(appointment)}
-                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
-                    >
-                      <img
-                        src={isTimePassed ? cancelClosedIcon : cancelIcon}
-                        alt="appointment"
-                        className={data?.classes.icon}
-                      />
-                    </button>
 
-                    <button
-                      onClick={() => handleMoreIconClick(appointment)}
-                      className={`group flex h-9 w-9 items-center justify-center rounded-lg ${data?.classes.iconButton}`}
-                    >
-                      <img
-                        src={isTimePassed ? moreClosedIcon : moreIcon}
-                        alt="more"
-                        className={data?.classes.icon}
+                      <ActionButton
+                        onClick={() => handleMessageIconClick(appointment)}
+                        imgSrc={messageIcon}
+                        altText="message"
+                        isTimePassed={isTimePassed}
+                        altImgSrc={messageClosedIcon}
                       />
-                    </button>
+
+                      <ActionButton
+                        onClick={() => handleCancelIconClick(appointment)}
+                        imgSrc={cancelIcon}
+                        altText="appointment"
+                        isTimePassed={isTimePassed}
+                        altImgSrc={cancelClosedIcon}
+                      />
+                    </>
                   </div>
                 </td>
               </>

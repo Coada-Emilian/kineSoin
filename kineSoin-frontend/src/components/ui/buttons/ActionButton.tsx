@@ -4,16 +4,18 @@ export default function ActionButton({
   onClick,
   imgSrc,
   altText,
+  isTimePassed,
+  altImgSrc,
 }: ActionButtonProps) {
   return (
     <button
-      onClick={onClick}
-      className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
+      onClick={isTimePassed ? undefined : onClick}
+      className={`${isTimePassed && altImgSrc ? 'bg-gray-200' : 'bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer'} group flex h-9 w-9 items-center justify-center rounded-lg `}
     >
       <img
-        src={imgSrc}
+        src={isTimePassed && altImgSrc ? altImgSrc : imgSrc}
         alt={altText}
-        className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-150 group-hover:scale-110"
+        className={`${isTimePassed && altImgSrc ? '' : 'transition-transform duration-150 group-hover:scale-110'} h-4 w-4 md:h-5 md:w-5`}
       />
     </button>
   );
