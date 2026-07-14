@@ -1,6 +1,6 @@
 import { Clock3, UserCheck, UserPlus, Users } from 'lucide-react';
-import PatientStatisticCard from '../../components/pages/therapist/patients/PatientStatisticCard';
-import type { PatientStatisticsProps } from '../../@types/props/therapistProps';
+import type { PatientStatisticsProps } from '../../../../@types/props/therapistProps';
+import PatientStatisticCard from './PatientStatisticCard';
 
 export default function PatientStatistics({
   patientsStatistics,

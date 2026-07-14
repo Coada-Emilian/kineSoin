@@ -1,3 +1,4 @@
+import { Activity, FileText, History } from 'lucide-react';
 import type { ISameDayAppointment } from '../../../../../@types/interfaces/therapistInterfaces';
 import type { TherapistDashboardAppointmentsTableProps } from '../../../../../@types/props/therapistProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
@@ -5,6 +6,7 @@ import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/u
 import { generateTimeSlots } from '../../../../../utils/functions/generateTimeSlots';
 import { getCurrentTime } from '../../../../../utils/functions/getCurrentTime';
 import { formatDashboardAppointment } from '../../../../../utils/functions/therapist/dashboard/formatDashboardAppointment';
+import ActionDropdown from '../../../../ui/ActionDropdown';
 import ActionButton from '../../../../ui/buttons/ActionButton';
 import calendarIcon from '/icons/calendar_128.png';
 import calendarClosedIcon from '/icons/calendarClosed_128.png';
@@ -53,11 +55,19 @@ export default function TherapistDashboardTableBody({
     }
   };
 
-  const handleAfflictionNameClick = (appointment: ISameDayAppointment) => {
+  const handleAfflictionClick = (appointment: ISameDayAppointment) => {
     if (!appointment.isTimePassed) {
       setSelectedAppointment(appointment);
       setOpenModal('afflictionDetails');
     }
+  };
+
+  const handlePrescriptionsClick = () => {
+    console.log('Prescriptions clicked');
+  };
+
+  const handleHistoryClick = () => {
+    console.log('History clicked');
   };
 
   return (
@@ -89,9 +99,8 @@ export default function TherapistDashboardTableBody({
             {appointment ? (
               <>
                 <td className="border-b border-slate-200 px-4 py-3">
-                  <button
-                    onClick={() => handlePatientDetailsClick(appointment)}
-                    className={`group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left ${isTimePassed ? '' : 'cursor-pointer'} transition-all duration-150`}
+                  <div
+                    className={`group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150`}
                   >
                     <div
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-semibold transition-all duration-150 ${data?.classes.avatar}`}
@@ -112,7 +121,7 @@ export default function TherapistDashboardTableBody({
                         {data?.patientFullPhoneNumber}
                       </p>
                     </div>
-                  </button>
+                  </div>
                 </td>
 
                 <td className="border-b border-slate-200 px-4 py-3">
@@ -122,8 +131,7 @@ export default function TherapistDashboardTableBody({
                     </span>
 
                     <button
-                      className={`${isTimePassed ? 'italic text-gray-500 font-normal' : 'hover:text-secondaryBlue hover:transform hover:scale-105 cursor-pointer'}`}
-                      onClick={() => handleAfflictionNameClick(appointment)}
+                      className={`${isTimePassed ? 'italic text-gray-500 font-normal' : ''}`}
                     >
                       <span className={` ${data?.classes.secondaryText}`}>
                         {data?.afflictionName}
@@ -184,6 +192,27 @@ export default function TherapistDashboardTableBody({
                         altText="appointment"
                         isTimePassed={isTimePassed}
                         altImgSrc={cancelClosedIcon}
+                      />
+
+                      <ActionDropdown
+                        actions={[
+                          {
+                            label: 'Affliction',
+                            icon: <Activity className="h-4 w-4 shrink-0" />,
+                            onClick: () => handleAfflictionClick(appointment),
+                          },
+                          {
+                            label: 'Ordonnance',
+                            icon: <FileText className="h-4 w-4 shrink-0" />,
+                            onClick: handlePrescriptionsClick,
+                          },
+                          {
+                            label: 'Historique',
+                            icon: <History className="h-4 w-4 shrink-0" />,
+                            onClick: handleHistoryClick,
+                          },
+                        ]}
+                        isTimePassed={isTimePassed}
                       />
                     </>
                   </div>

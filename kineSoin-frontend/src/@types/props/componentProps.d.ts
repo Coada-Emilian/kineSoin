@@ -148,6 +148,7 @@ export interface PatientsLinkButtonsProps {
 
 export interface ActionDropdownProps {
   actions: IDropdownAction[];
+  isTimePassed?: boolean;
 }
 
 export interface ActionButtonProps {

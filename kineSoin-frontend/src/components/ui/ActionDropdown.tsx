@@ -1,8 +1,12 @@
 import { MoreVertical } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ActionDropdownProps } from '../../@types/props/componentProps';
+import moreClosedIcon from '/icons/moreClosed_128.png';
 
-export default function ActionDropdown({ actions }: ActionDropdownProps) {
+export default function ActionDropdown({
+  actions,
+  isTimePassed,
+}: ActionDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,10 +31,16 @@ export default function ActionDropdown({ actions }: ActionDropdownProps) {
     <div ref={dropdownRef} className="relative">
       <button
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="group flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50 transition-all duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer"
+        onClick={!isTimePassed ? () => setIsOpen((prev) => !prev) : undefined}
+        className={`${!isTimePassed ? 'duration-150 hover:bg-teal-100 active:scale-95 cursor-pointer bg-teal-50' : 'bg-gray-200'} group flex h-9 w-9 items-center justify-center rounded-lg transition-all`}
       >
-        <MoreVertical size={18} />
+        {isTimePassed ? (
+          <img src={moreClosedIcon} alt="More options" className="h-4 w-4" />
+        ) : (
+          <div className="group-hover:scale-110">
+            <MoreVertical size={18} />
+          </div>
+        )}
       </button>
 
       {isOpen && (

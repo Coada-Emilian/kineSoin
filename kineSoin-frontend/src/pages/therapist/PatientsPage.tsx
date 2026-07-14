@@ -5,13 +5,13 @@ import type { TherapistPatientQuickFilterTypes } from '../../@types/types/therap
 import PatientsLinkButtons from '../../components/pages/therapist/patients/PatientsLinkButtons';
 import PatientsTable from '../../components/pages/therapist/patients/PatientsTable';
 import PatientsTablePagination from '../../components/pages/therapist/patients/PatientsTablePagination';
+import PatientStatistics from '../../components/pages/therapist/patients/PatientStatistics';
 import TherapistCard from '../../components/pages/therapist/TherapistCard';
 import DNALoader from '../../components/ui/DNALoader';
 import EmptyState from '../../components/ui/EmptyState';
 import SearchBar from '../../components/ui/SearchBar';
 import { useAuthenticationContext } from '../../hooks/context/useAuthenticationContext';
 import { useFetchAllPatientsAsTherapistQuery } from '../../hooks/therapist/useFetchAllPatientsAsTherapistQuery';
-import PatientStatistics from './PatientStatistics';
 import filterIcon from '/icons/filter_128.png';
 
 export default function PatientsPage() {

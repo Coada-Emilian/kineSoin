@@ -33,7 +33,7 @@ export function formatDashboardAppointment(
 
       avatar: isTimePassed
         ? 'bg-gray-200 text-slate-400'
-        : 'bg-teal-50 text-slate-600 group-hover:bg-teal-100 group-hover:text-secondaryBlue',
+        : 'bg-teal-50 text-slate-600',
 
       iconButton: isTimePassed
         ? 'bg-gray-200'

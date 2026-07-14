@@ -80,7 +80,7 @@ export default function TherapistDashboardAppointmentCard({
             isTimePassed ? 'text-slate-500' : 'text-slate-800'
           }`}
         >
-          {appointment.patientFullName}
+          {appointment.patient.name} {appointment.patient.surname}
         </h3>
 
         <p
@@ -93,7 +93,7 @@ export default function TherapistDashboardAppointmentCard({
       </div>
 
       {!isTimePassed && (
-        <div className="mt-5 flex justify-end gap-2 border-t border-slate-100 pt-4">
+        <div className=" flex justify-end gap-2 border-t border-slate-100 pt-4">
           <Button
             className="rounded-full p-2 transition-colors hover:bg-slate-100"
             onClick={() => handleMessageIconClick(appointment)}
