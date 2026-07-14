@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import type { TherapistPatientQuickFilterTypes } from '../../@types/types/therapistTypes';
 import PatientsLinkButtons from '../../components/pages/therapist/patients/PatientsLinkButtons';
 import PatientsTable from '../../components/pages/therapist/patients/PatientsTable';
+import PatientsTablePagination from '../../components/pages/therapist/patients/PatientsTablePagination';
 import TherapistCard from '../../components/pages/therapist/TherapistCard';
 import DNALoader from '../../components/ui/DNALoader';
 import EmptyState from '../../components/ui/EmptyState';
@@ -252,6 +253,7 @@ export default function PatientsPage() {
             placeholder="Rechercher un patient..."
           />
         </div>
+
         <div ref={filterPopoverRef} className="relative">
           <button
             type="button"
@@ -305,41 +307,17 @@ export default function PatientsPage() {
             </Button>
           </EmptyState>
         )}
-        <div className="flex items-center justify-between border-t border-slate-200 px-6 py-4">
-          <p className="text-sm text-slate-500">
-            Affichage de {displayStart} à {displayEnd} sur {displayTotal}{' '}
-            {displayTotal > 1 ? 'patients' : 'patient'}
-          </p>
 
-          <div className="flex items-center gap-2">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((p) => p - 1)}
-            >
-              ←
-            </button>
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button key={index} onClick={() => setCurrentPage(index + 1)}>
-                {index + 1}
-              </button>
-            ))}
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((p) => p + 1)}
-            >
-              →
-            </button>
-          </div>
-          <select
-            value={rowsPerPage}
-            onChange={(e) => handleRowsPerPageChange(Number(e.target.value))}
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-xs outline-none transition hover:border-teal-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 cursor-pointer"
-          >
-            <option value={10}>10 par page</option>
-            <option value={25}>25 par page</option>
-            <option value={50}>50 par page</option>
-          </select>
-        </div>
+        <PatientsTablePagination
+          displayStart={displayStart}
+          displayEnd={displayEnd}
+          displayTotal={displayTotal}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          rowsPerPage={rowsPerPage}
+          onPageChange={setCurrentPage}
+          onRowsPerPageChange={handleRowsPerPageChange}
+        />
       </TherapistCard>
     </>
   );

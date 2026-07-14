@@ -148,7 +148,7 @@ export default function PatientsTableBody({
 
               <td className="border-b border-slate-200 px-4 py-3">
                 {lastAppointment ? (
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 justify-center">
                     <img
                       src={calendarIcon}
                       alt="appointment"
