@@ -36,7 +36,16 @@ export default async function getAppointmentDashboardDataAsTherapist({
       },
       {
         association: 'prescription',
-        attributes: ['id', 'appointment_quantity'],
+        attributes: [
+          'id',
+          'appointment_quantity',
+          'completed_appointment_quantity',
+          'is_completed',
+          'at_home_care',
+          'date',
+          'picture_url',
+          'prescription_number',
+        ],
         include: [
           {
             association: 'affliction',
@@ -44,6 +53,11 @@ export default async function getAppointmentDashboardDataAsTherapist({
             include: [
               { association: 'body_region', attributes: ['id', 'name'] },
             ],
+          },
+          { association: 'medic', attributes: ['id', 'name', 'surname'] },
+          {
+            association: 'patient',
+            attributes: ['id', 'name', 'surname'],
           },
         ],
       },

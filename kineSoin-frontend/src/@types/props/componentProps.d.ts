@@ -128,6 +128,37 @@ export interface EntityDescriptionOutputProps {
   description: string | undefined;
 }
 
+export interface EntityDateOutputProps {
+  date: string | Date | undefined;
+}
+
+export interface EntityMedicOutputProps {
+  medic: {
+    id: number;
+    surname: string;
+    name: string;
+  };
+}
+
+export interface EntityAfflictionOutputProps {
+  affliction: {
+    id: number;
+    name: string;
+  };
+}
+
+export interface EntityBodyRegionOutputProps {
+  bodyRegionName: string | undefined;
+}
+
+export interface EntityPatientOutputProps {
+  patient: {
+    id: number;
+    surname: string;
+    name: string;
+  };
+}
+
 export interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;

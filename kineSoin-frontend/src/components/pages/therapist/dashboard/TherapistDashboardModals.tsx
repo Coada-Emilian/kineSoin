@@ -2,6 +2,7 @@ import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useT
 import AfflictionDetailsModal from '../../../ui/modals/therapist/afflictionDetails/AfflictionDetailsModal';
 import CancelAppointmentModal from '../../../ui/modals/therapist/CancelAppointmentModal';
 import PatientDetailsModal from '../../../ui/modals/therapist/patientDetails/PatientDetailsModal';
+import PrescriptionDetailsModal from '../../../ui/modals/therapist/prescriptionDetails/PrescriptionDetailsModal';
 import SendMessageModal from '../../../ui/modals/therapist/SendMessageModal';
 
 export default function TherapistDashboardModals() {
@@ -23,6 +24,11 @@ export default function TherapistDashboardModals() {
 
       <AfflictionDetailsModal
         isOpen={openModal === 'afflictionDetails'}
+        onClose={closeModal}
+      />
+
+      <PrescriptionDetailsModal
+        isOpen={openModal === 'prescriptionDetails'}
         onClose={closeModal}
       />
     </>

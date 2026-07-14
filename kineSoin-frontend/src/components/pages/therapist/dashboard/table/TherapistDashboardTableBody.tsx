@@ -62,8 +62,11 @@ export default function TherapistDashboardTableBody({
     }
   };
 
-  const handlePrescriptionsClick = () => {
-    console.log('Prescriptions clicked');
+  const handlePrescriptionsClick = (appointment: ISameDayAppointment) => {
+    if (!appointment.isTimePassed) {
+      setSelectedPrescription(appointment.prescription);
+      setOpenModal('prescriptionDetails');
+    }
   };
 
   const handleHistoryClick = () => {
@@ -204,7 +207,8 @@ export default function TherapistDashboardTableBody({
                           {
                             label: 'Ordonnance',
                             icon: <FileText className="h-4 w-4 shrink-0" />,
-                            onClick: handlePrescriptionsClick,
+                            onClick: () =>
+                              handlePrescriptionsClick(appointment),
                           },
                           {
                             label: 'Historique',

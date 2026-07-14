@@ -45,7 +45,7 @@ export default function PatientDetailsModal({
             Informations personnelles de
           </span>
           <span className="block font-semibold text-xl">
-            {patientDetails?.name} {patientDetails?.surname}
+            {patientDetails?.surname} {patientDetails?.name}
           </span>
         </>
       }

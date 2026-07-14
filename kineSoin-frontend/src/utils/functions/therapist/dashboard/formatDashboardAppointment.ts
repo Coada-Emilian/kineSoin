@@ -8,7 +8,7 @@ export function formatDashboardAppointment(
 ) {
   if (!appointment) return null;
 
-  const patientFullName = `${appointment.patient.name} ${appointment.patient.surname}`;
+  const patientFullName = `${appointment.patient.surname} ${appointment.patient.name}`;
 
   return {
     patientFullName,
