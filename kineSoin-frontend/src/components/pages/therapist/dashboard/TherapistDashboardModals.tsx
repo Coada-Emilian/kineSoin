@@ -1,10 +1,11 @@
 import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
 import AfflictionDetailsModal from '../../../ui/modals/therapist/afflictionDetails/AfflictionDetailsModal';
-import CancelAppointmentModal from '../../../ui/modals/therapist/CancelAppointmentModal';
-import ExtendedSendMessageModal from '../../../ui/modals/therapist/ExtendedSendMessageModal';
+import CancelAppointmentModal from '../../../ui/modals/therapist/cancelAppointment/CancelAppointmentModal';
+import ExtendedCancelAppointmentModal from '../../../ui/modals/therapist/cancelAppointment/ExtendedCancelAppointmentModal';
 import PatientDetailsModal from '../../../ui/modals/therapist/patientDetails/PatientDetailsModal';
 import PrescriptionDetailsModal from '../../../ui/modals/therapist/prescriptionDetails/PrescriptionDetailsModal';
-import SendMessageModal from '../../../ui/modals/therapist/SendMessageModal';
+import ExtendedSendMessageModal from '../../../ui/modals/therapist/sendMessage/ExtendedSendMessageModal';
+import SendMessageModal from '../../../ui/modals/therapist/sendMessage/SendMessageModal';
 
 export default function TherapistDashboardModals() {
   const { openModal, closeModal } = useUTherapistUiContext();
@@ -25,6 +26,11 @@ export default function TherapistDashboardModals() {
 
       <CancelAppointmentModal
         isOpen={openModal === 'cancel'}
+        onClose={closeModal}
+      />
+
+      <ExtendedCancelAppointmentModal
+        isOpen={openModal === 'extendedCancel'}
         onClose={closeModal}
       />
 

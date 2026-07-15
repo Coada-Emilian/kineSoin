@@ -1,11 +1,11 @@
 import type React from 'react';
-import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
-import { useSendMessageToPatientAsTherapistMutation } from '../../../../hooks/therapist/useSendMessageToPatientAsTherapistMutation';
-import CustomButton from '../../buttons/CustomButton';
-import DNALoader from '../../DNALoader';
-import TextInput from '../../inputs/TextInput';
-import TherapistModal from '../therapist/TherapistModal';
+import type { BasicModalProps } from '../../../../../@types/props/modalProps';
+import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
+import { useSendMessageToPatientAsTherapistMutation } from '../../../../../hooks/therapist/useSendMessageToPatientAsTherapistMutation';
+import CustomButton from '../../../buttons/CustomButton';
+import DNALoader from '../../../DNALoader';
+import TextInput from '../../../inputs/TextInput';
+import TherapistModal from '../TherapistModal';
 
 export default function SendMessageModal({ isOpen, onClose }: BasicModalProps) {
   const { selectedPatient: patient, setSelectedPatient } =

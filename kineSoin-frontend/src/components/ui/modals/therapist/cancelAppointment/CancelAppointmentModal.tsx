@@ -1,9 +1,9 @@
-import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
-import { useCancelAppointmentAsTherapistMutation } from '../../../../hooks/therapist/useCancelAppointmentAsTherapistMutation';
-import CustomButton from '../../buttons/CustomButton';
-import DNALoader from '../../DNALoader';
-import TherapistModal from './TherapistModal';
+import type { BasicModalProps } from '../../../../../@types/props/modalProps';
+import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
+import { useCancelAppointmentAsTherapistMutation } from '../../../../../hooks/therapist/useCancelAppointmentAsTherapistMutation';
+import CustomButton from '../../../buttons/CustomButton';
+import DNALoader from '../../../DNALoader';
+import TherapistModal from '../TherapistModal';
 
 export default function CancelAppointmentModal({
   isOpen,

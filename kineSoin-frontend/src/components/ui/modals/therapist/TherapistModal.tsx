@@ -1,3 +1,4 @@
+import { TriangleAlert } from 'lucide-react';
 import type { TherapistModalProps } from '../../../../@types/props/therapistProps';
 import BaseModal from '../BaseModal';
 import mainLogo from '/logos/newLogo_64.webp';
@@ -35,9 +36,12 @@ export default function TherapistModal({
           </h2>
 
           {isDestructive && (
-            <p className="mt-2 text-center text-sm  text-red-700 px-2">
-              Cette action est définitive et ne peut pas être annulée.
-            </p>
+            <div className="flex items-center md:gap-2 w-full justify-center font-semibold">
+              <TriangleAlert color="#d20f0f" />
+              <p className=" text-center text-xs md:text-sm  text-red-600 px-2">
+                Cette action est définitive et ne peut pas être annulée.
+              </p>
+            </div>
           )}
 
           {children}

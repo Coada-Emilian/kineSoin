@@ -1,12 +1,12 @@
 import { MessageSquareMore, Paperclip, X } from 'lucide-react';
 import { useState } from 'react';
-import type { BasicModalProps } from '../../../../@types/props/modalProps';
-import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
-import { useSendMessageToPatientAsTherapistMutation } from '../../../../hooks/therapist/useSendMessageToPatientAsTherapistMutation';
-import CustomButton from '../../buttons/CustomButton';
-import DNALoader from '../../DNALoader';
-import TextInput from '../../inputs/TextInput';
-import TherapistModal from './TherapistModal';
+import type { BasicModalProps } from '../../../../../@types/props/modalProps';
+import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
+import { useSendMessageToPatientAsTherapistMutation } from '../../../../../hooks/therapist/useSendMessageToPatientAsTherapistMutation';
+import CustomButton from '../../../buttons/CustomButton';
+import DNALoader from '../../../DNALoader';
+import TextInput from '../../../inputs/TextInput';
+import TherapistModal from '../TherapistModal';
 
 export default function ExtendedSendMessageModal({
   isOpen,

@@ -44,7 +44,7 @@ export default function TherapistDashboardTableBody({
       setSelectedAppointment(appointment);
       setSelectedPatient(appointment.patient);
       setSelectedPrescription(appointment.prescription);
-      setOpenModal('cancel');
+      setOpenModal('extendedCancel');
     }
   };
 
