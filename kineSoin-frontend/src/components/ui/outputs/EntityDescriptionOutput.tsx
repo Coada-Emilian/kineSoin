@@ -13,6 +13,7 @@ export default function EntityDescriptionOutput({
         alt={details?.iconAlt || ''}
         className="h-4 w-4 md:h-6 md:w-6"
       />
+      
       <AdminEntityProfileOutput
         value={description}
         label={details?.label || ''}

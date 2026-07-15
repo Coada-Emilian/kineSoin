@@ -111,6 +111,8 @@ therapistRouter.get(
   wrapper(therapistController.getConnectedTherapistData)
 );
 
+therapistRouter.get("/me/patient/history", wrapper(patientController.getPatientHistoryAsTherapist));
+
 // Unused routes
 
 // therapistRouter.patch(

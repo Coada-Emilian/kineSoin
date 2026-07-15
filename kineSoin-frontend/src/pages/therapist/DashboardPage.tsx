@@ -10,8 +10,10 @@ import { useFetchTherapistDashboardDataQuery } from '../../hooks/therapist/useFe
 import { getRemainingAppointments } from '../../utils/functions/therapist/getRemainingAppointments';
 
 export default function DashboardPage() {
-  const { data: tableAppointments = [], isLoading } =
-    useFetchTherapistDashboardDataQuery();
+  const {
+    data: tableAppointments = [],
+    isLoading: isTableAppointmentsLoading,
+  } = useFetchTherapistDashboardDataQuery();
 
   useDashboardRefresh();
 
@@ -20,7 +22,7 @@ export default function DashboardPage() {
   const { setHeroMessage } = useOutletContext<{
     setHeroMessage: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   }>();
-  
+
   const remainingAppointmentsCount = remainingAppointments.length;
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function DashboardPage() {
     );
   }, [remainingAppointmentsCount, setHeroMessage]);
 
-  if (isLoading) {
+  if (isTableAppointmentsLoading) {
     return (
       <div className="flex w-full items-center justify-center">
         <DNALoader />

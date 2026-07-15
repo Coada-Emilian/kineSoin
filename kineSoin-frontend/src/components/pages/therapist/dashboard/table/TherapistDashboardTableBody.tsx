@@ -69,8 +69,12 @@ export default function TherapistDashboardTableBody({
     }
   };
 
-  const handleHistoryClick = () => {
-    console.log('History clicked');
+  const handleHistoryClick = (appointment: ISameDayAppointment) => {
+    if (!appointment.isTimePassed) {
+      setSelectedPatient(appointment.patient);
+      setSelectedPrescription(appointment.prescription);
+      setOpenModal('history');
+    }
   };
 
   return (
@@ -213,7 +217,7 @@ export default function TherapistDashboardTableBody({
                           {
                             label: 'Historique',
                             icon: <History className="h-4 w-4 shrink-0" />,
-                            onClick: handleHistoryClick,
+                            onClick: () => handleHistoryClick(appointment),
                           },
                         ]}
                         isTimePassed={isTimePassed}

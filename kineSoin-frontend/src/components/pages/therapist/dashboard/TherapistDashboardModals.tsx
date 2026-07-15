@@ -3,6 +3,7 @@ import AfflictionDetailsModal from '../../../ui/modals/therapist/afflictionDetai
 import CancelAppointmentModal from '../../../ui/modals/therapist/cancelAppointment/CancelAppointmentModal';
 import ExtendedCancelAppointmentModal from '../../../ui/modals/therapist/cancelAppointment/ExtendedCancelAppointmentModal';
 import PatientDetailsModal from '../../../ui/modals/therapist/patientDetails/PatientDetailsModal';
+import PatientHistoryModal from '../../../ui/modals/therapist/patientHistory/PatientHistoryModal';
 import PrescriptionDetailsModal from '../../../ui/modals/therapist/prescriptionDetails/PrescriptionDetailsModal';
 import ExtendedSendMessageModal from '../../../ui/modals/therapist/sendMessage/ExtendedSendMessageModal';
 import SendMessageModal from '../../../ui/modals/therapist/sendMessage/SendMessageModal';
@@ -41,6 +42,11 @@ export default function TherapistDashboardModals() {
 
       <PrescriptionDetailsModal
         isOpen={openModal === 'prescriptionDetails'}
+        onClose={closeModal}
+      />
+
+      <PatientHistoryModal
+        isOpen={openModal === 'history'}
         onClose={closeModal}
       />
     </>

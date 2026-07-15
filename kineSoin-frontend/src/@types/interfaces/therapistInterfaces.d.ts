@@ -188,3 +188,45 @@ export interface IDropdownAction {
   separator?: boolean;
   icon?: ReactNode;
 }
+
+export interface IPatientHistoryData {
+  name: string;
+  surname: string;
+  picture_url: string;
+  prescriptions: [
+    {
+      affliction: {
+        description: string;
+        name: string;
+      };
+
+      appointment_quantity: number;
+      appointments: [
+        {
+          date: string;
+          id: number;
+          is_accepted: boolean;
+          is_canceled: boolean;
+          therapist: {
+            id: number;
+            name: string;
+            surname: string;
+          };
+
+          time: string;
+        },
+      ];
+      at_home_care: boolean;
+      completed_appointment_quantity: number;
+      date: string;
+      id: number;
+      medic: {
+        name: string;
+        surname: string;
+        email: string;
+      };
+      picture_url: string;
+      updated_at: string | null;
+    },
+  ];
+}

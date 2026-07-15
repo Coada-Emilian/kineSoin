@@ -22,6 +22,7 @@ import {
 import {
   getAllPatientsAsTherapist,
   getOnePatientAsTherapist,
+  getPatientHistoryAsTherapist,
 } from './handlers/patient/therapist/index.js';
 
 const patientController = {
@@ -42,6 +43,8 @@ const patientController = {
 
   // // Function to get one patients data as a therapist
   getOnePatientAsTherapist,
+
+  getPatientHistoryAsTherapist,
 
   // // Function to toggle patient status as therapist
   // togglePatientStatusAsTherapist,

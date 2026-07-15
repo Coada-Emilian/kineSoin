@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useFetchPatientDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPatientDetailsAsTherapistQuery';
@@ -23,10 +23,6 @@ export default function PatientDetailsModal({
   } = useFetchPatientDetailsAsTherapistQuery({
     patient_id: selectedPatient?.id ?? 0,
   });
-
-  useEffect(() => {
-    console.log('patientDetails:', patientDetails);
-  }, [patientDetails]);
 
   if (isLoading || isFetching) {
     return DNALoader();

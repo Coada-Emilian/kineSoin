@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS "prescriptions" (
     "medic_id" INT REFERENCES "medics"("id") ON DELETE SET NULL,
     "patient_id" INT REFERENCES "patients"("id") ON DELETE SET NULL,
     "affliction_id" INT REFERENCES "afflictions"("id") ON DELETE SET NULL,
-    "prescription_number" VARCHAR(15),
+    "prescription_number" INTEGER GENERATED ALWAYS AS IDENTITY,
     "appointment_quantity" INT,
     "completed_appointment_quantity" INT DEFAULT 0,
     "is_new_prescription" BOOLEAN NOT NULL DEFAULT true,

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import type { IPatientsTableRowData } from '../../@types/interfaces/therapistInterfaces';
 import { fetchAllPatientsAsTherapist } from '../../api/therapist/fetchAllPatientsAsTherapist';
+
 export const useFetchAllPatientsAsTherapistQuery = () => {
   const queryResult = useQuery({
     queryKey: ['fetchAllPatientsAsTherapist'],

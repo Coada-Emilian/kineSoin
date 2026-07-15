@@ -118,14 +118,14 @@ export default function PatientsTableBody({
 
               <td className="border-b border-slate-200 px-4 py-3">
                 {patient.therapist ? (
-                  <button className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 cursor-pointer">
+                  <button className="group flex w-full gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 cursor-pointer items-center justify-center">
                     <img
                       src={patient.therapist.picture_url}
                       alt={patient.therapist.fullName}
                       className="h-10 w-10 shrink-0 rounded-full object-cover transition-all duration-150 group-hover:ring-2 group-hover:ring-teal-200"
                     />
 
-                    <div className="min-w-0">
+                    <div className="min-w-0 ">
                       <p className="font-semibold text-slate-700 transition-colors duration-150 group-hover:text-secondaryBlue">
                         {isSameTherapist
                           ? 'Vous'

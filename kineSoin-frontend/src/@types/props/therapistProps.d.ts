@@ -30,7 +30,11 @@ export interface TherapistHeaderProps {
 export interface TherapistModalProps extends BasicModalProps {
   header: React.ReactNode;
   message?: ReactNode;
-  patient?: ISameDayAppointment['patient'] | null;
+  patient?: {
+    surname: string | null;
+    name: string | null;
+    picture_url: string | null;
+  } | null;
   isDestructive?: boolean;
   size?: BaseModalSize;
   children: ReactNode;
