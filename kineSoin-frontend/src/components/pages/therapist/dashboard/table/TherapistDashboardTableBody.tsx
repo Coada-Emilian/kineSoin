@@ -35,7 +35,7 @@ export default function TherapistDashboardTableBody({
   const handleMessageIconClick = (appointment: ISameDayAppointment) => {
     if (!appointment.isTimePassed) {
       setSelectedPatient(appointment.patient);
-      setOpenModal('message');
+      setOpenModal('extendedMessage');
     }
   };
 
