@@ -53,7 +53,7 @@ export default function PrescriptionProgressSection({
             <CircleCheckBig className="size-7 shrink-0 text-emerald-600" />
           </div>
 
-          <div>
+          <div className="items-start flex flex-col">
             <p className="text-2xl font-bold leading-none text-emerald-600">
               {completedAppointments}
             </p>
@@ -67,7 +67,7 @@ export default function PrescriptionProgressSection({
             <Clock3 className="size-7 shrink-0 text-blue-600" />
           </div>
 
-          <div>
+          <div className="items-start flex flex-col">
             <p className="text-2xl font-bold leading-none text-blue-600">
               {totalAppointments - completedAppointments}
             </p>
@@ -81,7 +81,7 @@ export default function PrescriptionProgressSection({
             <CalendarDays className="size-7 shrink-0 text-violet-600" />
           </div>
 
-          <div>
+          <div className="items-start flex flex-col">
             <p className="text-2xl font-bold leading-none text-violet-600">
               {totalAppointments}
             </p>

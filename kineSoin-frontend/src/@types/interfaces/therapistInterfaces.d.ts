@@ -66,6 +66,7 @@ export interface ISameDayAppointment {
     is_completed: boolean;
     picture_url: string;
     prescription_number: string;
+    at_home_care: boolean;
     medic: {
       id: number;
       name: string;

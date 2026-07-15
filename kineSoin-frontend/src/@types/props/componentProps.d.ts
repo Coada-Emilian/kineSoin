@@ -159,6 +159,10 @@ export interface EntityPatientOutputProps {
   };
 }
 
+export interface EntityHomeCareOutputProps {
+  at_home_care: boolean;
+}
+
 export interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;

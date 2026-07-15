@@ -8,6 +8,7 @@ import educationIcon from '/icons/education.png';
 import readIcon from '/icons/envelope.png';
 import genderIcon from '/icons/equality.png';
 import experienceIcon from '/icons/experience.png';
+import homeIcon from '/icons/home.png';
 import codeIcon from '/icons/id-card.png';
 import idIcon from '/icons/id.png';
 import medicIcon from '/icons/medic.png';
@@ -145,5 +146,11 @@ export const outputDetails = [
     icon: patientIcon,
     iconAlt: 'patient',
     label: 'Patient',
+  },
+  {
+    type: 'home',
+    icon: homeIcon,
+    iconAlt: 'home',
+    label: 'Soins à domicile',
   },
 ];

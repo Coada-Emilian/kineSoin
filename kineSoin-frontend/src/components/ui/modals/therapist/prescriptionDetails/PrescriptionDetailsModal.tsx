@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { formatDate } from '../../../../../utils/functions/formatDate';
+import CustomButton from '../../../buttons/CustomButton';
 import TherapistModal from '../TherapistModal';
-import PrescriptionProgressSection from './PrescriptionProgressSection';
 import PrescriptionDetailsOutputs from './PrescriptionDetailsOutputs';
+import PrescriptionProgressSection from './PrescriptionProgressSection';
 
 export default function PrescriptionDetailsModal({
   isOpen,
@@ -17,6 +18,16 @@ export default function PrescriptionDetailsModal({
   const progress = Math.round(
     (completedAppointments / totalAppointments) * 100
   );
+
+  const handleViewPrescription = () => {
+    if (!selectedPrescription?.picture_url) return;
+
+    window.open(
+      selectedPrescription.picture_url,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  };
 
   useEffect(() => {
     console.log('selectedPrescription:', selectedPrescription);
@@ -49,7 +60,7 @@ export default function PrescriptionDetailsModal({
         </>
       }
     >
-      <div className="p-6">
+      <div className="px-6">
         <PrescriptionProgressSection
           completedAppointments={completedAppointments}
           totalAppointments={totalAppointments}
@@ -57,6 +68,30 @@ export default function PrescriptionDetailsModal({
         />
 
         <PrescriptionDetailsOutputs prescription={selectedPrescription} />
+
+        <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
+          <div className="flex gap-3 items-center ">
+            <CustomButton
+              btn={{
+                type: 'basic',
+                text: "Consulter l'ordonnance",
+                style: 'normal',
+                hasBorder: true,
+                onClick: handleViewPrescription,
+              }}
+            />
+
+            <CustomButton
+              btn={{
+                type: 'cancel',
+                text: 'Retour',
+                style: 'normal',
+                hasBorder: true,
+                onClick: onClose,
+              }}
+            />
+          </div>
+        </div>
       </div>
     </TherapistModal>
   );
