@@ -2,18 +2,21 @@ import { useEffect } from 'react';
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { formatDate } from '../../../../../utils/functions/formatDate';
-import EntityAfflictionOutput from '../../../outputs/EntityAfflictionOutput';
-import EntityBodyRegionOutput from '../../../outputs/EntityBodyRegionOutput';
-import EntityDateOutput from '../../../outputs/EntityDateOutput';
-import EntityMedicOutput from '../../../outputs/EntityMedicOutput';
-import EntityPatientOutput from '../../../outputs/EntityPatientOutput';
 import TherapistModal from '../TherapistModal';
+import PrescriptionProgressSection from './PrescriptionProgressSection';
+import PrescriptionDetailsOutputs from './PrescriptionDetailsOutputs';
 
 export default function PrescriptionDetailsModal({
   isOpen,
   onClose,
 }: BasicModalProps) {
   const { selectedPrescription } = useTherapistSelectionContext();
+  const totalAppointments = selectedPrescription?.appointment_quantity;
+  const completedAppointments =
+    selectedPrescription?.completed_appointment_quantity;
+  const progress = Math.round(
+    (completedAppointments / totalAppointments) * 100
+  );
 
   useEffect(() => {
     console.log('selectedPrescription:', selectedPrescription);
@@ -31,14 +34,14 @@ export default function PrescriptionDetailsModal({
           <span className="block font-normal not-italic text-lg">
             Informations sur l'ordonnance
           </span>
-          <span className="block font-normal text-xl">
+          <span className="block font-normal text-xl not-italic">
             n#
-            <span className="font-semibold">
+            <span className="font-semibold italic">
               {' '}
               {selectedPrescription?.prescription_number}
             </span>
             {''} du
-            <span className="font-semibold">
+            <span className="font-semibold italic">
               {' '}
               {formatDate(selectedPrescription?.date)}
             </span>
@@ -46,17 +49,15 @@ export default function PrescriptionDetailsModal({
         </>
       }
     >
-      <EntityDateOutput date={selectedPrescription?.date} />
+      <div className="p-6">
+        <PrescriptionProgressSection
+          completedAppointments={completedAppointments}
+          totalAppointments={totalAppointments}
+          progress={progress}
+        />
 
-      <EntityPatientOutput patient={selectedPrescription?.patient} />
-
-      <EntityMedicOutput medic={selectedPrescription?.medic} />
-
-      <EntityAfflictionOutput affliction={selectedPrescription?.affliction} />
-
-      <EntityBodyRegionOutput
-        bodyRegionName={selectedPrescription?.affliction.body_region.name}
-      />
+        <PrescriptionDetailsOutputs prescription={selectedPrescription} />
+      </div>
     </TherapistModal>
   );
 }

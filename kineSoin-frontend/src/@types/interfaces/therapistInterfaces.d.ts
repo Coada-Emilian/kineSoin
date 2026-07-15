@@ -60,6 +60,22 @@ export interface ISameDayAppointment {
         name: string;
       };
     };
+    appointment_quantity: number;
+    completed_appointment_quantity: number;
+    date: string;
+    is_completed: boolean;
+    picture_url: string;
+    prescription_number: string;
+    medic: {
+      id: number;
+      name: string;
+      surname: string;
+    };
+    patient: {
+      id: number;
+      name: string;
+      surname: string;
+    };
   };
   lastAppointmentAt?: string | null;
 }
