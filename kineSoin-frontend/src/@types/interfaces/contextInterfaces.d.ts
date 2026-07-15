@@ -4,6 +4,7 @@ import type { FormOrderTypes } from '../types/formTypes';
 import type { ICountryPrefix } from './apiInterfaces';
 import type { IAdminEditedEntity } from './customInterfaces';
 import type { IAddTherapistFormData } from './formInterfaces';
+import type { ISameDayAppointment } from './therapistInterfaces';
 
 export interface IAppContext {
   isLoading: boolean;

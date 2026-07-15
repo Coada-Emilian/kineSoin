@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import type { TherapistPatientQuickFilterTypes } from '../../@types/types/therapistTypes';
 import PatientsLinkButtons from '../../components/pages/therapist/patients/PatientsLinkButtons';
+import PatientsPageModals from '../../components/pages/therapist/patients/PatientsPageModals';
 import PatientsTable from '../../components/pages/therapist/patients/PatientsTable';
 import PatientsTablePagination from '../../components/pages/therapist/patients/PatientsTablePagination';
 import PatientStatistics from '../../components/pages/therapist/patients/PatientStatistics';
@@ -318,6 +319,8 @@ export default function PatientsPage() {
           onPageChange={setCurrentPage}
           onRowsPerPageChange={handleRowsPerPageChange}
         />
+
+        <PatientsPageModals />
       </TherapistCard>
     </>
   );

@@ -22,23 +22,20 @@ export default function PatientsTableBody({
 
   const { setSelectedPatient } = useTherapistSelectionContext();
 
-  const handleMessageIconClick = (patient: IPatientsTableRowData) => {
-    setSelectedPatient(patient);
-    setOpenModal('message');
+  const handleMessageIconClick = () => {
+    console.log('Message icon clicked');
   };
 
-  const handleViewIconClick = (patient: IPatientsTableRowData) => {
-    setSelectedPatient(patient);
-    setOpenModal('patientDetails');
+  const handleViewIconClick = () => {
+    console.log('View icon clicked');
   };
 
-  const handleAppointmentIconClick = (patient: IPatientsTableRowData) => {
-    console.log('Appointment icon clicked', patient);
+  const handleAppointmentIconClick = () => {
+    console.log('Appointment icon clicked');
   };
 
-  const handlePatientNameClick = (patient: IPatientsTableRowData) => {
-    setSelectedPatient(patient);
-    setOpenModal('patientDetails');
+  const handlePatientNameClick = () => {
+    console.log('Patient name clicked');
   };
 
   const handleHistoryClick = () => {
@@ -78,10 +75,7 @@ export default function PatientsTableBody({
               className="transition-colors duration-150 hover:bg-teal-50/40"
             >
               <td className="border-b border-slate-200 px-4 py-3">
-                <button
-                  onClick={() => handlePatientNameClick(patient)}
-                  className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left cursor-pointer transition-all duration-150"
-                >
+                <button className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left cursor-pointer transition-all duration-150">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-50 font-semibold text-slate-600 transition-all duration-150 group-hover:bg-teal-100 group-hover:text-secondaryBlue">
                     {getNameInitials(patient.fullName)}
                   </div>
@@ -173,19 +167,19 @@ export default function PatientsTableBody({
               <td className="border-b border-slate-200 px-4 py-3">
                 <div className="flex items-center justify-center gap-3">
                   <ActionButton
-                    onClick={() => handleViewIconClick(patient)}
+                    onClick={() => handleViewIconClick()}
                     imgSrc={viewIcon}
                     altText="view"
                   />
 
                   <ActionButton
-                    onClick={() => handleMessageIconClick(patient)}
+                    onClick={() => handleMessageIconClick()}
                     imgSrc={messageIcon}
                     altText="message"
                   />
 
                   <ActionButton
-                    onClick={() => handleAppointmentIconClick(patient)}
+                    onClick={() => handleAppointmentIconClick()}
                     imgSrc={appointmentIcon}
                     altText="appointment"
                   />
