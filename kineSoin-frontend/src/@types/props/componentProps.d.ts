@@ -62,8 +62,9 @@ export interface TherapistHeroProps {
 export interface BaseEntityOutputContainerProps {
   icon: string;
   iconAlt: string;
-  label: string;
+  label?: string;
   value: string;
+  isVertical?: boolean;
 }
 
 export interface BaseEntityProfileOutputProps {
@@ -71,6 +72,7 @@ export interface BaseEntityProfileOutputProps {
   value: string | number | undefined;
   isTextArea?: boolean;
   isOneThirdWidth?: boolean;
+  isAgeOutput?: boolean;
 }
 
 export interface EntityIdOutputProps {
@@ -80,10 +82,22 @@ export interface EntityIdOutputProps {
 export interface EntityAgeAndGenderOutputProps {
   age: string | undefined;
   gender: string | undefined;
+  isVertical?: boolean;
+}
+
+export interface EntityAgeOutputProps {
+  age: string | undefined;
+  isLabelMissing?: boolean;
+}
+
+export interface EntityGenderOutputProps {
+  gender: string | undefined;
+  isLabelMissing?: boolean;
 }
 
 export interface EntityStatusOutputProps {
   status: string | undefined;
+  isLabelMissing?: boolean;
 }
 
 export interface EntityNameOutputProps {
@@ -93,11 +107,13 @@ export interface EntityNameOutputProps {
 
 export interface EntityEmailOutputProps {
   email: string | undefined;
+  isVertical?: boolean;
 }
 
 export interface EntityTelephoneNumberOutputProps {
   prefix: string | undefined;
   phone_number: string | undefined;
+  isVertical?: boolean;
 }
 
 export interface EntityAddressOutputProps {
@@ -105,6 +121,7 @@ export interface EntityAddressOutputProps {
   postal_code: string | undefined;
   street_number: string | undefined;
   street_name: string | undefined;
+  isVertical?: boolean;
 }
 
 export interface EntityCodeOutputProps {
@@ -161,6 +178,22 @@ export interface EntityPatientOutputProps {
 
 export interface EntityHomeCareOutputProps {
   at_home_care: boolean;
+}
+
+export interface EntityInsuranceOutputProps {
+  insuranceName: string | undefined;
+}
+
+export interface EntityAdherentNumberOutputProps {
+  adherentNumber: string | undefined;
+}
+
+export interface EntityContractNumberOutputProps {
+  contractNumber: string | undefined;
+}
+
+export interface EntityValidUntilOutputProps {
+  validUntil: string | Date | undefined;
 }
 
 export interface SearchBarProps {

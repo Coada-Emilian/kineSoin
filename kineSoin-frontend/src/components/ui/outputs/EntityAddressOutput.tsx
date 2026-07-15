@@ -7,9 +7,11 @@ export default function EntityAddressOutput({
   street_name,
   postal_code,
   city,
+  isVertical,
 }: EntityAddressOutputProps) {
   if (street_number && street_name && postal_code && city) {
-    const fullAddress = `${street_number} ${street_name}, ${postal_code} ${city}`;
+    const streetInfo = `${street_number} ${street_name}`;
+    const postalCodeAndCity = `${postal_code} ${city}`;
     const details = outputDetails.find((detail) => detail.type === 'address');
 
     return (
@@ -17,7 +19,8 @@ export default function EntityAddressOutput({
         icon={details?.icon || ''}
         iconAlt={details?.iconAlt || ''}
         label={details?.label || ''}
-        value={fullAddress as string}
+        value={`${streetInfo}, ${postalCodeAndCity}` as string}
+        isVertical={isVertical}
       ></BaseEntityOutputContainer>
     );
   } else {

@@ -2,7 +2,10 @@ import type { EntityEmailOutputProps } from '../../../@types/props/componentProp
 import { outputDetails } from '../../../utils/config/outputDetails';
 import BaseEntityOutputContainer from './BaseEntityOutputContainer';
 
-export default function EntityEmailOutput({ email }: EntityEmailOutputProps) {
+export default function EntityEmailOutput({
+  email,
+  isVertical,
+}: EntityEmailOutputProps) {
   const details = outputDetails.find((detail) => detail.type === 'email');
   return (
     <>
@@ -11,6 +14,7 @@ export default function EntityEmailOutput({ email }: EntityEmailOutputProps) {
         iconAlt={details?.iconAlt || ''}
         label={details?.label || ''}
         value={email as string}
+        isVertical={isVertical}
       ></BaseEntityOutputContainer>
     </>
   );

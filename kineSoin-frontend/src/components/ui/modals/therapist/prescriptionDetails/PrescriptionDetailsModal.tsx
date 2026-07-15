@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { formatDate } from '../../../../../utils/functions/formatDate';
@@ -29,9 +28,6 @@ export default function PrescriptionDetailsModal({
     );
   };
 
-  useEffect(() => {
-    console.log('selectedPrescription:', selectedPrescription);
-  }, [selectedPrescription]);
   return (
     <TherapistModal
       isOpen={isOpen}

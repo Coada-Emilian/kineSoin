@@ -12,7 +12,7 @@ export default function PrescriptionDetailsOutputs({
   prescription: ISameDayAppointment['prescription'];
 }) {
   return (
-    <>
+    <div className="flex flex-col gap-2 p-4 w-full text-slate-600 text-lg">
       <EntityDateOutput date={prescription.date} />
 
       <EntityPatientOutput patient={prescription.patient} />
@@ -26,6 +26,6 @@ export default function PrescriptionDetailsOutputs({
       />
 
       <EntityHomeCareOutput at_home_care={prescription.at_home_care} />
-    </>
+    </div>
   );
 }

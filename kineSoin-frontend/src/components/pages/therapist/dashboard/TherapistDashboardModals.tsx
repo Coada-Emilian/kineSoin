@@ -10,15 +10,15 @@ export default function TherapistDashboardModals() {
 
   return (
     <>
+      <PatientDetailsModal
+        isOpen={openModal === 'patientDetails'}
+        onClose={closeModal}
+      />
+
       <SendMessageModal isOpen={openModal === 'message'} onClose={closeModal} />
 
       <CancelAppointmentModal
         isOpen={openModal === 'cancel'}
-        onClose={closeModal}
-      />
-
-      <PatientDetailsModal
-        isOpen={openModal === 'patientDetails'}
         onClose={closeModal}
       />
 

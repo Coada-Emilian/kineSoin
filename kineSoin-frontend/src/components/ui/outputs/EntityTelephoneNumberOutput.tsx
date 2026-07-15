@@ -5,6 +5,7 @@ import BaseEntityOutputContainer from './BaseEntityOutputContainer';
 export default function EntityTelephoneNumberOutput({
   prefix,
   phone_number,
+  isVertical,
 }: EntityTelephoneNumberOutputProps) {
   // Combine prefix and phone number
   const full_phone_number =
@@ -18,6 +19,7 @@ export default function EntityTelephoneNumberOutput({
       iconAlt={details?.iconAlt || ''}
       label={details?.label || ''}
       value={full_phone_number as string}
+      isVertical={isVertical}
     ></BaseEntityOutputContainer>
   );
 }

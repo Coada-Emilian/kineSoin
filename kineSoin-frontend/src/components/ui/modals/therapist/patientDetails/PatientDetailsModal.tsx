@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useFetchPatientDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPatientDetailsAsTherapistQuery';
 import CustomButton from '../../../buttons/CustomButton';
 import DNALoader from '../../../DNALoader';
-import EntityIdOutput from '../../../outputs/EntityIdOutput';
-import EntityStatusOutput from '../../../outputs/EntityStatusOutput';
 import TherapistModal from '../TherapistModal';
-import PatientDetailsOutputs from './PatientDetailsOutputs';
+import PatientCoordinatesSection from './PatientCoordinatesSection';
+import PatientDetailsHeader from './PatientDetailsHeader';
+import PatientInsuranceDetailsSection from './PatientInsuranceDetailsSection';
 
 export default function PatientDetailsModal({
   isOpen,
@@ -23,6 +24,10 @@ export default function PatientDetailsModal({
     patient_id: selectedPatient?.id ?? 0,
   });
 
+  useEffect(() => {
+    console.log('patientDetails:', patientDetails);
+  }, [patientDetails]);
+
   if (isLoading || isFetching) {
     return DNALoader();
   }
@@ -38,51 +43,50 @@ export default function PatientDetailsModal({
       onClose={handleClose}
       patient={patientDetails}
       header="Détails du patient"
-      size="lg"
+      size="xl"
       message={
         <>
-          <span className="block font-normal not-italic text-lg">
-            Informations personnelles de
-          </span>
-          <span className="block font-semibold text-xl">
+          <span className="block font-semibold text-2xl not-italic">
             {patientDetails?.surname} {patientDetails?.name}
           </span>
         </>
       }
     >
-      <div className="w-full p-8 text-slate-600  text-xs md:text-sm lg:text-base xl:text-lg">
-        <div className="flex w-full justify-between items-center">
-          <EntityStatusOutput status={patientDetails?.status} />
+      <>
+        <div className="w-full p-8 text-slate-600  text-xs md:text-sm lg:text-base xl:text-lg justify-center flex flex-col gap-4 ">
+          <PatientDetailsHeader patient={patientDetails} />
 
-          <EntityIdOutput id={patientDetails?.id ?? null} />
+          <div className="grid w-full grid-cols-2 gap-4 items-stretch text-slate-600 text-lg">
+            <PatientCoordinatesSection patient={patientDetails} />
+
+            <PatientInsuranceDetailsSection patient={patientDetails} />
+          </div>
+
+          <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
+            <div className="flex gap-3 items-center ">
+              <CustomButton
+                btn={{
+                  type: 'basic',
+                  text: 'Gérer rendez-vous',
+                  style: 'normal',
+                  hasBorder: true,
+                  to: `/therapist/patient/${patientDetails?.id}/appointments`,
+                }}
+              />
+
+              <CustomButton
+                btn={{
+                  type: 'cancel',
+                  text: 'Retour',
+                  style: 'normal',
+                  hasBorder: true,
+                  onClick: handleClose,
+                }}
+              />
+            </div>
+          </div>
         </div>
-
-        <PatientDetailsOutputs patientDetails={patientDetails} />
-      </div>
-
-      <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
-        <div className="flex gap-3 items-center ">
-          <CustomButton
-            btn={{
-              type: 'basic',
-              text: 'Gérer rendez-vous',
-              style: 'normal',
-              hasBorder: true,
-              to: `/therapist/patient/${patientDetails?.id}/appointments`,
-            }}
-          />
-
-          <CustomButton
-            btn={{
-              type: 'cancel',
-              text: 'Retour',
-              style: 'normal',
-              hasBorder: true,
-              onClick: handleClose,
-            }}
-          />
-        </div>
-      </div>
+      </>
     </TherapistModal>
   );
 }
