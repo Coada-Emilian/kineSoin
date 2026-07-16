@@ -1,4 +1,4 @@
-import type { ITherapistPatientDetails } from '../../../../../@types/interfaces/therapistInterfaces';
+import type { IPatientDetailsDto } from '../../../../../@types/interfaces/therapistInterfaces';
 import { formatDate } from '../../../../../utils/functions/formatDate';
 import EntityAdherentNumberOutput from '../../../outputs/EntityAdherentNumberOutput';
 import EntityContractNumberOutput from '../../../outputs/EntityContractNumberOutput';
@@ -8,8 +8,12 @@ import EntityValidUntilOutput from '../../../outputs/EntityValidUntilOutput';
 export default function PatientInsuranceDetailsSection({
   patient,
 }: {
-  patient: ITherapistPatientDetails | undefined;
+  patient: IPatientDetailsDto | undefined;
 }) {
+  const insuranceEndDate = patient?.insurance_details.end_date
+    ? new Date(patient.insurance_details.end_date)
+    : null;
+
   return (
     <div className="flex h-full flex-col rounded-2xl border border-slate-100 p-6">
       <div className="font-semibold text-teal-400 text-xl flex px-2">
@@ -36,7 +40,7 @@ export default function PatientInsuranceDetailsSection({
         </div>
         <div className="py-4">
           <EntityValidUntilOutput
-            validUntil={formatDate(patient?.insurance_details.end_date)}
+            validUntil={insuranceEndDate ? formatDate(insuranceEndDate) : ''}
           />
           <div>
             {patient?.insurance_details.end_date &&

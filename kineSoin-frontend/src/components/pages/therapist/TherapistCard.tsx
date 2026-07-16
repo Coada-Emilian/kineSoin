@@ -1,11 +1,4 @@
-import type { ReactNode } from 'react';
-
-interface TherapistCardProps {
-  title: string;
-  subtitle?: string;
-  children: ReactNode;
-  padded?: boolean;
-}
+import type { TherapistCardProps } from '../../../@types/props/componentProps';
 
 export default function TherapistCard({
   title,

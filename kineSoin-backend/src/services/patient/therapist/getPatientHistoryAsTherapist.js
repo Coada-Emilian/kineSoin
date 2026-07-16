@@ -9,8 +9,6 @@ export default async function getPatientHistoryAsTherapist({
   const therapist_id = getValidId(therapistId, 'Therapist ID');
   await findOrThrow(Therapist, therapist_id, 'Therapist');
 
-  console.log('Patient ID:', patientId); // Log the patientId value
-
   const patient_id = getValidId(patientId, 'Patient ID');
 
   const foundPatient = await Patient.findByPk(patient_id, {

@@ -18,9 +18,9 @@ export default function AfflictionDetailsOutputs({
         <EntityCodeOutput insurance_code={selectedAffliction.insurance_code} />
       )}
 
-      {hasValues(selectedAffliction.body_region.name) && (
+      {hasValues(selectedAffliction.body_region?.name) && (
         <EntityBodyRegionOutput
-          bodyRegionName={selectedAffliction.body_region.name}
+          bodyRegionName={selectedAffliction.body_region?.name}
         />
       )}
 

@@ -1,233 +1,135 @@
-import type {
-  PatientStatusType,
-  TherapistPatientQuickFilterTypes,
-} from '../types/therapistTypes';
+// Patients
 
-export interface ICalendarAppointment {
+export interface IPatientSummary {
   id: number;
-  date: string;
-  time: string;
-  patient: {
-    id: number;
-    name: string;
-    surname: string;
-    picture_url: string;
-  };
-  prescription: {
-    affliction: {
-      id: number;
-      name: string;
-      description: string;
-    };
-    appointment_quantity: number;
-    at_home_care: boolean;
-    id: number;
-    picture_url: string;
-    medic: {
-      email: string;
-      id: number;
-      name: string;
-      phone_number: string;
-      prefix: string;
-      surname: string;
-    };
-  };
-}
-
-export interface ISameDayAppointment {
-  id: number;
-  time: string;
-  afflictionName: string;
-  isTimePassed?: boolean;
-  patient: {
-    id: number;
-    name: string;
-    surname: string;
-    picture_url: string;
-    email: string;
-    prefix: string;
-    phone_number: string;
-  };
-  prescription: {
-    id: number;
-    affliction: {
-      id: number;
-      name: string;
-      description: string;
-      insurance_code: string;
-      body_region?: {
-        id: number;
-        name: string;
-      };
-    };
-    appointment_quantity: number;
-    completed_appointment_quantity: number;
-    date: string;
-    is_completed: boolean;
-    picture_url: string;
-    prescription_number: string;
-    at_home_care: boolean;
-    medic: {
-      id: number;
-      name: string;
-      surname: string;
-    };
-    patient: {
-      id: number;
-      name: string;
-      surname: string;
-    };
-  };
-  lastAppointmentAt?: string | null;
-}
-
-export interface IPatientAppointmentDetails {
-  id: number;
-  prescription_id: number;
-  patient_id: number;
-  is_canceled: boolean;
-  is_accepted: boolean;
-  date: string; // format: "YYYY-MM-DD"
-  time: string; // format: "HH:MM:SS"
-  therapist: {
-    id: number;
-    name: string;
-    surname: string;
-  };
-  prescription: {
-    id: number;
-    patient_id: number;
-    appointment_quantity: number;
-    completed_appointment_quantity: number;
-    is_new_prescription: boolean;
-    is_completed: boolean;
-    at_home_care: boolean;
-    date: string; // format: "YYYY-MM-DD"
-    picture_url: string;
-    medic: {
-      id: number;
-      name: string;
-      surname: string;
-      email: string;
-      prefix: string;
-      phone_number: string;
-    };
-    affliction: {
-      id: number;
-      name: string;
-      description: string;
-    };
-  };
-}
-
-export interface ITherapistPatientDetails {
-  id: number;
-  therapist_id: number;
   name: string;
   surname: string;
+  picture_url: string;
+}
+
+export interface IPatientContact extends IPatientSummary {
+  email: string;
+  prefix: string;
+  phone_number: string;
+}
+
+export interface IPatientDetailsDto extends IPatientContact {
+  therapist_id: number;
   age: number;
   street_number: string;
   street_name: string;
   postal_code: string;
   city: string;
-  prefix: string;
-  phone_number: string;
   status: string;
-  picture_url: string;
-  email: string;
-  insurance_details: IPatientInsuranceExtended;
   gender: string;
-  therapist: ITherapist;
-}
-
-export interface IPatientPrescription {
-  id: number;
-  date: string;
-  appointment_quantity: number;
-  completed_appointment_quantity: number;
-  is_new_prescription: boolean;
-  is_completed: boolean;
-  at_home_care: boolean;
-  picture_url: string;
-}
-
-export interface IPatientsTableRowData {
-  id: number;
-  fullName: string;
-  email: string;
-  fullPhoneNumber: string;
-  status: PatientStatusType;
-  therapist: ITherapist | null;
-  lastAppointmentAt: string | null;
   createdAt: Date;
+
+  insurance_details: IPatientInsuranceDetails;
+  therapist: ITherapistSummary;
 }
 
-export interface TherapistPatientQuickNavFilter {
-  key: TherapistPatientQuickFilterTypes;
-  label: string;
-  buttonType: string;
+export interface IPatientHistoryDto extends IPatientSummary {
+  prescriptions: IPrescriptionHistory[];
 }
 
-export interface IFormattedDashboardAppointment {
-  patientFullName: string;
-  patientEmail: string;
-  patientFullPhoneNumber: string;
-  patientNameInitials: string;
-  afflictionName: string;
-  afflictionBodyRegion?: string;
-  lastAppointment: {
-    date: string;
-    time: string;
-  } | null;
+export interface IPatientsTableRowDataDto extends IPatientContact {
+  status: string;
+  therapist: ITherapistWithPicture | null;
+  lastAppointmentAt: string | null;
+  createdAt: string | null;
+  fullName: string;
+  fullPhoneNumber: string;
 }
 
-export interface IDropdownAction {
-  label?: string;
-  onClick?: () => void;
-  danger?: boolean;
-  separator?: boolean;
-  icon?: ReactNode;
-}
+// Therapists
 
-export interface IPatientHistoryData {
+export interface ITherapistSummary {
+  id: number;
   name: string;
   surname: string;
+  fullName: string;
+}
+
+export interface ITherapistWithPicture extends ITherapistSummary {
   picture_url: string;
-  prescriptions: [
-    {
-      affliction: {
-        description: string;
-        name: string;
-      };
+}
 
-      appointment_quantity: number;
-      appointments: [
-        {
-          date: string;
-          id: number;
-          is_accepted: boolean;
-          is_canceled: boolean;
-          therapist: {
-            id: number;
-            name: string;
-            surname: string;
-            picture_url: string;
-          };
+// Insurances
 
-          time: string;
-        },
-      ];
-      at_home_care: boolean;
-      completed_appointment_quantity: number;
-      date: string;
-      id: number;
-      medic: {
-        name: string;
-        surname: string;
-        email: string;
-      };
-      picture_url: string;
-      updated_at: string | null;
-    },
-  ];
+export interface IInsuranceSummary {
+  id: number;
+  name: string;
+}
+
+export interface IPatientInsuranceDetails {
+  id: number;
+  adherent_code: string;
+  contract_number: string;
+  start_date: string;
+  end_date: Date | null;
+
+  insurance: IInsuranceSummary;
+}
+
+// Medics
+
+export interface IMedicSummary {
+  id: number;
+  name: string;
+  surname: string;
+}
+
+export interface IMedicWithEmail extends IMedicSummary {
+  email: string;
+}
+
+// Afflictions
+export interface IAfflictionSummary {
+  id: number;
+  name: string;
+}
+
+export interface IAfflictionDetails extends IAfflictionSummary {
+  description: string;
+  insurance_code: string;
+  body_region?: IBodyRegionSummary;
+}
+
+export interface IAfflictionHistory {
+  name: string;
+  description: string;
+}
+
+// Prescriptions
+
+export interface IPrescriptionSummary {
+  id: number;
+  appointment_quantity: number;
+  completed_appointment_quantity: number;
+  at_home_care: boolean;
+  date: string | undefined;
+  picture_url: string;
+  prescription_number: string;
+}
+
+export interface IPrescriptionHistory extends IPrescriptionSummary {
+  updated_at: string;
+
+  affliction: IAfflictionHistory;
+  medic: IMedicWithEmail;
+
+  appointments: IAppointmentHistory[];
+}
+
+// Dashboard
+export interface IDashboardAppointment {
+  id: number;
+  date: string;
+  time: string;
+
+  patient: IPatientContact;
+  prescription: IDashboardPrescription;
+
+  lastAppointmentAt?: string | null;
+  isTimePassed?: boolean;
 }

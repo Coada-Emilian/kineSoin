@@ -1,4 +1,4 @@
-import type { ITherapistPatientDetails } from '../../../../../@types/interfaces/therapistInterfaces';
+import type { IPatientDetailsDto } from '../../../../../@types/interfaces/therapistInterfaces';
 import EntityAgeOutput from '../../../outputs/EntityAgeOutput';
 import EntityGenderOutput from '../../../outputs/EntityGenderOutput';
 import EntityIdOutput from '../../../outputs/EntityIdOutput';
@@ -7,7 +7,7 @@ import EntityStatusOutput from '../../../outputs/EntityStatusOutput';
 export default function PatientDetailsHeader({
   patient,
 }: {
-  patient: ITherapistPatientDetails | undefined;
+  patient: IPatientDetailsDto | undefined;
 }) {
   return (
     <div className="grid grid-cols-4 divide-x divide-slate-100 items-center">

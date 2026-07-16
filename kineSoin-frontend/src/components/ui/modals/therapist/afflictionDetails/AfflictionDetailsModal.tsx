@@ -8,13 +8,14 @@ export default function AfflictionDetailsModal({
   isOpen,
   onClose,
 }: BasicModalProps) {
-  const { selectedAppointment, setSelectedAppointment } =
+  const { selectedDashboardAppointment, setSelectedDashboardAppointment } =
     useTherapistSelectionContext();
 
-  const selectedAffliction = selectedAppointment?.prescription.affliction;
+  const selectedAffliction =
+    selectedDashboardAppointment?.prescription.affliction;
 
   const handleClose = () => {
-    setSelectedAppointment(null);
+    setSelectedDashboardAppointment(null);
     onClose();
   };
 

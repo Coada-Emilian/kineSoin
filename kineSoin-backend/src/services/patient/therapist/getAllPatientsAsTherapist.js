@@ -39,15 +39,18 @@ export default async function getAllPatientsAsTherapist({ therapistId }) {
   const sentPatients = foundPatients.map((patient) => ({
     id: patient.id,
     status: patient.status,
-    fullName: `${patient.name} ${patient.surname}`,
+    name: patient.name,
+    surname: patient.surname,
     picture_url: patient.picture_url,
     email: patient.email,
-    fullPhoneNumber: `${patient.prefix} ${patient.phone_number}`,
+    prefix: patient.prefix,
+    phone_number: patient.phone_number,
     createdAt: patient.created_at,
     therapist: patient.therapist
       ? {
           id: patient.therapist.id,
-          fullName: `${patient.therapist.name || ''} ${patient.therapist.surname || ''}`,
+          name: patient.therapist.name,
+          surname: patient.therapist.surname,
           picture_url: patient.therapist.picture_url || null,
         }
       : null,

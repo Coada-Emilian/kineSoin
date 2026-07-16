@@ -1,5 +1,5 @@
 import { Ban, FileText, History, UserPen } from 'lucide-react';
-import type { IPatientsTableRowData } from '../../../../../@types/interfaces/therapistInterfaces';
+import type { IPatientsTableRowDataDto } from '../../../../../@types/interfaces/therapistInterfaces';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { useAuthenticationContext } from '../../../../../hooks/context/useAuthenticationContext';
@@ -16,30 +16,28 @@ import calendarIcon from '/logos/appointment_48.webp';
 export default function PatientsTableBody({
   patients,
 }: {
-  patients: IPatientsTableRowData[];
+  patients: IPatientsTableRowDataDto[];
 }) {
   const { setOpenModal } = useUTherapistUiContext();
 
   const { setSelectedPatient } = useTherapistSelectionContext();
 
-  const handleMessageIconClick = () => {
-    console.log('Message icon clicked');
+  const handleMessageIconClick = (patient: IPatientsTableRowDataDto) => {
+    setSelectedPatient(patient);
+    setOpenModal('extendedMessage');
   };
 
-  const handleViewIconClick = () => {
-    console.log('View icon clicked');
+  const handleViewIconClick = (patient: IPatientsTableRowDataDto) => {
+    setSelectedPatient(patient);
+    setOpenModal('patientDetails');
   };
 
   const handleAppointmentIconClick = () => {
     console.log('Appointment icon clicked');
   };
 
-  const handlePatientNameClick = () => {
-    console.log('Patient name clicked');
-  };
-
-  const handleHistoryClick = () => {
-    console.log('History clicked');
+  const handleHistoryClick = (patient: IPatientsTableRowDataDto) => {
+    console.log('History clicked for patient:', patient);
   };
 
   const handlePrescriptionsClick = () => {
@@ -61,14 +59,16 @@ export default function PatientsTableBody({
       <tbody className="xxs:text-xxs text-xs md:text-sm">
         {patients.map((patient) => {
           const status =
-            therapistPatientStatusConfig[patient.status] ??
-            therapistPatientStatusConfig.inactive;
+            therapistPatientStatusConfig[
+              patient.status as keyof typeof therapistPatientStatusConfig
+            ] ?? therapistPatientStatusConfig.inactive;
 
           const lastAppointment = getFormattedAppointmentDate(
             patient.lastAppointmentAt
           );
 
           const isSameTherapist = patient.therapist?.id === user?.id;
+
           return (
             <tr
               key={patient.id}
@@ -77,7 +77,7 @@ export default function PatientsTableBody({
               <td className="border-b border-slate-200 px-4 py-3">
                 <div className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 justify-center">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-50 font-semibold text-slate-600 transition-all duration-150 group-hover:bg-teal-100 group-hover:text-secondaryBlue">
-                    {getNameInitials(patient.fullName)}
+                    {getNameInitials(patient?.fullName ? patient.fullName : '')}
                   </div>
 
                   <div className="min-w-0 w-1/2">
@@ -115,7 +115,7 @@ export default function PatientsTableBody({
                   <button className="group flex w-full gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 cursor-pointer items-center justify-center">
                     <img
                       src={patient.therapist.picture_url}
-                      alt={patient.therapist.fullName}
+                      alt={`${patient.therapist.name} ${patient.therapist.surname}`}
                       className="h-10 w-10 shrink-0 rounded-full object-cover transition-all duration-150 group-hover:ring-2 group-hover:ring-teal-200"
                     />
 
@@ -123,7 +123,7 @@ export default function PatientsTableBody({
                       <p className="font-semibold text-slate-700 transition-colors duration-150 group-hover:text-secondaryBlue">
                         {isSameTherapist
                           ? 'Vous'
-                          : `${patient.therapist.fullName}`}
+                          : `${patient.therapist.name} ${patient.therapist.surname}`}
                       </p>
 
                       <p className="text-xs text-slate-400 transition-colors duration-150 group-hover:text-slate-600 font-medium tracking-wide">
@@ -167,13 +167,13 @@ export default function PatientsTableBody({
               <td className="border-b border-slate-200 px-4 py-3">
                 <div className="flex items-center justify-center gap-3">
                   <ActionButton
-                    onClick={() => handleViewIconClick()}
+                    onClick={() => handleViewIconClick(patient)}
                     imgSrc={viewIcon}
                     altText="view"
                   />
 
                   <ActionButton
-                    onClick={() => handleMessageIconClick()}
+                    onClick={() => handleMessageIconClick(patient)}
                     imgSrc={messageIcon}
                     altText="message"
                   />
@@ -189,7 +189,7 @@ export default function PatientsTableBody({
                       {
                         label: 'Historique',
                         icon: <History className="h-4 w-4 shrink-0" />,
-                        onClick: handleHistoryClick,
+                        onClick: handleHistoryClick(patient),
                       },
                       {
                         label: 'Ordonnances',

@@ -4,7 +4,11 @@ import type { FormOrderTypes } from '../types/formTypes';
 import type { ICountryPrefix } from './apiInterfaces';
 import type { IAdminEditedEntity } from './customInterfaces';
 import type { IAddTherapistFormData } from './formInterfaces';
-import type { ISameDayAppointment } from './therapistInterfaces';
+import type {
+  IDashboardAppointment,
+  IPatientSummary,
+  IPrescriptionSummary,
+} from './therapistInterfaces';
 
 export interface IAppContext {
   isLoading: boolean;
@@ -82,18 +86,18 @@ export interface IAdminEntityProfileContext {
 }
 
 export interface ITherapistSelectionContext {
-  selectedPatient: ISameDayAppointment['patient'] | null;
+  selectedPatient: IPatientSummary | null;
   setSelectedPatient: React.Dispatch<
-    React.SetStateAction<ISameDayAppointment['patient'] | null>
+    React.SetStateAction<IPatientSummary | null>
   >;
 
-  selectedAppointment: ISameDayAppointment | null;
-  setSelectedAppointment: React.Dispatch<
-    React.SetStateAction<ISameDayAppointment | null>
+  selectedDashboardAppointment: IDashboardAppointment | null;
+  setSelectedDashboardAppointment: React.Dispatch<
+    React.SetStateAction<IDashboardAppointment | null>
   >;
 
-  selectedPrescription: ISameDayAppointment['prescription'] | null;
+  selectedPrescription: IPrescriptionSummary | null;
   setSelectedPrescription: React.Dispatch<
-    React.SetStateAction<ISameDayAppointment['prescription'] | null>
+    React.SetStateAction<IPrescriptionSummary | null>
   >;
 }

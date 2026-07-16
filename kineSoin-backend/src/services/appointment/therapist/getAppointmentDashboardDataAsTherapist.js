@@ -55,10 +55,6 @@ export default async function getAppointmentDashboardDataAsTherapist({
             ],
           },
           { association: 'medic', attributes: ['id', 'name', 'surname'] },
-          {
-            association: 'patient',
-            attributes: ['id', 'name', 'surname'],
-          },
         ],
       },
     ],

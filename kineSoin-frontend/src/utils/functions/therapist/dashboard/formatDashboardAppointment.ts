@@ -1,9 +1,9 @@
-import type { ISameDayAppointment } from '../../../../@types/interfaces/therapistInterfaces';
+import type { IDashboardAppointment } from '../../../../@types/interfaces/therapistInterfaces';
 import { getFormattedAppointmentDate } from '../../getFormattedAppointmentDate';
 import { getNameInitials } from '../getNameInitials';
 
 export function formatDashboardAppointment(
-  appointment: ISameDayAppointment | undefined,
+  appointment: IDashboardAppointment | undefined,
   isTimePassed: boolean
 ) {
   if (!appointment) return null;
@@ -15,7 +15,7 @@ export function formatDashboardAppointment(
     patientEmail: appointment.patient.email,
     patientFullPhoneNumber: `${appointment.patient.prefix} ${appointment.patient.phone_number}`,
     patientNameInitials: getNameInitials(patientFullName),
-    afflictionName: appointment.afflictionName,
+    afflictionName: appointment.prescription?.affliction?.name,
     afflictionBodyRegion:
       appointment.prescription?.affliction?.body_region?.name,
     lastAppointment: getFormattedAppointmentDate(

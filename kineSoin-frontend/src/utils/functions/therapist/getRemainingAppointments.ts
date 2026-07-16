@@ -1,8 +1,8 @@
-import type { ISameDayAppointment } from '../../../@types/interfaces/therapistInterfaces';
+import type { IDashboardAppointment } from '../../../@types/interfaces/therapistInterfaces';
 import { getCurrentTime } from '../getCurrentTime';
 
 export const getRemainingAppointments = (
-  appointments: ISameDayAppointment[]
+  appointments: IDashboardAppointment[]
 ) => {
   const currentTime = getCurrentTime();
 

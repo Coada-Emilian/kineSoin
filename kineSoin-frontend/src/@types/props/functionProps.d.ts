@@ -96,3 +96,13 @@ export interface CheckTherapistAuthenticationFunctionProps {
     React.SetStateAction<string | null>
   >;
 }
+
+export interface SendMessageToPatientAsTherapistFunctionProps {
+  id: number;
+  formData: FormData;
+}
+
+export interface CancelAppointmentAsTherapistFunctionProps {
+  appointmentId: number;
+  prescriptionId: number;
+}

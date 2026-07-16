@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-
-import type { ISameDayAppointment } from '../../@types/interfaces/therapistInterfaces';
+import type { IDashboardAppointment } from '../../@types/interfaces/therapistInterfaces';
 import { fetchTherapistDashboardData } from '../../api/therapist/fetchTherapistDashboardData';
 
 // Custom hook to fetch same-day therapist appointments and update local state
@@ -16,8 +15,8 @@ export const useFetchTherapistDashboardDataQuery = () => {
       }
 
       // Map over sameDayAppointments to format each appointment nicely
-      const formattedAppointments: ISameDayAppointment[] = response.map(
-        (appointment: ISameDayAppointment) => {
+      const formattedAppointments: IDashboardAppointment[] = response.map(
+        (appointment: IDashboardAppointment) => {
           // Keep only the first 5 characters of the time string (e.g. "14:30")
           const formattedTime = appointment.time.slice(0, 5);
 
@@ -25,6 +24,7 @@ export const useFetchTherapistDashboardDataQuery = () => {
           return {
             id: appointment.id,
             time: formattedTime,
+            date: appointment.date,
             patient: appointment.patient,
             prescription: appointment.prescription,
             afflictionName: appointment.prescription.affliction.name,

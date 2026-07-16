@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import type { CancelAppointmentAsTherapistFunctionProps } from '../../@types/props/functionProps';
 import { cancelAppointmentAsTherapist } from '../../api/therapist/cancelAppointmentAsTherapist';
 import { incrementPrescriptionAppointmentQuantity } from '../../api/therapist/incrementPrescriptionAppointmentQuantity';
 
@@ -12,10 +13,7 @@ export const useCancelAppointmentAsTherapistMutation = (
     mutationFn: async ({
       appointmentId,
       prescriptionId,
-    }: {
-      appointmentId: number;
-      prescriptionId: number;
-    }) => {
+    }: CancelAppointmentAsTherapistFunctionProps) => {
       if (!appointmentId) {
         throw new Error('Invalid appointment ID for cancellation');
       }

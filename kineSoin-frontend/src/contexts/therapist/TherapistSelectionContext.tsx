@@ -1,6 +1,10 @@
 import { createContext, useState } from 'react';
-import type { ISameDayAppointment } from '../../@types/interfaces/therapistInterfaces';
 import type { ITherapistSelectionContext } from '../../@types/interfaces/contextInterfaces';
+import type {
+  IDashboardAppointment,
+  IPatientSummary,
+  IPrescriptionSummary,
+} from '../../@types/interfaces/therapistInterfaces';
 
 const TherapistSelectionContext = createContext<
   ITherapistSelectionContext | undefined
@@ -11,16 +15,14 @@ export const TherapistSelectionContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [selectedPatient, setSelectedPatient] = useState<
-    ISameDayAppointment['patient'] | null
-  >(null);
+  const [selectedPatient, setSelectedPatient] =
+    useState<IPatientSummary | null>(null);
 
-  const [selectedAppointment, setSelectedAppointment] =
-    useState<ISameDayAppointment | null>(null);
+  const [selectedDashboardAppointment, setSelectedDashboardAppointment] =
+    useState<IDashboardAppointment | null>(null);
 
-  const [selectedPrescription, setSelectedPrescription] = useState<
-    ISameDayAppointment['prescription'] | null
-  >(null);
+  const [selectedPrescription, setSelectedPrescription] =
+    useState<IPrescriptionSummary | null>(null);
 
   return (
     <TherapistSelectionContext.Provider
@@ -28,8 +30,8 @@ export const TherapistSelectionContextProvider = ({
         selectedPatient,
         setSelectedPatient,
 
-        selectedAppointment,
-        setSelectedAppointment,
+        selectedDashboardAppointment,
+        setSelectedDashboardAppointment,
 
         selectedPrescription,
         setSelectedPrescription,

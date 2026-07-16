@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import type { ITherapistPatientDetails } from '../../@types/interfaces/therapistInterfaces';
+import type { IPatientDetailsDto } from '../../@types/interfaces/therapistInterfaces';
 import { fetchPatientDetailsAsTherapist } from '../../api/therapist/fetchPatientDetailsAsTherapist';
 
 interface QueryProps {
@@ -13,7 +13,7 @@ export const useFetchPatientDetailsAsTherapistQuery = ({
     queryKey: ['fetchPatientDetailsAsTherapist', patient_id],
     queryFn: () => fetchPatientDetailsAsTherapist(patient_id),
     enabled: patient_id > 0,
-    select: (data): ITherapistPatientDetails => ({
+    select: (data): IPatientDetailsDto => ({
       id: data.id,
       therapist_id: data.therapist_id,
       name: data.name,

@@ -1,5 +1,5 @@
 import { Button } from '@headlessui/react';
-import type { ISameDayAppointment } from '../../../../@types/interfaces/therapistInterfaces';
+import type { ITherapistDashboardAppointment } from '../../../../@types/interfaces/therapistInterfaces';
 import type { TherapistDashboardAppointmentsCardProps } from '../../../../@types/props/therapistProps';
 import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
@@ -24,20 +24,20 @@ export default function TherapistDashboardAppointmentCard({
     setSelectedPrescription,
   } = useTherapistSelectionContext();
 
-  const handleMessageIconClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedPatient(appointment.patient);
-      setOpenModal('message');
-    }
+  const handleMessageIconClick = (
+    appointment: ITherapistDashboardAppointment
+  ) => {
+    setSelectedPatient(appointment.patient);
+    setOpenModal('message');
   };
 
-  const handleCancelIconClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedAppointment(appointment);
-      setSelectedPatient(appointment.patient);
-      setSelectedPrescription(appointment.prescription);
-      setOpenModal('cancel');
-    }
+  const handleCancelIconClick = (
+    appointment: ITherapistDashboardAppointment
+  ) => {
+    setSelectedAppointment(appointment);
+    setSelectedPatient(appointment.patient);
+    setSelectedPrescription(appointment.prescription);
+    setOpenModal('cancel');
   };
 
   return (

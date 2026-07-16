@@ -126,7 +126,7 @@ export default function PatientsPage() {
     }
 
     if (sortBy === 'status') {
-      const statusOrder = {
+      const statusOrder: Record<string, number> = {
         active: 0,
         pending: 1,
         inactive: 2,
@@ -173,6 +173,8 @@ export default function PatientsPage() {
         .length,
 
       newThisMonth: allPatients.filter((patient) => {
+        if (!patient.createdAt) return false;
+
         const createdAt = new Date(patient.createdAt);
 
         return (

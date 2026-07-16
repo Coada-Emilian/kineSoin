@@ -11,7 +11,7 @@ export default function ExtendedCancelAppointmentModal({
   onClose,
 }: BasicModalProps) {
   const {
-    selectedAppointment: appointment,
+    selectedDashboardAppointment: appointment,
     selectedPrescription: prescription,
     selectedPatient: patient,
   } = useTherapistSelectionContext();

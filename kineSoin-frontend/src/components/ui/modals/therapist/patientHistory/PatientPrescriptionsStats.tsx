@@ -1,4 +1,5 @@
 import { CalendarDays, NotepadTextDashed, SportShoe } from 'lucide-react';
+import type { IPrescriptionSummary } from '../../../../../@types/interfaces/therapistInterfaces';
 import type { PatientPrescriptionsStatsProps } from '../../../../../@types/props/componentProps';
 import { formatDate } from '../../../../../utils/functions/formatDate';
 
@@ -9,7 +10,7 @@ export default function PatientPrescriptionsStats({
 
   const totalAppointmentsEver =
     data.prescriptions.reduce(
-      (total: number, prescription) =>
+      (total: number, prescription: IPrescriptionSummary) =>
         total + prescription.appointment_quantity,
       0
     ) ?? 0;

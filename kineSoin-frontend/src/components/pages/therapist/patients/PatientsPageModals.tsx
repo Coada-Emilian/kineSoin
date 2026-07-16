@@ -1,12 +1,20 @@
 import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
 import PatientDetailsModal from '../../../ui/modals/therapist/patientDetails/PatientDetailsModal';
+import ExtendedSendMessageModal from '../../../ui/modals/therapist/sendMessage/ExtendedSendMessageModal';
 
 export default function PatientsPageModals() {
   const { openModal, closeModal } = useUTherapistUiContext();
   return (
-    <PatientDetailsModal
-      isOpen={openModal === 'patientDetails'}
-      onClose={closeModal}
-    />
+    <>
+      <PatientDetailsModal
+        isOpen={openModal === 'patientDetails'}
+        onClose={closeModal}
+      />
+      
+      <ExtendedSendMessageModal
+        isOpen={openModal === 'extendedMessage'}
+        onClose={closeModal}
+      />
+    </>
   );
 }

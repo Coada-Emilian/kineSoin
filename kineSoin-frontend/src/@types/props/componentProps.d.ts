@@ -5,10 +5,7 @@ import type {
 } from '../interfaces/componentInterfaces';
 import type { IBasicUser } from '../interfaces/customInterfaces';
 import type { IBodyRegion } from '../interfaces/modelInterfaces';
-import type {
-  IDropdownAction,
-  IPatientHistoryData,
-} from '../interfaces/therapistInterfaces';
+import type { IDropdownAction } from '../interfaces/therapistInterfaces';
 import type { ModalButtonSectionMode } from '../types/buttonTypes';
 import type { ErrorPageType } from '../types/errorTypes';
 import type { TherapistPatientQuickFilterTypes } from '../types/therapistTypes';
@@ -231,16 +228,29 @@ export interface ActionButtonProps {
 }
 
 export interface PatientPrescriptionsStatsProps {
-  data: IPatientHistoryData;
+  data: IPatientHistoryDto;
 }
 
 export interface PatientHistoryContainerProps {
-  data: IPatientHistoryData | null;
+  data: IPatientHistoryDto | null;
 }
 
 export interface PatientPrescriptionCardProps {
-  prescription: IPatientHistoryData['prescriptions'][number];
+  prescription: IPrescriptionSummary;
   expanded: boolean;
   handlePrescriptionToggle: (prescriptionId: number) => void;
+  progress: number;
+}
+
+export interface TherapistCardProps {
+  title: string;
+  subtitle?: string;
+  children: ReactNode;
+  padded?: boolean;
+}
+
+export interface ProgressSectionProps {
+  completedAppointments: number;
+  totalAppointments: number;
   progress: number;
 }

@@ -10,10 +10,14 @@ export default function PrescriptionDetailsModal({
   isOpen,
   onClose,
 }: BasicModalProps) {
-  const { selectedPrescription } = useTherapistSelectionContext();
-  const totalAppointments = selectedPrescription?.appointment_quantity;
+  const { selectedPrescription, selectedPatient } =
+    useTherapistSelectionContext();
+
+  const totalAppointments = selectedPrescription?.appointment_quantity ?? 0;
+
   const completedAppointments =
-    selectedPrescription?.completed_appointment_quantity;
+    selectedPrescription?.completed_appointment_quantity ?? 0;
+
   const progress = Math.round(
     (completedAppointments / totalAppointments) * 100
   );
@@ -50,7 +54,9 @@ export default function PrescriptionDetailsModal({
             {''} du
             <span className="font-semibold italic">
               {' '}
-              {formatDate(selectedPrescription?.date)}
+              {selectedPrescription?.date
+                ? formatDate(selectedPrescription.date)
+                : ''}
             </span>
           </span>
         </>
@@ -63,7 +69,10 @@ export default function PrescriptionDetailsModal({
           progress={progress}
         />
 
-        <PrescriptionDetailsOutputs prescription={selectedPrescription} />
+        <PrescriptionDetailsOutputs
+          prescription={selectedPrescription}
+          patient={selectedPatient}
+        />
 
         <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
           <div className="flex gap-3 items-center ">

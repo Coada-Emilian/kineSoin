@@ -1,4 +1,3 @@
-
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useFetchPatientDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPatientDetailsAsTherapistQuery';
@@ -15,7 +14,7 @@ export default function PatientDetailsModal({
 }: BasicModalProps) {
   const { selectedPatient, setSelectedPatient } =
     useTherapistSelectionContext();
-
+  
   const {
     data: patientDetails,
     isLoading,

@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import type { IBasicUser } from '../interfaces/customInterfaces';
 import type {
+  IAfflictionDetails,
   IPatientsTableRowData,
-  ISameDayAppointment,
 } from '../interfaces/therapistInterfaces';
 import type { BaseModalSize } from '../types/modalTypes';
 import type { BasicModalProps } from './modalProps';
@@ -16,11 +16,11 @@ export interface UseFetchTherapistBasicDataQueryProps {
 }
 
 export interface TherapistDashboardAppointmentsTableProps {
-  appointments: ISameDayAppointment[];
+  appointments: IDashboardAppointment[];
 }
 
 export interface TherapistDashboardAppointmentsCardProps {
-  appointment: ISameDayAppointment;
+  appointment: IDashboardAppointment;
 }
 
 export interface TherapistHeaderProps {
@@ -60,13 +60,5 @@ export interface PatientsTableProps extends PatientsTableHeadProps {
 }
 
 export interface AfflictionDetailsOutputsProps {
-  selectedAffliction: {
-    id: number;
-    name: string;
-    insurance_code: string;
-    description: string;
-    body_region: {
-      name: string;
-    };
-  };
+  selectedAffliction: IAfflictionDetails;
 }

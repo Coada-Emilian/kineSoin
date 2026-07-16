@@ -1,4 +1,4 @@
-import type { ITherapistPatientDetails } from '../../../../../@types/interfaces/therapistInterfaces';
+import type { IPatientDetailsDto } from '../../../../../@types/interfaces/therapistInterfaces';
 import EntityAddressOutput from '../../../outputs/EntityAddressOutput';
 import EntityEmailOutput from '../../../outputs/EntityEmailOutput';
 import EntityTelephoneNumberOutput from '../../../outputs/EntityTelephoneNumberOutput';
@@ -6,7 +6,7 @@ import EntityTelephoneNumberOutput from '../../../outputs/EntityTelephoneNumberO
 export default function PatientCoordinatesSection({
   patient,
 }: {
-  patient: ITherapistPatientDetails | undefined;
+  patient: IPatientDetailsDto | undefined;
 }) {
   return (
     <div className="flex h-full flex-col rounded-2xl border border-slate-100 p-6">

@@ -1,5 +1,8 @@
 import { Activity, FileText, History } from 'lucide-react';
-import type { ISameDayAppointment } from '../../../../../@types/interfaces/therapistInterfaces';
+import type {
+  IDashboardAppointment,
+  IPatientSummary,
+} from '../../../../../@types/interfaces/therapistInterfaces';
 import type { TherapistDashboardAppointmentsTableProps } from '../../../../../@types/props/therapistProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
@@ -24,7 +27,7 @@ export default function TherapistDashboardTableBody({
 
   const {
     setSelectedPatient,
-    setSelectedAppointment,
+    setSelectedDashboardAppointment,
     setSelectedPrescription,
   } = useTherapistSelectionContext();
 
@@ -32,56 +35,45 @@ export default function TherapistDashboardTableBody({
 
   const currentTime = getCurrentTime();
 
-  const handleMessageIconClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedPatient(appointment.patient);
-      setOpenModal('extendedMessage');
-    }
+  const handleMessageIconClick = (patient: IPatientSummary) => {
+    setSelectedPatient(patient);
+    setOpenModal('extendedMessage');
   };
 
-  const handleCancelIconClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedAppointment(appointment);
-      setSelectedPatient(appointment.patient);
-      setSelectedPrescription(appointment.prescription);
-      setOpenModal('extendedCancel');
-    }
+  const handleCancelIconClick = (appointment: IDashboardAppointment) => {
+    setSelectedDashboardAppointment(appointment);
+    setSelectedPatient(appointment.patient);
+    setSelectedPrescription(appointment.prescription);
+    setOpenModal('extendedCancel');
   };
 
-  const handlePatientDetailsClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedPatient(appointment.patient);
-      setOpenModal('patientDetails');
-    }
+  const handlePatientDetailsClick = (patient: IPatientSummary) => {
+    setSelectedPatient(patient);
+    setOpenModal('patientDetails');
   };
 
-  const handleAfflictionClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedAppointment(appointment);
-      setOpenModal('afflictionDetails');
-    }
+  const handleAfflictionClick = (appointment: IDashboardAppointment) => {
+    setSelectedDashboardAppointment(appointment);
+    setOpenModal('afflictionDetails');
   };
 
-  const handlePrescriptionsClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedPrescription(appointment.prescription);
-      setOpenModal('prescriptionDetails');
-    }
+  const handlePrescriptionsClick = (appointment: IDashboardAppointment) => {
+    setSelectedPrescription(appointment.prescription);
+    setSelectedPatient(appointment.patient);
+    setOpenModal('prescriptionDetails');
   };
 
-  const handleHistoryClick = (appointment: ISameDayAppointment) => {
-    if (!appointment.isTimePassed) {
-      setSelectedPatient(appointment.patient);
-      setSelectedPrescription(appointment.prescription);
-      setOpenModal('history');
-    }
+  const handleHistoryClick = (appointment: IDashboardAppointment) => {
+    setSelectedPatient(appointment.patient);
+    setSelectedPrescription(appointment.prescription);
+    setOpenModal('history');
   };
 
   return (
     <tbody className="xs:text-xxs sm:text-xs md:text-sm">
       {timeSlots.map((time, index) => {
         const appointment = appointments.find(
-          (appointment: ISameDayAppointment) => appointment.time === time
+          (appointment: IDashboardAppointment) => appointment.time === time
         );
 
         const isTimePassed = currentTime > time;
@@ -176,7 +168,9 @@ export default function TherapistDashboardTableBody({
                   <div className="flex items-center justify-center gap-3">
                     <>
                       <ActionButton
-                        onClick={() => handlePatientDetailsClick(appointment)}
+                        onClick={() =>
+                          handlePatientDetailsClick(appointment.patient)
+                        }
                         imgSrc={viewIcon}
                         altText="view"
                         isTimePassed={isTimePassed}
@@ -184,7 +178,9 @@ export default function TherapistDashboardTableBody({
                       />
 
                       <ActionButton
-                        onClick={() => handleMessageIconClick(appointment)}
+                        onClick={() =>
+                          handleMessageIconClick(appointment.patient)
+                        }
                         imgSrc={messageIcon}
                         altText="message"
                         isTimePassed={isTimePassed}
