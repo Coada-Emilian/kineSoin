@@ -28,8 +28,7 @@ for (const admin of admins) {
 
   const query = `INSERT INTO administrators (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
 
-  await pgClient.query(query, [name, email, hashedPassword]);
-  console.log(`👨‍💼 Admin ${name} inserted 👨‍💼`);
+  const result = await pgClient.query(query, [name, email, hashedPassword]);
 }
 
 console.log('🛠️ Admins inserted 🛠️');
@@ -56,7 +55,7 @@ for (const therapist of therapists) {
 
   const query = `INSERT INTO therapists (admin_id, name, surname, description, diploma, experience, specialty, prefix, phone_number, email, password, picture_url, licence_code, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`;
 
-  await pgClient.query(query, [
+  const result = await pgClient.query(query, [
     admin_id,
     name,
     surname,
@@ -72,8 +71,6 @@ for (const therapist of therapists) {
     licence_code,
     status,
   ]);
-
-  console.log(`👩‍⚕️ Therapist ${name} ${surname} inserted 👩‍⚕️`);
 }
 
 console.log('💆🏻‍♀️ Therapists inserted 💆🏻‍♀️');
@@ -96,7 +93,7 @@ for (const medic of medics) {
 
   const query = `INSERT INTO medics (admin_id, name, surname, street_number, street_name, postal_code, city, prefix, phone_number, licence_code, email ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
 
-  await pgClient.query(query, [
+  const result = await pgClient.query(query, [
     admin_id,
     name,
     surname,
@@ -109,8 +106,6 @@ for (const medic of medics) {
     licence_code,
     email,
   ]);
-
-  console.log(`👩🏻‍⚕️ Medic ${name} ${surname} inserted 👩🏻‍⚕️`);
 }
 
 console.log('👩🏻‍⚕️ Medics inserted 👩🏻‍⚕️');
@@ -139,7 +134,7 @@ for (const patient of patients) {
 
   const query = `INSERT INTO patients (therapist_id, name, birth_name, surname, gender, birth_date, street_number, street_name, postal_code, city, prefix, phone_number, email, password, status, picture_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`;
 
-  await pgClient.query(query, [
+  const result = await pgClient.query(query, [
     therapist_id,
     name,
     birth_name,
@@ -157,8 +152,6 @@ for (const patient of patients) {
     status,
     picture_url,
   ]);
-
-  console.log(`👩‍👩‍👦‍👦 Patient ${name} ${surname} inserted 👩‍👩‍👦‍👦`);
 }
 
 console.log('👩‍👩‍👦‍👦 Patients inserted 👩‍👩‍👦‍👦');

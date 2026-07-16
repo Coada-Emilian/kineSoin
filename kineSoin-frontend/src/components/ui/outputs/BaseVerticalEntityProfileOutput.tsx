@@ -12,11 +12,11 @@ export default function BaseVerticalEntityProfileOutput({
 
   return (
     <div
-      className={`flex gap-1 flex-col items-start ${isOneThirdWidth ? 'w-1/3' : 'w-full'}  `}
+      className={`flex gap-1 flex-col items-start text-start ${isOneThirdWidth ? 'w-1/3' : 'w-full'}  `}
     >
       <h4 className="font-bold">{label}</h4>
 
-      <span className="font-normal wrap-break-word">
+      <span className="font-normal">
         {value} {isAgeOutput ? 'ans' : ''}
       </span>
     </div>

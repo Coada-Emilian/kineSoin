@@ -1,4 +1,5 @@
 import { CalendarDays, CircleCheckBig, Clock3, Target } from 'lucide-react';
+import { formatProgress } from '../../../../utils/functions/therapist/formatProgress';
 
 export default function PrescriptionProgressSection({
   completedAppointments,
@@ -41,7 +42,7 @@ export default function PrescriptionProgressSection({
         </div>
 
         <span className="rounded-full bg-teal-100 px-3 py-1 text-sm font-semibold text-teal-700">
-          {progress}%
+          {formatProgress(progress)}
         </span>
       </div>
 

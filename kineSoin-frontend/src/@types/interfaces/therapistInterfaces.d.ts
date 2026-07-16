@@ -211,6 +211,7 @@ export interface IPatientHistoryData {
             id: number;
             name: string;
             surname: string;
+            picture_url: string;
           };
 
           time: string;

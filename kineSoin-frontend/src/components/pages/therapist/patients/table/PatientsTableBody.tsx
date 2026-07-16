@@ -75,12 +75,12 @@ export default function PatientsTableBody({
               className="transition-colors duration-150 hover:bg-teal-50/40"
             >
               <td className="border-b border-slate-200 px-4 py-3">
-                <button className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left cursor-pointer transition-all duration-150">
+                <div className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 justify-center">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-50 font-semibold text-slate-600 transition-all duration-150 group-hover:bg-teal-100 group-hover:text-secondaryBlue">
                     {getNameInitials(patient.fullName)}
                   </div>
 
-                  <div className="min-w-0">
+                  <div className="min-w-0 w-1/2">
                     <p className="font-semibold text-slate-700 transition-colors duration-150 group-hover:text-secondaryBlue">
                       {patient.fullName}
                     </p>
@@ -93,7 +93,7 @@ export default function PatientsTableBody({
                       {patient.fullPhoneNumber}
                     </p>
                   </div>
-                </button>
+                </div>
               </td>
 
               <td className="border-b border-slate-200 px-4 py-3 text-center">

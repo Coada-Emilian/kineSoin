@@ -42,7 +42,7 @@ export default async function getPatientHistoryAsTherapist({
             include: [
               {
                 association: 'therapist',
-                attributes: ['id', 'name', 'surname'],
+                attributes: ['id', 'name', 'surname', 'picture_url'],
               },
             ],
           },

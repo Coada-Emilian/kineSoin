@@ -106,16 +106,14 @@ export default function TherapistDashboardTableBody({
             {appointment ? (
               <>
                 <td className="border-b border-slate-200 px-4 py-3">
-                  <div
-                    className={`group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150`}
-                  >
+                  <div className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 justify-center">
                     <div
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-semibold transition-all duration-150 ${data?.classes.avatar}`}
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-semibold transition-all duration-150 group-hover:bg-teal-100 group-hover:text-secondaryBlue ${data?.classes.avatar}`}
                     >
                       {data?.patientNameInitials}
                     </div>
 
-                    <div className="min-w-0">
+                    <div className="min-w-0 w-1/2">
                       <p className={`${data?.classes.primaryText}`}>
                         {data?.patientFullName}
                       </p>

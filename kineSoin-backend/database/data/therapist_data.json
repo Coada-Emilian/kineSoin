@@ -82,16 +82,16 @@
   {
     "admin_id": 1,
     "name": "Coada",
-    "surname": "Emilian",
+    "surname": "Cristina",
     "description": "Kinésithérapeute spécialisé en thérapie sportive. J'aide les athlètes à prévenir et récupérer des blessures.",
     "diploma": "Master en physiothérapie du sport",
     "experience": "12 ans d'expérience",
     "specialty": "Thérapie sportive",
     "prefix": "+41",
     "phone_number": "0987654321",
-    "email": "emilian@therapist.com",
-    "password": "emilianPass123",
-    "picture_url": "https://res.cloudinary.com/dqu03bwml/image/upload/v1739896620/therapist_photos/r4unire7lwd1fbh7ffrn.jpg",
+    "email": "cristina.coada@therapist.com",
+    "password": "cristinaPass123",
+    "picture_url": "https://res.cloudinary.com/dqu03bwml/image/upload/v1783774401/therapist_photos/wqap0npz8ec1o2xylwql.png",
     "licence_code": "65432198",
     "status": "active"
   }

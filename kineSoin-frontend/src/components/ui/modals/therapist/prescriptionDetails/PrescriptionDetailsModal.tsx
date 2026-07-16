@@ -2,9 +2,9 @@ import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { formatDate } from '../../../../../utils/functions/formatDate';
 import CustomButton from '../../../buttons/CustomButton';
+import PrescriptionProgressSection from '../PrescriptionProgressSection';
 import TherapistModal from '../TherapistModal';
 import PrescriptionDetailsOutputs from './PrescriptionDetailsOutputs';
-import PrescriptionProgressSection from './PrescriptionProgressSection';
 
 export default function PrescriptionDetailsModal({
   isOpen,

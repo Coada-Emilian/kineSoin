@@ -5,7 +5,10 @@ import type {
 } from '../interfaces/componentInterfaces';
 import type { IBasicUser } from '../interfaces/customInterfaces';
 import type { IBodyRegion } from '../interfaces/modelInterfaces';
-import type { IDropdownAction } from '../interfaces/therapistInterfaces';
+import type {
+  IDropdownAction,
+  IPatientHistoryData,
+} from '../interfaces/therapistInterfaces';
 import type { ModalButtonSectionMode } from '../types/buttonTypes';
 import type { ErrorPageType } from '../types/errorTypes';
 import type { TherapistPatientQuickFilterTypes } from '../types/therapistTypes';
@@ -225,4 +228,19 @@ export interface ActionButtonProps {
   altText: string;
   isTimePassed?: boolean;
   altImgSrc?: string;
+}
+
+export interface PatientPrescriptionsStatsProps {
+  data: IPatientHistoryData;
+}
+
+export interface PatientHistoryContainerProps {
+  data: IPatientHistoryData | null;
+}
+
+export interface PatientPrescriptionCardProps {
+  prescription: IPatientHistoryData['prescriptions'][number];
+  expanded: boolean;
+  handlePrescriptionToggle: (prescriptionId: number) => void;
+  progress: number;
 }
