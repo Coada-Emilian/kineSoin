@@ -4,7 +4,7 @@ import TherapistFooter from '../components/layouts/footers/TherapistFooter';
 import TherapistMobileNavbar from '../components/layouts/mobileNavbars/TherapistMobileNavbar';
 import TherapistNavbar from '../components/layouts/navbars/TherapistNavbar';
 import TherapistHeader from '../components/pages/therapist/TherapistHeader';
-import TherapistSideNavbar from '../components/pages/therapist/TherapistSideNavbar';
+import TherapistSideNavbar from '../components/layouts/sideNavbars/TherapistSideNavbar';
 import DNALoader from '../components/ui/DNALoader';
 import TherapistHero from '../components/ui/TherapistHero';
 import TherapistDataProvider from '../contexts/therapist/TherapistDataProvider';

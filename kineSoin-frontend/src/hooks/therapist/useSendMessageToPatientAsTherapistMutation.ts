@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import type { SendMessageToPatientAsTherapistFunctionProps } from '../../@types/props/functionProps';
 import { sendMessageToPatientAsTherapist } from '../../api/therapist/sendMessageToPatientAsTherapist';
 
 export const useSendMessageToPatientAsTherapistMutation = (
@@ -11,7 +10,10 @@ export const useSendMessageToPatientAsTherapistMutation = (
     mutationFn: async ({
       id,
       formData,
-    }: SendMessageToPatientAsTherapistFunctionProps) => {
+    }: {
+      id: number;
+      formData: FormData;
+    }) => {
       if (!id || !formData) {
         throw new Error('Invalid parameters for sending message');
       } else {

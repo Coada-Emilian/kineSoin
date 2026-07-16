@@ -1,12 +1,15 @@
 import { CalendarDays, CircleCheckBig, Clock3, Target } from 'lucide-react';
-import type { ProgressSectionProps } from '../../../../@types/props/componentProps';
 import { formatProgress } from '../../../../utils/functions/therapist/formatProgress';
 
 export default function PrescriptionProgressSection({
   completedAppointments,
   totalAppointments,
   progress,
-}: ProgressSectionProps) {
+}: {
+  completedAppointments: number;
+  totalAppointments: number;
+  progress: number;
+}) {
   return (
     <div className="mt-6 rounded-xl border border-teal-200 bg-teal-50/40 p-5 mb-4">
       <div className="flex items-center justify-between">

@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import AdminFooter from '../components/layouts/footers/AdminFooter';
 import AdminMobileNav from '../components/layouts/mobileNavbars/AdminMobileNavbar';
 import AdminNavBar from '../components/layouts/navbars/AdminNavbar';
-import AdminSideNavbar from '../components/pages/admin/AdminSideNavbar';
+import AdminSideNavbar from '../components/layouts/sideNavbars/AdminSideNavbar';
 import { AdminContextProvider } from '../contexts/admin/AdminContext';
 
 export function AdminLayout() {

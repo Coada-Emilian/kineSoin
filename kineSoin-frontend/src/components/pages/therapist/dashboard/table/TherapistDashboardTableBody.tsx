@@ -3,9 +3,8 @@ import type {
   IDashboardAppointment,
   IPatientSummary,
 } from '../../../../../@types/interfaces/therapistInterfaces';
-import type { TherapistDashboardAppointmentsTableProps } from '../../../../../@types/props/therapistProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
-import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
+import { useTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { generateTimeSlots } from '../../../../../utils/functions/generateTimeSlots';
 import { getCurrentTime } from '../../../../../utils/functions/getCurrentTime';
 import { formatDashboardAppointment } from '../../../../../utils/functions/therapist/dashboard/formatDashboardAppointment';
@@ -22,8 +21,10 @@ import viewClosedIcon from '/icons/viewClosed_128.png';
 
 export default function TherapistDashboardTableBody({
   appointments,
-}: TherapistDashboardAppointmentsTableProps) {
-  const { setOpenModal } = useUTherapistUiContext();
+}: {
+  appointments: IDashboardAppointment[];
+}) {
+  const { setOpenModal } = useTherapistUiContext();
 
   const {
     setSelectedPatient,

@@ -7,7 +7,6 @@ import type { IAddTherapistFormData } from './formInterfaces';
 import type {
   IDashboardAppointment,
   IPatientSummary,
-  IPrescriptionSummary,
 } from './therapistInterfaces';
 
 export interface IAppContext {
@@ -96,8 +95,8 @@ export interface ITherapistSelectionContext {
     React.SetStateAction<IDashboardAppointment | null>
   >;
 
-  selectedPrescription: IPrescriptionSummary | null;
+  selectedPrescription: IDashboardPrescription | null;
   setSelectedPrescription: React.Dispatch<
-    React.SetStateAction<IPrescriptionSummary | null>
+    React.SetStateAction<IDashboardPrescription | null>
   >;
 }

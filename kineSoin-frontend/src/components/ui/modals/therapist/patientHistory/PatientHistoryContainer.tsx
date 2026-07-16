@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import type { IPrescriptionSummary } from '../../../../../@types/interfaces/therapistInterfaces';
-import type { PatientHistoryContainerProps } from '../../../../../@types/props/componentProps';
+import type {
+  IPatientHistoryDto,
+  IPrescriptionHistory,
+} from '../../../../../@types/interfaces/therapistInterfaces';
 import PatientPrescriptionCard from './PatientPrescriptionCard';
 
 export default function PatientHistoryContainer({
   data,
-}: PatientHistoryContainerProps) {
+}: {
+  data: IPatientHistoryDto;
+}) {
   const [expandedPrescriptionId, setExpandedPrescriptionId] = useState<
     number | null
   >(null);
@@ -17,7 +21,7 @@ export default function PatientHistoryContainer({
   };
   return (
     <div className="flex flex-col gap-4">
-      {data?.prescriptions.map((prescription: IPrescriptionSummary) => {
+      {data?.prescriptions.map((prescription: IPrescriptionHistory) => {
         const expanded = expandedPrescriptionId === prescription.id;
         const completedAppointments =
           prescription.completed_appointment_quantity;

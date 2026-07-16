@@ -1,8 +1,7 @@
 import { Button } from '@headlessui/react';
-import type { ITherapistDashboardAppointment } from '../../../../@types/interfaces/therapistInterfaces';
-import type { TherapistDashboardAppointmentsCardProps } from '../../../../@types/props/therapistProps';
+import type { IDashboardAppointment } from '../../../../@types/interfaces/therapistInterfaces';
 import { useTherapistSelectionContext } from '../../../../hooks/context/therapist/useTherapistSelectionContext';
-import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
+import { useTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
 import { getCurrentTime } from '../../../../utils/functions/getCurrentTime';
 import { getRemainingAppointmentTime } from '../../../../utils/functions/therapist/getRemainingAppointmentTime';
 import cancelIcon from '/icons/cancel.png';
@@ -10,31 +9,29 @@ import messageIcon from '/icons/message.png';
 
 export default function TherapistDashboardAppointmentCard({
   appointment,
-}: TherapistDashboardAppointmentsCardProps) {
+}: {
+  appointment: IDashboardAppointment;
+}) {
   const currentTime = getCurrentTime();
   const isTimePassed = appointment.time < currentTime;
 
   const { label, isPassed } = getRemainingAppointmentTime(appointment.time);
 
-  const { setOpenModal } = useUTherapistUiContext();
+  const { setOpenModal } = useTherapistUiContext();
 
   const {
     setSelectedPatient,
-    setSelectedAppointment,
+    setSelectedDashboardAppointment,
     setSelectedPrescription,
   } = useTherapistSelectionContext();
 
-  const handleMessageIconClick = (
-    appointment: ITherapistDashboardAppointment
-  ) => {
+  const handleMessageIconClick = (appointment: IDashboardAppointment) => {
     setSelectedPatient(appointment.patient);
     setOpenModal('message');
   };
 
-  const handleCancelIconClick = (
-    appointment: ITherapistDashboardAppointment
-  ) => {
-    setSelectedAppointment(appointment);
+  const handleCancelIconClick = (appointment: IDashboardAppointment) => {
+    setSelectedDashboardAppointment(appointment);
     setSelectedPatient(appointment.patient);
     setSelectedPrescription(appointment.prescription);
     setOpenModal('cancel');
@@ -88,7 +85,7 @@ export default function TherapistDashboardAppointmentCard({
             isTimePassed ? 'text-slate-400' : 'text-slate-600'
           }`}
         >
-          {appointment.afflictionName}
+          {appointment.prescription.affliction.name}
         </p>
       </div>
 

@@ -10,9 +10,9 @@ export default function CancelAppointmentModal({
   onClose,
 }: BasicModalProps) {
   const {
-    selectedDashboardAppointment: appointment,
-    selectedPrescription: prescription,
-    selectedPatient: patient,
+    selectedDashboardAppointment,
+    selectedPrescription,
+    selectedPatient,
   } = useTherapistSelectionContext();
 
   const mutation = useCancelAppointmentAsTherapistMutation(onClose);
@@ -21,13 +21,13 @@ export default function CancelAppointmentModal({
     e: React.SubmitEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    if (!appointment || !prescription) {
+    if (!selectedDashboardAppointment || !selectedPrescription) {
       console.error('Appointment or prescription data is missing');
       return;
     }
     mutation.mutate({
-      appointmentId: appointment.id,
-      prescriptionId: prescription.id,
+      appointmentId: selectedDashboardAppointment.id,
+      prescriptionId: selectedPrescription.id,
     });
   };
 
@@ -44,7 +44,7 @@ export default function CancelAppointmentModal({
       <TherapistModal
         isOpen={isOpen}
         onClose={onClose}
-        patient={patient}
+        patient={selectedPatient}
         header="Annulation de rendez-vous"
         size="sm"
         message={
@@ -55,13 +55,13 @@ export default function CancelAppointmentModal({
               rendez-vous de
             </span>
             <span className="block font-semibold text-xl">
-              {patient?.name} {patient?.surname}
+              {selectedPatient?.name} {selectedPatient?.surname}
             </span>
             <span className="block font-normal not-italic text-lg">
               prévu à
               <span className="font-semibold text-xl">
                 {' '}
-                {appointment?.time}?
+                {selectedDashboardAppointment?.time}?
               </span>
             </span>
           </>

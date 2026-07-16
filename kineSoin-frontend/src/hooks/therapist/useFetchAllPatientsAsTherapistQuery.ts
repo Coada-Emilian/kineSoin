@@ -23,9 +23,9 @@ export const useFetchAllPatientsAsTherapistQuery = () => {
         status: patient.status,
         therapist: patient.therapist || null,
         lastAppointmentAt: patient.lastAppointmentAt || null,
-        createdAt: patient.createdAt || null,
-        fullName: `${patient.name} ${patient.surname}`.trim(),
-        fullPhoneNumber: `${patient.prefix} ${patient.phone_number}`.trim(),
+        created_at: patient.created_at || null,
+        full_name: `${patient.name} ${patient.surname}`,
+        full_phone_number: `${patient.prefix}${patient.phone_number}`,
       }));
     },
   });

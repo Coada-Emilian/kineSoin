@@ -97,12 +97,5 @@ export interface CheckTherapistAuthenticationFunctionProps {
   >;
 }
 
-export interface SendMessageToPatientAsTherapistFunctionProps {
-  id: number;
-  formData: FormData;
-}
 
-export interface CancelAppointmentAsTherapistFunctionProps {
-  appointmentId: number;
-  prescriptionId: number;
-}
+

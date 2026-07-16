@@ -108,7 +108,7 @@ export default function PatientsPage() {
     }
 
     return filteredPatients.filter((patient) =>
-      patient.fullName.trim().toLowerCase().includes(query)
+      patient.full_name.trim().toLowerCase().includes(query)
     );
   }, [filteredPatients, searchTerm]);
 
@@ -117,7 +117,7 @@ export default function PatientsPage() {
 
     if (sortBy === 'patient') {
       sorted.sort((a, b) => {
-        const comparison = a.fullName.localeCompare(b.fullName, 'fr', {
+        const comparison = a.full_name.localeCompare(b.full_name, 'fr', {
           sensitivity: 'base',
         });
 
@@ -142,8 +142,13 @@ export default function PatientsPage() {
 
     if (sortBy === 'therapist') {
       sorted.sort((a, b) => {
-        const therapistA = a.therapist?.fullName ?? '';
-        const therapistB = b.therapist?.fullName ?? '';
+        const therapistA = a.therapist
+          ? `${a.therapist.surname} ${a.therapist.name}`
+          : '';
+
+        const therapistB = b.therapist
+          ? `${b.therapist.surname} ${b.therapist.name}`
+          : '';
 
         const comparison = therapistA.localeCompare(therapistB, 'fr', {
           sensitivity: 'base',
@@ -173,9 +178,9 @@ export default function PatientsPage() {
         .length,
 
       newThisMonth: allPatients.filter((patient) => {
-        if (!patient.createdAt) return false;
+        if (!patient.created_at) return false;
 
-        const createdAt = new Date(patient.createdAt);
+        const createdAt = new Date(patient.created_at);
 
         return (
           createdAt.getMonth() === now.getMonth() &&

@@ -12,7 +12,7 @@ export default async function getPatientHistoryAsTherapist({
   const patient_id = getValidId(patientId, 'Patient ID');
 
   const foundPatient = await Patient.findByPk(patient_id, {
-    attributes: ['name', 'surname', 'picture_url'],
+    attributes: ['id', 'name', 'surname', 'picture_url'],
     include: [
       {
         association: 'prescriptions',
@@ -21,18 +21,18 @@ export default async function getPatientHistoryAsTherapist({
           'appointment_quantity',
           'completed_appointment_quantity',
           'at_home_care',
+          'is_completed',
           'date',
           'picture_url',
-          'updated_at',
         ],
         include: [
           {
             association: 'medic',
-            attributes: ['name', 'surname', 'email'],
+            attributes: ['id', 'name', 'surname', 'email'],
           },
           {
             association: 'affliction',
-            attributes: ['name', 'description'],
+            attributes: ['id', 'name', 'description'],
           },
           {
             association: 'appointments',

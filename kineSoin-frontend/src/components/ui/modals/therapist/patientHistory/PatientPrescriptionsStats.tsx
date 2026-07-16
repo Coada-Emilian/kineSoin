@@ -1,16 +1,20 @@
 import { CalendarDays, NotepadTextDashed, SportShoe } from 'lucide-react';
-import type { IPrescriptionSummary } from '../../../../../@types/interfaces/therapistInterfaces';
-import type { PatientPrescriptionsStatsProps } from '../../../../../@types/props/componentProps';
+import type {
+  IPatientHistoryDto,
+  IPrescriptionHistory,
+} from '../../../../../@types/interfaces/therapistInterfaces';
 import { formatDate } from '../../../../../utils/functions/formatDate';
 
 export default function PatientPrescriptionsStats({
   data,
-}: PatientPrescriptionsStatsProps) {
+}: {
+  data: IPatientHistoryDto;
+}) {
   const totalPrescriptions = data.prescriptions.length ?? 0;
 
   const totalAppointmentsEver =
     data.prescriptions.reduce(
-      (total: number, prescription: IPrescriptionSummary) =>
+      (total: number, prescription: IPrescriptionHistory) =>
         total + prescription.appointment_quantity,
       0
     ) ?? 0;
@@ -18,7 +22,8 @@ export default function PatientPrescriptionsStats({
   const firstPrescriptionDate =
     data?.prescriptions.length > 0
       ? [...data.prescriptions].sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+          (a, b) =>
+            new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime()
         )[0].date
       : null;
   return (

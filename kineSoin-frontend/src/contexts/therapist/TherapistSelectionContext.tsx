@@ -2,8 +2,8 @@ import { createContext, useState } from 'react';
 import type { ITherapistSelectionContext } from '../../@types/interfaces/contextInterfaces';
 import type {
   IDashboardAppointment,
+  IDashboardPrescription,
   IPatientSummary,
-  IPrescriptionSummary,
 } from '../../@types/interfaces/therapistInterfaces';
 
 const TherapistSelectionContext = createContext<
@@ -22,7 +22,7 @@ export const TherapistSelectionContextProvider = ({
     useState<IDashboardAppointment | null>(null);
 
   const [selectedPrescription, setSelectedPrescription] =
-    useState<IPrescriptionSummary | null>(null);
+    useState<IDashboardPrescription | null>(null);
 
   return (
     <TherapistSelectionContext.Provider

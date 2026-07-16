@@ -7,54 +7,72 @@ export interface IPatientSummary {
   picture_url: string;
 }
 
-export interface IPatientContact extends IPatientSummary {
+export interface IDashboardPatient extends IPatientSummary {
   email: string;
   prefix: string;
   phone_number: string;
 }
 
-export interface IPatientDetailsDto extends IPatientContact {
-  therapist_id: number;
-  age: number;
-  street_number: string;
-  street_name: string;
-  postal_code: string;
-  city: string;
-  status: string;
-  gender: string;
-  createdAt: Date;
-
-  insurance_details: IPatientInsuranceDetails;
-  therapist: ITherapistSummary;
+export interface IAfflictionSummary {
+  id: number;
+  name: string;
+  description: string;
+  insurance_code: string;
 }
 
-export interface IPatientHistoryDto extends IPatientSummary {
-  prescriptions: IPrescriptionHistory[];
+export interface IBodyRegionSummary {
+  id: number;
+  name: string;
 }
 
-export interface IPatientsTableRowDataDto extends IPatientContact {
-  status: string;
-  therapist: ITherapistWithPicture | null;
-  lastAppointmentAt: string | null;
-  createdAt: string | null;
-  fullName: string;
-  fullPhoneNumber: string;
+export interface IDashboardAffliction extends IAfflictionSummary {
+  body_region: IBodyRegionSummary;
 }
 
-// Therapists
+export interface IPrescriptionSummary {
+  id: number;
+  appointment_quantity: number;
+  completed_appointment_quantity: number;
+  is_completed: boolean;
+  at_home_care: boolean;
+  date: string | undefined;
+  picture_url: string;
+  prescription_number: string;
+}
 
+export interface IMedicSummary {
+  id: number;
+  name: string;
+  surname: string;
+}
+
+export interface IMedicWithEmail extends IMedicSummary {
+  email: string;
+}
+
+export interface IDashboardPrescription extends IPrescriptionSummary {
+  affliction: IDashboardAffliction;
+  medic: IMedicSummary;
+}
+
+export interface IDashboardAppointment {
+  id: number;
+  date: string;
+  time: string;
+
+  patient: IDashboardPatient;
+  prescription: IDashboardPrescription;
+
+  lastAppointmentAt?: string | null;
+  isTimePassed?: boolean;
+}
+
+// -------------------------------------
 export interface ITherapistSummary {
   id: number;
   name: string;
   surname: string;
-  fullName: string;
 }
-
-export interface ITherapistWithPicture extends ITherapistSummary {
-  picture_url: string;
-}
-
-// Insurances
 
 export interface IInsuranceSummary {
   id: number;
@@ -71,65 +89,54 @@ export interface IPatientInsuranceDetails {
   insurance: IInsuranceSummary;
 }
 
-// Medics
+export interface IPatientDetailsDto extends IDashboardPatient {
+  therapist_id: number;
+  age: number;
+  street_number: string;
+  street_name: string;
+  postal_code: string;
+  city: string;
+  status: string;
+  gender: string;
 
-export interface IMedicSummary {
-  id: number;
-  name: string;
-  surname: string;
+  insurance_details: IPatientInsuranceDetails;
+  therapist: ITherapistSummary;
 }
 
-export interface IMedicWithEmail extends IMedicSummary {
-  email: string;
-}
-
-// Afflictions
-export interface IAfflictionSummary {
-  id: number;
-  name: string;
-}
-
-export interface IAfflictionDetails extends IAfflictionSummary {
-  description: string;
-  insurance_code: string;
-  body_region?: IBodyRegionSummary;
-}
-
-export interface IAfflictionHistory {
-  name: string;
-  description: string;
-}
-
-// Prescriptions
-
-export interface IPrescriptionSummary {
-  id: number;
-  appointment_quantity: number;
-  completed_appointment_quantity: number;
-  at_home_care: boolean;
-  date: string | undefined;
-  picture_url: string;
-  prescription_number: string;
-}
-
-export interface IPrescriptionHistory extends IPrescriptionSummary {
-  updated_at: string;
-
-  affliction: IAfflictionHistory;
-  medic: IMedicWithEmail;
-
-  appointments: IAppointmentHistory[];
-}
-
-// Dashboard
-export interface IDashboardAppointment {
+// -----------------------------------------
+export interface IAppointmentSummary {
   id: number;
   date: string;
   time: string;
+  is_canceled: boolean;
+  is_accepted: boolean;
+}
 
-  patient: IPatientContact;
-  prescription: IDashboardPrescription;
+export interface ITherapistWithPicture extends ITherapistSummary {
+  picture_url: string;
+}
 
-  lastAppointmentAt?: string | null;
-  isTimePassed?: boolean;
+export interface IAppointmentHistory extends IAppointmentSummary {
+  therapist: ITherapistWithPicture;
+}
+
+export interface IPrescriptionHistory extends IPrescriptionSummary {
+  affliction: IAfflictionSummary;
+  medic: IMedicSummary;
+  appointments: IAppointmentHistory[];
+}
+
+export interface IPatientHistoryDto extends IPatientSummary {
+  prescriptions: IPrescriptionHistory[];
+}
+
+// -----------------------------------------
+
+export interface IPatientsTableRowDataDto extends IDashboardPatient {
+  status: string;
+  therapist: ITherapistWithPicture | null;
+  lastAppointmentAt: string | null;
+  created_at: string | null;
+  full_name: string;
+  full_phone_number: string;
 }

@@ -226,31 +226,3 @@ export interface ActionButtonProps {
   isTimePassed?: boolean;
   altImgSrc?: string;
 }
-
-export interface PatientPrescriptionsStatsProps {
-  data: IPatientHistoryDto;
-}
-
-export interface PatientHistoryContainerProps {
-  data: IPatientHistoryDto | null;
-}
-
-export interface PatientPrescriptionCardProps {
-  prescription: IPrescriptionSummary;
-  expanded: boolean;
-  handlePrescriptionToggle: (prescriptionId: number) => void;
-  progress: number;
-}
-
-export interface TherapistCardProps {
-  title: string;
-  subtitle?: string;
-  children: ReactNode;
-  padded?: boolean;
-}
-
-export interface ProgressSectionProps {
-  completedAppointments: number;
-  totalAppointments: number;
-  progress: number;
-}

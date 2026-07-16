@@ -1,4 +1,4 @@
-import type { AfflictionDetailsOutputsProps } from '../../../../../@types/props/therapistProps';
+import type { IDashboardAffliction } from '../../../../../@types/interfaces/therapistInterfaces';
 import { hasValues } from '../../../../../utils/functions/admin/adminEntityProfile/hasValues';
 import EntityBodyRegionOutput from '../../../outputs/EntityBodyRegionOutput';
 import EntityCodeOutput from '../../../outputs/EntityCodeOutput';
@@ -7,7 +7,9 @@ import EntityIdOutput from '../../../outputs/EntityIdOutput';
 
 export default function AfflictionDetailsOutputs({
   selectedAffliction,
-}: AfflictionDetailsOutputsProps) {
+}: {
+  selectedAffliction: IDashboardAffliction;
+}) {
   return (
     <>
       {hasValues(selectedAffliction.name) && (

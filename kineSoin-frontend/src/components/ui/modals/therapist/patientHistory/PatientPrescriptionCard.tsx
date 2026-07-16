@@ -7,7 +7,7 @@ import {
   Stethoscope,
   XCircle,
 } from 'lucide-react';
-import type { PatientPrescriptionCardProps } from '../../../../../@types/props/componentProps';
+import type { IPrescriptionHistory } from '../../../../../@types/interfaces/therapistInterfaces';
 import { formatDate } from '../../../../../utils/functions/formatDate';
 import PrescriptionProgressSection from '../PrescriptionProgressSection';
 
@@ -16,7 +16,12 @@ export default function PatientPrescriptionCard({
   expanded,
   handlePrescriptionToggle,
   progress,
-}: PatientPrescriptionCardProps) {
+}: {
+  prescription: IPrescriptionHistory;
+  expanded: boolean;
+  handlePrescriptionToggle: (prescriptionId: number) => void;
+  progress: number;
+}) {
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <button
@@ -30,7 +35,8 @@ export default function PatientPrescriptionCard({
           </h3>
 
           <p className="text-sm text-slate-500">
-            Ordonnance #{prescription.id} • {formatDate(prescription.date)}
+            Ordonnance #{prescription.id} •{' '}
+            {prescription.date && formatDate(prescription.date)}
           </p>
 
           <p className="mt-1 text-sm text-teal-600">

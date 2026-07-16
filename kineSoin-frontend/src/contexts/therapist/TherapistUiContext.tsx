@@ -27,8 +27,6 @@ export const TherapistUiContextProvider = ({
   return (
     <TherapistUiContext.Provider
       value={{
-  
-
         isPatientProfileEditing,
         setIsPatientProfileEditing,
 

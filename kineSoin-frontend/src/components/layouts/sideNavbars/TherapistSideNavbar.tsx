@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { useUTherapistUiContext } from '../../../hooks/context/therapist/useTherapistUiContext';
+import { useTherapistUiContext } from '../../../hooks/context/therapist/useTherapistUiContext';
 import { therapistSideNavbarLinkDetails } from '../../../utils/config/therapist/therapistSideNavbarLinkDetails';
 
 export default function TherapistSideNavbar() {
-  const { closeModal } = useUTherapistUiContext();
+  const { closeModal } = useTherapistUiContext();
 
   const handleNavLinkClick = () => {
     closeModal();

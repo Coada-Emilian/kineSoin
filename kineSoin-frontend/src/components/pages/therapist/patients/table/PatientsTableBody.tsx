@@ -1,7 +1,7 @@
-import { Ban, FileText, History, UserPen } from 'lucide-react';
+import { Ban, History } from 'lucide-react';
 import type { IPatientsTableRowDataDto } from '../../../../../@types/interfaces/therapistInterfaces';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
-import { useUTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
+import { useTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { useAuthenticationContext } from '../../../../../hooks/context/useAuthenticationContext';
 import { therapistPatientStatusConfig } from '../../../../../utils/config/therapist/therapistPatientStatusStyles';
 import { getFormattedAppointmentDate } from '../../../../../utils/functions/getFormattedAppointmentDate';
@@ -18,7 +18,7 @@ export default function PatientsTableBody({
 }: {
   patients: IPatientsTableRowDataDto[];
 }) {
-  const { setOpenModal } = useUTherapistUiContext();
+  const { setOpenModal } = useTherapistUiContext();
 
   const { setSelectedPatient } = useTherapistSelectionContext();
 
@@ -37,19 +37,12 @@ export default function PatientsTableBody({
   };
 
   const handleHistoryClick = (patient: IPatientsTableRowDataDto) => {
-    console.log('History clicked for patient:', patient);
-  };
-
-  const handlePrescriptionsClick = () => {
-    console.log('Prescriptions clicked');
+    setSelectedPatient(patient);
+    setOpenModal('history');
   };
 
   const handleDeleteClick = () => {
     console.log('Delete clicked');
-  };
-
-  const handleEditClick = () => {
-    console.log('Edit clicked');
   };
 
   const { user } = useAuthenticationContext();
@@ -69,6 +62,10 @@ export default function PatientsTableBody({
 
           const isSameTherapist = patient.therapist?.id === user?.id;
 
+          const patientFullName = patient.full_name || '';
+
+          const patientFullPhoneNumber = patient.full_phone_number || '';
+
           return (
             <tr
               key={patient.id}
@@ -77,12 +74,12 @@ export default function PatientsTableBody({
               <td className="border-b border-slate-200 px-4 py-3">
                 <div className="group flex w-full items-center gap-4 rounded-lg px-2 py-2 text-left transition-all duration-150 justify-center">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-50 font-semibold text-slate-600 transition-all duration-150 group-hover:bg-teal-100 group-hover:text-secondaryBlue">
-                    {getNameInitials(patient?.fullName ? patient.fullName : '')}
+                    {getNameInitials(patientFullName)}
                   </div>
 
                   <div className="min-w-0 w-1/2">
                     <p className="font-semibold text-slate-700 transition-colors duration-150 group-hover:text-secondaryBlue">
-                      {patient.fullName}
+                      {patientFullName}
                     </p>
 
                     <p className="truncate text-xs text-slate-400 transition-colors duration-150 group-hover:text-slate-600 font-medium">
@@ -90,7 +87,7 @@ export default function PatientsTableBody({
                     </p>
 
                     <p className="text-xs text-slate-400 transition-colors duration-150 group-hover:text-slate-600 tracking-wide font-medium">
-                      {patient.fullPhoneNumber}
+                      {patientFullPhoneNumber}
                     </p>
                   </div>
                 </div>
@@ -189,22 +186,11 @@ export default function PatientsTableBody({
                       {
                         label: 'Historique',
                         icon: <History className="h-4 w-4 shrink-0" />,
-                        onClick: handleHistoryClick(patient),
-                      },
-                      {
-                        label: 'Ordonnances',
-                        icon: <FileText className="h-4 w-4 shrink-0" />,
-                        onClick: handlePrescriptionsClick,
+                        onClick: () => handleHistoryClick(patient),
                       },
                       {
                         separator: true,
                       },
-                      {
-                        label: 'Modifier',
-                        icon: <UserPen className="h-4 w-4 shrink-0" />,
-                        onClick: handleEditClick,
-                      },
-
                       {
                         label: 'Supprimer',
                         icon: <Ban className="h-4 w-4 shrink-0" />,

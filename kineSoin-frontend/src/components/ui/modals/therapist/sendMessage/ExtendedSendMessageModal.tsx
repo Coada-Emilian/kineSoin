@@ -12,7 +12,7 @@ export default function ExtendedSendMessageModal({
   isOpen,
   onClose,
 }: BasicModalProps) {
-  const { selectedPatient: patient, setSelectedPatient } =
+  const { selectedPatient, setSelectedPatient } =
     useTherapistSelectionContext();
 
   const handleClose = () => {
@@ -25,14 +25,14 @@ export default function ExtendedSendMessageModal({
   const handleMessageSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!patient) {
+    if (!selectedPatient) {
       return;
     }
 
     const formData = new FormData(e.currentTarget);
 
     mutation.mutate({
-      id: patient.id,
+      id: selectedPatient.id,
       formData,
     });
   };
@@ -56,7 +56,7 @@ export default function ExtendedSendMessageModal({
     <TherapistModal
       isOpen={isOpen}
       onClose={handleClose}
-      patient={patient}
+      patient={selectedPatient}
       header="Messagerie patient"
       size="md"
       message={
@@ -65,7 +65,7 @@ export default function ExtendedSendMessageModal({
             Envoyez un message à
           </span>
           <span className="block font-semibold text-xl">
-            {patient?.name} {patient?.surname}
+            {selectedPatient?.name} {selectedPatient?.surname}
           </span>
         </>
       }
@@ -91,7 +91,7 @@ export default function ExtendedSendMessageModal({
         <div className="mx-auto w-11/12">
           <TextInput
             input={{
-              id: `send-message-${patient?.id}`,
+              id: `send-message-${selectedPatient?.id}`,
               labelName: '',
               name: 'content',
               placeholder: 'Tapez votre message ici...',

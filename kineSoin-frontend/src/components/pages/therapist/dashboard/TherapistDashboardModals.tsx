@@ -1,4 +1,4 @@
-import { useUTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
+import { useTherapistUiContext } from '../../../../hooks/context/therapist/useTherapistUiContext';
 import AfflictionDetailsModal from '../../../ui/modals/therapist/afflictionDetails/AfflictionDetailsModal';
 import CancelAppointmentModal from '../../../ui/modals/therapist/cancelAppointment/CancelAppointmentModal';
 import ExtendedCancelAppointmentModal from '../../../ui/modals/therapist/cancelAppointment/ExtendedCancelAppointmentModal';
@@ -9,7 +9,7 @@ import ExtendedSendMessageModal from '../../../ui/modals/therapist/sendMessage/E
 import SendMessageModal from '../../../ui/modals/therapist/sendMessage/SendMessageModal';
 
 export default function TherapistDashboardModals() {
-  const { openModal, closeModal } = useUTherapistUiContext();
+  const { openModal, closeModal } = useTherapistUiContext();
 
   return (
     <>

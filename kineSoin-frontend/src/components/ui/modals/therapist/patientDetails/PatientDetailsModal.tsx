@@ -14,7 +14,7 @@ export default function PatientDetailsModal({
 }: BasicModalProps) {
   const { selectedPatient, setSelectedPatient } =
     useTherapistSelectionContext();
-  
+
   const {
     data: patientDetails,
     isLoading,

@@ -11,9 +11,9 @@ export default function ExtendedCancelAppointmentModal({
   onClose,
 }: BasicModalProps) {
   const {
-    selectedDashboardAppointment: appointment,
-    selectedPrescription: prescription,
-    selectedPatient: patient,
+    selectedDashboardAppointment,
+    selectedPrescription,
+    selectedPatient,
   } = useTherapistSelectionContext();
 
   const mutation = useCancelAppointmentAsTherapistMutation(onClose);
@@ -22,13 +22,13 @@ export default function ExtendedCancelAppointmentModal({
     e: React.SubmitEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    if (!appointment || !prescription) {
+    if (!selectedDashboardAppointment || !selectedPrescription) {
       console.error('Appointment or prescription data is missing');
       return;
     }
     mutation.mutate({
-      appointmentId: appointment.id,
-      prescriptionId: prescription.id,
+      appointmentId: selectedDashboardAppointment.id,
+      prescriptionId: selectedPrescription.id,
     });
   };
 
@@ -45,7 +45,7 @@ export default function ExtendedCancelAppointmentModal({
       <TherapistModal
         isOpen={isOpen}
         onClose={onClose}
-        patient={patient}
+        patient={selectedPatient}
         header="Annulation de rendez-vous"
         size="md"
         message={
@@ -55,14 +55,15 @@ export default function ExtendedCancelAppointmentModal({
               <span className="font-semibold text-red-500">annuler</span> le
               rendez-vous de
             </span>
-            <span className="block font-semibold text-xl">
-              {patient?.name} {patient?.surname}
+
+            <span className="font-semibold text-xl">
+              {selectedPatient?.name} {selectedPatient?.surname}
             </span>
-            <span className="block font-normal not-italic text-lg">
-              prévu à
+            <span className="font-normal not-italic text-lg">
+              {''} prévu à
               <span className="font-semibold text-xl">
                 {' '}
-                {appointment?.time}?
+                {selectedDashboardAppointment?.time}?
               </span>
             </span>
           </>
@@ -76,7 +77,7 @@ export default function ExtendedCancelAppointmentModal({
           </p>
         )}
         <div className="p-4">
-          <AppointmentDetailsCard appointment={appointment} />
+          <AppointmentDetailsCard appointment={selectedDashboardAppointment} />
 
           <form
             className="flex flex-col mt-2 italic text-primaryBlue font-medium"
