@@ -113,6 +113,8 @@ therapistRouter.get(
 
 therapistRouter.get("/me/patient/history", wrapper(patientController.getPatientHistoryAsTherapist));
 
+therapistRouter.get('/prescriptions/:prescription_id', wrapper(prescriptionController.getPrescriptionDetailsAsTherapist));
+
 // Unused routes
 
 // therapistRouter.patch(

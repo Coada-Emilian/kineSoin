@@ -28,7 +28,7 @@ export const useFetchPatientDetailsAsTherapistQuery = ({
       status: data.status,
       picture_url: data.picture_url,
       email: data.email,
-      insurance_details: data.insurance_details,
+      insurance_details: data.insurance_details ? data.insurance_details : null,
       therapist: data.therapist,
       gender: data.gender,
     }),

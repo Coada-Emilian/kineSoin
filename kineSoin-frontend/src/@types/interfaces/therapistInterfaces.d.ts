@@ -7,7 +7,7 @@ export interface IPatientSummary {
   picture_url: string;
 }
 
-export interface IDashboardPatient extends IPatientSummary {
+export interface IPatientWithContact extends IPatientSummary {
   email: string;
   prefix: string;
   phone_number: string;
@@ -16,8 +16,6 @@ export interface IDashboardPatient extends IPatientSummary {
 export interface IAfflictionSummary {
   id: number;
   name: string;
-  description: string;
-  insurance_code: string;
 }
 
 export interface IBodyRegionSummary {
@@ -26,33 +24,17 @@ export interface IBodyRegionSummary {
 }
 
 export interface IDashboardAffliction extends IAfflictionSummary {
+  description: string;
+  insurance_code: string;
   body_region: IBodyRegionSummary;
-}
-
-export interface IPrescriptionSummary {
-  id: number;
-  appointment_quantity: number;
-  completed_appointment_quantity: number;
-  is_completed: boolean;
-  at_home_care: boolean;
-  date: string | undefined;
-  picture_url: string;
-  prescription_number: string;
-}
-
-export interface IMedicSummary {
-  id: number;
-  name: string;
-  surname: string;
-}
-
-export interface IMedicWithEmail extends IMedicSummary {
-  email: string;
 }
 
 export interface IDashboardPrescription extends IPrescriptionSummary {
   affliction: IDashboardAffliction;
-  medic: IMedicSummary;
+}
+
+export interface IPrescriptionSummary {
+  id: number;
 }
 
 export interface IDashboardAppointment {
@@ -60,7 +42,7 @@ export interface IDashboardAppointment {
   date: string;
   time: string;
 
-  patient: IDashboardPatient;
+  patient: IPatientWithContact;
   prescription: IDashboardPrescription;
 
   lastAppointmentAt?: string | null;
@@ -89,7 +71,7 @@ export interface IPatientInsuranceDetails {
   insurance: IInsuranceSummary;
 }
 
-export interface IPatientDetailsDto extends IDashboardPatient {
+export interface IPatientDetailsDto extends IPatientWithContact {
   therapist_id: number;
   age: number;
   street_number: string;
@@ -99,8 +81,31 @@ export interface IPatientDetailsDto extends IDashboardPatient {
   status: string;
   gender: string;
 
-  insurance_details: IPatientInsuranceDetails;
+  insurance_details: IPatientInsuranceDetails | null;
   therapist: ITherapistSummary;
+}
+
+export interface IMedicSummary {
+  id: number;
+  name: string;
+  surname: string;
+}
+
+export interface IMedicWithEmail extends IMedicSummary {
+  email: string;
+}
+
+export interface IPrescriptionDetailsDto extends IPrescriptionSummary {
+  appointment_quantity: number;
+  completed_appointment_quantity: number;
+  is_completed: boolean;
+  at_home_care: boolean;
+  date: string | undefined;
+  picture_url: string;
+  prescription_number: string;
+
+  affliction: IDashboardAffliction;
+  medic: IMedicSummary;
 }
 
 // -----------------------------------------
@@ -120,9 +125,22 @@ export interface IAppointmentHistory extends IAppointmentSummary {
   therapist: ITherapistWithPicture;
 }
 
-export interface IPrescriptionHistory extends IPrescriptionSummary {
-  affliction: IAfflictionSummary;
-  medic: IMedicSummary;
+export interface IAfflictionHistory extends IAfflictionSummary {
+  description: string;
+}
+
+export interface IPrescriptionDetails extends IPrescriptionSummary {
+  appointment_quantity: number;
+  completed_appointment_quantity: number;
+  is_completed: boolean;
+  at_home_care: boolean;
+  date: string | undefined;
+  picture_url: string;
+}
+
+export interface IPrescriptionHistory extends IPrescriptionDetails {
+  affliction: IAfflictionHistory;
+  medic: IMedicWithEmail;
   appointments: IAppointmentHistory[];
 }
 
@@ -132,11 +150,17 @@ export interface IPatientHistoryDto extends IPatientSummary {
 
 // -----------------------------------------
 
-export interface IPatientsTableRowDataDto extends IDashboardPatient {
+export interface IPatientsTableRowDataDto extends IPatientWithContact {
   status: string;
   therapist: ITherapistWithPicture | null;
   lastAppointmentAt: string | null;
   created_at: string | null;
   full_name: string;
   full_phone_number: string;
+}
+
+export interface TherapistPatientQuickNavFilter {
+  key: string;
+  label: string;
+  buttonType: TherapistPatientQuickNavButtonType;
 }

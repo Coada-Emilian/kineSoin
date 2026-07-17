@@ -1,8 +1,10 @@
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
+import { useFetchPrescriptionDetailsAsTherapistQuery } from '../../../../../hooks/therapist/useFetchPrescriptionDetailsAsTherapistQuery';
 import { formatDate } from '../../../../../utils/functions/formatDate';
 import CustomButton from '../../../buttons/CustomButton';
-import PrescriptionProgressSection from '../PrescriptionProgressSection';
+import DNALoader from '../../../DNALoader';
+import PrescriptionProgressBar from '../PrescriptionProgressBar';
 import TherapistModal from '../TherapistModal';
 import PrescriptionDetailsOutputs from './PrescriptionDetailsOutputs';
 
@@ -10,34 +12,50 @@ export default function PrescriptionDetailsModal({
   isOpen,
   onClose,
 }: BasicModalProps) {
-  const { selectedPrescription, selectedPatient } =
-    useTherapistSelectionContext();
+  const {
+    selectedDashboardPrescription,
+    selectedPatient,
+    setSelectedPatient,
+    setSelectedDashboardPrescription,
+  } = useTherapistSelectionContext();
 
-  const totalAppointments = selectedPrescription?.appointment_quantity ?? 0;
+  const {
+    data: prescription,
+    isLoading: isPrescriptionDetailsLoading,
+    isFetching,
+  } = useFetchPrescriptionDetailsAsTherapistQuery({
+    prescription_id: selectedDashboardPrescription?.id ?? 0,
+  });
+
+  const totalAppointments = prescription?.appointment_quantity ?? 0;
 
   const completedAppointments =
-    selectedPrescription?.completed_appointment_quantity ?? 0;
+    prescription?.completed_appointment_quantity ?? 0;
 
   const progress = Math.round(
     (completedAppointments / totalAppointments) * 100
   );
 
   const handleViewPrescription = () => {
-    if (!selectedPrescription?.picture_url) return;
+    if (!prescription?.picture_url) return;
 
-    window.open(
-      selectedPrescription.picture_url,
-      '_blank',
-      'noopener,noreferrer'
-    );
+    window.open(prescription.picture_url, '_blank', 'noopener,noreferrer');
   };
+
+  const handleClose = () => {
+    setSelectedPatient(null);
+    setSelectedDashboardPrescription(null);
+    onClose();
+  };
+
+  if (isPrescriptionDetailsLoading || isFetching) {
+    return <DNALoader />;
+  }
 
   return (
     <TherapistModal
       isOpen={isOpen}
-      onClose={() => {
-        onClose();
-      }}
+      onClose={handleClose}
       header="Détails de l'ordonnance"
       size="md"
       message={
@@ -49,30 +67,30 @@ export default function PrescriptionDetailsModal({
             n#
             <span className="font-semibold italic">
               {' '}
-              {selectedPrescription?.prescription_number}
+              {prescription?.prescription_number}
             </span>
             {''} du
             <span className="font-semibold italic">
               {' '}
-              {selectedPrescription?.date
-                ? formatDate(selectedPrescription.date)
-                : ''}
+              {prescription?.date ? formatDate(prescription.date) : ''}
             </span>
           </span>
         </>
       }
     >
       <div className="px-6">
-        <PrescriptionProgressSection
+        <PrescriptionProgressBar
           completedAppointments={completedAppointments}
           totalAppointments={totalAppointments}
           progress={progress}
         />
 
-        <PrescriptionDetailsOutputs
-          prescription={selectedPrescription}
-          patient={selectedPatient}
-        />
+        {selectedPatient && prescription && (
+          <PrescriptionDetailsOutputs
+            prescription={prescription}
+            patient={selectedPatient}
+          />
+        )}
 
         <div className=" p-4 w-full flex flex-col gap-4 md:flex-row justify-around items-center rounded-b-xl">
           <div className="flex gap-3 items-center ">
@@ -92,7 +110,7 @@ export default function PrescriptionDetailsModal({
                 text: 'Retour',
                 style: 'normal',
                 hasBorder: true,
-                onClick: onClose,
+                onClick: handleClose,
               }}
             />
           </div>

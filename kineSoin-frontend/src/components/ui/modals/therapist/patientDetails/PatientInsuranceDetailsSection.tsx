@@ -10,7 +10,7 @@ export default function PatientInsuranceDetailsSection({
 }: {
   patient: IPatientDetailsDto | undefined;
 }) {
-  const insuranceEndDate = patient?.insurance_details.end_date
+  const insuranceEndDate = patient?.insurance_details?.end_date
     ? new Date(patient.insurance_details.end_date)
     : null;
 
@@ -19,49 +19,58 @@ export default function PatientInsuranceDetailsSection({
       <div className="font-semibold text-teal-400 text-xl flex px-2">
         <p>Mutuelle</p>
       </div>
+      {patient?.insurance_details ? (
+        <div className="flex flex-1 flex-col divide-y divide-slate-100">
+          <div className="py-4">
+            <EntityInsuranceOutput
+              insuranceName={patient?.insurance_details.insurance.name}
+            />
+          </div>
 
-      <div className="flex flex-1 flex-col divide-y divide-slate-100">
-        <div className="py-4">
-          <EntityInsuranceOutput
-            insuranceName={patient?.insurance_details.insurance.name}
-          />
-        </div>
+          <div className="py-4">
+            <EntityAdherentNumberOutput
+              adherentNumber={patient?.insurance_details.adherent_code}
+            />
+          </div>
 
-        <div className="py-4">
-          <EntityAdherentNumberOutput
-            adherentNumber={patient?.insurance_details.adherent_code}
-          />
-        </div>
-
-        <div className="py-4">
-          <EntityContractNumberOutput
-            contractNumber={patient?.insurance_details.contract_number}
-          />
-        </div>
-        <div className="py-4">
-          <EntityValidUntilOutput
-            validUntil={insuranceEndDate ? formatDate(insuranceEndDate) : ''}
-          />
-          <div>
-            {patient?.insurance_details.end_date &&
-            new Date(patient.insurance_details.end_date) >= new Date() ? (
-              <div className="flex gap-2 items-center mt-4 ml-4 p-2 bg-green-100 w-fit rounded-lg border border-green-200 text-sm">
-                <div className="w-4 h-4 rounded-full bg-green-500"></div>
-                <span className="text-green-500 font-semibold">
-                  Contrat valide
-                </span>
-              </div>
-            ) : (
-              <div className="flex gap-2 items-center mt-4 ml-4 p-2 bg-red-100 w-fit rounded-lg border border-red-200 text-sm">
-                <div className="w-4 h-4 rounded-full bg-red-500"></div>{' '}
-                <span className="text-red-500 font-semibold">
-                  Contrat expiré
-                </span>
-              </div>
-            )}
+          <div className="py-4">
+            <EntityContractNumberOutput
+              contractNumber={patient?.insurance_details.contract_number}
+            />
+          </div>
+          <div className="py-4">
+            <EntityValidUntilOutput
+              validUntil={insuranceEndDate ? formatDate(insuranceEndDate) : ''}
+            />
+            <div>
+              {patient?.insurance_details.end_date &&
+              new Date(patient.insurance_details.end_date) >= new Date() ? (
+                <div className="flex gap-2 items-center mt-4 ml-4 p-2 bg-green-100 w-fit rounded-lg border border-green-200 text-sm">
+                  <div className="w-4 h-4 rounded-full bg-green-500"></div>
+                  <span className="text-green-500 font-semibold">
+                    Contrat valide
+                  </span>
+                </div>
+              ) : (
+                <div className="flex gap-2 items-center mt-4 ml-4 p-2 bg-red-100 w-fit rounded-lg border border-red-200 text-sm">
+                  <div className="w-4 h-4 rounded-full bg-red-500"></div>{' '}
+                  <span className="text-red-500 font-semibold">
+                    Contrat expiré
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-1 flex-col divide-y divide-slate-100">
+          <div className="py-4">
+            <p className="text-slate-400 text-sm">
+              Aucune information d'assurance disponible pour ce patient.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

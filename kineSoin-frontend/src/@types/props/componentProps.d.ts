@@ -58,16 +58,18 @@ export interface TherapistHeroProps {
   userProfile: IBasicUser;
   message: React.ReactNode;
 }
+export interface EntityOutputIsVerticalProps {
+  isVertical?: boolean;
+}
 
-export interface BaseEntityOutputContainerProps {
+export interface BaseEntityOutputContainerProps extends EntityOutputIsVerticalProps {
   icon: string;
   iconAlt: string;
   label?: string;
   value: string;
-  isVertical?: boolean;
 }
 
-export interface BaseEntityProfileOutputProps {
+export interface BaseEntityProfileOutputProps extends EntityOutputIsVerticalProps {
   label: string;
   value: string | number | undefined;
   isTextArea?: boolean;
@@ -75,81 +77,77 @@ export interface BaseEntityProfileOutputProps {
   isAgeOutput?: boolean;
 }
 
-export interface EntityIdOutputProps {
+export interface EntityIdOutputProps extends EntityOutputIsVerticalProps {
   id?: number | null;
 }
 
-export interface EntityAgeAndGenderOutputProps {
+export interface EntityAgeAndGenderOutputProps extends EntityOutputIsVerticalProps {
   age: string | undefined;
   gender: string | undefined;
-  isVertical?: boolean;
 }
 
-export interface EntityAgeOutputProps {
+export interface EntityAgeOutputProps extends EntityOutputIsVerticalProps {
   age: string | undefined;
   isLabelMissing?: boolean;
 }
 
-export interface EntityGenderOutputProps {
+export interface EntityGenderOutputProps extends EntityOutputIsVerticalProps {
   gender: string | undefined;
   isLabelMissing?: boolean;
 }
 
-export interface EntityStatusOutputProps {
+export interface EntityStatusOutputProps extends EntityOutputIsVerticalProps {
   status: string | undefined;
   isLabelMissing?: boolean;
 }
 
-export interface EntityNameOutputProps {
+export interface EntityNameOutputProps extends EntityOutputIsVerticalProps {
   name: string | undefined;
   surname: string | undefined;
 }
 
-export interface EntityEmailOutputProps {
+export interface EntityEmailOutputProps extends EntityOutputIsVerticalProps {
   email: string | undefined;
-  isVertical?: boolean;
 }
 
-export interface EntityTelephoneNumberOutputProps {
+export interface EntityTelephoneNumberOutputProps extends EntityOutputIsVerticalProps {
   prefix: string | undefined;
   phone_number: string | undefined;
-  isVertical?: boolean;
 }
 
-export interface EntityAddressOutputProps {
+export interface EntityAddressOutputProps extends EntityOutputIsVerticalProps {
   city: string | undefined;
   postal_code: string | undefined;
   street_number: string | undefined;
   street_name: string | undefined;
-  isVertical?: boolean;
 }
 
-export interface EntityCodeOutputProps {
+export interface EntityCodeOutputProps extends EntityOutputIsVerticalProps {
   amc_code?: string | undefined;
   insurance_code?: string | undefined;
   licence_code?: string | undefined;
 }
 
-export interface EntityBodyRegionAndOperatedStatusOutputProps {
+export interface EntityBodyRegionAndOperatedStatusOutputProps extends EntityOutputIsVerticalProps {
   body_region: IBodyRegion | undefined;
   is_operated: string | undefined;
 }
 
-export interface EntityStudiesOutputProps {
+export interface EntityStudiesOutputProps extends EntityOutputIsVerticalProps {
   diploma?: string | undefined;
   experience?: string | undefined;
   specialty?: string | undefined;
 }
 
-export interface EntityDescriptionOutputProps {
+export interface EntityDescriptionOutputProps extends EntityOutputIsVerticalProps {
   description: string | undefined;
 }
 
-export interface EntityDateOutputProps {
+export interface EntityDateOutputProps extends EntityOutputIsVerticalProps {
   date: string | Date | undefined;
 }
 
-export interface EntityMedicOutputProps {
+export interface EntityMedicOutputProps extends EntityOutputIsVerticalProps {
   medic: {
     id: number;
     surname: string;
@@ -157,18 +155,18 @@ export interface EntityMedicOutputProps {
   };
 }
 
-export interface EntityAfflictionOutputProps {
+export interface EntityAfflictionOutputProps extends EntityOutputIsVerticalProps {
   affliction: {
     id: number;
     name: string;
   };
 }
 
-export interface EntityBodyRegionOutputProps {
+export interface EntityBodyRegionOutputProps extends EntityOutputIsVerticalProps {
   bodyRegionName: string | undefined;
 }
 
-export interface EntityPatientOutputProps {
+export interface EntityPatientOutputProps extends EntityOutputIsVerticalProps {
   patient: {
     id: number;
     surname: string;
@@ -176,23 +174,23 @@ export interface EntityPatientOutputProps {
   };
 }
 
-export interface EntityHomeCareOutputProps {
+export interface EntityHomeCareOutputProps extends EntityOutputIsVerticalProps {
   at_home_care: boolean;
 }
 
-export interface EntityInsuranceOutputProps {
+export interface EntityInsuranceOutputProps extends EntityOutputIsVerticalProps {
   insuranceName: string | undefined;
 }
 
-export interface EntityAdherentNumberOutputProps {
+export interface EntityAdherentNumberOutputProps extends EntityOutputIsVerticalProps {
   adherentNumber: string | undefined;
 }
 
-export interface EntityContractNumberOutputProps {
+export interface EntityContractNumberOutputProps extends EntityOutputIsVerticalProps {
   contractNumber: string | undefined;
 }
 
-export interface EntityValidUntilOutputProps {
+export interface EntityValidUntilOutputProps extends EntityOutputIsVerticalProps {
   validUntil: string | Date | undefined;
 }
 
@@ -225,4 +223,17 @@ export interface ActionButtonProps {
   altText: string;
   isTimePassed?: boolean;
   altImgSrc?: string;
+}
+
+export interface TherapistCardProps {
+  title: string;
+  subtitle?: string;
+  children: ReactNode;
+  padded?: boolean;
+}
+
+export interface PrescriptionProgressBarProps {
+  completedAppointments: number;
+  totalAppointments: number;
+  progress: number;
 }

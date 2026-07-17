@@ -1,15 +1,9 @@
 import { useState } from 'react';
-import type {
-  IPatientHistoryDto,
-  IPrescriptionHistory,
-} from '../../../../../@types/interfaces/therapistInterfaces';
+import type { IPrescriptionHistory } from '../../../../../@types/interfaces/therapistInterfaces';
+import type { PatientHistoryProps } from '../../../../../@types/props/therapistProps';
 import PatientPrescriptionCard from './PatientPrescriptionCard';
 
-export default function PatientHistoryContainer({
-  data,
-}: {
-  data: IPatientHistoryDto;
-}) {
+export default function PatientHistoryContainer({ data }: PatientHistoryProps) {
   const [expandedPrescriptionId, setExpandedPrescriptionId] = useState<
     number | null
   >(null);

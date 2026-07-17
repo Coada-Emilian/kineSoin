@@ -2,7 +2,9 @@ import type { ReactNode } from 'react';
 import type { IBasicUser } from '../interfaces/customInterfaces';
 import type {
   IAfflictionDetails,
-  IPatientsTableRowData,
+  IDashboardAppointment,
+  IPatientHistoryDto,
+  IPatientsTableRowDataDto,
 } from '../interfaces/therapistInterfaces';
 import type { BaseModalSize } from '../types/modalTypes';
 import type { BasicModalProps } from './modalProps';
@@ -56,9 +58,25 @@ export interface PatientsTableHeadProps {
 }
 
 export interface PatientsTableProps extends PatientsTableHeadProps {
-  allPatients: IPatientsTableRowData[];
+  allPatients: IPatientsTableRowDataDto[];
+}
+
+export interface PatientTableBodyProps {
+  patients: IPatientsTableRowDataDto[];
 }
 
 export interface AfflictionDetailsOutputsProps {
   selectedAffliction: IAfflictionDetails;
+}
+
+export interface TherapistDashboardProps {
+  appointments: IDashboardAppointment[];
+}
+
+export interface TherapistDashboardAppointmentProps {
+  appointment: IDashboardAppointment;
+}
+
+export interface PatientHistoryProps {
+  data: IPatientHistoryDto;
 }

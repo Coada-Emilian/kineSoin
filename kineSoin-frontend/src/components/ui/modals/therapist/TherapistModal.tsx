@@ -16,7 +16,9 @@ export default function TherapistModal({
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} size={size} variant="tight">
       <div className="relative">
-        <div className="bg-linear-to-r from-teal-300 to-slate-200 rounded-t-xl p-6 text-center text-slate-800 uppercase font-semibold drop-shadow-sm tracking-wide pb-16 ">
+        <div
+          className={`${size === 'sm' ? 'pb-14' : 'pb-20'} bg-linear-to-r from-teal-300 to-slate-200 rounded-t-xl p-6 text-center text-slate-800 uppercase font-semibold drop-shadow-sm tracking-wide`}
+        >
           <p className="text-base md:text-xl bg-linear-to-r from-slate-800 to-slate-500 bg-clip-text text-transparent">
             {header}
           </p>
@@ -26,7 +28,7 @@ export default function TherapistModal({
           <img
             src={patient?.picture_url || mainLogo}
             alt={patient?.name || 'profile'}
-            className="h-24 w-24 md:h-28 md:w-28 rounded-full border-4 border-slate-100 object-cover absolute top-15"
+            className={`${size === 'sm' ? 'h-24 w-24' : 'h-36 w-36'} rounded-full border-4 border-slate-100 object-cover absolute top-15`}
           />
         </div>
 

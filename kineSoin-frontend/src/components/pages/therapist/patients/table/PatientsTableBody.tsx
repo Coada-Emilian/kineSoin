@@ -12,12 +12,9 @@ import appointmentIcon from '/icons/appointment_128.png';
 import messageIcon from '/icons/message_128.png';
 import viewIcon from '/icons/view_128.png';
 import calendarIcon from '/logos/appointment_48.webp';
+import type { PatientTableBodyProps } from '../../../../../@types/props/therapistProps';
 
-export default function PatientsTableBody({
-  patients,
-}: {
-  patients: IPatientsTableRowDataDto[];
-}) {
+export default function PatientsTableBody({ patients }: PatientTableBodyProps) {
   const { setOpenModal } = useTherapistUiContext();
 
   const { setSelectedPatient } = useTherapistSelectionContext();

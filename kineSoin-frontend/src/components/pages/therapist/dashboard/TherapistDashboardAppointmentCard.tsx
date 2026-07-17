@@ -6,12 +6,11 @@ import { getCurrentTime } from '../../../../utils/functions/getCurrentTime';
 import { getRemainingAppointmentTime } from '../../../../utils/functions/therapist/getRemainingAppointmentTime';
 import cancelIcon from '/icons/cancel.png';
 import messageIcon from '/icons/message.png';
+import type { TherapistDashboardAppointmentProps } from '../../../../@types/props/therapistProps';
 
 export default function TherapistDashboardAppointmentCard({
   appointment,
-}: {
-  appointment: IDashboardAppointment;
-}) {
+}: TherapistDashboardAppointmentProps) {
   const currentTime = getCurrentTime();
   const isTimePassed = appointment.time < currentTime;
 
@@ -22,7 +21,7 @@ export default function TherapistDashboardAppointmentCard({
   const {
     setSelectedPatient,
     setSelectedDashboardAppointment,
-    setSelectedPrescription,
+    setSelectedDashboardPrescription,
   } = useTherapistSelectionContext();
 
   const handleMessageIconClick = (appointment: IDashboardAppointment) => {
@@ -33,7 +32,7 @@ export default function TherapistDashboardAppointmentCard({
   const handleCancelIconClick = (appointment: IDashboardAppointment) => {
     setSelectedDashboardAppointment(appointment);
     setSelectedPatient(appointment.patient);
-    setSelectedPrescription(appointment.prescription);
+    setSelectedDashboardPrescription(appointment.prescription);
     setOpenModal('cancel');
   };
 

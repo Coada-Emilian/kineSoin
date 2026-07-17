@@ -27,9 +27,8 @@ export const useFetchTherapistDashboardDataQuery = () => {
             date: appointment.date,
             patient: appointment.patient,
             prescription: appointment.prescription,
-            afflictionName: appointment.prescription.affliction.name,
+            affliction_name: appointment.prescription.affliction.name,
             lastAppointmentAt: appointment.lastAppointmentAt,
-            // Affliction's name for display
           };
         }
       );

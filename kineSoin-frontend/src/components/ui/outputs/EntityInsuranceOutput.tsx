@@ -4,6 +4,7 @@ import BaseEntityOutputContainer from './BaseEntityOutputContainer';
 
 export default function EntityInsuranceOutput({
   insuranceName,
+  isVertical,
 }: EntityInsuranceOutputProps) {
   const details = outputDetails.find((detail) => detail.type === 'insurance');
   return (
@@ -12,6 +13,7 @@ export default function EntityInsuranceOutput({
       iconAlt={details?.iconAlt || ''}
       label={details?.label || ''}
       value={insuranceName as string}
+      isVertical={isVertical}
     ></BaseEntityOutputContainer>
   );
 }

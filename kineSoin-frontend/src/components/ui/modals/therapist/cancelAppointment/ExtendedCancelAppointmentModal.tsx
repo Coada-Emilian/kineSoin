@@ -12,8 +12,11 @@ export default function ExtendedCancelAppointmentModal({
 }: BasicModalProps) {
   const {
     selectedDashboardAppointment,
-    selectedPrescription,
+    selectedDashboardPrescription,
     selectedPatient,
+    setSelectedDashboardAppointment,
+    setSelectedDashboardPrescription,
+    setSelectedPatient,
   } = useTherapistSelectionContext();
 
   const mutation = useCancelAppointmentAsTherapistMutation(onClose);
@@ -22,14 +25,21 @@ export default function ExtendedCancelAppointmentModal({
     e: React.SubmitEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    if (!selectedDashboardAppointment || !selectedPrescription) {
+    if (!selectedDashboardAppointment || !selectedDashboardPrescription) {
       console.error('Appointment or prescription data is missing');
       return;
     }
     mutation.mutate({
       appointmentId: selectedDashboardAppointment.id,
-      prescriptionId: selectedPrescription.id,
+      prescriptionId: selectedDashboardPrescription.id,
     });
+  };
+
+  const handleClose = () => {
+    setSelectedDashboardAppointment(null);
+    setSelectedDashboardPrescription(null);
+    setSelectedPatient(null);
+    onClose();
   };
 
   if (mutation.isPending) {
@@ -99,9 +109,7 @@ export default function ExtendedCancelAppointmentModal({
                   text: 'Annuler',
                   style: 'normal',
                   onClick: () => {
-                    if (onClose) {
-                      onClose();
-                    }
+                    handleClose();
                   },
                 }}
               />

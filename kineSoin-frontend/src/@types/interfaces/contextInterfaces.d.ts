@@ -95,8 +95,8 @@ export interface ITherapistSelectionContext {
     React.SetStateAction<IDashboardAppointment | null>
   >;
 
-  selectedPrescription: IDashboardPrescription | null;
-  setSelectedPrescription: React.Dispatch<
-    React.SetStateAction<IDashboardPrescription | null>
+  selectedDashboardPrescription: IPrescriptionDetailsDto | null;
+  setSelectedDashboardPrescription: React.Dispatch<
+    React.SetStateAction<IPrescriptionDetailsDto | null>
   >;
 }

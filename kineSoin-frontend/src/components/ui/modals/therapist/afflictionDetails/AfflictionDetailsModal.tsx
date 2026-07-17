@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import type { BasicModalProps } from '../../../../../@types/props/modalProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import CustomButton from '../../../buttons/CustomButton';
@@ -18,6 +19,10 @@ export default function AfflictionDetailsModal({
     setSelectedDashboardAppointment(null);
     onClose();
   };
+
+  useEffect(() => {
+    console.log(selectedDashboardAppointment);
+  }, [selectedDashboardAppointment]);
 
   return (
     <TherapistModal

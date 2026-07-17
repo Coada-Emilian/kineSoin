@@ -20,7 +20,6 @@ export default async function getAppointmentDashboardDataAsTherapist({
       is_canceled: false,
       date: currentDate,
     },
-    order: [['time', 'ASC']],
     include: [
       {
         association: 'patient',
@@ -38,13 +37,6 @@ export default async function getAppointmentDashboardDataAsTherapist({
         association: 'prescription',
         attributes: [
           'id',
-          'appointment_quantity',
-          'completed_appointment_quantity',
-          'is_completed',
-          'at_home_care',
-          'date',
-          'picture_url',
-          'prescription_number',
         ],
         include: [
           {
@@ -54,7 +46,6 @@ export default async function getAppointmentDashboardDataAsTherapist({
               { association: 'body_region', attributes: ['id', 'name'] },
             ],
           },
-          { association: 'medic', attributes: ['id', 'name', 'surname'] },
         ],
       },
     ],

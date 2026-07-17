@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { cancelAppointmentAsTherapist } from '../../api/therapist/cancelAppointmentAsTherapist';
 import { incrementPrescriptionAppointmentQuantity } from '../../api/therapist/incrementPrescriptionAppointmentQuantity';
+import type { CancelAppointmentAsTherapistFunctionProps } from '../../@types/props/functionProps';
 
 export const useCancelAppointmentAsTherapistMutation = (
   onClose: () => void
@@ -12,19 +13,17 @@ export const useCancelAppointmentAsTherapistMutation = (
     mutationFn: async ({
       appointmentId,
       prescriptionId,
-    }: {
-      appointmentId: number;
-      prescriptionId: number;
-    }) => {
+    }: CancelAppointmentAsTherapistFunctionProps) => {
       if (!appointmentId) {
         throw new Error('Invalid appointment ID for cancellation');
       }
       if (!prescriptionId) {
         throw new Error('Invalid prescription ID for cancellation');
       }
-      // Assuming cancelAppointment and reducePrescriptionQuantity are defined elsewhere
+   
       const appointmentResponse =
         await cancelAppointmentAsTherapist(appointmentId);
+        
       const prescriptionResponse =
         await incrementPrescriptionAppointmentQuantity(prescriptionId);
 

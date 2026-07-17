@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import type { IPrescriptionHistory } from '../../../../../@types/interfaces/therapistInterfaces';
 import { formatDate } from '../../../../../utils/functions/formatDate';
-import PrescriptionProgressSection from '../PrescriptionProgressSection';
+import PrescriptionProgressSection from '../PrescriptionProgressBar';
 
 export default function PatientPrescriptionCard({
   prescription,

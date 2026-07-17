@@ -1,6 +1,6 @@
 import type {
-  IDashboardPrescription,
-  ISelectedPatient,
+  IPatientSummary,
+  IPrescriptionDetailsDto,
 } from '../../../../../@types/interfaces/therapistInterfaces';
 import EntityAfflictionOutput from '../../../outputs/EntityAfflictionOutput';
 import EntityBodyRegionOutput from '../../../outputs/EntityBodyRegionOutput';
@@ -13,8 +13,8 @@ export default function PrescriptionDetailsOutputs({
   prescription,
   patient,
 }: {
-  prescription: IDashboardPrescription;
-  patient: ISelectedPatient;
+  prescription: IPrescriptionDetailsDto;
+  patient: IPatientSummary;
 }) {
   return (
     <div className="flex flex-col gap-2 p-4 w-full text-slate-600 text-lg">

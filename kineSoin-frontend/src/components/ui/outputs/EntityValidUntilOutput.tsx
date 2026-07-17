@@ -12,6 +12,7 @@ export default function EntityValidUntilOutput({
       iconAlt={details?.iconAlt || ''}
       label={details?.label || ''}
       value={validUntil as string}
+      isVertical={true}
     ></BaseEntityOutputContainer>
   );
 }

@@ -1,12 +1,10 @@
-import type { IDashboardAppointment } from '../../../../@types/interfaces/therapistInterfaces';
+import type { TherapistDashboardProps } from '../../../../@types/props/therapistProps';
 import TherapistDashboardTableBody from './table/TherapistDashboardTableBody';
 import TherapistDashboardTableHead from './table/TherapistDashboardTableHead';
 
 export default function TherapistDashboardAppointmentsTable({
   appointments,
-}: {
-  appointments: IDashboardAppointment[];
-}) {
+}: TherapistDashboardProps) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-separate border-spacing-0 text-xxs md:text-base">

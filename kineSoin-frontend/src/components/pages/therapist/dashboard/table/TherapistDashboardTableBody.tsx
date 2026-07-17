@@ -3,6 +3,7 @@ import type {
   IDashboardAppointment,
   IPatientSummary,
 } from '../../../../../@types/interfaces/therapistInterfaces';
+import type { TherapistDashboardProps } from '../../../../../@types/props/therapistProps';
 import { useTherapistSelectionContext } from '../../../../../hooks/context/therapist/useTherapistSelectionContext';
 import { useTherapistUiContext } from '../../../../../hooks/context/therapist/useTherapistUiContext';
 import { generateTimeSlots } from '../../../../../utils/functions/generateTimeSlots';
@@ -21,20 +22,23 @@ import viewClosedIcon from '/icons/viewClosed_128.png';
 
 export default function TherapistDashboardTableBody({
   appointments,
-}: {
-  appointments: IDashboardAppointment[];
-}) {
+}: TherapistDashboardProps) {
   const { setOpenModal } = useTherapistUiContext();
 
   const {
     setSelectedPatient,
     setSelectedDashboardAppointment,
-    setSelectedPrescription,
+    setSelectedDashboardPrescription,
   } = useTherapistSelectionContext();
 
   const timeSlots = generateTimeSlots();
 
   const currentTime = getCurrentTime();
+
+  const handleViewIconClick = (patient: IPatientSummary) => {
+    setSelectedPatient(patient);
+    setOpenModal('patientDetails');
+  };
 
   const handleMessageIconClick = (patient: IPatientSummary) => {
     setSelectedPatient(patient);
@@ -44,29 +48,24 @@ export default function TherapistDashboardTableBody({
   const handleCancelIconClick = (appointment: IDashboardAppointment) => {
     setSelectedDashboardAppointment(appointment);
     setSelectedPatient(appointment.patient);
-    setSelectedPrescription(appointment.prescription);
+    setSelectedDashboardPrescription(appointment.prescription);
     setOpenModal('extendedCancel');
   };
 
-  const handlePatientDetailsClick = (patient: IPatientSummary) => {
-    setSelectedPatient(patient);
-    setOpenModal('patientDetails');
-  };
-
-  const handleAfflictionClick = (appointment: IDashboardAppointment) => {
+  const handleAfflictionIconClick = (appointment: IDashboardAppointment) => {
     setSelectedDashboardAppointment(appointment);
     setOpenModal('afflictionDetails');
   };
 
-  const handlePrescriptionsClick = (appointment: IDashboardAppointment) => {
-    setSelectedPrescription(appointment.prescription);
+  const handlePrescriptionIconClick = (appointment: IDashboardAppointment) => {
+    setSelectedDashboardPrescription(appointment.prescription);
     setSelectedPatient(appointment.patient);
     setOpenModal('prescriptionDetails');
   };
 
-  const handleHistoryClick = (appointment: IDashboardAppointment) => {
+  const handleHistoryIconClick = (appointment: IDashboardAppointment) => {
     setSelectedPatient(appointment.patient);
-    setSelectedPrescription(appointment.prescription);
+    setSelectedDashboardPrescription(appointment.prescription);
     setOpenModal('history');
   };
 
@@ -169,9 +168,7 @@ export default function TherapistDashboardTableBody({
                   <div className="flex items-center justify-center gap-3">
                     <>
                       <ActionButton
-                        onClick={() =>
-                          handlePatientDetailsClick(appointment.patient)
-                        }
+                        onClick={() => handleViewIconClick(appointment.patient)}
                         imgSrc={viewIcon}
                         altText="view"
                         isTimePassed={isTimePassed}
@@ -201,18 +198,19 @@ export default function TherapistDashboardTableBody({
                           {
                             label: 'Affection',
                             icon: <Activity className="h-4 w-4 shrink-0" />,
-                            onClick: () => handleAfflictionClick(appointment),
+                            onClick: () =>
+                              handleAfflictionIconClick(appointment),
                           },
                           {
                             label: 'Ordonnance',
                             icon: <FileText className="h-4 w-4 shrink-0" />,
                             onClick: () =>
-                              handlePrescriptionsClick(appointment),
+                              handlePrescriptionIconClick(appointment),
                           },
                           {
                             label: 'Historique',
                             icon: <History className="h-4 w-4 shrink-0" />,
-                            onClick: () => handleHistoryClick(appointment),
+                            onClick: () => handleHistoryIconClick(appointment),
                           },
                         ]}
                         isTimePassed={isTimePassed}

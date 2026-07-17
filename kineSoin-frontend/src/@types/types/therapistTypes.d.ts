@@ -24,3 +24,5 @@ export type TherapistPatientQuickFilterCounts = Record<
 export type PatientStatusType = 'active' | 'inactive' | 'pending' | 'banned';
 
 type StatisticCardVariant = 'teal' | 'green' | 'yellow' | 'blue';
+
+export type TherapistPatientQuickNavButtonType = 'send' | 'basic' | 'pending' | 'inactive';

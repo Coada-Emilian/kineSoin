@@ -1,15 +1,11 @@
 import { CalendarDays, NotepadTextDashed, SportShoe } from 'lucide-react';
-import type {
-  IPatientHistoryDto,
-  IPrescriptionHistory,
-} from '../../../../../@types/interfaces/therapistInterfaces';
+import type { IPrescriptionHistory } from '../../../../../@types/interfaces/therapistInterfaces';
 import { formatDate } from '../../../../../utils/functions/formatDate';
+import type { PatientHistoryProps } from '../../../../../@types/props/therapistProps';
 
 export default function PatientPrescriptionsStats({
   data,
-}: {
-  data: IPatientHistoryDto;
-}) {
+}: PatientHistoryProps) {
   const totalPrescriptions = data.prescriptions.length ?? 0;
 
   const totalAppointmentsEver =

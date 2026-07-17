@@ -1,5 +1,6 @@
 import type { PatientsLinkButtonsProps } from '../../../../@types/props/componentProps';
 import type { IButtonType } from '../../../../@types/types/buttonTypes';
+import type { TherapistPatientQuickFilterTypes } from '../../../../@types/types/therapistTypes';
 import therapistPatientsQuickNavFilters from '../../../../utils/config/therapist/therapistPatientsQuickNavFilters';
 import CustomButton from '../../../ui/buttons/CustomButton';
 
@@ -17,7 +18,8 @@ export default function PatientsLinkButtons({
               type: filter.buttonType as IButtonType,
               text: `${filter.label}`,
               style: 'status',
-              onClick: () => onSelect(filter.key),
+              onClick: () =>
+                onSelect(filter.key as TherapistPatientQuickFilterTypes),
               isSelected: selectedFilter === filter.key,
             }}
           />
